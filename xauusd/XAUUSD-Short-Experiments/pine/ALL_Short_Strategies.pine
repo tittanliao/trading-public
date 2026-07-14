@@ -1,0 +1,184 @@
+// © Tittan — XAUUSD Short-Side Experiment Series
+// All 20 strategies in one file — select via the "Strategy" dropdown
+// Risk: SL 0.5% above entry / TP 1.0% below entry / Max hold 48 bars  (all adjustable)
+//@version=6
+strategy("XAUUSD Short — S01–S20 Selector",
+         shorttitle="SHORT_ALL",
+         overlay=true,
+         format=format.price,
+         precision=2,
+         default_qty_type=strategy.cash,
+         initial_capital=10000,
+         default_qty_value=10000,
+         commission_value=0.0,
+         slippage=1)
+
+// ── Strategy selector ─────────────────────────────────────────────────────────
+STRAT = input.string("S01 EMA Cross", "Strategy", options=[
+    "S01 EMA Cross",        "S02 Triple EMA",       "S03 MACD Signal",
+    "S04 Supertrend",       "S05 ADX EMA Reject",   "S06 RSI Overbought",
+    "S07 Stoch Cross",      "S08 CCI Overbought",   "S09 Williams R",
+    "S10 RSI Divergence",   "S11 BB Upper Touch",   "S12 BB Squeeze Break",
+    "S13 BB Basis Reject",  "S14 Donchian Break",   "S15 Inside Bar Break",
+    "S16 ATR Vol Break",    "S17 AO Saucer",        "S18 Shooting Star",
+    "S19 Bearish Engulf",   "S20 Confluence"])
+
+// ── Risk parameters ───────────────────────────────────────────────────────────
+SL_PCT   = input.float(0.5, "Stop Loss %",   step=0.1) / 100
+TP_PCT   = input.float(1.0, "Take Profit %", step=0.1) / 100
+MAX_BARS = input.int(48,    "Max Hold Bars")
+
+// ── Position tracking ─────────────────────────────────────────────────────────
+var int entry_bar = na
+MP = strategy.position_size < 0 ? 1 : 0
+
+if MP == 1 and not na(entry_bar) and (bar_index - entry_bar) >= MAX_BARS
+    strategy.close("Short", comment="TIME")
+    entry_bar := na
+
+// ── Indicators ────────────────────────────────────────────────────────────────
+e8  = ta.ema(close, 8)
+e21 = ta.ema(close, 21)
+e20 = ta.ema(close, 20)
+e50 = ta.ema(close, 50)
+e55 = ta.ema(close, 55)
+
+[macd_line, _sig_ln, macd_hist]   = ta.macd(close, 12, 26, 9)
+[st_val, st_dir]                  = ta.supertrend(3.0, 10)
+[_dmi_plus, _dmi_minus, dmi_adx]  = ta.dmi(14, 14)   // dmi_adx matches original S05 logic
+
+rsi_v   = ta.rsi(close, 14)
+stoch_k = ta.sma(ta.stoch(close, high, low, 14), 3)
+stoch_d = ta.sma(stoch_k, 3)
+cci_v   = ta.cci(high, low, close, 20)
+wr_v    = ta.wpr(14)
+
+[bb_basis, bb_upper, bb_lower] = ta.bb(close, 20, 2.0)
+bb_w    = bb_upper - bb_lower
+bb_avgw = ta.sma(bb_w, 20)
+
+dc_lo  = ta.lowest(low, 20)[1]
+atr_v  = ta.atr(14)
+ao_v   = ta.sma(hl2, 5) - ta.sma(hl2, 34)
+
+c_body = math.abs(close - open)
+c_lwr  = math.min(close, open) - low
+c_upr  = high - math.max(close, open)
+rng_lo = ta.lowest(low,  20)[1]
+rng_hi = ta.highest(high, 20)[1]
+rng_sz = rng_hi - rng_lo
+
+// ── Signals ───────────────────────────────────────────────────────────────────
+sig01 = ta.crossunder(e8, e21)
+
+sig02 = e8 < e21 and e21 < e55 and close[1] >= e8[1] * 0.998 and close < close[1]
+
+sig03 = macd_hist < 0 and macd_hist[1] >= 0 and macd_line < 5
+
+st_bear = st_dir == 1
+sig04   = st_bear and not st_bear[1]
+
+sig05 = dmi_adx > 25 and close < e50 and close[1] > e20[1] and close < e20
+
+sig06 = ta.crossunder(rsi_v, 70)
+
+sig07 = ta.crossunder(stoch_k, stoch_d) and stoch_k[1] > 75
+
+sig08 = ta.crossunder(cci_v, 100)
+
+sig09 = ta.crossunder(wr_v, -20)
+
+s10_hh   = close > ta.highest(close, 5)[1]
+s10_lh   = rsi_v < ta.highest(rsi_v, 5)[1]
+s10_fall = rsi_v < rsi_v[1]
+sig10    = s10_hh and s10_lh and s10_fall
+
+sig11 = high >= bb_upper and close < bb_upper and close < close[1] and rsi_v > 50
+
+sig12 = bb_w[1] < bb_avgw[1] * 0.85 and bb_w > bb_w[1] and close < bb_basis
+
+sig13 = bb_basis < bb_basis[3] and close[1] >= bb_basis[1] * 0.999 and close < bb_basis
+
+sig14 = close < dc_lo and close < close[1]
+
+sig15 = high[1] <= high[2] and low[1] >= low[2] and close < low[2]
+
+sig16 = (close[1] - close) > atr_v * 0.8 and e21 < e21[3]
+
+sig17 = ao_v < 0 and ao_v < ao_v[1] and ao_v[1] > ao_v[2]
+
+is_star = c_body > 0 and c_upr >= 2 * c_body and c_lwr <= c_body and close < open
+sig18   = is_star and (rng_sz > 0 ? (close - rng_lo) / rng_sz > 0.55 : false)
+
+s19_rng_hi = ta.highest(high, 20)[1]
+s19_rng_lo = ta.lowest(low,   20)[1]
+s19_rng_sz = s19_rng_hi - s19_rng_lo
+s19_upper  = s19_rng_sz > 0 ? (close - s19_rng_lo) / s19_rng_sz > 0.40 : false
+sig19 = close[1] > open[1] and close < open and
+        open >= close[1] and close <= open[1] and
+        rsi_v > 40 and s19_upper
+
+sig20 = high >= bb_upper and close < bb_upper and rsi_v > 60 and e21 < e21[5]
+
+// ── Active signal ─────────────────────────────────────────────────────────────
+shortSignal =
+    STRAT == "S01 EMA Cross"        ? sig01 :
+    STRAT == "S02 Triple EMA"       ? sig02 :
+    STRAT == "S03 MACD Signal"      ? sig03 :
+    STRAT == "S04 Supertrend"       ? sig04 :
+    STRAT == "S05 ADX EMA Reject"   ? sig05 :
+    STRAT == "S06 RSI Overbought"   ? sig06 :
+    STRAT == "S07 Stoch Cross"      ? sig07 :
+    STRAT == "S08 CCI Overbought"   ? sig08 :
+    STRAT == "S09 Williams R"       ? sig09 :
+    STRAT == "S10 RSI Divergence"   ? sig10 :
+    STRAT == "S11 BB Upper Touch"   ? sig11 :
+    STRAT == "S12 BB Squeeze Break" ? sig12 :
+    STRAT == "S13 BB Basis Reject"  ? sig13 :
+    STRAT == "S14 Donchian Break"   ? sig14 :
+    STRAT == "S15 Inside Bar Break" ? sig15 :
+    STRAT == "S16 ATR Vol Break"    ? sig16 :
+    STRAT == "S17 AO Saucer"        ? sig17 :
+    STRAT == "S18 Shooting Star"    ? sig18 :
+    STRAT == "S19 Bearish Engulf"   ? sig19 :
+    sig20
+
+// ── Entry / Exit ──────────────────────────────────────────────────────────────
+if shortSignal and MP == 0
+    strategy.entry("Short", strategy.short, comment="SE")
+    entry_bar := bar_index
+
+if MP == 1
+    ep = strategy.position_avg_price
+    strategy.exit("SX", "Short",
+                  stop  = ep * (1 + SL_PCT),
+                  limit = ep * (1 - TP_PCT),
+                  comment="SX")
+
+// ── Plots (context indicators, shown selectively) ─────────────────────────────
+showBB  = STRAT == "S11 BB Upper Touch"  or STRAT == "S12 BB Squeeze Break" or
+          STRAT == "S13 BB Basis Reject" or STRAT == "S20 Confluence"
+showE55 = STRAT == "S02 Triple EMA"      or STRAT == "S05 ADX EMA Reject"
+showE50 = STRAT == "S05 ADX EMA Reject"
+
+plot(e8,  "EMA 8",  color=color.new(color.orange, 60), linewidth=1)
+plot(e21, "EMA 21", color=color.new(color.red,    40), linewidth=1)
+plot(showE55 ? e55 : na, "EMA 55", color=color.new(color.maroon, 50), linewidth=1)
+plot(showE50 ? e50 : na, "EMA 50", color=color.new(color.red,    30), linewidth=2)
+
+plot(showBB ? bb_upper : na, "BB Upper", color=color.new(color.red,   50))
+plot(showBB ? bb_basis : na, "BB Basis", color=color.new(color.gray,  50))
+plot(showBB ? bb_lower : na, "BB Lower", color=color.new(color.green, 50))
+
+plot(STRAT == "S04 Supertrend" ? (st_bear ? st_val : na) : na,
+     "ST Bear", color=color.new(color.red,   0), linewidth=2)
+plot(STRAT == "S04 Supertrend" ? (st_bear ? na : st_val) : na,
+     "ST Bull", color=color.new(color.green, 0), linewidth=2)
+
+plot(STRAT == "S14 Donchian Break" ? dc_lo : na,
+     "Donchian Low", color=color.new(color.red, 30),
+     linewidth=1, style=plot.style_stepline)
+
+plotshape(shortSignal and MP == 0, style=shape.triangledown,
+          location=location.abovebar, color=color.new(color.red, 0),
+          size=size.small, title="Entry Signal")

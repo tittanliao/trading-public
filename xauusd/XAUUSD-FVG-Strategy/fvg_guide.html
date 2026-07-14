@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FVG 公允價值缺口策略 — 完整教學</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bg4:#30363d;
+  --acc:#f0c040;--green:#26a69a;--red:#ef5350;--blue:#60a5fa;
+  --purple:#a78bfa;--orange:#fb923c;
+  --txt:#e6edf3;--txt2:#8b949e;--border:#30363d;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50}
+.topbar .brand{font-weight:700;font-size:1.05em;color:var(--acc)}
+.topbar a{color:var(--txt2);font-size:.88em}
+.topbar a:hover{color:var(--acc)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0d1b2a 0%,#1e3a5f 50%,#0d1b2a 100%);padding:60px 24px 48px;text-align:center;border-bottom:1px solid var(--border)}
+.hero h1{font-size:2.2rem;font-weight:800;color:var(--acc);margin-bottom:10px;letter-spacing:-0.5px}
+.hero .sub{font-size:1.05rem;color:var(--txt2);max-width:640px;margin:0 auto 24px}
+.hero .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78em;font-weight:700}
+.badge-gold{background:rgba(240,192,64,.15);color:var(--acc);border:1px solid var(--acc)}
+.badge-green{background:rgba(38,166,154,.15);color:var(--green);border:1px solid var(--green)}
+.badge-blue{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid var(--blue)}
+
+/* LAYOUT */
+.container{max-width:960px;margin:0 auto;padding:40px 24px}
+section{margin-bottom:56px}
+h2{font-size:1.4rem;font-weight:700;color:var(--acc);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+h2::after{content:'';flex:1;height:1px;background:var(--border)}
+h3{font-size:1.05rem;font-weight:700;color:var(--txt);margin:20px 0 10px}
+p{color:var(--txt2);margin-bottom:12px}
+strong{color:var(--txt)}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px}
+.card-title{font-size:.9rem;font-weight:700;color:var(--acc);margin-bottom:14px;text-transform:uppercase;letter-spacing:.8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:680px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* INSIGHT */
+.insight{border-radius:8px;padding:14px 16px;font-size:.88em;border-left:4px solid;margin-bottom:10px;line-height:1.6}
+.insight.good{background:rgba(38,166,154,.1);border-color:var(--green)}
+.insight.warn{background:rgba(251,146,60,.1);border-color:var(--orange)}
+.insight.bad{background:rgba(239,83,80,.1);border-color:var(--red)}
+.insight.info{background:rgba(96,165,250,.1);border-color:var(--blue)}
+.insight.gold{background:rgba(240,192,64,.1);border-color:var(--acc)}
+.insight strong{display:block;font-weight:700;margin-bottom:4px;color:inherit}
+
+/* DIAGRAM STYLES */
+.diagram-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px;margin:16px 0;overflow-x:auto}
+.chart-area{height:220px;position:relative;margin:0 auto}
+
+/* CSS Candlestick Chart */
+.candle-chart{display:flex;align-items:flex-end;gap:10px;height:180px;padding:10px 0;position:relative}
+.candle-wrap{display:flex;flex-direction:column;align-items:center;flex:1}
+.candle-label{font-size:.72em;color:var(--txt2);margin-bottom:4px;text-align:center}
+.wick{width:2px;background:currentColor;margin:0 auto}
+.body{width:26px;border-radius:2px;min-height:8px}
+.body.bull{background:var(--green)}
+.body.bear{background:var(--red)}
+.wick.bull{color:var(--green)}
+.wick.bear{color:var(--red)}
+
+/* FVG zone */
+.fvg-zone{position:absolute;left:0;right:0;border:2px dashed var(--acc);background:rgba(240,192,64,.12);display:flex;align-items:center;justify-content:center;font-size:.78em;font-weight:700;color:var(--acc);letter-spacing:.5px;border-radius:4px}
+
+/* Price axis labels */
+.price-axis{position:absolute;right:-48px;display:flex;flex-direction:column;justify-content:space-between;height:100%;font-size:.7em;color:var(--txt2)}
+
+/* Arrow */
+.arrow-down{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:14px solid var(--green);margin:0 auto}
+.arrow-up{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid var(--red);margin:0 auto}
+
+/* Step boxes */
+.step-list{list-style:none;counter-reset:step}
+.step-list li{counter-increment:step;display:flex;gap:16px;margin-bottom:16px}
+.step-list li::before{content:counter(step);width:32px;height:32px;min-width:32px;background:var(--acc);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9em;margin-top:2px}
+.step-body{flex:1}
+.step-body h4{font-size:.95em;font-weight:700;color:var(--txt);margin-bottom:4px}
+.step-body p{font-size:.88em;color:var(--txt2);margin:0}
+
+/* Settings table */
+.settings-table{width:100%;border-collapse:collapse;font-size:.88em}
+.settings-table th{background:var(--bg3);color:var(--txt2);font-weight:600;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.settings-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.settings-table tr:last-child td{border-bottom:none}
+.settings-table tr:hover td{background:var(--bg3)}
+.param-name{color:var(--acc);font-weight:700;font-family:monospace;white-space:nowrap}
+.param-val{color:var(--green);font-weight:700;font-family:monospace}
+.param-range{color:var(--txt2);font-size:.82em}
+
+/* Compare table */
+.compare-table{width:100%;border-collapse:collapse;font-size:.88em}
+.compare-table th{background:var(--bg3);color:var(--acc);font-weight:700;padding:10px 14px;text-align:center;border:1px solid var(--border)}
+.compare-table td{padding:10px 14px;border:1px solid var(--border);text-align:center;color:var(--txt2)}
+.compare-table td:first-child{text-align:left;font-weight:600;color:var(--txt)}
+.tick{color:var(--green);font-size:1.1em}
+.cross{color:var(--red);font-size:1.1em}
+
+/* Result stats */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--bg3);border-radius:8px;padding:14px 16px;text-align:center}
+.stat .label{font-size:.72em;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}
+.stat .val{font-size:1.6em;font-weight:800}
+.val.green{color:var(--green)}.val.red{color:var(--red)}.val.gold{color:var(--acc)}.val.blue{color:var(--blue)}
+
+/* TOC */
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px}
+.toc h3{color:var(--acc);font-size:.88em;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.toc ol{padding-left:20px}
+.toc li{margin-bottom:6px;font-size:.88em}
+.toc a{color:var(--txt2)}
+.toc a:hover{color:var(--acc)}
+
+/* Code */
+code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-family:monospace;font-size:.85em;color:var(--acc)}
+pre{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:.83em;overflow-x:auto;color:var(--txt2);line-height:1.6;margin:12px 0}
+
+/* Footer */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--txt2);font-size:.82em}
+.footer a{color:var(--acc)}
+
+/* Glossary */
+.glossary dt{font-weight:700;color:var(--acc);margin-top:12px}
+.glossary dd{color:var(--txt2);font-size:.88em;padding-left:16px;border-left:2px solid var(--border);margin:4px 0 0}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">📊 Trading Strategy Hub</span>
+  <a href="../../index.html">← 返回 Hub</a>
+  <a href="report_fvg_long.html">📄 多單回測報告</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>FVG 公允價值缺口策略</h1>
+  <p class="sub">Fair Value Gap (FVG) — 從「K線缺口」到系統化交易策略<br>適合完全不懂交易的朋友從零開始閱讀</p>
+  <div class="badges">
+    <span class="badge badge-gold">XAUUSD 黃金</span>
+    <span class="badge badge-green">30分鐘 K 線</span>
+    <span class="badge badge-blue">Pine Script V2.0</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <h3>📋 目錄</h3>
+  <ol>
+    <li><a href="#what-is-fvg">什麼是 FVG？用最簡單的話解釋</a></li>
+    <li><a href="#how-it-works">FVG 如何形成？圖解三根 K 棒</a></li>
+    <li><a href="#long-short">多頭 FVG vs 空頭 FVG</a></li>
+    <li><a href="#strategy-logic">策略邏輯：從缺口到進出場</a></li>
+    <li><a href="#profit-flyer">Profit Flyer 出場機制</a></li>
+    <li><a href="#settings">所有設定詳細說明</a></li>
+    <li><a href="#backtest">回測結果</a></li>
+    <li><a href="#pros-cons">策略優勢與劣勢</a></li>
+    <li><a href="#glossary">交易術語小字典</a></li>
+  </ol>
+</div>
+
+<!-- ── SECTION 1: WHAT IS FVG ── -->
+<section id="what-is-fvg">
+  <h2>1 什麼是 FVG？</h2>
+
+  <div class="card">
+    <div class="card-title">核心概念</div>
+    <p>
+      <strong>FVG（Fair Value Gap，公允價值缺口）</strong>是市場在極速移動後留下的「空白地帶」。
+      當買家或賣家非常急迫時，K 線會大幅跳躍，跳過中間的價格，就像電梯直達頂樓，
+      跳過了中間的樓層。這些「跳過的樓層」就是 FVG。
+    </p>
+    <p>
+      市場有一個特性：<strong>它喜歡回來「填補」這些缺口</strong>。
+      就像一個彈弓，拉得越遠、彈回來的力道越大。
+      這個回補缺口的動作，就是我們進場的機會。
+    </p>
+  </div>
+
+  <div class="insight gold">
+    <strong>🎯 一句話理解 FVG</strong>
+    市場急速上漲/下跌後留下的「價格空白」，之後往往會回來填補 — 這個填補的瞬間就是進場點。
+  </div>
+
+  <div class="insight info">
+    <strong>📌 為什麼這個方法有效？</strong>
+    機構（大型銀行、基金）在大量下單時會造成急速移動，留下未成交的掛單在缺口區。
+    當價格回來時，那些未成交的掛單被觸發，形成強力支撐或壓力，策略就是利用這個邏輯進場。
+  </div>
+</section>
+
+<!-- ── SECTION 2: HOW IT FORMS ── -->
+<section id="how-it-works">
+  <h2>2 FVG 如何形成？三根 K 棒圖解</h2>
+
+  <p>FVG 只需要觀察<strong>連續三根 K 棒</strong>。以「多頭 FVG」（看漲缺口）為例：</p>
+
+  <!-- Visual Diagram: Bullish FVG -->
+  <div class="diagram-wrap">
+    <p style="color:var(--txt2);font-size:.82em;margin-bottom:16px;text-align:center">▼ 多頭 FVG 形成示意圖（Bullish Fair Value Gap）</p>
+    <div style="display:flex;gap:24px;align-items:flex-end;justify-content:center;position:relative;height:220px;padding:0 20px">
+
+      <!-- Candle 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="height:20px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="height:60px;width:32px;background:var(--green);border-radius:3px"></div>
+        <div style="height:12px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="font-size:.72em;color:var(--txt2);margin-top:8px;text-align:center">K1<br><span style="color:var(--green)">上漲</span></div>
+        <!-- label: high of K1 -->
+        <div style="position:absolute;top:20px;left:0px;font-size:.7em;color:var(--txt2)">K1高點</div>
+      </div>
+
+      <!-- Candle 2: big bull -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="height:8px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="height:90px;width:32px;background:var(--green);border-radius:3px;position:relative">
+          <div style="position:absolute;top:50%;left:34px;font-size:.68em;color:var(--acc);white-space:nowrap;transform:translateY(-50%)">← 急速大漲</div>
+        </div>
+        <div style="height:6px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="font-size:.72em;color:var(--txt2);margin-top:8px;text-align:center">K2<br><span style="color:var(--acc);font-weight:700">急漲</span></div>
+      </div>
+
+      <!-- FVG zone visual -->
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:80px;height:42px;border:2px dashed var(--acc);background:rgba(240,192,64,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.75em;color:var(--acc);font-weight:700;margin-bottom:4px">FVG<br>缺口區</div>
+        <div style="font-size:.7em;color:var(--txt2);text-align:center">K1 最高點<br>↕<br>K3 最低點</div>
+      </div>
+
+      <!-- Candle 3 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="height:30px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="height:50px;width:32px;background:var(--green);border-radius:3px"></div>
+        <div style="height:80px;width:2px;background:var(--green);margin:0 auto"></div>
+        <div style="font-size:.72em;color:var(--txt2);margin-top:8px;text-align:center">K3<br><span style="color:var(--green)">繼漲</span></div>
+      </div>
+
+      <!-- Arrow pointing down into FVG (entry) -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div style="color:var(--acc);font-size:.8em;font-weight:700;text-align:center">價格回調<br>進入 FVG</div>
+        <div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:14px solid var(--acc)"></div>
+        <div style="background:rgba(38,166,154,.2);border:1px solid var(--green);border-radius:4px;padding:4px 10px;font-size:.75em;color:var(--green);font-weight:700">進場！</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:8px">
+    <div class="card">
+      <div class="card-title">📐 計算公式（多頭 FVG）</div>
+      <pre>缺口頂部（top） = K3 最低點（low）
+缺口底部（bot） = K1 最高點（high）
+
+形成條件：K3.low > K1.high
+（K3 最低點 高於 K1 最高點）</pre>
+      <p style="font-size:.82em;margin-top:8px">如果中間有「被跳過」的價格空間 → 就是 FVG ✓</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🎯 進場邏輯</div>
+      <ol style="padding-left:18px;font-size:.88em;color:var(--txt2);line-height:2">
+        <li>FVG 形成後等待價格回調</li>
+        <li>K 線的影線（wick）碰觸缺口區</li>
+        <li>收盤價仍在缺口內部或上方</li>
+        <li>下一根 K 棒<strong>開盤時進場</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="insight info">
+    <strong>💡 為什麼等「下一根開盤」而不是立即進場？</strong>
+    等待下一根 K 棒確認，是為了避免信號當 K 棒還在走的時候改變。Pine Script 中稱為「避免重繪」(no repaint)。
+  </div>
+</section>
+
+<!-- ── SECTION 3: LONG VS SHORT ── -->
+<section id="long-short">
+  <h2>3 多頭 FVG vs 空頭 FVG</h2>
+
+  <div class="grid-2">
+    <!-- Bullish -->
+    <div class="card">
+      <div class="card-title" style="color:var(--green)">📈 多頭 FVG（做多）</div>
+      <div class="diagram-wrap" style="padding:16px">
+        <div style="display:flex;gap:8px;align-items:flex-end;justify-content:center;height:120px;position:relative">
+          <!-- K1 down -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:6px;width:2px;background:var(--red);margin:0 auto"></div>
+            <div style="height:30px;width:22px;background:var(--red);border-radius:2px"></div>
+            <div style="height:4px;width:2px;background:var(--red);margin:0 auto"></div>
+          </div>
+          <!-- K2 big up -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:4px;width:2px;background:var(--green);margin:0 auto"></div>
+            <div style="height:70px;width:22px;background:var(--green);border-radius:2px"></div>
+            <div style="height:6px;width:2px;background:var(--green);margin:0 auto"></div>
+          </div>
+          <!-- FVG zone -->
+          <div style="position:absolute;right:28px;width:22px;height:22px;border:1.5px dashed var(--acc);background:rgba(240,192,64,.2);border-radius:2px"></div>
+          <!-- K3 up -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:16px;width:2px;background:var(--green);margin:0 auto"></div>
+            <div style="height:40px;width:22px;background:var(--green);border-radius:2px"></div>
+            <div style="height:28px;width:2px;background:var(--green);margin:0 auto"></div>
+          </div>
+        </div>
+      </div>
+      <ul style="font-size:.85em;color:var(--txt2);padding-left:16px;line-height:2">
+        <li>K3 最低點 <strong>高於</strong> K1 最高點</li>
+        <li>缺口在 K1高點 → K3低點 之間</li>
+        <li>回調觸碰缺口 → <strong>做多（買進）</strong></li>
+        <li>SL 放在缺口底部下方</li>
+      </ul>
+    </div>
+
+    <!-- Bearish -->
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">📉 空頭 FVG（做空）</div>
+      <div class="diagram-wrap" style="padding:16px">
+        <div style="display:flex;gap:8px;align-items:flex-end;justify-content:center;height:120px;position:relative">
+          <!-- K1 up -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:6px;width:2px;background:var(--green);margin:0 auto"></div>
+            <div style="height:40px;width:22px;background:var(--green);border-radius:2px"></div>
+            <div style="height:10px;width:2px;background:var(--green);margin:0 auto"></div>
+          </div>
+          <!-- K2 big down -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:8px;width:2px;background:var(--red);margin:0 auto"></div>
+            <div style="height:68px;width:22px;background:var(--red);border-radius:2px"></div>
+            <div style="height:4px;width:2px;background:var(--red);margin:0 auto"></div>
+          </div>
+          <!-- FVG zone (near top) -->
+          <div style="position:absolute;left:8px;top:2px;width:22px;height:20px;border:1.5px dashed var(--acc);background:rgba(240,192,64,.2);border-radius:2px"></div>
+          <!-- K3 down -->
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="height:24px;width:2px;background:var(--red);margin:0 auto"></div>
+            <div style="height:35px;width:22px;background:var(--red);border-radius:2px"></div>
+            <div style="height:6px;width:2px;background:var(--red);margin:0 auto"></div>
+          </div>
+        </div>
+      </div>
+      <ul style="font-size:.85em;color:var(--txt2);padding-left:16px;line-height:2">
+        <li>K3 最高點 <strong>低於</strong> K1 最低點</li>
+        <li>缺口在 K3高點 → K1低點 之間</li>
+        <li>反彈觸碰缺口 → <strong>做空（賣出）</strong></li>
+        <li>SL 放在缺口頂部上方</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight good">
+    <strong>✅ Pine Script 中的設定</strong>
+    <code>方向（Direction）</code> 設定：選 <strong>Long</strong>（做多，抓多頭 FVG）或 <strong>Short</strong>（做空，抓空頭 FVG）。
+    初學者建議只做一個方向，搭配大趨勢方向使用。
+  </div>
+</section>
+
+<!-- ── SECTION 4: STRATEGY LOGIC ── -->
+<section id="strategy-logic">
+  <h2>4 完整策略邏輯</h2>
+
+  <div class="card">
+    <div class="card-title">策略流程（Step by Step）</div>
+    <ol class="step-list">
+      <li>
+        <div class="step-body">
+          <h4>掃描 FVG 缺口</h4>
+          <p>每根新 K 棒完成後，自動計算是否有新的 FVG 形成。
+          只記錄大小超過 <code>最小 FVG 大小 (%)</code> 的缺口（過濾雜訊）。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <h4>同時追蹤最多 N 個 FVG（V2.0 特色）</h4>
+          <p>不像舊版只記錄一個，V2.0 可以同時追蹤最多 <code>max_fvg</code>（預設 5 個）缺口。
+          圖表上會顯示彩色方框標示缺口位置，方框右側自動延伸到最新 K 棒。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <h4>FVG 失效判斷（自動清除）</h4>
+          <p>兩種情況會自動移除 FVG：<br>
+          ① 超過 <code>最長有效 K 棒數</code>（例如 20 根 K 棒）仍未觸發 → 太舊了，失效<br>
+          ② 收盤價「完全穿越」缺口底部（多頭 FVG）或頂部（空頭 FVG）→ 結構破壞，失效</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <h4>觸發進場信號</h4>
+          <p>當 K 棒影線（最高/最低點）進入任一有效 FVG 區間時，下一根 K 棒開盤進場。
+          優先使用<strong>最新的 FVG</strong>（更具參考意義）。進場後此 FVG 被消耗，不再使用。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <h4>止損（SL）計算</h4>
+          <p>進場後立即計算止損位：<br>
+          • <strong>FVG Natural</strong>：SL 放在缺口底部下方（加一點緩衝），這是「最自然」的止損<br>
+          • <strong>Fixed %</strong>：SL = 進場價 × (1 - 止損%)，固定百分比</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <h4>Profit Flyer 動態出場</h4>
+          <p>不是設定固定止盈，而是用動態追蹤止損「讓利潤飛翔」。詳見下一節說明。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── SECTION 5: PROFIT FLYER ── -->
+<section id="profit-flyer">
+  <h2>5 Profit Flyer 出場機制</h2>
+
+  <p>這是策略的核心出場邏輯。與其設定「漲到 XX 就出場」，Profit Flyer 讓止損<strong>跟著行情向上移動</strong>，只要行情繼續走，就繼續持有。</p>
+
+  <div class="card">
+    <div class="card-title">兩段式追蹤止損（以多單為例）</div>
+
+    <!-- Profit Flyer Diagram -->
+    <div class="diagram-wrap">
+      <p style="font-size:.78em;color:var(--txt2);margin-bottom:16px;text-align:center">Profit Flyer 圖解（多單，價格從下到上）</p>
+      <div style="position:relative;height:280px;max-width:600px;margin:0 auto">
+
+        <!-- Price line going up -->
+        <svg width="100%" height="100%" viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="560" height="260" fill="transparent"/>
+
+          <!-- Price path (rising with pullback) -->
+          <polyline points="40,200 80,170 120,145 160,130 200,110 230,100 260,118 280,90 320,65 360,55 390,75 420,48 460,35"
+            fill="none" stroke="#26a69a" stroke-width="2.5" stroke-dasharray="none"/>
+
+          <!-- Entry point -->
+          <circle cx="40" cy="200" r="5" fill="#f0c040"/>
+          <text x="44" y="196" font-size="11" fill="#f0c040">進場</text>
+
+          <!-- TP1 line -->
+          <line x1="40" y1="130" x2="560" y2="130" stroke="#60a5fa" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="475" y="126" font-size="10" fill="#60a5fa">TP1 目標</text>
+
+          <!-- TP2 line -->
+          <line x1="40" y1="60" x2="560" y2="60" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="475" y="56" font-size="10" fill="#a78bfa">TP2 目標</text>
+
+          <!-- Phase 1: SL locks at TP1 level when TP1 reached (~x=160) -->
+          <!-- Before TP1: original SL (low) -->
+          <line x1="40" y1="220" x2="160" y2="220" stroke="#ef5350" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="42" y="234" font-size="9" fill="#ef5350">原始 SL（固定）</text>
+
+          <!-- TP1 hit marker -->
+          <circle cx="160" cy="130" r="4" fill="#60a5fa"/>
+          <line x1="160" y1="130" x2="160" y2="260" stroke="#60a5fa" stroke-width="1" stroke-dasharray="2,3"/>
+          <text x="162" y="255" font-size="9" fill="#60a5fa">TP1觸及</text>
+
+          <!-- Phase 1 trailing: SL trails lowest(low, TB/2) -->
+          <polyline points="160,218 200,205 230,195 260,210 280,198 320,175 360,165"
+            fill="none" stroke="#fb923c" stroke-width="1.8" stroke-dasharray="4,3"/>
+          <text x="165" y="215" font-size="9" fill="#fb923c">SL跟漲（過去TB/2最低）</text>
+
+          <!-- TP2 hit marker -->
+          <circle cx="320" cy="65" r="4" fill="#a78bfa"/>
+          <line x1="320" y1="65" x2="320" y2="260" stroke="#a78bfa" stroke-width="1" stroke-dasharray="2,3"/>
+          <text x="322" y="255" font-size="9" fill="#a78bfa">TP2觸及</text>
+
+          <!-- Phase 2: tighter trailing after TP2 -->
+          <polyline points="320,165 360,150 390,165 420,140 460,125"
+            fill="none" stroke="#f0c040" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="360" y="148" font-size="9" fill="#f0c040">SL更緊（TB/4）</text>
+
+          <!-- Exit point -->
+          <circle cx="460" cy="35" r="5" fill="#26a69a"/>
+          <text x="464" y="32" font-size="10" fill="#26a69a">最終出場</text>
+
+          <!-- Legend -->
+          <rect x="20" y="10" width="200" height="40" rx="4" fill="#21262d" stroke="#30363d"/>
+          <line x1="28" y1="24" x2="48" y2="24" stroke="#26a69a" stroke-width="2"/>
+          <text x="52" y="27" font-size="9" fill="#8b949e">K線走勢</text>
+          <line x1="28" y1="38" x2="48" y2="38" stroke="#ef5350" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="52" y="41" font-size="9" fill="#8b949e">動態止損</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div style="background:var(--bg3);border-radius:8px;padding:16px">
+        <div style="color:var(--blue);font-weight:700;margin-bottom:8px">🔵 第一階段（進場 → TP1 觸及）</div>
+        <ul style="font-size:.85em;color:var(--txt2);padding-left:16px;line-height:2">
+          <li>SL 固定在原始位置</li>
+          <li>等待價格觸及 <code>TP1</code>（例如 0.5R）</li>
+          <li>TP1 觸及後：SL 自動上移到<br>「過去 TB/2 根的最低點」</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:16px">
+        <div style="color:var(--purple);font-weight:700;margin-bottom:8px">🟣 第二階段（TP1 → TP2 觸及後）</div>
+        <ul style="font-size:.85em;color:var(--txt2);padding-left:16px;line-height:2">
+          <li>SL 繼續跟漲（現在用 TB/4，更緊）</li>
+          <li>TP2 觸及後：換成更緊的追蹤</li>
+          <li>直到 SL 被觸及，自動出場</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight good">
+    <strong>✅ Profit Flyer 的好處</strong>
+    行情小漲就不會被掃出；行情大漲就拿到大利潤。不需要人為決定「何時出場」，完全系統化。
+  </div>
+  <div class="insight warn">
+    <strong>⚠ 注意</strong>
+    如果行情很快速回頭（V型反轉），Profit Flyer 的追蹤止損會比固定止盈更晚出場，
+    可能少賺一點。這是「讓利潤奔跑」的代價。
+  </div>
+</section>
+
+<!-- ── SECTION 6: SETTINGS ── -->
+<section id="settings">
+  <h2>6 所有設定詳細說明</h2>
+
+  <!-- Group A: FVG Detection -->
+  <div class="card">
+    <div class="card-title">🔍 A 群組 — FVG 偵測設定</div>
+    <table class="settings-table">
+      <thead>
+        <tr>
+          <th>設定名稱</th>
+          <th>預設值</th>
+          <th>範圍</th>
+          <th>說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="param-name">方向<br>Direction</span></td>
+          <td><span class="param-val">Long</span></td>
+          <td>Long / Short</td>
+          <td>
+            <strong>Long（做多）</strong>：尋找多頭 FVG（上漲缺口），回調進場買進<br>
+            <strong>Short（做空）</strong>：尋找空頭 FVG（下跌缺口），反彈進場賣出<br>
+            <em style="color:var(--txt2)">初學建議：先設 Long，搭配日線或 4H 看漲的環境使用</em>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">最小 FVG 大小<br>fvg_min_pct</span></td>
+          <td><span class="param-val">0.20%</span></td>
+          <td>0.01% ~ 任意</td>
+          <td>
+            缺口大小（相對於當時收盤價的百分比）必須大於這個值才計入。<br>
+            <strong>太小（如 0.05%）</strong>：偵測很多缺口，但很多是雜訊、沒意義的小缺口<br>
+            <strong>太大（如 0.50%）</strong>：偵測到的缺口太少，可能錯過好機會<br>
+            <strong>0.20% 是回測最佳值</strong>，適合 XAUUSD 30m 圖
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">FVG 最長有效 K 棒數<br>fvg_max_bars</span></td>
+          <td><span class="param-val">20 bars</span></td>
+          <td>5 ~ 300</td>
+          <td>
+            FVG 形成後，如果超過這麼多根 K 棒都沒被觸及，就視為「失效」自動刪除。<br>
+            30m 圖的 20 bars ≈ <strong>10 小時</strong>（約一個完整交易時段）<br>
+            <strong>太長</strong>：保留很舊的缺口，可能在完全不相關的行情中進場<br>
+            <strong>太短</strong>：FVG 還來不及被觸及就消失了
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">最大同時追蹤數<br>max_fvg</span></td>
+          <td><span class="param-val">5 個</span></td>
+          <td>1 ~ 20</td>
+          <td>
+            同時在圖表上顯示並追蹤的 FVG 數量上限。<br>
+            超過上限時，最舊的 FVG 會被移除。<br>
+            <strong>V2.0 特色：</strong>多個 FVG 同時存在，進場時優先使用最新的
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">觸及判斷模式<br>fill_mode</span></td>
+          <td><span class="param-val">Wick</span></td>
+          <td>Wick / Close</td>
+          <td>
+            <strong>Wick（影線）</strong>：只要 K 棒最低點（多單）碰到缺口就算觸及 — 較敏感<br>
+            <strong>Close（收盤）</strong>：必須收盤價進入缺口才算 — 較嚴格，信號較少但較可靠
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Group B: SL -->
+  <div class="card">
+    <div class="card-title">🛑 B 群組 — 止損設定（Stop Loss）</div>
+    <table class="settings-table">
+      <thead>
+        <tr><th>設定名稱</th><th>預設值</th><th>說明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="param-name">SL 類型<br>sl_type</span></td>
+          <td><span class="param-val">Fixed %</span></td>
+          <td>
+            <strong>FVG Natural（自然止損）</strong>：SL 放在 FVG 底部下方（加 SL 緩衝 %）。
+            這是「最有邏輯」的止損 — 一旦收盤破缺口底部，代表缺口失效，馬上止損。<br><br>
+            <strong>Fixed %（固定百分比）</strong>：SL = 進場價 × (1 − sl_pct)。
+            不管缺口大小，統一用固定比例止損。回測顯示此模式在 XAUUSD 30m 表現更好。
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">固定止損 %<br>sl_pct</span></td>
+          <td><span class="param-val">1.5%</span></td>
+          <td>
+            Fixed % 模式使用。進場後 SL = 進場價 × (1 − 1.5%)。<br>
+            例：進場 $3000，SL = $3000 × 0.985 = <strong>$2955</strong>（損失 $45/troy oz）<br>
+            <strong>注意：</strong>1.5% 是 3 個月 30m 資料的最佳化結果，實際使用需配合資金管理
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">SL 緩衝 %<br>sl_buffer</span></td>
+          <td><span class="param-val">0.05%</span></td>
+          <td>
+            僅 FVG Natural 模式使用。SL 在缺口底部下方再多留 0.05% 的空間，
+            避免「假突破」直接掃出。如果行情常在缺口邊緣震盪再回來，可稍微調大。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight info" style="margin-top:12px">
+      <strong>📐 理解風報比（R）</strong>
+      R = 「止損距離」。進場 $3000，SL $2955，則 R = $45。
+      TP1 = 0.5R 代表獲利 $22.5 時進行第一次鎖利；TP2 = 2.0R 代表目標獲利 $90。
+    </div>
+  </div>
+
+  <!-- Group C: TP / Exit -->
+  <div class="card">
+    <div class="card-title">🎯 C 群組 — 止盈與出場設定</div>
+    <table class="settings-table">
+      <thead>
+        <tr><th>設定名稱</th><th>預設值</th><th>說明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="param-name">TP1 倍數<br>tp1_r</span></td>
+          <td><span class="param-val">0.5R</span></td>
+          <td>
+            TP1 觸及後，SL 開始動態跟漲。0.5R 非常保守，意思是「只要漲了半個止損距離，SL 就開始追蹤」。<br>
+            設定更大（如 1.0R）：SL 追蹤更晚啟動，需要更大的利潤才會鎖利，但也可能在行情未到 TP1 就被止損掃出。<br>
+            <strong>回測最佳：0.5R</strong>（較快鎖住利潤）
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">TP2 倍數<br>tp2_r</span></td>
+          <td><span class="param-val">2.0R</span></td>
+          <td>
+            TP2 觸及後，SL 追蹤更緊（從 TB/2 縮短到 TB/4）。<br>
+            2.0R = 目標獲利是止損金額的 2 倍。<br>
+            設定更大（如 3.0R）：需要更大波動才觸及，策略「更等待」大行情。<br>
+            <strong>回測最佳：2.0R</strong>（多單） / 3.0R（空單）
+          </td>
+        </tr>
+        <tr>
+          <td><span class="param-name">時間止損 K 棒數<br>tb</span></td>
+          <td><span class="param-val">72 bars</span></td>
+          <td>
+            超過這麼多根 K 棒還沒出場，強制以當時 SL 或收盤價出場。<br>
+            30m × 72 bars = <strong>36 小時</strong>（約 1.5 個交易日）<br>
+            防止倉位在沒有結果的盤整中永久持倉。<br>
+            <em>出場時如果虧損 → 記為 TimeLoss；如果獲利 → 記為 TimeWin</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Group D: Visual -->
+  <div class="card">
+    <div class="card-title">🎨 D 群組 — 視覺設定</div>
+    <table class="settings-table">
+      <thead>
+        <tr><th>設定名稱</th><th>說明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="param-name">多頭 FVG 顏色<br>clr_bull</span></td>
+          <td>多頭 FVG 方框的顏色（預設綠色）。可在 TradingView 設定面板直接點色塊修改。</td>
+        </tr>
+        <tr>
+          <td><span class="param-name">空頭 FVG 顏色<br>clr_bear</span></td>
+          <td>空頭 FVG 方框的顏色（預設紅色）。</td>
+        </tr>
+        <tr>
+          <td><span class="param-name">顯示 FVG 標籤<br>show_label</span></td>
+          <td>是否在 K 線上顯示「FVG」文字提示和進場/SL/TP 資訊標籤。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── SECTION 7: BACKTEST ── -->
+<section id="backtest">
+  <h2>7 回測結果</h2>
+
+  <div class="card">
+    <div class="card-title">多單最佳參數回測（2026-01-21 → 04-27，XAUUSD 30m）</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="label">總交易筆數</div><div class="val gold">42</div></div>
+      <div class="stat"><div class="label">勝率</div><div class="val green">66.7%</div></div>
+      <div class="stat"><div class="label">獲利因子</div><div class="val green">1.660</div></div>
+      <div class="stat"><div class="label">淨損益</div><div class="val green">+11.93%</div></div>
+      <div class="stat"><div class="label">平均獲利</div><div class="val green">+1.07%</div></div>
+      <div class="stat"><div class="label">平均虧損</div><div class="val red">-1.29%</div></div>
+      <div class="stat"><div class="label">最大單筆獲利</div><div class="val green">+4.8%</div></div>
+      <div class="stat"><div class="label">平均持倉</div><div class="val blue">24.7 bars</div></div>
+    </div>
+
+    <div style="background:var(--bg3);border-radius:8px;padding:16px;margin-top:12px">
+      <div style="font-weight:700;color:var(--txt2);font-size:.85em;margin-bottom:10px">出場類型分佈</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="background:var(--bg4);border-radius:6px;padding:8px 16px;text-align:center">
+          <div style="font-size:1.4em;font-weight:800;color:var(--acc)">38</div>
+          <div style="font-size:.72em;color:var(--txt2)">SL 出場</div>
+        </div>
+        <div style="background:var(--bg4);border-radius:6px;padding:8px 16px;text-align:center">
+          <div style="font-size:1.4em;font-weight:800;color:var(--green)">2</div>
+          <div style="font-size:.72em;color:var(--txt2)">TimeWin<br><span style="font-size:.85em">時間到獲利出</span></div>
+        </div>
+        <div style="background:var(--bg4);border-radius:6px;padding:8px 16px;text-align:center">
+          <div style="font-size:1.4em;font-weight:800;color:var(--red)">2</div>
+          <div style="font-size:.72em;color:var(--txt2)">TimeLoss<br><span style="font-size:.85em">時間到虧損出</span></div>
+        </div>
+      </div>
+      <p style="font-size:.8em;color:var(--txt2);margin-top:10px">
+        SL 出場 90% — 這在 Profit Flyer 策略中屬正常。SL 會跟漲，很多「SL 出場」其實是在獲利狀態下被追蹤止損帶出。
+      </p>
+    </div>
+  </div>
+
+  <div class="insight warn">
+    <strong>⚠ 重要提醒 — 資料期間限制</strong>
+    以上數據基於 2026 年 1-4 月（約 3 個月）的 30m 資料，共 3,058 根 K 棒。
+    42 筆交易的統計樣本偏小，建議取 <strong>2 年以上的 4H 或 1D 資料</strong>重新驗證，才能判斷是否長期穩定。
+  </div>
+
+  <div class="insight info">
+    <strong>📊 與其他策略比較</strong>
+    S1-AweWithBB：WR 53.2%、PF 1.525｜S2A-RSI：WR 42.2%、PF 1.679｜S2B-Hammer：WR 44.0%、PF 1.681<br>
+    FVG 多單（WR 66.7%、PF 1.660）在<strong>勝率上明顯更高</strong>，但需更長期資料確認。
+  </div>
+</section>
+
+<!-- ── SECTION 8: PROS & CONS ── -->
+<section id="pros-cons">
+  <h2>8 策略優勢與劣勢</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:var(--green)">✅ 優勢</div>
+
+      <div class="insight good">
+        <strong>1 邏輯清晰，機構行為有理論依據</strong>
+        FVG 概念來自機構流動性理論（SMC / ICT），有明確的市場行為依據，不是隨機信號。
+      </div>
+      <div class="insight good">
+        <strong>2 高勝率（回測 66.7%）</strong>
+        回測顯示超過三分之二的交易獲利，心理上比低勝率策略更容易堅持執行。
+      </div>
+      <div class="insight good">
+        <strong>3 明確的止損錨點</strong>
+        FVG 本身就提供自然的止損位（缺口底部），不需要主觀判斷在哪裡止損。
+      </div>
+      <div class="insight good">
+        <strong>4 全自動化，無需盯盤</strong>
+        完全系統化，訂閱 TradingView 提醒即可，不需要人工判斷進出場時機。
+      </div>
+      <div class="insight good">
+        <strong>5 可做多也可做空（方向可設定）</strong>
+        同一套策略只需切換方向設定，多空兩用，空頭回測甚至更強（PF 2.741）。
+      </div>
+      <div class="insight good">
+        <strong>6 Profit Flyer 讓行情大時利潤最大化</strong>
+        不用主觀猜「要到哪裡才出場」，讓市場自己決定，大行情時利潤遠超預期。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">⚠ 劣勢與風險</div>
+
+      <div class="insight bad">
+        <strong>1 資料期太短，統計意義有限</strong>
+        目前只有 3 個月 30m 資料，42 筆交易。統計學上需要 200+ 筆才能有信心，
+        現在的 66.7% 可能有「過度擬合」的風險。
+      </div>
+      <div class="insight bad">
+        <strong>2 震盪市場表現差</strong>
+        FVG 策略需要「有方向性的行情」才能發揮。如果市場一直在上下震盪，
+        缺口回補後可能立刻繼續震盪，導致止損出場。
+      </div>
+      <div class="insight bad">
+        <strong>3 SL 出場比例高（90%）</strong>
+        絕大多數出場都是被 SL 帶出，雖然很多是在獲利狀態，但統計數字看起來「一直止損」，
+        需要一定的心理素質。
+      </div>
+      <div class="insight bad">
+        <strong>4 Profit Flyer 在 V 型反轉時表現差</strong>
+        如果行情快速大漲後又快速回頭，追蹤止損沒有固定止盈那麼快鎖住利潤，
+        可能把獲利吐回很多才出場。
+      </div>
+      <div class="insight bad">
+        <strong>5 同一時間可能觸發多個 FVG</strong>
+        V2.0 追蹤多個 FVG，系統只進一筆，但多個缺口同時存在可能讓人困惑。
+        策略取「最新」FVG，但最新的不一定是最好的。
+      </div>
+      <div class="insight warn">
+        <strong>6 需要搭配宏觀方向使用</strong>
+        FVG 只是進場工具，不判斷大趨勢方向。逆大趨勢方向做 FVG 成功率低，
+        建議先確認 4H 或日線方向再使用此策略。
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">📊 與其他進場方式比較</div>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>比較項目</th>
+          <th>FVG V2.0</th>
+          <th>S1 突破進場</th>
+          <th>S2 超賣逆勢</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>進場類型</td>
+          <td>回調進場（缺口填補）</td>
+          <td>突破確認後順勢</td>
+          <td>逆勢（超賣反彈）</td>
+        </tr>
+        <tr>
+          <td>回測勝率</td>
+          <td style="color:var(--green);font-weight:700">66.7% ★</td>
+          <td>53.2%</td>
+          <td>42–44%</td>
+        </tr>
+        <tr>
+          <td>獲利因子</td>
+          <td style="color:var(--green);font-weight:700">1.660</td>
+          <td>1.525</td>
+          <td>1.679–1.681</td>
+        </tr>
+        <tr>
+          <td>止損邏輯</td>
+          <td>缺口底部（自然）</td>
+          <td>固定 % / BB 外</td>
+          <td>固定 %</td>
+        </tr>
+        <tr>
+          <td>適合市場環境</td>
+          <td>趨勢中的回調</td>
+          <td>強趨勢突破</td>
+          <td>超跌反彈</td>
+        </tr>
+        <tr>
+          <td>需要盯盤</td>
+          <td><span class="tick">✓ 不需要</span></td>
+          <td><span class="tick">✓ 不需要</span></td>
+          <td><span class="tick">✓ 不需要</span></td>
+        </tr>
+        <tr>
+          <td>適合初學者</td>
+          <td><span class="tick">✓ 邏輯清晰</span></td>
+          <td>需理解 AO 指標</td>
+          <td>需理解 RSI 背離</td>
+        </tr>
+        <tr>
+          <td>資料充足度</td>
+          <td><span class="cross">✗ 僅 3 個月</span></td>
+          <td><span class="tick">✓ 2+ 年資料</span></td>
+          <td><span class="tick">✓ 2+ 年資料</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 9: GLOSSARY ── -->
+<section id="glossary">
+  <h2>9 交易術語小字典</h2>
+
+  <div class="card">
+    <dl class="glossary">
+      <dt>K 棒（蠟燭圖）</dt>
+      <dd>每根 K 棒代表一段時間（30m = 30分鐘）的價格走勢。由開盤價、收盤價、最高價、最低價組成。</dd>
+
+      <dt>影線（Wick / Shadow）</dt>
+      <dd>K 棒上下的細線，代表那段時間內的最高點和最低點。也叫「燈芯」。</dd>
+
+      <dt>止損（Stop Loss / SL）</dt>
+      <dd>當虧損達到設定金額時自動出場，保護資金不受更大損失。不設止損是最危險的操作。</dd>
+
+      <dt>止盈（Take Profit / TP）</dt>
+      <dd>當獲利達到目標時自動出場。本策略用動態追蹤止損取代固定止盈。</dd>
+
+      <dt>風報比（R:R / Risk-Reward Ratio）</dt>
+      <dd>止盈與止損的比例。TP2 = 2R 代表目標獲利是止損金額的 2 倍。1R 就是一個止損距離。</dd>
+
+      <dt>獲利因子（Profit Factor / PF）</dt>
+      <dd>總獲利 ÷ 總虧損。PF > 1.5 通常認為是可接受的策略。PF = 1 代表不賺不虧。</dd>
+
+      <dt>勝率（Win Rate / WR）</dt>
+      <dd>獲利交易次數 ÷ 總交易次數。勝率高不代表策略好，要配合獲利因子一起看。</dd>
+
+      <dt>做多（Long）</dt>
+      <dd>預期價格上漲，先買進，等漲後賣出獲利。</dd>
+
+      <dt>做空（Short）</dt>
+      <dd>預期價格下跌，先賣出，等跌後買回獲利。差金額帳戶（CFD）可直接做空。</dd>
+
+      <dt>SMC（Smart Money Concepts）</dt>
+      <dd>「聰明錢概念」，分析機構行為的交易方法體系。FVG 是 SMC 的核心工具之一。</dd>
+
+      <dt>HTF（Higher Time Frame）</dt>
+      <dd>更高的時間框架。例如用 4H 圖判斷方向，再在 30m 圖找進場點。</dd>
+
+      <dt>Pine Script</dt>
+      <dd>TradingView 專用的程式語言，用來寫指標和自動化策略。本策略使用 Pine Script V6。</dd>
+
+      <dt>回測（Backtest）</dt>
+      <dd>用歷史資料測試策略的表現。但歷史表現不代表未來保證獲利。</dd>
+
+      <dt>過度擬合（Overfitting）</dt>
+      <dd>策略參數剛好適合過去的資料，但在新資料上表現差。參數最佳化後一定要在不同時間段驗證。</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="card" style="text-align:center;padding:32px">
+  <div style="font-size:1.2em;font-weight:700;color:var(--acc);margin-bottom:12px">開始使用</div>
+  <p style="color:var(--txt2);max-width:500px;margin:0 auto 20px">
+    將 FVG V2.0 Pine Script 複製到 TradingView，
+    套用在 <code>XAUUSD</code> 的 <code>30m</code> 圖表，設定預設值即可開始觀察。
+  </p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="XAUUSD-FVG-V2.0.pine" style="background:var(--acc);color:#000;padding:10px 22px;border-radius:8px;font-weight:700;display:inline-block">📋 下載 V2.0 Pine Script</a>
+    <a href="report_fvg_long.html" style="background:var(--bg3);border:1px solid var(--border);color:var(--txt);padding:10px 22px;border-radius:8px;font-weight:700;display:inline-block">📄 查看多單回測報告</a>
+    <a href="../../index.html" style="background:var(--bg3);border:1px solid var(--border);color:var(--txt);padding:10px 22px;border-radius:8px;font-weight:700;display:inline-block">🏠 回到 Hub</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  FVG Strategy Guide &nbsp;·&nbsp; XAUUSD Trading Strategy Hub &nbsp;·&nbsp; 2026-06-14<br>
+  <small>教學內容僅供學習參考，不構成投資建議。交易有風險，請自行判斷。</small>
+</div>
+
+</body>
+</html>

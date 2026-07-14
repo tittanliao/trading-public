@@ -1,0 +1,225 @@
+{
+  "direction": "long",
+  "results": [
+    {
+      "rank": 1,
+      "code": "E03_MACD_Signal",
+      "name": "MACD histogram turns positive",
+      "group": "Momentum",
+      "n_trades": 51,
+      "win_rate": 45.1,
+      "profit_factor": 1.643,
+      "net_pnl_pct": 900.0,
+      "score": 0.938
+    },
+    {
+      "rank": 2,
+      "code": "E12_BB_Squeeze_Break",
+      "name": "BB squeeze followed by upward expansion",
+      "group": "BB",
+      "n_trades": 88,
+      "win_rate": 39.8,
+      "profit_factor": 1.337,
+      "net_pnl_pct": 882.27,
+      "score": 0.864
+    },
+    {
+      "rank": 3,
+      "code": "E16_ATR_Vol_Break",
+      "name": "ATR-sized move up + EMA21 trending",
+      "group": "Breakout",
+      "n_trades": 99,
+      "win_rate": 36.4,
+      "profit_factor": 1.124,
+      "net_pnl_pct": 390.41,
+      "score": 0.743
+    },
+    {
+      "rank": 4,
+      "code": "E02_Triple_EMA",
+      "name": "Triple EMA alignment with pullback bounce",
+      "group": "Trend",
+      "n_trades": 98,
+      "win_rate": 34.7,
+      "profit_factor": 1.04,
+      "net_pnl_pct": 126.59,
+      "score": 0.712
+    },
+    {
+      "rank": 5,
+      "code": "E15_Inside_Bar_Break",
+      "name": "Inside bar pattern breakout to upside",
+      "group": "Breakout",
+      "n_trades": 63,
+      "win_rate": 34.9,
+      "profit_factor": 1.073,
+      "net_pnl_pct": 150.0,
+      "score": 0.703
+    },
+    {
+      "rank": 6,
+      "code": "E14_Donchian_Break",
+      "name": "20-bar Donchian channel breakout",
+      "group": "Breakout",
+      "n_trades": 91,
+      "win_rate": 33.0,
+      "profit_factor": 0.984,
+      "net_pnl_pct": -50.0,
+      "score": 0.679
+    },
+    {
+      "rank": 7,
+      "code": "E07_Stoch_Cross",
+      "name": "Stochastic K crosses above D below 25",
+      "group": "Oscillator",
+      "n_trades": 101,
+      "win_rate": 33.7,
+      "profit_factor": 0.951,
+      "net_pnl_pct": -165.44,
+      "score": 0.665
+    },
+    {
+      "rank": 8,
+      "code": "E17_AO_Saucer",
+      "name": "Awesome Oscillator saucer (positive AO)",
+      "group": "Pattern",
+      "n_trades": 81,
+      "win_rate": 33.3,
+      "profit_factor": 0.978,
+      "net_pnl_pct": -59.59,
+      "score": 0.662
+    },
+    {
+      "rank": 9,
+      "code": "E13_BB_Basis_Walk",
+      "name": "Pullback to BB basis in uptrend",
+      "group": "BB",
+      "n_trades": 77,
+      "win_rate": 31.2,
+      "profit_factor": 0.917,
+      "net_pnl_pct": -216.64,
+      "score": 0.642
+    },
+    {
+      "rank": 10,
+      "code": "E09_Williams_R",
+      "name": "Williams %R(14) exits oversold zone",
+      "group": "Oscillator",
+      "n_trades": 126,
+      "win_rate": 32.5,
+      "profit_factor": 0.922,
+      "net_pnl_pct": -333.13,
+      "score": 0.627
+    },
+    {
+      "rank": 11,
+      "code": "E11_BB_Lower_Touch",
+      "name": "Lower band touch + bullish close recovery",
+      "group": "BB",
+      "n_trades": 95,
+      "win_rate": 31.6,
+      "profit_factor": 0.904,
+      "net_pnl_pct": -312.65,
+      "score": 0.616
+    },
+    {
+      "rank": 12,
+      "code": "E01_EMA_Cross",
+      "name": "Fast EMA(8) crosses above Slow EMA(21)",
+      "group": "Trend",
+      "n_trades": 61,
+      "win_rate": 31.1,
+      "profit_factor": 0.876,
+      "net_pnl_pct": -259.59,
+      "score": 0.616
+    },
+    {
+      "rank": 13,
+      "code": "E06_RSI_Oversold",
+      "name": "RSI(14) crosses above 30 from oversold",
+      "group": "Oscillator",
+      "n_trades": 43,
+      "win_rate": 30.2,
+      "profit_factor": 0.867,
+      "net_pnl_pct": -200.0,
+      "score": 0.607
+    },
+    {
+      "rank": 14,
+      "code": "E19_Bullish_Engulf",
+      "name": "Bullish engulfing candle confirmation",
+      "group": "Pattern",
+      "n_trades": 97,
+      "win_rate": 29.9,
+      "profit_factor": 0.826,
+      "net_pnl_pct": -584.38,
+      "score": 0.543
+    },
+    {
+      "rank": 15,
+      "code": "E08_CCI_Bounce",
+      "name": "CCI(20) crosses above -100",
+      "group": "Oscillator",
+      "n_trades": 119,
+      "win_rate": 28.6,
+      "profit_factor": 0.746,
+      "net_pnl_pct": -1080.45,
+      "score": 0.47
+    },
+    {
+      "rank": 16,
+      "code": "E18_Hammer",
+      "name": "Hammer candle near 20-bar lows",
+      "group": "Pattern",
+      "n_trades": 20,
+      "win_rate": 15.0,
+      "profit_factor": 0.353,
+      "net_pnl_pct": -550.0,
+      "score": 0.372
+    },
+    {
+      "rank": 17,
+      "code": "E05_ADX_EMA_Dip",
+      "name": "ADX>25 trend + EMA20 dip-and-bounce",
+      "group": "Trend",
+      "n_trades": 19,
+      "win_rate": 15.8,
+      "profit_factor": 0.375,
+      "net_pnl_pct": -500.0,
+      "score": 0.333
+    },
+    {
+      "rank": 18,
+      "code": "E04_Supertrend",
+      "name": "Supertrend(10,3) flips bullish",
+      "group": "Trend",
+      "n_trades": 34,
+      "win_rate": 14.7,
+      "profit_factor": 0.345,
+      "net_pnl_pct": -950.0,
+      "score": 0.319
+    },
+    {
+      "rank": 19,
+      "code": "E20_Confluence",
+      "name": "BB touch + RSI<40 + EMA21 uptrend",
+      "group": "Confluence",
+      "n_trades": 1,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "net_pnl_pct": -50.0,
+      "score": 0.226
+    },
+    {
+      "rank": 20,
+      "code": "E10_RSI_Divergence",
+      "name": "Bullish RSI divergence proxy",
+      "group": "Oscillator",
+      "n_trades": 0,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "net_pnl_pct": 0.0,
+      "score": 0.209
+    }
+  ]
+}

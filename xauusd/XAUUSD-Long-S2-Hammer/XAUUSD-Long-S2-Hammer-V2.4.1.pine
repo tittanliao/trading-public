@@ -1,0 +1,360 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-Long-S2-Hammer-V2.4.1（測試版，未確認）
+// 20260711b 語法修復版：初版抄用 repo 內 V2.3 的壞語法（多行 and 接續、逗號式 if），
+//   TradingView 編譯失敗（CE10156/CE10013）。本版全部改用保守語法：
+//   條件鏈拆成獨立變數（遵守 project_context.md 的 Pine v6 踩坑紀錄）、
+//   區塊一律 4 空格縮排、不使用任何行接續。
+//   ⚠️ Entry/Exit ID 恢復 S2B_* 系（中途曾被誤改為 S1_LE，會破壞命名系統與歸因）。
+// V2.4.1 changes vs V2.3（依據 20260711 report_s2_attribution.html 真實逐筆歸因）：
+//   ① ★ S2-RSI 互斥過濾器（預設 ON）：合流錘頭 WR 30.8%/PF 1.03 vs 單獨錘頭 WR 50.4%/PF 2.14
+//      —— RSI14 上穿 30 後 mutex_bars（預設 24 根 = 12h）內阻擋錘頭進場。
+//      統計檢驗用對稱 ±12h，實盤只能回看（單向近似），以 TV 回測為準。
+//   ② ★ 提早保本（預設 ON）：浮盈曾達 +0.3% → SL 移保本，出場標記 S2B_BE。
+//      83% 拖 ≥12h 虧損單曾有 MFE≥0.3% 可攔截；90% 贏單是慢贏所以不能縮時間止損。
+//   ③ Z-Score 過濾器降級保留：效果被互斥涵蓋（疊加無增益），不建議同開。
+// Entry: S2B_LE  Exit: S2B_TP1 / S2B_TP2 / S2B_SL / S2B_BE / S2B_TimeWin / S2B_TimeLoss
+//@version=6
+strategy(title="XAUUSD-Long-S2-Hammer-V2.4.1",
+ shorttitle="S2-Hammer-V2.4.1",
+ overlay=true,
+ format=format.price,
+ precision=2,
+ default_qty_type=strategy.cash, initial_capital=10000,
+ default_qty_value=10000, commission_value=0.00,
+ slippage=1)
+
+//------------------------------------------------------------------------------
+// 1. 前置設定與輸入 (Inputs)
+//------------------------------------------------------------------------------
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+grp_fut = "=== 期貨對應 (Futures Mapping) ==="
+show_futures = input.bool(true, "顯示 GC1! 對應價格", group=grp_fut)
+futures_sym = input.symbol("COMEX:GC1!", "期貨代碼", group=grp_fut)
+
+grp_risk = "=== 風險與出場 (Risk & Exit) ==="
+sl_fix_pct = input.float(1.0, "固定止損 % (Fixed SL)", step=0.1, group=grp_risk)
+Profit_Ratio_1 = input.float(2.0, "TP1 盈虧比 (Ratio)", step=0.1, group=grp_risk)
+Profit_Ratio_2 = input.float(4.0, "TP2 盈虧比 (Ratio)", step=0.1, group=grp_risk)
+out_k_count = input.int(48, "時間出場 (K棒數)", group=grp_risk, tooltip="超過此 K 棒數仍未 TP/SL → 強制市價平倉。⚠️ 20260711 歸因：90% 贏單持倉 ≥12h（中位 188 根），不要調小——time_bleed 的解法是提早保本，不是縮短時間出場")
+
+grp_mutex = "=== ★★ S2-RSI 互斥過濾器（V2.4.1 核心，預設 ON）==="
+use_mutex_filter = input.bool(true, "啟用 S2-RSI 互斥過濾器", group=grp_mutex, tooltip="20260711 歸因：錘頭與 S2-RSI 訊號同時出現 WR 30.8%/PF 1.03（接刀）；單獨出現 WR 50.4%/PF 2.14。開啟後 RSI 上穿門檻 N 根內的錘頭一律跳過")
+mutex_rsi_len = input.int(14, "互斥判定 RSI 週期", minval=1, group=grp_mutex)
+mutex_rsi_limit = input.int(30, "互斥判定 RSI 門檻（上穿=S2-RSI環境）", minval=10, maxval=50, group=grp_mutex)
+mutex_bars = input.int(24, "互斥回看 K 棒數（24=12h）", minval=1, group=grp_mutex, tooltip="統計檢驗用對稱 ±12h；實盤只能回看，此為單向近似")
+
+grp_be = "=== ★★ 提早保本（V2.4.1，預設 ON）==="
+use_early_be = input.bool(true, "啟用提早保本", group=grp_be, tooltip="浮盈曾達下方 % → SL 移至保本，出場標記 S2B_BE。20260711 歸因：83% 拖≥12h 虧損單曾有 MFE≥0.3% 可攔截，且不傷慢贏")
+be_trigger_pct = input.float(0.3, "保本觸發浮盈 %", step=0.05, minval=0.1, group=grp_be)
+be_offset_pct = input.float(0.0, "保本位置偏移 %（0=進場價）", step=0.05, group=grp_be)
+
+grp_core = "=== S2-Hammer 核心: 錘頭線設定 (Core) ==="
+hammer_tail_ratio = input.float(2.0, "下影線/實體 比例", minval=1.0, step=0.1, group=grp_core)
+hammer_upper_ratio = input.float(0.5, "上影線/實體 比例", maxval=1.0, step=0.1, group=grp_core)
+min_body_atr_mult = input.float(0.3, "最小 K 棒波動濾網 (ATR Mult)", minval=0.0, group=grp_core)
+
+grp_regime = "=== Regime 過濾器（V2.3）==="
+use_regime_filter = input.bool(false, "啟用 Regime 過濾器", group=grp_regime, tooltip="阻擋 CONSOLIDATION（2026 H1：S2 期望值 -0.98R）")
+show_regime_table = input.bool(true, "顯示狀態表格", group=grp_regime)
+regime_slope_thresh = input.float(0.15, "EMA20 斜率門檻（%）", step=0.05, group=grp_regime)
+regime_bbw_high = input.float(65.0, "趨勢帶 BBW rank 門檻（%）", step=5.0, group=grp_regime)
+
+grp_zscore = "=== Z-Score 過濾器（V2.3；已被互斥過濾器涵蓋）==="
+use_zscore_filter = input.bool(false, "啟用 Z-Score 過濾器", group=grp_zscore, tooltip="⚠️ 20260711 歸因：效果（PF 1.72）被互斥過濾器（PF 2.09）涵蓋，疊加無增益，不建議同開")
+use_zscore_strict = input.bool(false, "嚴格模式：僅允許 -1.5 ~ -0.5 進場", group=grp_zscore, tooltip="⚠️ 甜蜜區 73% 結論已被 20260711 大樣本歸因推翻（該區實際 34%），僅供研究對照")
+zscore_low = input.float(-1.5, "Z-Score 下限", step=0.1, group=grp_zscore)
+zscore_high = input.float(-0.5, "Z-Score 上限", step=0.1, group=grp_zscore)
+
+grp_htf = "=== 4H HTF RSI 過濾器 ==="
+use_htf_filter = input.bool(false, "啟用 4H HTF 過濾器", group=grp_htf)
+htf_rsi_len = input.int(14, "4H RSI 週期", minval=5, group=grp_htf)
+htf_rsi_ma_len = input.int(14, "4H RSI-MA 週期", minval=3, group=grp_htf)
+
+grp_trend = "=== 趨勢 EMA 過濾器 ==="
+use_trend_filter = input.bool(false, "啟用趨勢 EMA 過濾器", group=grp_trend)
+trend_tf = input.string("240", "趨勢 EMA 時框", options=["60", "240"], group=grp_trend)
+trend_len = input.int(200, "趨勢 EMA 週期", minval=50, group=grp_trend)
+
+grp_insight = "=== 洞察濾網 (Insight Filters) ==="
+use_insight = input.bool(false, "啟用洞察濾網", group=grp_insight)
+dxy_rsi_thresh = input.int(50, "DXY RSI 日線門檻", minval=20, maxval=80, group=grp_insight)
+rsi_ctx_low = input.int(25, "RSI 情境 下限", minval=10, maxval=40, group=grp_insight)
+rsi_ctx_high = input.int(55, "RSI 情境 上限", minval=40, maxval=70, group=grp_insight)
+
+grp_stat = "=== 統計面板設定 ==="
+show_table = input.bool(false, "顯示統計表格", group=grp_stat)
+show_detail_stats = input.bool(true, "顯示詳細時段統計", group=grp_stat)
+
+//------------------------------------------------------------------------------
+// 2. 指標運算 (Indicators)
+//------------------------------------------------------------------------------
+atr_val = ta.atr(14)
+
+body_top = math.max(close, open)
+body_btm = math.min(close, open)
+body_size = body_top - body_btm
+lower_shadow = body_btm - low
+upper_shadow = high - body_top
+total_range = high - low
+
+// 錘頭三條件拆成獨立變數（Pine v6 踩坑：and 不可作行尾接續）
+hammer_c1 = lower_shadow > body_size * hammer_tail_ratio
+hammer_c2 = upper_shadow < body_size * hammer_upper_ratio
+hammer_c3 = total_range > atr_val * min_body_atr_mult
+is_hammer = hammer_c1 and hammer_c2 and hammer_c3
+
+// V2.4.1：S2-RSI 互斥環境判定
+mutex_rsi_val = ta.rsi(close, mutex_rsi_len)
+rsi_env_signal = ta.crossover(mutex_rsi_val, mutex_rsi_limit)
+bars_since_rsi = ta.barssince(rsi_env_signal)
+is_rsi_env = not na(bars_since_rsi) and bars_since_rsi <= mutex_bars
+
+// 期貨價差
+fut_close = request.security(futures_sym, timeframe.period, close)
+basis_spread = fut_close - close
+
+// 趨勢 EMA
+trend_ema = request.security(syminfo.tickerid, trend_tf, ta.ema(close, trend_len), lookahead=barmerge.lookahead_off)
+
+// 洞察濾網：DXY RSI 日線 + RSI 情境
+dxy_rsi_d = request.security("TVC:DXY", "D", ta.rsi(close, 14), lookahead=barmerge.lookahead_off)
+rsi_ctx_val = ta.rsi(close, 14)
+rsi_ctx_ok = rsi_ctx_val >= rsi_ctx_low and rsi_ctx_val <= rsi_ctx_high
+
+// 4H HTF RSI
+htf_rsi_val = request.security(syminfo.tickerid, "240", ta.rsi(close, htf_rsi_len), lookahead=barmerge.lookahead_off)
+htf_rsi_ma = request.security(syminfo.tickerid, "240", ta.sma(ta.rsi(close, htf_rsi_len), htf_rsi_ma_len), lookahead=barmerge.lookahead_off)
+htf_rsi_ma_prev = request.security(syminfo.tickerid, "240", ta.sma(ta.rsi(close, htf_rsi_len), htf_rsi_ma_len)[1], lookahead=barmerge.lookahead_off)
+htf_is_bearish = htf_rsi_val < htf_rsi_ma and htf_rsi_ma < htf_rsi_ma_prev
+
+// Regime 指標（4H 時框）
+ema20_4h_now = request.security(syminfo.tickerid, "240", ta.ema(close, 20), lookahead=barmerge.lookahead_off)
+ema20_4h_pre = request.security(syminfo.tickerid, "240", ta.ema(close, 20)[10], lookahead=barmerge.lookahead_off)
+slope_4h = na(ema20_4h_pre) or ema20_4h_pre == 0 ? 0.0 : (ema20_4h_now - ema20_4h_pre) / ema20_4h_pre * 100
+bbw_rank_4h = request.security(syminfo.tickerid, "240", ta.percentrank(ta.stdev(close, 20) * 4 / ta.sma(close, 20), 60), lookahead=barmerge.lookahead_off)
+atr14_4h = request.security(syminfo.tickerid, "240", ta.atr(14), lookahead=barmerge.lookahead_off)
+
+is_consolidation_4h = bbw_rank_4h < regime_bbw_high and math.abs(slope_4h) < regime_slope_thresh
+z_score_4h = na(atr14_4h) or atr14_4h == 0 ? 0.0 : (close - ema20_4h_now) / atr14_4h
+is_zscore_trap = z_score_4h < -2.5
+
+// 過濾條件（Z-Score 拆成獨立變數避免多行接續）
+mutex_ok = not use_mutex_filter or not is_rsi_env
+trend_ok = not use_trend_filter or close > trend_ema
+insight_ok = not use_insight or (dxy_rsi_d < dxy_rsi_thresh and rsi_ctx_ok)
+htf_ok = not use_htf_filter or not htf_is_bearish
+regime_ok = not use_regime_filter or not is_consolidation_4h
+z_in_sweet = z_score_4h >= zscore_low and z_score_4h <= zscore_high
+z_strict_ok = not use_zscore_strict or z_in_sweet
+zscore_ok = not use_zscore_filter or (not is_zscore_trap and z_strict_ok)
+
+//------------------------------------------------------------------------------
+// 3. 進場邏輯 (Entry Logic)
+//------------------------------------------------------------------------------
+MaxUseBars = 50
+var LongEntry = false
+
+filters_ok = mutex_ok and trend_ok and insight_ok and htf_ok and regime_ok and zscore_ok
+LongEntry := bar_index > MaxUseBars and MP == 0 and is_hammer and filters_ok
+
+if LongEntry
+    strategy.entry("S2B_LE", strategy.long, comment="S2B_LE")
+
+//------------------------------------------------------------------------------
+// 4. 出場邏輯 (Profit Flyer + V2.4.1 提早保本)
+//------------------------------------------------------------------------------
+EntryPrice = strategy.opentrades.entry_price(strategy.opentrades - 1)
+BarsSinceEntry = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+
+SLPrice = EntryPrice * (1 - sl_fix_pct / 100)
+BEPrice = EntryPrice * (1 + be_offset_pct / 100)
+PTPrice1 = EntryPrice * (1 + sl_fix_pct / 100 * Profit_Ratio_1)
+PTPrice2 = EntryPrice * (1 + sl_fix_pct / 100 * Profit_Ratio_2)
+
+// V2.4.1：保本武裝狀態（浮盈曾達觸發值即鎖定，直到平倉）
+var bool be_armed = false
+if MP == 0
+    be_armed := false
+if MP > 0 and use_early_be and high >= EntryPrice * (1 + be_trigger_pct / 100)
+    be_armed := true
+
+var float exit_stop_price = na
+
+if MP > 0
+    if BarsSinceEntry >= out_k_count
+        strategy.close("S2B_LE", comment=strategy.openprofit >= 0 ? "S2B_TimeWin" : "S2B_TimeLoss")
+    else if close >= PTPrice2
+        exit_stop_price := math.max(PTPrice2, ta.lowest(low, out_k_count / 4))
+        strategy.exit("S2B_TP2", from_entry="S2B_LE", stop=exit_stop_price, comment="S2B_TP2")
+    else if close >= PTPrice1
+        exit_stop_price := math.max(PTPrice1, ta.lowest(low, out_k_count / 2))
+        strategy.exit("S2B_TP1", from_entry="S2B_LE", stop=exit_stop_price, comment="S2B_TP1")
+    else if be_armed
+        strategy.exit("S2B_BE", from_entry="S2B_LE", stop=math.max(SLPrice, BEPrice), comment="S2B_BE")
+    else
+        strategy.exit("S2B_SL", from_entry="S2B_LE", stop=SLPrice, comment_loss="S2B_SL")
+
+alertcondition(LongEntry, title="S2-Hammer Entry", message="S2-Hammer Hammer Detected, Price={{close}}")
+
+//------------------------------------------------------------------------------
+// 5. 視覺化 (Visualization)
+//------------------------------------------------------------------------------
+plot(use_trend_filter ? trend_ema : na, "Trend EMA", color.new(color.purple, 0), 1)
+
+bgcolor(use_mutex_filter and is_rsi_env ? color.new(color.red, 90) : na, title="Mutex: S2-RSI Env")
+bgcolor(use_insight and dxy_rsi_d < dxy_rsi_thresh ? color.new(color.green, 95) : na, title="DXY Favorable")
+bgcolor(use_htf_filter and htf_is_bearish ? color.new(color.red, 97) : na, title="4H Bearish Zone")
+bgcolor(use_regime_filter and is_consolidation_4h ? color.new(color.gray, 88) : na, title="Regime: CONSOLIDATION")
+bgcolor(use_zscore_filter and is_zscore_trap ? color.new(color.red, 92) : na, title="Z-Score Trap")
+
+plotshape(is_hammer and not LongEntry and bar_index > MaxUseBars and MP == 0, title="Hammer (Filtered)", style=shape.triangleup, location=location.belowbar, color=color.new(color.gray, 60), size=size.tiny, text="H")
+plotshape(LongEntry, title="Hammer (Entry)", style=shape.triangleup, location=location.belowbar, color=color.green, size=size.small, text="S2-Hammer")
+
+if strategy.opentrades > 0 and strategy.opentrades.entry_bar_index(0) == bar_index
+    yPos = high * 1.003
+    txt = "S2-Hammer V2.4.1\nLE: " + str.tostring(EntryPrice, "#.##") + "\nSL: " + str.tostring(SLPrice, "#.##") + "\nTP1: " + str.tostring(PTPrice1, "#.##") + "\nTP2: " + str.tostring(PTPrice2, "#.##")
+    if use_mutex_filter
+        mutex_lbl = is_rsi_env ? "✗ RSI Env" : "✓ 單獨錘頭"
+        bars_lbl = na(bars_since_rsi) ? "∞" : str.tostring(bars_since_rsi)
+        txt += "\n[Mutex] " + mutex_lbl + "（距RSI訊號 " + bars_lbl + " 根）"
+    if use_early_be
+        txt += "\n[保本] 觸發 +" + str.tostring(be_trigger_pct, "#.##") + "% → SL移 " + str.tostring(BEPrice, "#.##")
+    if use_regime_filter
+        r_lbl = is_consolidation_4h ? "CONSOL ✗" : "OK ✓"
+        txt += "\n[Regime] " + r_lbl + " slope=" + str.tostring(slope_4h, "#.##") + "% bbw=" + str.tostring(bbw_rank_4h, "#") + "%"
+    if use_zscore_filter
+        z_out = use_zscore_strict and not z_in_sweet
+        z_lbl = is_zscore_trap ? "TRAP ✗" : z_out ? "OutZone ✗" : "OK ✓"
+        txt += "\n[Z-Score] " + str.tostring(z_score_4h, "#.##") + " → " + z_lbl
+    if use_htf_filter
+        txt += "\n[4H HTF] " + (htf_is_bearish ? "✗ Bear" : "✓ OK")
+    if use_trend_filter
+        txt += "\n[EMA" + str.tostring(trend_len) + "] " + (close > trend_ema ? "✓" : "✗")
+    if use_insight
+        txt += "\n[Insight] DXY RSI: " + str.tostring(dxy_rsi_d, "#.#") + " / RSI ctx: " + str.tostring(rsi_ctx_val, "#.#") + " " + (rsi_ctx_ok ? "✓" : "✗")
+    if show_futures
+        txt += "\n\nFutures (GC1!)\nLE: " + str.tostring(EntryPrice + basis_spread, "#.##") + "\nSL: " + str.tostring(SLPrice + basis_spread, "#.##") + "\nTP1: " + str.tostring(PTPrice1 + basis_spread, "#.##") + "\nTP2: " + str.tostring(PTPrice2 + basis_spread, "#.##") + "\n(Basis: " + str.tostring(basis_spread, "#.##") + ")"
+    label.new(bar_index, yPos, txt, style=label.style_label_down, color=color.new(color.teal, 0), textcolor=color.white, size=size.small)
+
+// 狀態表格（右上角）— V2.4.1 加入 Mutex / 保本 兩列
+var table rtbl = table.new(position.top_right, 2, 8, border_width=1, frame_color=color.gray, frame_width=1)
+
+if show_regime_table and barstate.islast
+    r_name = is_consolidation_4h ? "⬜ CONSOL" : "✅ OK"
+    r_color = is_consolidation_4h ? color.new(color.gray, 40) : color.new(color.teal, 40)
+    z_tbl_lbl = z_score_4h < -2.5 ? "⚠ TRAP" : z_in_sweet ? "⭐ SWEET" : str.tostring(z_score_4h, "#.##")
+    z_tbl_color = z_score_4h < -2.5 ? color.new(color.red, 40) : z_in_sweet ? color.new(color.green, 40) : color.new(color.gray, 60)
+    m_lbl = is_rsi_env ? "✗ RSI Env（阻擋中）" : "✓ 可進場"
+    m_color = is_rsi_env ? color.new(color.red, 40) : color.new(color.teal, 40)
+    slope_color = slope_4h >= regime_slope_thresh ? color.new(color.green, 70) : slope_4h <= -regime_slope_thresh ? color.new(color.red, 70) : color.new(color.gray, 80)
+    bbw_color = bbw_rank_4h >= regime_bbw_high ? color.new(color.orange, 70) : color.new(color.green, 70)
+
+    table.cell(rtbl, 0, 0, "Mutex", bgcolor=color.gray, text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 1, 0, use_mutex_filter ? m_lbl : "OFF", bgcolor=use_mutex_filter ? m_color : color.new(color.gray, 70), text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 0, 1, "提早保本", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 1, use_early_be ? "+" + str.tostring(be_trigger_pct, "#.##") + "% 觸發" : "OFF", bgcolor=use_early_be ? color.new(color.teal, 60) : color.new(color.gray, 70), text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 0, 2, "Regime", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 2, r_name, bgcolor=r_color, text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 0, 3, "slope 4H", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 3, str.tostring(slope_4h, "#.##") + "%", bgcolor=slope_color, text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 0, 4, "BBW rank", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 4, str.tostring(bbw_rank_4h, "#.1") + "%", bgcolor=bbw_color, text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 0, 5, "Z-Score", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 5, z_tbl_lbl, bgcolor=z_tbl_color, text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 0, 6, "Regime F", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 6, use_regime_filter ? "ON" : "OFF", bgcolor=use_regime_filter ? color.new(color.teal, 60) : color.new(color.gray, 70), text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 0, 7, "Z-Score F", bgcolor=color.new(color.gray, 80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 7, use_zscore_filter ? "ON" + (use_zscore_strict ? " Strict" : "") : "OFF", bgcolor=use_zscore_filter ? color.new(color.teal, 60) : color.new(color.gray, 70), text_color=color.white, text_size=size.small)
+
+//------------------------------------------------------------------------------
+// 6. 統計表格 (Stats)
+//------------------------------------------------------------------------------
+var wins_total = array.new_int(5, 0)
+var losses_total = array.new_int(5, 0)
+var wins_asia = array.new_int(5, 0)
+var losses_asia = array.new_int(5, 0)
+var wins_euro = array.new_int(5, 0)
+var losses_euro = array.new_int(5, 0)
+var wins_us = array.new_int(5, 0)
+var losses_us = array.new_int(5, 0)
+var entryWeekdays = array.new_int()
+var entrySessions = array.new_int()
+var entryPrices = array.new_float()
+
+t_us = time(timeframe.period, "2030-0500", "Asia/Taipei")
+t_euro = time(timeframe.period, "1500-2030", "Asia/Taipei")
+
+if strategy.position_size[1] == 0 and strategy.position_size > 0
+    wd = dayofweek(time, "Asia/Taipei")
+    array.push(entryWeekdays, wd)
+    array.push(entryPrices, strategy.position_avg_price)
+    sess_id = 0
+    if not na(t_us)
+        sess_id := 2
+    else if not na(t_euro)
+        sess_id := 1
+    array.push(entrySessions, sess_id)
+
+if strategy.position_size[1] > 0 and strategy.position_size == 0 and array.size(entryWeekdays) > 0
+    wd = array.shift(entryWeekdays)
+    sess = array.shift(entrySessions)
+    ep = array.shift(entryPrices)
+    idx = wd - 2
+    if idx >= 0 and idx < 5
+        is_win = close - ep > 0
+        if is_win
+            array.set(wins_total, idx, array.get(wins_total, idx) + 1)
+        else
+            array.set(losses_total, idx, array.get(losses_total, idx) + 1)
+        if sess == 0
+            if is_win
+                array.set(wins_asia, idx, array.get(wins_asia, idx) + 1)
+            else
+                array.set(losses_asia, idx, array.get(losses_asia, idx) + 1)
+        else if sess == 1
+            if is_win
+                array.set(wins_euro, idx, array.get(wins_euro, idx) + 1)
+            else
+                array.set(losses_euro, idx, array.get(losses_euro, idx) + 1)
+        else if sess == 2
+            if is_win
+                array.set(wins_us, idx, array.get(wins_us, idx) + 1)
+            else
+                array.set(losses_us, idx, array.get(losses_us, idx) + 1)
+
+var table stats = table.new(position.bottom_right, show_detail_stats ? 5 : 2, 6, border_width=1, frame_color=color.black, frame_width=1)
+
+f_txt(w, l) =>
+    tot = w + l
+    str.tostring(w) + "/" + str.tostring(l) + "\n" + (tot > 0 ? str.tostring(w * 100.0 / tot, "#") + "%" : "-")
+
+if show_table
+    table.cell(stats, 0, 0, "Weekday", text_color=color.white, bgcolor=color.gray)
+    if show_detail_stats
+        table.cell(stats, 1, 0, "Asia", text_color=color.white, bgcolor=color.gray)
+        table.cell(stats, 2, 0, "Euro", text_color=color.white, bgcolor=color.gray)
+        table.cell(stats, 3, 0, "US", text_color=color.white, bgcolor=color.gray)
+        table.cell(stats, 4, 0, "Total", text_color=color.white, bgcolor=color.gray)
+    else
+        table.cell(stats, 1, 0, "Win/Loss", text_color=color.white, bgcolor=color.gray)
+    for i = 0 to 4
+        wa = array.get(wins_asia, i)
+        la = array.get(losses_asia, i)
+        we = array.get(wins_euro, i)
+        le = array.get(losses_euro, i)
+        wu = array.get(wins_us, i)
+        lu = array.get(losses_us, i)
+        wt = array.get(wins_total, i)
+        lt = array.get(losses_total, i)
+        dl = i == 0 ? "Mon" : i == 1 ? "Tue" : i == 2 ? "Wed" : i == 3 ? "Thu" : "Fri"
+        table.cell(stats, 0, i + 1, dl, text_color=color.black, bgcolor=color.new(color.gray, 90))
+        if show_detail_stats
+            table.cell(stats, 1, i + 1, f_txt(wa, la), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 2, i + 1, f_txt(we, le), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 3, i + 1, f_txt(wu, lu), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 4, i + 1, f_txt(wt, lt), text_color=color.black, bgcolor=color.new(color.gray, 90))
+        else
+            table.cell(stats, 1, i + 1, f_txt(wt, lt), text_color=color.black, bgcolor=color.new(color.gray, 90))

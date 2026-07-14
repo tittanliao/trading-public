@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+*.pyc
+reports/
+!claude/reports/
+.ipynb_checkpoints/

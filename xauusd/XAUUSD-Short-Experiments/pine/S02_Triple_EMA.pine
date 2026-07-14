@@ -1,0 +1,59 @@
+// © Tittan — XAUUSD Short-Side Experiment Series
+// Strategy: S02 Triple EMA
+// Group   : Trend
+// Logic   : Bearish triple EMA alignment + rejection
+// Risk    : SL 0.5% above entry / TP 1.0% below entry / Max hold 48 bars (24h)
+// Version : 1.0  (proof-of-concept — validate with full TradingView history)
+//@version=6
+strategy(title="S02 Triple EMA",
+         shorttitle="S02_Triple_EMA",
+         overlay=true,
+         format=format.price,
+         precision=2,
+         default_qty_type=strategy.cash,
+         initial_capital=10000,
+         default_qty_value=10000,
+         commission_value=0.0,
+         slippage=1)
+
+// ── Risk parameters ──────────────────────────────────────────────────────────
+SL_PCT  = input.float(0.5, "Stop Loss %",   step=0.1) / 100
+TP_PCT  = input.float(1.0, "Take Profit %", step=0.1) / 100
+MAX_BARS = input.int(48,   "Max Hold Bars")
+
+// ── Position tracking ─────────────────────────────────────────────────────────
+var int entry_bar = na
+MP = strategy.position_size < 0 ? 1 : 0
+
+// Time-based exit
+if MP == 1 and not na(entry_bar) and (bar_index - entry_bar) >= MAX_BARS
+    strategy.close("Short", comment="TIME")
+    entry_bar := na
+
+// Bearish triple EMA: E8 < E21 < E55, rejection at E8
+e8  = ta.ema(close, 8)
+e21 = ta.ema(close, 21)
+e55 = ta.ema(close, 55)
+aligned   = e8 < e21 and e21 < e55
+rejection = close[1] >= e8[1] * 0.998 and close < close[1]
+shortSignal = aligned and rejection
+plot(e8,  color=color.orange, linewidth=1, title="EMA 8")
+plot(e21, color=color.red,    linewidth=1, title="EMA 21")
+plot(e55, color=color.maroon, linewidth=2, title="EMA 55")
+
+// ── Entry execution ───────────────────────────────────────────────────────────
+if shortSignal and MP == 0
+    strategy.entry("Short", strategy.short, comment="SE")
+    entry_bar := bar_index
+
+// ── SL / TP ───────────────────────────────────────────────────────────────────
+if MP == 1
+    ep = strategy.position_avg_price
+    strategy.exit("SX", "Short",
+                  stop  = ep * (1 + SL_PCT),
+                  limit = ep * (1 - TP_PCT),
+                  comment="SX")
+
+// ── Chart markers ─────────────────────────────────────────────────────────────
+plotshape(shortSignal, style=shape.triangledown, location=location.abovebar,
+          color=color.red, size=size.small, title="Short Signal")

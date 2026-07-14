@@ -1,0 +1,339 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-FVG-V1.0
+// FVG (Fair Value Gap) 進出場策略 — 多空可設定
+// 架構參考 S1-AweWithBB-V3.5
+// V1.0: 初始版 — FVG 偵測 / 單一 FVG 狀態追蹤 / Profit Flyer 出場 / 多空同檔可切換
+
+//@version=6
+strategy(title="XAUUSD-FVG-V1.0",
+ shorttitle="FVG-V1",
+ overlay=true,
+ format=format.price,
+ precision=2,
+ default_qty_type=strategy.cash,
+ initial_capital=10000,
+ default_qty_value=10000,
+ commission_value=0.00,
+ slippage=1)
+
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+//------------------------------------------------------------------------------
+// 1. 前置設定與輸入 (Inputs)
+//------------------------------------------------------------------------------
+
+// --- 交易方向 ---
+grp_dir = "=== 交易方向 ==="
+direction = input.string("Long", "方向 (Long / Short)",
+    options=["Long","Short"],
+    group=grp_dir,
+    tooltip="Long: 等待 Bullish FVG 回踩後做多\nShort: 等待 Bearish FVG 反彈後做空")
+
+// --- FVG 設定 ---
+grp_fvg = "=== FVG 設定 ==="
+fvg_min_pct  = input.float(0.05, "最小 FVG 大小 (%)",
+    step=0.01, minval=0.01, maxval=2.0,
+    group=grp_fvg,
+    tooltip="低於此百分比的 FVG 視為噪音，不追蹤\n建議 0.05–0.20%（黃金 30m）")
+fvg_max_bars = input.int(50, "FVG 最長有效 K 棒數",
+    minval=5, maxval=300,
+    group=grp_fvg,
+    tooltip="超過此 K 棒數未觸及，FVG 自動失效\n30m 圖上 50 bars ≈ 25 小時")
+
+// --- 止損設定 ---
+grp_sl = "=== 止損設定 ==="
+sl_type   = input.string("FVG Natural", "止損方式",
+    options=["FVG Natural", "Fixed %"],
+    group=grp_sl,
+    tooltip="FVG Natural: SL 設在 FVG 邊界外（結構止損，距離較寬）\nFixed %: 固定百分比，與 S1 相同邏輯")
+sl_pct    = input.float(0.8, "固定止損 % (Fixed 模式用)",
+    step=0.1, minval=0.1,
+    group=grp_sl,
+    tooltip="FVG Natural 模式下此欄位作為備援（FVG 資料遺失時使用）")
+sl_buffer = input.float(0.05, "FVG 邊界緩衝 % (Natural 模式用)",
+    step=0.01, minval=0.0,
+    group=grp_sl,
+    tooltip="在 FVG 邊界外再加一點緩衝，避免恰好掃到後即觸發")
+
+// --- 獲利設定 ---
+grp_tp = "=== 獲利設定 ==="
+tp1_r  = input.float(1.0, "TP1 R 倍數", step=0.1, minval=0.1, group=grp_tp,
+    tooltip="達到 TP1 後，止損上移至 TP1（鎖利）並拖曳")
+tp2_r  = input.float(3.0, "TP2 R 倍數", step=0.1, minval=0.5, group=grp_tp,
+    tooltip="達到 TP2 後，止損貼近 TP2（更緊拖曳）")
+tb     = input.int(48, "時間止損 K 棒數", minval=4, maxval=200, group=grp_tp,
+    tooltip="超過此 K 棒數仍未達 TP：盈利 → 鎖住；虧損 → 市價出場")
+
+// --- 過濾器（可選）---
+grp_f = "=== 過濾器 (可選) ==="
+use_rsi      = input.bool(false, "啟用 RSI 過濾",
+    group=grp_f,
+    tooltip="多單要求 RSI > 最低門檻；空單要求 RSI < 最高門檻\n確認動能方向一致")
+rsi_len      = input.int(14, "RSI 週期", minval=5, group=grp_f)
+rsi_bull_min = input.int(40, "多單 RSI 最低門檻", minval=10, maxval=70, group=grp_f)
+rsi_bear_max = input.int(60, "空單 RSI 最高門檻", minval=30, maxval=90, group=grp_f)
+use_htf      = input.bool(false, "啟用 4H EMA 過濾",
+    group=grp_f,
+    tooltip="多單需收盤在 4H EMA 上方；空單需收盤在 4H EMA 下方")
+htf_len      = input.int(21, "4H EMA 長度", minval=5, group=grp_f)
+
+// --- 視覺化 ---
+grp_v = "=== 視覺化 ==="
+show_boxes  = input.bool(true, "顯示 FVG 區塊", group=grp_v)
+show_labels = input.bool(true, "顯示進場標籤", group=grp_v)
+
+// --- 期貨對應 ---
+grp_fut = "=== 期貨對應 ==="
+show_fut = input.bool(true, "顯示 GC1! 對應價格", group=grp_fut)
+fut_sym  = input.symbol("COMEX:GC1!", "期貨代碼", group=grp_fut)
+
+//------------------------------------------------------------------------------
+// 2. 指標計算 (Indicators)
+//------------------------------------------------------------------------------
+is_long = direction == "Long"
+
+rsi_val = ta.rsi(close, rsi_len)
+htf_ema = request.security(syminfo.tickerid, "240",
+    ta.ema(close, htf_len), lookahead=barmerge.lookahead_off)
+fut_cls = request.security(fut_sym, timeframe.period, close)
+basis   = fut_cls - close
+
+rsi_ok    = not use_rsi or (is_long ? rsi_val > rsi_bull_min : rsi_val < rsi_bear_max)
+htf_ok    = not use_htf or (is_long ? close > htf_ema        : close < htf_ema)
+filter_ok = rsi_ok and htf_ok
+
+//------------------------------------------------------------------------------
+// 3. FVG 偵測 (FVG Detection)
+//------------------------------------------------------------------------------
+// Bullish FVG (多頭 FVG)
+//   形成條件：當前 K 棒 low > 2 根前 K 棒 high（向上跳空，中間那根是強力上漲 K）
+//   進場方式：等待價格回踩進入 [high[2], low] 缺口做多
+//   自然止損：FVG 底部（= high[2]）下方
+
+bull_fvg_raw = low > high[2]
+bull_fvg_top = low       // FVG 頂（回踩入場點）
+bull_fvg_bot = high[2]   // FVG 底（自然止損參考）
+
+// Bearish FVG (空頭 FVG)
+//   形成條件：當前 K 棒 high < 2 根前 K 棒 low（向下跳空，中間那根是強力下跌 K）
+//   進場方式：等待價格反彈進入 [high, low[2]] 缺口做空
+//   自然止損：FVG 頂部（= low[2]）上方
+
+bear_fvg_raw = high < low[2]
+bear_fvg_top = low[2]    // FVG 頂（自然止損參考）
+bear_fvg_bot = high      // FVG 底（反彈入場點）
+
+// 最小尺寸過濾（排除噪音級別的微小缺口）
+bull_size    = bull_fvg_raw ? (bull_fvg_top - bull_fvg_bot) / close * 100 : 0.0
+bear_size    = bear_fvg_raw ? (bear_fvg_top - bear_fvg_bot) / close * 100 : 0.0
+fvg_size_pct = is_long ? bull_size : bear_size
+
+new_fvg = (is_long ? bull_fvg_raw : bear_fvg_raw) and fvg_size_pct >= fvg_min_pct
+
+// ── 單一有效 FVG 狀態追蹤（V1：追蹤最新一個，新 FVG 覆蓋舊的）──────────────
+var float act_top = na   // 有效 FVG 頂
+var float act_bot = na   // 有效 FVG 底
+var int   act_bar = na   // FVG 形成時的 bar_index
+
+// 新 FVG 出現 → 更新狀態（覆蓋前一個）
+if new_fvg
+    act_top := is_long ? bull_fvg_top : bear_fvg_top
+    act_bot := is_long ? bull_fvg_bot : bear_fvg_bot
+    act_bar := bar_index
+
+// 到期：超過最大 K 棒數仍未觸及 → 失效
+if not na(act_bar) and (bar_index - act_bar) > fvg_max_bars
+    act_top := na
+    act_bot := na
+    act_bar := na
+
+// 失效：完全穿越 FVG 區域（多頭收盤低於底部；空頭收盤高於頂部）
+if not na(act_top)
+    if is_long and close < act_bot
+        act_top := na
+        act_bot := na
+        act_bar := na
+    if not is_long and close > act_top
+        act_top := na
+        act_bot := na
+        act_bar := na
+
+// 進場時鎖定 FVG 邊界，供出場計算用（持倉期間不因新 FVG 覆蓋而丟失）
+var float locked_bot = na   // 多頭：鎖定的 FVG 底（SL 參考）
+var float locked_top = na   // 空頭：鎖定的 FVG 頂（SL 參考）
+
+//------------------------------------------------------------------------------
+// 4. 進場邏輯 (Entry)
+//------------------------------------------------------------------------------
+// 必須至少 1 根 K 棒前建立（避免同一根 K 棒偵測 FVG 即進場，防止 look-ahead）
+fvg_ready = not na(act_top) and bar_index > act_bar
+
+// 多頭進場：影線進入 FVG 頂部，且收盤未跌破 FVG 底（FVG 區塊仍提供支撐）
+bull_entry_sig = fvg_ready and is_long and low <= act_top and close >= act_bot
+
+// 空頭進場：影線進入 FVG 底部，且收盤未升破 FVG 頂（FVG 區塊仍提供壓力）
+bear_entry_sig = fvg_ready and not is_long and high >= act_bot and close <= act_top
+
+entry_cond = (is_long ? bull_entry_sig : bear_entry_sig) and filter_ok
+
+LongEntry  = MP == 0 and is_long     and entry_cond
+ShortEntry = MP == 0 and not is_long and entry_cond
+
+if LongEntry
+    locked_bot := act_bot
+    locked_top := act_top
+    strategy.entry("FVG_LE", strategy.long, comment="FVG_LE")
+    act_top := na    // 消耗此 FVG（同一個 FVG 只進場一次）
+    act_bot := na
+    act_bar := na
+
+if ShortEntry
+    locked_bot := act_bot
+    locked_top := act_top
+    strategy.entry("FVG_SE", strategy.short, comment="FVG_SE")
+    act_top := na
+    act_bot := na
+    act_bar := na
+
+//------------------------------------------------------------------------------
+// 5. 出場邏輯 (Exit — Profit Flyer，架構同 S1-AweWithBB)
+//------------------------------------------------------------------------------
+ep      = strategy.opentrades.entry_price(strategy.opentrades - 1)
+bars_in = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+
+// 止損價格（FVG 自然邊界 or 固定 %）
+var float sl_price = na
+if sl_type == "FVG Natural"
+    if is_long
+        sl_price := not na(locked_bot) ? locked_bot * (1 - sl_buffer / 100) : ep * (1 - sl_pct / 100)
+    else
+        sl_price := not na(locked_top) ? locked_top * (1 + sl_buffer / 100) : ep * (1 + sl_pct / 100)
+else
+    sl_price := is_long ? ep * (1 - sl_pct / 100) : ep * (1 + sl_pct / 100)
+
+// R 倍數計算（基於進場 → SL 距離）
+r_dist = math.abs(ep - sl_price)
+tp1    = is_long ? ep + r_dist * tp1_r : ep - r_dist * tp1_r
+tp2    = is_long ? ep + r_dist * tp2_r : ep - r_dist * tp2_r
+
+// 用於 ta.lowest / ta.highest 的整數長度
+tb4 = int(tb / 4)
+tb2 = int(tb / 2)
+
+var float exit_stop = na
+
+// ── 多頭出場 (Profit Flyer — Long) ──────────────────────────────────────────
+if MP > 0
+    if close >= tp2
+        // 達到 TP2：止損貼近 TP2，並跟隨近期最低點向上拖曳
+        exit_stop := math.max(tp2, ta.lowest(low, tb4))
+        strategy.exit("FVG_LX_TP2", from_entry="FVG_LE",
+            stop=exit_stop, comment="FVG_LX_TP2")
+    else if close >= tp1
+        // 達到 TP1：止損上移至 TP1（鎖住 1R），並跟隨近期最低點拖曳
+        exit_stop := math.max(tp1, ta.lowest(low, tb2))
+        strategy.exit("FVG_LX_TP1", from_entry="FVG_LE",
+            stop=exit_stop, comment="FVG_LX_TP1")
+    else
+        // 尚未達 TP1：固定止損在 SL 位
+        strategy.exit("FVG_LX_SL", from_entry="FVG_LE",
+            stop=sl_price, comment_loss="FVG_SL")
+    // 時間止損
+    if bars_in >= tb
+        if strategy.openprofit >= 0
+            // 盈利中：鎖住止損，不急著平倉
+            strategy.exit("FVG_LX_TW", from_entry="FVG_LE",
+                stop=math.max(sl_price, ta.lowest(low, tb)), comment="FVG_LX_TW")
+        else
+            // 虧損中：市價立即平倉
+            strategy.exit("FVG_LX_TL", from_entry="FVG_LE",
+                stop=low, comment="FVG_LX_TL")
+
+// ── 空頭出場 (Profit Flyer — Short，鏡像版) ─────────────────────────────────
+if MP < 0
+    if close <= tp2
+        // 達到 TP2：止損貼近 TP2，並跟隨近期最高點向下拖曳
+        exit_stop := math.min(tp2, ta.highest(high, tb4))
+        strategy.exit("FVG_SX_TP2", from_entry="FVG_SE",
+            stop=exit_stop, comment="FVG_SX_TP2")
+    else if close <= tp1
+        // 達到 TP1：止損下移至 TP1（鎖住 1R），並跟隨近期最高點拖曳
+        exit_stop := math.min(tp1, ta.highest(high, tb2))
+        strategy.exit("FVG_SX_TP1", from_entry="FVG_SE",
+            stop=exit_stop, comment="FVG_SX_TP1")
+    else
+        // 尚未達 TP1：固定止損在 SL 位
+        strategy.exit("FVG_SX_SL", from_entry="FVG_SE",
+            stop=sl_price, comment_loss="FVG_SL")
+    // 時間止損
+    if bars_in >= tb
+        if strategy.openprofit >= 0
+            // 盈利中：鎖住止損，不急著平倉
+            strategy.exit("FVG_SX_TW", from_entry="FVG_SE",
+                stop=math.min(sl_price, ta.highest(high, tb)), comment="FVG_SX_TW")
+        else
+            // 虧損中：市價立即平倉
+            strategy.exit("FVG_SX_TL", from_entry="FVG_SE",
+                stop=high, comment="FVG_SX_TL")
+
+//------------------------------------------------------------------------------
+// 6. 視覺化 (Visualization)
+//------------------------------------------------------------------------------
+
+// ── FVG 色塊 ─────────────────────────────────────────────────────────────────
+// 每個新 FVG 建立一個 box，右端延伸至 fvg_max_bars 後（自動視覺上到期）
+// FVG 被消耗（進場）或失效時，box 刪除
+var box fvg_box = na
+
+if show_boxes
+    if new_fvg
+        if not na(fvg_box)
+            box.delete(fvg_box)
+        fvg_top_new = is_long ? bull_fvg_top : bear_fvg_top
+        fvg_bot_new = is_long ? bull_fvg_bot : bear_fvg_bot
+        clr_bg  = is_long ? color.new(color.green, 85) : color.new(color.red, 85)
+        clr_bdr = is_long ? color.new(color.green, 0)  : color.new(color.red, 0)
+        fvg_box := box.new(
+            left        = bar_index - 2,
+            top         = fvg_top_new,
+            right       = bar_index + fvg_max_bars,
+            bottom      = fvg_bot_new,
+            bgcolor     = clr_bg,
+            border_color = clr_bdr,
+            border_width = 1)
+    // FVG 失效或消耗後刪除色塊（!new_fvg 確保不在同一 bar 誤刪）
+    if na(act_top) and not na(fvg_box) and not new_fvg
+        box.delete(fvg_box)
+        fvg_box := na
+
+// ── 進場標籤（同 S1 風格）───────────────────────────────────────────────────
+if (LongEntry or ShortEntry) and show_labels
+    // 重新計算顯示用的 SL（進場當根的 close 還未反映 ep，用 close 近似）
+    sl_lbl = float(na)
+    if sl_type == "FVG Natural"
+        sl_lbl := LongEntry ? locked_bot * (1 - sl_buffer / 100) : locked_top * (1 + sl_buffer / 100)
+    else
+        sl_lbl := LongEntry ? close * (1 - sl_pct / 100) : close * (1 + sl_pct / 100)
+    r_lbl   = math.abs(close - sl_lbl)
+    tp1_lbl = LongEntry ? close + r_lbl * tp1_r : close - r_lbl * tp1_r
+    tp2_lbl = LongEntry ? close + r_lbl * tp2_r : close - r_lbl * tp2_r
+
+    fvg_range = "FVG Zone: [" + str.tostring(locked_bot, "#.##") + " - " + str.tostring(locked_top, "#.##") + "]"
+    dir_lbl   = LongEntry ? "▲ FVG_LE" : "▼ FVG_SE"
+    txt = dir_lbl + "\nEntry: " + str.tostring(close, "#.##") + "\nSL: " + str.tostring(sl_lbl, "#.##") + "\nTP1: " + str.tostring(tp1_lbl, "#.##") + "\nTP2: " + str.tostring(tp2_lbl, "#.##") + "\n" + fvg_range
+
+    if show_fut
+        txt := txt + "\n[GC1!] Entry: " + str.tostring(close + basis, "#.##") + "\n       SL: " + str.tostring(sl_lbl + basis, "#.##")
+
+    lbl_y = LongEntry ? low * 0.9995 : high * 1.0005
+    label.new(bar_index, lbl_y, txt,
+        style     = LongEntry ? label.style_label_up : label.style_label_down,
+        color     = LongEntry ? color.blue : color.red,
+        textcolor = color.white,
+        size      = size.small)
+
+// ── Alert ────────────────────────────────────────────────────────────────────
+alertcondition(LongEntry,  title="FVG Long Entry",  message="FVG_LE Buy,  Price={{close}}")
+alertcondition(ShortEntry, title="FVG Short Entry", message="FVG_SE Sell, Price={{close}}")

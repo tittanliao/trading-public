@@ -1,0 +1,277 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-Long-Lab10-V1（實驗室，S1/S2 優化燃料，需 Premium 才有 Footprint 相關模式）
+// 來源：20260712 Python 參數最佳化（2.5年匯出資料 29,809 根 30m，report_lab10.html）
+// 用途：10 個獨立做多策略（順勢×5 + 逆勢×5）下拉選單切換，最佳參數已設為預設值。
+//       表現好的進場邏輯之後拆進 S1/S2 當 filter/觸發器，不是要直接上線 10 個新策略。
+//
+// Python 最佳化結果（✅=過門檻 n≥40(FP核心≥15) 且 min(IS,OOS)PF≥1.2；⚠️=未達門檻僅供探索）：
+//   T2 突破+Delta   ✅ n=298 WR49.7% PF1.46 OOS1.24（Delta確認沒加分，dmin=0最佳）
+//   T3 HTF動能疊加  ✅ n=516 WR46.9% PF1.43 OOS1.21（高頻率）
+//   T4 BBW擴張突破  ✅ n=142 WR51.4% PF1.77 OOS1.43（順勢最佳）
+//   R2 恐慌爆量長下影✅ n=207 WR41.5% PF1.86 OOS1.60（逆勢最佳，呼應VolClimax發現）
+//   R5 DXY弱勢逢低接 ✅ n=183 WR36.1% PF1.42 OOS1.24
+//   T1 週VWAP回踩   ⚠️ PF1.14/OOS1.00   T5 POC階梯(FP核心) ⚠️ PF0.83
+//   R1 RSI超賣+Δ改善 ⚠️ OOS0.96         R3 VWAP深度回歸 ⚠️ OOS0.78（無吸收證據=接刀）
+//   R4 TrappedSellers(FP核心) ⚠️ PF0.70
+//   ★ 重要負面結果：footprint 當「核心觸發」全軍覆沒（T5/R4），但當「filter」有效
+//     （S2-Hammer V4.1 D 模式）——footprint 適合過濾既有訊號，不適合自己當訊號源
+//
+// 出場：Profit Flyer（同 S1/S2 結構）。預設「自動檔位」：順勢=S1檔位（0.5%/1R/3.5R/36），
+//       逆勢=S2檔位（1%/2R/4R/48）；可切手動自訂。
+// Entry: LAB_LE
+//@version=6
+strategy(title="XAUUSD-Long-Lab10-V1",
+ shorttitle="Lab10-V1",
+ overlay = true,
+ format=format.price,
+ precision=2,
+ default_qty_type=strategy.cash, initial_capital=10000,
+ default_qty_value=10000, commission_value=0.00,
+ slippage=1)
+
+//------------------------------------------------------------------------------
+// 1. 策略選擇與出場設定
+//------------------------------------------------------------------------------
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+grp_sel = "=== 策略選擇 ==="
+strat = input.string("T4 順勢｜BBW擴張突破 ✅", "策略（✅=過Python門檻 ⚠️=未達僅供探索）",
+ options=["T1 順勢｜週VWAP回踩續漲 ⚠️", "T2 順勢｜突破+Delta確認 ✅", "T3 順勢｜HTF動能疊加 ✅", "T4 順勢｜BBW擴張突破 ✅", "T5 順勢｜POC階梯上移FP ⚠️", "R1 逆勢｜RSI超賣+Delta改善 ⚠️", "R2 逆勢｜恐慌爆量長下影 ✅", "R3 逆勢｜VWAP深度回歸 ⚠️", "R4 逆勢｜TrappedSellers FP ⚠️", "R5 逆勢｜DXY弱勢逢低接 ✅"],
+ group=grp_sel,
+ tooltip="順勢（T*）：確認買方已主導後跟進\n逆勢（R*）：在賣壓衰竭/吸收處左側接刀\n\nPython 最佳化細節見 report_lab10.html；各策略參數在下方對應群組，預設值=最佳化結果")
+
+is_trend = str.startswith(strat, "T")
+
+grp_exit = "=== 出場（Profit Flyer）==="
+exit_auto = input.bool(true, "自動檔位（順勢=S1檔位 0.5%/1R/3.5R/36；逆勢=S2檔位 1%/2R/4R/48）", group=grp_exit)
+sl_manual = input.float(1.0, "手動 SL %", step=0.1, group=grp_exit)
+tp1_manual = input.float(2.0, "手動 TP1 R", step=0.1, group=grp_exit)
+tp2_manual = input.float(4.0, "手動 TP2 R", step=0.1, group=grp_exit)
+out_manual = input.int(48, "手動 時間出場（K棒）", group=grp_exit)
+
+sl_pct = exit_auto ? (is_trend ? 0.5 : 1.0) : sl_manual
+tp1_r = exit_auto ? (is_trend ? 1.0 : 2.0) : tp1_manual
+tp2_r = exit_auto ? (is_trend ? 3.5 : 4.0) : tp2_manual
+out_k = exit_auto ? (is_trend ? 36 : 48) : out_manual
+
+//------------------------------------------------------------------------------
+// 2. 各策略參數（預設值 = Python 最佳化結果）
+//------------------------------------------------------------------------------
+grp_t1 = "=== T1 週VWAP回踩（順勢）==="
+t1_tol = input.float(0.2, "T1: VWAP 觸及容差 %", step=0.1, group=grp_t1, tooltip="low ≤ 週VWAP×(1+容差%) 視為回踩；close 需在 VWAP 上方且收紅\n最佳化：0.2（PF1.14 未達門檻——回踩不挑波動環境時期望值偏低）")
+
+grp_t2 = "=== T2 突破+Delta確認（順勢）==="
+t2_n = input.int(96, "T2: 突破回看K棒數", minval=8, group=grp_t2, tooltip="close > 前N根最高點。最佳化：96（=48小時，PF1.46 ✅）")
+t2_dmin = input.float(0.0, "T2: Delta佔比下限 %（0=不用）", step=5.0, group=grp_t2, tooltip="footprint delta/總量 ≥ 此值才進場（na放行）\n最佳化：0——Delta確認在突破類沒有加分，10/20都比0差")
+
+grp_t3 = "=== T3 HTF動能疊加（順勢）==="
+t3_lvl = input.int(55, "T3: RSI 上穿門檻", minval=40, maxval=70, group=grp_t3, tooltip="RSI14 上穿此值=動能點火。最佳化：55（PF1.43 ✅ n=516 高頻）")
+t3_tf = input.timeframe("240", "T3: 結構 MA 時框", group=grp_t3)
+t3_malen = input.int(10, "T3: 結構 MA 週期", minval=5, group=grp_t3, tooltip="close 需在此 HTF SMA 上方。最佳化：10")
+
+grp_t4 = "=== T4 BBW擴張突破（順勢，Lab最佳）==="
+t4_tf = input.timeframe("60", "T4: BBW 時框", group=grp_t4)
+t4_ranklen = input.int(60, "T4: BBW percentrank 回看", minval=20, group=grp_t4)
+t4_thr = input.float(70.0, "T4: BBW rank 點火門檻 %", step=5.0, group=grp_t4, tooltip="BBW rank 上穿此值（前一根<門檻、本根≥門檻）=波動點火，配合紅K收在20SMA上\n最佳化：70（WR51.4% PF1.77 OOS1.43 ✅ 順勢最佳）\n⚠️ 注意：S1 的 BBW高檔是「阻擋」，本策略是把擴張當「點火觸發」——同一指標兩種用法")
+
+grp_t5 = "=== T5 POC階梯上移（順勢，FP核心 ⚠️）==="
+t5_poc = input.float(65.0, "T5: POC 位置下限 %", step=5.0, group=grp_t5, tooltip="⚠️ Python驗證 PF0.83 未達門檻——footprint 當核心觸發（而非filter）已被證明無效，僅供研究")
+t5_k = input.int(3, "T5: 連續K棒數", minval=1, group=grp_t5)
+
+grp_r1 = "=== R1 RSI超賣+Delta改善（逆勢）==="
+r1_th = input.int(25, "R1: RSI 超賣門檻", minval=15, maxval=40, group=grp_r1, tooltip="RSI14 < 此值的紅K。最佳化：25（OOS0.96 未達門檻——與S2-RSI互斥發現一致：純RSI超賣接刀期望值偏低）")
+r1_imp = input.float(5.0, "R1: Delta改善下限 pp（0=不用）", step=1.0, group=grp_r1)
+
+grp_r2 = "=== R2 恐慌爆量長下影（逆勢，Lab逆勢最佳）==="
+r2_ws = input.float(0.6, "R2: 下影線佔比下限", step=0.1, minval=0.3, group=grp_r2, tooltip="(實體底-low)/(high-low) ≥ 此值。最佳化：0.6")
+r2_m = input.float(1.5, "R2: 爆量倍數（×均量）", step=0.25, minval=1.0, group=grp_r2, tooltip="volume ≥ N×SMA20。最佳化：1.5（WR41.5% PF1.86 OOS1.60 ✅）\n呼應 VolClimax 發現：恐慌爆量+長下影=賣壓宣洩，比正式錘頭定義寬鬆以擴大樣本\n⚠️ FX_IDC 為 tick volume")
+r2_vlen = input.int(20, "R2: 均量週期", minval=5, group=grp_r2)
+
+grp_r3 = "=== R3 VWAP深度回歸（逆勢 ⚠️）==="
+r3_d = input.float(3.0, "R3: 深度門檻（×ATR14）", step=0.5, group=grp_r3, tooltip="(週VWAP−close)/ATR14 ≥ 此值且收紅。⚠️ OOS0.78 未達門檻——沒有吸收證據的深跌接刀=接飛刀，與 Z-Score 陷阱區發現一致")
+
+grp_r4 = "=== R4 TrappedSellers（逆勢，FP核心 ⚠️）==="
+r4_imp = input.float(5.0, "R4: Delta改善下限 pp", step=1.0, group=grp_r4, tooltip="⚠️ Python驗證 PF0.70 未達門檻——footprint 當核心觸發無效（但當 S2-Hammer 的 filter 有效，見 V4.1 D 模式），僅供研究")
+
+grp_r5 = "=== R5 DXY弱勢逢低接（逆勢）==="
+r5_pb = input.float(1.0, "R5: 回檔深度 %（自48根高點）", step=0.25, group=grp_r5, tooltip="DXY日線RSI<門檻 且 close自48根高點回檔≥此% 且 反轉紅K。最佳化：1.0（PF1.42 OOS1.24 ✅）")
+r5_dxyrsi = input.int(50, "R5: DXY RSI 門檻（< 此值）", minval=30, maxval=70, group=grp_r5)
+r5_dxysym = input.symbol("TVC:DXY", "R5: DXY 代碼", group=grp_r5)
+
+grp_fp = "=== Footprint 共用（T2/T5/R1/R4 使用，Premium）==="
+fp_ticks_per_row = input.int(250, "每列 tick 數", minval=1, group=grp_fp)
+fp_va_percent = input.int(70, "Value Area %", minval=50, maxval=95, group=grp_fp)
+fp_imbalance_pct = input.int(300, "失衡判定門檻 %", minval=100, group=grp_fp)
+
+grp_disp = "=== 顯示 ==="
+show_sig_all = input.bool(true, "標示被持倉擋掉的訊號（灰色）", group=grp_disp)
+
+//------------------------------------------------------------------------------
+// 3. 指標運算
+//------------------------------------------------------------------------------
+rsi14 = ta.rsi(close, 14)
+atr14 = ta.atr(14)
+ohlc4_basis = ta.sma(ohlc4, 20)
+wvwap = ta.vwap(hlc3, timeframe.change("1W"))
+vol_sma = ta.sma(volume, r2_vlen)
+
+// HTF
+t3_ma = request.security(syminfo.tickerid, t3_tf, ta.sma(close, t3_malen), lookahead=barmerge.lookahead_off)
+t4_rank = request.security(syminfo.tickerid, t4_tf, ta.percentrank(ta.stdev(close, 20) * 4 / ta.sma(close, 20), t4_ranklen), lookahead=barmerge.lookahead_off)
+dxy_rsi_d = request.security(r5_dxysym, "D", ta.rsi(close, 14), lookahead=barmerge.lookahead_off)
+
+// Footprint（單次呼叫）
+footprint fp = request.footprint(fp_ticks_per_row, fp_va_percent, fp_imbalance_pct)
+bool fp_data_ok = not na(fp)
+float fp_delta_ratio = na
+float fp_poc_pos = na
+bool fp_sell_imb_low50 = false
+float zone50_top = low + (high - low) * 0.50
+if fp_data_ok
+    float buyV = fp.buy_volume()
+    float sellV = fp.sell_volume()
+    float totV = buyV + sellV
+    fp_delta_ratio := totV > 0 ? (buyV - sellV) / totV * 100 : 0.0
+    volume_row pocRow = fp.poc()
+    float poc_mid = (pocRow.up_price() + pocRow.down_price()) / 2
+    fp_poc_pos := high == low ? 50.0 : (poc_mid - low) / (high - low) * 100
+    array<volume_row> rws = fp.rows()
+    for r in rws
+        float r_mid = (r.up_price() + r.down_price()) / 2
+        if r_mid <= zone50_top and r.has_sell_imbalance()
+            fp_sell_imb_low50 := true
+
+// Delta 前5根平均（僅計有資料的bar）
+var array<float> dr_hist = array.new_float()
+float dr_prior_avg = na
+if fp_data_ok
+    if array.size(dr_hist) > 0
+        dr_prior_avg := array.avg(dr_hist)
+    array.push(dr_hist, fp_delta_ratio)
+    if array.size(dr_hist) > 5
+        array.shift(dr_hist)
+
+// K線特徵
+bar_range = high - low
+body_btm = math.min(open, close)
+lower_wick_ratio = bar_range > 0 ? (body_btm - low) / bar_range : 0.0
+is_red_up = close > open
+
+// POC 連續計數（T5）
+var int t5_cnt = 0
+bool t5_cond = fp_data_ok and fp_poc_pos >= t5_poc
+t5_cnt := t5_cond ? t5_cnt + 1 : 0
+
+//------------------------------------------------------------------------------
+// 4. 各策略訊號
+//------------------------------------------------------------------------------
+// T1 週VWAP回踩
+sig_t1 = close > wvwap and low <= wvwap * (1 + t1_tol / 100) and is_red_up
+
+// T2 突破+Delta（delta na→放行）
+t2_hh = ta.highest(high, t2_n)[1]
+t2_delta_ok = t2_dmin <= 0 or (not fp_data_ok ? true : fp_delta_ratio >= t2_dmin)
+sig_t2 = close > t2_hh and t2_delta_ok
+
+// T3 HTF動能疊加
+sig_t3 = ta.crossover(rsi14, t3_lvl) and close > t3_ma
+
+// T4 BBW擴張突破
+t4_ignite = t4_rank >= t4_thr and t4_rank[1] < t4_thr
+sig_t4 = t4_ignite and is_red_up and close > ohlc4_basis
+
+// T5 POC階梯（FP核心，na→無訊號）
+sig_t5 = t5_cnt >= t5_k and is_red_up
+
+// R1 RSI超賣+Delta改善（delta na→放行）
+r1_delta_ok = r1_imp <= 0 or (not fp_data_ok ? true : (not na(dr_prior_avg) and fp_delta_ratio - dr_prior_avg >= r1_imp))
+sig_r1 = rsi14 < r1_th and is_red_up and r1_delta_ok
+
+// R2 恐慌爆量長下影
+sig_r2 = lower_wick_ratio >= r2_ws and volume >= vol_sma * r2_m
+
+// R3 VWAP深度回歸
+sig_r3 = (wvwap - close) / atr14 >= r3_d and is_red_up
+
+// R4 TrappedSellers（FP核心，na→無訊號）
+sig_r4 = fp_data_ok and fp_sell_imb_low50 and not na(dr_prior_avg) and fp_delta_ratio - dr_prior_avg >= r4_imp and close > (high + low) / 2
+
+// R5 DXY弱勢逢低接
+r5_hh = ta.highest(high, 48)[1]
+sig_r5 = dxy_rsi_d < r5_dxyrsi and close <= r5_hh * (1 - r5_pb / 100) and is_red_up and close > close[1]
+
+// 選擇
+bool raw_sig = false
+if strat == "T1 順勢｜週VWAP回踩續漲 ⚠️"
+    raw_sig := sig_t1
+else if strat == "T2 順勢｜突破+Delta確認 ✅"
+    raw_sig := sig_t2
+else if strat == "T3 順勢｜HTF動能疊加 ✅"
+    raw_sig := sig_t3
+else if strat == "T4 順勢｜BBW擴張突破 ✅"
+    raw_sig := sig_t4
+else if strat == "T5 順勢｜POC階梯上移FP ⚠️"
+    raw_sig := sig_t5
+else if strat == "R1 逆勢｜RSI超賣+Delta改善 ⚠️"
+    raw_sig := sig_r1
+else if strat == "R2 逆勢｜恐慌爆量長下影 ✅"
+    raw_sig := sig_r2
+else if strat == "R3 逆勢｜VWAP深度回歸 ⚠️"
+    raw_sig := sig_r3
+else if strat == "R4 逆勢｜TrappedSellers FP ⚠️"
+    raw_sig := sig_r4
+else if strat == "R5 逆勢｜DXY弱勢逢低接 ✅"
+    raw_sig := sig_r5
+
+//------------------------------------------------------------------------------
+// 5. 進出場（Profit Flyer，同 S1/S2 結構）
+//------------------------------------------------------------------------------
+MaxUseBars = 100
+LongEntry = bar_index > MaxUseBars and MP == 0 and raw_sig
+
+if LongEntry
+    strategy.entry("LAB_LE", strategy.long, comment="LAB_LE")
+
+EntryPrice = strategy.opentrades.entry_price(strategy.opentrades - 1)
+BarsSinceEntry = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+
+SLPrice = EntryPrice * (1 - sl_pct / 100)
+PTPrice1 = EntryPrice * (1 + sl_pct / 100 * tp1_r)
+PTPrice2 = EntryPrice * (1 + sl_pct / 100 * tp2_r)
+
+var float exit_stop_price = na
+
+if MP > 0
+    if close >= PTPrice2
+        exit_stop_price := math.max(PTPrice2, ta.lowest(low, math.max(out_k / 4, 1)))
+        strategy.exit("LAB_TP2", from_entry="LAB_LE", stop=exit_stop_price, comment="LAB_TP2")
+    else if close >= PTPrice1
+        exit_stop_price := math.max(PTPrice1, ta.lowest(low, math.max(out_k / 2, 1)))
+        strategy.exit("LAB_TP1", from_entry="LAB_LE", stop=exit_stop_price, comment="LAB_TP1")
+    else
+        strategy.exit("LAB_SL", from_entry="LAB_LE", stop=SLPrice, comment_loss="LAB_SL")
+    if BarsSinceEntry >= out_k
+        if strategy.openprofit >= 0
+            exit_stop_price := math.max(SLPrice, ta.lowest(low, out_k))
+            strategy.exit("LAB_TimeWin", from_entry="LAB_LE", stop=exit_stop_price, comment="LAB_TimeWin")
+        else
+            exit_stop_price := low
+            strategy.exit("LAB_TimeLoss", from_entry="LAB_LE", stop=exit_stop_price, comment="LAB_TimeLoss")
+
+alertcondition(LongEntry, title="Lab10 Entry", message="Lab10 Signal, Price={{close}}")
+
+//------------------------------------------------------------------------------
+// 6. 視覺化
+//------------------------------------------------------------------------------
+plot(strat == "T1 順勢｜週VWAP回踩續漲 ⚠️" or strat == "R3 逆勢｜VWAP深度回歸 ⚠️" ? wvwap : na, title="Weekly VWAP", color=color.new(color.orange, 0), linewidth=2)
+plot(strat == "T3 順勢｜HTF動能疊加 ✅" ? t3_ma : na, title="T3 HTF MA", color=color.new(color.purple, 0), linewidth=1)
+
+plotshape(LongEntry, title="Lab Entry", style=shape.triangleup, location=location.belowbar, color=color.new(color.blue, 0), size=size.small, text="LAB")
+plotshape(show_sig_all and raw_sig and not LongEntry and MP != 0, title="Signal (In Position)", style=shape.triangleup, location=location.belowbar, color=color.new(color.gray, 60), size=size.tiny, text="·")
+
+if strategy.opentrades > 0 and strategy.opentrades.entry_bar_index(0) == bar_index
+    yPos = high * 1.002
+    txt = "LE: " + str.tostring(EntryPrice, "#.##") + "\nSL: " + str.tostring(SLPrice, "#.##") + "\nTP1: " + str.tostring(PTPrice1, "#.##") + "\nTP2: " + str.tostring(PTPrice2, "#.##")
+    label.new(bar_index, yPos, text=txt, style=label.style_label_down, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)

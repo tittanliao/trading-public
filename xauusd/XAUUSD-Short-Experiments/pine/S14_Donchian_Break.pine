@@ -1,0 +1,53 @@
+// © Tittan — XAUUSD Short-Side Experiment Series
+// Strategy: S14 Donchian Break
+// Group   : Breakdown
+// Logic   : 20-bar Donchian channel breakdown
+// Risk    : SL 0.5% above entry / TP 1.0% below entry / Max hold 48 bars (24h)
+// Version : 1.0  (proof-of-concept — validate with full TradingView history)
+//@version=6
+strategy(title="S14 Donchian Break",
+         shorttitle="S14_Donchian_Break",
+         overlay=true,
+         format=format.price,
+         precision=2,
+         default_qty_type=strategy.cash,
+         initial_capital=10000,
+         default_qty_value=10000,
+         commission_value=0.0,
+         slippage=1)
+
+// ── Risk parameters ──────────────────────────────────────────────────────────
+SL_PCT  = input.float(0.5, "Stop Loss %",   step=0.1) / 100
+TP_PCT  = input.float(1.0, "Take Profit %", step=0.1) / 100
+MAX_BARS = input.int(48,   "Max Hold Bars")
+
+// ── Position tracking ─────────────────────────────────────────────────────────
+var int entry_bar = na
+MP = strategy.position_size < 0 ? 1 : 0
+
+// Time-based exit
+if MP == 1 and not na(entry_bar) and (bar_index - entry_bar) >= MAX_BARS
+    strategy.close("Short", comment="TIME")
+    entry_bar := na
+
+// Price breaks below 20-bar Donchian low
+dcLow = ta.lowest(low, 20)[1]
+shortSignal = close < dcLow and close < close[1]
+plot(dcLow, color=color.red, linewidth=1, style=plot.style_stepline, title="DC Low")
+
+// ── Entry execution ───────────────────────────────────────────────────────────
+if shortSignal and MP == 0
+    strategy.entry("Short", strategy.short, comment="SE")
+    entry_bar := bar_index
+
+// ── SL / TP ───────────────────────────────────────────────────────────────────
+if MP == 1
+    ep = strategy.position_avg_price
+    strategy.exit("SX", "Short",
+                  stop  = ep * (1 + SL_PCT),
+                  limit = ep * (1 - TP_PCT),
+                  comment="SX")
+
+// ── Chart markers ─────────────────────────────────────────────────────────────
+plotshape(shortSignal, style=shape.triangledown, location=location.abovebar,
+          color=color.red, size=size.small, title="Short Signal")

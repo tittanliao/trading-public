@@ -1,0 +1,395 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-FVG-V2.1
+// V2.1 視覺升級（對標 sample 截圖風格）：
+//   ① 雙向 FVG 同時顯示 — 多頭始終綠色（支撐）/ 空頭始終紅色（壓力）
+//   ② 邊框透明度 < 填充透明度 → 帶狀感（邊框清晰 / 填充淡）
+//   ③ 新增：填充透明度、邊框透明度、邊框寬度、FVG 中線（可選）
+//   ④ 基底色可自訂（統一應用透明度，避免重複設定）
+//   ⑤ 交易邏輯完全不變，Long 只進多單、Short 只進空單
+
+//@version=6
+strategy(title="XAUUSD-FVG-V2.1",
+ shorttitle="FVG-V2.1",
+ overlay=true,
+ format=format.price,
+ precision=2,
+ default_qty_type=strategy.cash,
+ initial_capital=10000,
+ default_qty_value=10000,
+ commission_value=0.00,
+ slippage=1)
+
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+//──────────────────────────────────────────────────────────────────────────────
+// 1. 輸入設定
+//──────────────────────────────────────────────────────────────────────────────
+
+grp_dir = "=== 交易方向 ==="
+direction = input.string("Long", "方向 (Long / Short)",
+    options=["Long","Short"], group=grp_dir)
+is_long = direction == "Long"
+
+grp_fvg = "=== FVG 偵測 ==="
+fvg_min_pct  = input.float(0.20, "最小 FVG 大小 (%)", step=0.01, minval=0.01,
+    tooltip="回測最佳（Long）: 0.20%\n太小偵測雜訊過多，太大信號太少", group=grp_fvg)
+fvg_max_bars = input.int(20, "FVG 最長有效 K 棒數", minval=5, maxval=300,
+    tooltip="超過此根數未觸及自動刪除\n30m × 20 = 10 小時", group=grp_fvg)
+max_fvg      = input.int(5, "每方向最多同時追蹤 FVG 數", minval=1, maxval=20,
+    tooltip="多頭和空頭各自最多 N 個，超出則淘汰最舊", group=grp_fvg)
+fill_mode    = input.string("Wick", "觸及判斷模式",
+    options=["Wick","Close"], group=grp_fvg,
+    tooltip="Wick：影線進入即觸及（靈敏）\nClose：收盤進入才觸及（保守）")
+
+grp_sl = "=== 止損設定 ==="
+sl_type   = input.string("Fixed %", "止損方式",
+    options=["FVG Natural","Fixed %"], group=grp_sl,
+    tooltip="Fixed %：固定百分比，回測較佳\nFVG Natural：SL 放在 FVG 邊界外側")
+sl_pct    = input.float(1.5, "固定止損 % (Fixed 模式)", step=0.1, minval=0.1, group=grp_sl)
+sl_buffer = input.float(0.05, "邊界緩衝 % (Natural 模式)", step=0.01, group=grp_sl)
+
+grp_tp = "=== 獲利設定 ==="
+tp1_r = input.float(0.5, "TP1 R 倍數", step=0.1, minval=0.1,
+    tooltip="回測最佳：0.5R（盡早鎖利，再讓利潤跑）", group=grp_tp)
+tp2_r = input.float(2.0, "TP2 R 倍數", step=0.1, minval=0.5, group=grp_tp)
+tb    = input.int(72, "時間止損 K 棒數", minval=4,
+    tooltip="超過此根數強制出場\n30m × 72 = 36 小時", group=grp_tp)
+
+grp_f = "=== 過濾器（可選）==="
+use_rsi      = input.bool(false, "啟用 RSI 過濾", group=grp_f)
+rsi_len      = input.int(14,  "RSI 週期", group=grp_f)
+rsi_bull_min = input.int(40,  "多單 RSI 最低門檻", group=grp_f)
+rsi_bear_max = input.int(60,  "空單 RSI 最高門檻", group=grp_f)
+use_htf      = input.bool(false, "啟用 4H EMA 過濾", group=grp_f)
+htf_len      = input.int(21,  "4H EMA 長度", group=grp_f)
+
+// ── 視覺設定（V2.1 核心新增）─────────────────────────────────────────────────
+grp_v = "=== 視覺設定 ==="
+
+show_both_fvg = input.bool(true, "同時顯示多空 FVG（支撐/壓力）",
+    tooltip="開：多頭 FVG 始終綠色（支撐），空頭 FVG 始終紅色（壓力），無論交易方向\n關：只顯示交易方向的 FVG", group=grp_v)
+
+// 基底色（透明度由下面兩個滑桿統一控制，這裡只設「顏色」）
+bull_base_clr = input.color(color.teal, "多頭 FVG 基底色（支撐）", group=grp_v)
+bear_base_clr = input.color(color.red,  "空頭 FVG 基底色（壓力）", group=grp_v)
+
+// 填充透明度（建議 80-95，值越大越透明）
+fill_transp   = input.int(88, "填充透明度（0=不透明 / 100=全透明）",
+    minval=50, maxval=98, step=2, group=grp_v,
+    tooltip="參考截圖約 85-90%，讓蠟燭依然清晰可見")
+
+// 邊框透明度（建議比填充透明度小 → 邊框更明顯，形成帶狀感）
+border_transp = input.int(20, "邊框透明度（建議小於填充值）",
+    minval=0, maxval=80, step=5, group=grp_v,
+    tooltip="預設 20 → 邊框清晰；填充 88 → 區間淡色\n這個差距造成「水平帶」的視覺效果")
+
+bdr_width = input.int(1, "邊框寬度（px）", minval=1, maxval=3, group=grp_v)
+
+show_midline   = input.bool(false, "顯示 FVG 中線（虛線）",
+    tooltip="在 FVG 中點畫虛線，輔助判斷是否過半填補\n（中線不自動清理，Pine 自動管理舊線）", group=grp_v)
+midline_transp = input.int(45, "中線透明度", minval=0, maxval=90, group=grp_v)
+
+show_size_lbl = input.bool(true,  "顯示 FVG 大小 (%)", group=grp_v)
+show_labels   = input.bool(true,  "顯示進場標籤", group=grp_v)
+
+grp_fut = "=== 期貨對應 ==="
+show_fut = input.bool(true, "顯示 GC1! 對應", group=grp_fut)
+fut_sym  = input.symbol("COMEX:GC1!", "期貨代碼", group=grp_fut)
+
+//──────────────────────────────────────────────────────────────────────────────
+// 2. 運行時顏色（基底色 × 透明度）
+//──────────────────────────────────────────────────────────────────────────────
+bull_fill = color.new(bull_base_clr, fill_transp)
+bull_bdr  = color.new(bull_base_clr, border_transp)
+bear_fill = color.new(bear_base_clr, fill_transp)
+bear_bdr  = color.new(bear_base_clr, border_transp)
+
+//──────────────────────────────────────────────────────────────────────────────
+// 3. 指標計算
+//──────────────────────────────────────────────────────────────────────────────
+rsi_val = ta.rsi(close, rsi_len)
+htf_ema = request.security(syminfo.tickerid, "240",
+    ta.ema(close, htf_len), lookahead=barmerge.lookahead_off)
+fut_cls = request.security(fut_sym, timeframe.period, close)
+basis   = fut_cls - close
+
+rsi_ok    = not use_rsi or (is_long ? rsi_val > rsi_bull_min : rsi_val < rsi_bear_max)
+htf_ok    = not use_htf or (is_long ? close > htf_ema        : close < htf_ema)
+filter_ok = rsi_ok and htf_ok
+
+//──────────────────────────────────────────────────────────────────────────────
+// 4. 雙向 FVG 陣列
+//    bull_* 追蹤多頭 FVG（支撐）; bear_* 追蹤空頭 FVG（壓力）
+//    中線（midline）不入陣列 — 直接建立，由 Pine 管理舊物件上限
+//──────────────────────────────────────────────────────────────────────────────
+var float[] bull_tops  = array.new<float>()
+var float[] bull_bots  = array.new<float>()
+var int[]   bull_bars  = array.new<int>()
+var box[]   bull_boxes = array.new<box>()
+
+var float[] bear_tops  = array.new<float>()
+var float[] bear_bots  = array.new<float>()
+var int[]   bear_bars  = array.new<int>()
+var box[]   bear_boxes = array.new<box>()
+
+var float locked_bot = na
+var float locked_top = na
+
+//──────────────────────────────────────────────────────────────────────────────
+// 5. FVG 失效清除
+//──────────────────────────────────────────────────────────────────────────────
+
+// ── 多頭 FVG 清除（跌穿底部 or 超時）─────────────────────────────────────────
+if array.size(bull_tops) > 0
+    for i = array.size(bull_tops) - 1 to 0
+        bv = array.get(bull_bots, i)
+        bi = array.get(bull_bars, i)
+        expired = (bar_index - bi) > fvg_max_bars
+        filled  = fill_mode == "Wick" ? low < bv : close < bv
+        if expired or filled
+            box.delete(array.remove(bull_boxes, i))
+            array.remove(bull_tops, i)
+            array.remove(bull_bots, i)
+            array.remove(bull_bars, i)
+
+// ── 空頭 FVG 清除（升穿頂部 or 超時）─────────────────────────────────────────
+if array.size(bear_tops) > 0
+    for i = array.size(bear_tops) - 1 to 0
+        t  = array.get(bear_tops, i)
+        bi = array.get(bear_bars, i)
+        expired = (bar_index - bi) > fvg_max_bars
+        filled  = fill_mode == "Wick" ? high > t : close > t
+        if expired or filled
+            box.delete(array.remove(bear_boxes, i))
+            array.remove(bear_tops, i)
+            array.remove(bear_bots, i)
+            array.remove(bear_bars, i)
+
+//──────────────────────────────────────────────────────────────────────────────
+// 6. 偵測新 FVG（雙向）並建立視覺 Box
+//──────────────────────────────────────────────────────────────────────────────
+
+// ── 多頭 FVG：low[0] > high[2] ────────────────────────────────────────────
+bull_raw = low > high[2]
+if bull_raw
+    new_top = low
+    new_bot = high[2]
+    sz_pct  = (new_top - new_bot) / close * 100
+    do_show = is_long or show_both_fvg
+    if sz_pct >= fvg_min_pct and do_show
+        new_bx = box.new(bar_index - 2, new_top, bar_index, new_bot,
+            bgcolor      = bull_fill,
+            border_color = bull_bdr,
+            border_width = bdr_width,
+            extend       = extend.right)
+
+        // 中線（不入陣列，Pine 自動回收舊 line 物件）
+        if show_midline
+            mid_p = (new_top + new_bot) / 2
+            line.new(bar_index - 2, mid_p, bar_index, mid_p,
+                color  = color.new(bull_base_clr, midline_transp),
+                style  = line.style_dashed,
+                width  = 1,
+                extend = extend.right)
+
+        // 大小標籤
+        if show_size_lbl
+            label.new(bar_index - 1, new_bot,
+                "▲ " + str.tostring(sz_pct, "#.##") + "%",
+                style     = label.style_label_up,
+                color     = color.new(bull_base_clr, 60),
+                textcolor = color.white,
+                size      = size.tiny)
+
+        array.push(bull_tops,  new_top)
+        array.push(bull_bots,  new_bot)
+        array.push(bull_bars,  bar_index)
+        array.push(bull_boxes, new_bx)
+
+        if array.size(bull_tops) > max_fvg
+            box.delete(array.remove(bull_boxes, 0))
+            array.remove(bull_tops, 0)
+            array.remove(bull_bots, 0)
+            array.remove(bull_bars, 0)
+
+// ── 空頭 FVG：high[0] < low[2] ────────────────────────────────────────────
+bear_raw = high < low[2]
+if bear_raw
+    new_top = low[2]
+    new_bot = high
+    sz_pct  = (new_top - new_bot) / close * 100
+    do_show = not is_long or show_both_fvg
+    if sz_pct >= fvg_min_pct and do_show
+        new_bx = box.new(bar_index - 2, new_top, bar_index, new_bot,
+            bgcolor      = bear_fill,
+            border_color = bear_bdr,
+            border_width = bdr_width,
+            extend       = extend.right)
+
+        if show_midline
+            mid_p = (new_top + new_bot) / 2
+            line.new(bar_index - 2, mid_p, bar_index, mid_p,
+                color  = color.new(bear_base_clr, midline_transp),
+                style  = line.style_dashed,
+                width  = 1,
+                extend = extend.right)
+
+        if show_size_lbl
+            label.new(bar_index - 1, new_top,
+                "▼ " + str.tostring(sz_pct, "#.##") + "%",
+                style     = label.style_label_down,
+                color     = color.new(bear_base_clr, 60),
+                textcolor = color.white,
+                size      = size.tiny)
+
+        array.push(bear_tops,  new_top)
+        array.push(bear_bots,  new_bot)
+        array.push(bear_bars,  bar_index)
+        array.push(bear_boxes, new_bx)
+
+        if array.size(bear_tops) > max_fvg
+            box.delete(array.remove(bear_boxes, 0))
+            array.remove(bear_tops, 0)
+            array.remove(bear_bots, 0)
+            array.remove(bear_bars, 0)
+
+//──────────────────────────────────────────────────────────────────────────────
+// 7. 進場訊號（只掃交易方向的陣列）
+//──────────────────────────────────────────────────────────────────────────────
+LongEntry  = false
+ShortEntry = false
+
+if MP == 0 and filter_ok
+    // ── 多單進場：掃 bull_* ───────────────────────────────────────────────
+    if is_long and array.size(bull_tops) > 0
+        for i = array.size(bull_tops) - 1 to 0
+            t  = array.get(bull_tops, i)
+            bv = array.get(bull_bots, i)
+            bi = array.get(bull_bars, i)
+            if bar_index > bi
+                hit = low <= t and close >= bv
+                if hit
+                    locked_bot := bv
+                    locked_top := t
+                    box.delete(array.remove(bull_boxes, i))
+                    array.remove(bull_tops, i)
+                    array.remove(bull_bots, i)
+                    array.remove(bull_bars, i)
+                    LongEntry := true
+                    break
+
+    // ── 空單進場：掃 bear_* ───────────────────────────────────────────────
+    if not is_long and array.size(bear_tops) > 0
+        for i = array.size(bear_tops) - 1 to 0
+            t  = array.get(bear_tops, i)
+            bv = array.get(bear_bots, i)
+            bi = array.get(bear_bars, i)
+            if bar_index > bi
+                hit = high >= bv and close <= t
+                if hit
+                    locked_bot := bv
+                    locked_top := t
+                    box.delete(array.remove(bear_boxes, i))
+                    array.remove(bear_tops, i)
+                    array.remove(bear_bots, i)
+                    array.remove(bear_bars, i)
+                    ShortEntry := true
+                    break
+
+if LongEntry
+    strategy.entry("FVG_LE", strategy.long,  comment="FVG_LE")
+if ShortEntry
+    strategy.entry("FVG_SE", strategy.short, comment="FVG_SE")
+
+//──────────────────────────────────────────────────────────────────────────────
+// 8. 出場邏輯（Profit Flyer — 與 V2.0 相同）
+//──────────────────────────────────────────────────────────────────────────────
+ep      = strategy.opentrades.entry_price(strategy.opentrades - 1)
+bars_in = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+
+var float sl_price = na
+if sl_type == "FVG Natural"
+    if is_long
+        sl_price := not na(locked_bot) ? locked_bot * (1 - sl_buffer / 100) : ep * (1 - sl_pct / 100)
+    else
+        sl_price := not na(locked_top) ? locked_top * (1 + sl_buffer / 100) : ep * (1 + sl_pct / 100)
+else
+    sl_price := is_long ? ep * (1 - sl_pct / 100) : ep * (1 + sl_pct / 100)
+
+r_dist = math.abs(ep - sl_price)
+tp1    = is_long ? ep + r_dist * tp1_r : ep - r_dist * tp1_r
+tp2    = is_long ? ep + r_dist * tp2_r : ep - r_dist * tp2_r
+tb4    = int(tb / 4)
+tb2    = int(tb / 2)
+
+var float exit_stop = na
+
+// ── 多頭出場 ──────────────────────────────────────────────────────────────
+if MP > 0
+    if close >= tp2
+        exit_stop := math.max(tp2, ta.lowest(low, tb4))
+        strategy.exit("FVG_LX_TP2", from_entry="FVG_LE", stop=exit_stop, comment="FVG_LX_TP2")
+    else if close >= tp1
+        exit_stop := math.max(tp1, ta.lowest(low, tb2))
+        strategy.exit("FVG_LX_TP1", from_entry="FVG_LE", stop=exit_stop, comment="FVG_LX_TP1")
+    else
+        strategy.exit("FVG_LX_SL",  from_entry="FVG_LE", stop=sl_price, comment_loss="FVG_SL")
+    if bars_in >= tb
+        if strategy.openprofit >= 0
+            strategy.exit("FVG_LX_TW", from_entry="FVG_LE",
+                stop=math.max(sl_price, ta.lowest(low, tb)), comment="FVG_LX_TW")
+        else
+            strategy.exit("FVG_LX_TL", from_entry="FVG_LE", stop=low, comment="FVG_LX_TL")
+
+// ── 空頭出場 ──────────────────────────────────────────────────────────────
+if MP < 0
+    if close <= tp2
+        exit_stop := math.min(tp2, ta.highest(high, tb4))
+        strategy.exit("FVG_SX_TP2", from_entry="FVG_SE", stop=exit_stop, comment="FVG_SX_TP2")
+    else if close <= tp1
+        exit_stop := math.min(tp1, ta.highest(high, tb2))
+        strategy.exit("FVG_SX_TP1", from_entry="FVG_SE", stop=exit_stop, comment="FVG_SX_TP1")
+    else
+        strategy.exit("FVG_SX_SL",  from_entry="FVG_SE", stop=sl_price, comment_loss="FVG_SL")
+    if bars_in >= tb
+        if strategy.openprofit >= 0
+            strategy.exit("FVG_SX_TW", from_entry="FVG_SE",
+                stop=math.min(sl_price, ta.highest(high, tb)), comment="FVG_SX_TW")
+        else
+            strategy.exit("FVG_SX_TL", from_entry="FVG_SE", stop=high, comment="FVG_SX_TL")
+
+//──────────────────────────────────────────────────────────────────────────────
+// 9. 進場標籤
+//──────────────────────────────────────────────────────────────────────────────
+if (LongEntry or ShortEntry) and show_labels
+    sl_lbl = float(na)
+    if sl_type == "FVG Natural"
+        sl_lbl := LongEntry ? locked_bot * (1 - sl_buffer / 100) : locked_top * (1 + sl_buffer / 100)
+    else
+        sl_lbl := LongEntry ? close * (1 - sl_pct / 100) : close * (1 + sl_pct / 100)
+    r_lbl   = math.abs(close - sl_lbl)
+    tp1_lbl = LongEntry ? close + r_lbl * tp1_r : close - r_lbl * tp1_r
+    tp2_lbl = LongEntry ? close + r_lbl * tp2_r : close - r_lbl * tp2_r
+
+    fvg_zone = "FVG Zone: [" + str.tostring(locked_bot, "#.##") + " – " + str.tostring(locked_top, "#.##") + "]"
+    dir_lbl  = LongEntry ? "▲ FVG_LE" : "▼ FVG_SE"
+    txt = dir_lbl + "\nEntry: " + str.tostring(close, "#.##") + "\nSL:    " + str.tostring(sl_lbl, "#.##") + "\nTP1:   " + str.tostring(tp1_lbl, "#.##") + "\nTP2:   " + str.tostring(tp2_lbl, "#.##") + "\n" + fvg_zone
+
+    if show_fut
+        txt := txt + "\n[GC1!] Entry: " + str.tostring(close + basis, "#.##") + "\n       SL:    " + str.tostring(sl_lbl + basis, "#.##")
+
+    lbl_clr = LongEntry ? bull_base_clr : bear_base_clr
+    lbl_y   = LongEntry ? low * 0.9995  : high * 1.0005
+    label.new(bar_index, lbl_y, txt,
+        style     = LongEntry ? label.style_label_up : label.style_label_down,
+        color     = lbl_clr,
+        textcolor = color.white,
+        size      = size.small)
+
+//──────────────────────────────────────────────────────────────────────────────
+// 10. Alerts
+//──────────────────────────────────────────────────────────────────────────────
+alertcondition(LongEntry,  title="FVG Long Entry",  message="FVG_LE Buy,  Price={{close}}")
+alertcondition(ShortEntry, title="FVG Short Entry", message="FVG_SE Sell, Price={{close}}")

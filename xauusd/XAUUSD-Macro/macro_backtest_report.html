@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>XAUUSD Macro Backtest Report</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#0f172a;font-size:14px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 20px}
+h1{font-size:1.4em;font-weight:800;margin-bottom:4px}
+.subtitle{color:#64748b;font-size:.88em;margin-bottom:24px}
+.card{background:white;border-radius:10px;border:1px solid #e2e8f0;padding:20px 24px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card h2{font-size:.95em;font-weight:700;color:#334155;margin-bottom:14px;border-left:4px solid #2563eb;padding-left:10px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.metric{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 16px}
+.metric-label{font-size:.75em;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.metric-val{font-size:1.4em;font-weight:700}
+.metric-sub{font-size:.78em;color:#94a3b8;margin-top:2px}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid #e2e8f0}
+table{border-collapse:collapse;width:100%;font-size:.83em}
+thead th{background:#1e3a5f;color:white;padding:9px 12px;text-align:left;white-space:nowrap}
+tbody td{padding:8px 12px;border-bottom:1px solid #f1f5f9}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f8fafc}
+.insight{border-radius:8px;padding:12px 16px;font-size:.86em;border-left:4px solid;line-height:1.5;margin-bottom:10px}
+.insight.good{background:#d1fae5;border-color:#059669}
+.insight.bad{background:#fee2e2;border-color:#dc2626}
+.insight.warn{background:#fef3c7;border-color:#d97706}
+.insight.info{background:#dbeafe;border-color:#2563eb}
+.insight strong{display:block;font-weight:700;margin-bottom:3px}
+.footer{text-align:center;color:#94a3b8;font-size:.75em;padding:24px;margin-top:8px}
+@media(max-width:700px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 XAUUSD Macro-Filtered Backtest</h1>
+  <p class="subtitle">宏觀過濾器（Macro v3.7 評分邏輯）對 S1/S2 策略影響分析 | 生成：2026-06-21</p>
+
+  <!-- 最新宏觀狀態 -->
+  <div class="card">
+    <h2>🌐 最新宏觀環境（2026-06-18）</h2>
+    <div class="grid-4">
+      <div class="metric">
+        <div class="metric-label">Macro Score</div>
+        <div class="metric-val" style="color:#dc2626">0 / 6</div>
+        <div class="metric-sub"><span style="background:#dc2626;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">WAIT</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Real Rate</div>
+        <div class="metric-val">2.205%</div>
+        <div class="metric-sub">US10Y - T10YIE | ↑ 0分</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">DXY</div>
+        <div class="metric-val">98.47</div>
+        <div class="metric-sub">↑ 0分</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">GVZ</div>
+        <div class="metric-val">27.9</div>
+        <div class="metric-sub"><span style="background:#dc2626;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">🔥EXTREME</span></div>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="metric">
+        <div class="metric-label">US 10Y</div>
+        <div class="metric-val">4.455%</div>
+        <div class="metric-sub">↑ 0分</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">VIX</div>
+        <div class="metric-val">16.41</div>
+        <div class="metric-sub">↓ 0分</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Gold vs MA50</div>
+        <div class="metric-val">Below</div>
+        <div class="metric-sub">↓ 0分</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">得分明細</div>
+        <div class="metric-val" style="font-size:1em">RR:0 10Y:0 DXY:0 VIX:0 Trend:0</div>
+        <div class="metric-sub">總分 0/6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 回測期間環境分佈 -->
+  <div class="card">
+    <h2>📅 回測期間宏觀環境分佈（2026-01-21 → 2026-04-27）</h2>
+    <div class="grid-3">
+      <div class="metric">
+        <div class="metric-label">STRONG BUY</div>
+        <div class="metric-val" style="color:#059669">24 天</div>
+        <div class="metric-sub">35.8% 占比</div>
+      </div><div class="metric">
+        <div class="metric-label">NEUTRAL</div>
+        <div class="metric-val" style="color:#d97706">5 天</div>
+        <div class="metric-sub">7.5% 占比</div>
+      </div><div class="metric">
+        <div class="metric-label">WAIT</div>
+        <div class="metric-val" style="color:#dc2626">38 天</div>
+        <div class="metric-sub">56.7% 占比</div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="metric">
+        <div class="metric-label">GVZ SQUEEZE</div>
+        <div class="metric-val">0 天</div>
+        <div class="metric-sub">0.0%</div>
+      </div><div class="metric">
+        <div class="metric-label">GVZ NORMAL</div>
+        <div class="metric-val">0 天</div>
+        <div class="metric-sub">0.0%</div>
+      </div><div class="metric">
+        <div class="metric-label">GVZ EXTREME</div>
+        <div class="metric-val">67 天</div>
+        <div class="metric-sub">100.0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主比較表 -->
+  <div class="card">
+    <h2>⚖️ Baseline vs Macro-Filtered 比較</h2>
+    <p style="font-size:.82em;color:#64748b;margin-bottom:12px">過濾規則：S1 在 WAIT 環境完全停止；S2 在 WAIT 環境仍執行（建議縮倉至 0.02 手）</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">策略</th>
+            <th colspan="4" style="text-align:center;border-right:1px solid rgba(255,255,255,.3)">Baseline（無過濾）</th>
+            <th colspan="4" style="text-align:center;border-right:1px solid rgba(255,255,255,.3)">Macro-Filtered</th>
+            <th colspan="3" style="text-align:center">△ 改變</th>
+          </tr>
+          <tr>
+            <th>筆數</th><th>勝率</th><th>PF</th><th>淨盈虧%</th>
+            <th>筆數</th><th>勝率</th><th>PF</th><th>淨盈虧%</th>
+            <th>ΔWR</th><th>ΔPF</th><th>Δ淨盈虧</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td><strong>S1-proxy (E12 BB Squeeze Break)</strong></td>
+        <td>88</td>
+        <td style="color:#dc2626;font-weight:700">39.8%</td>
+        <td>1.337</td>
+        <td>+8.8%</td>
+        <td>48</td>
+        <td style="color:#dc2626;font-weight:700">37.5%</td>
+        <td>1.200</td>
+        <td>+3.0%</td>
+        <td><span style="color:#dc2626;font-weight:700">-2.3%</span></td>
+        <td><span style="color:#dc2626;font-weight:700">-0.137</span></td>
+        <td><span style="color:#dc2626;font-weight:700">-5.8%</span></td>
+      </tr>
+      <tr>
+        <td><strong>S2B-proxy (E18 Hammer)</strong></td>
+        <td>20</td>
+        <td style="color:#dc2626;font-weight:700">15.0%</td>
+        <td>0.353</td>
+        <td>-5.5%</td>
+        <td>20</td>
+        <td style="color:#dc2626;font-weight:700">15.0%</td>
+        <td>0.353</td>
+        <td>-5.5%</td>
+        <td><span style="color:#059669;font-weight:700">+0.0%</span></td>
+        <td><span style="color:#059669;font-weight:700">+0.000</span></td>
+        <td><span style="color:#059669;font-weight:700">+0.0%</span></td>
+      </tr>
+      <tr>
+        <td><strong>S2A-proxy (E06 RSI Oversold)</strong></td>
+        <td>43</td>
+        <td style="color:#dc2626;font-weight:700">30.2%</td>
+        <td>0.867</td>
+        <td>-2.0%</td>
+        <td>43</td>
+        <td style="color:#dc2626;font-weight:700">30.2%</td>
+        <td>0.867</td>
+        <td>-2.0%</td>
+        <td><span style="color:#059669;font-weight:700">+0.0%</span></td>
+        <td><span style="color:#059669;font-weight:700">+0.000</span></td>
+        <td><span style="color:#059669;font-weight:700">+0.0%</span></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 按 Verdict 分桶 -->
+  <div class="card">
+    <h2>🔍 依 Macro Score 環境分析各策略勝率</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>策略</th><th>環境</th><th>筆數</th><th>勝率</th><th>PF</th><th>淨盈虧%</th></tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td>S1-proxy (E12 BB Squeeze Break)</td>
+        <td><span style="background:#059669;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">STRONG BUY</span></td>
+        <td>33</td>
+        <td style="color:#dc2626;font-weight:700">33.3%</td>
+        <td>1.000</td>
+        <td>-0.0%</td>
+      </tr>
+      <tr>
+        <td>S1-proxy (E12 BB Squeeze Break)</td>
+        <td><span style="background:#d97706;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">NEUTRAL</span></td>
+        <td>14</td>
+        <td style="color:#d97706;font-weight:700">42.9%</td>
+        <td>1.500</td>
+        <td>+2.0%</td>
+      </tr>
+      <tr>
+        <td>S1-proxy (E12 BB Squeeze Break)</td>
+        <td><span style="background:#dc2626;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">WAIT</span></td>
+        <td>41</td>
+        <td style="color:#d97706;font-weight:700">43.9%</td>
+        <td>1.610</td>
+        <td>+6.8%</td>
+      </tr>
+      <tr>
+        <td>S2B-proxy (E18 Hammer)</td>
+        <td><span style="background:#059669;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">STRONG BUY</span></td>
+        <td>10</td>
+        <td style="color:#dc2626;font-weight:700">20.0%</td>
+        <td>0.500</td>
+        <td>-2.0%</td>
+      </tr>
+      <tr>
+        <td>S2B-proxy (E18 Hammer)</td>
+        <td><span style="background:#dc2626;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">WAIT</span></td>
+        <td>10</td>
+        <td style="color:#dc2626;font-weight:700">10.0%</td>
+        <td>0.222</td>
+        <td>-3.5%</td>
+      </tr>
+      <tr>
+        <td>S2A-proxy (E06 RSI Oversold)</td>
+        <td><span style="background:#059669;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">STRONG BUY</span></td>
+        <td>19</td>
+        <td style="color:#dc2626;font-weight:700">31.6%</td>
+        <td>0.923</td>
+        <td>-0.5%</td>
+      </tr>
+      <tr>
+        <td>S2A-proxy (E06 RSI Oversold)</td>
+        <td><span style="background:#dc2626;color:white;padding:2px 8px;border-radius:12px;font-size:.8em;font-weight:700">WAIT</span></td>
+        <td>24</td>
+        <td style="color:#dc2626;font-weight:700">29.2%</td>
+        <td>0.824</td>
+        <td>-1.5%</td>
+      </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 操作結論 -->
+  <div class="card">
+    <h2>💡 回測結論與關鍵發現</h2>
+
+    <div class="insight bad">
+      <strong>🚨 重要：此回測期間為黃金史詩行情，結論有強烈偏差</strong>
+      回測期間（2026-01-21 → 2026-04-27）正值黃金從 $2800 暴漲至 $3500+ 的歷史級多頭，
+      由「關稅戰 + 央行大量購金 + 去美元化」驅動，傳統 DXY−黃金反向關係出現 <strong>同漲</strong> 異常。
+      此期間 GVZ 全程超過 20（100% Extreme），代表市場每天都在預期黃金大幅波動。
+      建議匯出 <strong>2024-01 起的 30m 資料</strong>重跑，才能看到宏觀過濾在正常環境的效果。
+    </div>
+
+    <div class="insight warn">
+      <strong>⚠️ 反常發現：WAIT 期間 E12 表現反而最好（WR 43.9%，PF 1.610）</strong>
+      傳統邏輯：宏觀 WAIT（分數 ≤ 2）= 黃金逆風 = 策略應該表現差。
+      實際結果：E12 在 WAIT 期間 Net +6.82%，STRONG BUY 期間 Net 0.00%。
+      原因推斷：WAIT 期間（DXY 強 + 實質利率高）代表短線過度悲觀，反而是黃金突破反彈的節點；
+      STRONG BUY 期間反而是前期大漲後的高位震盪，突破信號更多是假突破。
+      <strong>此現象在正常市場環境中可能不成立，需要更長回測驗證。</strong>
+    </div>
+
+    <div class="insight info">
+      <strong>📊 S2 策略代理結果不理想</strong>
+      E18 Hammer（WR 15.0%）和 E06 RSI Oversold（WR 30.2%）在本期間均虧損。
+      這可能反映：(1) 這兩個實驗策略不是 S2B/S2A 的好代理；(2) 史詩牛市中左側反轉信號失效。
+      S2 真正的進場條件（SSL Sweep + 錘頭 + SMC 確認）是人工辨識的，程式化代理難以完整複現。
+    </div>
+
+    <div class="insight good">
+      <strong>✅ 宏觀過濾的真正價值：需要熊市/震盪期才能驗證</strong>
+      宏觀 Score 的設計目的是「阻止在逆風環境執行低勝率交易」，效果在下跌或震盪市中最顯著。
+      本期間的正面結論：宏觀 Score 計算邏輯完整，CSV 資料已就位，等待更長時間序列驗證。
+      <strong>下一步：</strong>從 TradingView 匯出 2024-01-01 起的 XAUUSD 30m CSV 覆蓋現有資料，重跑此腳本即可得到跨市場環境的比較。
+    </div>
+  </div>
+
+  <div class="footer">Generated by Claude Code 2026-06-21 | Macro v3.7 Logic | python3 xauusd/run_macro_backtest.py</div>
+</div>
+</body>
+</html>

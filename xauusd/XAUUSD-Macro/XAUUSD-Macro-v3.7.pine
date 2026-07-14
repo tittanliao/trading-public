@@ -1,0 +1,448 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © XAUUSD_Team_Engineer
+// @version=6
+//
+// XAUUSD-Macro v3.7 — 變更說明
+// v3.6 → v3.7:
+//   [1] Divergence 改為獨立群組，預設開啟，可視開關（原本藏在 display.none）
+//   [2] Bull/Bear plot 加入 editable = calculateDivergence（跟隨開關控制）
+//   [3] 新增 AI Summary Table（左下角），明確顯示每個因子對黃金的影響與得分
+//       → 設計目標：截圖後 AI 可直接解讀，不需靠顏色判斷
+
+indicator("XAUUSD-Macro v3.7 (Distance to MA)", shorttitle="Macro v3.7", format=format.price, precision=2, overlay=false)
+
+// ==========================================
+// 1. 全局參數
+// ==========================================
+
+// --- RSI Settings ---
+rsiLengthInput = input.int(14, minval=1, title="RSI Length", group="RSI Settings")
+rsiSourceInput = input.source(close, "Source", group="RSI Settings")
+
+// --- RSI Smoothing Settings ---
+GRP_SM = "RSI Smoothing"
+maTypeInput    = input.string("SMA", "Type", options=["None","SMA","SMA + Bollinger Bands","EMA","SMMA (RMA)","WMA","VWMA"], group=GRP_SM, display=display.none)
+var isBB       = maTypeInput == "SMA + Bollinger Bands"
+maLengthInput  = input.int(14, "Length", group=GRP_SM, display=display.none, active=maTypeInput!="None")
+bbMultInput    = input.float(2.0, "BB StdDev", minval=0.001, maxval=50, step=0.5, group=GRP_SM, display=display.none, active=isBB)
+var enableMA   = maTypeInput != "None"
+
+// --- [v3.7] Divergence 獨立群組，預設開啟 ---
+GRP_DIV = "Divergence"
+calculateDivergence = input.bool(true, "Show Bull/Bear Divergence", group=GRP_DIV)
+
+// --- Macro Dashboard Settings ---
+group_sym  = "Macro Tickers"
+t_us10y    = input.symbol("TVC:US10Y",    "US 10Y",    group=group_sym)
+t_break    = input.symbol("FRED:T10YIE",  "Breakeven", group=group_sym)
+t_dxy      = input.symbol("TVC:DXY",      "DXY",       group=group_sym)
+t_vix      = input.symbol("TVC:VIX",      "VIX",       group=group_sym)
+t_gvz      = input.symbol("CBOE:GVZ",     "GVZ",       group=group_sym)
+
+group_calc  = "Macro Settings"
+res_macro   = input.timeframe("D",  "Macro Timeframe",     group=group_calc)
+ma_len      = input.int(50,         "Macro Trend MA (Score)", minval=1, group=group_calc)
+bb_len_tf   = input.int(20,         "Local Trend BB (Table)", minval=1, group=group_calc)
+gvz_sqz_th  = input.float(13.0, "GVZ Squeeze (<)",  group=group_calc)
+gvz_ext_th  = input.float(20.0, "GVZ Extreme (>)",  group=group_calc)
+show_tab    = input.bool(true,  "Show Dashboard",    group=group_calc)
+compact_mode = input.bool(true, "Compact Mode",      group=group_calc)
+text_size_select = input.string("Normal", "Text Size", options=["Small","Normal","Large"], group=group_calc)
+
+// --- [v3.7] AI Summary 設定 ---
+GRP_AI = "AI Summary"
+show_ai     = input.bool(true, "Show AI Summary Table", group=GRP_AI,
+              tooltip="左下角純文字摘要，設計供截圖後 AI 解讀。每個因子明確標示數值、方向與對黃金的得分貢獻。")
+
+// --- 全域樣式 ---
+t_size         = text_size_select == "Small" ? size.small : text_size_select == "Normal" ? size.normal : size.large
+c_gold_color   = #FFD700
+c_bull_fill    = #00796b
+c_bear_fill    = #c62828
+c_warn_fill    = #e65100
+c_neutral_fill = #455a64
+c_text_on_fill = color.white
+c_bg_base      = color.new(color.black, 0)
+
+// ==========================================
+// 2. 輔助函數
+// ==========================================
+
+is_bull(val, ma) => val > ma
+
+fill_row(tbl, r, name, val, is_bull_m, is_bull_l, impact_bull, is_static) =>
+    bg_m = is_bull_m ? c_bull_fill : c_bear_fill
+    t_m  = is_bull_m ? (compact_mode ? "↗" : "Bull") : (compact_mode ? "↘" : "Bear")
+    bg_l = is_bull_l ? c_bull_fill : c_bear_fill
+    t_l  = is_bull_l ? (compact_mode ? "↗" : "Bull") : (compact_mode ? "↘" : "Bear")
+    if is_static
+        bg_l := c_neutral_fill
+        t_l  := "="
+    else if is_bull_m != is_bull_l
+        bg_l := c_warn_fill
+    is_good = (is_bull_m == impact_bull)
+    bg_imp = is_good ? c_bull_fill : c_bear_fill
+    t_imp  = is_good ? (compact_mode ? "▲" : "Sup") : (compact_mode ? "▼" : "Prs")
+    val_str = na(val) ? "..." : str.tostring(val, format.mintick)
+    table.cell(tbl, 0, r, name,    bgcolor=c_bg_base,  text_color=color.silver,      text_size=t_size)
+    table.cell(tbl, 1, r, t_m,     bgcolor=bg_m,       text_color=c_text_on_fill,    text_size=t_size)
+    table.cell(tbl, 2, r, t_l,     bgcolor=bg_l,       text_color=c_text_on_fill,    text_size=t_size)
+    table.cell(tbl, 3, r, val_str, bgcolor=c_bg_base,  text_color=color.white,       text_size=t_size)
+    table.cell(tbl, 4, r, t_imp,   bgcolor=bg_imp,     text_color=c_text_on_fill,    text_size=t_size)
+
+fill_gold_row(tbl, r, tf_name, val, diff_val, is_bull_tf, macro_bull) =>
+    bg_trend  = is_bull_tf ? c_bull_fill : c_bear_fill
+    sign_str  = diff_val > 0 ? "+" : ""
+    t_trend   = sign_str + str.tostring(diff_val, format.mintick)
+    val_str   = str.tostring(val, format.mintick)
+    is_aligned = (is_bull_tf == macro_bull)
+    bg_align  = c_warn_fill
+    t_align   = compact_mode ? "⚠️" : "Div"
+    if is_aligned
+        bg_align := bg_trend
+        t_align  := compact_mode ? "✅" : "Align"
+    table.cell(tbl, 0, r, tf_name,  bgcolor=c_bg_base, text_color=color.white,    text_size=t_size)
+    table.cell(tbl, 1, r, "D",      bgcolor=c_bg_base, text_color=color.gray,     text_size=t_size)
+    table.cell(tbl, 2, r, t_trend,  bgcolor=bg_trend,  text_color=c_text_on_fill, text_size=t_size)
+    table.cell(tbl, 3, r, val_str,  bgcolor=c_bg_base, text_color=color.white,    text_size=t_size)
+    table.cell(tbl, 4, r, t_align,  bgcolor=bg_align,  text_color=c_text_on_fill, text_size=t_size)
+
+// ==========================================
+// 3. RSI 邏輯
+// ==========================================
+
+change = ta.change(rsiSourceInput)
+up     = ta.rma(math.max(change, 0), rsiLengthInput)
+down   = ta.rma(-math.min(change, 0), rsiLengthInput)
+rsi    = down == 0 ? 100 : up == 0 ? 0 : 100 - (100 / (1 + up / down))
+
+rsiPlot      = plot(rsi, "RSI", color=#7E57C2)
+rsiUpperBand = hline(70, "RSI Upper Band", color=#787B86)
+midline      = hline(50, "RSI Middle Band", color=color.new(#787B86, 50))
+rsiLowerBand = hline(30, "RSI Lower Band", color=#787B86)
+fill(rsiUpperBand, rsiLowerBand, color=color.rgb(126, 87, 194, 90), title="RSI Background Fill")
+midLinePlot = plot(50, color=na, editable=false, display=display.none)
+fill(rsiPlot, midLinePlot, 100, 70, top_color=color.new(color.green, 0),   bottom_color=color.new(color.green, 100), title="Overbought Gradient Fill")
+fill(rsiPlot, midLinePlot, 30,  0,  top_color=color.new(color.red, 100),   bottom_color=color.new(color.red, 0),     title="Oversold Gradient Fill")
+
+ma(source, length, MAtype) =>
+    switch MAtype
+        "SMA"                   => ta.sma(source, length)
+        "SMA + Bollinger Bands" => ta.sma(source, length)
+        "EMA"                   => ta.ema(source, length)
+        "SMMA (RMA)"            => ta.rma(source, length)
+        "WMA"                   => ta.wma(source, length)
+        "VWMA"                  => ta.vwma(source, length)
+
+smoothingMA    = enableMA ? ma(rsi, maLengthInput, maTypeInput) : na
+smoothingStDev = isBB ? ta.stdev(rsi, maLengthInput) * bbMultInput : na
+plot(smoothingMA, "RSI-based MA", color=color.yellow, display=enableMA ? display.all : display.none, editable=enableMA)
+bbUpperBand = plot(smoothingMA + smoothingStDev, title="Upper Bollinger Band", color=color.green, display=isBB ? display.all : display.none, editable=isBB)
+bbLowerBand = plot(smoothingMA - smoothingStDev, title="Lower Bollinger Band", color=color.green, display=isBB ? display.all : display.none, editable=isBB)
+fill(bbUpperBand, bbLowerBand, color=isBB ? color.new(color.green, 90) : na, title="Bollinger Bands Background Fill", display=isBB ? display.all : display.none, editable=isBB)
+
+// ==========================================
+// 4. Bull/Bear Divergence（v3.7：開關可見，預設開啟）
+// ==========================================
+
+lookbackRight = 5
+lookbackLeft  = 5
+rangeUpper    = 60
+rangeLower    = 5
+bearColor     = color.red
+bullColor     = color.green
+textColor     = color.white
+noneColor     = color.new(color.white, 100)
+
+_inRange(bool cond) =>
+    bars = ta.barssince(cond)
+    rangeLower <= bars and bars <= rangeUpper
+
+plFound  = false
+phFound  = false
+bullCond = false
+bearCond = false
+rsiLBR   = rsi[lookbackRight]
+
+if calculateDivergence
+    plFound := not na(ta.pivotlow(rsi, lookbackLeft, lookbackRight))
+    rsiHL    = rsiLBR > ta.valuewhen(plFound, rsiLBR, 1) and _inRange(plFound[1])
+    lowLBR   = low[lookbackRight]
+    priceLL  = lowLBR < ta.valuewhen(plFound, lowLBR, 1)
+    bullCond := priceLL and rsiHL and plFound
+
+    phFound  := not na(ta.pivothigh(rsi, lookbackLeft, lookbackRight))
+    rsiLH    = rsiLBR < ta.valuewhen(phFound, rsiLBR, 1) and _inRange(phFound[1])
+    highLBR  = high[lookbackRight]
+    priceHH  = highLBR > ta.valuewhen(phFound, highLBR, 1)
+    bearCond := priceHH and rsiLH and phFound
+
+plot(plFound ? rsiLBR : na, offset=-lookbackRight, title="Regular Bullish",
+     linewidth=2, color=(bullCond ? bullColor : noneColor),
+     display=display.pane, editable=calculateDivergence)
+plotshape(bullCond ? rsiLBR : na, offset=-lookbackRight, title="Regular Bullish Label",
+     text=" Bull ", style=shape.labelup, location=location.absolute,
+     color=bullColor, textcolor=textColor,
+     display=display.pane, editable=calculateDivergence)
+plot(phFound ? rsiLBR : na, offset=-lookbackRight, title="Regular Bearish",
+     linewidth=2, color=(bearCond ? bearColor : noneColor),
+     display=display.pane, editable=calculateDivergence)
+plotshape(bearCond ? rsiLBR : na, offset=-lookbackRight, title="Regular Bearish Label",
+     text=" Bear ", style=shape.labeldown, location=location.absolute,
+     color=bearColor, textcolor=textColor,
+     display=display.pane, editable=calculateDivergence)
+
+alertcondition(bullCond, title="Regular Bullish Divergence",  message="XAUUSD Macro: Regular Bullish Divergence detected")
+alertcondition(bearCond, title="Regular Bearish Divergence",  message="XAUUSD Macro: Regular Bearish Divergence detected")
+
+// ==========================================
+// 5. 數據獲取
+// ==========================================
+
+get_safe_tf() => timeframe.isseconds ? "1" : timeframe.period
+
+get_macro_only(sym, len) =>
+    request.security(sym, res_macro, [close, ta.ema(close, len)], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+
+get_dual(sym, len) =>
+    local_tf = get_safe_tf()
+    [m_v, m_ma] = request.security(sym, res_macro,   [close, ta.ema(close, len)], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+    [l_v, l_ma] = request.security(sym, local_tf,    [close, ta.ema(close, len)], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+    [m_v, m_ma, l_v, l_ma]
+
+[d_us10y_m, ma_us10y_m] = get_macro_only(t_us10y, ma_len)
+[d_break_m, ma_break_m] = get_macro_only(t_break,  ma_len)
+d_us10y_l = d_us10y_m
+ma_us10y_l = ma_us10y_m
+d_break_l  = d_break_m
+ma_break_l = ma_break_m
+
+[d_dxy_m, ma_dxy_m, d_dxy_l, ma_dxy_l] = get_dual(t_dxy, ma_len)
+[d_vix_m, ma_vix_m, d_vix_l, ma_vix_l] = get_dual(t_vix, ma_len)
+[d_gvz,   ma_gvz]   = request.security(t_gvz, res_macro, [close, ta.sma(close, 20)], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+[d_gold_m, ma_gold_m] = get_macro_only(syminfo.tickerid, ma_len)
+
+get_gold_trend(tf, len) =>
+    [c, basis] = request.security(syminfo.tickerid, tf, [close, ta.sma(close, len)], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+    [c, basis]
+
+[g_cur_c, g_cur_ma] = get_gold_trend(get_safe_tf(), bb_len_tf)
+[g_1h_c,  g_1h_ma]  = get_gold_trend("60",  bb_len_tf)
+[g_4h_c,  g_4h_ma]  = get_gold_trend("240", bb_len_tf)
+
+// ==========================================
+// 6. 主儀表板（右上角，同 v3.6）
+// ==========================================
+
+var table dash = table.new(position.top_right, 5, 10, border_width=1,
+     frame_color=color.new(color.white, 80), frame_width=1)
+
+if show_tab and barstate.islast
+    real_rate_m = d_us10y_m - d_break_m
+    real_ma_m   = ma_us10y_m - ma_break_m
+
+    s_real_m = is_bull(real_rate_m, real_ma_m)
+    s_10y_m  = is_bull(d_us10y_m,  ma_us10y_m)
+    s_dxy_m  = is_bull(d_dxy_m,    ma_dxy_m)
+    s_vix_m  = is_bull(d_vix_m,    ma_vix_m)
+    s_gold_m = is_bull(d_gold_m,   ma_gold_m)
+
+    s_real_l = is_bull(real_rate_m, real_ma_m)
+    s_10y_l  = is_bull(d_us10y_l,  ma_us10y_l)
+    s_dxy_l  = is_bull(d_dxy_l,    ma_dxy_l)
+    s_vix_l  = is_bull(d_vix_l,    ma_vix_l)
+
+    g_cur_diff = g_cur_c - g_cur_ma
+    g_1h_diff  = g_1h_c  - g_1h_ma
+    g_4h_diff  = g_4h_c  - g_4h_ma
+
+    g_cur_bull = g_cur_diff > 0
+    g_1h_bull  = g_1h_diff  > 0
+    g_4h_bull  = g_4h_diff  > 0
+
+    bool g_real  = not s_real_m
+    bool g_10y   = not s_10y_m
+    bool g_dxy   = not s_dxy_m
+    bool g_vix   = s_vix_m
+    bool g_trend = s_gold_m
+
+    int score = 0
+    score += (g_10y  ? 1 : 0)
+    score += (g_dxy  ? 1 : 0)
+    score += (g_real ? 2 : 0)
+    score += (g_vix  ? 1 : 0)
+    score += (g_trend? 1 : 0)
+
+    is_vol_expanding = d_gvz > ma_gvz
+    is_vol_extreme   = d_gvz > gvz_ext_th
+    is_vol_squeeze   = d_gvz < gvz_sqz_th
+
+    local_txt = compact_mode ? "Now" : "Local(" + timeframe.period + ")"
+    table.cell(dash, 0, 0, "Asset",     bgcolor=color.gray, text_color=color.white, text_size=t_size)
+    table.cell(dash, 1, 0, "Macro",     bgcolor=color.gray, text_color=color.white, text_size=t_size)
+    table.cell(dash, 2, 0, local_txt,   bgcolor=color.gray, text_color=color.white, text_size=t_size)
+    table.cell(dash, 3, 0, "Val",       bgcolor=color.gray, text_color=color.white, text_size=t_size)
+    table.cell(dash, 4, 0, "Bias",      bgcolor=color.gray, text_color=color.white, text_size=t_size)
+
+    fill_row(dash, 1, "Real Rate",  real_rate_m, s_real_m, s_real_l, false, true)
+    fill_row(dash, 2, "US 10Y",     d_us10y_m,   s_10y_m,  s_10y_l,  false, true)
+    fill_row(dash, 3, "DXY Index",  d_dxy_l,     s_dxy_m,  s_dxy_l,  false, false)
+    fill_row(dash, 4, "VIX Index",  d_vix_l,     s_vix_m,  s_vix_l,  true,  false)
+
+    bg_gvz   = is_vol_extreme ? c_bear_fill : is_vol_squeeze ? #1565c0 : c_neutral_fill
+    t_gvz_st = is_vol_extreme ? (compact_mode ? "🔥" : "EXT") : is_vol_squeeze ? (compact_mode ? "🧊" : "SQZ") : (compact_mode ? "🌊" : "Nor")
+    val_gvz_str = na(d_gvz) ? "..." : str.tostring(d_gvz, format.mintick)
+    table.cell(dash, 0, 5, "GVZ (Vol)", bgcolor=c_bg_base,  text_color=c_gold_color,   text_size=t_size)
+    table.cell(dash, 1, 5, "D",         bgcolor=c_bg_base,  text_color=color.gray,      text_size=t_size)
+    table.cell(dash, 2, 5, "-",         bgcolor=c_bg_base,  text_color=color.gray,      text_size=t_size)
+    table.cell(dash, 3, 5, val_gvz_str, bgcolor=c_bg_base,  text_color=color.white,     text_size=t_size)
+    table.cell(dash, 4, 5, t_gvz_st,   bgcolor=bg_gvz,     text_color=c_text_on_fill,  text_size=t_size)
+
+    now_txt = compact_mode ? "XAU(Now)" : "XAUUSD(" + timeframe.period + ")"
+    fill_gold_row(dash, 6, now_txt,    g_cur_c, g_cur_diff, g_cur_bull, s_gold_m)
+    fill_gold_row(dash, 7, "XAU(1h)",  g_1h_c,  g_1h_diff,  g_1h_bull,  s_gold_m)
+    fill_gold_row(dash, 8, "XAU(4h)",  g_4h_c,  g_4h_diff,  g_4h_bull,  s_gold_m)
+
+    bg_final = score >= 5 ? c_bull_fill : score <= 2 ? c_bear_fill : c_neutral_fill
+    t_final  = score >= 5 ? (compact_mode ? "🚀 STRONG BUY" : "STRONG BUY") :
+               score <= 2 ? (compact_mode ? "🛑 WAIT"       : "WAIT")        :
+                             (compact_mode ? "⚠️ NEUTRAL"   : "NEUTRAL")
+    table.merge_cells(dash, 0, 9, 4, 9)
+    table.cell(dash, 0, 9, t_final, bgcolor=bg_final, text_color=color.white, text_size=t_size)
+
+// ==========================================
+// 7. [v3.7] AI Summary Table（左下角）
+//    設計目標：截圖後 AI 可直接解讀所有宏觀數值
+//    格式：因子 | 數值 方向 | 對金影響
+// ==========================================
+
+var table ai_tbl = table.new(position.bottom_left, 3, 12,
+     border_width=1, frame_color=color.new(color.white, 60), frame_width=1,
+     bgcolor=color.new(color.black, 10))
+
+if show_ai and barstate.islast
+    // 重算（show_tab 可能關閉，這裡獨立計算）
+    rr_val   = d_us10y_m - d_break_m
+    rr_ma    = ma_us10y_m - ma_break_m
+    rr_bull  = rr_val > rr_ma           // Real Rate 上升 = 對金不利
+
+    t10y_bull = d_us10y_m > ma_us10y_m
+    dxy_bull  = d_dxy_m   > ma_dxy_m
+    vix_bull  = d_vix_m   > ma_vix_m
+    gold_bull = d_gold_m  > ma_gold_m
+
+    // 得分（對黃金有利為正）
+    pt_rr    = not rr_bull   ? 2 : 0    // 實質利率下降 +2
+    pt_10y   = not t10y_bull ? 1 : 0    // 10Y 下降 +1
+    pt_dxy   = not dxy_bull  ? 1 : 0    // DXY 下降 +1
+    pt_vix   = vix_bull      ? 1 : 0    // VIX 上升 +1
+    pt_trend = gold_bull     ? 1 : 0    // Gold 在 MA 上 +1
+    total    = pt_rr + pt_10y + pt_dxy + pt_vix + pt_trend
+
+    verdict  = total >= 5 ? "STRONG BUY" : total <= 2 ? "WAIT" : "NEUTRAL"
+    v_color  = total >= 5 ? c_bull_fill  : total <= 2 ? c_bear_fill : c_neutral_fill
+
+    gvz_ext  = d_gvz > gvz_ext_th
+    gvz_sqz  = d_gvz < gvz_sqz_th
+    gvz_tag  = gvz_ext ? "EXTREME🔥" : gvz_sqz ? "SQUEEZE🧊" : "NORMAL🌊"
+
+    // 方向標記（對黃金影響角度）
+    rr_tag   = not rr_bull   ? "↓ BEAR  [+2]" : "↑ BULL  [-2]"
+    t10y_tag = not t10y_bull ? "↓ BEAR  [+1]" : "↑ BULL  [-1]"
+    dxy_tag  = not dxy_bull  ? "↓ BEAR  [+1]" : "↑ BULL  [-1]"
+    vix_tag  = vix_bull      ? "↑ BULL  [+1]" : "↓ BEAR  [-1]"
+    trend_tag = gold_bull    ? "ABOVE MA[+1]" : "BELOW MA[-1]"
+
+    rr_c    = pt_rr   > 0 ? c_bull_fill : c_bear_fill
+    t10y_c  = pt_10y  > 0 ? c_bull_fill : c_bear_fill
+    dxy_c   = pt_dxy  > 0 ? c_bull_fill : c_bear_fill
+    vix_c   = pt_vix  > 0 ? c_bull_fill : c_bear_fill
+    trend_c = pt_trend> 0 ? c_bull_fill : c_bear_fill
+
+    ai_s = size.small  // AI 表用小字，節省空間
+
+    // Row 0：標題
+    table.merge_cells(ai_tbl, 0, 0, 2, 0)
+    table.cell(ai_tbl, 0, 0, "▶ MACRO ANALYSIS (AI READ)",
+         bgcolor=#1a1a2e, text_color=c_gold_color, text_size=ai_s)
+
+    // Row 1：總分 + 結論
+    table.cell(ai_tbl, 0, 1, "SCORE",   bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 1, str.tostring(total) + " / 6",
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 1, "→ " + verdict, bgcolor=v_color, text_color=color.white, text_size=ai_s)
+
+    // Row 2：分隔
+    table.merge_cells(ai_tbl, 0, 2, 2, 2)
+    table.cell(ai_tbl, 0, 2, "─── Macro Factors ───────────",
+         bgcolor=c_bg_base, text_color=color.gray, text_size=ai_s)
+
+    // Row 3：Real Rate（雙倍權重）
+    table.cell(ai_tbl, 0, 3, "Real Rate ×2",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 3, str.tostring(rr_val, "#.###"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 3, rr_tag, bgcolor=rr_c, text_color=color.white, text_size=ai_s)
+
+    // Row 4：US 10Y
+    table.cell(ai_tbl, 0, 4, "US 10Y",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 4, str.tostring(d_us10y_m, "#.###"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 4, t10y_tag, bgcolor=t10y_c, text_color=color.white, text_size=ai_s)
+
+    // Row 5：DXY
+    table.cell(ai_tbl, 0, 5, "DXY",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 5, str.tostring(d_dxy_l, "#.###"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 5, dxy_tag, bgcolor=dxy_c, text_color=color.white, text_size=ai_s)
+
+    // Row 6：VIX
+    table.cell(ai_tbl, 0, 6, "VIX",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 6, str.tostring(d_vix_l, "#.###"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 6, vix_tag, bgcolor=vix_c, text_color=color.white, text_size=ai_s)
+
+    // Row 7：Gold MA Trend
+    table.cell(ai_tbl, 0, 7, "Gold MA50(D)",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 7, str.tostring(d_gold_m, "#.##"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 7, trend_tag, bgcolor=trend_c, text_color=color.white, text_size=ai_s)
+
+    // Row 8：分隔
+    table.merge_cells(ai_tbl, 0, 8, 2, 8)
+    table.cell(ai_tbl, 0, 8, "─── Volatility & Position ───",
+         bgcolor=c_bg_base, text_color=color.gray, text_size=ai_s)
+
+    // Row 9：GVZ
+    gvz_c = gvz_ext ? c_bear_fill : gvz_sqz ? #1565c0 : c_neutral_fill
+    table.cell(ai_tbl, 0, 9, "GVZ (Gold Vol)",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 9, str.tostring(d_gvz, "#.##"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 9, gvz_tag, bgcolor=gvz_c, text_color=color.white, text_size=ai_s)
+
+    // Row 10：XAU 4H 乖離
+    diff_4h     = g_4h_c - g_4h_ma
+    sign_4h     = diff_4h >= 0 ? "+" : ""
+    pos_4h_txt  = diff_4h >= 0 ? "ABOVE MA" : "BELOW MA"
+    pos_4h_c    = diff_4h >= 0 ? c_bull_fill : c_bear_fill
+    table.cell(ai_tbl, 0, 10, "XAU vs MA(4H)",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 10, sign_4h + str.tostring(diff_4h, "#.##"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 10, pos_4h_txt, bgcolor=pos_4h_c, text_color=color.white, text_size=ai_s)
+
+    // Row 11：XAU 1H 乖離
+    diff_1h    = g_1h_c - g_1h_ma
+    sign_1h    = diff_1h >= 0 ? "+" : ""
+    pos_1h_txt = diff_1h >= 0 ? "ABOVE MA" : "BELOW MA"
+    pos_1h_c   = diff_1h >= 0 ? c_bull_fill : c_bear_fill
+    table.cell(ai_tbl, 0, 11, "XAU vs MA(1H)",
+         bgcolor=c_bg_base, text_color=color.silver, text_size=ai_s)
+    table.cell(ai_tbl, 1, 11, sign_1h + str.tostring(diff_1h, "#.##"),
+         bgcolor=c_bg_base, text_color=color.white, text_size=ai_s)
+    table.cell(ai_tbl, 2, 11, pos_1h_txt, bgcolor=pos_1h_c, text_color=color.white, text_size=ai_s)

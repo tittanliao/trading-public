@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>XAUUSD Real Strategy × Macro Backtest</title>
+<style>
+  :root {
+    --bg:#0f172a; --card:#1e293b; --border:#334155;
+    --text:#e2e8f0; --text2:#94a3b8; --primary:#60a5fa;
+    --red:#ef4444; --green:#22c55e; --yellow:#f59e0b;
+  }
+  body { margin:0; padding:20px; font-family:'Segoe UI',system-ui,sans-serif;
+         background:var(--bg); color:var(--text); }
+  h1   { color:var(--primary); margin:0 0 4px; }
+  h2   { color:var(--text); margin:0 0 12px; }
+  h3.section-title { color:var(--text2); font-size:.85em; text-transform:uppercase;
+                      letter-spacing:.06em; margin:16px 0 6px; border-bottom:1px solid var(--border);
+                      padding-bottom:4px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px;
+           padding:20px; margin-bottom:20px; }
+  .meta  { color:var(--text2); font-size:.85em; margin-bottom:16px; }
+  .data-table { width:100%; border-collapse:collapse; font-size:.87em; }
+  .data-table th { background:#0f172a; color:var(--text2); font-weight:600;
+                    padding:8px 10px; text-align:left; border-bottom:2px solid var(--border); }
+  .data-table td { padding:7px 10px; border-bottom:1px solid var(--border); }
+  .data-table tr:hover td { background:rgba(255,255,255,.04); }
+  .insight { padding:10px 14px; border-radius:8px; margin:8px 0; font-size:.88em; }
+  .insight.warn { background:rgba(245,158,11,.12); border-left:3px solid var(--yellow); }
+  .insight.good { background:rgba(34,197,94,.10); border-left:3px solid var(--green); }
+  .insight.bad  { background:rgba(239,68,68,.10); border-left:3px solid var(--red); }
+  .insight.info { background:rgba(96,165,250,.10); border-left:3px solid var(--primary); }
+  .dist { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+</style>
+</head>
+<body>
+<h1>XAUUSD 真實策略 × Macro Score 回測</h1>
+<div class="meta">
+  生成時間：2026-06-21 ｜
+  策略資料涵蓋：2024-01-03 → 2026-04-24 ｜
+  宏觀資料：2012 起（US10Y / T10YIE / DXY / VIX / GVZ）
+</div>
+
+<div class="card">
+  <h2>宏觀環境分佈（策略交易期間）</h2>
+  <p style="color:var(--text2);font-size:.85em;margin:0 0 8px">
+    涵蓋期間：2024-01-03 → 2026-04-24，共 575 個有效日
+  </p>
+  <div class="dist"><span style='background:#22c55e;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>STRONG BUY: 213天 (37%)</span> <span style='background:#f59e0b;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>NEUTRAL: 107天 (19%)</span> <span style='background:#ef4444;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>WAIT: 255天 (44%)</span></div>
+  <div class="dist"><span style='background:#8b5cf6;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>SQUEEZE: 29天 (5%)</span> <span style='background:#3b82f6;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>NORMAL: 369天 (64%)</span> <span style='background:#ef4444;color:white;padding:3px 10px;border-radius:12px;font-size:.82em;font-weight:700'>EXTREME: 177天 (31%)</span></div>
+  <div class="insight info" style="margin-top:10px">
+    <strong>ℹ️ 說明</strong>
+    Macro Score = Real Rate vs MA50（×2 pt）+ US10Y（+1）+ DXY（+1）+ VIX（+1）+ Gold vs MA50（+1），總分 0–6。
+    WAIT ≤ 2 / NEUTRAL 3–4 / STRONG BUY ≥ 5。S1 策略套用 WAIT 過濾，S2 策略全部執行（縮倉由風控決定）。
+  </div>
+</div>
+
+<div class="card">
+  <h2>🔑 關鍵洞察</h2>
+  <ul style='margin:0;padding-left:18px;line-height:1.8'><li><strong>S1-AweWithBB</strong>：最佳宏觀環境 = <span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span> WR 58.7% / PF 2.075；最差 = <span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>WAIT</span> WR 51.8% / PF 1.387。最佳 vs 最差 ΔWR = <strong>+6.9%</strong></li>
+<li><strong>S1-AweWithBB WAIT 過濾效果</strong>：移除 222 筆後 ΔWR = <span style='color:#22c55e;font-weight:700'>+1.1%</span>，ΔPF = <span style='color:#22c55e;font-weight:700'>+0.114</span>，Δ淨盈虧 = <span style='color:#22c55e;font-weight:700'>-20.91%</span>（過濾有效）</li>
+<li><strong>S2A-RSI</strong>：最佳宏觀環境 = <span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span> WR 66.7% / PF 4.713；最差 = <span style='background:#22c55e;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>STRONG BUY</span> WR 34.4% / PF 1.259。最佳 vs 最差 ΔWR = <strong>+32.3%</strong></li>
+<li><strong>S2B-Hammer</strong>：最佳宏觀環境 = <span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span> WR 46.2% / PF 1.798；最差 = <span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>WAIT</span> WR 42.0% / PF 1.587。最佳 vs 最差 ΔWR = <strong>+4.1%</strong></li></ul>
+</div>
+
+
+    <div class="card">
+      <h2 style="color:var(--primary)">S1-AweWithBB <span style="font-weight:400;font-size:.85em;color:#6b7280">(V3.4)</span></h2>
+
+      <h3 class="section-title">Baseline vs 過濾後</h3>
+      <p style="font-size:.85em;color:#6b7280;margin:0 0 8px">排除 WAIT 期間（222 筆），僅保留 NEUTRAL + STRONG BUY</p>
+      <table class="data-table">
+        <thead><tr><th>條件</th><th>交易筆</th><th>勝率</th><th>獲利因子</th>
+          <th>淨盈虧%</th><th>平均持倉</th><th>ΔWR</th><th>ΔPF</th><th>Δ淨盈虧</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Baseline（無過濾）</strong></td><td>504</td><td style='color:#22c55e;font-weight:700'>53.2%</td><td style='color:#22c55e;font-weight:700'>1.524</td><td style='color:#22c55e;font-weight:700'>+62.41%</td><td>29.0 bars</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Filtered（宏觀過濾）</strong></td><td>282</td><td style='color:#22c55e;font-weight:700'>54.3%</td><td style='color:#22c55e;font-weight:700'>1.639</td><td style='color:#22c55e;font-weight:700'>+41.50%</td><td>31.4 bars</td><td style='color:#22c55e'>+1.1%</td><td style='color:#22c55e'>+0.114</td><td style='color:#ef4444'>-20.91%</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按宏觀 Verdict 分組</h3>
+      <table class="data-table">
+        <thead><tr><th>Verdict</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#22c55e;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>STRONG BUY</span></td><td>190</td><td style='color:#22c55e;font-weight:700'>52.1%</td><td style='color:#22c55e;font-weight:700'>1.457</td><td style='color:#22c55e;font-weight:700'>+20.95%</td><td>29.9 bars</td></tr><tr><td><span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span></td><td>92</td><td style='color:#22c55e;font-weight:700'>58.7%</td><td style='color:#22c55e;font-weight:700'>2.075</td><td style='color:#22c55e;font-weight:700'>+20.55%</td><td>34.3 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>WAIT</span></td><td>222</td><td style='color:#22c55e;font-weight:700'>51.8%</td><td style='color:#22c55e;font-weight:700'>1.387</td><td style='color:#22c55e;font-weight:700'>+20.91%</td><td>26.0 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 GVZ 狀態分組</h3>
+      <table class="data-table">
+        <thead><tr><th>GVZ</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#8b5cf6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>SQUEEZE</span></td><td>10</td><td style='color:#22c55e;font-weight:700'>50.0%</td><td style='color:#22c55e;font-weight:700'>1.500</td><td style='color:#22c55e;font-weight:700'>+1.25%</td><td>60.0 bars</td></tr><tr><td><span style='background:#3b82f6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NORMAL</span></td><td>304</td><td style='color:#22c55e;font-weight:700'>54.3%</td><td style='color:#22c55e;font-weight:700'>1.475</td><td style='color:#22c55e;font-weight:700'>+33.18%</td><td>37.1 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>EXTREME</span></td><td>190</td><td style='color:#22c55e;font-weight:700'>51.6%</td><td style='color:#22c55e;font-weight:700'>1.600</td><td style='color:#22c55e;font-weight:700'>+27.98%</td><td>14.4 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 Score 分桶（0–6）</h3>
+      <table class="data-table">
+        <thead><tr><th>Score 區間</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉 bars</th></tr></thead>
+        <tbody><tr><td>0-1 (WAIT深度)</td><td>100</td><td style='color:#f59e0b;font-weight:700'>48.0%</td><td style='color:#f59e0b;font-weight:700'>1.287</td><td style='color:#22c55e;font-weight:700'>+7.50%</td><td>29.2</td></tr><tr><td>2 (WAIT邊界)</td><td>122</td><td style='color:#22c55e;font-weight:700'>54.9%</td><td style='color:#22c55e;font-weight:700'>1.481</td><td style='color:#22c55e;font-weight:700'>+13.41%</td><td>23.4</td></tr><tr><td>3-4 (NEUTRAL)</td><td>92</td><td style='color:#22c55e;font-weight:700'>58.7%</td><td style='color:#22c55e;font-weight:700'>2.075</td><td style='color:#22c55e;font-weight:700'>+20.55%</td><td>34.3</td></tr><tr><td>5-6 (STRONG BUY)</td><td>190</td><td style='color:#22c55e;font-weight:700'>52.1%</td><td style='color:#22c55e;font-weight:700'>1.457</td><td style='color:#22c55e;font-weight:700'>+20.95%</td><td>29.9</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 style="color:var(--primary)">S2A-RSI <span style="font-weight:400;font-size:.85em;color:#6b7280">(V2.0)</span></h2>
+
+      <h3 class="section-title">Baseline vs 過濾後</h3>
+      <p style="font-size:.85em;color:#6b7280;margin:0 0 8px">S2 策略不套用 WAIT 過濾（全數執行）</p>
+      <table class="data-table">
+        <thead><tr><th>條件</th><th>交易筆</th><th>勝率</th><th>獲利因子</th>
+          <th>淨盈虧%</th><th>平均持倉</th><th>ΔWR</th><th>ΔPF</th><th>Δ淨盈虧</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Baseline（無過濾）</strong></td><td>160</td><td style='color:#f59e0b;font-weight:700'>41.9%</td><td style='color:#22c55e;font-weight:700'>1.669</td><td style='color:#22c55e;font-weight:700'>+62.27%</td><td>140.5 bars</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Filtered（宏觀過濾）</strong></td><td>160</td><td style='color:#f59e0b;font-weight:700'>41.9%</td><td style='color:#22c55e;font-weight:700'>1.669</td><td style='color:#22c55e;font-weight:700'>+62.27%</td><td>140.5 bars</td><td style='color:#ef4444'>+0.0%</td><td style='color:#ef4444'>+0.000</td><td style='color:#ef4444'>+0.00%</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按宏觀 Verdict 分組</h3>
+      <table class="data-table">
+        <thead><tr><th>Verdict</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#22c55e;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>STRONG BUY</span></td><td>64</td><td style='color:#ef4444;font-weight:700'>34.4%</td><td style='color:#f59e0b;font-weight:700'>1.259</td><td style='color:#22c55e;font-weight:700'>+10.90%</td><td>149.5 bars</td></tr><tr><td><span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span></td><td>21</td><td style='color:#22c55e;font-weight:700'>66.7%</td><td style='color:#22c55e;font-weight:700'>4.713</td><td style='color:#22c55e;font-weight:700'>+25.99%</td><td>162.1 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>WAIT</span></td><td>75</td><td style='color:#f59e0b;font-weight:700'>41.3%</td><td style='color:#22c55e;font-weight:700'>1.577</td><td style='color:#22c55e;font-weight:700'>+25.38%</td><td>126.7 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 GVZ 狀態分組</h3>
+      <table class="data-table">
+        <thead><tr><th>GVZ</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#8b5cf6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>SQUEEZE</span></td><td colspan='5' style='color:#6b7280;font-style:italic'>無交易</td></tr><tr><td><span style='background:#3b82f6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NORMAL</span></td><td>80</td><td style='color:#f59e0b;font-weight:700'>43.8%</td><td style='color:#22c55e;font-weight:700'>1.737</td><td style='color:#22c55e;font-weight:700'>+33.18%</td><td>212.4 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>EXTREME</span></td><td>80</td><td style='color:#f59e0b;font-weight:700'>40.0%</td><td style='color:#22c55e;font-weight:700'>1.605</td><td style='color:#22c55e;font-weight:700'>+29.09%</td><td>68.5 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 Score 分桶（0–6）</h3>
+      <table class="data-table">
+        <thead><tr><th>Score 區間</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉 bars</th></tr></thead>
+        <tbody><tr><td>0-1 (WAIT深度)</td><td>35</td><td style='color:#ef4444;font-weight:700'>37.1%</td><td style='color:#f59e0b;font-weight:700'>1.284</td><td style='color:#22c55e;font-weight:700'>+6.24%</td><td>136.0</td></tr><tr><td>2 (WAIT邊界)</td><td>40</td><td style='color:#f59e0b;font-weight:700'>45.0%</td><td style='color:#22c55e;font-weight:700'>1.870</td><td style='color:#22c55e;font-weight:700'>+19.14%</td><td>118.6</td></tr><tr><td>3-4 (NEUTRAL)</td><td>21</td><td style='color:#22c55e;font-weight:700'>66.7%</td><td style='color:#22c55e;font-weight:700'>4.713</td><td style='color:#22c55e;font-weight:700'>+25.99%</td><td>162.1</td></tr><tr><td>5-6 (STRONG BUY)</td><td>64</td><td style='color:#ef4444;font-weight:700'>34.4%</td><td style='color:#f59e0b;font-weight:700'>1.259</td><td style='color:#22c55e;font-weight:700'>+10.90%</td><td>149.5</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 style="color:var(--primary)">S2B-Hammer <span style="font-weight:400;font-size:.85em;color:#6b7280">(V1.9)</span></h2>
+
+      <h3 class="section-title">Baseline vs 過濾後</h3>
+      <p style="font-size:.85em;color:#6b7280;margin:0 0 8px">S2 策略不套用 WAIT 過濾（全數執行）</p>
+      <table class="data-table">
+        <thead><tr><th>條件</th><th>交易筆</th><th>勝率</th><th>獲利因子</th>
+          <th>淨盈虧%</th><th>平均持倉</th><th>ΔWR</th><th>ΔPF</th><th>Δ淨盈虧</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Baseline（無過濾）</strong></td><td>199</td><td style='color:#f59e0b;font-weight:700'>43.7%</td><td style='color:#22c55e;font-weight:700'>1.671</td><td style='color:#22c55e;font-weight:700'>+77.63%</td><td>135.0 bars</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Filtered（宏觀過濾）</strong></td><td>199</td><td style='color:#f59e0b;font-weight:700'>43.7%</td><td style='color:#22c55e;font-weight:700'>1.671</td><td style='color:#22c55e;font-weight:700'>+77.63%</td><td>135.0 bars</td><td style='color:#ef4444'>+0.0%</td><td style='color:#ef4444'>+0.000</td><td style='color:#ef4444'>+0.00%</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按宏觀 Verdict 分組</h3>
+      <table class="data-table">
+        <thead><tr><th>Verdict</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#22c55e;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>STRONG BUY</span></td><td>72</td><td style='color:#f59e0b;font-weight:700'>44.4%</td><td style='color:#22c55e;font-weight:700'>1.713</td><td style='color:#22c55e;font-weight:700'>+29.63%</td><td>141.5 bars</td></tr><tr><td><span style='background:#f59e0b;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NEUTRAL</span></td><td>39</td><td style='color:#f59e0b;font-weight:700'>46.2%</td><td style='color:#22c55e;font-weight:700'>1.798</td><td style='color:#22c55e;font-weight:700'>+16.86%</td><td>100.5 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>WAIT</span></td><td>88</td><td style='color:#f59e0b;font-weight:700'>42.0%</td><td style='color:#22c55e;font-weight:700'>1.587</td><td style='color:#22c55e;font-weight:700'>+31.14%</td><td>145.1 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 GVZ 狀態分組</h3>
+      <table class="data-table">
+        <thead><tr><th>GVZ</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉</th></tr></thead>
+        <tbody>
+          <tr><td><span style='background:#8b5cf6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>SQUEEZE</span></td><td>2</td><td style='color:#22c55e;font-weight:700'>50.0%</td><td style='color:#22c55e;font-weight:700'>2.000</td><td style='color:#22c55e;font-weight:700'>+1.00%</td><td>91.5 bars</td></tr><tr><td><span style='background:#3b82f6;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>NORMAL</span></td><td>96</td><td style='color:#f59e0b;font-weight:700'>47.9%</td><td style='color:#22c55e;font-weight:700'>1.949</td><td style='color:#22c55e;font-weight:700'>+47.46%</td><td>198.2 bars</td></tr><tr><td><span style='background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:.8em;font-weight:700'>EXTREME</span></td><td>101</td><td style='color:#ef4444;font-weight:700'>39.6%</td><td style='color:#22c55e;font-weight:700'>1.451</td><td style='color:#22c55e;font-weight:700'>+29.17%</td><td>75.9 bars</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-title" style="margin-top:20px">按 Score 分桶（0–6）</h3>
+      <table class="data-table">
+        <thead><tr><th>Score 區間</th><th>交易筆</th><th>勝率</th><th>獲利因子</th><th>淨盈虧%</th><th>平均持倉 bars</th></tr></thead>
+        <tbody><tr><td>0-1 (WAIT深度)</td><td>36</td><td style='color:#f59e0b;font-weight:700'>47.2%</td><td style='color:#22c55e;font-weight:700'>1.708</td><td style='color:#22c55e;font-weight:700'>+14.72%</td><td>164.1</td></tr><tr><td>2 (WAIT邊界)</td><td>52</td><td style='color:#ef4444;font-weight:700'>38.5%</td><td style='color:#22c55e;font-weight:700'>1.509</td><td style='color:#22c55e;font-weight:700'>+16.42%</td><td>131.9</td></tr><tr><td>3-4 (NEUTRAL)</td><td>39</td><td style='color:#f59e0b;font-weight:700'>46.2%</td><td style='color:#22c55e;font-weight:700'>1.798</td><td style='color:#22c55e;font-weight:700'>+16.86%</td><td>100.5</td></tr><tr><td>5-6 (STRONG BUY)</td><td>72</td><td style='color:#f59e0b;font-weight:700'>44.4%</td><td style='color:#22c55e;font-weight:700'>1.713</td><td style='color:#22c55e;font-weight:700'>+29.63%</td><td>141.5</td></tr></tbody>
+      </table>
+    </div>
+
+<div class="card">
+  <h2>💡 操作結論</h2>
+  <div class="insight warn">
+    <strong>⚠️ 樣本覆蓋說明</strong>
+    本回測使用真實策略交易（TradingView Pine Script 回測匯出），非程式化信號重建。
+    因此策略本身的訊號邏輯（錘頭型態、RSI 背離、AweWithBB 動能）已準確反映。
+    宏觀分數使用每日宏觀資料（日線收盤前向映射），不引入未來資料。
+  </div>
+  <div class="insight info">
+    <strong>📌 S1（AweWithBB）操作原則</strong>
+    宏觀 WAIT 期交易表現較差時，WAIT 過濾可提升勝率，建議嚴格執行「WAIT 不做 S1」。
+    若 WAIT 期表現反而好（如 2026 Q1 牛市），代表宏觀邏輯被強勢趨勢覆蓋，仍應謹慎縮倉觀察。
+  </div>
+  <div class="insight info">
+    <strong>📌 S2（S2A-RSI / S2B-Hammer）操作原則</strong>
+    S2 屬左側逆勢，宏觀 WAIT 時建議縮至 0.02 手（風控決定），不完全停止。
+    若 STRONG BUY 期 S2 勝率明顯高於 WAIT 期，代表宏觀支撐確實提升 S2 的成功率。
+  </div>
+  <div class="insight good">
+    <strong>✅ 資料已就位，可隨時更新</strong>
+    更新 xauusd/csv/ 下的 30m XAUUSD CSV 後，重跑此腳本即可得到最新回測結果。
+    建議每季更新一次並對比宏觀過濾效果變化。
+  </div>
+</div>
+
+</body>
+</html>

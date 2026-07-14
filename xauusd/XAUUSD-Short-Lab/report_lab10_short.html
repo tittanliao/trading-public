@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<title>Lab10-Short — 10空單策略參數最佳化</title><style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px;line-height:1.5}
+.wrap{max-width:1200px;margin:0 auto}h1{font-size:1.5em;margin-bottom:6px;color:#f8fafc}
+.card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:22px;margin-bottom:18px}
+.tbl{width:100%;border-collapse:collapse;font-size:.85em;margin:10px 0}
+.tbl th{background:#0f172a;color:#94a3b8;padding:8px 10px;text-align:left;border-bottom:1px solid #334155}
+.tbl td{padding:7px 10px;border-bottom:1px solid rgba(51,65,85,.5)}
+.note{font-size:.82em;color:#94a3b8;margin-top:8px}
+.warn{background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;padding:12px 16px;border-radius:4px;margin:12px 0;font-size:.9em}</style></head><body><div class="wrap">
+<h1>Lab10-Short — 10 個空單候選策略（第一版）</h1>
+<p class="note">生成：2026-07-12 21:30 ·
+資料 29809 根 30m（2024-01-02 → 2026-07-11）·
+空單引擎=已驗證多單引擎之鏡像 · 出場 Profit Flyer 鏡像（順勢空=S1檔位/逆勢空=S2檔位）·
+門檻：n≥40（FP≥15）且 min(IS,OOS) PF≥1.2，按勝率排名</p>
+<div class="warn"><strong>⚠️ 逆風警告：</strong>2024-2026 黃金為大多頭，空單全樣本數字天生受壓——
+OOS 段（2025/10 起，含 2026H1 修正）比全樣本更有參考價值；
+另匯出指標 V1 缺上緣失衡欄位，trapped-buyers 類條件需匯出指標 V2。</div>
+<div class="card">
+<table class="tbl"><thead><tr><th>策略</th><th>邏輯</th><th>最佳參數</th><th>筆數</th>
+<th>勝率</th><th>PF</th><th>淨利R</th><th>OOS n/PF</th><th>門檻</th></tr></thead>
+<tbody><tr><td><strong>RS4</strong> 逆勢空</td><td>頂部出貨(FP)（FP，資料僅2026/4起）</td><td style='font-size:.8em'>{'poc': 65, 'dneg': 5.0}</td><td>46</td><td><strong>47.8%</strong></td><td>2.32</td><td>23R</td><td>46/2.32</td><td>⚠️</td></tr><tr><td><strong>TS5</strong> 順勢空</td><td>DXY強勢順空</td><td style='font-size:.8em'>{'dxy': 60}</td><td>226</td><td><strong>41.6%</strong></td><td>1.13</td><td>16R</td><td>135/1.42</td><td>⚠️</td></tr><tr><td><strong>TS3</strong> 順勢空</td><td>HTF動能空</td><td style='font-size:.8em'>{'lvl': 45, 'malen': 10}</td><td>497</td><td><strong>40.0%</strong></td><td>0.99</td><td>-3R</td><td>196/1.15</td><td>⚠️</td></tr><tr><td><strong>TS2</strong> 順勢空</td><td>破底+Delta確認</td><td style='font-size:.8em'>{'n': 96, 'dmin': 20}</td><td>173</td><td><strong>39.9%</strong></td><td>0.99</td><td>-1R</td><td>54/1.58</td><td>⚠️</td></tr><tr><td><strong>TS1</strong> 順勢空</td><td>BBW擴張破位</td><td style='font-size:.8em'>{'thr': 80}</td><td>92</td><td><strong>39.1%</strong></td><td>1.05</td><td>3R</td><td>34/0.98</td><td>⚠️</td></tr><tr><td><strong>TS4</strong> 順勢空</td><td>週VWAP失守</td><td style='font-size:.8em'>{'_': 0}</td><td>495</td><td><strong>37.0%</strong></td><td>0.86</td><td>-39R</td><td>185/0.88</td><td>⚠️</td></tr><tr><td><strong>RS5</strong> 逆勢空</td><td>假突破反轉</td><td style='font-size:.8em'>{'fb': 0.2}</td><td>136</td><td><strong>29.4%</strong></td><td>0.87</td><td>-8R</td><td>58/1.13</td><td>⚠️</td></tr><tr><td><strong>RS3</strong> 逆勢空</td><td>VWAP乖離過熱</td><td style='font-size:.8em'>{'d': 3.0}</td><td>280</td><td><strong>28.9%</strong></td><td>0.70</td><td>-44R</td><td>82/1.01</td><td>⚠️</td></tr><tr><td><strong>RS1</strong> 逆勢空</td><td>買方衰竭長上影</td><td style='font-size:.8em'>{'ws': 0.6, 'm': 1.5}</td><td>174</td><td><strong>26.4%</strong></td><td>0.66</td><td>-28R</td><td>33/1.08</td><td>⚠️</td></tr><tr><td><strong>RS2</strong> 逆勢空</td><td>RSI超買+Delta轉弱</td><td style='font-size:.8em'>{'th': 70, 'det': 0}</td><td>199</td><td><strong>25.1%</strong></td><td>0.54</td><td>-49R</td><td>62/0.65</td><td>⚠️</td></tr></tbody></table>
+<p class="note">對應 Pine：<code>XAUUSD-Short-Lab10-V1.pine</code>（下拉選單，最佳參數已設為預設值）。</p>
+</div>
+</div></body></html>

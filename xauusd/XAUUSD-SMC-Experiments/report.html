@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XAUUSD SMC Strategy Experiment</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #2c3e50; margin: 0; padding: 0; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 1.9em; margin-bottom: 4px; }
+h2 { font-size: 1.15em; border-left: 4px solid #8e44ad; padding-left: 12px; margin-top: 36px; color: #6c3483; }
+.meta { color: #7f8c8d; font-size: .88em; margin-bottom: 20px; }
+.card { background: white; border-radius: 12px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-top: 20px; }
+.winner { border-left: 5px solid #f1c40f; }
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+@media(max-width:640px){ .insight-grid { grid-template-columns:1fr; } }
+.insight-box { border-radius: 10px; padding: 16px 18px; }
+.insight-short { background: #fdf2f8; border: 1px solid #d7bde2; }
+.insight-long  { background: #eaf4fb; border: 1px solid #aed6f1; }
+.insight-warn  { background: #fef9e7; border: 1px solid #f9e79f; }
+.insight-tip   { background: #eafaf1; border: 1px solid #a9dfbf; }
+.insight-title { font-weight: 700; font-size: .92em; margin-bottom: 6px; }
+.insight-body  { font-size: .85em; line-height: 1.6; color: #444; }
+table { border-collapse: collapse; width: 100%; font-size: .84em; }
+th { background: #2c3e50; color: white; padding: 8px 10px; text-align: left; white-space: nowrap; }
+td { padding: 7px 10px; border-bottom: 1px solid #ecf0f1; }
+tr:hover td { background: #f8f9fa; }
+.rank-1 td { background: #fffde7 !important; font-weight: 600; }
+.rank-2 td { background: #f9fbe7 !important; }
+.rank-3 td { background: #f1f8e9 !important; }
+.pos { color: #27ae60; font-weight: 600; }
+.neg { color: #e74c3c; font-weight: 600; }
+.neu { color: #2980b9; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: .76em; font-weight: 600; color: white; }
+.badge-FVG   { background: #27ae60; }
+.badge-OB    { background: #2980b9; }
+.badge-Sweep { background: #e67e22; }
+.badge-Conf  { background: #8e44ad; }
+.section-dir { display: flex; align-items: center; gap: 10px; margin: 30px 0 6px; }
+.dir-tag { padding: 3px 14px; border-radius: 20px; font-size: .82em; font-weight: 700; color: white; }
+.dir-short { background: #c0392b; }
+.dir-long  { background: #2471a3; }
+.notice { background: #fef9e7; border: 1px solid #f1c40f; border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: .88em; color: #7d6608; }
+.param-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.param-chip { background: #ecf0f1; border-radius: 8px; padding: 4px 12px; font-size: .82em; color: #555; }
+.score-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.score-bar { height: 8px; border-radius: 4px; background: #8e44ad; min-width: 4px; }
+footer { text-align: center; color: #bdc3c7; font-size: .8em; margin-top: 48px; padding-top: 16px; border-top: 1px solid #ecf0f1; }
+.verdict { margin-top: 10px; font-size: .9em; }
+.verdict strong { color: #6c3483; }
+</style>
+</head>
+<body>
+
+<div style="padding:10px 20px 0">
+  <a href="../../index.html" style="color:#2563eb;font-size:13px;text-decoration:none;background:#dbeafe;padding:4px 12px;border-radius:6px;font-weight:600">← 返回 Trading Hub</a>
+</div>
+
+<div class="wrap">
+
+<h1>🔍 XAUUSD SMC Strategy Experiment</h1>
+<div class="meta">
+  生成日期：2026-06-14 &nbsp;|&nbsp;
+  資料：2026-01-21 → 2026-04-27（3058 × 30-min bars，約 63 交易日）&nbsp;|&nbsp;
+  多空各 10 策略（M01–M20）&nbsp;|&nbsp; SL 0.5% / TP 1.0% / 最大持倉 48 bars（24h）
+</div>
+
+<div class="notice">
+  ⚠ <strong>資料說明：</strong>本次回測僅使用約 3 個月 30m 資料。<br>
+  交易筆數 &lt; 30 的策略（M07、M08、M10、M17、M18、M20）結果僅供方向參考，不具統計顯著性。<br>
+  建議下載 2 年以上資料重跑後再納入週報判斷。
+</div>
+
+<!-- 核心洞察 -->
+<h2>核心洞察</h2>
+<div class="insight-grid">
+  <div class="insight-box insight-short">
+    <div class="insight-title">📉 空單 FVG 明顯優於多單</div>
+    <div class="insight-body">
+      M12（Bearish FVG + RSI 35-70）：WR <strong>43.0%</strong>、PF <strong>1.470</strong>、158 筆<br>
+      M11（純 Bearish FVG）：WR 40.3%、PF 1.317、176 筆<br>
+      空單 FVG 在本段牛市（金價 2700→4774）中依然有效——每次急漲留下的缺口，短線回調填補時正好是空單進場點。
+    </div>
+  </div>
+  <div class="insight-box insight-long">
+    <div class="insight-title">📈 多單最佳：Sweep + 確認</div>
+    <div class="insight-body">
+      M07（SSL sweep + FVG）：WR 37.5%、PF 1.200，但僅 16 筆<br>
+      M09（FVG + OB 雙重）：WR 34.0%、PF 1.045，100 筆，統計較可信<br>
+      多單需要 Sweep 或 OB 第二層確認才勉強轉正；純 FVG 多單（M01）PF 僅 0.906。
+    </div>
+  </div>
+  <div class="insight-box insight-warn">
+    <div class="insight-title">⚠ SL 0.5% 對多單太緊</div>
+    <div class="insight-body">
+      FVG 區間內進場，自然 SL 應設在 FVG 底部以下。對黃金 4H 而言，FVG 深度通常超過 0.5%（$20+）。<br>
+      建議：多單 SL 改用 0.8–1.0%，重跑後 WR 理論上會顯著提升。
+    </div>
+  </div>
+  <div class="insight-box insight-tip">
+    <div class="insight-title">✅ S2 升級建議（與主策略整合）</div>
+    <div class="insight-body">
+      M07 類型（SSL sweep + FVG）= S2 A+ 三重確認的 SMC 基礎<br>
+      M09 類型（FVG + OB）= S2 A 標準確認<br>
+      純 M01/M04 = S2 B，維持原始 0.02 手縮倉<br>
+      <strong>不替換 S1/S2，只用 SMC 替 S2 進場分級</strong>
+    </div>
+  </div>
+</div>
+
+<!-- 參數說明 -->
+<div class="card" style="margin-top:24px">
+  <strong>SMC 偵測參數</strong>
+  <div class="param-row">
+    <span class="param-chip">FVG lookback: 100 bars（50h）</span>
+    <span class="param-chip">OB confirm: 12 bars（6h）後確認</span>
+    <span class="param-chip">OB min move: 0.3%</span>
+    <span class="param-chip">OB retest window: 60 bars</span>
+    <span class="param-chip">Liquidity lookback: 30 bars（15h）</span>
+  </div>
+</div>
+
+<!-- SHORT 排行 -->
+<div class="section-dir">
+  <h2 style="margin:0;border:none;padding:0">空單策略排行</h2>
+  <span class="dir-tag dir-short">SHORT M11–M20</span>
+</div>
+
+<div class="card">
+<table>
+  <thead>
+    <tr>
+      <th>排名</th><th>ID</th><th>分組</th><th>策略描述</th>
+      <th>筆數</th><th>勝率</th><th>獲利因子</th><th>淨損益%</th><th>平均持倉</th><th>最大連虧</th><th>評分</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="rank-1">
+      <td>🥇</td><td><strong>M12</strong></td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bearish FVG + RSI 35-70</td>
+      <td>158</td><td class="pos">43.0%</td><td class="pos">1.470</td>
+      <td class="pos">+21.14%</td><td>7.4 bars</td><td>5</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:78px"></div>0.783</div></td>
+    </tr>
+    <tr class="rank-2">
+      <td>🥈</td><td><strong>M17</strong></td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>BSL sweep + FVG <small style="color:#e74c3c">★ 樣本小</small></td>
+      <td>20</td><td class="pos">50.0%</td><td class="pos">2.000</td>
+      <td class="pos">+5.00%</td><td>9.9 bars</td><td>4</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:68px"></div>0.681</div></td>
+    </tr>
+    <tr class="rank-3">
+      <td>🥉</td><td><strong>M11</strong></td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bearish FVG fill</td>
+      <td>176</td><td class="pos">40.3%</td><td class="pos">1.317</td>
+      <td class="pos">+16.64%</td><td>6.9 bars</td><td>8</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:64px"></div>0.638</div></td>
+    </tr>
+    <tr>
+      <td>4</td><td>M15</td>
+      <td><span class="badge badge-OB">OB</span></td>
+      <td>Bearish OB + RSI &gt; 50</td>
+      <td>113</td><td class="pos">40.7%</td><td class="pos">1.373</td>
+      <td class="pos">+12.50%</td><td>8.1 bars</td><td>5</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:63px"></div>0.631</div></td>
+    </tr>
+    <tr>
+      <td>5</td><td>M19</td>
+      <td><span class="badge badge-Conf">Conf</span></td>
+      <td>Bearish FVG + OB confluence</td>
+      <td>102</td><td class="pos">40.2%</td><td class="pos">1.334</td>
+      <td class="pos">+10.05%</td><td>9.1 bars</td><td>4</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:60px"></div>0.603</div></td>
+    </tr>
+    <tr>
+      <td>6</td><td>M14</td>
+      <td><span class="badge badge-OB">OB</span></td>
+      <td>Bearish OB rejection</td>
+      <td>170</td><td class="neu">38.2%</td><td class="pos">1.232</td>
+      <td class="pos">+12.05%</td><td>7.0 bars</td><td>6</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:58px"></div>0.584</div></td>
+    </tr>
+    <tr>
+      <td>7</td><td>M13</td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bearish FVG + below EMA50</td>
+      <td>130</td><td class="neu">36.9%</td><td class="pos">1.148</td>
+      <td class="pos">+5.99%</td><td>6.8 bars</td><td>10</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:41px"></div>0.409</div></td>
+    </tr>
+    <tr>
+      <td>8</td><td>M16</td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>BSL sweep reversal</td>
+      <td>45</td><td class="neu">37.8%</td><td class="pos">1.214</td>
+      <td class="pos">+3.00%</td><td>7.9 bars</td><td>6</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:39px"></div>0.387</div></td>
+    </tr>
+    <tr>
+      <td>9</td><td>M18</td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>BSL sweep + OB</td>
+      <td>26</td><td class="neu">38.5%</td><td class="pos">1.250</td>
+      <td class="pos">+2.00%</td><td>7.7 bars</td><td>4</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:38px"></div>0.384</div></td>
+    </tr>
+    <tr>
+      <td>10</td><td>M20</td>
+      <td><span class="badge badge-Conf">Conf</span></td>
+      <td>Bearish FVG + OB + BSL sweep <small style="color:#e74c3c">★ 樣本小</small></td>
+      <td>14</td><td class="neg">28.6%</td><td class="neg">0.800</td>
+      <td class="neg">-1.00%</td><td>6.7 bars</td><td>5</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:8px;background:#bdc3c7"></div>0.083</div></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- LONG 排行 -->
+<div class="section-dir" style="margin-top:32px">
+  <h2 style="margin:0;border:none;padding:0">多單策略排行</h2>
+  <span class="dir-tag dir-long">LONG M01–M10</span>
+</div>
+
+<div class="card">
+<table>
+  <thead>
+    <tr>
+      <th>排名</th><th>ID</th><th>分組</th><th>策略描述</th>
+      <th>筆數</th><th>勝率</th><th>獲利因子</th><th>淨損益%</th><th>平均持倉</th><th>最大連虧</th><th>評分</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="rank-1">
+      <td>🥇</td><td><strong>M07</strong></td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>SSL sweep + FVG <small style="color:#e74c3c">★ 樣本小</small></td>
+      <td>16</td><td class="neu">37.5%</td><td class="pos">1.200</td>
+      <td class="pos">+1.00%</td><td>7.5 bars</td><td>4</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:82px;background:#2471a3"></div>0.824</div></td>
+    </tr>
+    <tr class="rank-2">
+      <td>🥈</td><td><strong>M05</strong></td>
+      <td><span class="badge badge-OB">OB</span></td>
+      <td>Bullish OB + RSI &lt; 55</td>
+      <td>134</td><td class="neu">34.3%</td><td class="pos">1.032</td>
+      <td class="pos">+1.40%</td><td>6.7 bars</td><td>10</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:79px;background:#2471a3"></div>0.785</div></td>
+    </tr>
+    <tr class="rank-3">
+      <td>🥉</td><td><strong>M09</strong></td>
+      <td><span class="badge badge-Conf">Conf</span></td>
+      <td>FVG + OB confluence</td>
+      <td>100</td><td class="neu">34.0%</td><td class="pos">1.045</td>
+      <td class="pos">+1.47%</td><td>7.4 bars</td><td>11</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:76px;background:#2471a3"></div>0.758</div></td>
+    </tr>
+    <tr>
+      <td>4</td><td>M08</td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>SSL sweep + OB <small style="color:#e74c3c">★ 樣本小</small></td>
+      <td>19</td><td class="neu">36.8%</td><td class="pos">1.062</td>
+      <td class="pos">+0.37%</td><td>10.5 bars</td><td>5</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:73px;background:#2471a3"></div>0.732</div></td>
+    </tr>
+    <tr>
+      <td>5</td><td>M02</td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bullish FVG + RSI 30-65</td>
+      <td>138</td><td class="neu">33.3%</td><td class="neg">0.978</td>
+      <td class="neg">-0.99%</td><td>7.6 bars</td><td>11</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:69px;background:#2471a3"></div>0.687</div></td>
+    </tr>
+    <tr>
+      <td>6</td><td>M06</td>
+      <td><span class="badge badge-Sweep">Sweep</span></td>
+      <td>SSL sweep reversal</td>
+      <td>32</td><td class="neu">34.4%</td><td class="neg">0.988</td>
+      <td class="neg">-0.13%</td><td>8.8 bars</td><td>6</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:66px;background:#2471a3"></div>0.658</div></td>
+    </tr>
+    <tr>
+      <td>7</td><td>M04</td>
+      <td><span class="badge badge-OB">OB</span></td>
+      <td>Bullish OB hold</td>
+      <td>162</td><td class="neg">32.1%</td><td class="neg">0.934</td>
+      <td class="neg">-3.63%</td><td>6.2 bars</td><td>12</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:59px;background:#2471a3"></div>0.593</div></td>
+    </tr>
+    <tr>
+      <td>8</td><td>M01</td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bullish FVG fill</td>
+      <td>155</td><td class="neg">31.6%</td><td class="neg">0.906</td>
+      <td class="neg">-4.95%</td><td>7.0 bars</td><td>11</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:55px;background:#2471a3"></div>0.546</div></td>
+    </tr>
+    <tr>
+      <td>9</td><td>M10</td>
+      <td><span class="badge badge-Conf">Conf</span></td>
+      <td>FVG + OB + SSL sweep (triple) <small style="color:#e74c3c">★ 樣本小</small></td>
+      <td>10</td><td class="neg">30.0%</td><td class="neg">0.857</td>
+      <td class="neg">-0.50%</td><td>9.2 bars</td><td>4</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:42px;background:#2471a3"></div>0.415</div></td>
+    </tr>
+    <tr>
+      <td>10</td><td>M03</td>
+      <td><span class="badge badge-FVG">FVG</span></td>
+      <td>Bullish FVG + above EMA50</td>
+      <td>90</td><td class="neg">26.7%</td><td class="neg">0.712</td>
+      <td class="neg">-9.50%</td><td>8.1 bars</td><td>19</td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:16px;background:#2471a3"></div>0.157</div></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 與 S1/S2 整合建議 -->
+<h2>與 S1/S2 主策略整合方式</h2>
+<div class="card">
+  <p style="font-size:.9em;color:#555;margin-top:0">
+    SMC 結果<strong>不替換 S1/S2</strong>，只作為輔助參考資訊，提升進場品質分級。
+  </p>
+  <table>
+    <thead>
+      <tr><th>場景</th><th>SMC 訊號</th><th>對 S2 的影響</th><th>對應倉位</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>S2 錘頭觸發</td>
+        <td>+ SSL sweep（M07 類型）+ Bullish OB（M09 類型）</td>
+        <td class="pos">升至 A+（三重確認）</td>
+        <td><strong>0.05 手</strong></td>
+      </tr>
+      <tr>
+        <td>S2 錘頭觸發</td>
+        <td>+ 任一 SMC（SSL sweep 或 OB 其一）</td>
+        <td class="neu">升至 A</td>
+        <td><strong>0.03 手</strong></td>
+      </tr>
+      <tr>
+        <td>S2 錘頭觸發</td>
+        <td>無 SMC 確認</td>
+        <td>維持 B（原標準）</td>
+        <td><strong>0.02 手</strong></td>
+      </tr>
+      <tr>
+        <td>S1 突破觸發</td>
+        <td>突破位同時清掉 BSL</td>
+        <td class="pos">品質加分，正常倉位</td>
+        <td><strong>0.03 手</strong></td>
+      </tr>
+      <tr>
+        <td>S1 突破觸發</td>
+        <td>突破位在 Bearish FVG 內</td>
+        <td class="neg">阻力未清，降一格</td>
+        <td><strong>0.02 手（縮倉）</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="verdict">
+    <strong>核心結論：</strong>空單 FVG（M12）是這段資料最可靠的 SMC 訊號，但它是反趨勢策略——當作大格局偏空時的參考工具，而非日常多單 S1/S2 的替代品。
+  </div>
+</div>
+
+<!-- 下一步 -->
+<h2>建議後續行動</h2>
+<div class="card" style="font-size:.9em;line-height:1.8;color:#444">
+  <ol style="margin:0;padding-left:20px">
+    <li>📥 <strong>下載更長的 4H CSV（2024-2026，約 2 年）</strong>，重跑 SMC 實驗確認 M12 長期穩定性</li>
+    <li>🔧 <strong>多單 SL 改 0.8%</strong>，對 M09（FVG+OB）重跑，驗證 WR 是否提升至 38%+</li>
+    <li>📊 <strong>週報第 6 項加入 SMC Context</strong>（已寫入 ANALYSIS_SKILL.md），從 W25 開始執行</li>
+    <li>📝 <strong>W24 實際交易記錄</strong>：下次 S2 觸發時標注是否有 SSL sweep 或 OB 重合，累積真實分級數據</li>
+  </ol>
+</div>
+
+<footer>
+  XAUUSD SMC Experiment &nbsp;|&nbsp; 策略：黃金劍盾（S1 V3.4 / S2 V1.9）+ SMC 輔助 &nbsp;|&nbsp; 2026-06-14<br>
+  程式碼：<code>xauusd/experiments/smc_indicators.py</code> &amp; <code>strategies_smc.py</code> &amp; <code>run_smc_experiments.py</code>
+</footer>
+
+</div>
+</body>
+</html>

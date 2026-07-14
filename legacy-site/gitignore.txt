@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.egg-info/
+.venv/
+venv/
+reports/
+!xauusd/claude/reports/
+.claude/worktrees/
+**/.claude/settings.local.json
+xauusd/pipeline/config.py

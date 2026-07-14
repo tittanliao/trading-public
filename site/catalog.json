@@ -1,0 +1,1512 @@
+{
+  "items": [
+    {
+      "kind": "python",
+      "path": "legacy-tools/validate_notes.py",
+      "section": "research",
+      "title": "validate notes"
+    },
+    {
+      "kind": "python",
+      "path": "shared/run_shared_analysis.py",
+      "section": "research",
+      "title": "run shared analysis"
+    },
+    {
+      "kind": "result",
+      "path": "shared/shared_results.json",
+      "section": "research",
+      "title": "shared results"
+    },
+    {
+      "kind": "python",
+      "path": "tools/link_private_data.py",
+      "section": "research",
+      "title": "link private data"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/ALL_Long_Strategies.pine",
+      "section": "tx",
+      "title": "ALL Long Strategies"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E01_RSI_Oversold_Bounce.pine",
+      "section": "tx",
+      "title": "E01 RSI Oversold Bounce"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E02_MACD_Cross_Below_Zero.pine",
+      "section": "tx",
+      "title": "E02 MACD Cross Below Zero"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E03_MACD_Hist_Reversal.pine",
+      "section": "tx",
+      "title": "E03 MACD Hist Reversal"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E04_Stoch_Oversold_Cross.pine",
+      "section": "tx",
+      "title": "E04 Stoch Oversold Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E05_Williams_%R_Oversold.pine",
+      "section": "tx",
+      "title": "E05 Williams %R Oversold"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E06_CCI_Oversold_Bounce.pine",
+      "section": "tx",
+      "title": "E06 CCI Oversold Bounce"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E07_RSI_50_Crossover.pine",
+      "section": "tx",
+      "title": "E07 RSI 50 Crossover"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E08_EMA_9_21_Golden_Cross.pine",
+      "section": "tx",
+      "title": "E08 EMA 9 21 Golden Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E09_EMA55_Pullback.pine",
+      "section": "tx",
+      "title": "E09 EMA55 Pullback"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E10_Supertrend_Buy.pine",
+      "section": "tx",
+      "title": "E10 Supertrend Buy"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E11_Donchian_20H_Break.pine",
+      "section": "tx",
+      "title": "E11 Donchian 20H Break"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E12_BB_Squeeze_Break.pine",
+      "section": "tx",
+      "title": "E12 BB Squeeze Break"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E13_ATR_Momentum_Break.pine",
+      "section": "tx",
+      "title": "E13 ATR Momentum Break"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E14_BB_Lower_Bounce.pine",
+      "section": "tx",
+      "title": "E14 BB Lower Bounce"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E15_BB_Low_+_RSI_Combo.pine",
+      "section": "tx",
+      "title": "E15 BB Low + RSI Combo"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E16_Hammer_Candle.pine",
+      "section": "tx",
+      "title": "E16 Hammer Candle"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E17_Bullish_Engulfing.pine",
+      "section": "tx",
+      "title": "E17 Bullish Engulfing"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E18_RSI_Divergence.pine",
+      "section": "tx",
+      "title": "E18 RSI Divergence"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E19_Day_Open_Range_Break.pine",
+      "section": "tx",
+      "title": "E19 Day Open Range Break"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Long-Experiments/pine/E20_Night_Momentum.pine",
+      "section": "tx",
+      "title": "E20 Night Momentum"
+    },
+    {
+      "kind": "report",
+      "path": "tx/TX-Long-Experiments/report.html",
+      "section": "tx",
+      "title": "TX Long 多單 Experiments"
+    },
+    {
+      "kind": "result",
+      "path": "tx/TX-Long-Experiments/results.json",
+      "section": "tx",
+      "title": "results"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/ALL_Short_Strategies.pine",
+      "section": "tx",
+      "title": "ALL Short Strategies"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S01_RSI_Overbought_Drop.pine",
+      "section": "tx",
+      "title": "S01 RSI Overbought Drop"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S02_MACD_Cross_Above_Zero.pine",
+      "section": "tx",
+      "title": "S02 MACD Cross Above Zero"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S03_MACD_Hist_Reversal_Short.pine",
+      "section": "tx",
+      "title": "S03 MACD Hist Reversal Short"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S04_Stoch_Overbought_Cross.pine",
+      "section": "tx",
+      "title": "S04 Stoch Overbought Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S05_Williams_%R_Overbought.pine",
+      "section": "tx",
+      "title": "S05 Williams %R Overbought"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S06_CCI_Overbought_Drop.pine",
+      "section": "tx",
+      "title": "S06 CCI Overbought Drop"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S07_RSI_50_Crossdown.pine",
+      "section": "tx",
+      "title": "S07 RSI 50 Crossdown"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S08_EMA_9_21_Death_Cross.pine",
+      "section": "tx",
+      "title": "S08 EMA 9 21 Death Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S09_EMA55_Resistance.pine",
+      "section": "tx",
+      "title": "S09 EMA55 Resistance"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S10_Supertrend_Sell.pine",
+      "section": "tx",
+      "title": "S10 Supertrend Sell"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S11_Donchian_20L_Break.pine",
+      "section": "tx",
+      "title": "S11 Donchian 20L Break"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S12_BB_Squeeze_Short.pine",
+      "section": "tx",
+      "title": "S12 BB Squeeze Short"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S13_ATR_Momentum_Break_Short.pine",
+      "section": "tx",
+      "title": "S13 ATR Momentum Break Short"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S14_BB_Upper_Rejection.pine",
+      "section": "tx",
+      "title": "S14 BB Upper Rejection"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S15_BB_High_+_RSI_Combo.pine",
+      "section": "tx",
+      "title": "S15 BB High + RSI Combo"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S16_Shooting_Star.pine",
+      "section": "tx",
+      "title": "S16 Shooting Star"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S17_Bearish_Engulfing.pine",
+      "section": "tx",
+      "title": "S17 Bearish Engulfing"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S18_RSI_Bearish_Divergence.pine",
+      "section": "tx",
+      "title": "S18 RSI Bearish Divergence"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S19_Day_Open_Range_Short.pine",
+      "section": "tx",
+      "title": "S19 Day Open Range Short"
+    },
+    {
+      "kind": "pine",
+      "path": "tx/TX-Short-Experiments/pine/S20_Night_Momentum_Short.pine",
+      "section": "tx",
+      "title": "S20 Night Momentum Short"
+    },
+    {
+      "kind": "report",
+      "path": "tx/TX-Short-Experiments/report.html",
+      "section": "tx",
+      "title": "TX Short 空單 Experiments"
+    },
+    {
+      "kind": "result",
+      "path": "tx/TX-Short-Experiments/results.json",
+      "section": "tx",
+      "title": "results"
+    },
+    {
+      "kind": "python",
+      "path": "tx/analyze_ma_bounce.py",
+      "section": "tx",
+      "title": "analyze ma bounce"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/__init__.py",
+      "section": "tx",
+      "title": "init"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/engine.py",
+      "section": "tx",
+      "title": "engine"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/indicators.py",
+      "section": "tx",
+      "title": "indicators"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/loader.py",
+      "section": "tx",
+      "title": "loader"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/pine_generator.py",
+      "section": "tx",
+      "title": "pine generator"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/pine_generator_short.py",
+      "section": "tx",
+      "title": "pine generator short"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/report.py",
+      "section": "tx",
+      "title": "report"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/runner.py",
+      "section": "tx",
+      "title": "runner"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/strategies.py",
+      "section": "tx",
+      "title": "strategies"
+    },
+    {
+      "kind": "python",
+      "path": "tx/experiments/strategies_short.py",
+      "section": "tx",
+      "title": "strategies short"
+    },
+    {
+      "kind": "python",
+      "path": "tx/generate_sample_data.py",
+      "section": "tx",
+      "title": "generate sample data"
+    },
+    {
+      "kind": "python",
+      "path": "tx/macro_analysis.py",
+      "section": "tx",
+      "title": "macro analysis"
+    },
+    {
+      "kind": "report",
+      "path": "tx/macro_report.html",
+      "section": "tx",
+      "title": "TX 宏觀分析 — 月度方向 + 週內結構"
+    },
+    {
+      "kind": "python",
+      "path": "tx/run_experiments.py",
+      "section": "tx",
+      "title": "run experiments"
+    },
+    {
+      "kind": "python",
+      "path": "tx/run_short_experiments.py",
+      "section": "tx",
+      "title": "run short experiments"
+    },
+    {
+      "kind": "python",
+      "path": "tx/sl120_experiment.py",
+      "section": "tx",
+      "title": "sl120 experiment"
+    },
+    {
+      "kind": "report",
+      "path": "tx/sl120_report.html",
+      "section": "tx",
+      "title": "TX SL=120 甜蜜點 R:R 實驗"
+    },
+    {
+      "kind": "result",
+      "path": "tx/zheng2_results.json",
+      "section": "tx",
+      "title": "zheng2 results"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-FVG-Strategy/XAUUSD-FVG-V1.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD FVG V1.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-FVG-Strategy/XAUUSD-FVG-V2.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD FVG V2.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-FVG-Strategy/XAUUSD-FVG-V2.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD FVG V2.1"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-FVG-Strategy/fvg_60m_results.json",
+      "section": "xauusd",
+      "title": "fvg 60m results"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-FVG-Strategy/fvg_guide.html",
+      "section": "xauusd",
+      "title": "FVG 公允價值缺口策略 — 完整教學"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-FVG-Strategy/fvg_long_results.json",
+      "section": "xauusd",
+      "title": "fvg long results"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-FVG-Strategy/optimization_results.json",
+      "section": "xauusd",
+      "title": "optimization results"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-FVG-Strategy/optimization_results_60m.json",
+      "section": "xauusd",
+      "title": "optimization results 60m"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-FVG-Strategy/report_fvg_60m.html",
+      "section": "xauusd",
+      "title": "FVG 60m 最佳化報告"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-FVG-Strategy/report_fvg_long.html",
+      "section": "xauusd",
+      "title": "XAUUSD FVG-V2 多單回測報告"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-FVG-Strategy/report_sensitivity.html",
+      "section": "xauusd",
+      "title": "FVG 最佳參數鄰域敏感度測試"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/ALL_Long_Strategies.pine",
+      "section": "xauusd",
+      "title": "ALL Long Strategies"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E01_EMA_Cross.pine",
+      "section": "xauusd",
+      "title": "E01 EMA Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E02_Triple_EMA.pine",
+      "section": "xauusd",
+      "title": "E02 Triple EMA"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E03_MACD_Signal.pine",
+      "section": "xauusd",
+      "title": "E03 MACD Signal"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E04_Supertrend.pine",
+      "section": "xauusd",
+      "title": "E04 Supertrend"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E05_ADX_EMA_Dip.pine",
+      "section": "xauusd",
+      "title": "E05 ADX EMA Dip"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E06_RSI_Oversold.pine",
+      "section": "xauusd",
+      "title": "E06 RSI Oversold"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E07_Stoch_Cross.pine",
+      "section": "xauusd",
+      "title": "E07 Stoch Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E08_CCI_Bounce.pine",
+      "section": "xauusd",
+      "title": "E08 CCI Bounce"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E09_Williams_R.pine",
+      "section": "xauusd",
+      "title": "E09 Williams R"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E10_RSI_Divergence.pine",
+      "section": "xauusd",
+      "title": "E10 RSI Divergence"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E11_BB_Lower_Touch.pine",
+      "section": "xauusd",
+      "title": "E11 BB Lower Touch"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E12_BB_Squeeze_Break.pine",
+      "section": "xauusd",
+      "title": "E12 BB Squeeze Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E13_BB_Basis_Walk.pine",
+      "section": "xauusd",
+      "title": "E13 BB Basis Walk"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E14_Donchian_Break.pine",
+      "section": "xauusd",
+      "title": "E14 Donchian Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E15_Inside_Bar_Break.pine",
+      "section": "xauusd",
+      "title": "E15 Inside Bar Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E16_ATR_Vol_Break.pine",
+      "section": "xauusd",
+      "title": "E16 ATR Vol Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E17_AO_Saucer.pine",
+      "section": "xauusd",
+      "title": "E17 AO Saucer"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E18_Hammer.pine",
+      "section": "xauusd",
+      "title": "E18 Hammer"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E19_Bullish_Engulf.pine",
+      "section": "xauusd",
+      "title": "E19 Bullish Engulf"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Experiments/pine/E20_Confluence.pine",
+      "section": "xauusd",
+      "title": "E20 Confluence"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-Experiments/report.html",
+      "section": "xauusd",
+      "title": "XAUUSD 20-Strategy Experiment Report"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Long-Experiments/results.json",
+      "section": "xauusd",
+      "title": "results"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-Lab/XAUUSD-Long-Lab10-V1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long Lab10 V1"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Long-Lab/lab10_results.json",
+      "section": "xauusd",
+      "title": "lab10 results"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-Lab/report_lab10.html",
+      "section": "xauusd",
+      "title": "Lab10 — 10策略參數最佳化"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.4.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.4"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.5.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.5"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.6.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.6.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.6.2.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.6.2"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.6.3.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.6.3"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.7-ABCD-Diagnostic.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.7 ABCD Diagnostic"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.7.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.7"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.8.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.8.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V3.9.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V3.9"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V4.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V4.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/XAUUSD-Long-S1-AweWithBB-V4.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S1 AweWithBB V4.1"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB v3.4 — Fail Pattern Report"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_s1_fail_short.html",
+      "section": "xauusd",
+      "title": "S1-Fail 反向做空測試報告"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v2.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB V2 深度分析報告"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v3.7.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB V3.7 完整分析報告"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v3.7_oos.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB V3.7 Out-of-Sample 測試"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v3.7_real.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB V3.4 vs V3.7 真實逐筆歸因分析"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v3.8_regime_sweep.html",
+      "section": "xauusd",
+      "title": "S1 V3.8.1 Regime 回看根數掃描"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S1-AweWithBB/report_v3.9_real.html",
+      "section": "xauusd",
+      "title": "S1-AweWithBB V3.7 vs V3.9 真實逐筆歸因分析"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V2.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V2.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V2.2.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V2.2"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V2.3.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V2.3"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V2.4.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V2.4.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V3.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V3.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V3.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V3.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V3.2.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V3.2"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V4.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V4.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Hammer-V4.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hammer V4.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Pullback-V1.9.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Pullback V1.9"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/XAUUSD-Long-S2-Pullback-V2.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Pullback V2.0"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report.html",
+      "section": "xauusd",
+      "title": "S2-Hammer v1.9 — Fail Pattern Report"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_early_be_sweep.html",
+      "section": "xauusd",
+      "title": "S2-Hammer 提早保本參數掃描"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_s2_attribution.html",
+      "section": "xauusd",
+      "title": "S2 真實逐筆歸因 + OOS + 濾網重疊 + time_bleed 解剖"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_s2_confluence.html",
+      "section": "xauusd",
+      "title": "S2A × S2B 合流分析：合併假設檢驗"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_v3.2.html",
+      "section": "xauusd",
+      "title": "S2-Hammer v3.2 — Fail Pattern Report"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_v32_oos.html",
+      "section": "xauusd",
+      "title": "S2-Hammer V3.2 是否解決 V1.9 的 OOS 失敗？"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-Hammer/report_v41_oos.html",
+      "section": "xauusd",
+      "title": "S2-Hammer V4.1（Footprint D）vs V3.2 差異 + OOS"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/XAUUSD-Long-S2-Hybrid-V2.0.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hybrid V2.0"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/XAUUSD-Long-S2-Hybrid-V2.1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 Hybrid V2.1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/XAUUSD-Long-S2-RSI-V2.2.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 RSI V2.2"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/XAUUSD-Long-S2-RSI-V2.3.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 RSI V2.3"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/XAUUSD-Long-S2-RSI-V2.4.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Long S2 RSI V2.4"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Long-S2-RSI/report.html",
+      "section": "xauusd",
+      "title": "S2-RSI v2.0 — Fail Pattern Report"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Macro/XAUUSD-Macro-v3.6.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Macro v3.6"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Macro/XAUUSD-Macro-v3.7.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Macro v3.7"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Macro/macro_backtest_report.html",
+      "section": "xauusd",
+      "title": "XAUUSD Macro Backtest Report"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Macro/macro_backtest_results.json",
+      "section": "xauusd",
+      "title": "macro backtest results"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Macro/real_macro_backtest_report.html",
+      "section": "xauusd",
+      "title": "XAUUSD Real Strategy × Macro Backtest"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Macro/real_macro_backtest_results.json",
+      "section": "xauusd",
+      "title": "real macro backtest results"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Macro v3.6.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Macro v3.6"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-S1S2-Export-V1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD S1S2 Export V1"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-SMC-Experiments/report.html",
+      "section": "xauusd",
+      "title": "XAUUSD SMC Strategy Experiment"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-SMC-Experiments/results.json",
+      "section": "xauusd",
+      "title": "results"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/ALL_Short_Strategies.pine",
+      "section": "xauusd",
+      "title": "ALL Short Strategies"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S01_EMA_Cross.pine",
+      "section": "xauusd",
+      "title": "S01 EMA Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S02_Triple_EMA.pine",
+      "section": "xauusd",
+      "title": "S02 Triple EMA"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S03_MACD_Signal.pine",
+      "section": "xauusd",
+      "title": "S03 MACD Signal"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S04_Supertrend.pine",
+      "section": "xauusd",
+      "title": "S04 Supertrend"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S05_ADX_EMA_Reject.pine",
+      "section": "xauusd",
+      "title": "S05 ADX EMA Reject"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S06_RSI_Overbought.pine",
+      "section": "xauusd",
+      "title": "S06 RSI Overbought"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S07_Stoch_Cross.pine",
+      "section": "xauusd",
+      "title": "S07 Stoch Cross"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S08_CCI_Overbought.pine",
+      "section": "xauusd",
+      "title": "S08 CCI Overbought"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S09_Williams_R.pine",
+      "section": "xauusd",
+      "title": "S09 Williams R"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S10_RSI_Divergence.pine",
+      "section": "xauusd",
+      "title": "S10 RSI Divergence"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S11_BB_Upper_Touch.pine",
+      "section": "xauusd",
+      "title": "S11 BB Upper Touch"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S12_BB_Squeeze_Break.pine",
+      "section": "xauusd",
+      "title": "S12 BB Squeeze Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S13_BB_Basis_Reject.pine",
+      "section": "xauusd",
+      "title": "S13 BB Basis Reject"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S14_Donchian_Break.pine",
+      "section": "xauusd",
+      "title": "S14 Donchian Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S15_Inside_Bar_Break.pine",
+      "section": "xauusd",
+      "title": "S15 Inside Bar Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S16_ATR_Vol_Break.pine",
+      "section": "xauusd",
+      "title": "S16 ATR Vol Break"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S17_AO_Saucer.pine",
+      "section": "xauusd",
+      "title": "S17 AO Saucer"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S18_Shooting_Star.pine",
+      "section": "xauusd",
+      "title": "S18 Shooting Star"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S19_Bearish_Engulf.pine",
+      "section": "xauusd",
+      "title": "S19 Bearish Engulf"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Experiments/pine/S20_Confluence.pine",
+      "section": "xauusd",
+      "title": "S20 Confluence"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Short-Experiments/report.html",
+      "section": "xauusd",
+      "title": "XAUUSD 20-Strategy Experiment Report"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Short-Experiments/results.json",
+      "section": "xauusd",
+      "title": "results"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Lab/XAUUSD-Short-Lab10-V1.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Short Lab10 V1"
+    },
+    {
+      "kind": "pine",
+      "path": "xauusd/XAUUSD-Short-Lab/XAUUSD-Short-Lab10-V2.pine",
+      "section": "xauusd",
+      "title": "XAUUSD Short Lab10 V2"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Short-Lab/bull_short_results.json",
+      "section": "xauusd",
+      "title": "bull short results"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/XAUUSD-Short-Lab/lab10_short_results.json",
+      "section": "xauusd",
+      "title": "lab10 short results"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Short-Lab/report_bull_short.html",
+      "section": "xauusd",
+      "title": "多頭下的空單 — 出場×Gate掃描"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/XAUUSD-Short-Lab/report_lab10_short.html",
+      "section": "xauusd",
+      "title": "Lab10-Short — 10空單策略參數最佳化"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/__init__.py",
+      "section": "xauusd",
+      "title": "init"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/bb_analysis.py",
+      "section": "xauusd",
+      "title": "bb analysis"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/charts.py",
+      "section": "xauusd",
+      "title": "charts"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/config.py",
+      "section": "xauusd",
+      "title": "config"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/divergence.py",
+      "section": "xauusd",
+      "title": "divergence"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/dxy_analysis.py",
+      "section": "xauusd",
+      "title": "dxy analysis"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/fail_patterns.py",
+      "section": "xauusd",
+      "title": "fail patterns"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/loader.py",
+      "section": "xauusd",
+      "title": "loader"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/metrics.py",
+      "section": "xauusd",
+      "title": "metrics"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/mtf_analysis.py",
+      "section": "xauusd",
+      "title": "mtf analysis"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/pre_entry.py",
+      "section": "xauusd",
+      "title": "pre entry"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/analysis/report.py",
+      "section": "xauusd",
+      "title": "report"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/daily_log/cftc_20260607.json",
+      "section": "xauusd",
+      "title": "cftc 20260607"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/__init__.py",
+      "section": "xauusd",
+      "title": "init"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/engine.py",
+      "section": "xauusd",
+      "title": "engine"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/indicators.py",
+      "section": "xauusd",
+      "title": "indicators"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/pine_generator.py",
+      "section": "xauusd",
+      "title": "pine generator"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/pine_generator_short.py",
+      "section": "xauusd",
+      "title": "pine generator short"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/report.py",
+      "section": "xauusd",
+      "title": "report"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/runner.py",
+      "section": "xauusd",
+      "title": "runner"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/smc_indicators.py",
+      "section": "xauusd",
+      "title": "smc indicators"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/strategies.py",
+      "section": "xauusd",
+      "title": "strategies"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/strategies_short.py",
+      "section": "xauusd",
+      "title": "strategies short"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/experiments/strategies_smc.py",
+      "section": "xauusd",
+      "title": "strategies smc"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/fetcher/calculate_indicators.py",
+      "section": "xauusd",
+      "title": "calculate indicators"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/fetcher/fetch_market_data.py",
+      "section": "xauusd",
+      "title": "fetch market data"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/macro_report.html",
+      "section": "xauusd",
+      "title": "XAUUSD 宏觀分析 — 月度方向 + 週內結構"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/main.py",
+      "section": "xauusd",
+      "title": "main"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/init_cold_db.py",
+      "section": "xauusd",
+      "title": "init cold db"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/module_a.py",
+      "section": "xauusd",
+      "title": "module a"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/module_b.py",
+      "section": "xauusd",
+      "title": "module b"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/module_c.py",
+      "section": "xauusd",
+      "title": "module c"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/run_pipeline.py",
+      "section": "xauusd",
+      "title": "run pipeline"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/pipeline/settings.py",
+      "section": "xauusd",
+      "title": "settings"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/report_s1s2_optimizer.html",
+      "section": "xauusd",
+      "title": "S1/S2 Filter 最佳化"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/run_experiments.py",
+      "section": "xauusd",
+      "title": "run experiments"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/run_short_experiments.py",
+      "section": "xauusd",
+      "title": "run short experiments"
+    },
+    {
+      "kind": "result",
+      "path": "xauusd/s1s2_optimizer_results.json",
+      "section": "xauusd",
+      "title": "s1s2 optimizer results"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/analyze_h1_regime.py",
+      "section": "xauusd",
+      "title": "analyze h1 regime"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/macro_analysis.py",
+      "section": "xauusd",
+      "title": "macro analysis"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_bull_short_lab.py",
+      "section": "xauusd",
+      "title": "run bull short lab"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_fvg_experiments.py",
+      "section": "xauusd",
+      "title": "run fvg experiments"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_fvg_sensitivity.py",
+      "section": "xauusd",
+      "title": "run fvg sensitivity"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_lab10_optimizer.py",
+      "section": "xauusd",
+      "title": "run lab10 optimizer"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_lab10_short_optimizer.py",
+      "section": "xauusd",
+      "title": "run lab10 short optimizer"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_macro_backtest.py",
+      "section": "xauusd",
+      "title": "run macro backtest"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_real_strategy_macro_backtest.py",
+      "section": "xauusd",
+      "title": "run real strategy macro backtest"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_deep_analysis.py",
+      "section": "xauusd",
+      "title": "run s1 deep analysis"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_fail_short.py",
+      "section": "xauusd",
+      "title": "run s1 fail short"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_regime_sweep.py",
+      "section": "xauusd",
+      "title": "run s1 regime sweep"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_v37_oos_split.py",
+      "section": "xauusd",
+      "title": "run s1 v37 oos split"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_v37_real_attribution.py",
+      "section": "xauusd",
+      "title": "run s1 v37 real attribution"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_v37_report.py",
+      "section": "xauusd",
+      "title": "run s1 v37 report"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1_v39_real_attribution.py",
+      "section": "xauusd",
+      "title": "run s1 v39 real attribution"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s1s2_filter_optimizer.py",
+      "section": "xauusd",
+      "title": "run s1s2 filter optimizer"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s2_attribution.py",
+      "section": "xauusd",
+      "title": "run s2 attribution"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s2_confluence.py",
+      "section": "xauusd",
+      "title": "run s2 confluence"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s2_hammer_early_be_sweep.py",
+      "section": "xauusd",
+      "title": "run s2 hammer early be sweep"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s2_hammer_v32_oos.py",
+      "section": "xauusd",
+      "title": "run s2 hammer v32 oos"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_s2_hammer_v41_oos.py",
+      "section": "xauusd",
+      "title": "run s2 hammer v41 oos"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/scripts/run_smc_experiments.py",
+      "section": "xauusd",
+      "title": "run smc experiments"
+    },
+    {
+      "kind": "python",
+      "path": "xauusd/signal_scanner.py",
+      "section": "xauusd",
+      "title": "signal scanner"
+    },
+    {
+      "kind": "report",
+      "path": "xauusd/xauusd_h2_dashboard.html",
+      "section": "xauusd",
+      "title": "XAUUSD 交易系統 2026"
+    }
+  ],
+  "legacy_source_commit": "04cd05734e6905561e113945948e848e106d26bb",
+  "schema_version": 1
+}

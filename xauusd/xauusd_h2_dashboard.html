@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XAUUSD 交易系統 2026</title>
+<style>
+  :root{--bg:#0d0f14;--bg2:#141720;--bg3:#1c2030;--border:#2a2f45;--text:#e8eaf0;
+    --muted:#6b7280;--gold:#f0b429;--green:#06d6a0;--red:#ef476f;--blue:#4fc3f7;--purple:#b388ff;--warning:#ffd166;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;
+    font-size:14px;line-height:1.7;padding:0 0 60px;max-width:480px;margin:0 auto;}
+  .header{text-align:center;padding:22px 16px 16px;border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(240,180,41,0.05),transparent);}
+  .header h1{font-size:20px;color:var(--gold);letter-spacing:2px;margin-bottom:4px;}
+  .header p{font-size:12px;color:var(--muted);}
+  .tabs{display:flex;gap:4px;padding:12px 16px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border);}
+  .tab{flex:1;padding:10px 8px;border:1px solid var(--border);border-radius:8px;
+    background:var(--bg2);color:var(--muted);font-size:13px;font-family:'Noto Sans TC';cursor:pointer;text-align:center;}
+  .tab.active{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,0.08);}
+  .page{display:none;padding:16px;}
+  .page.active{display:block;}
+  .section-title{font-size:12px;color:var(--muted);font-family:monospace;letter-spacing:1px;margin:18px 0 10px;}
+  .section-title:first-child{margin-top:0;}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;}
+  .pos{color:var(--green);}.neg{color:var(--red);}.gold{color:var(--gold);}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{color:var(--muted);font-weight:500;text-align:right;padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;}
+  th:first-child{text-align:left;}
+  td{text-align:right;padding:7px 8px;border-bottom:1px solid rgba(42,47,69,0.5);}
+  td:first-child{text-align:left;}
+  .insight{padding:12px 14px;border-radius:0 10px 10px 0;margin-bottom:12px;font-size:13px;line-height:1.75;}
+  .insight.red{background:rgba(239,71,111,0.06);border-left:3px solid var(--red);}
+  .insight.green{background:rgba(6,214,160,0.06);border-left:3px solid var(--green);}
+  .insight.gold{background:rgba(240,180,41,0.06);border-left:3px solid var(--gold);}
+  .insight.blue{background:rgba(79,195,247,0.06);border-left:3px solid var(--blue);}
+  .insight strong{color:var(--text);}
+  .big{font-size:17px;font-weight:700;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px;}
+  .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;}
+  .kpi .label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .kpi .val{font-size:20px;font-weight:600;}
+  .rule{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(42,47,69,0.5);}
+  .rule:last-child{border-bottom:none;}
+  .rule-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;
+    justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;margin-top:1px;font-family:monospace;}
+  .rule-body{flex:1;font-size:13px;line-height:1.65;}
+  .rule-body b{color:var(--gold);}
+  .highlight-box{background:linear-gradient(135deg,rgba(240,180,41,0.1),rgba(240,180,41,0.02));
+    border:1px solid rgba(240,180,41,0.3);border-radius:12px;padding:16px;margin-bottom:12px;text-align:center;}
+  .highlight-box .num{font-size:26px;font-weight:700;color:var(--gold);font-family:monospace;}
+  .highlight-box .desc{font-size:12px;color:var(--muted);margin-top:4px;}
+  .quote{background:var(--bg3);border-radius:10px;padding:14px;margin:12px 0;
+    font-size:13px;line-height:1.8;color:#c0c4d0;font-style:italic;}
+  .memo-cat{font-size:11px;color:var(--gold);font-family:monospace;letter-spacing:1px;
+    margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .memo-item{display:flex;gap:9px;padding:10px 0;font-size:13px;line-height:1.7;border-bottom:1px solid rgba(42,47,69,0.35);align-items:flex-start;}
+  .memo-item:last-child{border-bottom:none;}
+  .memo-item::before{content:'▸';color:var(--muted);flex-shrink:0;margin-top:1px;}
+  .memo-item.warn::before{content:'⚠';color:var(--red);}
+  .memo-item.good::before{content:'✓';color:var(--green);}
+  .memo-item b{color:var(--gold);display:block;margin-bottom:2px;font-weight:600;}
+  .memo-item .sub{color:#a8adb8;font-size:12.5px;}
+  .badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-family:monospace;margin-left:4px;}
+  .b-s1{background:rgba(6,214,160,0.15);color:var(--green);}
+  .b-s2{background:rgba(255,209,102,0.15);color:var(--warning);}
+  .month-log{background:var(--bg3);border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+  .month-log .m-title{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:4px;}
+  .month-log .m-body{font-size:12px;color:#c0c4d0;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>XAUUSD 交易系統</h1>
+  <p>2026 · 每季迭代 · 真實帳戶</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('h1review')">2026 H1回顧</button>
+  <button class="tab" onclick="show('h2goal')">2026 H2目標</button>
+  <button class="tab" onclick="show('creed')">交易天條</button>
+</div>
+
+<!-- ============ SHEET 1: H1 回顧 ============ -->
+<div id="h1review" class="page active">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">H1 累積 R</div><div class="val pos">+20.81 R</div></div>
+    <div class="kpi"><div class="label">真實美金</div><div class="val pos">+$5,002</div></div>
+    <div class="kpi"><div class="label">勝率</div><div class="val">65%</div></div>
+    <div class="kpi"><div class="label">平衡勝率</div><div class="val neg">59%</div></div>
+  </div>
+
+  <div class="insight blue">
+    帳戶驗證：$14,000 起始 + $5,002 損益 = $19,002 ≈ 實際 $19,000 ✓
+  </div>
+
+  <div class="section-title">▶ 盈虧不對稱（核心問題）</div>
+  <div class="card">
+    <table>
+      <tr><td>虧損單吃滿 SL</td><td class="neg">74%</td></tr>
+      <tr><td>獲利單達 1R</td><td class="neg">34%</td></tr>
+      <tr><td>獲利單 0.5R 就跑</td><td class="neg">39%</td></tr>
+      <tr><td>輸的時候平均</td><td class="neg">-1.15R</td></tr>
+      <tr><td>贏的時候平均</td><td>+0.79R</td></tr>
+    </table>
+  </div>
+  <div class="insight gold">
+    輸 1.15R、贏 0.79R。<strong>若 TP 能吃滿 1R，累積會從 20.81R 變 65.57R（三倍）。</strong>這是 H2 拆單策略要解決的核心洞。
+  </div>
+
+  <div class="section-title">▶ 每月績效</div>
+  <div class="card">
+    <table>
+      <tr><th>月</th><th>筆數</th><th>美金</th><th>累積R</th><th>勝率</th></tr>
+      <tr><td>1月</td><td>25</td><td class="pos">+10,370</td><td class="pos">+16.85</td><td>88%</td></tr>
+      <tr><td>2月</td><td>53</td><td class="neg">-5,237</td><td class="neg">-4.92</td><td>64%</td></tr>
+      <tr><td>3月</td><td>31</td><td class="pos">+2,180</td><td class="pos">+5.36</td><td>68%</td></tr>
+      <tr><td>4月</td><td>29</td><td class="pos">+1,940</td><td class="pos">+2.88</td><td>69%</td></tr>
+      <tr><td>5月</td><td>27</td><td class="neg">-5,573</td><td class="neg">-4.15</td><td>44%</td></tr>
+      <tr><td>6月</td><td>23</td><td class="pos">+1,322</td><td class="pos">+4.79</td><td>57%</td></tr>
+    </table>
+  </div>
+  <div class="insight red">
+    1月25筆賺爆(88%勝率, PF13.73)，2月衝到53筆勝率崩 → <strong>1月是手感好，不是RR設計優</strong>。5月風險佔比最高(5.73%)也虧最多——風險%才是保護你的關鍵，不是勝率。
+  </div>
+
+  <div class="section-title">▶ 四策略完整比較</div>
+  <div class="card">
+    <table>
+      <tr><th>策略</th><th>筆數</th><th>累積R</th><th>PF</th><th>勝率</th></tr>
+      <tr><td>🚀 S1 順勢</td><td>95</td><td class="pos">+18.60</td><td>1.50</td><td>71%</td></tr>
+      <tr><td>🛡️ S2 逆勢</td><td>66</td><td>+2.69</td><td>1.11</td><td>61%</td></tr>
+      <tr><td>📉 S1-Fail</td><td>15</td><td class="pos">+4.35</td><td>1.69</td><td>67%</td></tr>
+      <tr><td>📉 S2-Fail</td><td>5</td><td class="neg">-1.70</td><td>0.36</td><td>40%</td></tr>
+    </table>
+  </div>
+  <div class="insight green">
+    <strong>S1 是絕對主力（+18.6R）。S1-Fail（反向做空弱勢S1子型態）小樣本但表現佳(+4.35R)，先觀察不重倉。S2-Fail 樣本太小且輸錢，降權重觀察。</strong>
+  </div>
+
+  <div class="section-title">▶ 違紀代價 & 連續虧損紀錄</div>
+  <div class="highlight-box">
+    <div class="num neg">-8.02 R</div>
+    <div class="desc">7 筆違紀交易（FOMO/報復/未設止損）</div>
+  </div>
+  <div class="insight red">
+    若無這 7 筆，累積會是 <span class="big pos">+28.83R</span>。違紀吃掉 28% 獲利。<br><br>
+    <strong>H1最長連續虧損：5筆</strong>（跨5/14~5/18，含週末），單日最多虧4次，全年15天單日虧2次以上。
+  </div>
+</div>
+
+<!-- ============ SHEET 2: H2 目標（真實帳戶鐵律）============ -->
+<div id="h2goal" class="page">
+  <div class="highlight-box">
+    <div class="num" style="font-size:20px;">紀律零違規</div>
+    <div class="desc">H2 唯一指標：不看賺多少，看違規幾次</div>
+  </div>
+
+  <div class="section-title">▶ 手數與風險（帳戶 $19,000）</div>
+  <div class="card">
+    <table>
+      <tr><th>策略</th><th>結構</th><th>SL</th><th>總風險</th><th>佔帳戶</th></tr>
+      <tr><td>S1 <span class="badge b-s1">主力</span></td><td>2單×0.15手</td><td>$350</td><td>$700</td><td>3.68%</td></tr>
+      <tr><td>S2 <span class="badge b-s2">限次</span></td><td>2單×0.10手</td><td>$500</td><td>$1,000</td><td>5.26%</td></tr>
+    </table>
+  </div>
+  <div class="insight blue">
+    S2風險比例天生較高（因技術結構需要，SL不能硬縮），用<strong>「S2每週最多2次」</strong>補償，不硬改SL傷害勝率。實務上S2先進場、S1觸發時S2通常已移保本，同天真實同時曝險多半只有S1單獨。
+  </div>
+
+  <div class="section-title">▶ 六大鐵律</div>
+  <div class="card">
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(6,214,160,0.15);color:var(--green);">1</div>
+      <div class="rule-body"><b>固定手數，整月不准改。</b>切斷「賺了想加倍」的衝動。</div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">2</div>
+      <div class="rule-body"><b>加碼要靠系統證明。</b>條件：連續N筆正期望值+違規零+一週為正或當月為正 → 下月才能改手數，每次最多+50%，不准double。</div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(179,136,255,0.15);color:var(--purple);">3</div>
+      <div class="rule-body"><b>TP分兩段。</b>第一單TP1=1R落袋（每週績效），第二單TP2=2R掛好，第一單出後移保本。</div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(79,195,247,0.15);color:var(--blue);">4</div>
+      <div class="rule-body"><b>SL取較嚴。</b>固定點數 vs 結構位（VAL/前低下方），兩者取較近的；若都太寬則不進場。</div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(239,71,111,0.15);color:var(--red);">5</div>
+      <div class="rule-body"><b>進場即掛TP限價單，然後關圖表。</b>39%獲利單0.5R就跑，全是盯盤盯出來的。</div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon" style="background:rgba(255,209,102,0.15);color:var(--warning);">6</div>
+      <div class="rule-body"><b>聚焦S1，慎做S2。</b>S2只在4小時中軌+槌頭消化後才做。</div>
+    </div>
+  </div>
+
+  <div class="section-title">▶ 停止交易條件</div>
+  <div class="card">
+    <table>
+      <tr><th>條件</th><th>動作</th></tr>
+      <tr><td>單日虧損 2 單</td><td class="neg">當天收工</td></tr>
+      <tr><td>累積虧損 4 單（跨日）</td><td class="neg">冷卻 + 重新校準框架</td></tr>
+    </table>
+  </div>
+  <div class="insight gold">
+    改成4單不是5單——5單是H1歷史最糟才踩剎車，太晚。累積4單通常代表「連兩天觸發停損」，這不只是手感差，是<strong>你對當前市場regime的判讀框架錯了</strong>。<br><br>
+    冷卻的意義不是休息，是<strong>強制重寫一次市場判斷</strong>（大多頭／大空頭／震盪），校準完框架才回來（最少隔1個交易日）。用同樣的錯框架第三天回來，只會繼續錯。
+  </div>
+
+  <div class="section-title">▶ 「一萬想變兩萬」的正解</div>
+  <div class="insight blue">
+    ❌ 加倍手數 → 期望兩萬 → 虧損月雙倍虧<br>
+    ✅ 固定手數做穩 → 帳戶長大 → 同樣0.2手金額自然翻倍<br><br>
+    <strong>不是「加手數」賺兩萬，是「帳戶長大」賺兩萬。</strong>
+  </div>
+
+  <div class="section-title">▶ 本季追蹤（每季更新）</div>
+  <div class="month-log">
+    <div class="m-title">Q3 目標</div>
+    <div class="m-body">違規次數：___ ／ 目標0　｜　TP2達1R以上次數：___　｜　是否符合加碼條件：___</div>
+  </div>
+</div>
+
+<!-- ============ SHEET 3: 交易天條（MEMO）============ -->
+<div id="creed" class="page">
+  <div class="insight blue">
+    去蕪存菁版。原則按「戰略框架 → 進場紀律 → 各策略細則」分層，最上面的是最高優先級的鐵則。
+  </div>
+
+  <div class="memo-cat">▶ 最高鐵則（違反必虧）</div>
+  <div class="card">
+    <div class="memo-item warn"><b>沒有訊號，嚴禁進場。</b><span class="sub">主觀「覺得會漲/跌」不算訊號。這是你H1最大破口的源頭。</span></div>
+    <div class="memo-item warn"><b>價格遠離進場點，寧願沒賺也不追。</b><span class="sub">訊號出來沒第一時間進，就放掉，追高殺低是2月-980、-1008的主因。</span></div>
+    <div class="memo-item warn"><b>禁止鎖利鎖損凹單。</b><span class="sub">不是神，砍了就砍了重來。移SL去凹是2月-2559報復性交易的開端。</span></div>
+    <div class="memo-item warn"><b>非農/CPI 禁止留倉過週末。</b><span class="sub">4月-3973、5月-1995都是週五留倉週一大跌。</span></div>
+  </div>
+
+  <div class="memo-cat">▶ 戰略框架：先判斷market regime</div>
+  <div class="card">
+    <div class="memo-item warn"><b>大空頭：S1禁止做空。</b><span class="sub">大跌後第一個S1通常是「再跌的中繼休息」，不是反轉。這條在4月、5月各讓你虧一次(-961、-1020)，是你標★★★★的血淚。</span></div>
+    <div class="memo-item warn"><b>大空頭：一天最多兩次，第一次S2、第二次等S1。</b><span class="sub">訊號會很多但大多是雜訊，克制。</span></div>
+    <div class="memo-item"><b>心態永遠偏多。</b><span class="sub">空單要非常有把握才進，這是黃金長期結構決定的。</span></div>
+    <div class="memo-item"><b>尊重週報關鍵點位。</b><span class="sub">寫了就要記住並執行，不是寫完就忘。</span></div>
+  </div>
+
+  <div class="memo-cat">▶ 進場紀律</div>
+  <div class="card">
+    <div class="memo-item"><b>下單前先問：有什麼理由可以「拒絕」這單？</b><span class="sub">找不到拒絕理由才進。</span></div>
+    <div class="memo-item">掛單不超過1小時（S2不超過1天），避免行情反轉多吃虧損。</div>
+    <div class="memo-item warn">22:00訊號可能是騙線，等22:30~23:00確認方向再進，開盤直接大跌是賭方向。</div>
+    <div class="memo-item">亞盤訊號跌破收回常發生，等美盤確認再考慮進場。</div>
+    <div class="memo-item">亞盤08:30收線沒漲就保本，亞歐盤開盤容易跌。</div>
+  </div>
+
+  <div class="memo-cat">▶ 籌碼與時間規律</div>
+  <div class="card">
+    <div class="memo-item warn">散戶多單很多 → 一定會被掃（先掃流動性再走）。</div>
+    <div class="memo-item">散戶籌碼中性/無方向 → 震盪多、假突破多，降低期待。</div>
+    <div class="memo-item">大漲容易在禮拜四獲利了結。</div>
+    <div class="memo-item">非農週：週一亞盤可能真漲；垃圾時間多，S2多把握、S1禁止追高。</div>
+  </div>
+
+  <div class="memo-cat">▶ S1 細則（順勢，停損25美）</div>
+  <div class="card">
+    <div class="memo-item good"><b>核心：等第一根30分鐘收線，收中性以上才進。</b><span class="sub">不要訊號一出就衝。</span></div>
+    <div class="memo-item">三根K棒內實體收最低 → 反彈看情況提早離場。</div>
+    <div class="memo-item">三根內比進場低50% → 留校察看，停損設訊號前一根K棒低點。</div>
+  </div>
+
+  <div class="memo-cat">▶ S1-Fail 細則（看到弱勢S1反向做空）</div>
+  <div class="card">
+    <div class="memo-item warn"><b>只在下降趨勢中用。</b><span class="sub">大跌後V型反轉出現的S1，多是再跌中繼，此時反向做空。</span></div>
+    <div class="memo-item">做法：先看當天high/low，訊號出來收中性、突破當天高點掃完流動性後，進場做空，停損設再破高。</div>
+    <div class="memo-item">前提：散戶籌碼中性（無方向），假突破機率高時才成立。H1小樣本15筆表現不錯(PF1.69)，但先觀察不重倉。</div>
+  </div>
+
+  <div class="memo-cat">▶ S2 細則（逆勢，停損50美）</div>
+  <div class="card">
+    <div class="memo-item warn"><b>位置：只在4小時中軌「以下」做。</b><span class="sub">中軌以上發動停損率極高。</span></div>
+    <div class="memo-item warn"><b>時機：槌頭出現不要馬上進S1，等槌頭「消化」穩住後再醞釀。</b><span class="sub">馬上接會失敗。</span></div>
+    <div class="memo-item warn">RSI用法：應在價格「破底」時使用。只靠一根漲K+RSI>30風險太高，要等漲過進場K棒、回踩時再進。</div>
+    <div class="memo-item">上軌使用要降部位。週五收盤前的S2，週一亞盤可能上漲，留意。</div>
+    <div class="memo-item">非交易時間必須設止損（2月-2203就是亞盤大跌沒設止損）。</div>
+  </div>
+
+  <div class="memo-cat">▶ 保盈機制（每週要有績效）</div>
+  <div class="card">
+    <div class="memo-item good">選擇「保盈」累積最快：P1正常止損 → P2獲利400保200 → P3獲利600保400。</div>
+    <div class="memo-item">亞盤獲利1%出場。</div>
+    <div class="memo-item warn">但注意：這與「TP吃滿」矛盾。H2用拆單解決——第一單保盈落袋、第二單讓它跑2R。</div>
+  </div>
+
+  <div class="memo-cat">▶ A+ 放大手數條件（唯一允許加碼的情況）</div>
+  <div class="card">
+    <div class="memo-item good">同一天S2在中軌以下發生、S1接著突破 → 可放大，看4hr或前波高點。</div>
+    <div class="memo-item good">Macro共軌（公債、美元，30m/1hr/4hr都支持）→ 僅放大S1。</div>
+    <div class="memo-item">記住：S2能重複點位進場，S1不行。交易是等出來的。</div>
+  </div>
+
+  <div class="memo-cat" style="color:var(--blue);border-color:var(--blue);">▶ TopStep 建議（$100K Combine · 考試中 -$230）</div>
+  <div class="card" style="border-color:rgba(79,195,247,0.3);">
+    <div class="insight red" style="margin-bottom:12px;">
+      <strong>為什麼一直沒過：MLL是「即時Trailing」不是固定$3000。</strong>盤中浮盈曾到過的高點會鎖住地板且永不下降，之後回落就淘汰。你可能把真實帳戶「扛浮虧等反轉」的習慣帶過來，但TopStep連盤中浮盈回吐都會出局。
+    </div>
+    <div class="memo-item warn"><b>只用S1，S2先不上場。</b><span class="sub">S2的SL$50在MGC最小1口就=$500/筆，兩單$1000直接吃光整個DLL，弱策略配最低容錯=必敗組合。等過關再說。</span></div>
+    <div class="memo-item good"><b>S1手數：MGC 1口，SL收緊到$17.5價差，兩單合計風險$350（佔DLL 35%）。</b><span class="sub">比真實帳戶更保守。</span></div>
+    <div class="memo-item warn"><b>停止條件比真實帳戶更嚴：單日虧1單就停、連虧3單冷卻。</b><span class="sub">因為MLL觸碰=永久淘汰，沒有重來。</span></div>
+    <div class="memo-item"><b>規格：</b><span class="sub">目標$6000／MLL$3000（即時trail）／DLL$1000（你設的）。目前-$230在安全範圍，別急著扳回，扳回心態正是MLL殺手。</span></div>
+    <div class="memo-item good"><b>通過$6000後，再考慮把S2加回來。</b><span class="sub">先用最強的S1證明能穩定達標。</span></div>
+  </div>
+
+  <div class="memo-cat">▶ H1 大事記與教訓</div>
+  <div class="card">
+    <div class="month-log">
+      <div class="m-title">5/1 → 5/19：手數調整</div>
+      <div class="m-body">5/1 change to 0.5，行情大空頭+虧損吃滿 2萬5 to 1萬9　｜　5/19 change to 0.2，累積到2萬5再說</div>
+    </div>
+    <div class="month-log">
+      <div class="m-title">4月：+1,940（29筆）</div>
+      <div class="m-body">S1-Fail -961：大空頭的S1禁止做空 ★★★★<br>S1 -3,973：CPI週五留倉到周一，超額虧損</div>
+    </div>
+    <div class="month-log">
+      <div class="m-title">2月：-5,237（52筆）</div>
+      <div class="m-body">S2 -2,203：非交易時間須設止損，亞盤大跌<br>S2 -2,559：進場已虧損，開2倍空單保護，但迅速尬空，報復性交易導致巨額虧損<br>S1 -980：10:30追多，開盤大跌損傷，禁止賭<br>S1 -1,008：進場點已遠離，掛單進場or縮小部位，禁止賭</div>
+    </div>
+    <div class="month-log">
+      <div class="m-title">5月：-4,606（20筆）</div>
+      <div class="m-body">倉位變大，走不完SL，降倉位<br>空單進場太多，非常有信心才能進場，還是偏多操作<br>S2 -2,062：BB上部出現垂頭，當天不應該做多<br>S2 -1,483：早上垂頭失敗，晚上又RSI+垂頭失敗，當天重傷<br>S1-Fail -1,020：有兩個S2保護，大空頭的S1禁止做空 ★★★★<br>S2-Fail -1,505：當天大多頭不做空<br>S2 -841：超多S2訊號，大空頭一天只能交易兩次，第一次S2第二次等S1 ★★★★<br>S1 -1,995：週五留倉，週一大跌<br>S1 -1,125：00:00 TP已出現，亂進場交易</div>
+    </div>
+  </div>
+
+  <div class="quote">
+    「禁止鎖利、鎖損，不是神，砍了就砍了，重新再來」<br>
+    「沒有訊號，嚴禁進場」<br><br>
+    答案早就寫在這裡了，只是還沒變成不需要意志力的自動規則。
+  </div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>

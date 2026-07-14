@@ -1,0 +1,481 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-Long-S1-AweWithBB-V4.1（測試版，未確認，需 TradingView Premium/Ultimate）
+// Base: V4.0（Footprint 順勢確認過濾器）
+// V4.1 changes vs V4.0（20260712，納入 Gemini 雙核心架構建議，全部預設 OFF）：
+//   ① 新增 FILTER ⑦: Weekly VWAP — 突破須發生在當週 VWAP 之上（機構成本線上方的突破才有跟隨力）
+//      注：VWAP 非 Premium 限定功能；FX_IDC 為 tick volume，加權意義打折但方向性仍可測
+//   ② 新增 FILTER ⑧: Volume Surge — 突破K棒 volume ≥ N×均量（突破需要成交量確認）
+//      與 Footprint 模式 A（delta同向）互補：Surge 看「量夠不夠大」，delta 看「量的方向」
+//   ③ 新增 FILTER ⑨: DXY Alignment — DXY 日線收盤 < 日線EMA（美元弱勢結構）才進場
+//      數據參考：S1 在 DXY RSI<30 時 WR 60.9%（vs 全體 55%）；用 EMA 結構判定比 RSI 點值更穩定
+//   ④ Gemini 建議中「所有濾網做成開關以便深度回測」——本系列自 V3.1 起已是此架構，維持
+// ── V4.0 原始設計說明 ──
+// V4.0 changes vs V3.9：
+//   新增 FILTER ③: Footprint 訂單流過濾器（request.footprint()，Premium 限定），
+//   下拉選單多模式測試（順勢版設計：突破需要「攻擊性買盤」證據）：
+//     A. Delta同向 — 突破K棒買方主導（delta>0 且 delta佔比≥門檻）
+//     B. POC上半部 — 高價被市場接受（POC 位於 K 棒範圍上半），突破不被接受的POC會留在下方
+//     C. 買方堆疊失衡 — 連續≥N個價位列出現買方失衡（主動追價的機構行為）
+//     D. A+B 皆須成立（嚴格）   E. A或C 任一成立（寬鬆）
+//     F. Delta背離阻擋 — 只阻擋「價漲但delta負」（被動掛單吸收=假突破警訊），其餘放行
+//   原 FILTER ③斜率→④、④BBW低檔→⑤、⑤BB位置→⑥（僅編號下移，邏輯不變）
+//   ⚠️ Footprint 預設 OFF；歷史K棒可能無 footprint 資料（回傳na），預設「na=通過」避免誤殺，
+//     狀態表格顯示資料覆蓋率，若覆蓋率過低則此過濾器回測結論不可信
+//   ⚠️ API 依據 20260711 官方 blog/release notes：每個腳本僅允許一次 request.footprint() 呼叫
+// Entry label: S1BB_LE  Exit: S1BB_TP1 / S1BB_TP2 / S1BB_SL / S1BB_TimeWin / S1BB_TimeLoss
+//@version=6
+strategy(title="XAUUSD-Long-S1-AweWithBB-V4.1",
+ shorttitle="S1-Awe-V4.1",
+ overlay = true,
+ format=format.price,
+ precision=2,
+ default_qty_type=strategy.cash, initial_capital=10000,
+ default_qty_value=10000, commission_value=0.00,
+ slippage=1)
+
+//------------------------------------------------------------------------------
+// 1. 輸入 (Inputs)
+//------------------------------------------------------------------------------
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+grp_risk = "=== 風險與出場 ==="
+SL_Pct         = input.float(0.5, "固定止損 %",     step=0.1, group=grp_risk)
+Profit_Ratio_1 = input.float(1.0, "TP1 盈虧比",     step=0.1, group=grp_risk)
+Profit_Ratio_2 = input.float(3.5, "TP2 盈虧比",     step=0.1, group=grp_risk, tooltip="3.5R 已在 v3.4/v3.7/v3.8.1/v3.9 四代驗證優於 2R（讓贏家跑），視為定論")
+out_k_count    = input.int(36,    "時間出場（K棒）",          group=grp_risk)
+
+grp_ind = "=== S1 核心指標 ==="
+bb_length   = input.int(20,   minval=1, title="BB Length",       group=grp_ind)
+bb_mult     = input.float(2.0, title="BB Multiplier",            group=grp_ind)
+bb_source   = input(ohlc4,    title="BB Source",                 group=grp_ind, tooltip="V3.9 起預設 ohlc4 = (O+H+L+C)/4（xlsx 20260711 驗證優於 close）")
+fast_ma_len = input.int(3,    minval=2, title="Fast EMA Length", group=grp_ind)
+ao_slow_len = input.int(34,   minval=1, title="AO Slow Length",  group=grp_ind)
+ao_fast_len = input.int(5,    minval=1, title="AO Fast Length",  group=grp_ind)
+
+// --- FILTER ①: HTF MA 過濾器（預設 ON）---
+grp_f1 = "=== FILTER ①: HTF MA 過濾器（預設 ON）==="
+use_ma1h_filter = input.bool(true, "啟用 HTF MA 過濾器", group=grp_f1,
+ tooltip="公式：ma = SMA(close, MA Length)，計算於「MA 時框」\n條件：close > ma 才允許進場（否則阻擋）\nV3.7 確認版設定 = 60分鐘 + SMA(3)")
+ma1h_tf         = input.timeframe("60", "MA 時框", group=grp_f1)
+ma1h_length     = input.int(3, minval=1, title="MA Length",   group=grp_f1)
+
+// --- FILTER ②: Regime BBW 高檔過濾器（預設 ON）---
+grp_f2 = "=== FILTER ②: Regime BBW 高檔過濾器（預設 ON）==="
+use_bbw_high_filter = input.bool(true, "啟用 BBW 高檔過濾器", group=grp_f2,
+ tooltip="公式：bbw_rank_high = PercentRank( StDev(close,20)×4 / SMA(close,20), N )，N=回看根數，計算於「BBW 高檔時框」\n條件：bbw_rank_high ≥ regime_bbw_high 時判定為趨勢帶／波動擴張 → 阻擋進場")
+bbw_high_tf          = input.timeframe("60", "BBW 高檔時框", group=grp_f2)
+bbw_high_lookback     = input.int(60, "BBW高檔回看K棒數（原V3.7寫死=60）", minval=10, group=grp_f2,
+ tooltip="V3.7 寫死為60根，來源是舊分析腳本(analyze_h1_regime.py)沿用的預設值，並無回測依據。可調範圍建議先試 30/60/90/120 做比較")
+regime_bbw_high      = input.float(70.0, "趨勢帶 BBW rank 門檻（%）", step=5.0, group=grp_f2)
+
+// --- FILTER ③: Footprint 訂單流過濾器（V4.0 新增，Premium 限定）---
+grp_f3 = "=== FILTER ③: Footprint 訂單流（V4.0 新增，Premium）==="
+fp_mode = input.string("OFF", "Footprint 模式", options=["OFF", "A. Delta同向（買方主導）", "B. POC上半部（高價被接受）", "C. 買方堆疊失衡≥N", "D. A+B 皆須成立", "E. A或C 任一成立", "F. Delta背離阻擋"], group=grp_f3,
+ tooltip="順勢突破的訂單流確認——突破需要『攻擊性買盤』證據：\n\nA. Delta同向：delta = buy_volume − sell_volume > 0 且 delta/總量 ≥ 門檻%。突破K棒若買方沒有淨勝出，追價的燃料不足\n\nB. POC上半部：POC（最大成交量價位）位置 = (POC中價 − low)/(high − low) ≥ 門檻%。POC 上移代表高價被市場接受（auction acceptance）；突破但 POC 留在下半部 = 高價成交清淡，容易回落\n\nC. 買方堆疊失衡：連續 ≥N 個相鄰價位列 has_buy_imbalance()（預設失衡門檻300%）。堆疊失衡是機構主動追價的足跡\n\nD/E：組合模式（D嚴格=A且B；E寬鬆=A或C）\n\nF. Delta背離阻擋：只阻擋『收漲但delta為負』的K棒（價格上漲靠被動買單吸收推動=假突破警訊），其餘一律放行——最保守的用法\n\n⚠️ 需 Premium/Ultimate；歷史K棒可能無資料（見na處理）")
+fp_ticks_per_row = input.int(250, "每列 tick 數（ticks_per_row）", minval=1, group=grp_f3,
+ tooltip="每個價位列的高度（tick數，1 tick = syminfo.mintick）。建議調到每根30m K棒約10~30列：列太多雜訊大，列太少解析度不足。XAUUSD 波動大時可加大。若編譯報錯要求常數，把此input改為程式碼寫死")
+fp_va_percent = input.int(70, "Value Area %", minval=50, maxval=95, group=grp_f3)
+fp_imbalance_pct = input.int(300, "失衡判定門檻 %（imbalance_percent）", minval=100, group=grp_f3,
+ tooltip="對角buy/sell量比超過此百分比判定為失衡，300%=業界慣用值")
+fp_min_delta_ratio = input.float(10.0, "A: delta 最低佔比 %（delta/總量）", step=5.0, group=grp_f3)
+fp_poc_min_pos = input.float(50.0, "B: POC 最低位置 %（0=低點,100=高點）", step=5.0, group=grp_f3)
+fp_stack_n = input.int(3, "C: 買方堆疊失衡 最少連續列數", minval=2, group=grp_f3)
+fp_na_pass = input.bool(true, "無 footprint 資料時視為通過", group=grp_f3,
+ tooltip="歷史K棒可能沒有footprint資料（request.footprint()回傳na）。\n開（預設）= na視為通過，避免資料缺口誤殺訊號，但等於那些K棒沒被過濾\n關 = na一律阻擋（僅適合確認資料覆蓋率極高後使用）\n狀態表格會顯示資料覆蓋率——覆蓋率低時此過濾器的回測結論不可信")
+
+// --- FILTER ④: Regime 斜率過濾器 ---
+grp_f4 = "=== FILTER ④: Regime 斜率過濾器 ==="
+use_slope_filter    = input.bool(false, "啟用 斜率過濾器", group=grp_f4,
+ tooltip="公式：slope_val = (EMA20_now − EMA20_N根前) / EMA20_N根前 × 100（%），N=回看根數，計算於「斜率時框」\n條件：slope_val ≤ -regime_slope_thresh 時判定為下降方向 → 阻擋進場")
+slope_tf             = input.timeframe("240", "斜率時框", group=grp_f4)
+slope_lookback       = input.int(10, "斜率回看K棒數（原V3.7寫死=10）", minval=2, group=grp_f4)
+regime_slope_thresh  = input.float(0.15, "EMA20 斜率門檻（%）", step=0.05, group=grp_f4)
+
+// --- FILTER ⑤: Regime BBW 低檔過濾器 ---
+grp_f5 = "=== FILTER ⑤: Regime BBW 低檔過濾器 ==="
+use_bbw_low_filter  = input.bool(false, "啟用 BBW 低檔過濾器", group=grp_f5,
+ tooltip="公式：bbw_rank_low = PercentRank( StDev(close,20)×4 / SMA(close,20), N )，N=回看根數，計算於「BBW 低檔時框」\n條件：bbw_rank_low < regime_bbw_min 時判定為壓縮帶（易生假突破）→ 阻擋進場")
+bbw_low_tf           = input.timeframe("240", "BBW 低檔時框", group=grp_f5)
+bbw_low_lookback      = input.int(60, "BBW低檔回看K棒數（原V3.7寫死=60）", minval=10, group=grp_f5)
+regime_bbw_min       = input.float(30.0, "最低 BBW rank（假突破防護）（%）", step=5.0, group=grp_f5)
+
+// --- FILTER ⑥: BB 位置過濾器 ---
+grp_f6 = "=== FILTER ⑥: BB 位置過濾器 ==="
+use_bb_filter  = input.bool(false, "啟用 BB 位置過濾器", group=grp_f6,
+ tooltip="公式：bb_pct_b（%） = (close － bb_lower) / (bb_upper － bb_lower) × 100\n條件：bb_pct_b（%） ≥ bb_pct_b_min 才允許進場（否則阻擋）\nabove_upper（%B>100%）勝率 77.8%")
+bb_pct_b_min   = input.float(60.0, "BB %B 最低門檻（%）", minval=0.0, maxval=200.0, step=5.0, group=grp_f6)
+
+// --- FILTER ⑦: Weekly VWAP 過濾器（V4.1 新增，Gemini 建議）---
+grp_f7 = "=== FILTER ⑦: Weekly VWAP（V4.1）==="
+use_wvwap = input.bool(false, "啟用 Weekly VWAP 過濾器", group=grp_f7,
+ tooltip="公式：close > 錨定 VWAP（每個錨定週期開始時重置累計）才允許進場\n\n為何需要：週 VWAP 是機構本週平均成本線——在成本線上方的突破，追價者有共同的獲利部位撐腰（順風）；成本線下方的突破則面對整週的套牢賣壓（逆風）\n\n錨定週期可調：1W=週VWAP（預設）、D=日VWAP、1M=月VWAP\n⚠️ FX_IDC 為 tick volume（報價筆數）非真實成交量，VWAP 加權意義打折，方向性仍可測試")
+wvwap_anchor_tf = input.timeframe("1W", "VWAP 錨定週期", group=grp_f7)
+wvwap_src = input.source(hlc3, "VWAP Source", group=grp_f7)
+
+// --- FILTER ⑧: Volume Surge 過濾器（V4.1 新增，Gemini 建議）---
+grp_f8 = "=== FILTER ⑧: Volume Surge 爆量突破（V4.1）==="
+use_vol_surge = input.bool(false, "啟用 Volume Surge 過濾器", group=grp_f8,
+ tooltip="公式：volume ≥ 倍數 × SMA(volume, 均量週期) 才允許進場\n\n為何需要：無量突破容易失敗——沒有足夠參與者跟隨，突破後缺乏持續買盤。與 Footprint 模式 A 互補：Surge 看『量夠不夠大』，delta 看『量的方向』，兩者可同時開啟\n\n⚠️ FX_IDC 為 tick volume，方向性仍有參考價值")
+vol_surge_mult = input.float(1.5, "爆量倍數（×均量）", minval=1.0, step=0.25, group=grp_f8)
+vol_surge_len = input.int(20, "均量計算週期", minval=5, group=grp_f8)
+
+// --- FILTER ⑨: DXY Alignment 過濾器（V4.1 新增，Gemini 建議）---
+grp_f9 = "=== FILTER ⑨: DXY Alignment 美元弱勢（V4.1）==="
+use_dxy_align = input.bool(false, "啟用 DXY Alignment 過濾器", group=grp_f9,
+ tooltip="公式：DXY 日線 close < DXY 日線 EMA(週期) 才允許進場（美元處於弱勢結構）\n\n為何需要：DXY 與黃金 30 日滾動相關 -0.46（反向）。歷史數據：S1 在 DXY RSI<30 時 WR 60.9%（vs 全體 55.1%）。用 EMA 結構判定而非 RSI 點值，訊號更穩定、較不敏感於參數")
+dxy_sym = input.symbol("TVC:DXY", "DXY 代碼", group=grp_f9)
+dxy_align_tf = input.timeframe("D", "DXY 判定時框", group=grp_f9)
+dxy_ema_len = input.int(20, "DXY EMA 週期", minval=5, group=grp_f9)
+
+// --- 顯示設定 ---
+grp_display = "=== 顯示設定 ==="
+show_regime_table = input.bool(false, "顯示狀態表格（右上角）", group=grp_display)
+show_filtered_signals = input.bool(true, "標示被過濾掉的訊號（灰色 A）", group=grp_display)
+show_inpos_signals = input.bool(true, "標示持倉中出現的 S1 訊號（藍色 S1）", group=grp_display)
+
+grp_stat = "=== 統計面板 ==="
+show_table        = input.bool(false, "顯示統計表格",     group=grp_stat)
+show_detail_stats = input.bool(true,  "顯示詳細時段統計", group=grp_stat)
+
+//------------------------------------------------------------------------------
+// 2. 指標運算 (Indicators)
+//------------------------------------------------------------------------------
+// S1 核心：BB + AO
+bb_basis = ta.sma(bb_source, bb_length)
+bb_dev   = ta.stdev(bb_source, bb_length) * bb_mult
+bb_upper = bb_basis + bb_dev
+bb_lower = bb_basis - bb_dev
+bb_pct_b = bb_dev > 0 ? (close - bb_lower) / (bb_upper - bb_lower) : 0.5
+
+fast_ma    = ta.ema(bb_source, fast_ma_len)
+xSMA1_hl2  = ta.sma(hl2, ao_fast_len)
+xSMA2_hl2  = ta.sma(hl2, ao_slow_len)
+AO_Val     = xSMA1_hl2 - xSMA2_hl2
+AO_State   = AO_Val >= 0 ? (AO_Val > AO_Val[1] ? 1 : 2) : (AO_Val > AO_Val[1] ? -1 : -2)
+
+// FILTER ①: HTF MA（時框可調，V3.7 確認版 = 60）
+ma1h = request.security(syminfo.tickerid, ma1h_tf, ta.sma(close, ma1h_length), lookahead=barmerge.lookahead_off)
+
+// FILTER ②: Regime BBW 高檔
+bbw_rank_high = request.security(syminfo.tickerid, bbw_high_tf,
+ ta.percentrank(ta.stdev(close, 20) * 4 / ta.sma(close, 20), bbw_high_lookback),
+ lookahead=barmerge.lookahead_off)
+is_bbw_high   = bbw_rank_high >= regime_bbw_high
+
+// FILTER ③: Footprint（每腳本僅允許一次 request.footprint() 呼叫）
+footprint fp = request.footprint(fp_ticks_per_row, fp_va_percent, fp_imbalance_pct)
+
+bool fp_data_ok = not na(fp)
+float fp_delta = na
+float fp_total = na
+float fp_delta_ratio = na
+float fp_poc_pos = na
+int fp_max_buy_stack = 0
+if fp_data_ok
+    fp_delta := fp.delta()
+    fp_total := fp.buy_volume() + fp.sell_volume()
+    fp_delta_ratio := fp_total > 0 ? fp_delta / fp_total * 100 : 0.0
+    volume_row pocRow = fp.poc()
+    float poc_mid = (pocRow.up_price() + pocRow.down_price()) / 2
+    fp_poc_pos := high == low ? 50.0 : (poc_mid - low) / (high - low) * 100
+    array<volume_row> fp_rows = fp.rows()
+    int streak = 0
+    for r in fp_rows
+        if r.has_buy_imbalance()
+            streak += 1
+            fp_max_buy_stack := math.max(fp_max_buy_stack, streak)
+        else
+            streak := 0
+
+// footprint 覆蓋率統計（顯示於狀態表格）
+var int fp_bars_total = 0
+var int fp_bars_with_data = 0
+fp_bars_total += 1
+if fp_data_ok
+    fp_bars_with_data += 1
+
+// FILTER ③ 各模式條件
+fp_cond_A = fp_data_ok and fp_delta > 0 and fp_delta_ratio >= fp_min_delta_ratio
+fp_cond_B = fp_data_ok and fp_poc_pos >= fp_poc_min_pos
+fp_cond_C = fp_data_ok and fp_max_buy_stack >= fp_stack_n
+fp_cond_F_block = fp_data_ok and close > open and fp_delta < 0
+
+bool fp_raw_ok = true
+if fp_mode == "A. Delta同向（買方主導）"
+    fp_raw_ok := fp_cond_A
+else if fp_mode == "B. POC上半部（高價被接受）"
+    fp_raw_ok := fp_cond_B
+else if fp_mode == "C. 買方堆疊失衡≥N"
+    fp_raw_ok := fp_cond_C
+else if fp_mode == "D. A+B 皆須成立"
+    fp_raw_ok := fp_cond_A and fp_cond_B
+else if fp_mode == "E. A或C 任一成立"
+    fp_raw_ok := fp_cond_A or fp_cond_C
+else if fp_mode == "F. Delta背離阻擋"
+    fp_raw_ok := not fp_cond_F_block
+
+fp_ok = fp_mode == "OFF" or (not fp_data_ok ? fp_na_pass : fp_raw_ok)
+
+// FILTER ④: Regime 斜率
+ema20_slope_now = request.security(syminfo.tickerid, slope_tf, ta.ema(close, 20),                lookahead=barmerge.lookahead_off)
+ema20_slope_pre = request.security(syminfo.tickerid, slope_tf, ta.ema(close, 20)[slope_lookback], lookahead=barmerge.lookahead_off)
+slope_val       = na(ema20_slope_pre) or ema20_slope_pre == 0 ? 0.0 : (ema20_slope_now - ema20_slope_pre) / ema20_slope_pre * 100
+is_slope_down   = slope_val <= -regime_slope_thresh
+
+// FILTER ⑤: Regime BBW 低檔
+bbw_rank_low = request.security(syminfo.tickerid, bbw_low_tf,
+ ta.percentrank(ta.stdev(close, 20) * 4 / ta.sma(close, 20), bbw_low_lookback),
+ lookahead=barmerge.lookahead_off)
+is_bbw_low   = bbw_rank_low < regime_bbw_min
+
+// FILTER ⑦: Weekly VWAP（每週一重置的錨定 VWAP）
+wvwap_val = ta.vwap(wvwap_src, timeframe.change(wvwap_anchor_tf))
+
+// FILTER ⑧: Volume Surge
+vol_sma_val = ta.sma(volume, vol_surge_len)
+is_vol_surge = vol_sma_val > 0 and volume >= vol_sma_val * vol_surge_mult
+
+// FILTER ⑨: DXY Alignment（弱勢結構，時框可調）
+dxy_d_close = request.security(dxy_sym, dxy_align_tf, close, lookahead=barmerge.lookahead_off)
+dxy_d_ema = request.security(dxy_sym, dxy_align_tf, ta.ema(close, dxy_ema_len), lookahead=barmerge.lookahead_off)
+dxy_is_weak = dxy_d_close < dxy_d_ema
+
+// 所有過濾條件（OFF = 恆為 true）
+filter_1h_ok  = not use_ma1h_filter    or close > ma1h
+bbw_high_ok   = not use_bbw_high_filter or not is_bbw_high
+slope_ok      = not use_slope_filter    or not is_slope_down
+bbw_low_ok    = not use_bbw_low_filter  or not is_bbw_low
+bb_pos_ok     = not use_bb_filter      or bb_pct_b * 100 >= bb_pct_b_min
+regime_ok     = slope_ok and bbw_high_ok and bbw_low_ok
+wvwap_ok      = not use_wvwap          or close > wvwap_val
+vol_surge_ok  = not use_vol_surge      or is_vol_surge
+dxy_align_ok  = not use_dxy_align      or dxy_is_weak
+
+//------------------------------------------------------------------------------
+// 3. 進場邏輯 (Entry)
+//------------------------------------------------------------------------------
+MaxUseBars = 1 + math.max(bb_length, 1)
+var LongEntry = false
+
+// S1 核心訊號（未含過濾器，供持倉中提示與被過濾標記共用）
+core_signal = ta.crossover(fast_ma, bb_basis) and close > bb_basis and math.abs(AO_State) == 1
+
+filters_ok = filter_1h_ok and fp_ok and bb_pos_ok and regime_ok and wvwap_ok and vol_surge_ok and dxy_align_ok
+LongCondition = core_signal and filters_ok
+
+LongEntry := bar_index > MaxUseBars and MP == 0 and LongCondition
+
+if LongEntry
+    strategy.entry("S1BB_LE", strategy.long, comment="S1BB_LE")
+
+//------------------------------------------------------------------------------
+// 4. 出場邏輯 (Exit)
+//------------------------------------------------------------------------------
+EntryPrice     = strategy.opentrades.entry_price(strategy.opentrades - 1)
+BarsSinceEntry = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+SLPrice        = EntryPrice * (1 - SL_Pct / 100)
+PTPrice1       = EntryPrice * (1 + SL_Pct / 100 * Profit_Ratio_1)
+PTPrice2       = EntryPrice * (1 + SL_Pct / 100 * Profit_Ratio_2)
+
+var float exit_stop_price = na
+
+if MP > 0
+    if close >= PTPrice2
+        exit_stop_price := math.max(PTPrice2, ta.lowest(low, out_k_count / 4))
+        strategy.exit("S1BB_TP2", from_entry="S1BB_LE", stop=exit_stop_price, comment="S1BB_TP2")
+    else if close >= PTPrice1
+        exit_stop_price := math.max(PTPrice1, ta.lowest(low, out_k_count / 2))
+        strategy.exit("S1BB_TP1", from_entry="S1BB_LE", stop=exit_stop_price, comment="S1BB_TP1")
+    else
+        strategy.exit("S1BB_SL", from_entry="S1BB_LE", stop=SLPrice, comment_loss="S1BB_SL")
+    if BarsSinceEntry >= out_k_count
+        if strategy.openprofit >= 0
+            exit_stop_price := math.max(SLPrice, ta.lowest(low, out_k_count))
+            strategy.exit("S1BB_TimeWin",  from_entry="S1BB_LE", stop=exit_stop_price, comment="S1BB_TimeWin")
+        else
+            exit_stop_price := low
+            strategy.exit("S1BB_TimeLoss", from_entry="S1BB_LE", stop=exit_stop_price, comment="S1BB_TimeLoss")
+
+alertcondition(LongEntry, title="S1BB Entry", message="S1BB Breakout Buy, Price={{close}}")
+
+//------------------------------------------------------------------------------
+// 5. 視覺化 (Visualization)
+//------------------------------------------------------------------------------
+plot(bb_basis, "Basis", color.new(color.red,   0), 2)
+p1 = plot(bb_upper, "Upper", color.new(color.blue, 0))
+p2 = plot(bb_lower, "Lower", color.new(color.blue, 0))
+fill(p1, p2, color.new(color.silver, 90))
+plot(fast_ma,   "Fast EMA",  color.new(color.black,  0))
+plot(use_wvwap ? wvwap_val : na, "Weekly VWAP", color.new(color.orange, 0), 2)
+
+// Background: 各過濾器狀態
+bgcolor(use_slope_filter    and is_slope_down ? color.new(color.orange, 88) : na, title="Regime: Slope Down")
+bgcolor(use_bbw_high_filter and is_bbw_high   ? color.new(color.red,    90) : na, title="Regime: BBW High")
+bgcolor(use_bbw_low_filter  and is_bbw_low    ? color.new(color.gray,   88) : na, title="Regime: BBW Low")
+bgcolor(fp_mode != "OFF" and fp_data_ok and not fp_raw_ok ? color.new(color.aqua, 92) : na, title="Footprint Block")
+
+// 空手時被過濾掉的訊號（灰色 A）
+plotshape(show_filtered_signals and core_signal and not LongEntry and MP == 0, title="Signal (Filtered)", style=shape.triangleup, location=location.belowbar, color=color.new(color.gray, 60), size=size.tiny, text="A")
+// 持倉中出現的 S1 訊號（藍色 tiny S1，僅提示不進場）
+plotshape(show_inpos_signals and core_signal and MP > 0, title="Signal (In Position)", style=shape.triangleup, location=location.belowbar, color=color.blue, size=size.tiny, text="S1")
+
+// 進場 Label：只顯示四個點位（藍底，不附加 filter 狀態文字）
+if strategy.opentrades > 0 and strategy.opentrades.entry_bar_index(0) == bar_index
+    yPos = high * 1.002
+    txt = "LE: " + str.tostring(EntryPrice, "#.##") + "\nSL: " + str.tostring(SLPrice, "#.##") + "\nTP1: " + str.tostring(PTPrice1, "#.##") + "\nTP2: " + str.tostring(PTPrice2, "#.##")
+    label.new(bar_index, yPos, text=txt, style=label.style_label_down, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
+
+// 狀態表格（右上角，預設關閉）
+var table rtbl = table.new(position.top_right, 3, 9, border_width=1, frame_color=color.gray, frame_width=1)
+
+if show_regime_table and barstate.islast
+    table.cell(rtbl, 0, 0, "Filter", bgcolor=color.gray, text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 1, 0, "Value",  bgcolor=color.gray, text_color=color.white, text_size=size.small)
+    table.cell(rtbl, 2, 0, "Status", bgcolor=color.gray, text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 1, "② BBW High (" + bbw_high_tf + "/" + str.tostring(bbw_high_lookback) + "bar)", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 1, str.tostring(bbw_rank_high,"#.1") + "%",
+     bgcolor=is_bbw_high ? color.new(color.orange,70) : color.new(color.green,70),
+     text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 1, not use_bbw_high_filter ? "OFF" : (bbw_high_ok ? "PASS" : "BLOCK"),
+     bgcolor=not use_bbw_high_filter ? color.new(color.gray,70) : (bbw_high_ok ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    fp_cov = fp_bars_total > 0 ? fp_bars_with_data * 100.0 / fp_bars_total : 0.0
+    fp_val_txt = fp_data_ok ? ("Δ" + str.tostring(fp_delta_ratio, "#.#") + "% POC" + str.tostring(fp_poc_pos, "#") + "% S" + str.tostring(fp_max_buy_stack)) : "NA"
+    fp_st_txt = fp_mode == "OFF" ? "OFF" : (not fp_data_ok ? (fp_na_pass ? "NA→PASS" : "NA→BLOCK") : (fp_raw_ok ? "PASS" : "BLOCK"))
+    fp_st_bg = fp_mode == "OFF" ? color.new(color.gray,70) : (not fp_data_ok ? color.new(color.orange,60) : (fp_raw_ok ? color.new(color.teal,60) : color.new(color.red,60)))
+    table.cell(rtbl, 0, 2, "③ Footprint（覆蓋" + str.tostring(fp_cov, "#") + "%）", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 2, fp_val_txt, bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 2, fp_st_txt, bgcolor=fp_st_bg, text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 3, "④ Slope (" + slope_tf + "/" + str.tostring(slope_lookback) + "bar)", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 3, str.tostring(slope_val,"#.##") + "%",
+     bgcolor=is_slope_down ? color.new(color.red,70) : color.new(color.green,70),
+     text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 3, not use_slope_filter ? "OFF" : (slope_ok ? "PASS" : "BLOCK"),
+     bgcolor=not use_slope_filter ? color.new(color.gray,70) : (slope_ok ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 4, "⑤ BBW Low (" + bbw_low_tf + "/" + str.tostring(bbw_low_lookback) + "bar)", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 4, str.tostring(bbw_rank_low,"#.1") + "%",
+     bgcolor=is_bbw_low ? color.new(color.gray,60) : color.new(color.green,70),
+     text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 4, not use_bbw_low_filter ? "OFF" : (bbw_low_ok ? "PASS" : "BLOCK"),
+     bgcolor=not use_bbw_low_filter ? color.new(color.gray,70) : (bbw_low_ok ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 5, "⑥ BB %B", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 5, str.tostring(bb_pct_b*100,"#.#") + "%", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 5, not use_bb_filter ? "OFF" : (bb_pos_ok ? "PASS" : "BLOCK"),
+     bgcolor=not use_bb_filter ? color.new(color.gray,70) : (bb_pos_ok ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 6, "⑦ Weekly VWAP", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 6, str.tostring(wvwap_val,"#.##"), bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 6, not use_wvwap ? "OFF" : (close > wvwap_val ? "PASS" : "BLOCK"),
+     bgcolor=not use_wvwap ? color.new(color.gray,70) : (close > wvwap_val ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 7, "⑧ Vol Surge（×" + str.tostring(vol_surge_mult,"#.##") + "）", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 7, vol_sma_val > 0 ? str.tostring(volume / vol_sma_val, "#.##") + "×" : "—", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 7, not use_vol_surge ? "OFF" : (is_vol_surge ? "PASS" : "BLOCK"),
+     bgcolor=not use_vol_surge ? color.new(color.gray,70) : (is_vol_surge ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+    table.cell(rtbl, 0, 8, "⑨ DXY Align（EMA" + str.tostring(dxy_ema_len) + "）", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 1, 8, dxy_is_weak ? "弱勢" : "強勢", bgcolor=color.new(color.gray,80), text_color=color.black, text_size=size.small)
+    table.cell(rtbl, 2, 8, not use_dxy_align ? "OFF" : (dxy_is_weak ? "PASS" : "BLOCK"),
+     bgcolor=not use_dxy_align ? color.new(color.gray,70) : (dxy_is_weak ? color.new(color.teal,60) : color.new(color.red,60)),
+     text_color=color.white, text_size=size.small)
+
+//------------------------------------------------------------------------------
+// 6. 統計表格 (Stats)
+//------------------------------------------------------------------------------
+var wins_total = array.new_int(5,0)
+var losses_total = array.new_int(5,0)
+var wins_asia  = array.new_int(5,0)
+var losses_asia  = array.new_int(5,0)
+var wins_euro  = array.new_int(5,0)
+var losses_euro  = array.new_int(5,0)
+var wins_us    = array.new_int(5,0)
+var losses_us    = array.new_int(5,0)
+var entryWeekdays = array.new_int()
+var entrySessions = array.new_int()
+var entryPrices = array.new_float()
+
+t_us   = time(timeframe.period, "2030-0500", "Asia/Taipei")
+t_euro = time(timeframe.period, "1500-2030", "Asia/Taipei")
+
+if strategy.position_size[1] == 0 and strategy.position_size > 0
+    wd = dayofweek(time, "Asia/Taipei")
+    array.push(entryWeekdays, wd)
+    array.push(entryPrices, strategy.position_avg_price)
+    sess_id = 0
+    if not na(t_us)
+        sess_id := 2
+    else if not na(t_euro)
+        sess_id := 1
+    array.push(entrySessions, sess_id)
+
+if strategy.position_size[1] > 0 and strategy.position_size == 0 and array.size(entryWeekdays) > 0
+    wd  = array.shift(entryWeekdays)
+    sess = array.shift(entrySessions)
+    ep  = array.shift(entryPrices)
+    idx = wd - 2
+    if idx >= 0 and idx < 5
+        is_win = close - ep > 0
+        if is_win
+            array.set(wins_total, idx, array.get(wins_total,idx)+1)
+        else
+            array.set(losses_total, idx, array.get(losses_total,idx)+1)
+        if sess == 0
+            if is_win
+                array.set(wins_asia,  idx, array.get(wins_asia, idx)+1)
+            else
+                array.set(losses_asia, idx, array.get(losses_asia,idx)+1)
+        else if sess == 1
+            if is_win
+                array.set(wins_euro,  idx, array.get(wins_euro, idx)+1)
+            else
+                array.set(losses_euro, idx, array.get(losses_euro,idx)+1)
+        else if sess == 2
+            if is_win
+                array.set(wins_us,    idx, array.get(wins_us,  idx)+1)
+            else
+                array.set(losses_us,   idx, array.get(losses_us,  idx)+1)
+
+var table stats = table.new(position.bottom_right, show_detail_stats?5:2, 6, border_width=1, frame_color=color.black, frame_width=1)
+f_txt(w,l) =>
+    tot = w+l
+    str.tostring(w)+"/"+str.tostring(l)+"\n"+(tot>0?str.tostring(w*100.0/tot,"#")+"%":"-")
+
+if show_table
+    table.cell(stats,0,0,"Weekday",text_color=color.white,bgcolor=color.gray)
+    if show_detail_stats
+        table.cell(stats,1,0,"Asia", text_color=color.white,bgcolor=color.gray)
+        table.cell(stats,2,0,"Euro", text_color=color.white,bgcolor=color.gray)
+        table.cell(stats,3,0,"US",   text_color=color.white,bgcolor=color.gray)
+        table.cell(stats,4,0,"Total",text_color=color.white,bgcolor=color.gray)
+    else
+        table.cell(stats,1,0,"Win/Loss",text_color=color.white,bgcolor=color.gray)
+    for i = 0 to 4
+        wa=array.get(wins_asia,i)
+        la=array.get(losses_asia,i)
+        we=array.get(wins_euro,i)
+        le=array.get(losses_euro,i)
+        wu=array.get(wins_us,i)
+        lu=array.get(losses_us,i)
+        wt=array.get(wins_total,i)
+        lt=array.get(losses_total,i)
+        dl = i==0?"Mon":i==1?"Tue":i==2?"Wed":i==3?"Thu":"Fri"
+        table.cell(stats,0,i+1,dl,text_color=color.black,bgcolor=color.new(color.gray,90))
+        if show_detail_stats
+            table.cell(stats,1,i+1,f_txt(wa,la),text_color=color.black,bgcolor=color.new(color.gray,95))
+            table.cell(stats,2,i+1,f_txt(we,le),text_color=color.black,bgcolor=color.new(color.gray,95))
+            table.cell(stats,3,i+1,f_txt(wu,lu),text_color=color.black,bgcolor=color.new(color.gray,95))
+            table.cell(stats,4,i+1,f_txt(wt,lt),text_color=color.black,bgcolor=color.new(color.gray,90))
+        else
+            table.cell(stats,1,i+1,f_txt(wt,lt),text_color=color.black,bgcolor=color.new(color.gray,90))

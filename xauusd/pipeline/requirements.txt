@@ -1,0 +1,7 @@
+# XAUUSD M30 資料管線 依賴套件
+# 安裝：pip install -r requirements.txt
+
+tvDatafeed>=2.0.0        # TradingView 非官方 API
+pandas>=2.0.0
+pandas-ta>=0.3.14b       # 技術指標（BB / EMA / AO）
+python-dateutil>=2.8.2   # relativedelta（月份計算）

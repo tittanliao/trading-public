@@ -1,0 +1,110 @@
+//@version=6
+// ALL Long Strategies combined (dropdown)
+strategy("TX All Long Strategies", overlay=true, default_qty_type=strategy.fixed, default_qty_value=1,
+         currency=currency.TWD, commission_type=strategy.commission.cash_per_order, commission_value=100)
+
+strategy_id = input.string("E01 RSI Oversold Bounce", "Strategy", options=["E01 RSI Oversold Bounce","E02 MACD Cross Below Zero","E03 MACD Hist Reversal","E04 Stoch Oversold Cross","E05 Williams %R Oversold","E06 CCI Oversold Bounce","E07 RSI 50 Crossover","E08 EMA 9/21 Golden Cross","E09 EMA55 Pullback","E10 Supertrend Buy","E11 Donchian 20H Break","E12 BB Squeeze Break","E13 ATR Momentum Break","E14 BB Lower Bounce","E15 BB Low + RSI Combo","E16 Hammer Candle","E17 Bullish Engulfing","E18 RSI Divergence","E19 Day Open Range Break","E20 Night Momentum"], group="Strategy")
+sl_pts  = input.int(30, "SL Points", minval=5, group="Risk")
+tp_pts  = input.int(60, "TP Points", minval=5, group="Risk")
+use_day   = input.bool(true,  "日盤", group="Session")
+use_night = input.bool(true,  "夜盤", group="Session")
+
+t = time("30", "0845-1345", "Asia/Taipei")
+n = time("30", "1500-0500", "Asia/Taipei")
+in_session = (use_day and not na(t)) or (use_night and not na(n))
+
+rsi        = ta.rsi(close, 14)
+[macd, sig, hist] = ta.macd(close, 12, 26, 9)
+[bb_upper, bb_mid, bb_lower] = ta.bb(close, 20, 2)
+ema9       = ta.ema(close, 9)
+ema21      = ta.ema(close, 21)
+ema55      = ta.ema(close, 55)
+atr        = ta.atr(14)
+stoch_k    = ta.sma(ta.stoch(close, high, low, 14), 3)
+stoch_d    = ta.sma(stoch_k, 3)
+don_high   = ta.highest(high[1], 20)
+don_low    = ta.lowest(low[1], 20)
+cci        = ta.cci(close, 20)
+willr      = ta.wpr(14)
+bb_pct     = (close - bb_lower) / (bb_upper - bb_lower)
+
+entry_signal = false
+
+if strategy_id == "E01 RSI Oversold Bounce"
+    entry_signal = ta.crossover(rsi, 30) and rsi < 55
+
+if strategy_id == "E02 MACD Cross Below Zero"
+    entry_signal = ta.crossover(macd, sig) and macd < 0
+
+if strategy_id == "E03 MACD Hist Reversal"
+    entry_signal = hist[2] < hist[1] and hist[1] < hist and hist[2] < 0
+
+if strategy_id == "E04 Stoch Oversold Cross"
+    entry_signal = ta.crossover(stoch_k, stoch_d) and stoch_k < 25
+
+if strategy_id == "E05 Williams %R Oversold"
+    entry_signal = ta.crossunder(willr, -80)
+
+if strategy_id == "E06 CCI Oversold Bounce"
+    entry_signal = ta.crossover(cci, -100)
+
+if strategy_id == "E07 RSI 50 Crossover"
+    entry_signal = ta.crossover(rsi, 50) and ema21 > ema55
+
+if strategy_id == "E08 EMA 9/21 Golden Cross"
+    entry_signal = ta.crossover(ema9, ema21) and close > ema55
+
+if strategy_id == "E09 EMA55 Pullback"
+    entry_signal = math.abs(close - ema55) < atr * 0.4 and ema21 > ema55 and rsi >= 40 and rsi <= 65
+
+if strategy_id == "E10 Supertrend Buy"
+    [st_val, st_dir] = ta.supertrend(3.0, 10)
+    entry_signal = ta.crossover(close, st_val)
+
+if strategy_id == "E11 Donchian 20H Break"
+    entry_signal = close > don_high and rsi > 50
+
+if strategy_id == "E12 BB Squeeze Break"
+    bb_width = (bb_upper - bb_lower) / bb_mid
+    squeeze = bb_width < ta.percentile_linear_interpolation(bb_width, 100, 20)
+    entry_signal = squeeze[1] and ta.crossover(close, bb_upper)
+
+if strategy_id == "E13 ATR Momentum Break"
+    high20 = ta.highest(close[1], 20)
+    entry_signal = close > high20 + atr * 0.3 and rsi > 50
+
+if strategy_id == "E14 BB Lower Bounce"
+    entry_signal = bb_pct <= 0.05 and rsi < 45 and rsi > rsi[3]
+
+if strategy_id == "E15 BB Low + RSI Combo"
+    entry_signal = bb_pct < 0.20 and ta.crossover(rsi, 30)
+
+if strategy_id == "E16 Hammer Candle"
+    body = math.abs(close - open)
+    lower_wick = math.min(open, close) - low
+    upper_wick = high - math.max(open, close)
+    entry_signal = lower_wick > body * 2 and upper_wick < body * 0.5 and body > 0 and rsi < 55
+
+if strategy_id == "E17 Bullish Engulfing"
+    entry_signal = close > open and close[1] < open[1] and open <= close[1] and close >= open[1] and rsi < 60
+
+if strategy_id == "E18 RSI Divergence"
+    // Requires RSI divergence indicator column from broker data export
+    entry_signal = false  // replace with your divergence signal
+
+if strategy_id == "E19 Day Open Range Break"
+    // Opening range breakout — day session only
+    first_bar = (hour == 8 and minute == 45)
+    var float orb_high = na
+    if first_bar
+        orb_high := high
+    entry_signal = not na(t) and close > orb_high and rsi > 50 and not first_bar
+
+if strategy_id == "E20 Night Momentum"
+    entry_signal = not na(n) and (rsi - rsi[3]) > 2 and close > ema21 and hist > 0 and rsi > 45 and rsi < 65
+
+
+if entry_signal and in_session
+    strategy.entry("LE", strategy.long)
+if strategy.position_size > 0
+    strategy.exit("LE_X", from_entry="LE", profit=tp_pts, loss=sl_pts)

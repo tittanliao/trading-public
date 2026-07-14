@@ -1,0 +1,234 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © Tittan
+// Strategy: XAUUSD-Long-S1-AweWithBB-V3.4
+// Update: Added GC1! Futures Mapping for Execution
+//@version=6
+strategy(title="XAUUSD-Long-S1-AweWithBB-V3.4",
+ shorttitle="S1-Awe-V3.4",
+ overlay = true,
+ format=format.price,
+ precision=2, 
+ default_qty_type=strategy.cash, initial_capital=10000, 
+ default_qty_value=10000, commission_value=0.00, 
+ slippage=1) 
+
+//------------------------------------------------------------------------------
+// 1. 前置設定與輸入 (Inputs)
+//------------------------------------------------------------------------------
+strategy.cancel_all()
+MP = strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
+
+// --- 期貨對應設定 ---
+grp_fut = "=== 期貨對應 (Futures Mapping) ==="
+show_futures = input.bool(true, "顯示 GC1! 對應價格", group=grp_fut)
+futures_sym = input.symbol("COMEX:GC1!", "期貨代碼", group=grp_fut)
+
+// --- 風險管理 ---
+grp_risk = "=== 風險與出場 (Risk & Exit) ==="
+SL_Pct = input.float(0.5, title="固定止損 % (Fixed SL)", step=0.1, group=grp_risk)
+Profit_Ratio_1 = input.float(1.0, title="TP1 盈虧比 (Ratio)", step=0.1, group=grp_risk)
+Profit_Ratio_2 = input.float(3.5, title="TP2 盈虧比 (Ratio)", step=0.1, group=grp_risk)
+out_k_count = input.int(48, "時間出場 (K棒數)", group=grp_risk)
+
+// --- 技術指標參數 ---
+grp_ind = "=== S1 核心指標參數 ==="
+bb_length = input.int(20, minval=1, title="BB Length", group=grp_ind)
+bb_mult   = input.float(2.0, title="BB Multiplier", minval=0.5, maxval=10, group=grp_ind)
+bb_source = input(close, title="BB Source", group=grp_ind)
+fast_ma_len = input.int(3, title="Fast EMA Length", minval=2, group=grp_ind)
+ao_slow_len = input.int(34, minval=1, title="AO Slow Length", group=grp_ind)
+ao_fast_len = input.int(5, minval=1, title="AO Fast Length", group=grp_ind)
+
+// --- 過濾器設定 ---
+grp_filter = "=== 過濾器設定 ==="
+use_ma1h_filter = input.bool(true, title="啟用 1H MA 過濾器", group=grp_filter)
+ma1h_length = input.int(3, minval=1, title="1H MA Length", group=grp_filter)
+
+// --- 統計面板 ---
+grp_stat = "=== 統計面板設定 ==="
+show_table = input.bool(false, title="顯示統計表格", group=grp_stat)
+show_detail_stats = input.bool(true, title="顯示詳細時段統計", group=grp_stat)
+
+//------------------------------------------------------------------------------
+// 2. 指標運算 (Indicators)
+//------------------------------------------------------------------------------
+// BB
+bb_basis = ta.sma(bb_source, bb_length)
+bb_dev   = ta.stdev(bb_source, bb_length) * bb_mult
+bb_upper = bb_basis + bb_dev
+bb_lower = bb_basis - bb_dev
+
+// Fast MA & AO
+fast_ma = ta.ema(bb_source, fast_ma_len)
+xSMA1_hl2 = ta.sma(hl2, ao_fast_len)
+xSMA2_hl2 = ta.sma(hl2, ao_slow_len)
+AO_Val = xSMA1_hl2 - xSMA2_hl2
+AO_State = AO_Val >= 0 ? (AO_Val > AO_Val[1] ? 1 : 2) : (AO_Val > AO_Val[1] ? -1 : -2)
+
+// 1H MA Filter
+ma1h = request.security(syminfo.tickerid, "60", ta.sma(close, ma1h_length), lookahead=barmerge.lookahead_on)
+
+// 期貨價差計算 (Basis)
+fut_close = request.security(futures_sym, timeframe.period, close)
+basis_spread = fut_close - close
+
+//------------------------------------------------------------------------------
+// 3. 進場邏輯 (Entry Logic)
+//------------------------------------------------------------------------------
+MaxUseBars = 1 + math.max(bb_length, 1)
+var LongEntry = false
+
+filter_condition = not use_ma1h_filter or close > ma1h
+LongCondition = (ta.crossover(fast_ma, bb_basis) and (close > bb_basis) and (math.abs(AO_State) == 1) and filter_condition)
+
+LongEntry := bar_index > MaxUseBars and MP == 0 and LongCondition
+
+if LongEntry
+    strategy.entry("S1_LE", strategy.long, comment="S1_LE")
+
+//------------------------------------------------------------------------------
+// 4. 出場邏輯 (Profit Flyer)
+//------------------------------------------------------------------------------
+EntryPrice = strategy.opentrades.entry_price(strategy.opentrades - 1)
+BarsSinceEntry = bar_index - strategy.opentrades.entry_bar_index(strategy.opentrades - 1)
+
+SLPrice = EntryPrice * (1 - SL_Pct / 100)
+PTPrice1 = EntryPrice * (1 + (SL_Pct / 100 * Profit_Ratio_1))
+PTPrice2 = EntryPrice * (1 + (SL_Pct / 100 * Profit_Ratio_2))
+
+var float exit_stop_price = na
+
+if MP > 0
+    if close >= PTPrice2
+        exit_stop_price := math.max(PTPrice2, ta.lowest(low, out_k_count/4))
+        strategy.exit("S1_Exit_TP2", from_entry="S1_LE", stop=exit_stop_price, comment="S1_LX_TP2")
+    else if close >= PTPrice1
+        exit_stop_price := math.max(PTPrice1, ta.lowest(low, out_k_count/2))
+        strategy.exit("S1_Exit_TP1", from_entry="S1_LE", stop=exit_stop_price, comment="S1_LX_TP1")
+    else
+        strategy.exit("S1_Exit_SL", from_entry="S1_LE", stop=SLPrice, comment_loss="S1_SL")
+    
+    if BarsSinceEntry >= out_k_count
+        if strategy.openprofit >= 0
+            exit_stop_price := math.max(SLPrice, ta.lowest(low, out_k_count))
+            strategy.exit("S1_Exit_TimeWin", from_entry="S1_LE", stop=exit_stop_price, comment="S1_LX_TimeWin")
+        else
+            exit_stop_price := low
+            strategy.exit("S1_Exit_TimeLoss", from_entry="S1_LE", stop=exit_stop_price, comment="S1_LX_TimeLoss")
+
+// Alert
+alertcondition(LongEntry, title="S1 Entry", message="S1 Breakout Buy, Price={{close}}")
+
+//------------------------------------------------------------------------------
+// 5. 視覺化 (Visualization with Futures Mapping)
+//------------------------------------------------------------------------------
+plot(bb_basis, title="Basis", color=color.new(color.red, 0), linewidth=2)
+p1 = plot(bb_upper, title="Upper", color=color.new(color.blue, 0))
+p2 = plot(bb_lower, title="Lower", color=color.new(color.blue, 0))
+fill(p1, p2, color=color.new(color.silver, 90))
+plot(fast_ma, title="Fast EMA", color=color.new(color.black, 0))
+
+if strategy.opentrades > 0 and strategy.opentrades.entry_bar_index(0) == bar_index
+    yPos = high * 1.002
+    
+    // 基本顯示
+    txt_spot = "Spot (XAUUSD)\n" +
+               "LE: " + str.tostring(EntryPrice, "#.##") + 
+               "\nSL: " + str.tostring(SLPrice, "#.##") + 
+               "\nTP1: " + str.tostring(PTPrice1, "#.##") +
+               "\nTP2: " + str.tostring(PTPrice2, "#.##")
+    
+    // 期貨顯示 (如果開啟)
+    txt_fut = ""
+    if show_futures
+        txt_fut := "\n\nFutures (GC1!)\n" +
+                   "LE: " + str.tostring(EntryPrice + basis_spread, "#.##") + 
+                   "\nSL: " + str.tostring(SLPrice + basis_spread, "#.##") + 
+                   "\nTP1: " + str.tostring(PTPrice1 + basis_spread, "#.##") +
+                   "\nTP2: " + str.tostring(PTPrice2 + basis_spread, "#.##") +
+                   "\n(Basis: " + str.tostring(basis_spread, "#.##") + ")"
+
+    label.new(bar_index, yPos, text=txt_spot + txt_fut, style=label.style_label_down, color=color.blue, textcolor=color.white, size=size.small)
+
+//------------------------------------------------------------------------------
+// 6. 統計表格 (Stats)
+//------------------------------------------------------------------------------
+var wins_total = array.new_int(5, 0), var losses_total = array.new_int(5, 0)
+var wins_asia = array.new_int(5, 0), var losses_asia = array.new_int(5, 0)
+var wins_euro = array.new_int(5, 0), var losses_euro = array.new_int(5, 0)
+var wins_us   = array.new_int(5, 0), var losses_us   = array.new_int(5, 0)
+var entryWeekdays = array.new_int(), var entrySessions = array.new_int(), var entryPrices = array.new_float()
+
+t_us = time(timeframe.period, "2030-0500", "Asia/Taipei")
+t_euro = time(timeframe.period, "1500-2030", "Asia/Taipei")
+
+if strategy.position_size[1] == 0 and strategy.position_size > 0
+    wd = dayofweek(time, "Asia/Taipei")
+    array.push(entryWeekdays, wd)
+    array.push(entryPrices, strategy.position_avg_price)
+    sess_id = 0 
+    if not na(t_us)
+        sess_id := 2 
+    else if not na(t_euro)
+        sess_id := 1 
+    array.push(entrySessions, sess_id)
+
+if strategy.position_size[1] > 0 and strategy.position_size == 0 and array.size(entryWeekdays) > 0
+    wd = array.shift(entryWeekdays)
+    sess = array.shift(entrySessions)
+    ep = array.shift(entryPrices)
+    profitValue = close - ep
+    idx = wd - 2 
+    if idx >= 0 and idx < 5
+        is_win = profitValue > 0
+        if is_win
+            array.set(wins_total, idx, array.get(wins_total, idx) + 1)
+        else
+            array.set(losses_total, idx, array.get(losses_total, idx) + 1)
+        if sess == 0 
+            if is_win
+                array.set(wins_asia, idx, array.get(wins_asia, idx) + 1)
+            else
+                array.set(losses_asia, idx, array.get(losses_asia, idx) + 1)
+        else if sess == 1 
+            if is_win
+                array.set(wins_euro, idx, array.get(wins_euro, idx) + 1)
+            else
+                array.set(losses_euro, idx, array.get(losses_euro, idx) + 1)
+        else if sess == 2 
+            if is_win
+                array.set(wins_us, idx, array.get(wins_us, idx) + 1)
+            else
+                array.set(losses_us, idx, array.get(losses_us, idx) + 1)
+
+var table stats = table.new(position.bottom_right, show_detail_stats ? 5 : 2, 6, border_width=1, frame_color=color.black, frame_width=1)
+f_txt(w, l) => 
+    tot = w + l
+    rate = tot > 0 ? w * 100.0 / tot : na
+    str.tostring(w) + "/" + str.tostring(l) + "\n" + (na(rate) ? "-" : str.tostring(rate, "#") + "%")
+
+if show_table
+    bg_head = color.gray
+    txt_head = color.white
+    table.cell(stats, 0, 0, "Weekday", text_color=txt_head, bgcolor=bg_head)
+    if show_detail_stats
+        table.cell(stats, 1, 0, "Asia", text_color=txt_head, bgcolor=bg_head)
+        table.cell(stats, 2, 0, "Euro", text_color=txt_head, bgcolor=bg_head)
+        table.cell(stats, 3, 0, "US", text_color=txt_head, bgcolor=bg_head)
+        table.cell(stats, 4, 0, "Total", text_color=txt_head, bgcolor=bg_head)
+    else
+        table.cell(stats, 1, 0, "Win/Loss (Rate)", text_color=txt_head, bgcolor=bg_head)
+    for i = 0 to 4
+        wa = array.get(wins_asia, i), la = array.get(losses_asia, i)
+        we = array.get(wins_euro, i), le = array.get(losses_euro, i)
+        wu = array.get(wins_us, i),   lu = array.get(losses_us, i)
+        wt = array.get(wins_total, i), lt = array.get(losses_total, i)
+        dayLabel = i==0?"Mon":i==1?"Tue":i==2?"Wed":i==3?"Thu":"Fri"
+        table.cell(stats, 0, i + 1, dayLabel, text_color=color.black, bgcolor=color.new(color.gray, 90))
+        if show_detail_stats
+            table.cell(stats, 1, i + 1, f_txt(wa, la), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 2, i + 1, f_txt(we, le), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 3, i + 1, f_txt(wu, lu), text_color=color.black, bgcolor=color.new(color.gray, 95))
+            table.cell(stats, 4, i + 1, f_txt(wt, lt), text_color=color.black, bgcolor=color.new(color.gray, 90))
+        else
+            table.cell(stats, 1, i + 1, f_txt(wt, lt), text_color=color.black, bgcolor=color.new(color.gray, 90))

@@ -1,0 +1,193 @@
+{
+  "generated": "2026-06-21",
+  "date_range": "2026-01-21 → 2026-04-27",
+  "latest_score": 0,
+  "latest_verdict": "WAIT",
+  "verdict_dist": {
+    "WAIT": 38,
+    "STRONG BUY": 24,
+    "NEUTRAL": 5
+  },
+  "gvz_dist": {
+    "EXTREME": 67
+  },
+  "results": {
+    "S1-proxy (E12 BB Squeeze Break)": {
+      "baseline": {
+        "n": 88,
+        "wins": 35,
+        "losses": 53,
+        "wr": 39.77272727272727,
+        "pf": 1.3370372809244804,
+        "net_pct": 8.822719456409152,
+        "avg_hold": 7.1022727272727275
+      },
+      "filtered": {
+        "n": 48,
+        "wins": 18,
+        "losses": 30,
+        "wr": 37.5,
+        "pf": 1.1999999999999973,
+        "net_pct": 2.999999999999962,
+        "avg_hold": 7.5
+      },
+      "by_verdict": {
+        "STRONG BUY": {
+          "n": 33,
+          "wins": 11,
+          "losses": 22,
+          "wr": 33.33333333333333,
+          "pf": 0.9999999999999969,
+          "net_pct": -3.852473895449293e-14,
+          "avg_hold": 8.181818181818182
+        },
+        "NEUTRAL": {
+          "n": 14,
+          "wins": 6,
+          "losses": 8,
+          "wr": 42.857142857142854,
+          "pf": 1.4999999999999987,
+          "net_pct": 1.999999999999997,
+          "avg_hold": 4.642857142857143
+        },
+        "WAIT": {
+          "n": 41,
+          "wins": 18,
+          "losses": 23,
+          "wr": 43.90243902439025,
+          "pf": 1.6104096099047478,
+          "net_pct": 6.822719456409197,
+          "avg_hold": 7.073170731707317
+        },
+        "N/A": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "wr": 0,
+          "pf": 0,
+          "net_pct": 0,
+          "avg_hold": 0
+        }
+      },
+      "removed": 40
+    },
+    "S2B-proxy (E18 Hammer)": {
+      "baseline": {
+        "n": 20,
+        "wins": 3,
+        "losses": 17,
+        "wr": 15.0,
+        "pf": 0.3529411764705898,
+        "net_pct": -5.49999999999998,
+        "avg_hold": 10.55
+      },
+      "filtered": {
+        "n": 20,
+        "wins": 3,
+        "losses": 17,
+        "wr": 15.0,
+        "pf": 0.3529411764705898,
+        "net_pct": -5.49999999999998,
+        "avg_hold": 10.55
+      },
+      "by_verdict": {
+        "STRONG BUY": {
+          "n": 10,
+          "wins": 2,
+          "losses": 8,
+          "wr": 20.0,
+          "pf": 0.5000000000000042,
+          "net_pct": -1.9999999999999742,
+          "avg_hold": 6.4
+        },
+        "NEUTRAL": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "wr": 0,
+          "pf": 0,
+          "net_pct": 0,
+          "avg_hold": 0
+        },
+        "WAIT": {
+          "n": 10,
+          "wins": 1,
+          "losses": 9,
+          "wr": 10.0,
+          "pf": 0.22222222222222227,
+          "net_pct": -3.5000000000000044,
+          "avg_hold": 14.7
+        },
+        "N/A": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "wr": 0,
+          "pf": 0,
+          "net_pct": 0,
+          "avg_hold": 0
+        }
+      },
+      "removed": 0
+    },
+    "S2A-proxy (E06 RSI Oversold)": {
+      "baseline": {
+        "n": 43,
+        "wins": 13,
+        "losses": 30,
+        "wr": 30.23255813953488,
+        "pf": 0.8666666666666644,
+        "net_pct": -2.0000000000000395,
+        "avg_hold": 5.8604651162790695
+      },
+      "filtered": {
+        "n": 43,
+        "wins": 13,
+        "losses": 30,
+        "wr": 30.23255813953488,
+        "pf": 0.8666666666666644,
+        "net_pct": -2.0000000000000395,
+        "avg_hold": 5.8604651162790695
+      },
+      "by_verdict": {
+        "STRONG BUY": {
+          "n": 19,
+          "wins": 6,
+          "losses": 13,
+          "wr": 31.57894736842105,
+          "pf": 0.9230769230769198,
+          "net_pct": -0.5000000000000242,
+          "avg_hold": 4.7368421052631575
+        },
+        "NEUTRAL": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "wr": 0,
+          "pf": 0,
+          "net_pct": 0,
+          "avg_hold": 0
+        },
+        "WAIT": {
+          "n": 24,
+          "wins": 7,
+          "losses": 17,
+          "wr": 29.166666666666668,
+          "pf": 0.8235294117647043,
+          "net_pct": -1.500000000000015,
+          "avg_hold": 6.75
+        },
+        "N/A": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "wr": 0,
+          "pf": 0,
+          "net_pct": 0,
+          "avg_hold": 0
+        }
+      },
+      "removed": 0
+    }
+  }
+}

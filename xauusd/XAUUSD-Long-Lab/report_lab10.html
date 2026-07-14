@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<title>Lab10 — 10策略參數最佳化</title><style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px;line-height:1.5}
+.wrap{max-width:1200px;margin:0 auto}h1{font-size:1.5em;margin-bottom:6px;color:#f8fafc}
+.card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:22px;margin-bottom:18px}
+.tbl{width:100%;border-collapse:collapse;font-size:.85em;margin:10px 0}
+.tbl th{background:#0f172a;color:#94a3b8;padding:8px 10px;text-align:left;border-bottom:1px solid #334155}
+.tbl td{padding:7px 10px;border-bottom:1px solid rgba(51,65,85,.5)}
+.note{font-size:.82em;color:#94a3b8;margin-top:8px}
+.warn{background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;padding:12px 16px;border-radius:4px;margin:12px 0;font-size:.9em}</style></head><body><div class="wrap">
+<h1>Lab10 — 10 個高勝率候選策略（S1/S2 優化燃料）</h1>
+<p class="note">生成：2026-07-12 21:15 ·
+資料 29809 根 30m（2024-01-02 → 2026-07-11）·
+出場一律 Profit Flyer（順勢=S1檔位 0.5%/1R/3.5R/36；逆勢=S2檔位 1%/2R/4R/48）·
+按勝率排名，門檻：n≥40（FP核心≥15）且 min(IS,OOS) PF≥1.2</p>
+<div class="card">
+<table class="tbl"><thead><tr><th>策略</th><th>邏輯</th><th>最佳參數</th><th>筆數</th>
+<th>勝率</th><th>PF</th><th>淨利R</th><th>OOS n/PF</th><th>門檻</th></tr></thead>
+<tbody><tr><td><strong>T4</strong> 順勢</td><td>BBW擴張突破</td><td style='font-size:.8em'>{'thr': 70}</td><td>142</td><td><strong>51.4%</strong></td><td>1.77</td><td>45R</td><td>38/1.43</td><td>✅</td></tr><tr><td><strong>T2</strong> 順勢</td><td>突破+Delta確認</td><td style='font-size:.8em'>{'n': 96, 'dmin': 0}</td><td>298</td><td><strong>49.7%</strong></td><td>1.46</td><td>61R</td><td>98/1.24</td><td>✅</td></tr><tr><td><strong>T3</strong> 順勢</td><td>HTF動能疊加</td><td style='font-size:.8em'>{'lvl': 55, 'malen': 10}</td><td>516</td><td><strong>46.9%</strong></td><td>1.43</td><td>106R</td><td>201/1.21</td><td>✅</td></tr><tr><td><strong>T5</strong> 順勢</td><td>POC階梯上移(FP)（FP核心，資料僅2026/4起）</td><td style='font-size:.8em'>{'poc': 65, 'k': 3}</td><td>22</td><td><strong>45.5%</strong></td><td>0.83</td><td>-2R</td><td>22/0.83</td><td>⚠️</td></tr><tr><td><strong>T1</strong> 順勢</td><td>週VWAP回踩續漲</td><td style='font-size:.8em'>{'tol': 0.2}</td><td>638</td><td><strong>42.9%</strong></td><td>1.14</td><td>48R</td><td>259/1.00</td><td>⚠️</td></tr><tr><td><strong>R1</strong> 逆勢</td><td>RSI超賣+Delta改善</td><td style='font-size:.8em'>{'th': 25, 'imp': 5}</td><td>55</td><td><strong>41.8%</strong></td><td>1.18</td><td>4R</td><td>22/0.96</td><td>⚠️</td></tr><tr><td><strong>R2</strong> 逆勢</td><td>恐慌爆量長下影</td><td style='font-size:.8em'>{'ws': 0.6, 'm': 1.5}</td><td>207</td><td><strong>41.5%</strong></td><td>1.86</td><td>67R</td><td>54/1.60</td><td>✅</td></tr><tr><td><strong>R3</strong> 逆勢</td><td>VWAP深度回歸</td><td style='font-size:.8em'>{'d': 3.0}</td><td>185</td><td><strong>37.8%</strong></td><td>1.25</td><td>22R</td><td>83/0.78</td><td>⚠️</td></tr><tr><td><strong>R5</strong> 逆勢</td><td>DXY弱勢逢低接</td><td style='font-size:.8em'>{'pb': 1.0}</td><td>183</td><td><strong>36.1%</strong></td><td>1.42</td><td>36R</td><td>69/1.24</td><td>✅</td></tr><tr><td><strong>R4</strong> 逆勢</td><td>Trapped Sellers(FP)（FP核心，資料僅2026/4起）</td><td style='font-size:.8em'>{'imp': 5.0}</td><td>69</td><td><strong>27.5%</strong></td><td>0.70</td><td>-13R</td><td>69/0.70</td><td>⚠️</td></tr></tbody></table>
+<p class="note">對應 Pine：<code>XAUUSD-Long-Lab10-V1.pine</code>（下拉選單，最佳參數已設為預設值）。
+引擎重播已驗證與 TV 吻合率 ~92%（見 report_s1s2_optimizer.html），絕對數字仍以 TV 回測為準。</p>
+</div>
+<div class="warn"><strong>用途聲明：</strong>Lab10 是 S1/S2 的「優化燃料」——表現好的進場邏輯（例如
+footprint 吸收、VWAP 結構、DXY 擇時）之後拆成主策略的 filter 或觸發器，並非要直接上線 10 個新策略。
+高勝率但低頻的策略（如 R2 恐慌爆量）適合當獨立 alert。</p></div>
+</div></body></html>

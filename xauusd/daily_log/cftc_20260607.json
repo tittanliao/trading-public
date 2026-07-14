@@ -1,0 +1,40 @@
+{
+  "fetched_at": "2026-06-07",
+  "report_date": "2026-06-02",
+  "commodity": "GOLD (COMMODITY EXCHANGE INC.)",
+  "cftc_code": "088691",
+  "contract_unit": "100 Troy Ounces",
+  "open_interest": 326052,
+  "oi_change": -27437,
+  "total_traders": 258,
+  "positions": {
+    "producer_merchant": {
+      "long": 10275, "long_chg": -2311, "long_pct": 3.2, "long_traders": 14,
+      "short": 30429, "short_chg": -1667, "short_pct": 9.3, "short_traders": 13,
+      "net": -20154, "net_chg": -644
+    },
+    "swap_dealers": {
+      "long": 27505, "long_chg": -1528, "long_pct": 8.4, "long_traders": 12,
+      "short": 213696, "short_chg": 18407, "short_pct": 65.5, "short_traders": 29,
+      "spread": 16071, "spread_chg": -16951, "spread_pct": 4.9, "spread_traders": 22,
+      "net": -186191, "net_chg": -19935
+    },
+    "managed_money": {
+      "long": 129367, "long_chg": 5090, "long_pct": 39.7, "long_traders": 74,
+      "short": 17188, "short_chg": -9643, "short_pct": 5.3, "short_traders": 16,
+      "spread": 12456, "spread_chg": -7913, "spread_pct": 3.8, "spread_traders": 36,
+      "net": 112179, "net_chg": 14733
+    },
+    "other_reportables": {
+      "long": 76729, "long_chg": 302, "long_pct": 23.5, "long_traders": 79,
+      "short": 12888, "short_chg": -6725, "short_pct": 4.0, "short_traders": 26,
+      "spread": 9993, "spread_chg": -633, "spread_pct": 3.1, "spread_traders": 23,
+      "net": 63841, "net_chg": 7027
+    },
+    "non_reportable": {
+      "long": 43656, "long_chg": -3493, "long_pct": 13.4,
+      "short": 13331, "short_chg": -2312, "short_pct": 4.1,
+      "net": 30325, "net_chg": -1181
+    }
+  }
+}

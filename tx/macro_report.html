@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>TX 宏觀分析 — 月度方向 + 週內結構</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+  h1 { color: #f0c040; margin-bottom: 4px; }
+  h2 { color: #7ec8e3; margin: 28px 0 12px; border-left: 4px solid #7ec8e3; padding-left: 10px; }
+  h3 { color: #e0e0e0; margin-bottom: 8px; }
+  .subtitle { color: #888; margin-bottom: 24px; font-size: 14px; }
+  .stats-row { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat-card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px 24px; min-width: 160px; }
+  .stat-card .val { font-size: 28px; font-weight: bold; color: #f0c040; }
+  .stat-card .lbl { font-size: 12px; color: #888; margin-top: 4px; }
+  .dashboard-card { background: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px; }
+  .dashboard-card p { margin: 6px 0; line-height: 1.6; }
+  table.data-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  table.data-table th { background: #1e1e1e; color: #7ec8e3; padding: 8px 12px; text-align: left; border-bottom: 1px solid #333; font-size: 13px; }
+  table.data-table td { padding: 7px 12px; border-bottom: 1px solid #222; font-size: 13px; }
+  table.data-table tr:hover { background: #1a1a1a; }
+  table.heatmap-table { border-collapse: collapse; font-size: 12px; }
+  table.heatmap-table th { background: #1e1e1e; color: #7ec8e3; padding: 6px 10px; border: 1px solid #333; }
+  table.heatmap-table td { padding: 5px 8px; border: 1px solid #1a1a1a; text-align: center; min-width: 48px; }
+  .section { margin-bottom: 32px; }
+  hr { border: none; border-top: 1px solid #333; margin: 20px 0; }
+  .note { color: #888; font-size: 12px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<a href="../index.html" style="display:inline-block;margin:12px 24px 0;color:#93c5fd;font-size:13px;text-decoration:none;font-weight:600">← 返回 Trading Hub</a>
+
+<h1>TX 台指期 — 宏觀分析報告</h1>
+<p class="subtitle">週線資料 · 2012-05 ~ 2026-05 · 共 169 個月 · 生成時間：2026-05-14</p>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="val">63.9%</div>
+    <div class="lbl">整體月勝率（月初買月底賣）</div>
+  </div>
+  <div class="stat-card">
+    <div class="val" style="color:#27ae60">+199</div>
+    <div class="lbl">平均月漲跌（點數）</div>
+  </div>
+  <div class="stat-card">
+    <div class="val">169</div>
+    <div class="lbl">總樣本月數</div>
+  </div>
+  <div class="stat-card">
+    <div class="val">723</div>
+    <div class="lbl">週線 K 棒數</div>
+  </div>
+</div>
+
+
+    <div class="dashboard-card">
+      <h3>📍 當前月份：2026 / 05</h3>
+      <p><b>季節性偏向（歷史 15 個樣本）：</b>
+         <span style="background:#1a7a4a;color:#fff;padding:2px 10px;border-radius:4px;font-weight:bold">偏多</span>
+      </p>
+      <p>月勝率：<b>66.7%</b>　平均漲跌：<b>+286 pts</b>　中位數：<b>+239 pts</b></p>
+      <p>RSI 77.2 — 超買區，留意回落風險</p>
+      <hr style="border-color:#333">
+      <p style="color:#aaa;font-size:13px">
+        操作思路：先確認<b>月度方向偏偏多</b>作為宏觀基準，<br>
+        再用週線 RSI、BB 位置判斷當週進場時機（順月度方向操作）。
+      </p>
+    </div>
+
+<div class="section">
+  <h2>季節性分析 — 每個月份的歷史偏向</h2>
+  <p class="note">月勝率 ≥55% → 偏多，≤45% → 偏空，中間 → 中性。樣本數 = 歷史年份數。</p>
+  
+    <table class="data-table">
+      <thead><tr>
+        <th>月份</th><th>樣本數</th><th>月勝率</th><th>平均漲跌（點）</th>
+        <th>平均漲跌%</th><th>中位數</th><th>最佳</th><th>最差</th><th>偏向</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><b>一月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">71.4%</td>
+          <td>+377 pts <div style="display:inline-block;width:75.4px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+2.01%</td>
+          <td>+170</td>
+          <td style="color:#27ae60">+2752</td>
+          <td style="color:#e74c3c">-646</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>二月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">64.3%</td>
+          <td>+396 pts <div style="display:inline-block;width:79.2px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+2.15%</td>
+          <td>+255</td>
+          <td style="color:#27ae60">+3504</td>
+          <td style="color:#e74c3c">-472</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>三月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">57.1%</td>
+          <td>-257 pts <div style="display:inline-block;width:51.3px;height:10px;background:#e74c3c;vertical-align:middle;"></div></td>
+          <td>-0.63%</td>
+          <td>+132</td>
+          <td style="color:#27ae60">+1312</td>
+          <td style="color:#e74c3c">-3135</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>四月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">64.3%</td>
+          <td>+518 pts <div style="display:inline-block;width:100.0px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+2.23%</td>
+          <td>+58</td>
+          <td style="color:#27ae60">+6744</td>
+          <td style="color:#e74c3c">-990</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>五月</b></td>
+          <td>15</td>
+          <td style="color:#27ae60;font-weight:bold">66.7%</td>
+          <td>+286 pts <div style="display:inline-block;width:57.1px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+1.36%</td>
+          <td>+239</td>
+          <td style="color:#27ae60">+1641</td>
+          <td style="color:#e74c3c">-639</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>六月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">71.4%</td>
+          <td>+133 pts <div style="display:inline-block;width:26.5px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+0.73%</td>
+          <td>+126</td>
+          <td style="color:#27ae60">+1687</td>
+          <td style="color:#e74c3c">-2386</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>七月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">64.3%</td>
+          <td>+36 pts <div style="display:inline-block;width:7.3px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+0.51%</td>
+          <td>+116</td>
+          <td style="color:#27ae60">+922</td>
+          <td style="color:#e74c3c">-1454</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>八月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">64.3%</td>
+          <td>+108 pts <div style="display:inline-block;width:21.7px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+0.33%</td>
+          <td>+76</td>
+          <td style="color:#27ae60">+978</td>
+          <td style="color:#e74c3c">-654</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>九月</b></td>
+          <td>14</td>
+          <td style="color:#e74c3c;font-weight:bold">42.9%</td>
+          <td>+57 pts <div style="display:inline-block;width:11.4px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+0.46%</td>
+          <td>-44</td>
+          <td style="color:#27ae60">+2486</td>
+          <td style="color:#e74c3c">-1226</td>
+          <td><span style="background:#c0392b;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏空</span></td>
+        </tr>
+        <tr>
+          <td><b>十月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">57.1%</td>
+          <td>+113 pts <div style="display:inline-block;width:22.6px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+0.07%</td>
+          <td>+96</td>
+          <td style="color:#27ae60">+1653</td>
+          <td style="color:#e74c3c">-1072</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>十一月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">64.3%</td>
+          <td>+325 pts <div style="display:inline-block;width:65.0px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+2.84%</td>
+          <td>+79</td>
+          <td style="color:#27ae60">+1837</td>
+          <td style="color:#e74c3c">-693</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr>
+        <tr>
+          <td><b>十二月</b></td>
+          <td>14</td>
+          <td style="color:#27ae60;font-weight:bold">78.6%</td>
+          <td>+285 pts <div style="display:inline-block;width:57.1px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+1.55%</td>
+          <td>+200</td>
+          <td style="color:#27ae60">+1739</td>
+          <td style="color:#e74c3c">-744</td>
+          <td><span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:4px;font-weight:bold">偏多</span></td>
+        </tr></tbody>
+    </table>
+</div>
+
+<div class="section">
+  <h2>月度熱力圖 — 歷年每月漲跌點數</h2>
+  
+    <table class="heatmap-table">
+      <thead><tr><th>年份</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead>
+      <tbody><tr><td><b>2012</b></td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-4.4%">-330</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+2.5%">+171</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.4%">+26</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.6%">+117</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+4.9%">+363</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-6.4%">-491</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+5.5%">+399</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+2.2%">+170</td></tr><tr><td><b>2013</b></td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.4%">+111</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.7%">+58</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.2%">-18</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.6%">+207</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.5%">+44</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-3.9%">-318</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.1%">+243</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.2%">-94</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+5.0%">+398</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.4%">+31</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.8%">+64</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.2%">+105</td></tr><tr><td><b>2014</b></td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.9%">-81</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.9%">+323</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.5%">+300</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.2%">+20</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.6%">+228</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.7%">+341</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-2.0%">-187</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.3%">+211</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-4.0%">-375</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.4%">-130</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+2.2%">+195</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.6%">+231</td></tr><tr><td><b>2015</b></td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.7%">+155</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.8%">+261</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.4%">-41</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.4%">+227</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-2.0%">-195</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-3.8%">-366</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-7.2%">-664</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-7.7%">-654</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+5.4%">+427</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.6%">+217</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.6%">-140</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.6%">-225</td></tr><tr><td><b>2016</b></td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.5%">-42</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.1%">+249</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.2%">+265</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-3.2%">-277</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.0%">+251</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.5%">+47</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.0%">+255</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.0%">-4</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.5%">+139</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.5%">-137</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.4%">+33</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.2%">+113</td></tr><tr><td><b>2017</b></td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.9%">+176</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.8%">+270</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.5%">+53</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.1%">+9</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.4%">+239</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.2%">+118</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.8%">+188</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.2%">+130</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.5%">-261</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+4.5%">+463</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.7%">-184</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.2%">+23</td></tr><tr><td><b>2018</b></td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+4.6%">+488</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-3.8%">-426</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.2%">+238</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-3.7%">-407</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.9%">+406</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.3%">-247</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.6%">+279</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.4%">+48</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.5%">-55</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-9.8%">-1072</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.3%">-28</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.9%">-186</td></tr><tr><td><b>2019</b></td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.7%">+165</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.5%">+355</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.0%">+212</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+4.7%">+498</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-5.8%">-639</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.3%">+133</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.1%">-116</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.0%">+104</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.9%">+304</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.7%">+507</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.8%">+94</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+5.4%">+620</td></tr><tr><td><b>2020</b></td><td style="background:#7b241c;color:#fff;font-size:11px" title="-5.1%">-621</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.6%">-182</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-13.2%">-1458</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+12.6%">+1224</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+3.6%">+375</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+8.4%">+922</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+6.0%">+711</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.2%">+22</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.1%">-134</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.2%">-157</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+14.0%">+1735</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.7%">+528</td></tr><tr><td><b>2021</b></td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.9%">+429</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+5.3%">+801</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+1.9%">+306</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.7%">+792</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.3%">-401</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.2%">+544</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.7%">-478</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.0%">+336</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-5.5%">-967</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.9%">+484</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.6%">+776</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+2.8%">+502</td></tr><tr><td><b>2022</b></td><td style="background:#7b241c;color:#fff;font-size:11px" title="-3.5%">-646</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.2%">-39</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.2%">-44</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-5.6%">-990</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.4%">-66</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-14.4%">-2386</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+5.2%">+740</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.2%">-336</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-8.4%">-1226</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.9%">-391</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+14.1%">+1837</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-5.0%">-744</td></tr><tr><td><b>2023</b></td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+10.3%">+1461</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.2%">-36</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.1%">+325</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-1.8%">-278</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+7.3%">+1143</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.4%">+66</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.3%">+45</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-1.0%">-172</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-1.6%">-268</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+1.0%">+161</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+5.5%">+910</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.5%">+443</td></tr><tr><td><b>2024</b></td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+1.2%">+213</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.9%">+881</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+6.9%">+1312</td><td style="background:#27ae60;color:#fff;font-size:11px" title="+0.5%">+96</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.5%">+922</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+7.9%">+1687</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-6.3%">-1454</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.9%">+830</td><td style="background:#e74c3c;color:#fff;font-size:11px" title="-0.2%">-34</td><td style="background:#1a7a4a;color:#fff;font-size:11px" title="+2.0%">+447</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.0%">-449</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.0%">+677</td></tr><tr><td><b>2025</b></td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.1%">+717</td><td style="background:#c0392b;color:#fff;font-size:11px" title="-2.0%">-472</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-8.2%">-1909</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-2.9%">-620</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+3.2%">+667</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+5.4%">+1146</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.1%">+922</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.2%">+978</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+10.3%">+2486</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+6.2%">+1653</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-2.4%">-693</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+6.3%">+1739</td></tr><tr><td><b>2026</b></td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+9.3%">+2752</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+10.9%">+3504</td><td style="background:#7b241c;color:#fff;font-size:11px" title="-8.8%">-3135</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+20.7%">+6744</td><td style="background:#0a5c2e;color:#fff;font-size:11px" title="+4.2%">+1641</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td><td style="background:#1e1e1e">—</td></tr></tbody>
+    </table>
+    <p style="font-size:12px;color:#888">顏色：深綠 &gt;500pts ／ 綠 &gt;200 ／ 淺綠 &gt;0 ／ 紅 &lt;0 ／ 深紅 &lt;-500。滑鼠懸停顯示 % 漲跌。</p>
+</div>
+
+<div class="section">
+  <h2>週內結構 — 每月第幾週最強 / 最弱</h2>
+  <p class="note">所有月份合併，看月初、月中、月底哪一週的多頭勝率最高。</p>
+  
+    <table class="data-table">
+      <thead><tr>
+        <th>週次</th><th>樣本數</th><th>週勝率</th><th>平均漲跌（點）</th><th>中位數</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><b>第1週（月初）</b></td>
+          <td>169.0</td>
+          <td style="color:#27ae60;font-weight:bold">58.6%</td>
+          <td>+71 pts <div style="display:inline-block;width:35.6px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+49</td>
+        </tr>
+        <tr>
+          <td><b>第2週</b></td>
+          <td>169.0</td>
+          <td style="color:#888;font-weight:bold">53.8%</td>
+          <td>+50 pts <div style="display:inline-block;width:24.9px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+23</td>
+        </tr>
+        <tr>
+          <td><b>第3週</b></td>
+          <td>168.0</td>
+          <td style="color:#27ae60;font-weight:bold">55.4%</td>
+          <td>+10 pts <div style="display:inline-block;width:4.8px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+31</td>
+        </tr>
+        <tr>
+          <td><b>第4週</b></td>
+          <td>159.0</td>
+          <td style="color:#27ae60;font-weight:bold">61.0%</td>
+          <td>+57 pts <div style="display:inline-block;width:28.4px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+71</td>
+        </tr>
+        <tr>
+          <td><b>第5週（月底）</b></td>
+          <td>58.0</td>
+          <td style="color:#27ae60;font-weight:bold">60.3%</td>
+          <td>+55 pts <div style="display:inline-block;width:27.3px;height:10px;background:#27ae60;vertical-align:middle;"></div></td>
+          <td>+66</td>
+        </tr></tbody>
+    </table>
+</div>
+
+<div class="section">
+  <h2>近 12 個月回顧</h2>
+  
+    <table class="data-table">
+      <thead><tr>
+        <th>年/月</th><th>月初開盤</th><th>月底收盤</th><th>月漲跌</th>
+        <th>RSI（月初）</th><th>RSI（月底）</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>2025/06</td>
+          <td>21290</td>
+          <td>22436</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +1146 pts (+5.4%)</td>
+          <td>48.8</td>
+          <td>55.2</td>
+        </tr>
+        <tr>
+          <td>2025/07</td>
+          <td>22423</td>
+          <td>23345</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +922 pts (+4.1%)</td>
+          <td>57.6</td>
+          <td>61.4</td>
+        </tr>
+        <tr>
+          <td>2025/08</td>
+          <td>23290</td>
+          <td>24268</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +978 pts (+4.2%)</td>
+          <td>65.4</td>
+          <td>64.6</td>
+        </tr>
+        <tr>
+          <td>2025/09</td>
+          <td>24250</td>
+          <td>26736</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +2486 pts (+10.3%)</td>
+          <td>65.5</td>
+          <td>76.8</td>
+        </tr>
+        <tr>
+          <td>2025/10</td>
+          <td>26777</td>
+          <td>28430</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +1653 pts (+6.2%)</td>
+          <td>78.9</td>
+          <td>82.4</td>
+        </tr>
+        <tr>
+          <td>2025/11</td>
+          <td>28430</td>
+          <td>27737</td>
+          <td style="color:#e74c3c;font-weight:bold">▼ -693 pts (-2.4%)</td>
+          <td>73.5</td>
+          <td>67.0</td>
+        </tr>
+        <tr>
+          <td>2025/12</td>
+          <td>27740</td>
+          <td>29479</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +1739 pts (+6.3%)</td>
+          <td>68.2</td>
+          <td>72.5</td>
+        </tr>
+        <tr>
+          <td>2026/01</td>
+          <td>29500</td>
+          <td>32252</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +2752 pts (+9.3%)</td>
+          <td>75.8</td>
+          <td>80.7</td>
+        </tr>
+        <tr>
+          <td>2026/02</td>
+          <td>32107</td>
+          <td>35611</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +3504 pts (+10.9%)</td>
+          <td>76.0</td>
+          <td>84.4</td>
+        </tr>
+        <tr>
+          <td>2026/03</td>
+          <td>35640</td>
+          <td>32505</td>
+          <td style="color:#e74c3c;font-weight:bold">▼ -3135 pts (-8.8%)</td>
+          <td>70.5</td>
+          <td>61.9</td>
+        </tr>
+        <tr>
+          <td>2026/04</td>
+          <td>32598</td>
+          <td>39342</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +6744 pts (+20.7%)</td>
+          <td>71.2</td>
+          <td>78.5</td>
+        </tr>
+        <tr>
+          <td>2026/05</td>
+          <td>39385</td>
+          <td>41026</td>
+          <td style="color:#27ae60;font-weight:bold">▲ +1641 pts (+4.2%)</td>
+          <td>82.2</td>
+          <td>77.2</td>
+        </tr></tbody>
+    </table>
+</div>
+
+</body>
+</html>

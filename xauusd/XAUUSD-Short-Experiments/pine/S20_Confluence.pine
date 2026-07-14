@@ -1,0 +1,59 @@
+// © Tittan — XAUUSD Short-Side Experiment Series
+// Strategy: S20 Confluence
+// Group   : Confluence
+// Logic   : BB upper touch + RSI>60 + EMA21 downtrend
+// Risk    : SL 0.5% above entry / TP 1.0% below entry / Max hold 48 bars (24h)
+// Version : 1.0  (proof-of-concept — validate with full TradingView history)
+//@version=6
+strategy(title="S20 Confluence",
+         shorttitle="S20_Confluence",
+         overlay=true,
+         format=format.price,
+         precision=2,
+         default_qty_type=strategy.cash,
+         initial_capital=10000,
+         default_qty_value=10000,
+         commission_value=0.0,
+         slippage=1)
+
+// ── Risk parameters ──────────────────────────────────────────────────────────
+SL_PCT  = input.float(0.5, "Stop Loss %",   step=0.1) / 100
+TP_PCT  = input.float(1.0, "Take Profit %", step=0.1) / 100
+MAX_BARS = input.int(48,   "Max Hold Bars")
+
+// ── Position tracking ─────────────────────────────────────────────────────────
+var int entry_bar = na
+MP = strategy.position_size < 0 ? 1 : 0
+
+// Time-based exit
+if MP == 1 and not na(entry_bar) and (bar_index - entry_bar) >= MAX_BARS
+    strategy.close("Short", comment="TIME")
+    entry_bar := na
+
+// Multi-factor short: BB upper touch + RSI>60 + EMA21 declining
+[basis, upper, lower] = ta.bb(close, 20, 2.0)
+rsiVal    = ta.rsi(close, 14)
+e21       = ta.ema(close, 21)
+bbTouch   = high >= upper and close < upper
+overbought = rsiVal > 60
+trendDown  = e21 < e21[5]
+shortSignal = bbTouch and overbought and trendDown
+plot(upper, color=color.red,  linewidth=1, title="BB Upper")
+plot(e21,   color=color.maroon, linewidth=1, title="EMA 21")
+
+// ── Entry execution ───────────────────────────────────────────────────────────
+if shortSignal and MP == 0
+    strategy.entry("Short", strategy.short, comment="SE")
+    entry_bar := bar_index
+
+// ── SL / TP ───────────────────────────────────────────────────────────────────
+if MP == 1
+    ep = strategy.position_avg_price
+    strategy.exit("SX", "Short",
+                  stop  = ep * (1 + SL_PCT),
+                  limit = ep * (1 - TP_PCT),
+                  comment="SX")
+
+// ── Chart markers ─────────────────────────────────────────────────────────────
+plotshape(shortSignal, style=shape.triangledown, location=location.abovebar,
+          color=color.red, size=size.small, title="Short Signal")

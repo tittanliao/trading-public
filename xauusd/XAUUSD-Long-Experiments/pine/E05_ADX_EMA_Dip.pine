@@ -1,0 +1,64 @@
+// © Tittan — XAUUSD Long-Only Experiment Series
+// Strategy: E05 ADX EMA Dip
+// Group   : Trend
+// Logic   : ADX>25 strong trend + EMA20 dip-and-bounce entry
+// Risk    : SL 0.5% / TP 1.0% / Max hold 48 bars (24h)
+// Version : 1.0  (proof-of-concept — validate with full TradingView history)
+//@version=6
+strategy(title="E05 ADX EMA Dip",
+         shorttitle="E05_ADX_EMA_",
+         overlay=true,
+         format=format.price,
+         precision=2,
+         default_qty_type=strategy.cash,
+         initial_capital=10000,
+         default_qty_value=10000,
+         commission_value=0.0,
+         slippage=1)
+
+// ── Risk parameters ──────────────────────────────────────────────────────────
+SL_PCT = input.float(0.5, "Stop Loss %", step=0.1) / 100
+TP_PCT = input.float(1.0, "Take Profit %", step=0.1) / 100
+MAX_BARS = input.int(48, "Max Hold Bars")
+
+// ── Position tracking ─────────────────────────────────────────────────────────
+var int entry_bar = na
+MP = strategy.position_size > 0 ? 1 : 0
+
+// Time-based exit
+if MP == 1 and not na(entry_bar) and (bar_index - entry_bar) >= MAX_BARS
+    strategy.close("Long", comment="TIME")
+    entry_bar := na
+
+// ── Indicators ────────────────────────────────────────────────────────────────
+[adx_val, di_plus, di_minus] = ta.dmi(14, 14)
+e20 = ta.ema(close, 20)
+e50 = ta.ema(close, 50)
+
+plot(e20, "EMA20", color=color.new(color.blue,  0), linewidth=1)
+plot(e50, "EMA50", color=color.new(color.orange,0), linewidth=1)
+
+// ── Signal ────────────────────────────────────────────────────────────────────
+trending   = adx_val > 25
+above_e50  = close > e50
+dip_bounce = close[1] < e20[1] and close > e20
+longSignal = trending and above_e50 and dip_bounce
+
+// ── Entry execution ───────────────────────────────────────────────────────────
+if longSignal and MP == 0
+    strategy.entry("Long", strategy.long, comment="LE")
+    entry_bar := bar_index
+
+// ── SL / TP ───────────────────────────────────────────────────────────────────
+if MP == 1
+    ep = strategy.position_avg_price
+    strategy.exit("LX", "Long",
+                  stop  = ep * (1 - SL_PCT),
+                  limit = ep * (1 + TP_PCT),
+                  comment_loss = "SL",
+                  comment_profit = "TP")
+
+// ── Signal marker ─────────────────────────────────────────────────────────────
+plotshape(longSignal and MP == 0, style=shape.triangleup,
+          location=location.belowbar, color=color.new(color.green, 0),
+          size=size.small, title="Entry Signal")
