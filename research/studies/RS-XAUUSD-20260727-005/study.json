@@ -8,7 +8,7 @@
     "id": "S1-AweWithBB",
     "version": "V3.4 vs V3.9 (gap)"
   },
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-07-27",
   "question": "Reading the RS-XAUUSD-20260727-003 (V3.4) and -004 (V3.9) fail-pattern reports, where do the two strategy versions diverge on 30-minute timing, fail-type share, BB zone, DXY regime, and MTF alignment?",
   "hypothesis": "V3.4 and V3.9 differ in exit-rule structure (0.5% SL / TP2=2R vs V3.9's current exit rules) and in which market regime each was traded in, so deltas are expected and must not be read as a like-for-like backtest of the same rules across time.",

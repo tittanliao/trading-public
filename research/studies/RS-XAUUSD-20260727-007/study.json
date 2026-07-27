@@ -8,7 +8,7 @@
     "id": "S2-Hammer",
     "version": "V3.2"
   },
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-07-27",
   "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for the current active S2-Hammer V3.2?",
   "hypothesis": "This is a full-coverage fail-pattern reproduction for the currently active S2 version, not a single hypothesis test; it exists as the V3.2 half of the RS-XAUUSD-20260727-008 gap report.",

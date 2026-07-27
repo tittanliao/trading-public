@@ -8,7 +8,7 @@
     "id": "S2-Hammer",
     "version": "V1.9"
   },
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-07-27",
   "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S2-Hammer V1.9 (the Pullback-signal precursor, OOS-failed per docs/STRATEGY.md)?",
   "hypothesis": "This is a full-coverage fail-pattern reproduction, not a new hypothesis test; it exists as the V1.9 half of the RS-XAUUSD-20260727-008 gap report and as historical context for the S2 evolution.",

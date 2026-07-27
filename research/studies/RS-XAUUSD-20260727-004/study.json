@@ -8,7 +8,7 @@
     "id": "S1-AweWithBB",
     "version": "V3.9"
   },
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-07-27",
   "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for the current active S1 AweWithBB V3.9?",
   "hypothesis": "This is a full-coverage fail-pattern reproduction for the currently active strategy version, not a single hypothesis test; it exists as the V3.9 half of the RS-XAUUSD-20260727-005 gap report and as a deeper companion to the existing RS-XAUUSD-20260727-001 Macro/30m-slot study.",
