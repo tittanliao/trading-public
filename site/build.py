@@ -478,34 +478,81 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
     )
 
 
+def gap_version_prefixes(baseline_diff: dict[str, object]) -> tuple[str, str]:
+    """Every gap study's baseline_diff has exactly two per-version keys plus the two
+    scalar diffs. Detecting them generically (instead of hardcoding v34/v39 or v1/v2)
+    lets one renderer serve any strategy's gap report."""
+    keys = [k for k in baseline_diff if k not in ("win_rate_pct_diff", "profit_factor_diff")]
+    return keys[0], keys[1]
+
+
+def gap_entry_slot_table(comparison: dict[str, dict[str, object]], p1: str, p2: str, label1: str, label2: str) -> str:
+    diff_key = next(k for k in next(iter(comparison.values())) if k.startswith("win_rate_pct_diff_"))
+    body = ""
+    for slot, item in comparison.items():
+        diff = item.get(diff_key)
+        diff_text = "—" if diff is None else f"{diff:+.2f}pp"
+        diff_class = "score-neutral"
+        if isinstance(diff, (int, float)) and diff > 0:
+            diff_class = "score-positive"
+        elif isinstance(diff, (int, float)) and diff < 0:
+            diff_class = "score-negative"
+        body += (
+            "<tr>"
+            f"<td><strong>{html.escape(slot)}</strong></td>"
+            f"<td>{item[f'{p1}_n']}</td>"
+            f"<td>{value_or_dash(item.get(f'{p1}_win_rate_pct'), '%')}</td>"
+            f"<td>{value_or_dash(item.get(f'{p1}_profit_factor'))}</td>"
+            f"<td>{item[f'{p2}_n']}</td>"
+            f"<td>{value_or_dash(item.get(f'{p2}_win_rate_pct'), '%')}</td>"
+            f"<td>{value_or_dash(item.get(f'{p2}_profit_factor'))}</td>"
+            f'<td class="{diff_class}">{diff_text}</td>'
+            "</tr>"
+        )
+    return (
+        '<section class="report-section"><h2>30-minute entry-slot comparison</h2>'
+        '<p class="section-note">Asia/Taipei bar-start time. Both versions computed with the '
+        "same deterministic method; most cells are low-n for both versions and differences "
+        "should be read as descriptive, not as a stable timing edge.</p>"
+        '<div class="table-wrap tall-table"><table><thead><tr><th>30m slot</th>'
+        f"<th>{html.escape(label1)} n</th><th>{html.escape(label1)} WR</th><th>{html.escape(label1)} PF</th>"
+        f"<th>{html.escape(label2)} n</th><th>{html.escape(label2)} WR</th><th>{html.escape(label2)} PF</th>"
+        f"<th>WR diff ({html.escape(label2)}−{html.escape(label1)})</th></tr></thead>"
+        f"<tbody>{body}</tbody></table></div></section>"
+    )
+
+
 def study_page_gap(study: dict[str, object]) -> str:
     result = study["_result"]
     bd = result["baseline_diff"]
+    p1, p2 = gap_version_prefixes(bd)
+    version_labels = result.get("version_labels", {})
+    label1, label2 = version_labels.get(p1, p1.upper()), version_labels.get(p2, p2.upper())
     finding_html = "".join(
         f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
         f'<p>{html.escape(item["detail"])}</p></article>'
         for item in study["findings"]
     )
     fail_rows = "".join(
-        f"<tr><td><strong>{html.escape(name)}</strong></td><td>{v['v34_pct']}%</td><td>{v['v39_pct']}%</td>"
+        f"<tr><td><strong>{html.escape(name)}</strong></td><td>{v[f'{p1}_pct']}%</td><td>{v[f'{p2}_pct']}%</td>"
         f"<td>{v['diff']:+.1f}pp</td></tr>"
         for name, v in result["fail_type_share_diff"].items()
     )
     body = (
         '<main class="shell report">'
         '<div class="metric-grid">'
-        + metric("V3.4 WR / PF", f'{bd["v34"]["win_rate_pct"]}% / {bd["v34"]["profit_factor"]}')
-        + metric("V3.9 WR / PF", f'{bd["v39"]["win_rate_pct"]}% / {bd["v39"]["profit_factor"]}')
-        + metric("WR diff (V3.9−V3.4)", f'{bd["win_rate_pct_diff"]:+.2f}pp')
-        + metric("PF diff (V3.9−V3.4)", f'{bd["profit_factor_diff"]:+.3f}')
+        + metric(f"{label1} WR / PF", f'{bd[p1]["win_rate_pct"]}% / {bd[p1]["profit_factor"]}')
+        + metric(f"{label2} WR / PF", f'{bd[p2]["win_rate_pct"]}% / {bd[p2]["profit_factor"]}')
+        + metric(f"WR diff ({label2}−{label1})", f'{bd["win_rate_pct_diff"]:+.2f}pp')
+        + metric(f"PF diff ({label2}−{label1})", f'{bd["profit_factor_diff"]:+.3f}')
         + '</div>'
         f'<div class="note">{html.escape(result["method"]["risk_parameter_caveat"])}</div>'
         '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + chart_sections_html(result["charts"])
-        + comparison_entry_slot_table(result["by_entry_30m_diff"])
+        + gap_entry_slot_table(result["by_entry_30m_diff"], p1, p2, label1, label2)
         + '<section class="report-section"><h2>Fail-Type Share</h2>'
-        '<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>V3.4</th><th>V3.9</th><th>diff</th></tr></thead>'
+        f'<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>{html.escape(label1)}</th><th>{html.escape(label2)}</th><th>diff</th></tr></thead>'
         f'<tbody>{fail_rows}</tbody></table></div></section>'
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'

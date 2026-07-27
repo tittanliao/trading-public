@@ -89,6 +89,60 @@
       "path": "research/studies/RS-XAUUSD-20260727-005/study.json",
       "section": "research",
       "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260727-006/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-006/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-006/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260727-007/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-007/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-007/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260727-008/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-008/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-008/study.json",
+      "section": "research",
+      "title": "study"
     }
   ],
   "legacy_source_commit": "04cd05734e6905561e113945948e848e106d26bb",

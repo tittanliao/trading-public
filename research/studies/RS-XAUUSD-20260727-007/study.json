@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-007",
+  "revision": 1,
+  "title": "S2-Hammer V3.2 — fail-pattern report (30-minute contract)",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S2-Hammer",
+    "version": "V3.2"
+  },
+  "status": "reproduced",
+  "created_on": "2026-07-27",
+  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for the current active S2-Hammer V3.2?",
+  "hypothesis": "This is a full-coverage fail-pattern reproduction for the currently active S2 version, not a single hypothesis test; it exists as the V3.2 half of the RS-XAUUSD-20260727-008 gap report.",
+  "headline": {
+    "trades": 157,
+    "win_rate_pct": 47.13,
+    "profit_factor": 2.047,
+    "time_bleed_pct": 57.8,
+    "kbar_coverage_pct": 66.7
+  },
+  "card_metrics": [
+    "win_rate_pct",
+    "profit_factor",
+    "time_bleed_pct",
+    "kbar_coverage_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Higher WR and PF than V1.9 on a smaller sample",
+      "detail": "WR 47.13% (+6.06pp vs V1.9), PF 2.047 (+0.512 vs V1.9), on 157 trades vs V1.9's 224 — fewer signals, better quality per signal."
+    },
+    {
+      "tone": "warn",
+      "title": "time_bleed remains the dominant fail type",
+      "detail": "48 of 83 losses (57.8%) are time_bleed, even more concentrated than V1.9's 53.8% — losses still drag rather than fail instantly under V3.2's Hammer-candle entry rule."
+    },
+    {
+      "tone": "good",
+      "title": "MTF counter-trend penalty nearly disappeared",
+      "detail": "4H-bearish counter-trend WR 46.15% vs 47.62% aligned (1.47pp gap, near noise) — down from V1.9's 4.76pp. The Hammer-candle entry appears less sensitive to 4H trend state than the Pullback entry was."
+    },
+    {
+      "tone": "warn",
+      "title": "Sample size is the binding limitation",
+      "detail": "157 trades total means most subgroup cells (fail-type, BB zone, DXY bucket, MTF state) are low-n; docs/STRATEGY.md already notes OOS confidence for V3.2 remains limited. Treat every context table here as descriptive, not as grounds for a new hard rule."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

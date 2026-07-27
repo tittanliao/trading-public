@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-008",
+  "revision": 1,
+  "title": "S2-Hammer V1.9 vs V3.2 — gap report",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S2-Hammer",
+    "version": "V1.9 vs V3.2 (gap)"
+  },
+  "status": "reproduced",
+  "created_on": "2026-07-27",
+  "question": "Reading the RS-XAUUSD-20260727-006 (V1.9) and -007 (V3.2) fail-pattern reports, where do the two S2 versions diverge on 30-minute timing, fail-type share, BB zone, DXY regime, and MTF alignment?",
+  "hypothesis": "S2 evolved from a Pullback-style V1.9 signal to a Hammer-candle-style V3.2 signal (different entry rule, not only a parameter tweak), so deltas are expected and must not be read as a like-for-like backtest of the same rules across time.",
+  "headline": {
+    "v1_win_rate_pct": 41.07,
+    "v1_profit_factor": 1.535,
+    "v2_win_rate_pct": 47.13,
+    "v2_profit_factor": 2.047,
+    "win_rate_pct_diff": 6.06,
+    "profit_factor_diff": 0.512
+  },
+  "card_metrics": [
+    "v1_win_rate_pct",
+    "v2_win_rate_pct",
+    "win_rate_pct_diff",
+    "profit_factor_diff"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "V3.2 outperforms V1.9 on every headline metric",
+      "detail": "WR +6.06pp (47.13% vs 41.07%), PF +0.512 (2.047 vs 1.535), on 67 fewer trades — fewer, higher-quality signals."
+    },
+    {
+      "tone": "good",
+      "title": "MTF counter-trend penalty shrank sharply",
+      "detail": "The 4H-bearish win-rate gap narrowed from 4.76pp (V1.9) to 1.47pp (V3.2) — the Hammer-candle entry is less exposed to counter-trend risk than the Pullback entry was."
+    },
+    {
+      "tone": "warn",
+      "title": "time_bleed share grew, not shrank",
+      "detail": "time_bleed rose from 53.8% to 57.8% of losses — V3.2 did not fix the strategy's core failure mode (dragging losers), it just has fewer losses overall."
+    },
+    {
+      "tone": "warn",
+      "title": "Both versions are low-n; V3.2 more so",
+      "detail": "V1.9 n=224, V3.2 n=157. Most 30-minute-slot and subgroup cells are single-digit-to-teens for V3.2; docs/STRATEGY.md already flags S2 V3.2 OOS confidence as limited. Treat every delta here as descriptive."
+    },
+    {
+      "tone": "warn",
+      "title": "Different entry rules confound every delta",
+      "detail": "V1.9 (Pullback) and V3.2 (Hammer-candle) are different signal implementations, not the same rule at two parameter settings — see the .pine source files for exact differences. Deltas may reflect the rule change, not a timing/regime effect."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

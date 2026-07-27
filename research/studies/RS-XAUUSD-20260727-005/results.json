@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260727-005",
-  "generated_at": "2026-07-27T22:29:09+08:00",
+  "generated_at": "2026-07-27T23:10:28+08:00",
   "strategy": "S1 AweWithBB V3.4 vs V3.9 (gap report)",
   "method": {
     "basis": "reads RS-XAUUSD-20260727-003 and RS-XAUUSD-20260727-004 results.json; recomputes no fail-pattern classification",
@@ -682,5 +682,9 @@
       "v39_profit_factor": 1.453,
       "win_rate_pct_diff_v39_minus_v34": 0.26
     }
+  },
+  "version_labels": {
+    "v34": "V3.4",
+    "v39": "V3.9"
   }
 }
