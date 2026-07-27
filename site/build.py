@@ -137,18 +137,49 @@ def studies() -> list[dict[str, object]]:
     return found
 
 
+HEADLINE_LABELS = {
+    "trades": "trades",
+    "win_rate_pct": "WR",
+    "profit_factor": "PF",
+    "macro_coverage_pct": "macro cov.",
+    "entry_slots_30m": "30m slots",
+    "v34_trades": "V3.4 n",
+    "v34_win_rate_pct": "V3.4 WR",
+    "v34_profit_factor": "V3.4 PF",
+    "v39_trades": "V3.9 n",
+    "v39_win_rate_pct": "V3.9 WR",
+    "v39_profit_factor": "V3.9 PF",
+}
+
+
+def headline_label(key: str) -> str:
+    return HEADLINE_LABELS.get(key, key.replace("_", " "))
+
+
+def headline_display(key: str, value: object) -> str:
+    if isinstance(value, (int, float)) and key.endswith("_pct"):
+        return f"{value}%"
+    return str(value)
+
+
 def study_card(study: dict[str, object], prefix: str = "../") -> str:
     headline = study["headline"]
+    # A study may curate its own card_metrics (ordered headline keys); otherwise the
+    # first three headline fields are shown, which matches every current single-version
+    # study without requiring per-study special-casing here.
+    keys = study.get("card_metrics") or list(headline)[:3]
+    metrics_html = "".join(
+        f'<span><strong>{html.escape(headline_display(key, headline[key]))}</strong> '
+        f'{html.escape(headline_label(key))}</span>'
+        for key in keys
+        if key in headline
+    )
     return (
         f'<a class="card study-card" data-card href="{html.escape(prefix + study["_relative"])}/">'
         f'<div class="type">{html.escape(study["status"])} · {html.escape(study["id"])}</div>'
         f'<h2>{html.escape(study["title"])}</h2>'
         f'<p>{html.escape(study["question"])}</p>'
-        '<div class="mini-metrics">'
-        f'<span><strong>{headline["trades"]}</strong> trades</span>'
-        f'<span><strong>{headline["win_rate_pct"]}%</strong> WR</span>'
-        f'<span><strong>{headline["profit_factor"]}</strong> PF</span>'
-        '</div></a>'
+        f'<div class="mini-metrics">{metrics_html}</div></a>'
     )
 
 
@@ -233,8 +264,109 @@ def entry_slot_table(rows: dict[str, dict[str, object]]) -> str:
     )
 
 
+def comparison_entry_slot_table(comparison: dict[str, dict[str, object]]) -> str:
+    body = ""
+    for slot, item in comparison.items():
+        diff = item.get("win_rate_pct_diff_v39_minus_v34")
+        diff_text = "—" if diff is None else f"{diff:+.2f}pp"
+        diff_class = "score-neutral"
+        if isinstance(diff, (int, float)) and diff > 0:
+            diff_class = "score-positive"
+        elif isinstance(diff, (int, float)) and diff < 0:
+            diff_class = "score-negative"
+        body += (
+            "<tr>"
+            f"<td><strong>{html.escape(slot)}</strong></td>"
+            f"<td>{item['v34_n']}</td>"
+            f"<td>{value_or_dash(item.get('v34_win_rate_pct'), '%')}</td>"
+            f"<td>{value_or_dash(item.get('v34_profit_factor'))}</td>"
+            f"<td>{item['v39_n']}</td>"
+            f"<td>{value_or_dash(item.get('v39_win_rate_pct'), '%')}</td>"
+            f"<td>{value_or_dash(item.get('v39_profit_factor'))}</td>"
+            f'<td class="{diff_class}">{diff_text}</td>'
+            "</tr>"
+        )
+    return (
+        '<section class="report-section"><h2>30-minute entry-slot comparison</h2>'
+        '<p class="section-note">Asia/Taipei bar-start time. Both versions computed with the '
+        "same deterministic method; most cells are low-n for both versions and differences "
+        "should be read as descriptive, not as a stable timing edge.</p>"
+        '<div class="table-wrap tall-table"><table><thead><tr><th>30m slot</th>'
+        "<th>V3.4 n</th><th>V3.4 WR</th><th>V3.4 PF</th>"
+        "<th>V3.9 n</th><th>V3.9 WR</th><th>V3.9 PF</th>"
+        "<th>WR diff (V3.9−V3.4)</th></tr></thead>"
+        f"<tbody>{body}</tbody></table></div></section>"
+    )
+
+
+def study_page_comparison(study: dict[str, object]) -> str:
+    result = study["_result"]
+    versions = result["versions"]
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    impacts = study.get("policy_impacts") or []
+    impact_html = (
+        "".join(
+            f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
+            for item in impacts
+        )
+        if impacts
+        else '<li class="empty">No active 請分析 policy change. Research/publication only for this study.</li>'
+    )
+    metric_html = "".join(
+        metric(
+            f'{version} n / WR / PF',
+            f'{data["baseline"]["n"]} / {data["baseline"]["win_rate_pct"]}% / {data["baseline"]["profit_factor"]}',
+            f'Net ${data["baseline"]["net_pnl_usd"]:,.2f}',
+        )
+        for version, data in versions.items()
+    )
+    body = (
+        '<main class="shell report">'
+        f'<div class="metric-grid">{metric_html}</div>'
+        '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + "".join(
+            result_table(
+                f"{version} session summary",
+                data["by_session"],
+                show_adjustment=False,
+                note="Descriptive only. See the 30-minute entry-slot comparison below for the primary evidence.",
+            )
+            for version, data in versions.items()
+        )
+        + comparison_entry_slot_table(result["comparison"]["by_entry_30m"])
+        + "".join(
+            result_table(f"{version} Macro context", data["by_macro_verdict"])
+            for version, data in versions.items()
+        )
+        + '<section class="report-section"><h2>Impact on 請分析</h2>'
+        f'<ul class="impact-list">{impact_html}</ul></section>'
+        '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
+        "contains reviewed aggregate results and the reproducible method only.</p>"
+        '<div class="file-actions">'
+        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a>'
+        '<a href="study.json">Study manifest</a>'
+        "</div></section></main>"
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
+    if "versions" in result:
+        return study_page_comparison(study)
     baseline = result["baseline"]
     finding_html = "".join(
         f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'

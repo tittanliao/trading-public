@@ -17,6 +17,24 @@
       "path": "research/studies/RS-XAUUSD-20260727-001/study.json",
       "section": "research",
       "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260727-002/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-002/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260727-002/study.json",
+      "section": "research",
+      "title": "study"
     }
   ],
   "legacy_source_commit": "04cd05734e6905561e113945948e848e106d26bb",
