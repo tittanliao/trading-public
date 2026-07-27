@@ -174,9 +174,10 @@ def study_card(study: dict[str, object], prefix: str = "../") -> str:
         for key in keys
         if key in headline
     )
+    badge = '<span class="badge-live">影響請分析</span>' if study.get("policy_impacts") else ""
     return (
         f'<a class="card study-card" data-card href="{html.escape(prefix + study["_relative"])}/">'
-        f'<div class="type">{html.escape(study["status"])} · {html.escape(study["id"])}</div>'
+        f'<div class="type">{html.escape(study["status"])} · {html.escape(study["id"])}{badge}</div>'
         f'<h2>{html.escape(study["title"])}</h2>'
         f'<p>{html.escape(study["question"])}</p>'
         f'<div class="mini-metrics">{metrics_html}</div></a>'
@@ -189,6 +190,20 @@ def metric(label: str, value: object, detail: str = "") -> str:
         f'{html.escape(label)}</div><div class="metric-value">{html.escape(str(value))}</div>'
         f'<div class="metric-detail">{html.escape(detail)}</div></div>'
     )
+
+
+def rank_score_cell(value: dict[str, object]) -> str:
+    if value.get("low_sample"):
+        return '<span class="score-neutral">0<sup class="low-sample-tag">low-n</sup></span>'
+    score = value.get("rank_score")
+    if score is None:
+        return "—"
+    css = "score-neutral"
+    if score > 0:
+        css = "score-positive"
+    elif score < 0:
+        css = "score-negative"
+    return f'<span class="{css}">{score:+d}</span>'
 
 
 def result_table(
@@ -206,14 +221,14 @@ def result_table(
             f"<td>{value['profit_factor']}</td><td>{value['net_pnl_usd']:,.2f}</td>"
         )
         + (
-            f"<td>{value.get('advisory_delta', '—')}</td>"
+            f"<td>{rank_score_cell(value)}</td>"
             if show_adjustment
             else ""
         )
         + "</tr>"
         for name, value in rows.items()
     )
-    adjustment_header = "<th>Score Δ</th>" if show_adjustment else ""
+    adjustment_header = "<th>Rank score</th>" if show_adjustment else ""
     note_html = f'<p class="section-note">{html.escape(note)}</p>' if note else ""
     return (
         f'<section class="report-section"><h2>{html.escape(title)}</h2>'
@@ -235,13 +250,6 @@ def entry_slot_table(rows: dict[str, dict[str, object]]) -> str:
         interval_text = (
             "—" if interval is None else f"{interval[0]}–{interval[1]}%"
         )
-        delta = value.get("advisory_delta")
-        delta_text = "—" if delta is None else f"{delta:+.1f}"
-        delta_class = "score-neutral"
-        if isinstance(delta, (int, float)) and delta > 0:
-            delta_class = "score-positive"
-        elif isinstance(delta, (int, float)) and delta < 0:
-            delta_class = "score-negative"
         body += (
             "<tr>"
             f"<td><strong>{html.escape(slot)}</strong></td>"
@@ -250,16 +258,16 @@ def entry_slot_table(rows: dict[str, dict[str, object]]) -> str:
             f"<td>{interval_text}</td>"
             f"<td>{value_or_dash(value.get('profit_factor'))}</td>"
             f"<td>{value['net_pnl_usd']:,.2f}</td>"
-            f'<td class="{delta_class}">{delta_text}</td>'
+            f"<td>{rank_score_cell(value)}</td>"
             "</tr>"
         )
     return (
         '<section class="report-section"><h2>30-minute entry timing</h2>'
         '<p class="section-note">Asia/Taipei bar-start time. All 48 slots are shown; '
-        'low-n cells have wide uncertainty. Score deltas use a 30-trade prior and are '
-        'capped at ±4 points, never as entry gates.</p>'
+        'low-n cells (n&lt;5) score 0 and are marked low-n. Rank scores range −2…+2, '
+        'never as entry gates.</p>'
         '<div class="table-wrap tall-table"><table><thead><tr><th>30m slot</th><th>n</th>'
-        '<th>WR</th><th>95% CI</th><th>PF</th><th>Net USD</th><th>Score Δ</th></tr>'
+        '<th>WR</th><th>95% CI</th><th>PF</th><th>Net USD</th><th>Rank score</th></tr>'
         f"</thead><tbody>{body}</tbody></table></div></section>"
     )
 
@@ -274,6 +282,7 @@ CHART_SECTION_LABELS = {
     "dxy": "DXY Context",
     "mtf": "Multi-Timeframe Alignment",
     "hold_time_streaks": "Hold Time & Streaks",
+    "macro": "Macro Composite Context",
     "comparison": "Version Comparison",
 }
 CHART_SECTION_ORDER = list(CHART_SECTION_LABELS)
@@ -345,15 +354,6 @@ def study_page_comparison(study: dict[str, object]) -> str:
         f'<p>{html.escape(item["detail"])}</p></article>'
         for item in study["findings"]
     )
-    impacts = study.get("policy_impacts") or []
-    impact_html = (
-        "".join(
-            f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
-            for item in impacts
-        )
-        if impacts
-        else '<li class="empty">No active 請分析 policy change. Research/publication only for this study.</li>'
-    )
     metric_html = "".join(
         metric(
             f'{version} n / WR / PF',
@@ -381,16 +381,13 @@ def study_page_comparison(study: dict[str, object]) -> str:
             result_table(f"{version} Macro context", data["by_macro_verdict"])
             for version, data in versions.items()
         )
-        + '<section class="report-section"><h2>Impact on 請分析</h2>'
-        f'<ul class="impact-list">{impact_html}</ul></section>'
-        '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        + impact_section_html(study)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
         "contains reviewed aggregate results and the reproducible method only.</p>"
-        '<div class="file-actions">'
-        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a>'
-        '<a href="study.json">Study manifest</a>'
-        "</div></section></main>"
+        + file_actions_html(study)
+        + "</section></main>"
     )
     return document(
         study["title"],
@@ -399,6 +396,84 @@ def study_page_comparison(study: dict[str, object]) -> str:
         body,
         "../../../",
     )
+
+
+def render_markdown_lite(text: str) -> str:
+    """Minimal renderer scoped to the section 13.4 impact.md template: '# ' title
+    (skipped, redundant with the section heading), '## ' mechanism headers, '- '
+    bullets, and inline '**bold**'/'`code`' spans. Not a general Markdown parser."""
+
+    def inline(segment: str) -> str:
+        segment = html.escape(segment)
+        segment = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", segment)
+        segment = re.sub(r"`(.+?)`", r"<code>\1</code>", segment)
+        return segment
+
+    blocks: list[str] = []
+    paragraph: list[str] = []
+    list_items: list[str] = []
+
+    def flush_paragraph() -> None:
+        if paragraph:
+            blocks.append(f"<p>{' '.join(paragraph)}</p>")
+            paragraph.clear()
+
+    def flush_list() -> None:
+        if list_items:
+            blocks.append(f"<ul>{''.join(list_items)}</ul>")
+            list_items.clear()
+
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            flush_paragraph()
+            flush_list()
+        elif stripped.startswith("## "):
+            flush_paragraph()
+            flush_list()
+            blocks.append(f"<h4>{inline(stripped[3:])}</h4>")
+        elif stripped.startswith("# "):
+            flush_paragraph()
+            flush_list()
+        elif stripped.startswith("- "):
+            flush_paragraph()
+            list_items.append(f"<li>{inline(stripped[2:])}</li>")
+        else:
+            flush_list()
+            paragraph.append(inline(stripped))
+    flush_paragraph()
+    flush_list()
+    return "".join(blocks)
+
+
+def impact_section_html(study: dict[str, object]) -> str:
+    impacts = study.get("policy_impacts") or []
+    if not impacts:
+        return (
+            '<section class="report-section"><h2>Impact on 請分析</h2>'
+            '<p class="callout">No active 請分析 policy change. '
+            "Research/publication only for this study.</p></section>"
+        )
+    impact_md_path = STUDY_ROOT / study["id"] / "impact.md"
+    if impact_md_path.is_file():
+        body = f'<div class="impact-md">{render_markdown_lite(impact_md_path.read_text(encoding="utf-8"))}</div>'
+    else:
+        body = '<ul class="impact-list">' + "".join(
+            f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
+            for item in impacts
+        ) + "</ul>"
+    return f'<section class="report-section"><h2>Impact on 請分析</h2>{body}</section>'
+
+
+def file_actions_html(study: dict[str, object]) -> str:
+    links = [
+        '<a href="results.json">Structured results</a>',
+        '<a href="analysis.py">Python method</a>',
+        '<a href="study.json">Study manifest</a>',
+    ]
+    if (STUDY_ROOT / study["id"] / "impact.md").is_file():
+        links.append('<a href="impact.md">Impact record</a>')
+    return f'<div class="file-actions">{"".join(links)}</div>'
 
 
 def fail_type_table(by_type: dict[str, dict[str, object]]) -> str:
@@ -421,15 +496,15 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         for item in study["findings"]
     )
     kbar = result["kbar_coverage"]
-    impacts = study.get("policy_impacts") or []
-    if impacts:
-        impact_items = "".join(
-            f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
-            for item in impacts
+    macro_html = ""
+    if "by_macro_verdict" in result:
+        macro_html = (
+            chart_sections_html([c for c in result["charts"] if c["section"] == "macro"])
+            + result_table(
+                "Macro composite context", result["by_macro_verdict"],
+                note="STRONG BUY/WAIT/NEUTRAL, read from the prior daily close (4-day max age). Advisory only.",
+            )
         )
-        impact_html = f'<ul class="impact-list">{impact_items}</ul>'
-    else:
-        impact_html = '<p class="callout">No active 請分析 policy change. Research/publication only for this study.</p>'
     body = (
         '<main class="shell report">'
         '<div class="metric-grid">'
@@ -461,13 +536,13 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + result_table("MTF HTF alignment", result["mtf"]["by_alignment"], show_adjustment=False)
         + result_table("MTF 4H RSI state", result["mtf"]["by_4h_state"], show_adjustment=False)
         + chart_sections_html([c for c in result["charts"] if c["section"] == "hold_time_streaks"])
-        + f'<section class="report-section"><h2>Impact on 請分析</h2>{impact_html}</section>'
-        '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        + macro_html
+        + impact_section_html(study)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
-        '<div class="file-actions">'
-        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a><a href="study.json">Study manifest</a>'
-        '</div></section></main>'
+        + file_actions_html(study)
+        + '</section></main>'
     )
     return document(
         study["title"],
@@ -554,13 +629,13 @@ def study_page_gap(study: dict[str, object]) -> str:
         + '<section class="report-section"><h2>Fail-Type Share</h2>'
         f'<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>{html.escape(label1)}</th><th>{html.escape(label2)}</th><th>diff</th></tr></thead>'
         f'<tbody>{fail_rows}</tbody></table></div></section>'
+        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         f'<p>{html.escape(result["method"]["basis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
-        '<div class="file-actions">'
-        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a><a href="study.json">Study manifest</a>'
-        '</div></section></main>'
+        + file_actions_html(study)
+        + '</section></main>'
     )
     return document(
         study["title"],
@@ -579,51 +654,34 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_gap(study)
     if "fail_pattern" in result:
         return study_page_fail_pattern_solo(study)
-    baseline = result["baseline"]
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
+    raise ValueError(
+        f'{study["id"]}: results.json matches none of the three section 5 contract '
+        'shapes ("versions", "baseline_diff", "fail_pattern")'
     )
-    impacts = "".join(
-        f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
-        for item in study["policy_impacts"]
-    )
-    body = (
-        '<main class="shell report">'
-        '<div class="metric-grid">'
-        + metric("Closed trades", baseline["n"], "TradingView V3.9 export")
-        + metric("Win rate", f'{baseline["win_rate_pct"]}%', f'95% CI {baseline["win_rate_ci95_pct"][0]}–{baseline["win_rate_ci95_pct"][1]}%')
-        + metric("Profit factor", baseline["profit_factor"], f'Net ${baseline["net_pnl_usd"]:,.2f}')
-        + metric("Macro coverage", f'{result["macro_coverage"]["pct"]}%', f'{result["macro_coverage"]["matched"]}/{baseline["n"]} trades')
-        + '</div>'
-        '<section class="report-section"><h2>Key findings</h2>'
-        f'<div class="insight-grid">{finding_html}</div></section>'
-        + result_table(
-            "Broad session summary",
-            result["by_session"],
-            show_adjustment=False,
-            note="Descriptive only. Operational scoring uses the matching 30-minute slot below, not Asia/Europe/US labels.",
+
+
+STATUS_SHEET_ORDER = ["confirmed", "progress", "pending"]
+STATUS_SHEET_LABELS = {"confirmed": "Confirmed", "progress": "Progress", "pending": "Pending"}
+
+
+def status_sheets_html(study_list: list[dict[str, object]], prefix: str = "../") -> str:
+    """Groups cards into the three status sheets (section 13.1) — status IS the sheet,
+    market-agnostic by construction. Replaces the single "Adopted studies" grid."""
+    by_status: dict[str, list[dict[str, object]]] = {}
+    for study in study_list:
+        by_status.setdefault(study["status"], []).append(study)
+    blocks = []
+    for status in STATUS_SHEET_ORDER:
+        items = by_status.get(status)
+        if not items:
+            continue
+        cards = "".join(study_card(study, prefix) for study in items)
+        blocks.append(
+            f'<h2 class="section-title">{STATUS_SHEET_LABELS[status]} '
+            f'<span class="sheet-count">({len(items)})</span></h2>'
+            f'<div class="grid study-grid">{cards}</div>'
         )
-        + entry_slot_table(result["by_entry_30m"])
-        + result_table("Macro context", result["by_macro_verdict"])
-        + '<section class="report-section"><h2>Impact on 請分析</h2>'
-        f'<ul class="impact-list">{impacts}</ul>'
-        '<p class="callout">Macro and the matching 30-minute slot are advisory score adjustments. They are not entry permissions and cannot create or cancel a formal V3.9 signal.</p></section>'
-        '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
-        '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results and the reproducible method only.</p>'
-        '<div class="file-actions">'
-        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a><a href="study.json">Study manifest</a>'
-        '</div></section></main>'
-    )
-    return document(
-        study["title"],
-        f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
-        body,
-        "../../../",
-    )
+    return "".join(blocks) if blocks else '<p class="empty">No active published study yet.</p>'
 
 
 def section_page(
@@ -633,25 +691,20 @@ def section_page(
     lede: str,
 ) -> str:
     selected = [study for study in study_list if study["market"].lower() == market]
-    cards = "".join(study_card(study) for study in selected)
-    if not cards:
-        cards = '<p class="empty">No active published study yet.</p>'
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
         'placeholder="Filter studies" aria-label="Filter"></div></div>'
         f'<main class="shell"><div class="stats"><span class="stat"><strong>{len(selected)}</strong> active studies</span></div>'
-        f'<div class="grid study-grid">{cards}</div></main>'
+        f'{status_sheets_html(selected)}</main>'
     )
     return document(title, market, lede, body, "../")
 
 
 def research_page(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
-    study_cards = "".join(study_card(study) for study in study_list)
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
         'placeholder="Filter studies" aria-label="Filter"></div></div>'
-        '<main class="shell"><h2 class="section-title">Adopted studies</h2>'
-        f'<div class="grid study-grid">{study_cards}</div></main>'
+        f'<main class="shell">{status_sheets_html(study_list)}</main>'
     )
     return document(
         "Research studies",

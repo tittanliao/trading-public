@@ -78,6 +78,16 @@ tbody tr:last-child td { border-bottom: 0; }
 .impact-list li { margin: 8px 0; }
 .impact-list strong { color: var(--text); }
 .callout { padding: 15px 18px; border: 1px solid rgba(72, 215, 208, .45); border-radius: 14px; background: rgba(72, 215, 208, .08); }
+.badge-live { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: rgba(242, 191, 94, .18); border: 1px solid var(--gold); color: var(--gold); font-size: .68rem; font-weight: 800; letter-spacing: .06em; }
+.low-sample-tag { margin-left: 4px; font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.sheet-count { color: var(--muted); font-weight: 400; }
+.impact-md h4 { margin: 20px 0 8px; font-size: 1.02rem; color: var(--gold); }
+.impact-md h4:first-child { margin-top: 0; }
+.impact-md p { color: var(--muted); font-size: .9rem; margin: 6px 0; }
+.impact-md ul { padding-left: 20px; color: var(--muted); font-size: .88rem; }
+.impact-md li { margin: 6px 0; }
+.impact-md strong { color: var(--text); }
+.impact-md code { color: var(--cyan); background: rgba(72, 215, 208, .1); padding: 1px 5px; border-radius: 5px; font-size: .85em; }
 .file-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .file-actions a { padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--cyan); }
 .pipeline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }

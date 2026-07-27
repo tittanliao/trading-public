@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-001",
-  "revision": 2,
-  "title": "S1 V3.9 Macro and 30-minute timing",
+  "revision": 3,
+  "title": "S1 V3.9 — Macro composite, 30-minute timing, and full fail-pattern report",
   "market": "XAUUSD",
   "strategy": {
     "id": "S1-AweWithBB",
@@ -10,8 +10,8 @@
   },
   "status": "confirmed",
   "created_on": "2026-07-27",
-  "question": "Do Macro WAIT and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export?",
-  "hypothesis": "They may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence.",
+  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades?",
+  "hypothesis": "Macro and 30-minute timing may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence; any live adjustment must be small, integer, and always shown with its own sample size and confidence interval.",
   "headline": {
     "trades": 450,
     "win_rate_pct": 56.22,
@@ -23,45 +23,55 @@
     {
       "tone": "good",
       "title": "Macro WAIT remained profitable",
-      "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block."
+      "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block; rank score is 0 (middle of the 3 verdicts), not negative."
+    },
+    {
+      "tone": "warn",
+      "title": "NEUTRAL is the weakest Macro verdict under the rank-score method",
+      "detail": "NEUTRAL has the lowest win rate (53.66%) of the three verdicts despite the highest PF (1.963) and the smallest sample (82) — it ranks last (rank_score -1), reversing its prior +1.4 shrinkage-based ranking. Both methods are reading the same 82 trades; they disagree because they rank on different statistics (win rate vs shrunk average return)."
     },
     {
       "tone": "good",
       "title": "Asia was not the weak V3.9 session",
-      "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported."
-    },
-    {
-      "tone": "warn",
-      "title": "Session effects are context, not causality",
-      "detail": "Confidence intervals overlap and subgroup composition may differ. Apply shrunk score adjustments, not optimized gates."
+      "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported; asia ranks best of the 3 scored sessions (rank_score +1)."
     },
     {
       "tone": "info",
       "title": "Use the matching 30-minute slot",
-      "detail": "The operational score now looks up the current HH:00/HH:30 entry slot. Most cells are low-n, so adjustments use a 30-trade prior and a ±4 point cap."
+      "detail": "The operational score looks up the current HH:00/HH:30 entry slot's integer rank score (section 13.2), range -2...+2. 5 of 48 slots are low-sample (n<5) and score 0."
+    },
+    {
+      "tone": "warn",
+      "title": "normal_sl is the dominant fail type, not immediate_loss",
+      "detail": "104 of 197 losses (52.8%) are a clean normal_sl stop-out; immediate_loss is 25.9% (51 trades). Descriptive context, not a live-impact mechanism."
+    },
+    {
+      "tone": "warn",
+      "title": "Counter-trend (4H bearish) entries underperform",
+      "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades. Descriptive context (section 5.1 item 8), not currently a live-impact mechanism."
     }
   ],
   "policy_impacts": [
     {
       "surface": "請分析",
       "type": "advisory_score",
-      "summary": "Macro and the matching 30-minute entry slot adjust the S1 recommendation score and cannot create or cancel a signal."
+      "summary": "Macro composite verdict (STRONG BUY/WAIT/NEUTRAL) adjusts the S1 recommendation score by its integer rank score (+1/0/-1); restated in the strategy context reference's Macro context table.",
+      "key_expression": "by_macro_verdict[<verdict>].rank_score",
+      "adopted_on": "2026-07-28"
     },
     {
-      "surface": "S1 strategy context",
-      "type": "research_benchmark",
-      "summary": "V3.9 subgroup evidence replaces the older V3.4-derived Macro hard block."
-    },
-    {
-      "surface": "Session context",
-      "type": "session_context",
-      "summary": "The score uses the matching 30-minute entry slot; broad sessions remain summary context only."
+      "surface": "請分析",
+      "type": "advisory_score",
+      "summary": "The matching 30-minute entry slot adjusts the S1 recommendation score by its integer rank score (-2...+2); restated in the trading profile reference's session-context section.",
+      "key_expression": "by_entry_30m[HH:MM].rank_score",
+      "adopted_on": "2026-07-28"
     }
   ],
   "publication_boundary": {
     "raw_csv": "private",
     "conversation": "private decision record",
     "aggregate_results": "public",
-    "method": "public"
+    "method": "public",
+    "charts": "public"
   }
 }
