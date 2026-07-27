@@ -8,7 +8,7 @@
     "id": "S2-Hammer",
     "version": "V1.9 vs V3.2 (gap)"
   },
-  "status": "reproduced",
+  "status": "progress",
   "created_on": "2026-07-27",
   "question": "Reading the RS-XAUUSD-20260727-006 (V1.9) and -007 (V3.2) fail-pattern reports, where do the two S2 versions diverge on 30-minute timing, fail-type share, BB zone, DXY regime, and MTF alignment?",
   "hypothesis": "S2 evolved from a Pullback-style V1.9 signal to a Hammer-candle-style V3.2 signal (different entry rule, not only a parameter tweak), so deltas are expected and must not be read as a like-for-like backtest of the same rules across time.",

@@ -4,22 +4,59 @@
   "revision": 2,
   "title": "S1 V3.9 Macro and 30-minute timing",
   "market": "XAUUSD",
-  "strategy": {"id": "S1-AweWithBB", "version": "V3.9"},
-  "status": "adopted",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.9"
+  },
+  "status": "confirmed",
   "created_on": "2026-07-27",
   "question": "Do Macro WAIT and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export?",
   "hypothesis": "They may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence.",
-  "headline": {"trades": 450, "win_rate_pct": 56.22, "profit_factor": 1.869, "macro_coverage_pct": 97.11, "entry_slots_30m": 48},
+  "headline": {
+    "trades": 450,
+    "win_rate_pct": 56.22,
+    "profit_factor": 1.869,
+    "macro_coverage_pct": 97.11,
+    "entry_slots_30m": 48
+  },
   "findings": [
-    {"tone": "good", "title": "Macro WAIT remained profitable", "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block."},
-    {"tone": "good", "title": "Asia was not the weak V3.9 session", "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported."},
-    {"tone": "warn", "title": "Session effects are context, not causality", "detail": "Confidence intervals overlap and subgroup composition may differ. Apply shrunk score adjustments, not optimized gates."},
-    {"tone": "info", "title": "Use the matching 30-minute slot", "detail": "The operational score now looks up the current HH:00/HH:30 entry slot. Most cells are low-n, so adjustments use a 30-trade prior and a ±4 point cap."}
+    {
+      "tone": "good",
+      "title": "Macro WAIT remained profitable",
+      "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block."
+    },
+    {
+      "tone": "good",
+      "title": "Asia was not the weak V3.9 session",
+      "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported."
+    },
+    {
+      "tone": "warn",
+      "title": "Session effects are context, not causality",
+      "detail": "Confidence intervals overlap and subgroup composition may differ. Apply shrunk score adjustments, not optimized gates."
+    },
+    {
+      "tone": "info",
+      "title": "Use the matching 30-minute slot",
+      "detail": "The operational score now looks up the current HH:00/HH:30 entry slot. Most cells are low-n, so adjustments use a 30-trade prior and a ±4 point cap."
+    }
   ],
   "policy_impacts": [
-    {"surface": "請分析", "type": "advisory_score", "summary": "Macro and the matching 30-minute entry slot adjust the S1 recommendation score and cannot create or cancel a signal."},
-    {"surface": "S1 strategy context", "type": "research_benchmark", "summary": "V3.9 subgroup evidence replaces the older V3.4-derived Macro hard block."},
-    {"surface": "Session context", "type": "session_context", "summary": "The score uses the matching 30-minute entry slot; broad sessions remain summary context only."}
+    {
+      "surface": "請分析",
+      "type": "advisory_score",
+      "summary": "Macro and the matching 30-minute entry slot adjust the S1 recommendation score and cannot create or cancel a signal."
+    },
+    {
+      "surface": "S1 strategy context",
+      "type": "research_benchmark",
+      "summary": "V3.9 subgroup evidence replaces the older V3.4-derived Macro hard block."
+    },
+    {
+      "surface": "Session context",
+      "type": "session_context",
+      "summary": "The score uses the matching 30-minute entry slot; broad sessions remain summary context only."
+    }
   ],
   "publication_boundary": {
     "raw_csv": "private",

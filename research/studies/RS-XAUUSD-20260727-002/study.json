@@ -4,19 +4,55 @@
   "revision": 1,
   "title": "S1 AweWithBB V3.4 vs V3.9 — 30-minute entry-slot comparison",
   "market": "XAUUSD",
-  "strategy": {"id": "S1-AweWithBB", "version": "V3.4 and V3.9 (comparison)"},
-  "status": "superseded",
-  "superseded_by": ["RS-XAUUSD-20260727-003", "RS-XAUUSD-20260727-004", "RS-XAUUSD-20260727-005"],
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.4 and V3.9 (comparison)"
+  },
+  "status": "pending",
+  "superseded_by": [
+    "RS-XAUUSD-20260727-003",
+    "RS-XAUUSD-20260727-004",
+    "RS-XAUUSD-20260727-005"
+  ],
   "created_on": "2026-07-27",
   "question": "Using the same deterministic method, how does S1 AweWithBB's session/30-minute-entry-slot/Macro performance in the superseded V3.4 export compare with the current V3.9 export?",
   "hypothesis": "V3.4 and V3.9 differ in exit-rule structure (0.5% SL / TP2=2R vs V3.9's current exit rules) and in which market regime each was traded in, so raw 30-minute-slot performance is expected to differ and must not be read as a like-for-like backtest of the same rules across time.",
-  "headline": {"v34_trades": 504, "v34_win_rate_pct": 53.17, "v34_profit_factor": 1.525, "v39_trades": 450, "v39_win_rate_pct": 56.22, "v39_profit_factor": 1.869, "entry_slots_30m": 48},
-  "card_metrics": ["v34_win_rate_pct", "v34_profit_factor", "v39_win_rate_pct", "v39_profit_factor"],
+  "headline": {
+    "v34_trades": 504,
+    "v34_win_rate_pct": 53.17,
+    "v34_profit_factor": 1.525,
+    "v39_trades": 450,
+    "v39_win_rate_pct": 56.22,
+    "v39_profit_factor": 1.869,
+    "entry_slots_30m": 48
+  },
+  "card_metrics": [
+    "v34_win_rate_pct",
+    "v34_profit_factor",
+    "v39_win_rate_pct",
+    "v39_profit_factor"
+  ],
   "findings": [
-    {"tone": "info", "title": "V3.9 outperforms V3.4 on the same overall metrics", "detail": "WR 56.22% vs 53.17%, PF 1.869 vs 1.525, despite fewer trades (450 vs 504) over a similar span. Consistent with V3.9 being the owner-promoted successor version."},
-    {"tone": "warn", "title": "30-minute-slot deltas are noisy at this sample size", "detail": "Most of the 48 slots have single-digit-to-teens counts per version; win-rate differences up to ±35 percentage points appear at low n and should not be read as a stable timing edge for either version."},
-    {"tone": "warn", "title": "Exit-rule differences confound the comparison", "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. A slot or session performing better under V3.9 may reflect the exit-rule change rather than a timing/regime effect."},
-    {"tone": "info", "title": "Method normalizes both TradingView export schemas", "detail": "V3.4 exports use 'Trade #'/'Net P&L USD'/'Net P&L %'; V3.9 exports use 'Trade number'/'Net PnL USD'/'Return %'. The method maps both to one canonical schema so results are directly comparable."}
+    {
+      "tone": "info",
+      "title": "V3.9 outperforms V3.4 on the same overall metrics",
+      "detail": "WR 56.22% vs 53.17%, PF 1.869 vs 1.525, despite fewer trades (450 vs 504) over a similar span. Consistent with V3.9 being the owner-promoted successor version."
+    },
+    {
+      "tone": "warn",
+      "title": "30-minute-slot deltas are noisy at this sample size",
+      "detail": "Most of the 48 slots have single-digit-to-teens counts per version; win-rate differences up to ±35 percentage points appear at low n and should not be read as a stable timing edge for either version."
+    },
+    {
+      "tone": "warn",
+      "title": "Exit-rule differences confound the comparison",
+      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. A slot or session performing better under V3.9 may reflect the exit-rule change rather than a timing/regime effect."
+    },
+    {
+      "tone": "info",
+      "title": "Method normalizes both TradingView export schemas",
+      "detail": "V3.4 exports use 'Trade #'/'Net P&L USD'/'Net P&L %'; V3.9 exports use 'Trade number'/'Net PnL USD'/'Return %'. The method maps both to one canonical schema so results are directly comparable."
+    }
   ],
   "policy_impacts": [],
   "publication_boundary": {
