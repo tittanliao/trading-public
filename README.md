@@ -26,6 +26,10 @@ sanitized manifest, aggregate results, and a reproducible Python method. The bui
 creates a legacy-hub-style study card and detailed HTML report automatically; raw CSV
 and private decision records remain in `trading-private`.
 
+Cross-repository implementation and Claude/Codex continuation are governed by
+`../trading-private/docs/RESEARCH_DEVELOPMENT_SPEC.md`. The Public-only safety fallback
+is `docs/RESEARCH_PUBLICATION_SPEC.md`.
+
 GitHub Pages deploys the reviewed repository root after verifying generation drift,
 links, and prohibited private/raw paths.
 

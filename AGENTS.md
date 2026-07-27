@@ -9,8 +9,10 @@ cross-model handoffs belong in sibling `trading-private`.
 ## Source of truth
 
 When both sibling repositories are available, read `../trading-private/AGENTS.md` and
-`../trading-private/docs/ai/` first. Public facts must be supported by reproducible code,
-versioned inputs, reports, and Git history; model-specific memory is not a fact source.
+`../trading-private/docs/RESEARCH_DEVELOPMENT_SPEC.md` first. Otherwise read
+`docs/RESEARCH_PUBLICATION_SPEC.md` and limit work to publication-only scope. Public
+facts must be supported by reproducible code, versioned inputs, reports, and Git
+history; model-specific memory is not a fact source.
 
 ## Safety
 
