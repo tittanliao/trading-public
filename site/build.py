@@ -20,7 +20,7 @@ GENERATED = {
     Path("research/index.html"),
     Path("site/catalog.json"),
 }
-EXCLUDED_PARTS = {".git", ".github", "legacy-site", "site", "__pycache__"}
+EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__"}
 STUDY_ROOT = ROOT / "research/studies"
 
 
@@ -82,7 +82,7 @@ def nav(prefix: str) -> str:
         f'<a href="{prefix}index.html">Overview</a>'
         f'<a href="{prefix}xauusd/">XAUUSD</a>'
         f'<a href="{prefix}tx/">TX</a>'
-        f'<a href="{prefix}research/">Research files</a>'
+        f'<a href="{prefix}research/">Research</a>'
         '</nav>'
     )
 
@@ -160,21 +160,76 @@ def metric(label: str, value: object, detail: str = "") -> str:
     )
 
 
-def result_table(title: str, rows: dict[str, dict[str, object]]) -> str:
+def result_table(
+    title: str,
+    rows: dict[str, dict[str, object]],
+    *,
+    show_adjustment: bool = True,
+    note: str = "",
+) -> str:
     body = "".join(
-        "<tr>"
-        f"<td><strong>{html.escape(name)}</strong></td>"
-        f"<td>{value['n']}</td><td>{value['win_rate_pct']}%</td>"
-        f"<td>{value['profit_factor']}</td><td>{value['net_pnl_usd']:,.2f}</td>"
-        f"<td>{value.get('advisory_delta', '—')}</td>"
-        "</tr>"
+        (
+            "<tr>"
+            f"<td><strong>{html.escape(name)}</strong></td>"
+            f"<td>{value['n']}</td><td>{value['win_rate_pct']}%</td>"
+            f"<td>{value['profit_factor']}</td><td>{value['net_pnl_usd']:,.2f}</td>"
+        )
+        + (
+            f"<td>{value.get('advisory_delta', '—')}</td>"
+            if show_adjustment
+            else ""
+        )
+        + "</tr>"
         for name, value in rows.items()
     )
+    adjustment_header = "<th>Score Δ</th>" if show_adjustment else ""
+    note_html = f'<p class="section-note">{html.escape(note)}</p>' if note else ""
     return (
         f'<section class="report-section"><h2>{html.escape(title)}</h2>'
+        f"{note_html}"
         '<div class="table-wrap"><table><thead><tr><th>Context</th><th>n</th>'
-        '<th>WR</th><th>PF</th><th>Net USD</th><th>Score Δ</th></tr></thead>'
+        f'<th>WR</th><th>PF</th><th>Net USD</th>{adjustment_header}</tr></thead>'
         f"<tbody>{body}</tbody></table></div></section>"
+    )
+
+
+def value_or_dash(value: object, suffix: str = "") -> str:
+    return "—" if value is None else f"{value}{suffix}"
+
+
+def entry_slot_table(rows: dict[str, dict[str, object]]) -> str:
+    body = ""
+    for slot, value in rows.items():
+        interval = value.get("win_rate_ci95_pct")
+        interval_text = (
+            "—" if interval is None else f"{interval[0]}–{interval[1]}%"
+        )
+        delta = value.get("advisory_delta")
+        delta_text = "—" if delta is None else f"{delta:+.1f}"
+        delta_class = "score-neutral"
+        if isinstance(delta, (int, float)) and delta > 0:
+            delta_class = "score-positive"
+        elif isinstance(delta, (int, float)) and delta < 0:
+            delta_class = "score-negative"
+        body += (
+            "<tr>"
+            f"<td><strong>{html.escape(slot)}</strong></td>"
+            f"<td>{value['n']}</td>"
+            f"<td>{value_or_dash(value.get('win_rate_pct'), '%')}</td>"
+            f"<td>{interval_text}</td>"
+            f"<td>{value_or_dash(value.get('profit_factor'))}</td>"
+            f"<td>{value['net_pnl_usd']:,.2f}</td>"
+            f'<td class="{delta_class}">{delta_text}</td>'
+            "</tr>"
+        )
+    return (
+        '<section class="report-section"><h2>30-minute entry timing</h2>'
+        '<p class="section-note">Asia/Taipei bar-start time. All 48 slots are shown; '
+        'low-n cells have wide uncertainty. Score deltas use a 30-trade prior and are '
+        'capped at ±4 points, never as entry gates.</p>'
+        '<div class="table-wrap tall-table"><table><thead><tr><th>30m slot</th><th>n</th>'
+        '<th>WR</th><th>95% CI</th><th>PF</th><th>Net USD</th><th>Score Δ</th></tr>'
+        f"</thead><tbody>{body}</tbody></table></div></section>"
     )
 
 
@@ -200,11 +255,17 @@ def study_page(study: dict[str, object]) -> str:
         + '</div>'
         '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
-        + result_table("Session context", result["by_session"])
+        + result_table(
+            "Broad session summary",
+            result["by_session"],
+            show_adjustment=False,
+            note="Descriptive only. Operational scoring uses the matching 30-minute slot below, not Asia/Europe/US labels.",
+        )
+        + entry_slot_table(result["by_entry_30m"])
         + result_table("Macro context", result["by_macro_verdict"])
         + '<section class="report-section"><h2>Impact on 請分析</h2>'
         f'<ul class="impact-list">{impacts}</ul>'
-        '<p class="callout">Macro and session are advisory score adjustments. They are not entry permissions and cannot create or cancel a formal V3.9 signal.</p></section>'
+        '<p class="callout">Macro and the matching 30-minute slot are advisory score adjustments. They are not entry permissions and cannot create or cancel a formal V3.9 signal.</p></section>'
         '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results and the reproducible method only.</p>'
@@ -221,28 +282,32 @@ def study_page(study: dict[str, object]) -> str:
     )
 
 
-def section_page(data: dict[str, object], section: str, title: str, lede: str) -> str:
-    items = [item for item in data["items"] if item["section"] == section]
+def section_page(
+    study_list: list[dict[str, object]],
+    market: str,
+    title: str,
+    lede: str,
+) -> str:
+    selected = [study for study in study_list if study["market"].lower() == market]
+    cards = "".join(study_card(study) for study in selected)
+    if not cards:
+        cards = '<p class="empty">No active published study yet.</p>'
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter by title or path" aria-label="Filter"></div></div>'
-        f'<main class="shell"><div class="stats"><span class="stat"><strong>{len(items)}</strong> indexed files</span></div>'
-        f'<div class="grid">{"".join(card(item, "../") for item in items)}</div></main>'
+        'placeholder="Filter studies" aria-label="Filter"></div></div>'
+        f'<main class="shell"><div class="stats"><span class="stat"><strong>{len(selected)}</strong> active studies</span></div>'
+        f'<div class="grid study-grid">{cards}</div></main>'
     )
-    return document(title, section, lede, body, "../")
+    return document(title, market, lede, body, "../")
 
 
 def research_page(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
-    items = [item for item in data["items"] if item["section"] == "research"]
     study_cards = "".join(study_card(study) for study in study_list)
-    file_cards = "".join(card(item, "../") for item in items)
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter studies, reports, or code" aria-label="Filter"></div></div>'
+        'placeholder="Filter studies" aria-label="Filter"></div></div>'
         '<main class="shell"><h2 class="section-title">Adopted studies</h2>'
-        f'<div class="grid study-grid">{study_cards}</div>'
-        '<h2 class="section-title">Research files</h2>'
-        f'<div class="grid">{file_cards}</div></main>'
+        f'<div class="grid study-grid">{study_cards}</div></main>'
     )
     return document(
         "Research studies",
@@ -254,20 +319,21 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
 
 
 def overview(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
-    items = data["items"]
-    counts = {
-        section: sum(item["section"] == section for item in items)
-        for section in ("xauusd", "tx", "research")
-    }
+    latest_xauusd = next(
+        (study for study in study_list if study["market"].lower() == "xauusd"),
+        None,
+    )
+    xauusd_href = (
+        f'{latest_xauusd["_relative"]}/' if latest_xauusd else "xauusd/"
+    )
     cards = [
-        ("xauusd/", "XAUUSD", "Gold strategy reports, Pine sources, and supporting research.", counts["xauusd"]),
-        ("tx/", "TX", "Taiwan index futures experiments, reports, and code.", counts["tx"]),
-        ("research/", "Research files", "Cross-market utilities, result JSON, and reproducible scripts.", counts["research"]),
-        ("legacy-site/index.html", "Legacy site snapshot", "Archived mixed landing page for comparison; not the active workflow.", 6),
+        (xauusd_href, "XAUUSD Macro / timing analysis", "Open the latest human-readable S1 V3.9 study directly."),
+        ("tx/", "TX studies", "Active reviewed Taiwan index futures studies."),
+        ("research/", "All research", "Browse adopted human-readable study reports."),
     ]
     collections = '<div class="grid">' + "".join(
-        f'<a class="card" href="{href}"><div class="type">collection</div><h2>{title}</h2><p>{description} · {count} items</p></a>'
-        for href, title, description, count in cards
+        f'<a class="card" href="{href}"><div class="type">analysis</div><h2>{title}</h2><p>{description}</p></a>'
+        for href, title, description in cards
     ) + '</div>'
     latest = "".join(study_card(study, "") for study in study_list[:3])
     body = (
@@ -295,8 +361,8 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
     generated = {
         ROOT / "site/catalog.json": json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         ROOT / "index.html": overview(data, study_list),
-        ROOT / "xauusd/index.html": section_page(data, "xauusd", "XAUUSD research", "Published gold strategy reports, Pine sources, and supporting evidence."),
-        ROOT / "tx/index.html": section_page(data, "tx", "TX research", "Published Taiwan index futures experiments, reports, and code."),
+        ROOT / "xauusd/index.html": section_page(study_list, "xauusd", "XAUUSD studies", "Reviewed gold research presented as readable studies, not a repository tree."),
+        ROOT / "tx/index.html": section_page(study_list, "tx", "TX studies", "Reviewed Taiwan index futures research presented as readable studies."),
         ROOT / "research/index.html": research_page(data, study_list),
     }
     for study in study_list:

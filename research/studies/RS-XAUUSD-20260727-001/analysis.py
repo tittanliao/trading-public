@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 MAX_AGE = pd.Timedelta(days=4)
+ENTRY_SLOTS_30M = [f"{hour:02d}:{minute:02d}" for hour in range(24) for minute in (0, 30)]
 
 
 def daily(path: Path, name: str) -> pd.DataFrame:
@@ -44,12 +45,13 @@ def trades(path: Path) -> pd.DataFrame:
     result = entries.merge(exits, on="Trade number", how="inner")
     result = result[result["exit_signal"].astype(str).str.upper() != "OPEN"].copy()
     result["win"] = result["net_pnl_usd"] > 0
+    result["entry_slot_30m"] = result["entry_time"].dt.strftime("%H:%M")
     minute = result["entry_time"].dt.hour * 60 + result["entry_time"].dt.minute
     result["session"] = np.select(
         [minute.between(420, 899), minute.between(900, 1229),
          (minute >= 1230) | (minute < 60)],
-        ["Asia 07:00–14:59", "Europe 15:00–20:29", "U.S. 20:30–00:59"],
-        default="Overnight 01:00–06:59",
+        ["asia", "europe", "us"],
+        default="overnight",
     )
     return result.sort_values("entry_time")
 
@@ -92,13 +94,17 @@ def stats(frame: pd.DataFrame) -> dict[str, object]:
             round(100 * (centre - margin / denominator), 2),
             round(100 * (centre + margin / denominator), 2),
         ],
-        "profit_factor": round(gross_profit / gross_loss, 3),
+        "profit_factor": round(gross_profit / gross_loss, 3) if gross_loss else None,
         "net_pnl_usd": round(float(frame["net_pnl_usd"].sum()), 2),
         "avg_return_pct": round(float(frame["return_pct"].mean()), 4),
     }
 
 
-def advisory_delta(group: dict[str, object], baseline: dict[str, object]) -> float:
+def advisory_delta(
+    group: dict[str, object],
+    baseline: dict[str, object],
+    max_points: float = 10.0,
+) -> float:
     weight = group["n"] / (group["n"] + 30)
     shrunk = (
         weight * group["avg_return_pct"]
@@ -107,7 +113,7 @@ def advisory_delta(group: dict[str, object], baseline: dict[str, object]) -> flo
     relative = (
         shrunk - baseline["avg_return_pct"]
     ) / abs(baseline["avg_return_pct"])
-    return round(max(-10.0, min(10.0, relative * 10)), 1)
+    return round(max(-max_points, min(max_points, relative * 10)), 1)
 
 
 def main() -> None:
@@ -126,14 +132,34 @@ def main() -> None:
     matched = joined.dropna(subset=["macro_score"])
     baseline = stats(trade_frame)
     by_session = {name: stats(group) for name, group in trade_frame.groupby("session")}
+    by_entry_30m = {
+        slot: stats(trade_frame[trade_frame["entry_slot_30m"] == slot])
+        if (trade_frame["entry_slot_30m"] == slot).any()
+        else {
+            "n": 0,
+            "wins": 0,
+            "win_rate_pct": None,
+            "win_rate_ci95_pct": None,
+            "profit_factor": None,
+            "net_pnl_usd": 0.0,
+            "avg_return_pct": None,
+        }
+        for slot in ENTRY_SLOTS_30M
+    }
     by_macro = {name: stats(group) for name, group in matched.groupby("macro_verdict")}
-    for collection in [by_session, by_macro]:
-        for item in collection.values():
-            item["advisory_delta"] = advisory_delta(item, baseline)
+    for item in by_entry_30m.values():
+        item["advisory_delta"] = (
+            advisory_delta(item, baseline, max_points=4.0)
+            if item["n"]
+            else None
+        )
+    for item in by_macro.values():
+        item["advisory_delta"] = advisory_delta(item, baseline)
     output = {
         "baseline": baseline,
         "macro_coverage": {"matched": len(matched), "unmatched": len(trade_frame) - len(matched)},
         "by_session": by_session,
+        "by_entry_30m": by_entry_30m,
         "by_macro_verdict": by_macro,
     }
     args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -33,20 +33,9 @@ is `docs/RESEARCH_PUBLICATION_SPEC.md`.
 GitHub Pages deploys the reviewed repository root after verifying generation drift,
 links, and prohibited private/raw paths.
 
-## Local research data
+## Retired import
 
-Raw CSV files are intentionally not public. In a trusted sibling checkout, restore the
-legacy relative data paths with:
-
-```sh
-python3 tools/link_private_data.py
-python3 tools/link_private_data.py --check
-```
-
-The links point into sibling `trading-private/data/legacy-trading/raw/`; they are ignored
-by Git and are never uploaded to Pages.
-
-## Legacy snapshot
-
-The former mixed landing pages and generators are preserved under `legacy-site/` for
-comparison only. They are not the active authoring or deployment workflow.
+The former file-tree portal, imported strategy scripts/reports, and compatibility tools
+are preserved under `_retire/public-legacy-import-20260727/`. They are excluded from the
+active catalog and navigation. Active pages are study-first and every visible card opens
+a human-readable HTML analysis.

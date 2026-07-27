@@ -60,6 +60,7 @@ input[type="search"] { width: 100%; border: 1px solid var(--line); border-radius
 .insight.good { border-left-color: var(--cyan); }
 .insight.warn { border-left-color: var(--gold); }
 .insight.bad { border-left-color: #ff7e7e; }
+.insight.info { border-left-color: var(--blue); }
 .insight p { margin: 8px 0 0; color: var(--muted); font-size: .88rem; }
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
 table { width: 100%; border-collapse: collapse; background: var(--panel); }
@@ -67,6 +68,12 @@ th, td { padding: 11px 13px; border-bottom: 1px solid var(--line); text-align: l
 th { color: var(--muted); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
 td { font-size: .88rem; }
 tbody tr:last-child td { border-bottom: 0; }
+.tall-table { max-height: 620px; overflow: auto; }
+.tall-table thead { position: sticky; top: 0; z-index: 1; background: var(--panel-2); }
+.section-note { max-width: 820px; color: var(--muted); font-size: .9rem; }
+.score-positive { color: var(--cyan); font-weight: 800; }
+.score-negative { color: #ff9b9b; font-weight: 800; }
+.score-neutral { color: var(--muted); }
 .impact-list { padding-left: 20px; color: var(--muted); }
 .impact-list li { margin: 8px 0; }
 .impact-list strong { color: var(--text); }
