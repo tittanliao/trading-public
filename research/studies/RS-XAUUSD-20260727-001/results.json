@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260727-001",
+  "strategy": "S1 AweWithBB V3.9",
+  "trade_period": {"start": "2024-01-05 23:00:00", "end": "2026-07-10 15:30:00"},
+  "macro_coverage": {"matched": 437, "unmatched": 13, "pct": 97.11},
+  "baseline": {
+    "n": 450,
+    "wins": 253,
+    "win_rate_pct": 56.22,
+    "win_rate_ci95_pct": [51.6, 60.73],
+    "profit_factor": 1.869,
+    "net_pnl_usd": 8455.49,
+    "avg_return_pct": 0.1909
+  },
+  "by_session": {
+    "Asia 07:00–14:59": {"n": 154, "win_rate_pct": 57.79, "profit_factor": 1.999, "net_pnl_usd": 3189.09, "advisory_delta": 0.9},
+    "Europe 15:00–20:29": {"n": 88, "win_rate_pct": 52.27, "profit_factor": 1.887, "net_pnl_usd": 1830.54, "advisory_delta": 0.8},
+    "U.S. 20:30–00:59": {"n": 128, "win_rate_pct": 53.91, "profit_factor": 1.414, "net_pnl_usd": 1206.1, "advisory_delta": -4.0},
+    "Overnight 01:00–06:59": {"n": 80, "win_rate_pct": 61.25, "profit_factor": 2.43, "net_pnl_usd": 2229.76, "advisory_delta": 3.5}
+  },
+  "by_macro_verdict": {
+    "WAIT": {"n": 211, "win_rate_pct": 56.87, "profit_factor": 1.837, "net_pnl_usd": 3748.16, "advisory_delta": -0.5},
+    "NEUTRAL": {"n": 82, "win_rate_pct": 53.66, "profit_factor": 1.963, "net_pnl_usd": 1842.13, "advisory_delta": 1.4},
+    "STRONG BUY": {"n": 144, "win_rate_pct": 57.64, "profit_factor": 1.911, "net_pnl_usd": 2726.71, "advisory_delta": 0.1}
+  },
+  "method": {
+    "macro_score": "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1",
+    "macro_labels": "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6",
+    "macro_assignment": "latest prior daily observation, maximum age 4 days",
+    "session_timezone": "Asia/Taipei",
+    "advisory_delta": "average-return shrinkage toward baseline, prior_n=30, capped ±10"
+  }
+}

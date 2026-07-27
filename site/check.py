@@ -17,7 +17,7 @@ GENERATED_PAGES = [
     ROOT / "xauusd/index.html",
     ROOT / "tx/index.html",
     ROOT / "research/index.html",
-]
+] + sorted((ROOT / "research/studies").glob("*/index.html"))
 PROHIBITED_SUFFIXES = {".csv", ".doc", ".docx", ".xls", ".xlsx"}
 PROHIBITED_EXACT = {"data/logs.json", "xauusd/signal_status.json"}
 

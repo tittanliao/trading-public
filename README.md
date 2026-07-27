@@ -21,6 +21,11 @@ Edit publishable report/code sources, then regenerate. Do not hand-edit generate
 `index.html`, `xauusd/index.html`, `tx/index.html`, `research/index.html`, or
 `site/catalog.json`.
 
+Reviewed research studies live under `research/studies/<study-id>/`. Each package has a
+sanitized manifest, aggregate results, and a reproducible Python method. The build
+creates a legacy-hub-style study card and detailed HTML report automatically; raw CSV
+and private decision records remain in `trading-private`.
+
 GitHub Pages deploys the reviewed repository root after verifying generation drift,
 links, and prohibited private/raw paths.
 

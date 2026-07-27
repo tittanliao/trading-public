@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-001",
+  "revision": 1,
+  "title": "S1 V3.9 Macro and session context",
+  "market": "XAUUSD",
+  "strategy": {"id": "S1-AweWithBB", "version": "V3.9"},
+  "status": "adopted",
+  "created_on": "2026-07-27",
+  "question": "Do Macro WAIT and entry session justify hard S1 entry restrictions under the current V3.9 trade export?",
+  "hypothesis": "They may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence.",
+  "headline": {"trades": 450, "win_rate_pct": 56.22, "profit_factor": 1.869, "macro_coverage_pct": 97.11},
+  "findings": [
+    {"tone": "good", "title": "Macro WAIT remained profitable", "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block."},
+    {"tone": "good", "title": "Asia was not the weak V3.9 session", "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported."},
+    {"tone": "warn", "title": "Session effects are context, not causality", "detail": "Confidence intervals overlap and subgroup composition may differ. Apply shrunk score adjustments, not optimized gates."}
+  ],
+  "policy_impacts": [
+    {"surface": "請分析", "type": "advisory_score", "summary": "Macro and session adjust the S1 recommendation score and cannot create or cancel a signal."},
+    {"surface": "S1 strategy context", "type": "research_benchmark", "summary": "V3.9 subgroup evidence replaces the older V3.4-derived Macro hard block."},
+    {"surface": "Session context", "type": "session_context", "summary": "Clock time is descriptive context rather than an entry prohibition."}
+  ],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public"
+  }
+}
