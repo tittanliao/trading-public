@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-004",
+  "revision": 1,
+  "title": "S1 AweWithBB V3.9 — fail-pattern report (30-minute contract)",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.9"
+  },
+  "status": "reproduced",
+  "created_on": "2026-07-27",
+  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for the current active S1 AweWithBB V3.9?",
+  "hypothesis": "This is a full-coverage fail-pattern reproduction for the currently active strategy version, not a single hypothesis test; it exists as the V3.9 half of the RS-XAUUSD-20260727-005 gap report and as a deeper companion to the existing RS-XAUUSD-20260727-001 Macro/30m-slot study.",
+  "headline": {
+    "trades": 450,
+    "win_rate_pct": 56.22,
+    "profit_factor": 1.869,
+    "immediate_loss_pct": 25.9,
+    "kbar_coverage_pct": 37.3
+  },
+  "card_metrics": [
+    "win_rate_pct",
+    "profit_factor",
+    "immediate_loss_pct",
+    "kbar_coverage_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "normal_sl is now the dominant fail type",
+      "detail": "104 of 197 losses (52.8%) are a clean normal_sl stop-out; immediate_loss dropped to 25.9% (51 trades) from V3.4's 30.9% — entries are less often wrong from the start."
+    },
+    {
+      "tone": "warn",
+      "title": "Counter-trend (4H bearish) underperformance is larger than in V3.4",
+      "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades (12.25pp gap, wider than V3.4's 9.6pp), PF 1.453 vs 2.133."
+    },
+    {
+      "tone": "info",
+      "title": "K-bar coverage improved but is still partial",
+      "detail": "19/51 (37.3%) immediate_loss trades have overlapping 30m OHLCV+RSI price history, up from V3.4's 23.3%, but still not full-sample."
+    },
+    {
+      "tone": "info",
+      "title": "Consistent with the adopted RS-XAUUSD-20260727-001 baseline",
+      "detail": "Overall n/WR/PF here (450 / 56.22% / 1.869) reproduce RS-XAUUSD-20260727-001 exactly, confirming this deeper report did not change the already-adopted S1 advisory-score evidence."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

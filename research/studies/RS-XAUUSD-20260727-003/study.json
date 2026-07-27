@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-003",
+  "revision": 1,
+  "title": "S1 AweWithBB V3.4 — fail-pattern report (30-minute contract)",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.4"
+  },
+  "status": "reproduced",
+  "created_on": "2026-07-27",
+  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S1 AweWithBB V3.4 (superseded)?",
+  "hypothesis": "This is a full-coverage reproduction of the legacy V3.4 Fail Pattern Report at 30-minute granularity, not a new hypothesis test; it exists as the V3.4 half of the RS-XAUUSD-20260727-005 gap report and as historical context.",
+  "headline": {
+    "trades": 504,
+    "win_rate_pct": 53.17,
+    "profit_factor": 1.525,
+    "immediate_loss_pct": 30.9,
+    "kbar_coverage_pct": 23.3
+  },
+  "card_metrics": [
+    "win_rate_pct",
+    "profit_factor",
+    "immediate_loss_pct",
+    "kbar_coverage_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "immediate_loss is the largest fail type",
+      "detail": "73 of 197 losses (30.9%) are immediate_loss (MFE never exceeded 10%) — entry direction was wrong from the start more often than it stopped out normally (48.3%) or bled out over time (20.8%)."
+    },
+    {
+      "tone": "warn",
+      "title": "Counter-trend (4H bearish) entries underperform",
+      "detail": "216 trades against a bearish 4H RSI state: WR 47.69% vs 57.29% for the 288 aligned trades (9.6pp gap), PF 1.263 vs 1.769."
+    },
+    {
+      "tone": "info",
+      "title": "K-bar coverage is limited",
+      "detail": "Only 17/73 (23.3%) immediate_loss trades have overlapping 30m OHLCV+RSI price history; the RSI-at-entry chart is a partial-coverage view, not a full-sample result."
+    },
+    {
+      "tone": "info",
+      "title": "Superseded strategy version",
+      "detail": "V3.4 is not the active formal S1 version (V3.9 is, owner-confirmed 2026-07-27). This report is historical/comparison context only; see RS-XAUUSD-20260727-004 for the current version and RS-XAUUSD-20260727-005 for the version gap."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

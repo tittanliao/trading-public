@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260727-005",
+  "revision": 1,
+  "title": "S1 AweWithBB V3.4 vs V3.9 — gap report",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.4 vs V3.9 (gap)"
+  },
+  "status": "reproduced",
+  "created_on": "2026-07-27",
+  "question": "Reading the RS-XAUUSD-20260727-003 (V3.4) and -004 (V3.9) fail-pattern reports, where do the two strategy versions diverge on 30-minute timing, fail-type share, BB zone, DXY regime, and MTF alignment?",
+  "hypothesis": "V3.4 and V3.9 differ in exit-rule structure (0.5% SL / TP2=2R vs V3.9's current exit rules) and in which market regime each was traded in, so deltas are expected and must not be read as a like-for-like backtest of the same rules across time.",
+  "headline": {
+    "v34_win_rate_pct": 53.17,
+    "v34_profit_factor": 1.525,
+    "v39_win_rate_pct": 56.22,
+    "v39_profit_factor": 1.869,
+    "win_rate_pct_diff": 3.05,
+    "profit_factor_diff": 0.344
+  },
+  "card_metrics": [
+    "v34_win_rate_pct",
+    "v39_win_rate_pct",
+    "win_rate_pct_diff",
+    "profit_factor_diff"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "V3.9 outperforms V3.4 on every headline metric",
+      "detail": "WR +3.05pp (56.22% vs 53.17%), PF +0.344 (1.869 vs 1.525), despite 54 fewer trades over a similar span."
+    },
+    {
+      "tone": "good",
+      "title": "immediate_loss share dropped 5 points",
+      "detail": "immediate_loss fell from 30.9% of V3.4 losses to 25.9% of V3.9 losses; normal_sl rose from 48.3% to 52.8%. Consistent with fewer instantly-wrong entries under V3.9."
+    },
+    {
+      "tone": "warn",
+      "title": "Counter-trend penalty widened, not narrowed",
+      "detail": "The 4H-bearish counter-trend win-rate gap grew from 9.6pp (V3.4) to 12.25pp (V3.9) versus aligned entries — V3.9 did not fix this, it got more pronounced."
+    },
+    {
+      "tone": "warn",
+      "title": "30-minute-slot deltas remain low-n and noisy",
+      "detail": "Most slots have single-digit-to-teens counts per version; treat the per-slot diff chart as descriptive, not as a basis for a new timing rule."
+    },
+    {
+      "tone": "warn",
+      "title": "Exit-rule differences confound every delta",
+      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs (docs/STRATEGY.md). None of these deltas isolate a pure timing/regime effect."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

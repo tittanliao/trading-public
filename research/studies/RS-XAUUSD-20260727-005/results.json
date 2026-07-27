@@ -1,0 +1,686 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260727-005",
+  "generated_at": "2026-07-27T22:29:09+08:00",
+  "strategy": "S1 AweWithBB V3.4 vs V3.9 (gap report)",
+  "method": {
+    "basis": "reads RS-XAUUSD-20260727-003 and RS-XAUUSD-20260727-004 results.json; recomputes no fail-pattern classification",
+    "risk_parameter_caveat": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs (docs/STRATEGY.md). Deltas may reflect exit-rule changes, not only timing/regime differences."
+  },
+  "charts": [
+    {
+      "id": "entry_slot_30m_diff",
+      "file": "entry_slot_30m_diff.png",
+      "title": "30-Minute Slot Win-Rate Diff (V3.9-V3.4)",
+      "section": "comparison"
+    },
+    {
+      "id": "fail_type_share_comparison",
+      "file": "fail_type_share_comparison.png",
+      "title": "Fail-Type Share Comparison",
+      "section": "comparison"
+    },
+    {
+      "id": "bb_zone_comparison",
+      "file": "bb_zone_comparison.png",
+      "title": "BB Zone Win-Rate Comparison",
+      "section": "comparison"
+    },
+    {
+      "id": "dxy_bucket_comparison",
+      "file": "dxy_bucket_comparison.png",
+      "title": "DXY Bucket Win-Rate Comparison",
+      "section": "comparison"
+    },
+    {
+      "id": "mtf_4h_state_comparison",
+      "file": "mtf_4h_state_comparison.png",
+      "title": "MTF 4H-State Win-Rate Comparison",
+      "section": "comparison"
+    }
+  ],
+  "baseline_diff": {
+    "v34": {
+      "n": 504,
+      "wins": 268,
+      "win_rate_pct": 53.17,
+      "win_rate_ci95_pct": [
+        48.81,
+        57.49
+      ],
+      "profit_factor": 1.525,
+      "net_pnl_usd": 6137.27,
+      "avg_pnl_usd": 12.18,
+      "avg_return_pct": 0.1238,
+      "max_drawdown_usd": -494.41,
+      "max_consecutive_losses": 8,
+      "avg_hold_bars": 29.0
+    },
+    "v39": {
+      "n": 450,
+      "wins": 253,
+      "win_rate_pct": 56.22,
+      "win_rate_ci95_pct": [
+        51.6,
+        60.73
+      ],
+      "profit_factor": 1.869,
+      "net_pnl_usd": 8455.49,
+      "avg_pnl_usd": 18.79,
+      "avg_return_pct": 0.1909,
+      "max_drawdown_usd": -378.37,
+      "max_consecutive_losses": 7,
+      "avg_hold_bars": 29.99
+    },
+    "win_rate_pct_diff": 3.05,
+    "profit_factor_diff": 0.344
+  },
+  "by_entry_30m_diff": {
+    "00:00": {
+      "v34_n": 8,
+      "v34_win_rate_pct": 75.0,
+      "v34_profit_factor": 4.798,
+      "v39_n": 6,
+      "v39_win_rate_pct": 66.67,
+      "v39_profit_factor": 2.257,
+      "win_rate_pct_diff_v39_minus_v34": -8.33
+    },
+    "00:30": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.81,
+      "v39_n": 14,
+      "v39_win_rate_pct": 64.29,
+      "v39_profit_factor": 2.79,
+      "win_rate_pct_diff_v39_minus_v34": 14.29
+    },
+    "01:00": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 66.67,
+      "v34_profit_factor": 5.243,
+      "v39_n": 8,
+      "v39_win_rate_pct": 62.5,
+      "v39_profit_factor": 4.673,
+      "win_rate_pct_diff_v39_minus_v34": -4.17
+    },
+    "01:30": {
+      "v34_n": 8,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.007,
+      "v39_n": 8,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 1.902,
+      "win_rate_pct_diff_v39_minus_v34": 0.0
+    },
+    "02:00": {
+      "v34_n": 12,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.415,
+      "v39_n": 12,
+      "v39_win_rate_pct": 66.67,
+      "v39_profit_factor": 4.131,
+      "win_rate_pct_diff_v39_minus_v34": 16.67
+    },
+    "02:30": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.515,
+      "v39_n": 10,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 0.873,
+      "win_rate_pct_diff_v39_minus_v34": 0.0
+    },
+    "03:00": {
+      "v34_n": 5,
+      "v34_win_rate_pct": 60.0,
+      "v34_profit_factor": 1.498,
+      "v39_n": 6,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 1.847,
+      "win_rate_pct_diff_v39_minus_v34": -10.0
+    },
+    "03:30": {
+      "v34_n": 8,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.5,
+      "v39_n": 8,
+      "v39_win_rate_pct": 75.0,
+      "v39_profit_factor": 3.048,
+      "win_rate_pct_diff_v39_minus_v34": 25.0
+    },
+    "04:00": {
+      "v34_n": 2,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.011,
+      "v39_n": 4,
+      "v39_win_rate_pct": 75.0,
+      "v39_profit_factor": 5.548,
+      "win_rate_pct_diff_v39_minus_v34": 25.0
+    },
+    "04:30": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 30.0,
+      "v34_profit_factor": 0.425,
+      "v39_n": 9,
+      "v39_win_rate_pct": 44.44,
+      "v39_profit_factor": 0.804,
+      "win_rate_pct_diff_v39_minus_v34": 14.44
+    },
+    "05:00": {
+      "v34_n": 8,
+      "v34_win_rate_pct": 75.0,
+      "v34_profit_factor": 2.997,
+      "v39_n": 6,
+      "v39_win_rate_pct": 83.33,
+      "v39_profit_factor": 4.949,
+      "win_rate_pct_diff_v39_minus_v34": 8.33
+    },
+    "05:30": {
+      "v34_n": 0,
+      "v34_win_rate_pct": null,
+      "v34_profit_factor": null,
+      "v39_n": 2,
+      "v39_win_rate_pct": 100.0,
+      "v39_profit_factor": null,
+      "win_rate_pct_diff_v39_minus_v34": null
+    },
+    "06:00": {
+      "v34_n": 1,
+      "v34_win_rate_pct": 0.0,
+      "v34_profit_factor": 0.0,
+      "v39_n": 0,
+      "v39_win_rate_pct": null,
+      "v39_profit_factor": null,
+      "win_rate_pct_diff_v39_minus_v34": null
+    },
+    "06:30": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 33.33,
+      "v34_profit_factor": 0.501,
+      "v39_n": 7,
+      "v39_win_rate_pct": 57.14,
+      "v39_profit_factor": 1.371,
+      "win_rate_pct_diff_v39_minus_v34": 23.81
+    },
+    "07:00": {
+      "v34_n": 8,
+      "v34_win_rate_pct": 87.5,
+      "v34_profit_factor": 11.748,
+      "v39_n": 4,
+      "v39_win_rate_pct": 75.0,
+      "v39_profit_factor": 7.899,
+      "win_rate_pct_diff_v39_minus_v34": -12.5
+    },
+    "07:30": {
+      "v34_n": 23,
+      "v34_win_rate_pct": 52.17,
+      "v34_profit_factor": 1.996,
+      "v39_n": 14,
+      "v39_win_rate_pct": 57.14,
+      "v39_profit_factor": 2.614,
+      "win_rate_pct_diff_v39_minus_v34": 4.97
+    },
+    "08:00": {
+      "v34_n": 21,
+      "v34_win_rate_pct": 52.38,
+      "v34_profit_factor": 1.344,
+      "v39_n": 9,
+      "v39_win_rate_pct": 77.78,
+      "v39_profit_factor": 4.756,
+      "win_rate_pct_diff_v39_minus_v34": 25.4
+    },
+    "08:30": {
+      "v34_n": 18,
+      "v34_win_rate_pct": 61.11,
+      "v34_profit_factor": 1.937,
+      "v39_n": 7,
+      "v39_win_rate_pct": 57.14,
+      "v39_profit_factor": 2.184,
+      "win_rate_pct_diff_v39_minus_v34": -3.97
+    },
+    "09:00": {
+      "v34_n": 21,
+      "v34_win_rate_pct": 47.62,
+      "v34_profit_factor": 0.893,
+      "v39_n": 14,
+      "v39_win_rate_pct": 64.29,
+      "v39_profit_factor": 1.892,
+      "win_rate_pct_diff_v39_minus_v34": 16.67
+    },
+    "09:30": {
+      "v34_n": 17,
+      "v34_win_rate_pct": 41.18,
+      "v34_profit_factor": 0.735,
+      "v39_n": 15,
+      "v39_win_rate_pct": 33.33,
+      "v39_profit_factor": 0.496,
+      "win_rate_pct_diff_v39_minus_v34": -7.85
+    },
+    "10:00": {
+      "v34_n": 24,
+      "v34_win_rate_pct": 54.17,
+      "v34_profit_factor": 1.674,
+      "v39_n": 11,
+      "v39_win_rate_pct": 63.64,
+      "v39_profit_factor": 3.186,
+      "win_rate_pct_diff_v39_minus_v34": 9.47
+    },
+    "10:30": {
+      "v34_n": 11,
+      "v34_win_rate_pct": 54.55,
+      "v34_profit_factor": 1.854,
+      "v39_n": 9,
+      "v39_win_rate_pct": 66.67,
+      "v39_profit_factor": 2.031,
+      "win_rate_pct_diff_v39_minus_v34": 12.12
+    },
+    "11:00": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 83.33,
+      "v34_profit_factor": 4.992,
+      "v39_n": 10,
+      "v39_win_rate_pct": 70.0,
+      "v39_profit_factor": 2.328,
+      "win_rate_pct_diff_v39_minus_v34": -13.33
+    },
+    "11:30": {
+      "v34_n": 14,
+      "v34_win_rate_pct": 57.14,
+      "v34_profit_factor": 1.742,
+      "v39_n": 9,
+      "v39_win_rate_pct": 44.44,
+      "v39_profit_factor": 1.298,
+      "win_rate_pct_diff_v39_minus_v34": -12.7
+    },
+    "12:00": {
+      "v34_n": 11,
+      "v34_win_rate_pct": 63.64,
+      "v34_profit_factor": 2.035,
+      "v39_n": 12,
+      "v39_win_rate_pct": 58.33,
+      "v39_profit_factor": 2.074,
+      "win_rate_pct_diff_v39_minus_v34": -5.31
+    },
+    "12:30": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 60.0,
+      "v34_profit_factor": 2.14,
+      "v39_n": 8,
+      "v39_win_rate_pct": 62.5,
+      "v39_profit_factor": 2.539,
+      "win_rate_pct_diff_v39_minus_v34": 2.5
+    },
+    "13:00": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 40.0,
+      "v34_profit_factor": 0.644,
+      "v39_n": 11,
+      "v39_win_rate_pct": 36.36,
+      "v39_profit_factor": 0.573,
+      "win_rate_pct_diff_v39_minus_v34": -3.64
+    },
+    "13:30": {
+      "v34_n": 2,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 0.989,
+      "v39_n": 5,
+      "v39_win_rate_pct": 40.0,
+      "v39_profit_factor": 1.813,
+      "win_rate_pct_diff_v39_minus_v34": -10.0
+    },
+    "14:00": {
+      "v34_n": 14,
+      "v34_win_rate_pct": 42.86,
+      "v34_profit_factor": 1.236,
+      "v39_n": 6,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 2.309,
+      "win_rate_pct_diff_v39_minus_v34": 7.14
+    },
+    "14:30": {
+      "v34_n": 9,
+      "v34_win_rate_pct": 44.44,
+      "v34_profit_factor": 0.875,
+      "v39_n": 10,
+      "v39_win_rate_pct": 80.0,
+      "v39_profit_factor": 4.651,
+      "win_rate_pct_diff_v39_minus_v34": 35.56
+    },
+    "15:00": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 30.0,
+      "v34_profit_factor": 0.426,
+      "v39_n": 6,
+      "v39_win_rate_pct": 33.33,
+      "v39_profit_factor": 0.498,
+      "win_rate_pct_diff_v39_minus_v34": 3.33
+    },
+    "15:30": {
+      "v34_n": 9,
+      "v34_win_rate_pct": 66.67,
+      "v34_profit_factor": 2.258,
+      "v39_n": 12,
+      "v39_win_rate_pct": 41.67,
+      "v39_profit_factor": 1.309,
+      "win_rate_pct_diff_v39_minus_v34": -25.0
+    },
+    "16:00": {
+      "v34_n": 9,
+      "v34_win_rate_pct": 55.56,
+      "v34_profit_factor": 1.254,
+      "v39_n": 8,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 2.292,
+      "win_rate_pct_diff_v39_minus_v34": -5.56
+    },
+    "16:30": {
+      "v34_n": 11,
+      "v34_win_rate_pct": 72.73,
+      "v34_profit_factor": 4.505,
+      "v39_n": 12,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 1.907,
+      "win_rate_pct_diff_v39_minus_v34": -22.73
+    },
+    "17:00": {
+      "v34_n": 12,
+      "v34_win_rate_pct": 58.33,
+      "v34_profit_factor": 2.877,
+      "v39_n": 6,
+      "v39_win_rate_pct": 50.0,
+      "v39_profit_factor": 1.856,
+      "win_rate_pct_diff_v39_minus_v34": -8.33
+    },
+    "17:30": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 66.67,
+      "v34_profit_factor": 2.006,
+      "v39_n": 9,
+      "v39_win_rate_pct": 55.56,
+      "v39_profit_factor": 1.593,
+      "win_rate_pct_diff_v39_minus_v34": -11.11
+    },
+    "18:00": {
+      "v34_n": 6,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 0.829,
+      "v39_n": 2,
+      "v39_win_rate_pct": 100.0,
+      "v39_profit_factor": null,
+      "win_rate_pct_diff_v39_minus_v34": 50.0
+    },
+    "18:30": {
+      "v34_n": 9,
+      "v34_win_rate_pct": 77.78,
+      "v34_profit_factor": 7.529,
+      "v39_n": 8,
+      "v39_win_rate_pct": 100.0,
+      "v39_profit_factor": null,
+      "win_rate_pct_diff_v39_minus_v34": 22.22
+    },
+    "19:00": {
+      "v34_n": 11,
+      "v34_win_rate_pct": 45.45,
+      "v34_profit_factor": 1.334,
+      "v39_n": 11,
+      "v39_win_rate_pct": 45.45,
+      "v39_profit_factor": 1.253,
+      "win_rate_pct_diff_v39_minus_v34": 0.0
+    },
+    "19:30": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 30.0,
+      "v34_profit_factor": 0.913,
+      "v39_n": 5,
+      "v39_win_rate_pct": 40.0,
+      "v39_profit_factor": 0.672,
+      "win_rate_pct_diff_v39_minus_v34": 10.0
+    },
+    "20:00": {
+      "v34_n": 10,
+      "v34_win_rate_pct": 50.0,
+      "v34_profit_factor": 1.004,
+      "v39_n": 9,
+      "v39_win_rate_pct": 44.44,
+      "v39_profit_factor": 1.297,
+      "win_rate_pct_diff_v39_minus_v34": -5.56
+    },
+    "20:30": {
+      "v34_n": 13,
+      "v34_win_rate_pct": 46.15,
+      "v34_profit_factor": 0.845,
+      "v39_n": 10,
+      "v39_win_rate_pct": 30.0,
+      "v39_profit_factor": 0.433,
+      "win_rate_pct_diff_v39_minus_v34": -16.15
+    },
+    "21:00": {
+      "v34_n": 14,
+      "v34_win_rate_pct": 57.14,
+      "v34_profit_factor": 1.219,
+      "v39_n": 21,
+      "v39_win_rate_pct": 61.9,
+      "v39_profit_factor": 1.682,
+      "win_rate_pct_diff_v39_minus_v34": 4.76
+    },
+    "21:30": {
+      "v34_n": 16,
+      "v34_win_rate_pct": 37.5,
+      "v34_profit_factor": 0.595,
+      "v39_n": 18,
+      "v39_win_rate_pct": 44.44,
+      "v39_profit_factor": 0.783,
+      "win_rate_pct_diff_v39_minus_v34": 6.94
+    },
+    "22:00": {
+      "v34_n": 20,
+      "v34_win_rate_pct": 60.0,
+      "v34_profit_factor": 2.519,
+      "v39_n": 16,
+      "v39_win_rate_pct": 56.25,
+      "v39_profit_factor": 2.096,
+      "win_rate_pct_diff_v39_minus_v34": -3.75
+    },
+    "22:30": {
+      "v34_n": 11,
+      "v34_win_rate_pct": 45.45,
+      "v34_profit_factor": 0.838,
+      "v39_n": 15,
+      "v39_win_rate_pct": 60.0,
+      "v39_profit_factor": 2.017,
+      "win_rate_pct_diff_v39_minus_v34": 14.55
+    },
+    "23:00": {
+      "v34_n": 14,
+      "v34_win_rate_pct": 64.29,
+      "v34_profit_factor": 1.651,
+      "v39_n": 16,
+      "v39_win_rate_pct": 56.25,
+      "v39_profit_factor": 1.284,
+      "win_rate_pct_diff_v39_minus_v34": -8.04
+    },
+    "23:30": {
+      "v34_n": 4,
+      "v34_win_rate_pct": 25.0,
+      "v34_profit_factor": 0.338,
+      "v39_n": 12,
+      "v39_win_rate_pct": 41.67,
+      "v39_profit_factor": 0.711,
+      "win_rate_pct_diff_v39_minus_v34": 16.67
+    }
+  },
+  "fail_type_share_diff": {
+    "immediate_loss": {
+      "v34_pct": 30.9,
+      "v39_pct": 25.9,
+      "diff": -5.0
+    },
+    "false_breakout": {
+      "v34_pct": 0,
+      "v39_pct": 0,
+      "diff": 0
+    },
+    "time_bleed": {
+      "v34_pct": 20.8,
+      "v39_pct": 21.3,
+      "diff": 0.5
+    },
+    "normal_sl": {
+      "v34_pct": 48.3,
+      "v39_pct": 52.8,
+      "diff": 4.5
+    }
+  },
+  "bb_zone_diff": {
+    "below_lower": {
+      "v34_n": 1,
+      "v34_win_rate_pct": 0.0,
+      "v34_profit_factor": 0.0,
+      "v39_n": 1,
+      "v39_win_rate_pct": 0.0,
+      "v39_profit_factor": 0.0,
+      "win_rate_pct_diff_v39_minus_v34": 0.0
+    },
+    "near_lower": {
+      "v34_n": 2,
+      "v34_win_rate_pct": 0.0,
+      "v34_profit_factor": 0.0,
+      "v39_n": 1,
+      "v39_win_rate_pct": 0.0,
+      "v39_profit_factor": 0.0,
+      "win_rate_pct_diff_v39_minus_v34": 0.0
+    },
+    "lower_mid": {
+      "v34_n": 7,
+      "v34_win_rate_pct": 28.57,
+      "v34_profit_factor": 0.403,
+      "v39_n": 8,
+      "v39_win_rate_pct": 25.0,
+      "v39_profit_factor": 0.735,
+      "win_rate_pct_diff_v39_minus_v34": -3.57
+    },
+    "near_middle": {
+      "v34_n": 35,
+      "v34_win_rate_pct": 45.71,
+      "v34_profit_factor": 1.27,
+      "v39_n": 25,
+      "v39_win_rate_pct": 28.0,
+      "v39_profit_factor": 0.896,
+      "win_rate_pct_diff_v39_minus_v34": -17.71
+    },
+    "upper_mid": {
+      "v34_n": 66,
+      "v34_win_rate_pct": 54.55,
+      "v34_profit_factor": 1.636,
+      "v39_n": 61,
+      "v39_win_rate_pct": 57.38,
+      "v39_profit_factor": 1.85,
+      "win_rate_pct_diff_v39_minus_v34": 2.83
+    },
+    "near_upper": {
+      "v34_n": 36,
+      "v34_win_rate_pct": 55.56,
+      "v34_profit_factor": 1.642,
+      "v39_n": 40,
+      "v39_win_rate_pct": 60.0,
+      "v39_profit_factor": 2.075,
+      "win_rate_pct_diff_v39_minus_v34": 4.44
+    },
+    "above_upper": {
+      "v34_n": 14,
+      "v34_win_rate_pct": 78.57,
+      "v34_profit_factor": 5.283,
+      "v39_n": 29,
+      "v39_win_rate_pct": 79.31,
+      "v39_profit_factor": 6.828,
+      "win_rate_pct_diff_v39_minus_v34": 0.74
+    }
+  },
+  "dxy_bucket_diff": {
+    "neutral_high(50-70)": {
+      "v34_n": 226,
+      "v34_win_rate_pct": 52.65,
+      "v34_profit_factor": 1.471,
+      "v39_n": 213,
+      "v39_win_rate_pct": 52.11,
+      "v39_profit_factor": 1.667,
+      "win_rate_pct_diff_v39_minus_v34": -0.54
+    },
+    "neutral_low(30-50)": {
+      "v34_n": 238,
+      "v34_win_rate_pct": 54.62,
+      "v34_profit_factor": 1.63,
+      "v39_n": 201,
+      "v39_win_rate_pct": 61.19,
+      "v39_profit_factor": 2.136,
+      "win_rate_pct_diff_v39_minus_v34": 6.57
+    },
+    "overbought(>70)": {
+      "v34_n": 17,
+      "v34_win_rate_pct": 47.06,
+      "v34_profit_factor": 0.885,
+      "v39_n": 17,
+      "v39_win_rate_pct": 52.94,
+      "v39_profit_factor": 1.131,
+      "win_rate_pct_diff_v39_minus_v34": 5.88
+    },
+    "oversold(<30)": {
+      "v34_n": 23,
+      "v34_win_rate_pct": 47.83,
+      "v34_profit_factor": 1.536,
+      "v39_n": 19,
+      "v39_win_rate_pct": 52.63,
+      "v39_profit_factor": 2.485,
+      "win_rate_pct_diff_v39_minus_v34": 4.8
+    }
+  },
+  "mtf_4h_state_diff": {
+    "bearish": {
+      "v34_n": 216,
+      "v34_win_rate_pct": 47.69,
+      "v34_profit_factor": 1.263,
+      "v39_n": 146,
+      "v39_win_rate_pct": 47.95,
+      "v39_profit_factor": 1.453,
+      "win_rate_pct_diff_v39_minus_v34": 0.26
+    },
+    "neutral": {
+      "v34_n": 107,
+      "v34_win_rate_pct": 48.6,
+      "v34_profit_factor": 1.306,
+      "v39_n": 111,
+      "v39_win_rate_pct": 51.35,
+      "v39_profit_factor": 1.696,
+      "win_rate_pct_diff_v39_minus_v34": 2.75
+    },
+    "bullish": {
+      "v34_n": 139,
+      "v34_win_rate_pct": 64.03,
+      "v34_profit_factor": 2.285,
+      "v39_n": 153,
+      "v39_win_rate_pct": 65.36,
+      "v39_profit_factor": 2.499,
+      "win_rate_pct_diff_v39_minus_v34": 1.33
+    }
+  },
+  "mtf_conflict_diff": {
+    "aligned (4H not bearish)": {
+      "v34_n": 288,
+      "v34_win_rate_pct": 57.29,
+      "v34_profit_factor": 1.769,
+      "v39_n": 304,
+      "v39_win_rate_pct": 60.2,
+      "v39_profit_factor": 2.133,
+      "win_rate_pct_diff_v39_minus_v34": 2.91
+    },
+    "counter-trend (4H bearish)": {
+      "v34_n": 216,
+      "v34_win_rate_pct": 47.69,
+      "v34_profit_factor": 1.263,
+      "v39_n": 146,
+      "v39_win_rate_pct": 47.95,
+      "v39_profit_factor": 1.453,
+      "win_rate_pct_diff_v39_minus_v34": 0.26
+    }
+  }
+}

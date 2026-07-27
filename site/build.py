@@ -264,6 +264,44 @@ def entry_slot_table(rows: dict[str, dict[str, object]]) -> str:
     )
 
 
+CHART_SECTION_LABELS = {
+    "performance": "Performance",
+    "fail_pattern": "Fail Pattern Breakdown",
+    "timing_30m": "30-Minute Entry-Slot Timing",
+    "pre_entry": "Pre-Entry Context — Immediate Loss",
+    "kbar": "K-Bar Features at Entry",
+    "bb": "Bollinger Band Position",
+    "dxy": "DXY Context",
+    "mtf": "Multi-Timeframe Alignment",
+    "hold_time_streaks": "Hold Time & Streaks",
+    "comparison": "Version Comparison",
+}
+CHART_SECTION_ORDER = list(CHART_SECTION_LABELS)
+
+
+def chart_sections_html(charts: list[dict[str, str]]) -> str:
+    """Render a study's results.json "charts" array grouped by section, generically —
+    per docs/RESEARCH_DEVELOPMENT_SPEC.md section 7. Never a per-study hardcoded list."""
+    by_section: dict[str, list[dict[str, str]]] = {}
+    for chart in charts:
+        by_section.setdefault(chart["section"], []).append(chart)
+    blocks = []
+    for section in CHART_SECTION_ORDER:
+        items = by_section.get(section)
+        if not items:
+            continue
+        images = "".join(
+            f'<figure><img src="charts/{html.escape(c["file"])}" alt="{html.escape(c["title"])}" '
+            f'style="max-width:100%"><figcaption>{html.escape(c["title"])}</figcaption></figure>'
+            for c in items
+        )
+        blocks.append(
+            f'<section class="report-section"><h2>{html.escape(CHART_SECTION_LABELS[section])}</h2>'
+            f'<div class="chart-grid">{images}</div></section>'
+        )
+    return "".join(blocks)
+
+
 def comparison_entry_slot_table(comparison: dict[str, dict[str, object]]) -> str:
     body = ""
     for slot, item in comparison.items():
@@ -363,10 +401,137 @@ def study_page_comparison(study: dict[str, object]) -> str:
     )
 
 
+def fail_type_table(by_type: dict[str, dict[str, object]]) -> str:
+    body = "".join(
+        f"<tr><td><strong>{html.escape(name)}</strong></td><td>{v['count']}</td><td>{v['pct']}%</td></tr>"
+        for name, v in by_type.items()
+    )
+    return (
+        '<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>count</th><th>%</th></tr></thead>'
+        f"<tbody>{body}</tbody></table></div>"
+    )
+
+
+def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
+    result = study["_result"]
+    baseline = result["baseline"]
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    kbar = result["kbar_coverage"]
+    impacts = study.get("policy_impacts") or []
+    if impacts:
+        impact_items = "".join(
+            f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
+            for item in impacts
+        )
+        impact_html = f'<ul class="impact-list">{impact_items}</ul>'
+    else:
+        impact_html = '<p class="callout">No active 請分析 policy change. Research/publication only for this study.</p>'
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("Closed trades", baseline["n"], f'{result["trade_period"]["start"][:10]} → {result["trade_period"]["end"][:10]}')
+        + metric("Win rate", f'{baseline["win_rate_pct"]}%', f'95% CI {baseline["win_rate_ci95_pct"][0]}–{baseline["win_rate_ci95_pct"][1]}%')
+        + metric("Profit factor", baseline["profit_factor"], f'Net ${baseline["net_pnl_usd"]:,.2f}')
+        + metric("Max drawdown", f'${baseline["max_drawdown_usd"]:,.2f}', f'Max {baseline["max_consecutive_losses"]} consecutive losses')
+        + '</div>'
+        '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + chart_sections_html([c for c in result["charts"] if c["section"] in ("performance", "fail_pattern")])
+        + f'<section class="report-section"><h2>Fail-Type Breakdown</h2>{fail_type_table(result["fail_pattern"]["by_type"])}</section>'
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "timing_30m"])
+        + entry_slot_table(result["by_entry_30m"])
+        + result_table(
+            "Broad session summary", result["by_session"], show_adjustment=False,
+            note="Descriptive only. The 30-minute entry-slot view above is the primary evidence.",
+        )
+        + chart_sections_html([c for c in result["charts"] if c["section"] in ("pre_entry", "kbar")])
+        + f'<div class="note">K-bar coverage: {kbar["with_kbar_data"]}/{kbar["total_immediate_loss"]} '
+        f'immediate_loss trades ({kbar["coverage_pct"]}%). Partial coverage — not a full-sample result.</div>'
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "bb"])
+        + result_table("BB zone", result["bb_zone"], show_adjustment=False)
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "dxy"])
+        + result_table("DXY RSI bucket", result["dxy"]["regime"]["by_bucket"], show_adjustment=False)
+        + result_table("DXY 1D trend", result["dxy"]["regime"]["by_trend"], show_adjustment=False)
+        + f'<div class="note">Avg 30-day rolling DXY–XAUUSD correlation: {result["dxy"]["avg_30d_correlation"]}</div>'
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "mtf"])
+        + result_table("MTF HTF alignment", result["mtf"]["by_alignment"], show_adjustment=False)
+        + result_table("MTF 4H RSI state", result["mtf"]["by_4h_state"], show_adjustment=False)
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "hold_time_streaks"])
+        + f'<section class="report-section"><h2>Impact on 請分析</h2>{impact_html}</section>'
+        '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
+        '<div class="file-actions">'
+        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a><a href="study.json">Study manifest</a>'
+        '</div></section></main>'
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
+def study_page_gap(study: dict[str, object]) -> str:
+    result = study["_result"]
+    bd = result["baseline_diff"]
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    fail_rows = "".join(
+        f"<tr><td><strong>{html.escape(name)}</strong></td><td>{v['v34_pct']}%</td><td>{v['v39_pct']}%</td>"
+        f"<td>{v['diff']:+.1f}pp</td></tr>"
+        for name, v in result["fail_type_share_diff"].items()
+    )
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("V3.4 WR / PF", f'{bd["v34"]["win_rate_pct"]}% / {bd["v34"]["profit_factor"]}')
+        + metric("V3.9 WR / PF", f'{bd["v39"]["win_rate_pct"]}% / {bd["v39"]["profit_factor"]}')
+        + metric("WR diff (V3.9−V3.4)", f'{bd["win_rate_pct_diff"]:+.2f}pp')
+        + metric("PF diff (V3.9−V3.4)", f'{bd["profit_factor_diff"]:+.3f}')
+        + '</div>'
+        f'<div class="note">{html.escape(result["method"]["risk_parameter_caveat"])}</div>'
+        '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + chart_sections_html(result["charts"])
+        + comparison_entry_slot_table(result["by_entry_30m_diff"])
+        + '<section class="report-section"><h2>Fail-Type Share</h2>'
+        '<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>V3.4</th><th>V3.9</th><th>diff</th></tr></thead>'
+        f'<tbody>{fail_rows}</tbody></table></div></section>'
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(result["method"]["basis"])}</p>'
+        '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
+        '<div class="file-actions">'
+        '<a href="results.json">Structured results</a><a href="analysis.py">Python method</a><a href="study.json">Study manifest</a>'
+        '</div></section></main>'
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
         return study_page_comparison(study)
+    if "baseline_diff" in result:
+        return study_page_gap(study)
+    if "fail_pattern" in result:
+        return study_page_fail_pattern_solo(study)
     baseline = result["baseline"]
     finding_html = "".join(
         f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
