@@ -377,6 +377,7 @@ def study_page_comparison(study: dict[str, object]) -> str:
         f'<div class="metric-grid">{metric_html}</div>'
         '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
         + "".join(
             result_table(
                 f"{version} session summary",
@@ -391,7 +392,6 @@ def study_page_comparison(study: dict[str, object]) -> str:
             result_table(f"{version} Macro context", data["by_macro_verdict"])
             for version, data in versions.items()
         )
-        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
@@ -525,6 +525,7 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + '</div>'
         '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
         + chart_sections_html([c for c in result["charts"] if c["section"] in ("performance", "fail_pattern")])
         + f'<section class="report-section"><h2>Fail-Type Breakdown</h2>{fail_type_table(result["fail_pattern"]["by_type"])}</section>'
         + chart_sections_html([c for c in result["charts"] if c["section"] == "timing_30m"])
@@ -547,7 +548,6 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + result_table("MTF 4H RSI state", result["mtf"]["by_4h_state"], show_adjustment=False)
         + chart_sections_html([c for c in result["charts"] if c["section"] == "hold_time_streaks"])
         + macro_html
-        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
@@ -634,12 +634,12 @@ def study_page_gap(study: dict[str, object]) -> str:
         f'<div class="note">{html.escape(result["method"]["risk_parameter_caveat"])}</div>'
         '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
         + chart_sections_html(result["charts"])
         + gap_entry_slot_table(result["by_entry_30m_diff"], p1, p2, label1, label2)
         + '<section class="report-section"><h2>Fail-Type Share</h2>'
         f'<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>{html.escape(label1)}</th><th>{html.escape(label2)}</th><th>diff</th></tr></thead>'
         f'<tbody>{fail_rows}</tbody></table></div></section>'
-        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         f'<p>{html.escape(result["method"]["basis"])}</p>'
@@ -732,11 +732,11 @@ def study_page_seasonality(study: dict[str, object]) -> str:
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
         + chart_sections_html([c for c in result["charts"] if c["section"] == "seasonality"])
         + month_seasonality_table(result["by_month"])
         + week_in_month_table(result["week_in_month"])
         + year_month_heatmap_table(result["year_month_heatmap"])
-        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
@@ -776,12 +776,12 @@ def study_page_fib_pullback(study: dict[str, object]) -> str:
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
         + chart_sections_html(result["charts"])
         + result_table(
             "Win rate by Fibonacci retracement level", by_level,
             net_pnl_key="net_pnl_pts", net_pnl_label="Net pts", show_adjustment=False,
         )
-        + impact_section_html(study)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         f'<p>{html.escape(result["method"]["retracement_formula"])}</p>'
@@ -874,15 +874,28 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
 
 
 def overview(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
-    latest_xauusd = next(
+    # The live-impact study (non-empty policy_impacts), not "whichever XAUUSD study
+    # sorts first by directory name" — that previously picked an unrelated comparison
+    # report once a higher-numbered study existed. Falls back to the first XAUUSD
+    # study if none currently has live impact.
+    live_xauusd = next(
+        (study for study in study_list if study["market"].lower() == "xauusd" and study.get("policy_impacts")),
+        None,
+    ) or next(
         (study for study in study_list if study["market"].lower() == "xauusd"),
         None,
     )
     xauusd_href = (
-        f'{latest_xauusd["_relative"]}/' if latest_xauusd else "xauusd/"
+        f'{live_xauusd["_relative"]}/' if live_xauusd else "xauusd/"
+    )
+    xauusd_title = live_xauusd["title"] if live_xauusd else "XAUUSD studies"
+    xauusd_desc = (
+        f'Open the current live-impact study ({live_xauusd["id"]}) directly.'
+        if live_xauusd and live_xauusd.get("policy_impacts")
+        else "Active reviewed XAUUSD studies."
     )
     cards = [
-        (xauusd_href, "XAUUSD Macro / timing analysis", "Open the latest human-readable S1 V3.9 study directly."),
+        (xauusd_href, xauusd_title, xauusd_desc),
         ("tx/", "TX studies", "Active reviewed Taiwan index futures studies."),
         ("research/", "All research", "Browse adopted human-readable study reports."),
     ]
