@@ -531,7 +531,7 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + chart_sections_html([c for c in result["charts"] if c["section"] == "dxy"])
         + result_table("DXY RSI bucket", result["dxy"]["regime"]["by_bucket"], show_adjustment=False)
         + result_table("DXY 1D trend", result["dxy"]["regime"]["by_trend"], show_adjustment=False)
-        + f'<div class="note">Avg 30-day rolling DXY–XAUUSD correlation: {result["dxy"]["avg_30d_correlation"]}</div>'
+        + f'<div class="note">Avg 30-day rolling DXY–{html.escape(study["market"])} correlation: {result["dxy"]["avg_30d_correlation"]}</div>'
         + chart_sections_html([c for c in result["charts"] if c["section"] == "mtf"])
         + result_table("MTF HTF alignment", result["mtf"]["by_alignment"], show_adjustment=False)
         + result_table("MTF 4H RSI state", result["mtf"]["by_4h_state"], show_adjustment=False)

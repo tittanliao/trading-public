@@ -4,11 +4,14 @@
 
 Raw TradingView CSVs are intentionally not included. Supply locally authorized CSV
 paths for the trade export plus 30m/60m/4H/1D XAUUSD and 1D DXY. Reproduces every
-published numeric field (baseline, fail-pattern breakdown, 30-minute timing,
-immediate-loss pre-entry profile, K-bar coverage, BB zone, DXY regime, MTF alignment).
-Chart PNGs are published as pre-verified static files and are not regenerated here;
-the executor manually reviewed the chart-generation code path (no file paths in any
-chart title/axis) before publishing them — see the Private decision_log.md.
+published numeric field: baseline (including drawdown/streak/hold-bar summary),
+trade_period, fail-pattern breakdown, 30-minute timing, immediate-loss pre-entry
+profile, K-bar coverage, BB zone, DXY regime plus rolling correlation, full MTF
+alignment (by_alignment/by_4h_state/by_4h_bucket/by_1d_state/by_conflict/
+by_vol_regime/coverage), and hold-time/streak distribution. Chart PNGs are published
+as pre-verified static files and are not regenerated here; the executor manually
+reviewed the chart-generation code path (no file paths in any chart title/axis)
+before publishing them — see the Private decision_log.md.
 """
 from __future__ import annotations
 
@@ -25,6 +28,7 @@ FALSE_BREAKOUT_MAE_MFE_RATIO = 2.0
 TIME_BLEED_MIN_BARS = 24
 ENTRY_SLOTS_30M = [f"{h:02d}:{m:02d}" for h in range(24) for m in (0, 30)]
 BB_ZONE_ORDER = ["below_lower", "near_lower", "lower_mid", "near_middle", "upper_mid", "near_upper", "above_upper"]
+DOW_LABELS = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
 
 TRADE_COLUMN_ALIASES = {
     "trade_id": ["Trade number", "Trade #"], "type": ["Type"], "datetime": ["Date and time"],
@@ -116,12 +120,138 @@ def grouped(frame, col):
     return {str(k): stats(g) for k, g in frame.groupby(col, observed=True)}
 
 
+def drawdown_series(trades: pd.DataFrame) -> pd.Series:
+    cum = trades["net_pnl_usd"].cumsum().reset_index(drop=True)
+    return cum - cum.cummax()
+
+
+def max_drawdown(trades: pd.DataFrame) -> float:
+    dd = drawdown_series(trades)
+    return float(dd.min()) if len(dd) else 0.0
+
+
+def consecutive_losses(trades: pd.DataFrame) -> pd.Series:
+    streaks, count = [], 0
+    for r in trades["result"]:
+        if r == "loss":
+            count += 1
+        else:
+            if count > 0:
+                streaks.append(count)
+            count = 0
+    if count > 0:
+        streaks.append(count)
+    return pd.Series(streaks, dtype=int, name="streak_length")
+
+
+def summary(trades: pd.DataFrame) -> dict:
+    base = stats(trades)
+    return {
+        **base,
+        "max_drawdown_usd": round(float(max_drawdown(trades)), 2),
+        "max_consecutive_losses": int(consecutive_losses(trades).max()) if len(trades) else 0,
+        "avg_hold_bars": round(float(trades["hold_bars"].mean()), 2) if len(trades) else None,
+    }
+
+
 def classify_fail(trades: pd.DataFrame) -> pd.DataFrame:
     losses = trades[trades["result"] == "loss"].copy()
     ratio = losses["mae_pct"] / losses["mfe_pct"].replace(0, np.nan)
     conds = [losses["mfe_pct"] < IMMEDIATE_LOSS_MFE_PCT, ratio > FALSE_BREAKOUT_MAE_MFE_RATIO, losses["hold_bars"] >= TIME_BLEED_MIN_BARS]
     losses["fail_type"] = np.select(conds, ["immediate_loss", "false_breakout", "time_bleed"], default="normal_sl")
     return losses.reset_index(drop=True)
+
+
+def fail_by_session(classified: pd.DataFrame) -> dict:
+    table = pd.crosstab(classified["session"], classified["fail_type"])
+    return {session: {ft: int(v) for ft, v in row.items()} for session, row in table.iterrows()}
+
+
+def add_trade_context(trades: pd.DataFrame, classified: pd.DataFrame) -> pd.DataFrame:
+    df = trades.sort_values("entry_time").copy().reset_index(drop=True)
+    df = df.merge(classified[["trade_id", "fail_type"]], on="trade_id", how="left")
+    df["prev_result"] = df["result"].shift(1).fillna("none")
+    tsw, count = [], 0
+    for r in df["result"]:
+        tsw.append(count)
+        count = count + 1 if r != "win" else 0
+    df["trades_since_win"] = tsw
+    return df
+
+
+def _distribution_pair(imm, all_trades, column, index_labels=None):
+    imm_dist = imm[column].value_counts(normalize=True)
+    all_dist = all_trades[column].value_counts(normalize=True)
+    keys = sorted(set(imm_dist.index) | set(all_dist.index))
+    out = {}
+    for key in keys:
+        label = index_labels.get(key, str(key)) if index_labels else str(key)
+        out[label] = {
+            "immediate_loss": round(float(imm_dist.get(key, 0.0)), 3),
+            "all_trades": round(float(all_dist.get(key, 0.0)), 3),
+        }
+    return out
+
+
+def immediate_loss_profile(trades_ctx: pd.DataFrame) -> dict:
+    imm = trades_ctx[trades_ctx["fail_type"] == "immediate_loss"]
+    entry_slot = {slot: {"immediate_loss": 0.0, "all_trades": 0.0} for slot in ENTRY_SLOTS_30M}
+    entry_slot.update(_distribution_pair(imm, trades_ctx, "entry_slot_30m"))
+    return {
+        "entry_slot_30m": entry_slot,
+        "entry_dow": _distribution_pair(imm, trades_ctx, "entry_dow", DOW_LABELS),
+        "prev_result": _distribution_pair(imm, trades_ctx, "prev_result"),
+        "trades_since_win": _distribution_pair(imm, trades_ctx, "trades_since_win"),
+    }
+
+
+def _kbar_features_at(price: pd.DataFrame, entry_time, n_lookback=3):
+    idx = price.index[price["time"] == entry_time]
+    if idx.empty:
+        diff = (price["time"] - entry_time).abs()
+        nearest = diff.idxmin()
+        if diff[nearest].total_seconds() > 1800:
+            return None
+        idx = pd.Index([nearest])
+    pos = idx[0]
+    if pos < n_lookback:
+        return None
+    bar = price.loc[pos]
+    prev_bars = price.loc[pos - n_lookback: pos - 1]
+    feat = {
+        "rsi": float(bar["rsi"]) if pd.notna(bar.get("rsi")) else None,
+        "rsi_vs_ma": float(bar["rsi"] - bar["rsi_ma"]) if pd.notna(bar.get("rsi")) and pd.notna(bar.get("rsi_ma")) else None,
+    }
+    if pos >= n_lookback + 1 and pd.notna(bar.get("rsi")) and pd.notna(price.loc[pos - n_lookback, "rsi"]):
+        feat["rsi_slope_3"] = round(float((bar["rsi"] - price.loc[pos - n_lookback, "rsi"]) / n_lookback), 3)
+    else:
+        feat["rsi_slope_3"] = None
+    prev_bar = price.loc[pos - 1]
+    feat["prev_1_dir"] = 1 if prev_bar["close"] >= prev_bar["open"] else -1
+    feat["prev_3_green"] = int((prev_bars["close"] >= prev_bars["open"]).sum())
+    oldest_close, prev_close = price.loc[pos - n_lookback, "close"], price.loc[pos - 1, "close"]
+    feat["momentum_3"] = round(float((prev_close - oldest_close) / oldest_close * 100), 4)
+    return feat
+
+
+def enrich_with_kbars(classified: pd.DataFrame, price: pd.DataFrame, n_lookback=3) -> pd.DataFrame:
+    imm = classified[classified["fail_type"] == "immediate_loss"].copy().reset_index(drop=True)
+    cols = ["rsi", "rsi_vs_ma", "rsi_slope_3", "prev_1_dir", "prev_3_green", "momentum_3"]
+    for col in cols:
+        imm[col] = np.nan
+    for i, row in imm.iterrows():
+        feats = _kbar_features_at(price, row["entry_time"], n_lookback)
+        if feats:
+            for col, val in feats.items():
+                imm.at[i, col] = val
+    return imm
+
+
+def kbar_coverage(enriched: pd.DataFrame) -> dict:
+    total = len(enriched)
+    covered = int(enriched["rsi"].notna().sum())
+    return {"total_immediate_loss": total, "with_kbar_data": covered,
+            "coverage_pct": round(100 * covered / total, 1) if total else 0.0}
 
 
 def compute_bb(price: pd.DataFrame, period=20, std_mult=2.0) -> pd.DataFrame:
@@ -169,6 +299,21 @@ def enrich_dxy(trades, dxy_1d):
     )
     merged.loc[merged["rsi"].isna(), "dxy_rsi_bucket"] = "unknown"
     merged["dxy_trend_1d"] = np.where(merged["close"] > merged["sma20"], "up", "down")
+    dxy_rsi_vs_ma = merged["rsi"] - merged["rsi_ma"]
+    merged["dxy_momentum"] = np.where(
+        dxy_rsi_vs_ma.isna(), "unknown",
+        np.where(dxy_rsi_vs_ma > 0, "RSI>MA (USD gaining)", "RSI<MA (USD losing)"),
+    )
+    return merged
+
+
+def dxy_correlation_stats(xauusd_1d: pd.DataFrame, dxy_1d: pd.DataFrame, window=30) -> pd.DataFrame:
+    dxy = dxy_1d[["time", "close"]].rename(columns={"close": "dxy_close"}).copy()
+    xau = xauusd_1d[["time", "close"]].rename(columns={"close": "xau_close"}).copy()
+    dxy["dxy_ret"] = dxy["dxy_close"].pct_change()
+    xau["xau_ret"] = xau["xau_close"].pct_change()
+    merged = pd.merge(dxy[["time", "dxy_ret"]], xau[["time", "xau_ret"]], on="time", how="inner").dropna()
+    merged["rolling_corr"] = merged["dxy_ret"].rolling(window).corr(merged["xau_ret"])
     return merged
 
 
@@ -193,24 +338,68 @@ def _rsi_state(rsi, rsi_ma, slope):
     return "neutral"
 
 
+def _rsi_bucket(rsi):
+    if pd.isna(rsi):
+        return "unknown"
+    if rsi < 30:
+        return "oversold(<30)"
+    if rsi < 50:
+        return "low(30-50)"
+    if rsi < 70:
+        return "high(50-70)"
+    return "overbought(>70)"
+
+
 def _enrich_tf(trades, price, prefix):
     p = _compute_atr(price.sort_values("time").reset_index(drop=True))
     p["_slope"] = p["rsi_ma"].diff(3) if "rsi_ma" in p.columns else np.nan
-    p = p.rename(columns={"rsi": f"{prefix}_rsi", "rsi_ma": f"{prefix}_rsi_ma", "_slope": f"{prefix}_slope", "time": "entry_time"})
-    keep = ["entry_time", f"{prefix}_rsi", f"{prefix}_rsi_ma", f"{prefix}_slope"]
+    p = p.rename(columns={"rsi": f"{prefix}_rsi", "rsi_ma": f"{prefix}_rsi_ma", "_slope": f"{prefix}_slope",
+                           "vol_ratio": f"{prefix}_vol_ratio", "time": "entry_time"})
+    keep = ["entry_time", f"{prefix}_rsi", f"{prefix}_rsi_ma", f"{prefix}_slope", f"{prefix}_vol_ratio"]
     p = p[[c for c in keep if c in p.columns]]
     merged = pd.merge_asof(trades.sort_values("entry_time"), p, on="entry_time", direction="backward")
+    rsi_col, ma_col, slope_col = f"{prefix}_rsi", f"{prefix}_rsi_ma", f"{prefix}_slope"
     merged[f"{prefix}_rsi_state"] = merged.apply(
-        lambda r: _rsi_state(r.get(f"{prefix}_rsi"), r.get(f"{prefix}_rsi_ma"), r.get(f"{prefix}_slope")), axis=1
+        lambda r: _rsi_state(r.get(rsi_col), r.get(ma_col), r.get(slope_col)), axis=1
     )
-    return merged.drop(columns=[f"{prefix}_slope"], errors="ignore")
+    merged[f"{prefix}_rsi_bucket"] = merged[rsi_col].apply(_rsi_bucket)
+    return merged.drop(columns=[slope_col], errors="ignore")
 
 
 def enrich_htf(trades, price_60m, price_4h, price_1d):
     result = trades.copy()
     for prefix, price in [("htf_60m", price_60m), ("htf_4h", price_4h), ("htf_1d", price_1d)]:
         result = _enrich_tf(result, price, prefix)
+    state_cols = [c for c in result.columns if c.startswith("htf_") and c.endswith("_rsi_state")]
+    result["htf_alignment"] = result[state_cols].apply(lambda row: int((row == "bullish").sum()), axis=1)
+    n_tfs = len(state_cols)
+    result["htf_alignment_label"] = result["htf_alignment"].map(
+        lambda x: f"{x}/{n_tfs} " + ("None" if x == 0 else "Weak" if x == 1 else "Moderate" if x == n_tfs - 1 and n_tfs > 1 else "Full")
+    )
+    result["htf_conflict"] = result.get("htf_4h_rsi_state", pd.Series("unknown", index=result.index)) == "bearish"
+    result["htf_high_vol"] = result.get("htf_4h_vol_ratio", pd.Series(np.nan, index=result.index)) > 1.3
     return result
+
+
+def htf_stats(enriched: pd.DataFrame) -> dict:
+    out = {"by_alignment": grouped(enriched, "htf_alignment_label")}
+    for col, key in [("htf_4h_rsi_state", "by_4h_state"), ("htf_4h_rsi_bucket", "by_4h_bucket"), ("htf_1d_rsi_state", "by_1d_state")]:
+        if col in enriched.columns:
+            valid = enriched[enriched[col] != "unknown"]
+            out[key] = grouped(valid, col)
+    labeled = enriched.copy()
+    labeled["_conflict_label"] = labeled["htf_conflict"].map({True: "counter-trend (4H bearish)", False: "aligned (4H not bearish)"})
+    out["by_conflict"] = grouped(labeled, "_conflict_label")
+    labeled["_vol_label"] = labeled["htf_high_vol"].map({True: "high-vol (ATR>1.3xSMA)", False: "normal vol"})
+    out["by_vol_regime"] = grouped(labeled, "_vol_label")
+    coverage = {}
+    for col, label in [("htf_60m_rsi", "60m"), ("htf_4h_rsi", "4H"), ("htf_1d_rsi", "1D")]:
+        if col in enriched.columns:
+            n_with = int(enriched[col].notna().sum())
+            coverage[label] = {"trades_covered": n_with, "total_trades": len(enriched),
+                                "coverage_pct": round(100 * n_with / len(enriched), 1) if len(enriched) else 0.0}
+    out["coverage"] = coverage
+    return out
 
 
 def main() -> None:
@@ -228,7 +417,7 @@ def main() -> None:
     price_30m, price_60m, price_4h, price_1d = (load_price(p) for p in [args.price_30m, args.price_60m, args.price_4h, args.price_1d])
     dxy_1d = load_price(args.dxy_1d)
 
-    baseline = stats(trades)
+    baseline = summary(trades)
     classified = classify_fail(trades)
     total_losses = len(classified)
     fail_by_type = {
@@ -238,30 +427,44 @@ def main() -> None:
     by_session = grouped(trades, "session")
     by_entry_30m = {slot: stats(trades[trades["entry_slot_30m"] == slot]) for slot in ENTRY_SLOTS_30M}
 
+    trades_ctx = add_trade_context(trades, classified)
+    profile = immediate_loss_profile(trades_ctx)
+
+    kbar_enriched = enrich_with_kbars(classified, price_30m)
+    coverage = kbar_coverage(kbar_enriched)
+
     bb_enriched = enrich_bb(trades, price_30m)
     valid_bb = bb_enriched[bb_enriched["bb_zone"] != "unknown"]
     bb_zone_stats = {z: stats(valid_bb[valid_bb["bb_zone"] == z]) for z in BB_ZONE_ORDER}
 
     dxy_enriched = enrich_dxy(trades, dxy_1d)
-    dxy_stats = {
+    dxy_regime = {
         "by_bucket": grouped(dxy_enriched[dxy_enriched["dxy_rsi_bucket"] != "unknown"], "dxy_rsi_bucket"),
         "by_trend": grouped(dxy_enriched, "dxy_trend_1d"),
+        "by_momentum": grouped(dxy_enriched[dxy_enriched["dxy_momentum"] != "unknown"], "dxy_momentum"),
     }
+    corr = dxy_correlation_stats(price_1d, dxy_1d)
+    dxy_stats = {"regime": dxy_regime, "avg_30d_correlation": round(float(corr["rolling_corr"].dropna().mean()), 3)}
 
     htf_enriched = enrich_htf(trades, price_60m, price_4h, price_1d)
-    mtf_stats = {}
-    if "htf_4h_rsi_state" in htf_enriched.columns:
-        valid = htf_enriched[htf_enriched["htf_4h_rsi_state"] != "unknown"]
-        mtf_stats["by_4h_state"] = grouped(valid, "htf_4h_rsi_state")
+    mtf_stats = htf_stats(htf_enriched)
 
     output = {
         "baseline": baseline,
-        "fail_pattern": {"total_losses": total_losses, "by_type": fail_by_type},
+        "trade_period": {"start": str(trades["entry_time"].min()), "end": str(trades["exit_time"].max())},
+        "fail_pattern": {"total_losses": total_losses, "by_type": fail_by_type, "by_session": fail_by_session(classified)},
         "by_session": by_session,
         "by_entry_30m": by_entry_30m,
+        "immediate_loss_profile": profile,
+        "kbar_coverage": coverage,
         "bb_zone": bb_zone_stats,
         "dxy": dxy_stats,
         "mtf": mtf_stats,
+        "hold_time_streaks": {
+            "avg_hold_bars": baseline["avg_hold_bars"],
+            "max_consecutive_losses": baseline["max_consecutive_losses"],
+            "streak_lengths": consecutive_losses(trades).tolist(),
+        },
     }
     args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
