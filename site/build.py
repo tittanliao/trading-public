@@ -149,6 +149,13 @@ HEADLINE_LABELS = {
     "v39_trades": "V3.9 n",
     "v39_win_rate_pct": "V3.9 WR",
     "v39_profit_factor": "V3.9 PF",
+    "total_months": "months",
+    "overall_win_rate_pct": "WR",
+    "avg_chg_pts": "avg pts",
+    "candidate_years": "years",
+    "level_0382_win_rate_pct": "0.382 WR",
+    "level_05_win_rate_pct": "0.5 WR",
+    "level_0618_win_rate_pct": "0.618 WR",
 }
 
 
@@ -212,13 +219,15 @@ def result_table(
     *,
     show_adjustment: bool = True,
     note: str = "",
+    net_pnl_key: str = "net_pnl_usd",
+    net_pnl_label: str = "Net USD",
 ) -> str:
     body = "".join(
         (
             "<tr>"
             f"<td><strong>{html.escape(name)}</strong></td>"
             f"<td>{value['n']}</td><td>{value['win_rate_pct']}%</td>"
-            f"<td>{value['profit_factor']}</td><td>{value['net_pnl_usd']:,.2f}</td>"
+            f"<td>{value['profit_factor']}</td><td>{value[net_pnl_key]:,.2f}</td>"
         )
         + (
             f"<td>{rank_score_cell(value)}</td>"
@@ -234,7 +243,7 @@ def result_table(
         f'<section class="report-section"><h2>{html.escape(title)}</h2>'
         f"{note_html}"
         '<div class="table-wrap"><table><thead><tr><th>Context</th><th>n</th>'
-        f'<th>WR</th><th>PF</th><th>Net USD</th>{adjustment_header}</tr></thead>'
+        f'<th>WR</th><th>PF</th><th>{html.escape(net_pnl_label)}</th>{adjustment_header}</tr></thead>'
         f"<tbody>{body}</tbody></table></div></section>"
     )
 
@@ -283,6 +292,7 @@ CHART_SECTION_LABELS = {
     "mtf": "Multi-Timeframe Alignment",
     "hold_time_streaks": "Hold Time & Streaks",
     "macro": "Macro Composite Context",
+    "seasonality": "Seasonality",
     "comparison": "Version Comparison",
 }
 CHART_SECTION_ORDER = list(CHART_SECTION_LABELS)
@@ -646,6 +656,150 @@ def study_page_gap(study: dict[str, object]) -> str:
     )
 
 
+def month_seasonality_table(by_month: dict[str, dict[str, object]]) -> str:
+    rows = "".join(
+        "<tr>"
+        f"<td><strong>{html.escape(v['month_name'])}</strong></td><td>{v['n']}</td>"
+        f'<td>{v["win_rate_pct"]}%</td><td>{v["avg_chg_pts"]:+.0f} pts</td>'
+        f'<td>{v["avg_chg_pct"]:+.2f}%</td><td>{v["median_chg_pts"]:+.0f}</td>'
+        f'<td>{v["best_chg_pts"]:+.0f}</td><td>{v["worst_chg_pts"]:+.0f}</td><td>{html.escape(v["bias"])}</td>'
+        "</tr>"
+        for _, v in sorted(by_month.items(), key=lambda kv: int(kv[0]))
+    )
+    return (
+        '<section class="report-section"><h2>Seasonality by Calendar Month</h2>'
+        '<p class="section-note">Win rate ≥55% → LONG bias, ≤45% → SHORT, else NEUTRAL. n = years present.</p>'
+        '<div class="table-wrap"><table><thead><tr><th>Month</th><th>n</th><th>WR</th>'
+        "<th>Avg pts</th><th>Avg %</th><th>Median</th><th>Best</th><th>Worst</th><th>Bias</th></tr></thead>"
+        f"<tbody>{rows}</tbody></table></div></section>"
+    )
+
+
+def week_in_month_table(week_in_month: dict[str, dict[str, object]]) -> str:
+    rows = "".join(
+        "<tr>"
+        f"<td><strong>{html.escape(v['week_label'])}</strong></td><td>{v['n']}</td>"
+        f'<td>{v["win_rate_pct"]}%</td><td>{v["avg_chg_pts"]:+.0f} pts</td><td>{v["median_chg_pts"]:+.0f}</td>'
+        "</tr>"
+        for _, v in sorted(week_in_month.items(), key=lambda kv: int(kv[0]))
+    )
+    return (
+        '<section class="report-section"><h2>Week-in-Month Structure</h2>'
+        '<div class="table-wrap"><table><thead><tr><th>Week</th><th>n</th><th>WR</th>'
+        "<th>Avg pts</th><th>Median</th></tr></thead>"
+        f"<tbody>{rows}</tbody></table></div></section>"
+    )
+
+
+def year_month_heatmap_table(heatmap: dict[str, dict[str, object]]) -> str:
+    years = sorted(heatmap.keys(), key=int)
+    header = "<tr><th>Year</th>" + "".join(f"<th>{m}</th>" for m in range(1, 13)) + "</tr>"
+    body = ""
+    for year in years:
+        row = f"<tr><td><strong>{html.escape(year)}</strong></td>"
+        for month in range(1, 13):
+            value = heatmap[year].get(str(month))
+            if value is None:
+                row += "<td>—</td>"
+            else:
+                css = "score-positive" if value > 0 else ("score-negative" if value < 0 else "score-neutral")
+                row += f'<td class="{css}">{value:+.0f}</td>'
+        row += "</tr>"
+        body += row
+    return (
+        '<section class="report-section"><h2>Year × Month Heatmap (points)</h2>'
+        f'<div class="table-wrap tall-table"><table><thead>{header}</thead><tbody>{body}</tbody></table></div></section>'
+    )
+
+
+def study_page_seasonality(study: dict[str, object]) -> str:
+    result = study["_result"]
+    overall = result["overall"]
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    caveat = result["method"].get("continuous_contract_caveat")
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("Total months", overall["total_months"],
+                 f'{result["data_period"]["start"]} → {result["data_period"]["end"]}')
+        + metric("Overall win rate", f'{overall["overall_win_rate_pct"]}%', "Buy month-open, sell month-close")
+        + metric("Avg monthly change", f'{overall["avg_chg_pts"]:+.0f} pts', result["instrument"])
+        + "</div>"
+        + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
+        + '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + chart_sections_html([c for c in result["charts"] if c["section"] == "seasonality"])
+        + month_seasonality_table(result["by_month"])
+        + week_in_month_table(result["week_in_month"])
+        + year_month_heatmap_table(result["year_month_heatmap"])
+        + impact_section_html(study)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
+        "contains reviewed aggregate results, charts, and the reproducible method only.</p>"
+        + file_actions_html(study)
+        + "</section></main>"
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
+def study_page_fib_pullback(study: dict[str, object]) -> str:
+    result = study["_result"]
+    by_level = result["by_level"]
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    caveat = result["method"].get("continuous_contract_caveat")
+    metric_html = "".join(
+        metric(
+            f"{level} level",
+            f'{data["win_rate_pct"]}%' if data["n"] else "no trades",
+            f'n={data["n"]}' if data["n"] else "never triggered in this sample",
+        )
+        for level, data in by_level.items()
+    )
+    body = (
+        '<main class="shell report">'
+        f'<div class="metric-grid">{metric_html}</div>'
+        + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
+        + '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + chart_sections_html(result["charts"])
+        + result_table(
+            "Win rate by Fibonacci retracement level", by_level,
+            net_pnl_key="net_pnl_pts", net_pnl_label="Net pts", show_adjustment=False,
+        )
+        + impact_section_html(study)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(result["method"]["retracement_formula"])}</p>'
+        "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
+        "contains reviewed aggregate results, charts, and the reproducible method only. Full "
+        'year-by-year detail is in <a href="results.json">results.json</a>’s <code>yearly_detail</code>.</p>'
+        + file_actions_html(study)
+        + "</section></main>"
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -654,9 +808,13 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_gap(study)
     if "fail_pattern" in result:
         return study_page_fail_pattern_solo(study)
+    if "by_month" in result:
+        return study_page_seasonality(study)
+    if "by_level" in result:
+        return study_page_fib_pullback(study)
     raise ValueError(
-        f'{study["id"]}: results.json matches none of the three section 5 contract '
-        'shapes ("versions", "baseline_diff", "fail_pattern")'
+        f'{study["id"]}: results.json matches none of the known report shapes '
+        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level")'
     )
 
 

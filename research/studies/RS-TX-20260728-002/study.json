@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20260728-002",
+  "revision": 1,
+  "title": "TX annual Jan-open to Jul-1 rally, Fibonacci pullback re-entry",
+  "market": "TX",
+  "strategy": {
+    "id": "annual-fib-pullback",
+    "version": "v1"
+  },
+  "status": "progress",
+  "created_on": "2026-07-28",
+  "question": "For each year TX rallies from January's open to July 1st, do the 0.618/0.5/0.382 Fibonacci retracement levels of that rally (entered independently when touched, exited the following March 31) show a meaningful win rate, given only ~13 candidate years exist in the available daily history?",
+  "hypothesis": "This is an exploratory, low-sample-size seasonal-pattern test, not a validated edge; the small n (7-8 trades per level) means results should be read as descriptive, not decision-grade, until a materially longer or higher-frequency dataset is available.",
+  "headline": {
+    "candidate_years": 13,
+    "level_0382_win_rate_pct": 50.0,
+    "level_05_win_rate_pct": 62.5,
+    "level_0618_win_rate_pct": 57.14
+  },
+  "card_metrics": ["candidate_years", "level_0382_win_rate_pct", "level_05_win_rate_pct", "level_0618_win_rate_pct"],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Sample size is inherently tiny (7-8 trades per level)",
+      "detail": "Only 13 candidate years exist in the available daily history (2013-2025); every level's 95% confidence interval spans roughly 30-50 percentage points. Read every win rate below as descriptive, not as a validated edge."
+    },
+    {
+      "tone": "info",
+      "title": "The 0.5 level shows the highest win rate in this small sample",
+      "detail": "n=8, 62.5% win rate, PF 3.557 — but n=8 with a 95% CI of 30.57-86.32% means this is consistent with anywhere from a coin-flip to a strong edge."
+    },
+    {
+      "tone": "info",
+      "title": "0.382 (the shallowest, most-often-touched level) has the weakest win rate",
+      "detail": "n=8, 50.0% win rate — shallower retracements trigger more often but, in this sample, land closer to a coin flip than the deeper levels."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

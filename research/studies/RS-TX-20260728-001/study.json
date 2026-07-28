@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20260728-001",
+  "revision": 1,
+  "title": "TX monthly seasonality — buy month-open, sell month-close",
+  "market": "TX",
+  "strategy": {
+    "id": "monthly-seasonality",
+    "version": "v1"
+  },
+  "status": "progress",
+  "created_on": "2026-07-28",
+  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 14 monthly seasonality contract, what does buying at each month's open and selling at that month's close show for TX (MXF continuous front-month), by calendar month and by week-in-month, across the full available weekly history?",
+  "hypothesis": "This is a full-coverage seasonality reproduction, not a new hypothesis test; it exists to give a recurring, market-agnostic report shape reusable for any instrument.",
+  "headline": {
+    "total_months": 169,
+    "overall_win_rate_pct": 63.91,
+    "avg_chg_pts": 198.64
+  },
+  "findings": [
+    {
+      "tone": "info",
+      "title": "January and February are the strongest calendar months",
+      "detail": "14 years each: January 71.4% win rate (+377 pts avg), February 64.3% (+396 pts avg) — both LONG bias."
+    },
+    {
+      "tone": "warn",
+      "title": "Not every LONG-biased month is strong evidence",
+      "detail": "n = number of years (14 at most). Treat calendar-month bias as descriptive seasonality context, not a standalone trading signal — sample size is inherently small for a once-a-year event."
+    },
+    {
+      "tone": "info",
+      "title": "Month-start (week 1) has the highest week-in-month win rate",
+      "detail": "58.6% across all 169 months, ahead of week 2 (53.9%) — consistent with the report's own headline question (buy month-open)."
+    }
+  ],
+  "policy_impacts": [],
+  "publication_boundary": {
+    "raw_csv": "private",
+    "conversation": "private decision record",
+    "aggregate_results": "public",
+    "method": "public",
+    "charts": "public"
+  }
+}

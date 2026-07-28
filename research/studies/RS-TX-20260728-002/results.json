@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-TX-20260728-002",
+  "generated_at": "2026-07-28T07:21:14.984461+00:00",
+  "method": {
+    "anchor_definition": "jan_open = year Y's first January trading day's open (0% anchor); jul1_price = close on/before July 1 of year Y (100% anchor)",
+    "qualification": "year only qualifies if jul1_price > jan_open",
+    "retracement_formula": "level_price(ratio) = jul1_price - ratio * (jul1_price - jan_open); 0.382 is shallowest (closest to jul1_price), 0.618 is deepest (closest to jan_open)",
+    "entry_rule": "first daily low <= level_price, strictly after Jul 1 through the following Mar 31; filled at the level price; no re-entry on a later re-touch",
+    "exit_rule": "close on/before March 31 of year Y+1, fixed regardless of price action in between",
+    "continuous_contract_caveat": "TX (MXF continuous front-month) is a rolling front-month continuous contract; roll adjustments landing near a Jan-1/Jul-1/Mar-31 anchor date can shift that anchor's price independent of real price movement. Known limitation, not corrected here."
+  },
+  "charts": [
+    {
+      "id": "fib_level_winrate",
+      "file": "fib_level_winrate.png",
+      "title": "Win Rate by Fibonacci Retracement Level",
+      "section": "seasonality"
+    }
+  ],
+  "instrument": "TX (MXF continuous front-month)",
+  "candidate_years": {
+    "start": 2013,
+    "end": 2025
+  },
+  "by_level": {
+    "0.382": {
+      "n": 8,
+      "wins": 4,
+      "win_rate_pct": 50.0,
+      "win_rate_ci95_pct": [
+        21.52,
+        78.48
+      ],
+      "profit_factor": 2.158,
+      "net_pnl_pts": 1940.42,
+      "avg_pnl_pts": 242.55,
+      "avg_return_pct": 2.437
+    },
+    "0.5": {
+      "n": 8,
+      "wins": 5,
+      "win_rate_pct": 62.5,
+      "win_rate_ci95_pct": [
+        30.57,
+        86.32
+      ],
+      "profit_factor": 3.557,
+      "net_pnl_pts": 3254.0,
+      "avg_pnl_pts": 406.75,
+      "avg_return_pct": 3.5725
+    },
+    "0.618": {
+      "n": 7,
+      "wins": 4,
+      "win_rate_pct": 57.14,
+      "win_rate_ci95_pct": [
+        25.05,
+        84.18
+      ],
+      "profit_factor": 3.384,
+      "net_pnl_pts": 2722.49,
+      "avg_pnl_pts": 388.93,
+      "avg_return_pct": 3.7628
+    }
+  },
+  "yearly_detail": [
+    {
+      "year": 2013,
+      "jan_open_date": "2013-01-02",
+      "jan_open": 7725.0,
+      "jul1_date": "2013-07-01",
+      "jul1_price": 7903.0,
+      "pct_rise": 2.3,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 7835.0,
+        "0.5": 7814.0,
+        "0.618": 7793.0
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2013-07-03",
+          "entry_price": 7835.0,
+          "exit_date": "2014-03-31",
+          "exit_price": 8790.0,
+          "pnl_pts": 955.0,
+          "win": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2013-07-03",
+          "entry_price": 7814.0,
+          "exit_date": "2014-03-31",
+          "exit_price": 8790.0,
+          "pnl_pts": 976.0,
+          "win": true
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2013-08-22",
+          "entry_price": 7793.0,
+          "exit_date": "2014-03-31",
+          "exit_price": 8790.0,
+          "pnl_pts": 997.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "year": 2014,
+      "jan_open_date": "2014-01-02",
+      "jan_open": 8646.0,
+      "jul1_date": "2014-07-01",
+      "jul1_price": 9380.0,
+      "pct_rise": 8.49,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 9099.61,
+        "0.5": 9013.0,
+        "0.618": 8926.39
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2014-08-05",
+          "entry_price": 9099.61,
+          "exit_date": "2015-03-31",
+          "exit_price": 9582.0,
+          "pnl_pts": 482.39,
+          "win": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2014-08-08",
+          "entry_price": 9013.0,
+          "exit_date": "2015-03-31",
+          "exit_price": 9582.0,
+          "pnl_pts": 569.0,
+          "win": true
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2014-09-30",
+          "entry_price": 8926.39,
+          "exit_date": "2015-03-31",
+          "exit_price": 9582.0,
+          "pnl_pts": 655.61,
+          "win": true
+        }
+      }
+    },
+    {
+      "year": 2015,
+      "jan_open_date": "2015-01-05",
+      "jan_open": 9243.0,
+      "jul1_date": "2015-07-01",
+      "jul1_price": 9292.0,
+      "pct_rise": 0.53,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 9273.28,
+        "0.5": 9267.5,
+        "0.618": 9261.72
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2015-07-02",
+          "entry_price": 9273.28,
+          "exit_date": "2016-03-31",
+          "exit_price": 8716.0,
+          "pnl_pts": -557.28,
+          "win": false
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2015-07-02",
+          "entry_price": 9267.5,
+          "exit_date": "2016-03-31",
+          "exit_price": 8716.0,
+          "pnl_pts": -551.5,
+          "win": false
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2015-07-02",
+          "entry_price": 9261.72,
+          "exit_date": "2016-03-31",
+          "exit_price": 8716.0,
+          "pnl_pts": -545.72,
+          "win": false
+        }
+      }
+    },
+    {
+      "year": 2016,
+      "jan_open_date": "2016-01-05",
+      "jan_open": 8095.0,
+      "jul1_date": "2016-07-01",
+      "jul1_price": 8623.0,
+      "pct_rise": 6.52,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 8421.3,
+        "0.5": 8359.0,
+        "0.618": 8296.7
+      },
+      "entries": {
+        "0.382": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    },
+    {
+      "year": 2017,
+      "jan_open_date": "2017-01-03",
+      "jan_open": 9266.0,
+      "jul1_date": "2017-06-30",
+      "jul1_price": 10252.0,
+      "pct_rise": 10.64,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 9875.35,
+        "0.5": 9759.0,
+        "0.618": 9642.65
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "entry_price": 9875.35,
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "pnl_pts": 1042.65,
+          "win": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "entry_price": 9759.0,
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "pnl_pts": 1159.0,
+          "win": true
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "entry_price": 9642.65,
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "pnl_pts": 1275.35,
+          "win": true
+        }
+      }
+    },
+    {
+      "year": 2018,
+      "jan_open_date": "2018-01-02",
+      "jan_open": 10626.0,
+      "jul1_date": "2018-06-29",
+      "jul1_price": 10677.0,
+      "pct_rise": 0.48,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 10657.52,
+        "0.5": 10651.5,
+        "0.618": 10645.48
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2018-07-02",
+          "entry_price": 10657.52,
+          "exit_date": "2019-03-29",
+          "exit_price": 10598.0,
+          "pnl_pts": -59.52,
+          "win": false
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2018-07-02",
+          "entry_price": 10651.5,
+          "exit_date": "2019-03-29",
+          "exit_price": 10598.0,
+          "pnl_pts": -53.5,
+          "win": false
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2018-07-02",
+          "entry_price": 10645.48,
+          "exit_date": "2019-03-29",
+          "exit_price": 10598.0,
+          "pnl_pts": -47.48,
+          "win": false
+        }
+      }
+    },
+    {
+      "year": 2019,
+      "jan_open_date": "2019-01-02",
+      "jan_open": 9759.0,
+      "jul1_date": "2019-07-01",
+      "jul1_price": 10766.0,
+      "pct_rise": 10.32,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 10381.33,
+        "0.5": 10262.5,
+        "0.618": 10143.67
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2019-07-03",
+          "entry_price": 10381.33,
+          "exit_date": "2020-03-31",
+          "exit_price": 9595.0,
+          "pnl_pts": -786.33,
+          "win": false
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2019-07-03",
+          "entry_price": 10262.5,
+          "exit_date": "2020-03-31",
+          "exit_price": 9595.0,
+          "pnl_pts": -667.5,
+          "win": false
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2019-08-06",
+          "entry_price": 10143.67,
+          "exit_date": "2020-03-31",
+          "exit_price": 9595.0,
+          "pnl_pts": -548.67,
+          "win": false
+        }
+      }
+    },
+    {
+      "year": 2020,
+      "jan_open_date": "2020-01-02",
+      "jan_open": 12045.0,
+      "jul1_date": "2020-07-01",
+      "jul1_price": 11544.0,
+      "pct_rise": -4.16,
+      "qualified": false,
+      "level_prices": {
+        "0.382": null,
+        "0.5": null,
+        "0.618": null
+      },
+      "entries": {
+        "0.382": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    },
+    {
+      "year": 2021,
+      "jan_open_date": "2021-01-04",
+      "jan_open": 14641.0,
+      "jul1_date": "2021-07-01",
+      "jul1_price": 17646.0,
+      "pct_rise": 20.52,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 16498.09,
+        "0.5": 16143.5,
+        "0.618": 15788.91
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2021-08-18",
+          "entry_price": 16498.09,
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "pnl_pts": 1135.91,
+          "win": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2021-08-20",
+          "entry_price": 16143.5,
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "pnl_pts": 1490.5,
+          "win": true
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    },
+    {
+      "year": 2022,
+      "jan_open_date": "2022-01-03",
+      "jan_open": 18270.0,
+      "jul1_date": "2022-07-01",
+      "jul1_price": 14175.0,
+      "pct_rise": -22.41,
+      "qualified": false,
+      "level_prices": {
+        "0.382": null,
+        "0.5": null,
+        "0.618": null
+      },
+      "entries": {
+        "0.382": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    },
+    {
+      "year": 2023,
+      "jan_open_date": "2023-01-03",
+      "jan_open": 14120.0,
+      "jul1_date": "2023-06-30",
+      "jul1_price": 16787.0,
+      "pct_rise": 18.89,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 15768.21,
+        "0.5": 15453.5,
+        "0.618": 15138.79
+      },
+      "entries": {
+        "0.382": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    },
+    {
+      "year": 2024,
+      "jan_open_date": "2024-01-02",
+      "jan_open": 17871.0,
+      "jul1_date": "2024-07-01",
+      "jul1_price": 22993.0,
+      "pct_rise": 28.66,
+      "qualified": true,
+      "level_prices": {
+        "0.382": 21036.4,
+        "0.5": 20432.0,
+        "0.618": 19827.6
+      },
+      "entries": {
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2024-08-05",
+          "entry_price": 21036.4,
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "pnl_pts": -272.4,
+          "win": false
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2024-08-05",
+          "entry_price": 20432.0,
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "pnl_pts": 332.0,
+          "win": true
+        },
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2024-08-05",
+          "entry_price": 19827.6,
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "pnl_pts": 936.4,
+          "win": true
+        }
+      }
+    },
+    {
+      "year": 2025,
+      "jan_open_date": "2025-01-02",
+      "jan_open": 23025.0,
+      "jul1_date": "2025-07-01",
+      "jul1_price": 22352.0,
+      "pct_rise": -2.92,
+      "qualified": false,
+      "level_prices": {
+        "0.382": null,
+        "0.5": null,
+        "0.618": null
+      },
+      "entries": {
+        "0.382": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.618": {
+          "triggered": false
+        }
+      }
+    }
+  ]
+}
