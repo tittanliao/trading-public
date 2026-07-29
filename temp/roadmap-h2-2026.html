@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>量化交易 H2 2026 Roadmap</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --surface-2:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6; /* blue */
+    --series-2:       #eb6834; /* orange */
+    --series-7:       #4a3aa7; /* violet */
+    --good:    #0ca30c;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical:#d03b3b;
+    --good-text: #006300;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --surface-2:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-2:       #d95926;
+      --series-7:       #9085e9;
+      --good:    #0ca30c;
+      --warning: #fab219;
+      --serious: #ec835a;
+      --critical:#e66767;
+      --good-text: #0ca30c;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --surface-2:      #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --series-2:       #d95926;
+    --series-7:       #9085e9;
+    --good:    #0ca30c;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical:#e66767;
+    --good-text: #0ca30c;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang TC", "Heiti TC", sans-serif;
+    background: var(--surface-2);
+    color: var(--text-primary);
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+  .temp-banner {
+    background: var(--warning);
+    color: #1a1a19;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    padding: 8px 12px;
+  }
+  header.hero {
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  header.hero h1 {
+    font-size: 26px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  header.hero p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  section { margin-bottom: 44px; }
+  h2 {
+    font-size: 18px;
+    margin: 0 0 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  h2 .num {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .section-lede {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0 0 18px;
+    line-height: 1.7;
+  }
+  p.body-text {
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--text-primary);
+    margin: 0 0 14px;
+  }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  /* ---- maturity ladder ---- */
+  .ladder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 8px 0 18px;
+  }
+  .rung {
+    position: relative;
+    padding: 16px 10px 14px;
+    border-top: 3px solid var(--gridline);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .rung .dot {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--surface-1);
+    border: 3px solid var(--gridline);
+  }
+  .rung.current { border-top-color: var(--warning); color: var(--text-primary); }
+  .rung.current .dot { border-color: var(--warning); background: var(--warning); }
+  .rung .stage-label {
+    display: block;
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .rung.current .badge {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a1a19;
+    background: var(--warning);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+
+  /* ---- compare stat tiles ---- */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 4px 0 6px;
+  }
+  .stat-tile {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: var(--surface-1);
+  }
+  .stat-tile .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .tag.good { color: var(--good-text); background: color-mix(in srgb, var(--good) 16%, transparent); }
+  .tag.critical { color: var(--critical); background: color-mix(in srgb, var(--critical) 16%, transparent); }
+  .stat-tile .version { font-size: 13px; color: var(--text-secondary); margin-bottom: 2px; }
+  .stat-tile .value { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat-tile .value small { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+  .stat-tile .note { font-size: 12.5px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
+
+  /* ---- S2 timeline ---- */
+  .timeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 10px 0 4px;
+  }
+  .tl-step {
+    flex: 1;
+    position: relative;
+    padding: 18px 14px 4px;
+    border-top: 3px solid var(--gridline);
+    font-size: 12.5px;
+  }
+  .tl-step .dot {
+    position: absolute; top: -8px; left: 14px;
+    width: 13px; height: 13px; border-radius: 50%;
+    border: 3px solid var(--gridline); background: var(--surface-1);
+  }
+  .tl-step.fail { border-top-color: var(--critical); }
+  .tl-step.fail .dot { border-color: var(--critical); background: var(--critical); }
+  .tl-step.marginal { border-top-color: var(--warning); }
+  .tl-step.marginal .dot { border-color: var(--warning); background: var(--warning); }
+  .tl-step.shelved { border-top-color: var(--series-1); }
+  .tl-step.shelved .dot { border-color: var(--series-1); background: var(--surface-1); }
+  .tl-step .v { font-weight: 700; color: var(--text-primary); display:block; margin-bottom:2px;}
+  .tl-step .d { color: var(--text-secondary); line-height: 1.6; }
+  .tl-step .live-badge {
+    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700;
+    padding: 1px 7px; border-radius: 999px; background: var(--warning); color: #1a1a19;
+  }
+  .tl-step .shelf-badge {
+    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700;
+    padding: 1px 7px; border-radius: 999px; border: 1px solid var(--series-1); color: var(--series-1);
+  }
+
+  /* ---- checklist ---- */
+  ul.check { list-style: none; margin: 0; padding: 0; }
+  ul.check li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 14px; line-height: 1.7; padding: 8px 0;
+    border-bottom: 1px solid var(--gridline);
+  }
+  ul.check li:last-child { border-bottom: none; }
+  ul.check .icon {
+    flex: none; width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: #fff; margin-top: 1px;
+  }
+  .icon.good { background: var(--good); }
+  .icon.warning { background: var(--warning); color: #1a1a19; }
+  .icon.critical { background: var(--critical); }
+
+  /* ---- gap table ---- */
+  table.gaps {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  table.gaps th {
+    text-align: left;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    font-weight: 700;
+    padding: 0 10px 8px;
+    border-bottom: 1px solid var(--baseline);
+  }
+  table.gaps td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--gridline);
+    vertical-align: top;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+  table.gaps tr:last-child td { border-bottom: none; }
+  table.gaps td.cat { font-weight: 600; white-space: nowrap; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px; font-weight: 700; white-space: nowrap;
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .status-pill.critical { color: var(--critical); background: color-mix(in srgb, var(--critical) 14%, transparent); }
+  .status-pill.warning { color: #7a5400; background: color-mix(in srgb, var(--warning) 30%, transparent); }
+  :root[data-theme="dark"] .status-pill.warning,
+  @media (prefers-color-scheme: dark) { .status-pill.warning { color: #ffd876; } }
+
+  /* ---- priority roadmap ---- */
+  .priorities { display: flex; flex-direction: column; gap: 12px; }
+  .priority {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: var(--surface-1);
+  }
+  .priority.p1 { border-left: 4px solid var(--critical); }
+  .priority.p2 { border-left: 4px solid var(--warning); }
+  .priority.p3 { border-left: 4px solid var(--warning); }
+  .priority.p4 { border-left: 4px solid var(--series-1); }
+  .priority.p5 { border-left: 4px solid var(--text-muted); }
+  .priority .rank {
+    font-size: 22px; font-weight: 800; color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .priority h3 { font-size: 15px; margin: 0 0 6px; }
+  .priority p { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--text-secondary); }
+  .priority .when {
+    display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em;
+  }
+
+  /* ---- collab matrix ---- */
+  table.collab { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.collab th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .03em;
+    color: var(--text-muted); padding: 0 10px 8px; border-bottom: 1px solid var(--baseline);
+  }
+  table.collab td { padding: 12px 10px; border-bottom: 1px solid var(--gridline); line-height: 1.6; vertical-align: top; }
+  table.collab tr:last-child td { border-bottom: none; }
+  table.collab td.activity { font-weight: 700; white-space: nowrap; }
+  .risk-badge {
+    display: inline-flex; align-items:center; gap:4px; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+  }
+  .risk-badge.low { color: var(--good-text); background: color-mix(in srgb, var(--good) 16%, transparent); }
+  .risk-badge.high { color: var(--critical); background: color-mix(in srgb, var(--critical) 16%, transparent); }
+
+  /* ---- closing ---- */
+  .closing {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--critical);
+    border-radius: 10px;
+    padding: 22px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+  }
+  .closing span.label {
+    display: block; font-size: 11px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .compare { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; }
+    .tl-step { border-top: none; border-left: 3px solid var(--gridline); padding: 8px 0 8px 16px; }
+    .tl-step.fail { border-left-color: var(--critical); }
+    .tl-step.marginal { border-left-color: var(--warning); }
+    .tl-step.shelved { border-left-color: var(--series-1); }
+    .tl-step .dot { top: 6px; left: -8px; }
+    .ladder { grid-template-columns: 1fr 1fr; row-gap: 18px; }
+    .priority { grid-template-columns: 28px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="temp-banner">TEMP — 暫存頁面，非正式研究產出，後續可隨時移除，不列入網站導覽</div>
+  <div class="page">
+
+    <header class="hero">
+      <h1>量化交易 H2 2026 Roadmap</h1>
+      <p>現況診斷、優缺點盤點、下半年 priority、Claude / Codex 協作模型 — 2026-07-29 整理。
+      資料依據 <code>docs/STRATEGY.md</code>、<code>docs/TRADING_PROFILE.md</code>、
+      journal 紀錄與本週 TX 研究產出，未虛構任何數字。</p>
+    </header>
+
+    <section>
+      <h2><span class="num">01</span> 現況老實話診斷</h2>
+      <p class="section-lede">不是「原地踏步」，是卡在一個具體且可命名的階段。</p>
+      <div class="card">
+        <div class="ladder">
+          <div class="rung">
+            <span class="dot"></span>
+            <span class="stage-label">Discretionary</span>
+            憑感覺／經驗判斷，無固定規則
+          </div>
+          <div class="rung current">
+            <span class="dot"></span>
+            <span class="stage-label">Systematic，未驗證</span>
+            有固定規則，但 promotion 沒有重新做 OOS
+            <span class="badge">你在這裡</span>
+          </div>
+          <div class="rung">
+            <span class="dot"></span>
+            <span class="stage-label">Systematic + OOS 紀律</span>
+            上線前強制 walk-forward／held-out 驗證
+          </div>
+          <div class="rung">
+            <span class="dot"></span>
+            <span class="stage-label">Portfolio 風控</span>
+            Sharpe/Sortino/相關性/regime 全部量化管理
+          </div>
+        </div>
+        <p class="body-text">帳戶金額沒有反映努力，原因很具體：S1 現行版本 V3.9 是「backtest PF
+        變好、但沒有重新做 OOS 驗證」就被 promote 上線的 —— 連 spec 自己都寫了「Not separately
+        restated」。對照它取代的 V3.7（PF 較低，但 OOS confirmed），等於是<strong>用一個驗證更弱的版本，
+        換掉了一個驗證更強的版本</strong>，只因為回測數字比較好看。這正是你自己懷疑的
+        ——「TradingView 每次重新優化、歷史績效就變好」—— 的確切定義：<strong>in-sample
+        curve-fitting</strong>。在同一段歷史資料上反覆調參，模型學到的是「這段資料的雜訊」而不是
+        「市場的結構」。這種模式的 live 表現特徵是固定的：一開始（一月）剛好某段參數命中當時的
+        regime，看起來很神；之後只要 regime 一換，過擬合的參數就開始漏財 —— 小賺大賠，因為停損停利點位
+        是靠著剛好卡在歷史噪音上算出來的，換一個 regime 就全部失效。</p>
+
+        <div class="compare">
+          <div class="stat-tile">
+            <span class="tag good">✓ OOS confirmed</span>
+            <div class="version">S1 · V3.7（前版，已淘汰）</div>
+            <div class="value">1.743 <small>PF</small></div>
+            <div class="note">WR 55.12%。OOS validation：confirmed under the prior version decision。</div>
+          </div>
+          <div class="stat-tile">
+            <span class="tag critical">✕ OOS not restated</span>
+            <div class="version">S1 · V3.9（現行，正在扛主要曝險）</div>
+            <div class="value">1.888 <small>PF</small></div>
+            <div class="note">Spec 原文：「OOS validation: Not separately restated in the promotion instruction」。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">02</span> S2 的版本史更誇張</h2>
+      <div class="card">
+        <div class="timeline">
+          <div class="tl-step fail">
+            <span class="dot"></span>
+            <span class="v">V1.9</span>
+            <span class="d">Failed OOS — 第一個上線版本，edge 不足</span>
+          </div>
+          <div class="tl-step marginal">
+            <span class="dot"></span>
+            <span class="v">V3.2</span>
+            <span class="d">Marginal — pooled OOS PF ≈ 1.11（幾乎打平成本），仍在跑 live risk</span>
+            <span class="live-badge">目前正式版</span>
+          </div>
+          <div class="tl-step shelved">
+            <span class="dot"></span>
+            <span class="v">V4.1</span>
+            <span class="d">OOS PF 1.64，比現行版更好，但從未 promote</span>
+            <span class="shelf-badge">放在架上沒用</span>
+          </div>
+        </div>
+        <p class="body-text" style="margin-top:16px;">Pooled OOS PF 1.11 扣掉滑點與手續費幾乎等於沒有
+        edge，卻仍在跑真實風險 —— 只是靠「每週上限 2 筆」這條帶子把傷害限縮，不是因為策略被證明有效。
+        更諷刺的是：OOS 表現更好的 V4.1（PF 1.64）沒有被 promote，等於你有一把更利的刀放在抽屜沒用，
+        卻拿著一把驗證不足的刀在砍。<strong>S1、S2 目前現行版本，沒有一個帶著剛重新做過的 OOS 驗證。</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">03</span> 做得好的地方</h2>
+      <p class="section-lede">不是安慰話 —— 這部分的成熟度在同規模個人交易者裡確實少見。</p>
+      <div class="card">
+        <ul class="check">
+          <li><span class="icon good">✓</span> Private / Public 雙 repo 研究架構：每個 study 都有
+          study.json / results.json / source_manifest（來源 SHA-256 雜湊）/ decision_log / handoff，
+          自動化 verifier 做 cross-check。</li>
+          <li><span class="icon good">✓</span> rank_score 一律要求 Wilson 95% 信賴區間，不是裸勝率。</li>
+          <li><span class="icon good">✓</span> 本週新增的 TX 月季節性、費波那契回檔研究，樣本數小
+          （n=7-8）就誠實標記「descriptive, not decision-grade」，沒有硬拗成可交易訊號 —— 統計上的謙遜
+          做對了。</li>
+          <li><span class="icon good">✓</span> 交易哲學本身正確：高信心、低頻率，寧可零訊號也不硬凹。</li>
+        </ul>
+        <p class="body-text" style="margin-top:14px; margin-bottom:0;"><strong>你缺的不是紀律，是把這套紀律用在你真正在賭錢的
+        S1 / S2 身上。</strong>研究側的謙遜和嚴謹，還沒有回頭套用到扛真實曝險的策略 promotion 流程。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">04</span> 缺口盤點</h2>
+      <div class="card">
+        <table class="gaps">
+          <thead>
+            <tr><th style="width:22%">項目</th><th style="width:16%">狀態</th><th>評估</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cat">Regime detection</td>
+              <td><span class="status-pill critical">完全缺</span></td>
+              <td>Macro rank-score／48 時段表都只是 advisory overlay，不區分「策略在哪個 regime 下才有效」。</td>
+            </tr>
+            <tr>
+              <td class="cat">Normalization / z-score</td>
+              <td><span class="status-pill critical">未見於策略邏輯</span></td>
+              <td>S1/S2 的驗證流程中沒有標準化處理，指標尺度未跨時間/跨商品對齊。</td>
+            </tr>
+            <tr>
+              <td class="cat">Sharpe / Sortino / drawdown</td>
+              <td><span class="status-pill critical">幾乎完全缺失</span></td>
+              <td>Repo 裡沒有聚合 equity curve、沒有半年滾動風險指標。「小賺大賠」的印象只存在你腦中和對帳單，系統裡查不到 —— 這是獨立的流程缺口。</td>
+            </tr>
+            <tr>
+              <td class="cat">Overfitting 評估</td>
+              <td><span class="status-pill warning">有能力，未套用於 live</span></td>
+              <td>Spec 框架有能力做 walk-forward / deflated Sharpe / Monte Carlo permutation，但 S1 V3.9
+              的 promotion 決策裡完全沒走這一步 —— 最致命的一項，直接對應你自己的懷疑。</td>
+            </tr>
+            <tr>
+              <td class="cat">Regime-specific 有效性測試</td>
+              <td><span class="status-pill critical">缺</span></td>
+              <td>V3.9 沒有「在哪些 regime 下會失效」的紀錄。</td>
+            </tr>
+            <tr>
+              <td class="cat">策略分散 / 相關性</td>
+              <td><span class="status-pill warning">只有資金控管，非統計分散</span></td>
+              <td>S1+S2 併行有 combined risk cap（1.5%），但那是曝險上限，沒人量過 S1/S2 訊號相關性，TX
+              也還沒納入組合層級評估。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">05</span> 下半年 Priority Roadmap</h2>
+      <p class="section-lede">照順序做，不要並行展開 —— 你自己說想簡單、想重複做簡單的事，這份清單就是照那個原則排的。</p>
+      <div class="priorities">
+        <div class="priority p1">
+          <div class="rank">1</div>
+          <div>
+            <h3>S1 V3.9 補做 walk-forward + OOS 重新驗證</h3>
+            <p>扛主要曝險的策略，且是 spec 自己承認的已知缺口，投報比最高、風險最集中。切出訓練時未見過的
+            held-out 期間，重跑既有回測 pipeline，正式寫進 study.json / decision_log。若 OOS PF 明顯低於
+            1.888，要有心理準備降級或退回 V3.7 邏輯。<strong>必須排在任何新策略開發之前</strong> ——
+            地基沒補之前蓋新樓，只是複製同一個錯誤。</p>
+            <span class="when">現在就做 · 不開發新策略</span>
+          </div>
+        </div>
+        <div class="priority p2">
+          <div class="rank">2</div>
+          <div>
+            <h3>把 Sharpe / Sortino / drawdown 做成週報固定產出</h3>
+            <p>掛在既有的週報 workflow 上，不需要新系統，只是週報骨架加一節「風險調整後績效」。資料源是
+            journal —— 但目前 journal 只有兩筆真實紀錄，這也逼你把交易紀錄的 habit 補齊，等於順手解掉
+            另一個流程缺口。</p>
+            <span class="when">H2 前段</span>
+          </div>
+        </div>
+        <div class="priority p3">
+          <div class="rank">3</div>
+          <div>
+            <h3>S2 二選一：補到 walk-forward 達標，或正式降級</h3>
+            <p>不要繼續用「每週上限 2 筆」這條帶子讓一個 PF 1.11 的策略吃真實 risk。V4.1 既然 OOS 更好，
+            應該走正式 promotion 流程重新評估；評估不過就明確降到 research-only / 停用，而不是放著。</p>
+            <span class="when">H2 前段</span>
+          </div>
+        </div>
+        <div class="priority p4">
+          <div class="rank">4</div>
+          <div>
+            <h3>Regime-aware 驗證框架</h3>
+            <p>作為正式 research study（有 study.json / decision_log），先用在 S1 / S2 既有邏輯上做
+            regime 切分回測，不急著做新策略。</p>
+            <span class="when">H2 後段</span>
+          </div>
+        </div>
+        <div class="priority p5">
+          <div class="rank">5</div>
+          <div>
+            <h3>新策略開發 / TX 擴張</h3>
+            <p>明確排最後，除非前面三項有具體產出。先把兩個現有策略的驗證做扎實，而不是用新策略稀釋注意力。</p>
+            <span class="when">前四項有產出後才開始</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">06</span> Claude / Codex 協作模型</h2>
+      <div class="card">
+        <table class="collab">
+          <thead>
+            <tr><th style="width:16%">活動</th><th style="width:14%">Cadence</th><th style="width:16%">Overfitting 風險</th><th>Guardrail</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="activity">週報</td>
+              <td>固定・週頻</td>
+              <td><span class="risk-badge low">低</span></td>
+              <td>消費既有資料、整合輸出＋風險指標追蹤，不涉及參數調整，適合完全自動化。</td>
+            </tr>
+            <tr>
+              <td class="activity">請分析</td>
+              <td>固定・日/會話頻</td>
+              <td><span class="risk-badge low">低</span></td>
+              <td>純訊號讀取＋macro/時段 overlay 判讀，消費既有模型，不是重訓模型。</td>
+            </tr>
+            <tr>
+              <td class="activity">開發策略／回測／優化</td>
+              <td>固定・季頻（非隨興）</td>
+              <td><span class="risk-badge high">高</span></td>
+              <td>三者必須綁在一起處理：(1) promotion 到 formal/live 前，decision_log 必須有「重新
+              restate 的 OOS 結果」，缺這欄不准 promote；(2) 優化前先切好並鎖定 held-out
+              集，不能因為表現不好就換一批重測；(3) 不做 daily/on-demand，改固定季頻，避免「手癢重跑、
+              數字好看就上線」的循環。</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="body-text" style="margin-top:16px; margin-bottom:0;">老實講：如果回測和優化的做法跟
+        produce 出 V3.9 的方式一樣 —— 同一份歷史資料反覆調參、看回測數字進步就收工 —— 只會做出更多
+        V3.9 型態的問題，換個版本號而已。上面的 guardrail 是把 spec 既有的 Stage/handoff 機制，
+        從「建議」正式改成「gate」。</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="closing">
+        <span class="label">一句話總結</span>
+        你不是缺技術，是缺一條「回測數字變好看 ≠ 可以上線」的硬規則 —— 先把這條線畫在 S1 V3.9 身上，
+        其他都等它做完再說。
+      </div>
+    </section>
+
+    <footer>
+      本頁為暫存分析頁面（temp/），依 2026-07-29 對話產出，未連結至網站導覽，可隨時移除。<br>
+      資料來源：docs/STRATEGY.md、docs/TRADING_PROFILE.md、state/xauusd/journals/、research/registry.json（RS-TX-20260728-001/-002）。
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
