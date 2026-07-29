@@ -516,6 +516,57 @@ def mark_descriptive_only(groups: dict, keys: list[str]) -> dict:
     return groups
 
 
+# docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11 (owner-directed 2026-07-29).
+# Chronological-bucket / holdout-split check on this one static trade export — not a
+# re-optimized walk-forward (the Pine Script strategy logic is never re-run/re-tuned
+# on any sub-window here).
+TEMPORAL_STABILITY_LIMITATION = (
+    "This is a chronological-bucket / holdout-split check on ONE static TradingView "
+    "strategy-tester export, not a re-optimized walk-forward: the underlying Pine "
+    "Script strategy logic is never re-run or re-tuned on any sub-window here. It can "
+    "show whether the recorded win rate / profit factor is stable or concentrated in "
+    "an earlier stretch of the export; it cannot prove the strategy's parameters would "
+    "have been chosen the same way if only the early data had ever existed."
+)
+
+
+def quarterly_bucket_stats(trades: pd.DataFrame) -> dict:
+    quarters = trades["entry_time"].dt.to_period("Q").astype(str)
+    return {str(q): stats(group) for q, group in trades.groupby(quarters, observed=True)}
+
+
+def chronological_holdout(trades: pd.DataFrame, split_ratio: float = 0.7) -> dict:
+    ordered = trades.sort_values("entry_time").reset_index(drop=True)
+    split_idx = int(len(ordered) * split_ratio)
+    in_sample = ordered.iloc[:split_idx]
+    held_out = ordered.iloc[split_idx:]
+
+    def _period(frame: pd.DataFrame) -> dict:
+        if len(frame) == 0:
+            return {"start": None, "end": None}
+        return {"start": str(frame["entry_time"].min()), "end": str(frame["exit_time"].max())}
+
+    return {
+        "split_ratio": split_ratio,
+        "in_sample": {"period": _period(in_sample), **stats(in_sample)},
+        "held_out": {"period": _period(held_out), **stats(held_out)},
+    }
+
+
+def degradation_flag(holdout: dict) -> str:
+    in_sample, held_out = holdout["in_sample"], holdout["held_out"]
+    if held_out["win_rate_pct"] is None or in_sample["win_rate_pct"] is None:
+        return "insufficient_data"
+    in_ci = in_sample["win_rate_ci95_pct"]
+    held_out_pf = held_out["profit_factor"] or 0.0
+    in_sample_pf = in_sample["profit_factor"] or 0.0
+    if held_out["win_rate_pct"] < in_ci[0] or held_out_pf < 1.0:
+        return "degraded"
+    if held_out["win_rate_pct"] > in_ci[1] and held_out_pf > in_sample_pf:
+        return "improved"
+    return "stable"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--trades", type=Path, required=True)
@@ -582,6 +633,13 @@ def main() -> None:
     mark_descriptive_only(by_session, [k for k in ["overnight"] if k in by_session])
     compute_rank_scores(by_macro_verdict, ordered_keys=list(by_macro_verdict.keys()))
 
+    ts_holdout = chronological_holdout(trades, split_ratio=0.7)
+    temporal_stability = {
+        "by_period": quarterly_bucket_stats(trades),
+        "holdout_split": ts_holdout,
+        "degradation_flag": degradation_flag(ts_holdout),
+    }
+
     output = {
         "baseline": baseline,
         "trade_period": {"start": str(trades["entry_time"].min()), "end": str(trades["exit_time"].max())},
@@ -602,11 +660,20 @@ def main() -> None:
         "macro_coverage": macro_coverage(macro_joined),
         "by_macro_verdict": by_macro_verdict,
         "by_macro_score": by_macro_score,
+        "temporal_stability": temporal_stability,
         "method": {
             "macro_score": "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1",
             "macro_labels": "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6",
             "macro_assignment": "latest prior daily observation, maximum age 4 days",
             "scoring_method": "integer rank score, docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.2",
+            "temporal_stability_limitation": TEMPORAL_STABILITY_LIMITATION,
+            "temporal_stability_buckets": "calendar quarter (YYYY-Qn) of entry_time; most recent bucket may be partial",
+            "temporal_stability_holdout": "chronological split, first 70% entry-time-ordered trades = in_sample, last 30% = held_out",
+            "temporal_stability_degradation_rule": (
+                "degraded: held_out.win_rate_pct < in_sample.win_rate_ci95_pct[0] OR held_out.profit_factor < 1.0; "
+                "improved: held_out.win_rate_pct > in_sample.win_rate_ci95_pct[1] AND held_out.profit_factor > in_sample.profit_factor; "
+                "else stable"
+            ),
         },
     }
     args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

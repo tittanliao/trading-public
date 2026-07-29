@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-001",
-  "revision": 3,
-  "title": "S1 V3.9 — Macro composite, 30-minute timing, and full fail-pattern report",
+  "revision": 4,
+  "title": "S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report",
   "market": "XAUUSD",
   "strategy": {
     "id": "S1-AweWithBB",
@@ -10,8 +10,8 @@
   },
   "status": "confirmed",
   "created_on": "2026-07-27",
-  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades?",
-  "hypothesis": "Macro and 30-minute timing may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence; any live adjustment must be small, integer, and always shown with its own sample size and confidence interval.",
+  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades? Revision 4 adds: is V3.9's backtest edge stable across time, or concentrated in an earlier stretch of the same export?",
+  "hypothesis": "Macro and 30-minute timing may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence; any live adjustment must be small, integer, and always shown with its own sample size and confidence interval. The temporal-stability check does not retrain or re-tune the strategy; it only tests whether the already-fixed backtest's win rate/profit factor holds up in the most recent 30% of trades by entry time versus the earlier 70%.",
   "headline": {
     "trades": 450,
     "win_rate_pct": 56.22,
@@ -49,6 +49,16 @@
       "tone": "warn",
       "title": "Counter-trend (4H bearish) entries underperform",
       "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades. Descriptive context (section 5.1 item 8), not currently a live-impact mechanism."
+    },
+    {
+      "tone": "info",
+      "title": "Chronological holdout: flagged stable, not clearly degraded",
+      "detail": "70/30 holdout split by entry time: in-sample (2024-01-05 to 2025-11-18, n=315) WR 57.14% PF 1.886; held-out (2025-11-20 to 2026-07-10, n=135) WR 54.07% PF 1.832. Held-out win rate sits inside the in-sample 95% CI [51.62, 62.49] and held-out PF stays above 1.0, so the fixed rule (section 5.1 item 11) flags 'stable', not 'degraded'. This is a chronological-bucket check on one already-fixed backtest export, not a re-optimized walk-forward — see results.json method.temporal_stability_limitation."
+    },
+    {
+      "tone": "warn",
+      "title": "2026Q2 was the weakest full quarter in the export, not 2026Q1",
+      "detail": "Quarterly win rate ranges 48.94%-62.96% across 11 quarters with no monotonic trend. 2026Q1 was the best quarter (n=55, WR 60.0%, PF 2.563); 2026Q2 was the weakest full quarter (n=47, WR 48.94%, PF 1.429), though still profit-factor-positive. Descriptive context only."
     }
   ],
   "policy_impacts": [

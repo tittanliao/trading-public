@@ -179,6 +179,12 @@
       "path": "research/studies/RS-XAUUSD-20260727-008/study.json",
       "section": "research",
       "title": "study"
+    },
+    {
+      "kind": "report",
+      "path": "temp/memo.html",
+      "section": "research",
+      "title": "量化交易 H2 2026 Roadmap"
     }
   ],
   "legacy_source_commit": "04cd05734e6905561e113945948e848e106d26bb",

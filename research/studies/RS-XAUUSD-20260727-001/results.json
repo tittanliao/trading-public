@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260727-001",
-  "generated_at": "2026-07-28T01:10:37+08:00",
+  "generated_at": "2026-07-29T08:57:40+08:00",
   "strategy": "S1-AweWithBB V3.9",
   "method": {
     "fail_pattern_thresholds": {
@@ -25,7 +25,11 @@
     "macro_score": "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1",
     "macro_labels": "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6",
     "macro_assignment": "latest prior daily observation, maximum age 4 days",
-    "scoring_method": "integer rank score, docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.2"
+    "scoring_method": "integer rank score, docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.2",
+    "temporal_stability_limitation": "This is a chronological-bucket / holdout-split check on ONE static TradingView strategy-tester export, not a re-optimized walk-forward: the underlying Pine Script strategy logic is never re-run or re-tuned on any sub-window here. It can show whether the recorded win rate / profit factor is stable or concentrated in an earlier stretch of the export; it cannot prove the strategy's parameters would have been chosen the same way if only the early data had ever existed.",
+    "temporal_stability_buckets": "calendar quarter (YYYY-Qn) of entry_time; most recent bucket may be partial",
+    "temporal_stability_holdout": "chronological split, first 70% entry-time-ordered trades = in_sample, last 30% = held_out",
+    "temporal_stability_degradation_rule": "degraded: held_out.win_rate_pct < in_sample.win_rate_ci95_pct[0] OR held_out.profit_factor < 1.0; improved: held_out.win_rate_pct > in_sample.win_rate_ci95_pct[1] AND held_out.profit_factor > in_sample.profit_factor; else stable"
   },
   "trade_period": {
     "start": "2024-01-05 23:00:00",
@@ -1937,6 +1941,191 @@
       1
     ]
   },
+  "temporal_stability": {
+    "by_period": {
+      "2024Q1": {
+        "n": 27,
+        "wins": 17,
+        "win_rate_pct": 62.96,
+        "win_rate_ci95_pct": [
+          44.23,
+          78.47
+        ],
+        "profit_factor": 2.193,
+        "net_pnl_usd": 590.47,
+        "avg_pnl_usd": 21.87,
+        "avg_return_pct": 0.2219
+      },
+      "2024Q2": {
+        "n": 49,
+        "wins": 29,
+        "win_rate_pct": 59.18,
+        "win_rate_ci95_pct": [
+          45.25,
+          71.78
+        ],
+        "profit_factor": 1.898,
+        "net_pnl_usd": 889.13,
+        "avg_pnl_usd": 18.15,
+        "avg_return_pct": 0.1837
+      },
+      "2024Q3": {
+        "n": 34,
+        "wins": 20,
+        "win_rate_pct": 58.82,
+        "win_rate_ci95_pct": [
+          42.22,
+          73.63
+        ],
+        "profit_factor": 2.149,
+        "net_pnl_usd": 790.89,
+        "avg_pnl_usd": 23.26,
+        "avg_return_pct": 0.2353
+      },
+      "2024Q4": {
+        "n": 47,
+        "wins": 23,
+        "win_rate_pct": 48.94,
+        "win_rate_ci95_pct": [
+          35.28,
+          62.76
+        ],
+        "profit_factor": 1.077,
+        "net_pnl_usd": 91.71,
+        "avg_pnl_usd": 1.95,
+        "avg_return_pct": 0.0196
+      },
+      "2025Q1": {
+        "n": 45,
+        "wins": 26,
+        "win_rate_pct": 57.78,
+        "win_rate_ci95_pct": [
+          43.3,
+          71.03
+        ],
+        "profit_factor": 1.691,
+        "net_pnl_usd": 646.51,
+        "avg_pnl_usd": 14.37,
+        "avg_return_pct": 0.1453
+      },
+      "2025Q2": {
+        "n": 50,
+        "wins": 28,
+        "win_rate_pct": 56.0,
+        "win_rate_ci95_pct": [
+          42.31,
+          68.84
+        ],
+        "profit_factor": 2.208,
+        "net_pnl_usd": 1305.0,
+        "avg_pnl_usd": 26.1,
+        "avg_return_pct": 0.263
+      },
+      "2025Q3": {
+        "n": 39,
+        "wins": 22,
+        "win_rate_pct": 56.41,
+        "win_rate_ci95_pct": [
+          40.98,
+          70.7
+        ],
+        "profit_factor": 1.923,
+        "net_pnl_usd": 775.34,
+        "avg_pnl_usd": 19.88,
+        "avg_return_pct": 0.2021
+      },
+      "2025Q4": {
+        "n": 50,
+        "wins": 28,
+        "win_rate_pct": 56.0,
+        "win_rate_ci95_pct": [
+          42.31,
+          68.84
+        ],
+        "profit_factor": 1.87,
+        "net_pnl_usd": 936.93,
+        "avg_pnl_usd": 18.74,
+        "avg_return_pct": 0.1902
+      },
+      "2026Q1": {
+        "n": 55,
+        "wins": 33,
+        "win_rate_pct": 60.0,
+        "win_rate_ci95_pct": [
+          46.81,
+          71.88
+        ],
+        "profit_factor": 2.563,
+        "net_pnl_usd": 1669.82,
+        "avg_pnl_usd": 30.36,
+        "avg_return_pct": 0.3111
+      },
+      "2026Q2": {
+        "n": 47,
+        "wins": 23,
+        "win_rate_pct": 48.94,
+        "win_rate_ci95_pct": [
+          35.28,
+          62.76
+        ],
+        "profit_factor": 1.429,
+        "net_pnl_usd": 522.43,
+        "avg_pnl_usd": 11.12,
+        "avg_return_pct": 0.1151
+      },
+      "2026Q3": {
+        "n": 7,
+        "wins": 4,
+        "win_rate_pct": 57.14,
+        "win_rate_ci95_pct": [
+          25.05,
+          84.18
+        ],
+        "profit_factor": 2.608,
+        "net_pnl_usd": 237.26,
+        "avg_pnl_usd": 33.89,
+        "avg_return_pct": 0.34
+      }
+    },
+    "holdout_split": {
+      "split_ratio": 0.7,
+      "in_sample": {
+        "period": {
+          "start": "2024-01-05 23:00:00",
+          "end": "2025-11-18 23:00:00"
+        },
+        "n": 315,
+        "wins": 180,
+        "win_rate_pct": 57.14,
+        "win_rate_ci95_pct": [
+          51.62,
+          62.49
+        ],
+        "profit_factor": 1.886,
+        "net_pnl_usd": 5900.88,
+        "avg_pnl_usd": 18.73,
+        "avg_return_pct": 0.1897
+      },
+      "held_out": {
+        "period": {
+          "start": "2025-11-20 08:30:00",
+          "end": "2026-07-10 15:30:00"
+        },
+        "n": 135,
+        "wins": 73,
+        "win_rate_pct": 54.07,
+        "win_rate_ci95_pct": [
+          45.67,
+          62.25
+        ],
+        "profit_factor": 1.832,
+        "net_pnl_usd": 2554.61,
+        "avg_pnl_usd": 18.92,
+        "avg_return_pct": 0.1937
+      }
+    },
+    "degradation_flag": "stable"
+  },
   "charts": [
     {
       "id": "equity_curve",
@@ -2051,6 +2240,12 @@
       "file": "macro_verdict_winrate.png",
       "title": "Win Rate by Macro Composite Verdict",
       "section": "macro"
+    },
+    {
+      "id": "quarterly_stability",
+      "file": "quarterly_stability.png",
+      "title": "Quarterly Win Rate — Chronological Holdout",
+      "section": "temporal_stability"
     }
   ]
 }

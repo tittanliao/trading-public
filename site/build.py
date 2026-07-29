@@ -292,6 +292,7 @@ CHART_SECTION_LABELS = {
     "mtf": "Multi-Timeframe Alignment",
     "hold_time_streaks": "Hold Time & Streaks",
     "macro": "Macro Composite Context",
+    "temporal_stability": "Temporal Stability",
     "seasonality": "Seasonality",
     "comparison": "Version Comparison",
 }
@@ -515,6 +516,28 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
                 note="STRONG BUY/WAIT/NEUTRAL, read from the prior daily close (4-day max age). Advisory only.",
             )
         )
+    temporal_html = ""
+    if "temporal_stability" in result:
+        ts = result["temporal_stability"]
+        holdout = ts["holdout_split"]
+        flag = ts["degradation_flag"]
+        flag_class = {"stable": "score-neutral", "improved": "score-positive", "degraded": "score-negative"}.get(flag, "score-neutral")
+        in_s, held = holdout["in_sample"], holdout["held_out"]
+        temporal_html = (
+            chart_sections_html([c for c in result["charts"] if c["section"] == "temporal_stability"])
+            + result_table(
+                "Quarterly win rate (chronological)", ts["by_period"], show_adjustment=False,
+                note="Descriptive only — not a re-optimized walk-forward. See the note below.",
+            )
+            + '<div class="note">'
+            f'In-sample ({holdout["split_ratio"]*100:.0f}%, {html.escape(str(in_s["period"]["start"]))} → {html.escape(str(in_s["period"]["end"]))}): '
+            f'n={in_s["n"]}, WR {in_s["win_rate_pct"]}%, PF {in_s["profit_factor"]}. '
+            f'Held-out ({(1 - holdout["split_ratio"]) * 100:.0f}%, {html.escape(str(held["period"]["start"]))} → {html.escape(str(held["period"]["end"]))}): '
+            f'n={held["n"]}, WR {held["win_rate_pct"]}%, PF {held["profit_factor"]}. '
+            f'Degradation flag: <span class="{flag_class}">{html.escape(flag)}</span>. '
+            f'{html.escape(result["method"].get("temporal_stability_limitation", ""))}'
+            '</div>'
+        )
     body = (
         '<main class="shell report">'
         '<div class="metric-grid">'
@@ -548,6 +571,7 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + result_table("MTF 4H RSI state", result["mtf"]["by_4h_state"], show_adjustment=False)
         + chart_sections_html([c for c in result["charts"] if c["section"] == "hold_time_streaks"])
         + macro_html
+        + temporal_html
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
         f'<p>{html.escape(study["hypothesis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
