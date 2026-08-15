@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260815-001",
+  "revision": 1,
+  "title": "S1 V3.9 / S2 V3.2 — post-signal 1–2 bar confirmation",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB / S2-Hammer",
+    "version": "V3.9 / V3.2"
+  },
+  "status": "progress",
+  "created_on": "2026-08-15",
+  "question": "After a current S1 V3.9 or S2 V3.2 signal, does waiting for the next one or two completed 30-minute bars—and rejecting a setup when those bars break the signal-bar low—screen out losing trades?",
+  "hypothesis": "For long setups, a break below the signal-bar low during T+1 is associated with a worse original strategy outcome; waiting through T+2 may improve screening but can also discard winners and worsen entry price.",
+  "headline": {
+    "s1_matched_n": 165,
+    "s1_baseline_win_rate_pct": 55.15,
+    "s1_t1_hold_win_rate_pct": 60.83,
+    "s1_t1_t2_hold_win_rate_pct": 66.67,
+    "s2_matched_n": 65,
+    "s2_baseline_win_rate_pct": 43.08,
+    "s2_t1_hold_win_rate_pct": 46.0,
+    "s2_t1_t2_hold_win_rate_pct": 55.0
+  },
+  "card_metrics": [
+    "s1_t1_hold_win_rate_pct",
+    "s1_t1_t2_hold_win_rate_pct",
+    "s2_t1_hold_win_rate_pct",
+    "s2_t1_t2_hold_win_rate_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "S1 shows a repeatable one-bar screening association",
+      "detail": "On the 165 trades overlapping the available 30-minute history, T+1 holding the signal-bar low raised original-outcome WR from 55.15% to 60.83% (n=120). In the latest chronological 30%, it raised WR from 48.0% to 57.14% (n=35), while filtering 11 losses and 4 wins."
+    },
+    {
+      "tone": "warn",
+      "title": "A second wait bar did not improve the recent S1 holdout",
+      "detail": "Full-sample S1 T+1/T+2 hold reached 66.67% WR (n=99), but held-out WR was 54.84% (n=31), below the one-bar rule's 57.14%. The extra delay is not justified as a live rule by this screen."
+    },
+    {
+      "tone": "warn",
+      "title": "S2 did not validate in the recent holdout",
+      "detail": "Full-overlap S2 rose from 43.08% to 46.0% after one-bar hold and 55.0% after two-bar hold, but the latest 20-trade segment stayed at 20.0% after one bar and fell to 15.38% after two bars. Treat the S2 result as unstable."
+    },
+    {
+      "tone": "warn",
+      "title": "This is screening evidence, not delayed-entry backtest PnL",
+      "detail": "The selected groups keep each original TradingView outcome and exit. Exact entry-at-T+2/T+3 WR, PF, SL/TP behavior, and missed signals require a Pine replay; only 36.67% of S1 and 41.4% of S2 trades overlap the frozen 30-minute bars."
+    }
+  ],
+  "policy_impacts": [],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

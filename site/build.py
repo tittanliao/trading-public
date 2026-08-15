@@ -182,6 +182,18 @@ HEADLINE_LABELS = {
     "level_0382_win_rate_pct": "0.382 WR",
     "level_05_win_rate_pct": "0.5 WR",
     "level_0618_win_rate_pct": "0.618 WR",
+    "s1_t1_hold_win_rate_pct": "S1 T+1 WR",
+    "s1_t1_t2_hold_win_rate_pct": "S1 T+1/T+2 WR",
+    "s2_t1_hold_win_rate_pct": "S2 T+1 WR",
+    "s2_t1_t2_hold_win_rate_pct": "S2 T+1/T+2 WR",
+    "s1_d1_down_minus_up_pp": "S1 DOWN−UP",
+    "s2_d1_down_minus_up_pp": "S2 DOWN−UP",
+    "s1_d1_down_win_rate_pct": "S1 D-1 DOWN WR",
+    "s2_d1_down_win_rate_pct": "S2 D-1 DOWN WR",
+    "cftc_reports": "CFTC reports",
+    "s1_distinct_assigned_reports": "S1 assigned weeks",
+    "s2_distinct_assigned_reports": "S2 assigned weeks",
+    "s2_regime_win_rate_range_pp": "S2 regime range",
 }
 
 
@@ -192,6 +204,8 @@ def headline_label(key: str) -> str:
 def headline_display(key: str, value: object) -> str:
     if isinstance(value, (int, float)) and key.endswith("_pct"):
         return f"{value}%"
+    if isinstance(value, (int, float)) and key.endswith("_pp"):
+        return f"{value}pp"
     return str(value)
 
 
@@ -850,6 +864,101 @@ def study_page_fib_pullback(study: dict[str, object]) -> str:
     )
 
 
+def context_program_metrics(study: dict[str, object]) -> str:
+    headline = study["headline"]
+    keys = study.get("card_metrics") or list(headline)[:4]
+    return "".join(
+        metric(headline_label(key), headline_display(key, headline[key]))
+        for key in keys
+        if key in headline
+    )
+
+
+def context_program_findings(study: dict[str, object]) -> str:
+    return "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+
+
+def context_program_limitations(result: dict[str, object]) -> str:
+    items = "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
+    return f'<section class="report-section"><h2>Evidence limits</h2><ul class="impact-list">{items}</ul></section>'
+
+
+def study_page_context_program(study: dict[str, object]) -> str:
+    """Render multi-strategy context studies from their shared aggregate shape.
+
+    The strategy-specific tables are detected from result keys so later confirmation,
+    completed-daily, or weekly-regime studies can reuse this page without an ID branch.
+    """
+    result = study["_result"]
+    strategies = result["strategies"]
+    first = next(iter(strategies.values()))
+    tables = []
+    if "rules" in first:
+        for strategy, data in strategies.items():
+            rule_rows = {
+                "Baseline": data["rules"]["baseline"]["selected"],
+                "T+1 holds signal low": data["rules"]["t1_hold_signal_low"]["selected"],
+                "T+1/T+2 hold signal low": data["rules"]["t1_t2_hold_signal_low"]["selected"],
+                "T+1 holds low and close": data["rules"]["t1_hold_low_and_close"]["selected"],
+                "T+1/T+2 hold low and close": data["rules"]["t1_t2_hold_low_and_close"]["selected"],
+            }
+            holdout = data["chronological_holdout"]["held_out"]
+            note = (
+                f'Matched {data["coverage"]["matched_trades"]}/{data["coverage"]["total_trades"]} trades. '
+                f'Held-out baseline n={holdout["baseline"]["n"]}, WR {holdout["baseline"]["win_rate_pct"]}%; '
+                f'T+1 hold n={holdout["t1_hold_signal_low"]["selected_n"]}, '
+                f'WR {holdout["t1_hold_signal_low"]["selected"]["win_rate_pct"]}%.'
+            )
+            tables.append(result_table(f"{strategy} confirmation screen", rule_rows, show_adjustment=False, note=note))
+    elif "by_d1_direction" in first:
+        for strategy, data in strategies.items():
+            held = data["chronological_holdout"]["held_out"]
+            note = (
+                f'Held-out baseline n={held["baseline"]["n"]}, WR {held["baseline"]["win_rate_pct"]}%; '
+                "all daily bars were fully completed before assignment."
+            )
+            tables.append(result_table(f"{strategy} prior completed day", data["by_d1_direction"], show_adjustment=False, note=note))
+            tables.append(result_table(f"{strategy} D-2 → D-1 sequence", data["by_d2_d1_sequence"], show_adjustment=False))
+    elif "by_net_oi_regime" in first:
+        for strategy, data in strategies.items():
+            note = (
+                f'{data["coverage"]["distinct_reports"]} distinct conservatively available reports; '
+                "several trades may share one weekly report."
+            )
+            tables.append(result_table(f"{strategy} Managed Money net/OI regime", data["by_net_oi_regime"], show_adjustment=False, note=note))
+            tables.append(result_table(f"{strategy} crowding regime", data["by_crowding_regime"], show_adjustment=False))
+    else:
+        raise ValueError(f'{study["id"]}: unknown multi-strategy context shape')
+
+    body = (
+        '<main class="shell report">'
+        f'<div class="metric-grid">{context_program_metrics(study)}</div>'
+        '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
+        + impact_section_html(study)
+        + chart_sections_html(result.get("charts", []))
+        + "".join(tables)
+        + context_program_limitations(result)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        '<p>All trading timestamps use Asia/Taipei. Raw CSV, source manifests, and private decision records are not published. '
+        'This page contains reviewed aggregate results, one reproducible method, and pre-reviewed charts only.</p>'
+        + file_actions_html(study)
+        + '</section></main>'
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -862,6 +971,8 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_seasonality(study)
     if "by_level" in result:
         return study_page_fib_pullback(study)
+    if "strategies" in result:
+        return study_page_context_program(study)
     raise ValueError(
         f'{study["id"]}: results.json matches none of the known report shapes '
         '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level")'

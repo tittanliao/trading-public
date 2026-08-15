@@ -1,0 +1,663 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260815-001",
+  "generated_at": "2026-08-15T20:00:00+08:00",
+  "strategy": "S1 V3.9 and S2 V3.2",
+  "method": {
+    "timezone": "Asia/Taipei",
+    "signal_bar_definition": "The 30m bar immediately before List-of-Trades entry_time; both Pine strategies use default next-bar-open processing, confirmed by source and entry-price/open matching.",
+    "primary_hypothesis": "A long trade whose next completed 30m bar breaks the signal-bar low has a worse original strategy outcome.",
+    "secondary_hypothesis": "Holding that low through the next two completed bars improves original-outcome selection.",
+    "no_lookahead": "T+1 can only be acted on at T+2 open; T+1/T+2 can only be acted on at T+3 open.",
+    "counterfactual_boundary": "No Pine replay. Selected stats retain original TradingView exits/PnL and measure screening association, not delayed-entry strategy PnL.",
+    "minimum_interpretable_group_n": 20
+  },
+  "charts": [
+    {
+      "id": "post_signal_rule_winrate",
+      "file": "post_signal_rule_winrate.png",
+      "title": "Post-Signal Rule Win Rate",
+      "section": "timing_30m"
+    }
+  ],
+  "strategies": {
+    "S1 V3.9": {
+      "full_baseline": {
+        "n": 450,
+        "wins": 253,
+        "win_rate_pct": 56.22,
+        "win_rate_ci95_pct": [
+          51.6,
+          60.73
+        ],
+        "profit_factor": 1.869,
+        "net_pnl_usd": 8455.49,
+        "avg_pnl_usd": 18.79,
+        "avg_return_pct": 0.1909,
+        "low_sample": false
+      },
+      "coverage": {
+        "total_trades": 450,
+        "matched_trades": 165,
+        "pct": 36.67
+      },
+      "matched_baseline": {
+        "n": 165,
+        "wins": 91,
+        "win_rate_pct": 55.15,
+        "win_rate_ci95_pct": [
+          47.53,
+          62.54
+        ],
+        "profit_factor": 1.921,
+        "net_pnl_usd": 3366.89,
+        "avg_pnl_usd": 20.41,
+        "avg_return_pct": 0.2085,
+        "low_sample": false
+      },
+      "rules": {
+        "baseline": {
+          "selected": {
+            "n": 165,
+            "wins": 91,
+            "win_rate_pct": 55.15,
+            "win_rate_ci95_pct": [
+              47.53,
+              62.54
+            ],
+            "profit_factor": 1.921,
+            "net_pnl_usd": 3366.89,
+            "avg_pnl_usd": 20.41,
+            "avg_return_pct": 0.2085,
+            "low_sample": false
+          },
+          "selected_n": 165,
+          "rejected_n": 0,
+          "kept_pct": 100.0,
+          "losses_filtered": 0,
+          "wins_filtered": 0,
+          "rejected_loss_pct": null,
+          "win_rate_change_pp": 0.0,
+          "profit_factor_change": 0.0
+        },
+        "t1_hold_signal_low": {
+          "selected": {
+            "n": 120,
+            "wins": 73,
+            "win_rate_pct": 60.83,
+            "win_rate_ci95_pct": [
+              51.89,
+              69.1
+            ],
+            "profit_factor": 2.347,
+            "net_pnl_usd": 3096.14,
+            "avg_pnl_usd": 25.8,
+            "avg_return_pct": 0.2642,
+            "low_sample": false
+          },
+          "selected_n": 120,
+          "rejected_n": 45,
+          "kept_pct": 72.73,
+          "losses_filtered": 27,
+          "wins_filtered": 18,
+          "rejected_loss_pct": 60.0,
+          "win_rate_change_pp": 5.68,
+          "profit_factor_change": 0.426
+        },
+        "t1_t2_hold_signal_low": {
+          "selected": {
+            "n": 99,
+            "wins": 66,
+            "win_rate_pct": 66.67,
+            "win_rate_ci95_pct": [
+              56.91,
+              75.18
+            ],
+            "profit_factor": 3.054,
+            "net_pnl_usd": 3315.02,
+            "avg_pnl_usd": 33.49,
+            "avg_return_pct": 0.343,
+            "low_sample": false
+          },
+          "selected_n": 99,
+          "rejected_n": 66,
+          "kept_pct": 60.0,
+          "losses_filtered": 41,
+          "wins_filtered": 25,
+          "rejected_loss_pct": 62.12,
+          "win_rate_change_pp": 11.52,
+          "profit_factor_change": 1.133
+        },
+        "t1_hold_low_and_close": {
+          "selected": {
+            "n": 83,
+            "wins": 57,
+            "win_rate_pct": 68.67,
+            "win_rate_ci95_pct": [
+              58.06,
+              77.64
+            ],
+            "profit_factor": 3.485,
+            "net_pnl_usd": 3161.35,
+            "avg_pnl_usd": 38.09,
+            "avg_return_pct": 0.3899,
+            "low_sample": false
+          },
+          "selected_n": 83,
+          "rejected_n": 82,
+          "kept_pct": 50.3,
+          "losses_filtered": 48,
+          "wins_filtered": 34,
+          "rejected_loss_pct": 58.54,
+          "win_rate_change_pp": 13.52,
+          "profit_factor_change": 1.564
+        },
+        "t1_t2_hold_low_and_close": {
+          "selected": {
+            "n": 74,
+            "wins": 56,
+            "win_rate_pct": 75.68,
+            "win_rate_ci95_pct": [
+              64.79,
+              84.02
+            ],
+            "profit_factor": 5.029,
+            "net_pnl_usd": 3554.82,
+            "avg_pnl_usd": 48.04,
+            "avg_return_pct": 0.4919,
+            "low_sample": false
+          },
+          "selected_n": 74,
+          "rejected_n": 91,
+          "kept_pct": 44.85,
+          "losses_filtered": 56,
+          "wins_filtered": 35,
+          "rejected_loss_pct": 61.54,
+          "win_rate_change_pp": 20.53,
+          "profit_factor_change": 3.108
+        }
+      },
+      "chronological_holdout": {
+        "split_ratio": 0.7,
+        "in_sample": {
+          "period": {
+            "start": "2025-09-19T22:00:00",
+            "end": "2026-04-10T19:30:00"
+          },
+          "baseline": {
+            "n": 115,
+            "wins": 67,
+            "win_rate_pct": 58.26,
+            "win_rate_ci95_pct": [
+              49.12,
+              66.86
+            ],
+            "profit_factor": 2.156,
+            "net_pnl_usd": 2706.55,
+            "avg_pnl_usd": 23.54,
+            "avg_return_pct": 0.2402,
+            "low_sample": false
+          },
+          "t1_hold_signal_low": {
+            "selected": {
+              "n": 85,
+              "wins": 53,
+              "win_rate_pct": 62.35,
+              "win_rate_ci95_pct": [
+                51.73,
+                71.91
+              ],
+              "profit_factor": 2.331,
+              "net_pnl_usd": 2078.18,
+              "avg_pnl_usd": 24.45,
+              "avg_return_pct": 0.2502,
+              "low_sample": false
+            },
+            "selected_n": 85,
+            "rejected_n": 30,
+            "kept_pct": 73.91,
+            "losses_filtered": 16,
+            "wins_filtered": 14,
+            "rejected_loss_pct": 53.33,
+            "win_rate_change_pp": 4.09,
+            "profit_factor_change": 0.175
+          },
+          "t1_t2_hold_signal_low": {
+            "selected": {
+              "n": 68,
+              "wins": 49,
+              "win_rate_pct": 72.06,
+              "win_rate_ci95_pct": [
+                60.44,
+                81.32
+              ],
+              "profit_factor": 3.583,
+              "net_pnl_usd": 2395.63,
+              "avg_pnl_usd": 35.23,
+              "avg_return_pct": 0.3606,
+              "low_sample": false
+            },
+            "selected_n": 68,
+            "rejected_n": 47,
+            "kept_pct": 59.13,
+            "losses_filtered": 29,
+            "wins_filtered": 18,
+            "rejected_loss_pct": 61.7,
+            "win_rate_change_pp": 13.8,
+            "profit_factor_change": 1.427
+          }
+        },
+        "held_out": {
+          "period": {
+            "start": "2026-04-13T21:30:00",
+            "end": "2026-07-10T11:30:00"
+          },
+          "baseline": {
+            "n": 50,
+            "wins": 24,
+            "win_rate_pct": 48.0,
+            "win_rate_ci95_pct": [
+              34.8,
+              61.49
+            ],
+            "profit_factor": 1.502,
+            "net_pnl_usd": 660.34,
+            "avg_pnl_usd": 13.21,
+            "avg_return_pct": 0.1358,
+            "low_sample": false
+          },
+          "t1_hold_signal_low": {
+            "selected": {
+              "n": 35,
+              "wins": 20,
+              "win_rate_pct": 57.14,
+              "win_rate_ci95_pct": [
+                40.86,
+                72.02
+              ],
+              "profit_factor": 2.382,
+              "net_pnl_usd": 1017.96,
+              "avg_pnl_usd": 29.08,
+              "avg_return_pct": 0.2983,
+              "low_sample": false
+            },
+            "selected_n": 35,
+            "rejected_n": 15,
+            "kept_pct": 70.0,
+            "losses_filtered": 11,
+            "wins_filtered": 4,
+            "rejected_loss_pct": 73.33,
+            "win_rate_change_pp": 9.14,
+            "profit_factor_change": 0.88
+          },
+          "t1_t2_hold_signal_low": {
+            "selected": {
+              "n": 31,
+              "wins": 17,
+              "win_rate_pct": 54.84,
+              "win_rate_ci95_pct": [
+                37.77,
+                70.84
+              ],
+              "profit_factor": 2.339,
+              "net_pnl_usd": 919.39,
+              "avg_pnl_usd": 29.66,
+              "avg_return_pct": 0.3045,
+              "low_sample": false
+            },
+            "selected_n": 31,
+            "rejected_n": 19,
+            "kept_pct": 62.0,
+            "losses_filtered": 12,
+            "wins_filtered": 7,
+            "rejected_loss_pct": 63.16,
+            "win_rate_change_pp": 6.84,
+            "profit_factor_change": 0.837
+          }
+        }
+      },
+      "wait_1_bar_entry": {
+        "observable_n": 152,
+        "entry_price_delta": {
+          "n": 152,
+          "mean_pct": 0.0515,
+          "median_pct": 0.0478,
+          "p10_pct": -0.1464,
+          "p90_pct": 0.2196
+        }
+      },
+      "wait_2_bars_entry": {
+        "observable_n": 139,
+        "entry_price_delta": {
+          "n": 139,
+          "mean_pct": 0.056,
+          "median_pct": 0.0143,
+          "p10_pct": -0.2022,
+          "p90_pct": 0.3446
+        }
+      }
+    },
+    "S2 V3.2": {
+      "full_baseline": {
+        "n": 157,
+        "wins": 74,
+        "win_rate_pct": 47.13,
+        "win_rate_ci95_pct": [
+          39.49,
+          54.92
+        ],
+        "profit_factor": 2.047,
+        "net_pnl_usd": 8620.42,
+        "avg_pnl_usd": 54.91,
+        "avg_return_pct": 0.555,
+        "low_sample": false
+      },
+      "coverage": {
+        "total_trades": 157,
+        "matched_trades": 65,
+        "pct": 41.4
+      },
+      "matched_baseline": {
+        "n": 65,
+        "wins": 28,
+        "win_rate_pct": 43.08,
+        "win_rate_ci95_pct": [
+          31.76,
+          55.17
+        ],
+        "profit_factor": 1.823,
+        "net_pnl_usd": 3031.47,
+        "avg_pnl_usd": 46.64,
+        "avg_return_pct": 0.4718,
+        "low_sample": false
+      },
+      "rules": {
+        "baseline": {
+          "selected": {
+            "n": 65,
+            "wins": 28,
+            "win_rate_pct": 43.08,
+            "win_rate_ci95_pct": [
+              31.76,
+              55.17
+            ],
+            "profit_factor": 1.823,
+            "net_pnl_usd": 3031.47,
+            "avg_pnl_usd": 46.64,
+            "avg_return_pct": 0.4718,
+            "low_sample": false
+          },
+          "selected_n": 65,
+          "rejected_n": 0,
+          "kept_pct": 100.0,
+          "losses_filtered": 0,
+          "wins_filtered": 0,
+          "rejected_loss_pct": null,
+          "win_rate_change_pp": 0.0,
+          "profit_factor_change": 0.0
+        },
+        "t1_hold_signal_low": {
+          "selected": {
+            "n": 50,
+            "wins": 23,
+            "win_rate_pct": 46.0,
+            "win_rate_ci95_pct": [
+              32.97,
+              59.6
+            ],
+            "profit_factor": 2.118,
+            "net_pnl_usd": 3022.98,
+            "avg_pnl_usd": 60.46,
+            "avg_return_pct": 0.6134,
+            "low_sample": false
+          },
+          "selected_n": 50,
+          "rejected_n": 15,
+          "kept_pct": 76.92,
+          "losses_filtered": 10,
+          "wins_filtered": 5,
+          "rejected_loss_pct": 66.67,
+          "win_rate_change_pp": 2.92,
+          "profit_factor_change": 0.295
+        },
+        "t1_t2_hold_signal_low": {
+          "selected": {
+            "n": 40,
+            "wins": 22,
+            "win_rate_pct": 55.0,
+            "win_rate_ci95_pct": [
+              39.83,
+              69.29
+            ],
+            "profit_factor": 2.916,
+            "net_pnl_usd": 3510.22,
+            "avg_pnl_usd": 87.76,
+            "avg_return_pct": 0.8918,
+            "low_sample": false
+          },
+          "selected_n": 40,
+          "rejected_n": 25,
+          "kept_pct": 61.54,
+          "losses_filtered": 19,
+          "wins_filtered": 6,
+          "rejected_loss_pct": 76.0,
+          "win_rate_change_pp": 11.92,
+          "profit_factor_change": 1.093
+        },
+        "t1_hold_low_and_close": {
+          "selected": {
+            "n": 29,
+            "wins": 15,
+            "win_rate_pct": 51.72,
+            "win_rate_ci95_pct": [
+              34.43,
+              68.61
+            ],
+            "profit_factor": 2.482,
+            "net_pnl_usd": 2140.48,
+            "avg_pnl_usd": 73.81,
+            "avg_return_pct": 0.7472,
+            "low_sample": false
+          },
+          "selected_n": 29,
+          "rejected_n": 36,
+          "kept_pct": 44.62,
+          "losses_filtered": 23,
+          "wins_filtered": 13,
+          "rejected_loss_pct": 63.89,
+          "win_rate_change_pp": 8.64,
+          "profit_factor_change": 0.659
+        },
+        "t1_t2_hold_low_and_close": {
+          "selected": {
+            "n": 26,
+            "wins": 18,
+            "win_rate_pct": 69.23,
+            "win_rate_ci95_pct": [
+              50.01,
+              83.5
+            ],
+            "profit_factor": 5.07,
+            "net_pnl_usd": 3499.23,
+            "avg_pnl_usd": 134.59,
+            "avg_return_pct": 1.3719,
+            "low_sample": false
+          },
+          "selected_n": 26,
+          "rejected_n": 39,
+          "kept_pct": 40.0,
+          "losses_filtered": 29,
+          "wins_filtered": 10,
+          "rejected_loss_pct": 74.36,
+          "win_rate_change_pp": 26.15,
+          "profit_factor_change": 3.247
+        }
+      },
+      "chronological_holdout": {
+        "split_ratio": 0.7,
+        "in_sample": {
+          "period": {
+            "start": "2025-09-23T18:00:00",
+            "end": "2026-03-12T14:30:00"
+          },
+          "baseline": {
+            "n": 45,
+            "wins": 24,
+            "win_rate_pct": 53.33,
+            "win_rate_ci95_pct": [
+              39.08,
+              67.07
+            ],
+            "profit_factor": 2.709,
+            "net_pnl_usd": 3498.19,
+            "avg_pnl_usd": 77.74,
+            "avg_return_pct": 0.788,
+            "low_sample": false
+          },
+          "t1_hold_signal_low": {
+            "selected": {
+              "n": 35,
+              "wins": 20,
+              "win_rate_pct": 57.14,
+              "win_rate_ci95_pct": [
+                40.86,
+                72.02
+              ],
+              "profit_factor": 3.256,
+              "net_pnl_usd": 3297.49,
+              "avg_pnl_usd": 94.21,
+              "avg_return_pct": 0.956,
+              "low_sample": false
+            },
+            "selected_n": 35,
+            "rejected_n": 10,
+            "kept_pct": 77.78,
+            "losses_filtered": 6,
+            "wins_filtered": 4,
+            "rejected_loss_pct": 60.0,
+            "win_rate_change_pp": 3.81,
+            "profit_factor_change": 0.547
+          },
+          "t1_t2_hold_signal_low": {
+            "selected": {
+              "n": 27,
+              "wins": 20,
+              "win_rate_pct": 74.07,
+              "win_rate_ci95_pct": [
+                55.32,
+                86.83
+              ],
+              "profit_factor": 6.943,
+              "net_pnl_usd": 4073.52,
+              "avg_pnl_usd": 150.87,
+              "avg_return_pct": 1.5356,
+              "low_sample": false
+            },
+            "selected_n": 27,
+            "rejected_n": 18,
+            "kept_pct": 60.0,
+            "losses_filtered": 14,
+            "wins_filtered": 4,
+            "rejected_loss_pct": 77.78,
+            "win_rate_change_pp": 20.74,
+            "profit_factor_change": 4.234
+          }
+        },
+        "held_out": {
+          "period": {
+            "start": "2026-03-25T13:00:00",
+            "end": "2026-07-07T23:00:00"
+          },
+          "baseline": {
+            "n": 20,
+            "wins": 4,
+            "win_rate_pct": 20.0,
+            "win_rate_ci95_pct": [
+              8.07,
+              41.6
+            ],
+            "profit_factor": 0.715,
+            "net_pnl_usd": -466.72,
+            "avg_pnl_usd": -23.34,
+            "avg_return_pct": -0.2395,
+            "low_sample": false
+          },
+          "t1_hold_signal_low": {
+            "selected": {
+              "n": 15,
+              "wins": 3,
+              "win_rate_pct": 20.0,
+              "win_rate_ci95_pct": [
+                7.05,
+                45.19
+              ],
+              "profit_factor": 0.779,
+              "net_pnl_usd": -274.51,
+              "avg_pnl_usd": -18.3,
+              "avg_return_pct": -0.186,
+              "low_sample": true
+            },
+            "selected_n": 15,
+            "rejected_n": 5,
+            "kept_pct": 75.0,
+            "losses_filtered": 4,
+            "wins_filtered": 1,
+            "rejected_loss_pct": 80.0,
+            "win_rate_change_pp": 0.0,
+            "profit_factor_change": 0.064
+          },
+          "t1_t2_hold_signal_low": {
+            "selected": {
+              "n": 13,
+              "wins": 2,
+              "win_rate_pct": 15.38,
+              "win_rate_ci95_pct": [
+                4.33,
+                42.24
+              ],
+              "profit_factor": 0.509,
+              "net_pnl_usd": -563.3,
+              "avg_pnl_usd": -43.33,
+              "avg_return_pct": -0.4454,
+              "low_sample": true
+            },
+            "selected_n": 13,
+            "rejected_n": 7,
+            "kept_pct": 65.0,
+            "losses_filtered": 5,
+            "wins_filtered": 2,
+            "rejected_loss_pct": 71.43,
+            "win_rate_change_pp": -4.62,
+            "profit_factor_change": -0.206
+          }
+        }
+      },
+      "wait_1_bar_entry": {
+        "observable_n": 64,
+        "entry_price_delta": {
+          "n": 64,
+          "mean_pct": -0.0148,
+          "median_pct": -0.0107,
+          "p10_pct": -0.2434,
+          "p90_pct": 0.1852
+        }
+      },
+      "wait_2_bars_entry": {
+        "observable_n": 62,
+        "entry_price_delta": {
+          "n": 62,
+          "mean_pct": 0.0116,
+          "median_pct": 0.0073,
+          "p10_pct": -0.3173,
+          "p90_pct": 0.2851
+        }
+      }
+    }
+  },
+  "limitations": [
+    "30m price history starts 2025-09-17, so only overlapping trades are matched.",
+    "The trade export contains filled trades, not every raw signal; filtered/in-position signals are absent.",
+    "Original outcomes and exits are retained. Exact delayed-entry WR/PF requires a Pine replay with revised entry timing.",
+    "Subgroup comparisons are descriptive and multiple rules are not authorization for parameter optimization."
+  ]
+}

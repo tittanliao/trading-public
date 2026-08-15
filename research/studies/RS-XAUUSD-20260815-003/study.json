@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260815-003",
+  "revision": 1,
+  "title": "S1 V3.9 / S2 V3.2 — CFTC actionable-release regimes",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB / S2-Hammer",
+    "version": "V3.9 / V3.2"
+  },
+  "status": "progress",
+  "created_on": "2026-08-15",
+  "question": "After Tuesday CFTC GOLD positioning is actually available, do Managed Money net/open-interest change or crowding regimes show a repeatable pattern in current S1 V3.9 and S2 V3.2 outcomes?",
+  "hypothesis": "CFTC positioning may provide weekly context, but a useful pattern must remain consistent across strategies and chronological periods and must never be aligned to the Tuesday as-of date before publication.",
+  "headline": {
+    "cftc_reports": 241,
+    "s1_distinct_assigned_reports": 130,
+    "s1_regime_win_rate_range_pp": 3.37,
+    "s2_distinct_assigned_reports": 104,
+    "s2_regime_win_rate_range_pp": 10.2
+  },
+  "card_metrics": [
+    "cftc_reports",
+    "s1_distinct_assigned_reports",
+    "s2_distinct_assigned_reports",
+    "s2_regime_win_rate_range_pp"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "No cross-strategy CFTC regime is decision-grade",
+      "detail": "S1 full-sample WR varied only 55.17–58.54% across the four Managed Money net/OI regimes. S2 varied 42.86–53.06%, but the ordering changed in the recent holdout and most held-out cells were below n=20."
+    },
+    {
+      "tone": "warn",
+      "title": "Crowding effects point in opposite directions",
+      "detail": "S1 MID_RANGE exceeded CROWDED_LONG by 1.89pp (57.14% vs 55.25%), while S2 CROWDED_LONG exceeded MID_RANGE by 8.91pp (52.24% vs 43.33%). This is not a common S1/S2 pattern."
+    },
+    {
+      "tone": "info",
+      "title": "Tuesday data was aligned only after conservative availability",
+      "detail": "Although the positions are dated Tuesday and normally published Friday 15:30 New York, the primary join waits until the following Tuesday 00:00 Asia/Taipei. This prevents ordinary holiday/release-delay leakage at the cost of freshness."
+    },
+    {
+      "tone": "info",
+      "title": "CFTC remains weekly context, not 30-minute timing",
+      "detail": "The study assigns 130 distinct reports to S1 and 104 to S2, but several trades can share one weekly report. The result does not support a CFTC entry gate for either strategy."
+    }
+  ],
+  "policy_impacts": [],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}
