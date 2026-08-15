@@ -16,12 +16,14 @@ SOURCE_COMMIT = "04cd05734e6905561e113945948e848e106d26bb"
 GENERATED = {
     Path("index.html"),
     Path("xauusd/index.html"),
+    Path("xauusd/weekly/index.html"),
     Path("tx/index.html"),
     Path("research/index.html"),
     Path("site/catalog.json"),
 }
 EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__"}
 STUDY_ROOT = ROOT / "research/studies"
+WEEKLY_ROOT = ROOT / "xauusd/weekly"
 
 
 def title_for(path: Path) -> str:
@@ -52,7 +54,12 @@ def catalog() -> dict[str, object]:
             and relative.parts[:2] == ("research", "studies")
             and relative.name == "index.html"
         )
-        if relative in GENERATED or generated_study_page or EXCLUDED_PARTS.intersection(relative.parts):
+        generated_weekly_page = (
+            len(relative.parts) == 4
+            and relative.parts[:2] == ("xauusd", "weekly")
+            and relative.name == "index.html"
+        )
+        if relative in GENERATED or generated_study_page or generated_weekly_page or EXCLUDED_PARTS.intersection(relative.parts):
             continue
         extension = path.suffix.lower()
         if extension not in {".html", ".pine", ".py", ".json"}:
@@ -135,6 +142,25 @@ def studies() -> list[dict[str, object]]:
         study["_relative"] = manifest.parent.relative_to(ROOT).as_posix()
         found.append(study)
     return found
+
+
+def weekly_summaries() -> list[dict[str, object]]:
+    found: list[dict[str, object]] = []
+    if not WEEKLY_ROOT.is_dir():
+        return found
+    for source in WEEKLY_ROOT.glob("*/summary.json"):
+        summary = json.loads(source.read_text(encoding="utf-8"))
+        if summary.get("schema_version") != "1.0" or summary.get("market") != "XAUUSD":
+            raise ValueError(f"invalid weekly summary: {source.relative_to(ROOT)}")
+        if source.parent.name != summary.get("forecast_week"):
+            raise ValueError(f"weekly directory/forecast mismatch: {source.relative_to(ROOT)}")
+        summary["_relative"] = source.parent.relative_to(ROOT).as_posix()
+        found.append(summary)
+    return sorted(
+        found,
+        key=lambda item: (str(item["forecast_week"]), str(item["published_at"])),
+        reverse=True,
+    )
 
 
 HEADLINE_LABELS = {
@@ -866,6 +892,156 @@ def status_sheets_html(study_list: list[dict[str, object]], prefix: str = "../")
     return "".join(blocks) if blocks else '<p class="empty">No active published study yet.</p>'
 
 
+def weekly_card(summary: dict[str, object], href: str) -> str:
+    mode = "Multi-source comparison" if summary["publication_mode"] == "multi_source" else "Single source"
+    return (
+        f'<a class="card" data-card href="{html.escape(href)}">'
+        f'<div class="type">weekly · {html.escape(str(summary["forecast_week"]))}</div>'
+        f'<h2>XAUUSD weekly outlook</h2><p>{html.escape(str(summary["market_summary"]))}</p>'
+        '<div class="mini-metrics">'
+        f'<span><strong>{summary["source_count"]}</strong> sources</span>'
+        f'<span><strong>{html.escape(mode)}</strong></span>'
+        f'<span><strong>{html.escape(str(summary["confidence"]))}</strong> confidence</span>'
+        '</div></a>'
+    )
+
+
+def text_list(items: list[object], empty: str = "None recorded") -> str:
+    if not items:
+        return f'<p class="section-note">{html.escape(empty)}</p>'
+    return '<ul class="impact-list">' + "".join(
+        f'<li>{html.escape(str(item))}</li>' for item in items
+    ) + '</ul>'
+
+
+def weekly_comparison_table(summary: dict[str, object]) -> str:
+    producers = [str(item["producer"]) for item in summary["scenario_comparison"]]
+    directions: list[str] = []
+    values: dict[str, dict[str, object]] = {}
+    for source in summary["scenario_comparison"]:
+        values[str(source["producer"])] = {
+            str(item["direction"]): item["probability"] for item in source["scenarios"]
+        }
+        for item in source["scenarios"]:
+            direction = str(item["direction"])
+            if direction not in directions:
+                directions.append(direction)
+    head = "".join(f'<th>{html.escape(producer)}</th>' for producer in producers)
+    rows = "".join(
+        '<tr><td><strong>' + html.escape(direction) + '</strong></td>'
+        + "".join(f'<td>{values[producer].get(direction, "—")}%</td>' for producer in producers)
+        + '</tr>'
+        for direction in directions
+    )
+    return (
+        '<section class="report-section"><h2>Source scenario comparison</h2>'
+        '<p class="section-note">Each column reproduces that eligible source’s probability; the adopted view below is resolved claim by claim, never by producer rank.</p>'
+        f'<div class="table-wrap"><table><thead><tr><th>Direction</th>{head}</tr></thead>'
+        f'<tbody>{rows}</tbody></table></div></section>'
+    )
+
+
+def weekly_summary_page(
+    summary: dict[str, object],
+    archive: list[dict[str, object]],
+    *,
+    prefix: str,
+    source_href: str,
+    latest: bool,
+) -> str:
+    mode_label = "Multi-source comparison" if summary["publication_mode"] == "multi_source" else "Single source — no consensus claim"
+    adopted = "".join(
+        '<article class="insight info">'
+        f'<strong>{html.escape(str(item["direction"]))} · {item["probability"]}%</strong>'
+        f'<p><b>Conditions:</b> {html.escape(str(item["conditions"]))}</p>'
+        f'<p><b>Invalidation:</b> {html.escape(str(item["invalidation"]))}</p>'
+        f'<p><b>Targets:</b> {html.escape(str(item["targets"]))}</p></article>'
+        for item in summary["adopted_scenarios"]
+    )
+    levels = "".join(
+        f'<tr><td><strong>{html.escape(str(item["label"]))}</strong></td>'
+        f'<td>{html.escape(str(item["value"]))}</td><td>{html.escape(str(item["basis"]))}</td></tr>'
+        for item in summary["key_levels"]
+    )
+    strategies = "".join(
+        f'<tr><td><strong>{html.escape(str(item["strategy"]))}</strong></td>'
+        f'<td>{html.escape(str(item["stance"]))}</td><td>{html.escape(str(item["entry"]))}</td>'
+        f'<td>{html.escape(str(item["stop"]))}</td><td>{html.escape(str(item["risk"]))}</td></tr>'
+        for item in summary["strategy_plan"]
+    )
+    events = "".join(
+        '<article class="insight warn">'
+        f'<strong>{html.escape(str(item["name"]))}</strong>'
+        f'<p>{html.escape(str(item["scheduled_at"]))}</p>'
+        f'<p>{html.escape(str(item["handling"]))}</p></article>'
+        for item in summary["event_risk"]
+    )
+    recommendation = summary["recommendation"]
+    archive_cards = "".join(
+        weekly_card(item, ("" if latest else "../") + str(item["forecast_week"]) + "/")
+        for item in archive
+    )
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("Forecast week", summary["forecast_week"], f'Edition {summary["edition"]}')
+        + metric("Publication mode", mode_label, f'{summary["source_count"]} eligible source(s)')
+        + metric("Confidence", summary["confidence"], f'Published {summary["published_at"]}')
+        + metric("Data cutoff", summary["data_cutoff"], "Weekend research snapshot")
+        + '</div>'
+        + f'<div class="callout"><strong>{html.escape(str(recommendation["stance"]))}</strong>'
+        f'<p>{html.escape(str(recommendation["summary"]))}</p>'
+        f'<p><b>Changes when:</b> {html.escape(str(recommendation["invalidation"]))}</p></div>'
+        + weekly_comparison_table(summary)
+        + '<section class="report-section"><h2>Adopted scenario view</h2>'
+        f'<div class="insight-grid">{adopted}</div></section>'
+        + '<section class="report-section"><h2>Agreements</h2>' + text_list(summary["agreements"]) + '</section>'
+        + '<section class="report-section"><h2>Disagreements and resolution</h2>' + text_list(summary["disagreements"]) + '</section>'
+        + '<section class="report-section"><h2>Key levels</h2><div class="table-wrap"><table>'
+        f'<thead><tr><th>Role</th><th>Level</th><th>Basis</th></tr></thead><tbody>{levels}</tbody></table></div></section>'
+        + '<section class="report-section"><h2>Strategy plan</h2><div class="table-wrap"><table>'
+        f'<thead><tr><th>Strategy</th><th>Stance</th><th>Entry gate</th><th>Stop</th><th>Risk</th></tr></thead><tbody>{strategies}</tbody></table></div></section>'
+        + f'<section class="report-section"><h2>Event risk</h2><div class="insight-grid">{events}</div></section>'
+        + '<section class="report-section"><h2>Evidence limits</h2>' + text_list(summary["evidence_limits"])
+        + f'<p class="section-note">{html.escape(str(summary["disclaimer"]))}</p>'
+        + f'<div class="file-actions"><a href="{html.escape(source_href)}">Reviewed summary JSON</a></div></section>'
+        + '<h2 class="section-title">Weekly archive</h2><div class="grid">' + archive_cards + '</div>'
+        + '</main>'
+    )
+    eyebrow = "Latest reviewed weekly outlook" if latest else "Reviewed weekly archive"
+    return document(
+        f'XAUUSD {summary["forecast_week"]} outlook',
+        eyebrow,
+        str(summary["market_summary"]),
+        body,
+        prefix,
+    )
+
+
+def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, object]]) -> str:
+    selected = [study for study in study_list if study["market"].lower() == "xauusd"]
+    latest = weekly[0] if weekly else None
+    weekly_html = (
+        weekly_card(latest, "weekly/")
+        if latest else '<p class="empty">No reviewed weekly outlook published yet.</p>'
+    )
+    body = (
+        '<div class="toolbar"><div class="shell"><input data-search type="search" '
+        'placeholder="Filter XAUUSD content" aria-label="Filter"></div></div>'
+        '<main class="shell"><h2 class="section-title">Latest weekly outlook</h2>'
+        f'<div class="grid">{weekly_html}</div>'
+        f'<div class="stats"><span class="stat"><strong>{len(selected)}</strong> active studies</span></div>'
+        f'{status_sheets_html(selected)}</main>'
+    )
+    return document(
+        "XAUUSD research",
+        "xauusd",
+        "Reviewed weekly outlooks and gold research, without private source artifacts.",
+        body,
+        "../",
+    )
+
+
 def section_page(
     study_list: list[dict[str, object]],
     market: str,
@@ -897,7 +1073,11 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
     )
 
 
-def overview(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
+def overview(
+    data: dict[str, object],
+    study_list: list[dict[str, object]],
+    weekly: list[dict[str, object]],
+) -> str:
     # The live-impact study (non-empty policy_impacts), not "whichever XAUUSD study
     # sorts first by directory name" — that previously picked an unrelated comparison
     # report once a higher-numbered study existed. Falls back to the first XAUUSD
@@ -919,6 +1099,10 @@ def overview(data: dict[str, object], study_list: list[dict[str, object]]) -> st
         else "Active reviewed XAUUSD studies."
     )
     cards = [
+        ("xauusd/weekly/", "Latest XAUUSD weekly outlook", (
+            f'Reviewed {weekly[0]["forecast_week"]} aggregate from {weekly[0]["source_count"]} eligible source(s).'
+            if weekly else "No reviewed weekly outlook published yet."
+        )),
         (xauusd_href, xauusd_title, xauusd_desc),
         ("tx/", "TX studies", "Active reviewed Taiwan index futures studies."),
         ("research/", "All research", "Browse adopted human-readable study reports."),
@@ -950,13 +1134,22 @@ def overview(data: dict[str, object], study_list: list[dict[str, object]]) -> st
 
 def outputs(data: dict[str, object]) -> dict[Path, str]:
     study_list = studies()
+    weekly = weekly_summaries()
     generated = {
         ROOT / "site/catalog.json": json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
-        ROOT / "index.html": overview(data, study_list),
-        ROOT / "xauusd/index.html": section_page(study_list, "xauusd", "XAUUSD studies", "Reviewed gold research presented as readable studies, not a repository tree."),
+        ROOT / "index.html": overview(data, study_list, weekly),
+        ROOT / "xauusd/index.html": xauusd_page(study_list, weekly),
         ROOT / "tx/index.html": section_page(study_list, "tx", "TX studies", "Reviewed Taiwan index futures research presented as readable studies."),
         ROOT / "research/index.html": research_page(data, study_list),
     }
+    if weekly:
+        generated[ROOT / "xauusd/weekly/index.html"] = weekly_summary_page(
+            weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,
+        )
+        for summary in weekly:
+            generated[ROOT / summary["_relative"] / "index.html"] = weekly_summary_page(
+                summary, weekly, prefix="../../../", source_href="summary.json", latest=False,
+            )
     for study in study_list:
         generated[ROOT / study["_relative"] / "index.html"] = study_page(study)
     return generated

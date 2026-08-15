@@ -18,6 +18,10 @@ history; model-specific memory is not a fact source.
 
 - Never copy `.claude/memory`, private journals, DOCX/XLSX, raw CSV, credentials, cookies,
   tokens, private keys, or unreviewed source documents into this repository.
+- The sole weekly exception is a reviewed aggregate at
+  `xauusd/weekly/<forecast-week>/summary.json`; it may not contain the underlying model
+  report artifacts, private provenance, input-set IDs, internal paths, journals/state,
+  raw data, or screenshots.
 - Do not change formal strategy logic, parameters, performance values, or research
   conclusions without explicit owner scope.
 - Generated landing pages are rebuilt with `python3 site/build.py`; do not hand-edit them.

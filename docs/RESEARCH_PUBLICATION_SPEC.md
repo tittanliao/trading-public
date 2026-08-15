@@ -21,6 +21,12 @@ Never publish raw CSV, absolute private paths, source manifests, journals, state
 history, weekly model artifacts, private decision/handoff records, credentials, tokens,
 cookies, or unreviewed documents.
 
+The only weekly exception is the reviewed aggregate
+`xauusd/weekly/<forecast-week>/summary.json` produced by the Private allow-list exporter.
+It exposes comparisons and adopted conclusions, not any weekly model artifact or
+private provenance. One source is labeled `single_source`; only multiple independent
+same-input sources may be labeled `multi_source`.
+
 ## Implementation
 
 1. Confirm the matching Private study is registered and at least `reproduced`.

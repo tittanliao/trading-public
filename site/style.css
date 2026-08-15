@@ -51,7 +51,7 @@ input[type="search"] { width: 100%; border: 1px solid var(--line); border-radius
 .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 8px 0 38px; }
 .metric { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
 .metric-label { color: var(--muted); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.metric-value { margin-top: 6px; color: var(--gold); font-size: 1.7rem; font-weight: 800; }
+.metric-value { margin-top: 6px; color: var(--gold); font-size: 1.7rem; font-weight: 800; overflow-wrap: anywhere; }
 .metric-detail { margin-top: 4px; color: var(--muted); font-size: .78rem; }
 .report-section { margin-top: 38px; }
 .report-section h2 { margin-bottom: 14px; font-size: 1.35rem; }

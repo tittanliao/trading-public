@@ -18,13 +18,18 @@ python3 site/check.py
 ```
 
 Edit publishable report/code sources, then regenerate. Do not hand-edit generated
-`index.html`, `xauusd/index.html`, `tx/index.html`, `research/index.html`, or
-`site/catalog.json`.
+`index.html`, `xauusd/index.html`, `xauusd/weekly/**/index.html`, `tx/index.html`,
+`research/index.html`, or `site/catalog.json`.
 
 Reviewed research studies live under `research/studies/<study-id>/`. Each package has a
 sanitized manifest, aggregate results, and a reproducible Python method. The build
 creates a legacy-hub-style study card and detailed HTML report automatically; raw CSV
 and private decision records remain in `trading-private`.
+
+Reviewed XAUUSD weekly aggregates live under `xauusd/weekly/<forecast-week>/`. The
+stable latest URL is `/xauusd/weekly/`; archive pages preserve each published forecast
+week. These summaries may compare eligible producers, but never contain their Private
+report artifacts or raw evidence.
 
 Cross-repository implementation and Claude/Codex continuation are governed by
 `../trading-private/docs/RESEARCH_DEVELOPMENT_SPEC.md`. The Public-only safety fallback
