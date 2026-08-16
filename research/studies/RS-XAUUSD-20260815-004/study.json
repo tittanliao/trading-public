@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260815-004",
+  "revision": 5,
+  "title": "S1 V3.9 — T1 chase-cap and pullback entry replay",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB / S2-Hammer",
+    "version": "V3.9 / V3.2"
+  },
+  "status": "progress",
+  "created_on": "2026-08-15",
+  "question": "After an S1 signal and one completed T1 bar, does a chase cap or a T2/T3 pullback limit improve realized entry quality?",
+  "hypothesis": "Waiting alone will not create edge; a sufficiently patient pullback may improve entry geometry but must remain stable and retain enough fills.",
+  "headline": {
+    "s1_pullback_emulator_exit_match_pct": 100.0,
+    "s1_t1_market_n": 336,
+    "s1_t1_market_win_rate_pct": 54.46,
+    "s1_t1_market_profit_factor": 1.588,
+    "s1_pullback_primary_pct": 0.1,
+    "s1_pullback_primary_n": 116,
+    "s1_pullback_primary_win_rate_pct": 54.31,
+    "s1_pullback_primary_profit_factor": 1.527,
+    "s1_pullback_shadow_pct": 0.15,
+    "s1_pullback_shadow_n": 77,
+    "s1_pullback_shadow_win_rate_pct": 59.74,
+    "s1_pullback_shadow_profit_factor": 2.106,
+    "s1_pullback_shadow_recent_win_rate_pct": 53.85,
+    "s1_pullback_shadow_recent_profit_factor": 1.836,
+    "s1_pullback_shadow_fill_rate_pct": 22.92
+  },
+  "card_metrics": [
+    "s1_t1_market_win_rate_pct",
+    "s1_pullback_shadow_win_rate_pct",
+    "s1_pullback_shadow_profit_factor",
+    "s1_pullback_shadow_fill_rate_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Waiting one bar is not sufficient; delayed market entry loses edge",
+      "detail": "The candle-level exit emulator matched all 472 OFF TradingView exit timestamps and IDs. After T1 preserved the signal low, market entry produced 336 trades at 54.46% WR, PF 1.588, and USD 13.17 average PnL, below the exact same-source OFF entries at 61.31% WR, PF 2.308, and USD 24.84 average PnL."
+    },
+    {
+      "tone": "warn",
+      "title": "0.15% pullback is a low-coverage shadow candidate, not an adopted rule",
+      "detail": "The frozen 0.10% primary pullback weakened to 46.67% WR in the recent cohort and is rejected. The post-output 0.15% sensitivity filled 77/336 T1-held opportunities (22.92%) at 59.74% WR, PF 2.106, and USD 21.79 average PnL; recent n=39 remained positive at 53.85% WR and PF 1.836. Its 95% WR interval is wide (48.58–69.98%) and the paired outcome test versus same-source OFF is non-significant (p=1.0), so it is shadow-only."
+    }
+  ],
+  "policy_impacts": [],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

@@ -1,0 +1,1226 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260815-004",
+  "generated_at": "2026-08-16T17:30:00+08:00",
+  "timezone": "Asia/Taipei",
+  "emulator_validation": {
+    "n": 472,
+    "exit_time_and_signal_match_n": 472,
+    "exit_time_and_signal_match_pct": 100.0,
+    "mean_abs_exit_price_difference": 0.000472,
+    "max_abs_exit_price_difference": 0.000995,
+    "mean_abs_pnl_difference_usd": 0.0061,
+    "mismatch_n": 0,
+    "mismatches": []
+  },
+  "off_baseline_metrics": {
+    "n": 472,
+    "wins": 264,
+    "losses": 208,
+    "win_rate_pct": 55.93,
+    "win_rate_wilson_95ci_pct": [
+      51.42,
+      60.35
+    ],
+    "profit_factor": 1.849,
+    "net_pnl_usd": 8714.84,
+    "average_pnl_usd": 18.46,
+    "max_closed_trade_drawdown_usd": 378.37,
+    "average_duration_bars": 20.48
+  },
+  "chronology_cutoff_signal_time": "2025-12-09 17:00:00",
+  "policies": {
+    "T1_market": {
+      "policy": {
+        "kind": "t1_market"
+      },
+      "independent_signal_metrics": {
+        "n": 336,
+        "wins": 183,
+        "losses": 153,
+        "win_rate_pct": 54.46,
+        "win_rate_wilson_95ci_pct": [
+          49.12,
+          59.71
+        ],
+        "profit_factor": 1.588,
+        "net_pnl_usd": 4424.91,
+        "average_pnl_usd": 13.17,
+        "max_closed_trade_drawdown_usd": 434.73,
+        "average_duration_bars": 19.37
+      },
+      "known_signal_sequential_metrics": {
+        "n": 330,
+        "wins": 179,
+        "losses": 151,
+        "win_rate_pct": 54.24,
+        "win_rate_wilson_95ci_pct": [
+          48.85,
+          59.54
+        ],
+        "profit_factor": 1.566,
+        "net_pnl_usd": 4202.35,
+        "average_pnl_usd": 12.73,
+        "max_closed_trade_drawdown_usd": 444.2,
+        "average_duration_bars": 19.15
+      },
+      "entry_disposition_counts": {
+        "filled": 336,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 100.0,
+      "sequential_skipped_while_position_n": 6,
+      "same_source_off_metrics": {
+        "n": 336,
+        "wins": 206,
+        "losses": 130,
+        "win_rate_pct": 61.31,
+        "win_rate_wilson_95ci_pct": [
+          56.0,
+          66.36
+        ],
+        "profit_factor": 2.308,
+        "net_pnl_usd": 8347.63,
+        "average_pnl_usd": 24.84,
+        "max_closed_trade_drawdown_usd": 427.24,
+        "average_duration_bars": 20.78
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 125,
+        "loss_to_win": 5,
+        "win_to_loss": 28,
+        "win_to_win": 178
+      },
+      "paired_outcome_exact_p_value": 6.6e-05,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 233,
+          "wins": 129,
+          "losses": 104,
+          "win_rate_pct": 55.36,
+          "win_rate_wilson_95ci_pct": [
+            48.95,
+            61.61
+          ],
+          "profit_factor": 1.62,
+          "net_pnl_usd": 3188.26,
+          "average_pnl_usd": 13.68,
+          "max_closed_trade_drawdown_usd": 394.87,
+          "average_duration_bars": 23.61
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 103,
+          "wins": 54,
+          "losses": 49,
+          "win_rate_pct": 52.43,
+          "win_rate_wilson_95ci_pct": [
+            42.87,
+            61.81
+          ],
+          "profit_factor": 1.518,
+          "net_pnl_usd": 1236.65,
+          "average_pnl_usd": 12.01,
+          "max_closed_trade_drawdown_usd": 434.73,
+          "average_duration_bars": 9.76
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 114,
+            "wins": 59,
+            "losses": 55,
+            "win_rate_pct": 51.75,
+            "win_rate_wilson_95ci_pct": [
+              42.68,
+              60.72
+            ],
+            "profit_factor": 1.352,
+            "net_pnl_usd": 953.98,
+            "average_pnl_usd": 8.37,
+            "max_closed_trade_drawdown_usd": 394.87,
+            "average_duration_bars": 28.16
+          },
+          "2025": {
+            "n": 126,
+            "wins": 74,
+            "losses": 52,
+            "win_rate_pct": 58.73,
+            "win_rate_wilson_95ci_pct": [
+              50.0,
+              66.94
+            ],
+            "profit_factor": 1.886,
+            "net_pnl_usd": 2283.17,
+            "average_pnl_usd": 18.12,
+            "max_closed_trade_drawdown_usd": 326.06,
+            "average_duration_bars": 18.74
+          },
+          "2026": {
+            "n": 96,
+            "wins": 50,
+            "losses": 46,
+            "win_rate_pct": 52.08,
+            "win_rate_wilson_95ci_pct": [
+              42.2,
+              61.8
+            ],
+            "profit_factor": 1.53,
+            "net_pnl_usd": 1187.76,
+            "average_pnl_usd": 12.37,
+            "max_closed_trade_drawdown_usd": 434.73,
+            "average_duration_bars": 9.75
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_chase_cap_0.00pct": {
+      "policy": {
+        "kind": "t1_chase_cap",
+        "max_chase_pct": 0.0
+      },
+      "independent_signal_metrics": {
+        "n": 111,
+        "wins": 59,
+        "losses": 52,
+        "win_rate_pct": 53.15,
+        "win_rate_wilson_95ci_pct": [
+          43.92,
+          62.17
+        ],
+        "profit_factor": 1.392,
+        "net_pnl_usd": 1012.1,
+        "average_pnl_usd": 9.12,
+        "max_closed_trade_drawdown_usd": 395.35,
+        "average_duration_bars": 22.26
+      },
+      "known_signal_sequential_metrics": {
+        "n": 111,
+        "wins": 59,
+        "losses": 52,
+        "win_rate_pct": 53.15,
+        "win_rate_wilson_95ci_pct": [
+          43.92,
+          62.17
+        ],
+        "profit_factor": 1.392,
+        "net_pnl_usd": 1012.1,
+        "average_pnl_usd": 9.12,
+        "max_closed_trade_drawdown_usd": 395.35,
+        "average_duration_bars": 22.26
+      },
+      "entry_disposition_counts": {
+        "chase_cap_exceeded": 225,
+        "filled": 111,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 33.04,
+      "sequential_skipped_while_position_n": 0,
+      "same_source_off_metrics": {
+        "n": 111,
+        "wins": 55,
+        "losses": 56,
+        "win_rate_pct": 49.55,
+        "win_rate_wilson_95ci_pct": [
+          40.42,
+          58.71
+        ],
+        "profit_factor": 1.227,
+        "net_pnl_usd": 623.49,
+        "average_pnl_usd": 5.62,
+        "max_closed_trade_drawdown_usd": 526.8,
+        "average_duration_bars": 23.52
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 52,
+        "loss_to_win": 4,
+        "win_to_win": 55
+      },
+      "paired_outcome_exact_p_value": 0.125,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 82,
+          "wins": 43,
+          "losses": 39,
+          "win_rate_pct": 52.44,
+          "win_rate_wilson_95ci_pct": [
+            41.76,
+            62.9
+          ],
+          "profit_factor": 1.318,
+          "net_pnl_usd": 618.82,
+          "average_pnl_usd": 7.55,
+          "max_closed_trade_drawdown_usd": 395.35,
+          "average_duration_bars": 26.7
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 29,
+          "wins": 16,
+          "losses": 13,
+          "win_rate_pct": 55.17,
+          "win_rate_wilson_95ci_pct": [
+            37.55,
+            71.59
+          ],
+          "profit_factor": 1.618,
+          "net_pnl_usd": 393.27,
+          "average_pnl_usd": 13.56,
+          "max_closed_trade_drawdown_usd": 99.91,
+          "average_duration_bars": 9.72
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 45,
+            "wins": 25,
+            "losses": 20,
+            "win_rate_pct": 55.56,
+            "win_rate_wilson_95ci_pct": [
+              41.18,
+              69.06
+            ],
+            "profit_factor": 1.46,
+            "net_pnl_usd": 454.0,
+            "average_pnl_usd": 10.09,
+            "max_closed_trade_drawdown_usd": 296.59,
+            "average_duration_bars": 32.96
+          },
+          "2025": {
+            "n": 39,
+            "wins": 19,
+            "losses": 20,
+            "win_rate_pct": 48.72,
+            "win_rate_wilson_95ci_pct": [
+              33.87,
+              63.8
+            ],
+            "profit_factor": 1.163,
+            "net_pnl_usd": 164.39,
+            "average_pnl_usd": 4.22,
+            "max_closed_trade_drawdown_usd": 247.04,
+            "average_duration_bars": 18.41
+          },
+          "2026": {
+            "n": 27,
+            "wins": 15,
+            "losses": 12,
+            "win_rate_pct": 55.56,
+            "win_rate_wilson_95ci_pct": [
+              37.31,
+              72.41
+            ],
+            "profit_factor": 1.671,
+            "net_pnl_usd": 393.71,
+            "average_pnl_usd": 14.58,
+            "max_closed_trade_drawdown_usd": 99.91,
+            "average_duration_bars": 10
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_chase_cap_0.05pct": {
+      "policy": {
+        "kind": "t1_chase_cap",
+        "max_chase_pct": 0.05
+      },
+      "independent_signal_metrics": {
+        "n": 186,
+        "wins": 104,
+        "losses": 82,
+        "win_rate_pct": 55.91,
+        "win_rate_wilson_95ci_pct": [
+          48.73,
+          62.86
+        ],
+        "profit_factor": 1.637,
+        "net_pnl_usd": 2578.64,
+        "average_pnl_usd": 13.86,
+        "max_closed_trade_drawdown_usd": 295.17,
+        "average_duration_bars": 21.49
+      },
+      "known_signal_sequential_metrics": {
+        "n": 185,
+        "wins": 104,
+        "losses": 81,
+        "win_rate_pct": 56.22,
+        "win_rate_wilson_95ci_pct": [
+          49.01,
+          63.17
+        ],
+        "profit_factor": 1.657,
+        "net_pnl_usd": 2627.71,
+        "average_pnl_usd": 14.2,
+        "max_closed_trade_drawdown_usd": 294.78,
+        "average_duration_bars": 21.45
+      },
+      "entry_disposition_counts": {
+        "chase_cap_exceeded": 150,
+        "filled": 186,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 55.36,
+      "sequential_skipped_while_position_n": 1,
+      "same_source_off_metrics": {
+        "n": 186,
+        "wins": 102,
+        "losses": 84,
+        "win_rate_pct": 54.84,
+        "win_rate_wilson_95ci_pct": [
+          47.66,
+          61.82
+        ],
+        "profit_factor": 1.667,
+        "net_pnl_usd": 2753.0,
+        "average_pnl_usd": 14.8,
+        "max_closed_trade_drawdown_usd": 378.57,
+        "average_duration_bars": 22.31
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 79,
+        "loss_to_win": 5,
+        "win_to_loss": 3,
+        "win_to_win": 99
+      },
+      "paired_outcome_exact_p_value": 0.726562,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 149,
+          "wins": 85,
+          "losses": 64,
+          "win_rate_pct": 57.05,
+          "win_rate_wilson_95ci_pct": [
+            49.02,
+            64.72
+          ],
+          "profit_factor": 1.72,
+          "net_pnl_usd": 2283.41,
+          "average_pnl_usd": 15.32,
+          "max_closed_trade_drawdown_usd": 295.17,
+          "average_duration_bars": 24.66
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 37,
+          "wins": 19,
+          "losses": 18,
+          "win_rate_pct": 51.35,
+          "win_rate_wilson_95ci_pct": [
+            35.89,
+            66.55
+          ],
+          "profit_factor": 1.336,
+          "net_pnl_usd": 295.23,
+          "average_pnl_usd": 7.98,
+          "max_closed_trade_drawdown_usd": 144.86,
+          "average_duration_bars": 8.76
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 75,
+            "wins": 41,
+            "losses": 34,
+            "win_rate_pct": 54.67,
+            "win_rate_wilson_95ci_pct": [
+              43.45,
+              65.43
+            ],
+            "profit_factor": 1.36,
+            "net_pnl_usd": 603.82,
+            "average_pnl_usd": 8.05,
+            "max_closed_trade_drawdown_usd": 295.17,
+            "average_duration_bars": 29.87
+          },
+          "2025": {
+            "n": 77,
+            "wins": 45,
+            "losses": 32,
+            "win_rate_pct": 58.44,
+            "win_rate_wilson_95ci_pct": [
+              47.29,
+              68.79
+            ],
+            "profit_factor": 2.022,
+            "net_pnl_usd": 1629.58,
+            "average_pnl_usd": 21.16,
+            "max_closed_trade_drawdown_usd": 294.78,
+            "average_duration_bars": 18.79
+          },
+          "2026": {
+            "n": 34,
+            "wins": 18,
+            "losses": 16,
+            "win_rate_pct": 52.94,
+            "win_rate_wilson_95ci_pct": [
+              36.74,
+              68.55
+            ],
+            "profit_factor": 1.442,
+            "net_pnl_usd": 345.24,
+            "average_pnl_usd": 10.15,
+            "max_closed_trade_drawdown_usd": 144.86,
+            "average_duration_bars": 9.15
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_chase_cap_0.10pct": {
+      "policy": {
+        "kind": "t1_chase_cap",
+        "max_chase_pct": 0.1
+      },
+      "independent_signal_metrics": {
+        "n": 234,
+        "wins": 130,
+        "losses": 104,
+        "win_rate_pct": 55.56,
+        "win_rate_wilson_95ci_pct": [
+          49.15,
+          61.78
+        ],
+        "profit_factor": 1.624,
+        "net_pnl_usd": 3199.05,
+        "average_pnl_usd": 13.67,
+        "max_closed_trade_drawdown_usd": 392.99,
+        "average_duration_bars": 20.3
+      },
+      "known_signal_sequential_metrics": {
+        "n": 231,
+        "wins": 128,
+        "losses": 103,
+        "win_rate_pct": 55.41,
+        "win_rate_wilson_95ci_pct": [
+          48.96,
+          61.68
+        ],
+        "profit_factor": 1.62,
+        "net_pnl_usd": 3149.42,
+        "average_pnl_usd": 13.63,
+        "max_closed_trade_drawdown_usd": 392.99,
+        "average_duration_bars": 20.2
+      },
+      "entry_disposition_counts": {
+        "chase_cap_exceeded": 102,
+        "filled": 234,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 69.64,
+      "sequential_skipped_while_position_n": 3,
+      "same_source_off_metrics": {
+        "n": 234,
+        "wins": 128,
+        "losses": 106,
+        "win_rate_pct": 54.7,
+        "win_rate_wilson_95ci_pct": [
+          48.3,
+          60.95
+        ],
+        "profit_factor": 1.687,
+        "net_pnl_usd": 3575.61,
+        "average_pnl_usd": 15.28,
+        "max_closed_trade_drawdown_usd": 467.68,
+        "average_duration_bars": 21.37
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 101,
+        "loss_to_win": 5,
+        "win_to_loss": 3,
+        "win_to_win": 125
+      },
+      "paired_outcome_exact_p_value": 0.726562,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 177,
+          "wins": 100,
+          "losses": 77,
+          "win_rate_pct": 56.5,
+          "win_rate_wilson_95ci_pct": [
+            49.13,
+            63.59
+          ],
+          "profit_factor": 1.674,
+          "net_pnl_usd": 2566.28,
+          "average_pnl_usd": 14.5,
+          "max_closed_trade_drawdown_usd": 392.99,
+          "average_duration_bars": 23.86
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 57,
+          "wins": 30,
+          "losses": 27,
+          "win_rate_pct": 52.63,
+          "win_rate_wilson_95ci_pct": [
+            39.92,
+            65.01
+          ],
+          "profit_factor": 1.479,
+          "net_pnl_usd": 632.76,
+          "average_pnl_usd": 11.1,
+          "max_closed_trade_drawdown_usd": 195.85,
+          "average_duration_bars": 9.25
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 90,
+            "wins": 48,
+            "losses": 42,
+            "win_rate_pct": 53.33,
+            "win_rate_wilson_95ci_pct": [
+              43.1,
+              63.29
+            ],
+            "profit_factor": 1.328,
+            "net_pnl_usd": 678.34,
+            "average_pnl_usd": 7.54,
+            "max_closed_trade_drawdown_usd": 296.02,
+            "average_duration_bars": 28.83
+          },
+          "2025": {
+            "n": 92,
+            "wins": 54,
+            "losses": 38,
+            "win_rate_pct": 58.7,
+            "win_rate_wilson_95ci_pct": [
+              48.48,
+              68.21
+            ],
+            "profit_factor": 1.973,
+            "net_pnl_usd": 1837.74,
+            "average_pnl_usd": 19.98,
+            "max_closed_trade_drawdown_usd": 392.99,
+            "average_duration_bars": 18.29
+          },
+          "2026": {
+            "n": 52,
+            "wins": 28,
+            "losses": 24,
+            "win_rate_pct": 53.85,
+            "win_rate_wilson_95ci_pct": [
+              40.5,
+              66.66
+            ],
+            "profit_factor": 1.583,
+            "net_pnl_usd": 682.96,
+            "average_pnl_usd": 13.13,
+            "max_closed_trade_drawdown_usd": 192.18,
+            "average_duration_bars": 9.08
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_chase_cap_0.15pct": {
+      "policy": {
+        "kind": "t1_chase_cap",
+        "max_chase_pct": 0.15
+      },
+      "independent_signal_metrics": {
+        "n": 273,
+        "wins": 148,
+        "losses": 125,
+        "win_rate_pct": 54.21,
+        "win_rate_wilson_95ci_pct": [
+          48.28,
+          60.02
+        ],
+        "profit_factor": 1.516,
+        "net_pnl_usd": 3176.3,
+        "average_pnl_usd": 11.63,
+        "max_closed_trade_drawdown_usd": 441.09,
+        "average_duration_bars": 19.98
+      },
+      "known_signal_sequential_metrics": {
+        "n": 269,
+        "wins": 145,
+        "losses": 124,
+        "win_rate_pct": 53.9,
+        "win_rate_wilson_95ci_pct": [
+          47.93,
+          59.76
+        ],
+        "profit_factor": 1.504,
+        "net_pnl_usd": 3077.29,
+        "average_pnl_usd": 11.44,
+        "max_closed_trade_drawdown_usd": 490.42,
+        "average_duration_bars": 19.84
+      },
+      "entry_disposition_counts": {
+        "chase_cap_exceeded": 63,
+        "filled": 273,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 81.25,
+      "sequential_skipped_while_position_n": 4,
+      "same_source_off_metrics": {
+        "n": 273,
+        "wins": 153,
+        "losses": 120,
+        "win_rate_pct": 56.04,
+        "win_rate_wilson_95ci_pct": [
+          50.11,
+          61.81
+        ],
+        "profit_factor": 1.781,
+        "net_pnl_usd": 4598.97,
+        "average_pnl_usd": 16.85,
+        "max_closed_trade_drawdown_usd": 476.88,
+        "average_duration_bars": 21.47
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 115,
+        "loss_to_win": 5,
+        "win_to_loss": 10,
+        "win_to_win": 143
+      },
+      "paired_outcome_exact_p_value": 0.301758,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 200,
+          "wins": 111,
+          "losses": 89,
+          "win_rate_pct": 55.5,
+          "win_rate_wilson_95ci_pct": [
+            48.57,
+            62.22
+          ],
+          "profit_factor": 1.573,
+          "net_pnl_usd": 2518.22,
+          "average_pnl_usd": 12.59,
+          "max_closed_trade_drawdown_usd": 441.09,
+          "average_duration_bars": 23.57
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 73,
+          "wins": 37,
+          "losses": 36,
+          "win_rate_pct": 50.68,
+          "win_rate_wilson_95ci_pct": [
+            39.47,
+            61.83
+          ],
+          "profit_factor": 1.374,
+          "net_pnl_usd": 658.08,
+          "average_pnl_usd": 9.01,
+          "max_closed_trade_drawdown_usd": 386.98,
+          "average_duration_bars": 10.14
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 99,
+            "wins": 52,
+            "losses": 47,
+            "win_rate_pct": 52.53,
+            "win_rate_wilson_95ci_pct": [
+              42.78,
+              62.08
+            ],
+            "profit_factor": 1.272,
+            "net_pnl_usd": 629.73,
+            "average_pnl_usd": 6.36,
+            "max_closed_trade_drawdown_usd": 345.42,
+            "average_duration_bars": 28.27
+          },
+          "2025": {
+            "n": 107,
+            "wins": 62,
+            "losses": 45,
+            "win_rate_pct": 57.94,
+            "win_rate_wilson_95ci_pct": [
+              48.47,
+              66.86
+            ],
+            "profit_factor": 1.846,
+            "net_pnl_usd": 1887.75,
+            "average_pnl_usd": 17.64,
+            "max_closed_trade_drawdown_usd": 345.68,
+            "average_duration_bars": 18.44
+          },
+          "2026": {
+            "n": 67,
+            "wins": 34,
+            "losses": 33,
+            "win_rate_pct": 50.75,
+            "win_rate_wilson_95ci_pct": [
+              39.06,
+              62.35
+            ],
+            "profit_factor": 1.409,
+            "net_pnl_usd": 658.82,
+            "average_pnl_usd": 9.83,
+            "max_closed_trade_drawdown_usd": 386.98,
+            "average_duration_bars": 10.19
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_pullback_0.05pct_cap_0.10pct": {
+      "policy": {
+        "kind": "t1_pullback",
+        "pullback_pct": 0.05,
+        "max_chase_pct": 0.1
+      },
+      "independent_signal_metrics": {
+        "n": 190,
+        "wins": 113,
+        "losses": 77,
+        "win_rate_pct": 59.47,
+        "win_rate_wilson_95ci_pct": [
+          52.37,
+          66.2
+        ],
+        "profit_factor": 1.985,
+        "net_pnl_usd": 3723.18,
+        "average_pnl_usd": 19.6,
+        "max_closed_trade_drawdown_usd": 296.36,
+        "average_duration_bars": 19.4
+      },
+      "known_signal_sequential_metrics": {
+        "n": 188,
+        "wins": 111,
+        "losses": 77,
+        "win_rate_pct": 59.04,
+        "win_rate_wilson_95ci_pct": [
+          51.9,
+          65.82
+        ],
+        "profit_factor": 1.959,
+        "net_pnl_usd": 3624.49,
+        "average_pnl_usd": 19.28,
+        "max_closed_trade_drawdown_usd": 296.36,
+        "average_duration_bars": 19.26
+      },
+      "entry_disposition_counts": {
+        "filled": 190,
+        "limit_not_filled": 85,
+        "signal_low_breached_before_fill": 61,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 56.55,
+      "sequential_skipped_while_position_n": 2,
+      "same_source_off_metrics": {
+        "n": 190,
+        "wins": 117,
+        "losses": 73,
+        "win_rate_pct": 61.58,
+        "win_rate_wilson_95ci_pct": [
+          54.5,
+          68.2
+        ],
+        "profit_factor": 2.17,
+        "net_pnl_usd": 4189.23,
+        "average_pnl_usd": 22.05,
+        "max_closed_trade_drawdown_usd": 296.51,
+        "average_duration_bars": 21.69
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 69,
+        "loss_to_win": 4,
+        "win_to_loss": 8,
+        "win_to_win": 109
+      },
+      "paired_outcome_exact_p_value": 0.387695,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 132,
+          "wins": 82,
+          "losses": 50,
+          "win_rate_pct": 62.12,
+          "win_rate_wilson_95ci_pct": [
+            53.61,
+            69.94
+          ],
+          "profit_factor": 2.183,
+          "net_pnl_usd": 2913.38,
+          "average_pnl_usd": 22.07,
+          "max_closed_trade_drawdown_usd": 296.36,
+          "average_duration_bars": 23
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 58,
+          "wins": 31,
+          "losses": 27,
+          "win_rate_pct": 53.45,
+          "win_rate_wilson_95ci_pct": [
+            40.8,
+            65.67
+          ],
+          "profit_factor": 1.615,
+          "net_pnl_usd": 809.8,
+          "average_pnl_usd": 13.96,
+          "max_closed_trade_drawdown_usd": 194.08,
+          "average_duration_bars": 11.21
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 75,
+            "wins": 48,
+            "losses": 27,
+            "win_rate_pct": 64.0,
+            "win_rate_wilson_95ci_pct": [
+              52.7,
+              73.94
+            ],
+            "profit_factor": 2.174,
+            "net_pnl_usd": 1563.8,
+            "average_pnl_usd": 20.85,
+            "max_closed_trade_drawdown_usd": 296.36,
+            "average_duration_bars": 26.4
+          },
+          "2025": {
+            "n": 59,
+            "wins": 35,
+            "losses": 24,
+            "win_rate_pct": 59.32,
+            "win_rate_wilson_95ci_pct": [
+              46.59,
+              70.91
+            ],
+            "profit_factor": 2.143,
+            "net_pnl_usd": 1349.15,
+            "average_pnl_usd": 22.87,
+            "max_closed_trade_drawdown_usd": 197.39,
+            "average_duration_bars": 18.1
+          },
+          "2026": {
+            "n": 56,
+            "wins": 30,
+            "losses": 26,
+            "win_rate_pct": 53.57,
+            "win_rate_wilson_95ci_pct": [
+              40.7,
+              65.98
+            ],
+            "profit_factor": 1.639,
+            "net_pnl_usd": 810.23,
+            "average_pnl_usd": 14.47,
+            "max_closed_trade_drawdown_usd": 194.08,
+            "average_duration_bars": 11.39
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_pullback_0.10pct_cap_0.10pct": {
+      "policy": {
+        "kind": "t1_pullback",
+        "pullback_pct": 0.1,
+        "max_chase_pct": 0.1
+      },
+      "independent_signal_metrics": {
+        "n": 116,
+        "wins": 63,
+        "losses": 53,
+        "win_rate_pct": 54.31,
+        "win_rate_wilson_95ci_pct": [
+          45.25,
+          63.09
+        ],
+        "profit_factor": 1.527,
+        "net_pnl_usd": 1369.57,
+        "average_pnl_usd": 11.81,
+        "max_closed_trade_drawdown_usd": 197.08,
+        "average_duration_bars": 15.63
+      },
+      "known_signal_sequential_metrics": {
+        "n": 115,
+        "wins": 63,
+        "losses": 52,
+        "win_rate_pct": 54.78,
+        "win_rate_wilson_95ci_pct": [
+          45.68,
+          63.58
+        ],
+        "profit_factor": 1.556,
+        "net_pnl_usd": 1418.72,
+        "average_pnl_usd": 12.34,
+        "max_closed_trade_drawdown_usd": 197.08,
+        "average_duration_bars": 15.67
+      },
+      "entry_disposition_counts": {
+        "filled": 116,
+        "limit_not_filled": 151,
+        "signal_low_breached_before_fill": 69,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 34.52,
+      "sequential_skipped_while_position_n": 1,
+      "same_source_off_metrics": {
+        "n": 116,
+        "wins": 65,
+        "losses": 51,
+        "win_rate_pct": 56.03,
+        "win_rate_wilson_95ci_pct": [
+          46.95,
+          64.73
+        ],
+        "profit_factor": 1.704,
+        "net_pnl_usd": 1761.07,
+        "average_pnl_usd": 15.18,
+        "max_closed_trade_drawdown_usd": 148.75,
+        "average_duration_bars": 17.22
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 47,
+        "loss_to_win": 4,
+        "win_to_loss": 6,
+        "win_to_win": 59
+      },
+      "paired_outcome_exact_p_value": 0.753906,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 71,
+          "wins": 42,
+          "losses": 29,
+          "win_rate_pct": 59.15,
+          "win_rate_wilson_95ci_pct": [
+            47.54,
+            69.83
+          ],
+          "profit_factor": 1.718,
+          "net_pnl_usd": 1026.78,
+          "average_pnl_usd": 14.46,
+          "max_closed_trade_drawdown_usd": 197.08,
+          "average_duration_bars": 19.04
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 45,
+          "wins": 21,
+          "losses": 24,
+          "win_rate_pct": 46.67,
+          "win_rate_wilson_95ci_pct": [
+            32.94,
+            60.92
+          ],
+          "profit_factor": 1.293,
+          "net_pnl_usd": 342.78,
+          "average_pnl_usd": 7.62,
+          "max_closed_trade_drawdown_usd": 147.3,
+          "average_duration_bars": 10.24
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 39,
+            "wins": 24,
+            "losses": 15,
+            "win_rate_pct": 61.54,
+            "win_rate_wilson_95ci_pct": [
+              45.9,
+              75.11
+            ],
+            "profit_factor": 1.828,
+            "net_pnl_usd": 613.4,
+            "average_pnl_usd": 15.73,
+            "max_closed_trade_drawdown_usd": 197.08,
+            "average_duration_bars": 21.46
+          },
+          "2025": {
+            "n": 33,
+            "wins": 18,
+            "losses": 15,
+            "win_rate_pct": 54.55,
+            "win_rate_wilson_95ci_pct": [
+              37.99,
+              70.16
+            ],
+            "profit_factor": 1.492,
+            "net_pnl_usd": 363.56,
+            "average_pnl_usd": 11.02,
+            "max_closed_trade_drawdown_usd": 196.99,
+            "average_duration_bars": 15.91
+          },
+          "2026": {
+            "n": 44,
+            "wins": 21,
+            "losses": 23,
+            "win_rate_pct": 47.73,
+            "win_rate_wilson_95ci_pct": [
+              33.75,
+              62.06
+            ],
+            "profit_factor": 1.351,
+            "net_pnl_usd": 392.61,
+            "average_pnl_usd": 8.92,
+            "max_closed_trade_drawdown_usd": 147.3,
+            "average_duration_bars": 10.25
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    },
+    "T1_pullback_0.15pct_cap_0.10pct": {
+      "policy": {
+        "kind": "t1_pullback",
+        "pullback_pct": 0.15,
+        "max_chase_pct": 0.1
+      },
+      "independent_signal_metrics": {
+        "n": 77,
+        "wins": 46,
+        "losses": 31,
+        "win_rate_pct": 59.74,
+        "win_rate_wilson_95ci_pct": [
+          48.58,
+          69.98
+        ],
+        "profit_factor": 2.106,
+        "net_pnl_usd": 1677.91,
+        "average_pnl_usd": 21.79,
+        "max_closed_trade_drawdown_usd": 148.1,
+        "average_duration_bars": 14.51
+      },
+      "known_signal_sequential_metrics": {
+        "n": 77,
+        "wins": 46,
+        "losses": 31,
+        "win_rate_pct": 59.74,
+        "win_rate_wilson_95ci_pct": [
+          48.58,
+          69.98
+        ],
+        "profit_factor": 2.106,
+        "net_pnl_usd": 1677.91,
+        "average_pnl_usd": 21.79,
+        "max_closed_trade_drawdown_usd": 148.1,
+        "average_duration_bars": 14.51
+      },
+      "entry_disposition_counts": {
+        "filled": 77,
+        "limit_not_filled": 184,
+        "signal_low_breached_before_fill": 75,
+        "t1_broke_signal_low": 136
+      },
+      "t1_held_signal_n": 336,
+      "fill_rate_of_t1_held_pct": 22.92,
+      "sequential_skipped_while_position_n": 0,
+      "same_source_off_metrics": {
+        "n": 77,
+        "wins": 45,
+        "losses": 32,
+        "win_rate_pct": 58.44,
+        "win_rate_wilson_95ci_pct": [
+          47.29,
+          68.79
+        ],
+        "profit_factor": 1.933,
+        "net_pnl_usd": 1461.3,
+        "average_pnl_usd": 18.98,
+        "max_closed_trade_drawdown_usd": 196.83,
+        "average_duration_bars": 15.08
+      },
+      "outcome_conversions": {
+        "loss_to_loss": 29,
+        "loss_to_win": 3,
+        "win_to_loss": 2,
+        "win_to_win": 43
+      },
+      "paired_outcome_exact_p_value": 1.0,
+      "chronological_stability": {
+        "cutoff_signal_time": "2025-12-09 17:00:00",
+        "early_70pct_signal_cohort": {
+          "n": 38,
+          "wins": 25,
+          "losses": 13,
+          "win_rate_pct": 65.79,
+          "win_rate_wilson_95ci_pct": [
+            49.89,
+            78.79
+          ],
+          "profit_factor": 2.478,
+          "net_pnl_usd": 943.1,
+          "average_pnl_usd": 24.82,
+          "max_closed_trade_drawdown_usd": 145.46,
+          "average_duration_bars": 18.97
+        },
+        "recent_30pct_signal_cohort": {
+          "n": 39,
+          "wins": 21,
+          "losses": 18,
+          "win_rate_pct": 53.85,
+          "win_rate_wilson_95ci_pct": [
+            38.57,
+            68.43
+          ],
+          "profit_factor": 1.836,
+          "net_pnl_usd": 734.81,
+          "average_pnl_usd": 18.84,
+          "max_closed_trade_drawdown_usd": 148.1,
+          "average_duration_bars": 10.15
+        },
+        "by_signal_year": {
+          "2024": {
+            "n": 18,
+            "wins": 12,
+            "losses": 6,
+            "win_rate_pct": 66.67,
+            "win_rate_wilson_95ci_pct": [
+              43.75,
+              83.72
+            ],
+            "profit_factor": 2.433,
+            "net_pnl_usd": 422.32,
+            "average_pnl_usd": 23.46,
+            "max_closed_trade_drawdown_usd": 98.05,
+            "average_duration_bars": 22.5
+          },
+          "2025": {
+            "n": 21,
+            "wins": 13,
+            "losses": 8,
+            "win_rate_pct": 61.9,
+            "win_rate_wilson_95ci_pct": [
+              40.88,
+              79.25
+            ],
+            "profit_factor": 2.198,
+            "net_pnl_usd": 470.98,
+            "average_pnl_usd": 22.43,
+            "max_closed_trade_drawdown_usd": 145.46,
+            "average_duration_bars": 15.48
+          },
+          "2026": {
+            "n": 38,
+            "wins": 21,
+            "losses": 17,
+            "win_rate_pct": 55.26,
+            "win_rate_wilson_95ci_pct": [
+              39.71,
+              69.85
+            ],
+            "profit_factor": 1.947,
+            "net_pnl_usd": 784.61,
+            "average_pnl_usd": 20.65,
+            "max_closed_trade_drawdown_usd": 148.1,
+            "average_duration_bars": 10.18
+          }
+        }
+      },
+      "boundary": "sequential path uses only the frozen OFF filled-signal cohort; it cannot add qualified signals that formal OFF missed while in position"
+    }
+  },
+  "frozen_primary_policy": "T1_pullback_0.10pct_cap_0.10pct",
+  "sensitivity_candidate_policy": "T1_pullback_0.15pct_cap_0.10pct",
+  "interpretation": {
+    "frozen_primary": "rejected_as_adoption_candidate_due_to_recent_instability",
+    "sensitivity_candidate": "shadow_only_due_to_post_output_selection_low_fill_count_and_non_significant_paired_outcomes"
+  },
+  "formal_change": false,
+  "limitations": [
+    "The signal cohort is frozen to 472 OFF filled opportunities; it cannot recover qualified signals that the formal strategy did not fill while already in position.",
+    "The 0.15% pullback was selected after reviewing the sensitivity output, fills only 77 signals, and requires prospective shadow validation.",
+    "The 0.15% win-rate confidence interval is wide and its paired outcome test versus same-source OFF is not significant.",
+    "No result changes formal S1 logic, live risk, or an active entry checklist."
+  ]
+}

@@ -194,6 +194,10 @@ HEADLINE_LABELS = {
     "s1_distinct_assigned_reports": "S1 assigned weeks",
     "s2_distinct_assigned_reports": "S2 assigned weeks",
     "s2_regime_win_rate_range_pp": "S2 regime range",
+    "s1_t1_market_win_rate_pct": "T1 market WR",
+    "s1_pullback_shadow_win_rate_pct": "0.15% pullback WR",
+    "s1_pullback_shadow_profit_factor": "0.15% pullback PF",
+    "s1_pullback_shadow_fill_rate_pct": "0.15% fill rate",
 }
 
 
@@ -887,6 +891,34 @@ def context_program_limitations(result: dict[str, object]) -> str:
     return f'<section class="report-section"><h2>Evidence limits</h2><ul class="impact-list">{items}</ul></section>'
 
 
+def pullback_replay_table(replay: dict[str, object]) -> str:
+    body = ""
+    for name, value in replay["policies"].items():
+        metric = value["independent_signal_metrics"]
+        recent = value["chronological_stability"]["recent_30pct_signal_cohort"]
+        interval = metric["win_rate_wilson_95ci_pct"]
+        body += (
+            "<tr>"
+            f"<td><strong>{html.escape(name)}</strong></td>"
+            f"<td>{metric['n']}</td>"
+            f"<td>{value['fill_rate_of_t1_held_pct']}%</td>"
+            f"<td>{metric['win_rate_pct']}% ({interval[0]}–{interval[1]}%)</td>"
+            f"<td>{metric['profit_factor']}</td>"
+            f"<td>{metric['average_pnl_usd']:,.2f}</td>"
+            f"<td>{recent['n']} / {recent['win_rate_pct']}% / {recent['profit_factor']}</td>"
+            f"<td>{value['paired_outcome_exact_p_value']}</td>"
+            "</tr>"
+        )
+    return (
+        '<section class="report-section"><h2>Candle-level T1 pullback replay</h2>'
+        '<p class="section-note">The exit emulator matched all 472 OFF exit timestamps and IDs. '
+        'The frozen 0.10% primary failed recent stability; 0.15% is post-output and shadow-only.</p>'
+        '<div class="table-wrap"><table><thead><tr><th>Policy</th><th>n</th><th>Fill rate</th>'
+        '<th>WR (95% CI)</th><th>PF</th><th>Avg USD</th><th>Recent n / WR / PF</th><th>Paired p</th>'
+        f'</tr></thead><tbody>{body}</tbody></table></div></section>'
+    )
+
+
 def study_page_context_program(study: dict[str, object]) -> str:
     """Render multi-strategy context studies from their shared aggregate shape.
 
@@ -959,6 +991,40 @@ def study_page_context_program(study: dict[str, object]) -> str:
     )
 
 
+def study_page_pullback_replay(study: dict[str, object]) -> str:
+    result = study["_result"]
+    validation = result["emulator_validation"]
+    baseline = result["off_baseline_metrics"]
+    body = (
+        '<main class="shell report">'
+        f'<div class="metric-grid">{context_program_metrics(study)}</div>'
+        '<section class="report-section"><h2>Validation control</h2>'
+        f'<p>The emulator matched {validation["exit_time_and_signal_match_n"]}/'
+        f'{validation["n"]} OFF exit timestamps and IDs. Full OFF baseline: '
+        f'WR {baseline["win_rate_pct"]}%, PF {baseline["profit_factor"]}, '
+        f'average USD {baseline["average_pnl_usd"]}.</p></section>'
+        '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
+        + impact_section_html(study)
+        + pullback_replay_table(result)
+        + context_program_limitations(result)
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(study["hypothesis"])}</p>'
+        '<p>All timestamps use Asia/Taipei. Raw CSV, per-trade output, source manifests, '
+        'and private decision records are not published. The Python method accepts '
+        'locally authorized inputs and reproduces the reviewed aggregate.</p>'
+        + file_actions_html(study)
+        + '</section></main>'
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -971,6 +1037,8 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_seasonality(study)
     if "by_level" in result:
         return study_page_fib_pullback(study)
+    if "policies" in result and "emulator_validation" in result:
+        return study_page_pullback_replay(study)
     if "strategies" in result:
         return study_page_context_program(study)
     raise ValueError(
