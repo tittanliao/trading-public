@@ -919,6 +919,104 @@ def pullback_replay_table(replay: dict[str, object]) -> str:
     )
 
 
+FACTOR_LABELS = {
+    "real_rate": "Real rate",
+    "us10y": "US10Y",
+    "dxy": "DXY",
+    "vix": "VIX",
+    "gold_trend": "Gold trend",
+}
+
+
+def noise_note(test: dict[str, object]) -> str:
+    """State the separability verdict, not just the spread.
+
+    A macro split reads as meaningful when only its win rates are shown. The spread has to
+    be placed against what a no-effect null produces on the same group sizes, or the reader
+    supplies the conclusion themselves.
+    """
+    if not test or not test.get("applicable"):
+        return "Too few trades per group to test separability."
+    verdict = "separable from noise" if test.get("separable") else "not separable from noise"
+    return (
+        f'Observed spread {test["observed_spread_pp"]}pp against a null median of '
+        f'{test["null_median_spread_pp"]}pp over {test["trials"]:,} shuffles: '
+        f'P(spread >= observed) = {test["p_spread_at_least_observed"]}, {verdict}.'
+    )
+
+
+def macro_gvz_section(strategy: str, gvz: dict[str, object]) -> str:
+    """The GVZ threshold sweep, reported with its multiple-comparison correction.
+
+    The sweep searched every threshold, so its best gap has to be compared against the best
+    gap a sweep finds on unrelated data. Reporting the winning threshold alone would present
+    a search artefact as a finding.
+    """
+    best = gvz["largest_gap_threshold"]
+    test = gvz["permutation_test"]
+    # This table carries no Net USD column. The sweep records only n, win rate and profit
+    # factor per side, and reusing the standard table would have printed a 0.00 that reads
+    # as "this split broke even" rather than "this split was never measured in dollars".
+    rows = "".join(
+        "<tr>"
+        f"<td><strong>{html.escape(label)}</strong></td>"
+        f'<td>{side["n"]}</td><td>{side["win_rate_pct"]}%</td>'
+        f'<td>{side["profit_factor"]}</td>'
+        "</tr>"
+        for label, side in (
+            (f'GVZ < {best["threshold"]}', best["below"]),
+            (f'GVZ >= {best["threshold"]}', best["above"]),
+        )
+    )
+    if test.get("applicable"):
+        note = (
+            f'Best threshold found by sweeping all candidates: gap {test["observed_best_gap_pp"]}pp. '
+            f'A sweep over {test["trials"]:,} shuffles of the same data finds a median best gap of '
+            f'{test["null_median_best_gap_pp"]}pp and a 95th percentile of '
+            f'{test["null_95th_best_gap_pp"]}pp, so P(best gap >= observed) = '
+            f'{test["p_best_gap_at_least_observed"]}. '
+            + ("Survives the correction." if test.get("survives_multiple_comparison")
+               else "Does not survive the multiple-comparison correction; this split is a "
+                    "search artefact of having tested every threshold.")
+            + f' The split also needs {best["min_detectable_pp"]}pp to resolve at these group sizes.'
+        )
+    else:
+        note = "Too few trades to test the sweep against a null."
+    return (
+        f'<section class="report-section"><h2>{html.escape(strategy)} GVZ threshold sweep</h2>'
+        f'<p class="section-note">{html.escape(note)}</p>'
+        '<div class="table-wrap"><table><thead><tr><th>Context</th><th>n</th>'
+        '<th>WR</th><th>PF</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table></div></section>'
+    )
+
+
+def macro_attribution_tables(strategies: dict[str, dict]) -> list[str]:
+    tables = []
+    for strategy, data in strategies.items():
+        coverage = (
+            f'{data["trades_with_macro"]}/{data["trades_total"]} trades carried macro values '
+            f'({data["macro_coverage_pct"]}% coverage). Baseline n={data["baseline"]["n"]}, '
+            f'WR {data["baseline"]["win_rate_pct"]}%, PF {data["baseline"]["profit_factor"]}.'
+        )
+        factor_rows: dict[str, dict] = {}
+        for factor, block in data["by_factor"].items():
+            label = FACTOR_LABELS.get(factor, factor)
+            for group, metrics in block["groups"].items():
+                factor_rows[f"{label} · {group}"] = metrics
+        tables.append(result_table(f"{strategy} single macro factors", factor_rows,
+                                   show_adjustment=False, note=coverage))
+        for key, title in (("by_verdict", "composite verdict"), ("by_score", "composite score")):
+            block = data.get(key)
+            if block:
+                tables.append(result_table(f"{strategy} {title}", block["groups"],
+                                           show_adjustment=False,
+                                           note=noise_note(block.get("noise_test", {}))))
+        if data.get("gvz"):
+            tables.append(macro_gvz_section(strategy, data["gvz"]))
+    return tables
+
+
 def study_page_context_program(study: dict[str, object]) -> str:
     """Render multi-strategy context studies from their shared aggregate shape.
 
@@ -963,6 +1061,8 @@ def study_page_context_program(study: dict[str, object]) -> str:
             )
             tables.append(result_table(f"{strategy} Managed Money net/OI regime", data["by_net_oi_regime"], show_adjustment=False, note=note))
             tables.append(result_table(f"{strategy} crowding regime", data["by_crowding_regime"], show_adjustment=False))
+    elif "by_factor" in first:
+        tables.extend(macro_attribution_tables(strategies))
     else:
         raise ValueError(f'{study["id"]}: unknown multi-strategy context shape')
 

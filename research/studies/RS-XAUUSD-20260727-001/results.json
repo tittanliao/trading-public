@@ -25,7 +25,7 @@
     "macro_score": "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1",
     "macro_labels": "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6",
     "macro_assignment": "latest prior daily observation, maximum age 4 days",
-    "scoring_method": "integer rank score, docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.2",
+    "scoring_method": "integer rank score",
     "temporal_stability_limitation": "This is a chronological-bucket / holdout-split check on ONE static TradingView strategy-tester export, not a re-optimized walk-forward: the underlying Pine Script strategy logic is never re-run or re-tuned on any sub-window here. It can show whether the recorded win rate / profit factor is stable or concentrated in an earlier stretch of the export; it cannot prove the strategy's parameters would have been chosen the same way if only the early data had ever existed.",
     "temporal_stability_buckets": "calendar quarter (YYYY-Qn) of entry_time; most recent bucket may be partial",
     "temporal_stability_holdout": "chronological split, first 70% entry-time-ordered trades = in_sample, last 30% = held_out",

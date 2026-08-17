@@ -29,12 +29,36 @@
     "us10y_real_rate_agreement_pct"
   ],
   "findings": [
-    "No individual Macro factor separates outcomes in either strategy. Every observed gap (S1 1.08-5.85pp, S2 0.54-6.43pp) is far below what its own sample can resolve (S1 ~13.3-15.2pp, S2 ~23.2-26.4pp), and no noise test comes near significance.",
-    "The composite is half one input. US10Y and Real Rate agree 89.2% of the time in the S1 window and Real Rate is US10Y minus T10YIE by construction, so 3 of 6 points move together. It behaves closer to a four-factor score with one input at half weight.",
-    "The replicated composite separates less than the original study reported: a 1.49pp verdict spread against 14.9pp resolvable (noise p=0.973), versus 3.98pp before. The difference is the stricter previous-day assignment used here.",
-    "S2 and GVZ is the only near-miss and the only result worth carrying forward. Below GVZ 22 S2 wins 59.72% (n=72, PF 3.421); above it 34.33% (n=67, PF 1.2), a 25.39pp gap that does exceed the 23.2pp resolution limit. It does NOT survive correction for having searched 15 thresholds: shuffling outcomes reproduces a best gap this large 10.7% of the time.",
-    "The current rule threshold of 20 is not where any S1 signal is. At 20 the S1 gap is 1.94pp; what little gradient S1 shows sits at the low end, below 15-17, in the opposite direction to the rule that was removed.",
-    "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one."
+    {
+      "tone": "warn",
+      "title": "No single Macro factor separates outcomes",
+      "detail": "No individual Macro factor separates outcomes in either strategy. Every observed gap (S1 1.08-5.85pp, S2 0.54-6.43pp) is far below what its own sample can resolve (S1 ~13.3-15.2pp, S2 ~23.2-26.4pp), and no noise test comes near significance."
+    },
+    {
+      "tone": "warn",
+      "title": "The composite is half one input",
+      "detail": "The composite is half one input. US10Y and Real Rate agree 89.2% of the time in the S1 window and Real Rate is US10Y minus T10YIE by construction, so 3 of 6 points move together. It behaves closer to a four-factor score with one input at half weight."
+    },
+    {
+      "tone": "info",
+      "title": "The composite separates less than first reported",
+      "detail": "The replicated composite separates less than the original study reported: a 1.49pp verdict spread against 14.9pp resolvable (noise p=0.973), versus 3.98pp before. The difference is the stricter previous-day assignment used here."
+    },
+    {
+      "tone": "info",
+      "title": "S2 and GVZ is the only near-miss",
+      "detail": "S2 and GVZ is the only near-miss and the only result worth carrying forward. Below GVZ 22 S2 wins 59.72% (n=72, PF 3.421); above it 34.33% (n=67, PF 1.2), a 25.39pp gap that does exceed the 23.2pp resolution limit. It does NOT survive correction for having searched 15 thresholds: shuffling outcomes reproduces a best gap this large 10.7% of the time."
+    },
+    {
+      "tone": "warn",
+      "title": "The rule threshold of 20 is not where any S1 signal is",
+      "detail": "The current rule threshold of 20 is not where any S1 signal is. At 20 the S1 gap is 1.94pp; what little gradient S1 shows sits at the low end, below 15-17, in the opposite direction to the rule that was removed."
+    },
+    {
+      "tone": "info",
+      "title": "DXY points the opposite way to the panel, in both strategies",
+      "detail": "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one."
+    }
   ],
   "policy_impacts": [],
   "public_release": {

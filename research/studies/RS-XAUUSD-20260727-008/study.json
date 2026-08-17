@@ -45,7 +45,7 @@
     {
       "tone": "warn",
       "title": "Both versions are low-n; V3.2 more so",
-      "detail": "V1.9 n=224, V3.2 n=157. Most 30-minute-slot and subgroup cells are single-digit-to-teens for V3.2; docs/STRATEGY.md already flags S2 V3.2 OOS confidence as limited. Treat every delta here as descriptive."
+      "detail": "V1.9 n=224, V3.2 n=157. Most 30-minute-slot and subgroup cells are single-digit-to-teens for V3.2; S2 V3.2 OOS confidence is limited. Treat every delta here as descriptive."
     },
     {
       "tone": "warn",
@@ -54,11 +54,12 @@
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }

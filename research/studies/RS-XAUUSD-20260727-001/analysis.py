@@ -516,7 +516,7 @@ def mark_descriptive_only(groups: dict, keys: list[str]) -> dict:
     return groups
 
 
-# docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11 (owner-directed 2026-07-29).
+# docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11.
 # Chronological-bucket / holdout-split check on this one static trade export — not a
 # re-optimized walk-forward (the Pine Script strategy logic is never re-run/re-tuned
 # on any sub-window here).
@@ -665,7 +665,7 @@ def main() -> None:
             "macro_score": "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1",
             "macro_labels": "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6",
             "macro_assignment": "latest prior daily observation, maximum age 4 days",
-            "scoring_method": "integer rank score, docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.2",
+            "scoring_method": "integer rank score",
             "temporal_stability_limitation": TEMPORAL_STABILITY_LIMITATION,
             "temporal_stability_buckets": "calendar quarter (YYYY-Qn) of entry_time; most recent bucket may be partial",
             "temporal_stability_holdout": "chronological split, first 70% entry-time-ordered trades = in_sample, last 30% = held_out",

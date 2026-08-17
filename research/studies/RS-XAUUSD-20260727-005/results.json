@@ -5,7 +5,7 @@
   "strategy": "S1 AweWithBB V3.4 vs V3.9 (gap report)",
   "method": {
     "basis": "reads RS-XAUUSD-20260727-003 and RS-XAUUSD-20260727-004 results.json; recomputes no fail-pattern classification",
-    "risk_parameter_caveat": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs (docs/STRATEGY.md). Deltas may reflect exit-rule changes, not only timing/regime differences."
+    "risk_parameter_caveat": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. Deltas may reflect exit-rule changes, not only timing/regime differences."
   },
   "charts": [
     {

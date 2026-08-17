@@ -50,15 +50,16 @@
     {
       "tone": "warn",
       "title": "Exit-rule differences confound every delta",
-      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs (docs/STRATEGY.md). None of these deltas isolate a pure timing/regime effect."
+      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. None of these deltas isolate a pure timing/regime effect."
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }

@@ -10,7 +10,7 @@
   },
   "status": "confirmed",
   "created_on": "2026-07-27",
-  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S1 AweWithBB V3.4 (superseded)?",
+  "question": "Under the the standard 30-minute fail-pattern report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S1 AweWithBB V3.4 (superseded)?",
   "hypothesis": "This is a full-coverage reproduction of the legacy V3.4 Fail Pattern Report at 30-minute granularity, not a new hypothesis test; it exists as the V3.4 half of the RS-XAUUSD-20260727-005 gap report and as historical context.",
   "headline": {
     "trades": 504,
@@ -19,12 +19,6 @@
     "immediate_loss_pct": 30.9,
     "kbar_coverage_pct": 23.3
   },
-  "card_metrics": [
-    "win_rate_pct",
-    "profit_factor",
-    "immediate_loss_pct",
-    "kbar_coverage_pct"
-  ],
   "findings": [
     {
       "tone": "warn",
@@ -44,15 +38,16 @@
     {
       "tone": "info",
       "title": "Superseded strategy version",
-      "detail": "V3.4 is not the active formal S1 version (V3.9 is, owner-confirmed 2026-07-27). This report is historical/comparison context only; see RS-XAUUSD-20260727-004 for the current version and RS-XAUUSD-20260727-005 for the version gap."
+      "detail": "V3.4 is not the active formal S1 version (V3.9 is, confirmed 2026-07-27). This report is historical/comparison context only; see RS-XAUUSD-20260727-004 for the current version and RS-XAUUSD-20260727-005 for the version gap."
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }

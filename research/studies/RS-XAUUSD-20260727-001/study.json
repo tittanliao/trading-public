@@ -10,7 +10,7 @@
   },
   "status": "pending",
   "created_on": "2026-07-27",
-  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades? Revision 4 adds: is V3.9's backtest edge stable across time, or concentrated in an earlier stretch of the same export (docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11, owner-directed 2026-07-29 after the owner raised an overfitting concern about TradingView-developed strategies)?",
+  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades? Revision 4 adds: is V3.9's backtest edge stable across time, or concentrated in an earlier stretch of the same export (added to test an overfitting concern about TradingView-developed strategies)?",
   "hypothesis": "Macro and 30-minute timing may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence; any live adjustment must be small, integer, and always shown with its own sample size and confidence interval. The temporal-stability check does not retrain or re-tune the strategy; it only tests whether the already-fixed backtest's win rate/profit factor holds up in the most recent 30% of trades by entry time versus the earlier 70%.",
   "headline": {
     "trades": 450,

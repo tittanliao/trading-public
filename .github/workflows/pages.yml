@@ -27,8 +27,30 @@ jobs:
         run: |
           python3 site/build.py --check
           python3 site/check.py
+      # Stage the artifact instead of uploading the repository root. site/build.py
+      # already declares _retire is not part of the site, but uploading "." published it
+      # anyway: excluded from navigation, still reachable by direct URL. This makes the
+      # deployment honour the exclusion the generator states.
+      #
+      # site/ stays: index.html loads site/style.css and site/app.js.
+      #
+      # Nothing is deleted, so this stops future serving but does not remove anything
+      # already in the public git history.
+      - name: Stage the published site
+        run: |
+          mkdir -p _pages
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_retire' \
+            --exclude 'temp' \
+            --exclude '__pycache__' \
+            --exclude '.DS_Store' \
+            --exclude '_pages' \
+            ./ _pages/
+          echo "staged files: $(find _pages -type f | wc -l)"
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _pages
       - id: deployment
         uses: actions/deploy-pages@v4

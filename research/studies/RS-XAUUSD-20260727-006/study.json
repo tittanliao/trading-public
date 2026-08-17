@@ -10,7 +10,7 @@
   },
   "status": "confirmed",
   "created_on": "2026-07-27",
-  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 5 standard report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S2-Hammer V1.9 (the Pullback-signal precursor, OOS-failed per docs/STRATEGY.md)?",
+  "question": "Under the the standard 30-minute fail-pattern report contract, what do the fail-pattern, 30-minute timing, BB/DXY/MTF context views show for S2-Hammer V1.9 (the Pullback-signal precursor, OOS-failed)?",
   "hypothesis": "This is a full-coverage fail-pattern reproduction, not a new hypothesis test; it exists as the V1.9 half of the RS-XAUUSD-20260727-008 gap report and as historical context for the S2 evolution.",
   "headline": {
     "trades": 224,
@@ -19,12 +19,6 @@
     "time_bleed_pct": 53.8,
     "kbar_coverage_pct": 52.4
   },
-  "card_metrics": [
-    "win_rate_pct",
-    "profit_factor",
-    "time_bleed_pct",
-    "kbar_coverage_pct"
-  ],
   "findings": [
     {
       "tone": "warn",
@@ -44,15 +38,16 @@
     {
       "tone": "info",
       "title": "Superseded strategy version",
-      "detail": "V1.9 failed OOS validation (docs/STRATEGY.md) and is not the active formal S2 version (V3.2 is, owner-confirmed 2026-07-27). This report is historical/comparison context; see RS-XAUUSD-20260727-007 for the current version and RS-XAUUSD-20260727-008 for the version gap."
+      "detail": "V1.9 failed OOS validation and is not the active formal S2 version (V3.2 is, confirmed 2026-07-27). This report is historical/comparison context; see RS-XAUUSD-20260727-007 for the current version and RS-XAUUSD-20260727-008 for the version gap."
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }

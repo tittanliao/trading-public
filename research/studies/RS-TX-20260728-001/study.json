@@ -10,8 +10,8 @@
   },
   "status": "progress",
   "created_on": "2026-07-28",
-  "question": "Under the docs/RESEARCH_DEVELOPMENT_SPEC.md section 14 monthly seasonality contract, what does buying at each month's open and selling at that month's close show for TX (MXF continuous front-month), by calendar month and by week-in-month, across the full available weekly history?",
-  "hypothesis": "This is a full-coverage seasonality reproduction, not a new hypothesis test; it exists to give a recurring, market-agnostic report shape reusable for any instrument.",
+  "question": "Under the the standard monthly seasonality contract, what does buying at each month's open and selling at that month's close show for TX (MXF continuous front-month), by calendar month and by week-in-month, across the full available weekly history?",
+  "hypothesis": "This is a full-coverage seasonality reproduction (ported from the read-only legacy trading/tx/macro_analysis.py, verified numerically identical), not a new hypothesis test; it exists to give the owner a recurring, market-agnostic report shape they can rerun for any instrument.",
   "headline": {
     "total_months": 169,
     "overall_win_rate_pct": 63.91,
@@ -35,11 +35,12 @@
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }
