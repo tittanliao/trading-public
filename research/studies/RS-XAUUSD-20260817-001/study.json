@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260817-001",
+  "revision": 1,
+  "title": "S1 V3.9 / S2 V3.2 — Macro factor attribution, composite redundancy, and GVZ as a continuum",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
+  "status": "confirmed",
+  "created_on": "2026-08-17",
+  "question": "After the Macro composite was revoked from the 請分析 score for lacking power, does any individual Macro factor separate S1 or S2 outcomes; how much of the composite is one input counted twice; and does GVZ have any breakpoint at all, rather than the assumed 13/20?",
+  "hypothesis": "Expected negative. The composite's failure was a sample-size failure, and splitting the same trades by single factors cannot add power. GVZ was the one plausible exception because its rule claimed a mechanism (S2 mean reversion degrading in high volatility) rather than a correlation.",
+  "headline": {
+    "s1_trades": 400,
+    "s2_trades": 139,
+    "factors_separating_outcomes": 0,
+    "s1_largest_factor_gap_pp": 5.85,
+    "s1_smallest_resolvable_pp": 13.3,
+    "s2_largest_factor_gap_pp": 6.43,
+    "s2_smallest_resolvable_pp": 23.2,
+    "us10y_real_rate_agreement_pct": 89.2,
+    "share_of_composite_moving_together_pct": 50.0,
+    "s1_gvz_permutation_p": 0.293,
+    "s2_gvz_permutation_p": 0.107,
+    "candidates_for_prospective_test": 1
+  },
+  "card_metrics": [
+    "factors_separating_outcomes",
+    "s2_gvz_permutation_p",
+    "us10y_real_rate_agreement_pct"
+  ],
+  "findings": [
+    "No individual Macro factor separates outcomes in either strategy. Every observed gap (S1 1.08-5.85pp, S2 0.54-6.43pp) is far below what its own sample can resolve (S1 ~13.3-15.2pp, S2 ~23.2-26.4pp), and no noise test comes near significance.",
+    "The composite is half one input. US10Y and Real Rate agree 89.2% of the time in the S1 window and Real Rate is US10Y minus T10YIE by construction, so 3 of 6 points move together. It behaves closer to a four-factor score with one input at half weight.",
+    "The replicated composite separates less than the original study reported: a 1.49pp verdict spread against 14.9pp resolvable (noise p=0.973), versus 3.98pp before. The difference is the stricter previous-day assignment used here.",
+    "S2 and GVZ is the only near-miss and the only result worth carrying forward. Below GVZ 22 S2 wins 59.72% (n=72, PF 3.421); above it 34.33% (n=67, PF 1.2), a 25.39pp gap that does exceed the 23.2pp resolution limit. It does NOT survive correction for having searched 15 thresholds: shuffling outcomes reproduces a best gap this large 10.7% of the time.",
+    "The current rule threshold of 20 is not where any S1 signal is. At 20 the S1 gap is 1.94pp; what little gradient S1 shows sits at the low end, below 15-17, in the opposite direction to the rule that was removed.",
+    "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one."
+  ],
+  "policy_impacts": [],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}
