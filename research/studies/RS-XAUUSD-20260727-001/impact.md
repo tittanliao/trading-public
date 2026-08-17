@@ -1,41 +1,40 @@
-# Live impact — RS-XAUUSD-20260727-001 (revision 3)
+# Live impact — RS-XAUUSD-20260727-001 (revision 5)
 
-Current as of 2026-07-28. This file is a snapshot of what `請分析` does differently
+Current as of 2026-08-17. This file is a snapshot of what `請分析` does differently
 today; the history lives in the private decision record.
 
-## 1. Macro composite verdict → S1 recommendation score
+## No live impact
 
-- **Surface**: `請分析` — "S1 recommendation score (advisory, not a trading gate)";
-  restated in the strategy context reference "Macro context (S1, advisory only)".
-- **Rule**: after the 0–100 core score, add the integer rank score of the Macro
-  composite verdict read this session (`STRONG BUY +1`, `WAIT 0`, `NEUTRAL −1`), then
-  clamp to 0–100.
-- **Citation**: `research/studies/RS-XAUUSD-20260727-001/results.json`, key
-  `by_macro_verdict[<verdict>].rank_score`. Report `n`, `win_rate_pct`,
-  `profit_factor` and `win_rate_ci95_pct` from the same object.
-- **Scope / limits**: advisory only. Range −1…+1. It never creates, blocks or cancels a
-  formal V3.9 signal, never changes position size, and is not the S2 Macro
-  position-sizing filter in the strategy context reference, which is a separate hard rule this study
-  does not touch. If the live Macro reading is unavailable or its daily inputs are more
-  than 4 days old, use `0` and mark the Macro evidence `unknown`.
-- **Revocation**: a later registered study on current S1 data that supersedes the Macro
-  breakdown, or an owner decision to remove Macro from the score. Revocation empties
-  `policy_impacts`, sets `status: pending`, and regenerates this file and
-  `docs/ADOPTED_RESEARCH.md`.
+This study has **no** live effect on `請分析`. Both adjustments it previously supplied
+were revoked on 2026-08-17 by owner decision, which is the revocation condition the
+revision-3 version of this file already recorded.
 
-## 2. 30-minute entry slot → S1 recommendation score
+The report itself is not retracted. Its method and numbers stand, and its fail-pattern,
+BB, DXY, MTF, hold-time and temporal-stability sections remain valid. What was withdrawn
+is the score adjustment two of its breakdowns were used to justify.
 
-- **Surface**: `請分析` — same section; restated in the trading profile reference
-  session-context section.
-- **Rule**: floor the fresh TradingView displayed time to its 30-minute bar start
-  (`HH:00`/`HH:30`, Asia/Taipei), then add that slot's integer rank score (−2…+2).
-- **Citation**: `research/studies/RS-XAUUSD-20260727-001/results.json`, key
-  `by_entry_30m[HH:MM].rank_score`. Report `n`, `win_rate_pct`, `profit_factor` and
-  `win_rate_ci95_pct` from the same object.
-- **Scope / limits**: advisory only. Range −2…+2. No slot is a hard entry gate and a
-  broad Asia/Europe/US average is never substituted. A slot with `low_sample: true`
-  (`n < 5`: `04:00`, `05:30`, `06:00`, `07:00`, `18:00`) scores `0` and its timing
-  evidence is reported as `low-sample`. `by_session[...]` is descriptive context and is
-  never read by this rule.
-- **Revocation**: as above; additionally, do not increase timing weight until a later
-  registered study shows stable chronological/OOS slot effects.
+## Revoked 1 — Macro composite verdict → S1 recommendation score
+
+- Adopted 2026-07-28, revoked 2026-08-17.
+- Was: add the Macro verdict's rank score (`STRONG BUY +1`, `WAIT 0`, `NEUTRAL −1`).
+- Why revoked: the three groups are not separable at this sample size. Their 95% CIs
+  overlap across roughly 50–63%; the largest observed win-rate gap is 3.98 points while
+  n=82/144/211 can only resolve about 14.5; and the ranks contradict profit factor,
+  since NEUTRAL scores −1 with the highest PF (1.963) and WAIT scores 0 with the lowest
+  (1.837).
+
+## Revoked 2 — 30-minute entry slot → S1 recommendation score
+
+- Adopted 2026-07-28, revoked 2026-08-17.
+- Was: add the matching `HH:00`/`HH:30` slot's rank score (−2…+2).
+- Why revoked: 48 slots over 450 trades leaves a median of 9 trades per slot, and even
+  the largest (n=21) can only resolve a gap of about 36.6 points. Simulating 20000 runs
+  with every slot held at the baseline 56.22% produces a median best-to-worst spread of
+  83.3 points, larger than the 70.0 observed; P(spread ≥ observed | no effect) = 91%.
+  This carried the larger of the two weights.
+
+## Re-adoption condition
+
+A later registered study showing stable Macro or slot effects on sample sizes able to
+resolve them, validated out of sample. Do not reinstate either adjustment on a finer
+time granularity than the data can support.
