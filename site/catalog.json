@@ -271,12 +271,6 @@
       "title": "study"
     },
     {
-      "kind": "report",
-      "path": "temp/memo.html",
-      "section": "research",
-      "title": "量化交易 H2 2026 Roadmap"
-    },
-    {
       "kind": "result",
       "path": "xauusd/weekly/2026-W34/summary.json",
       "section": "xauusd",

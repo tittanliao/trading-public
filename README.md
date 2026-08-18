@@ -40,7 +40,17 @@ links, and prohibited private/raw paths.
 
 ## Retired import
 
-The former file-tree portal, imported strategy scripts/reports, and compatibility tools
-are preserved under `_retire/public-legacy-import-20260727/`. They are excluded from the
-active catalog and navigation. Active pages are study-first and every visible card opens
-a human-readable HTML analysis.
+The former file-tree portal, imported strategy scripts and reports, and compatibility
+tools were removed from this repository on 2026-08-18. Strategy source lives in the
+private repository; this one exists to publish reviewed research results.
+
+Excluding them from the catalog was not enough. The generator left them out of navigation
+while the deploy uploaded the repository root, so they stayed reachable by direct URL, and
+`temp/memo.html` was additionally indexed in the catalog. Removal is the fix; the
+exclusions in the generator and the deploy workflow remain as a second line so a future
+re-import is not published by accident.
+
+Removing them here does not remove them from this repository's git history, where they
+have been since 2026-07-27.
+
+Active pages are study-first and every visible card opens a human-readable HTML analysis.
