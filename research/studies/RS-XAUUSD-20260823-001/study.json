@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260823-001",
+  "revision": 1,
+  "title": "XAUUSD intraday range accumulation — the shape holds, the clock moves, and the level does not",
+  "market": "XAUUSD",
+  "strategy": "none — price-series structure, independent of S1 and S2",
+  "status": "confirmed",
+  "created_on": "2026-08-23",
+  "question": "RS-XAUUSD-20260819-001 established when daily extremes form. Following that into price structure rather than directional prediction: how does the daily range accumulate across the Taipei day at 30-minute resolution, does the profile differ from a random walk on the same day's returns, and is it stable enough to read off a chart?",
+  "hypothesis": "That the profile is real but that its usable form is narrower than it looks — specifically that a fixed Taipei clock is the wrong axis and that the level of the profile is not stationary.",
+  "headline": {
+    "sessions": 652,
+    "first_session": "2024-01-02",
+    "last_session": "2026-08-14",
+    "family_permutation_p_train": 0.005,
+    "family_permutation_p_valid": 0.005,
+    "family_permutation_p_holdout": 0.005,
+    "max_abs_z_holdout": 4.62,
+    "null_median_max_abs_z_holdout": 1.83,
+    "slots_sign_consistent": 32,
+    "slots_sign_consistent_expected_by_chance": 12.0,
+    "slots_consistent_and_abs_z_over_2_in_all_periods": 10,
+    "increment_shape_spearman_train_vs_holdout": 0.907,
+    "max_level_gap_train_vs_holdout_pct": 12.23,
+    "et_0830_share_when_dst_on_taipei_2030_pct": 4.51,
+    "et_0830_share_when_dst_off_taipei_2130_pct": 5.43,
+    "taipei_2030_share_when_dst_off_pct": 0.88,
+    "asia_share_by_0930_first_quarter_pct": 27.24,
+    "asia_share_by_0930_last_quarter_pct": 39.51,
+    "spearman_asia_share_vs_time": 0.873,
+    "spearman_morning_vs_rest_of_day": -0.074,
+    "spearman_morning_vs_full_day": 0.369,
+    "new_extreme_after_2330_holdout_pct": 44.3,
+    "new_extreme_after_0230_holdout_pct": 26.7,
+    "residual_range_after_0230_holdout_mean_pct": 3.96,
+    "median_residual_after_2330_pct": 0.0
+  },
+  "card_metrics": [
+    "sessions",
+    "family_permutation_p_holdout",
+    "slots_consistent_and_abs_z_over_2_in_all_periods"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The intraday range profile is real, and it is not the arcsine of a random walk",
+      "detail": "Against a null that shuffles each session's own bar-to-bar changes and rebuilds the path — preserving that day's realised volatility, its bar count and the arcsine geometry — the observed profile's family permutation p is 0.005 in all three periods, the resolution floor at 200 shuffles. The largest |z| is 9.07 on train and 4.62 on holdout against a null median near 1.9. Thirty-two of 48 half-hour slots are sign-consistent across all three periods against 12 expected by chance, and 10 of them clear |z|>2 in every period."
+    },
+    {
+      "tone": "good",
+      "title": "Ten half hours carry consistently more or less range than chance",
+      "detail": "More: 09:00 Taipei (z 7.07 / 5.54 / 5.92), and the block 20:30 through 23:00. Less: 10:00, 12:00 and 12:30, the Taipei lunch window. 09:00 is the single strongest non-boundary slot at 7.32% of the average day's range. This is the intraday volatility profile at 30-minute resolution, and it says nothing about direction."
+    },
+    {
+      "tone": "warn",
+      "title": "The busiest US half hour moves one hour twice a year, and a fixed Taipei clock is wrong by 5x when it does",
+      "detail": "The peak of the US block is 08:30 ET, the standard macro release time. On the Taipei clock that is 20:30 when US DST is on and 21:30 when it is off. Taipei 20:30 carries 4.51% of the day's range during DST and 0.88% outside it — a factor of five in the same clock slot. Aligning the US window to the New York clock sharpens its peak (4.81% vs 4.43%). Any profile read off a fixed Taipei clock averages two different markets for a third of the year."
+    },
+    {
+      "tone": "warn",
+      "title": "The shape is stable and the level is not",
+      "detail": "Increment Spearman across periods is 0.877 to 0.919 and every weekday reproduces the same shape at 0.91 to 0.97. But the share completed by 09:30 rose from 27.2% in 2024Q1 to 39.5% in 2026Q3, Spearman 0.873 against time, and the largest level gap between train and holdout is 12.23 points. A threshold memorised from the pooled profile understates the morning by roughly a fifth of the day's range."
+    },
+    {
+      "tone": "good",
+      "title": "The rise in the Asian share is a time trend, not a volatility artefact, and the obvious test says the opposite",
+      "detail": "Quarterly Asian share correlates with quarterly mean range at Spearman 0.936, which reads as the volatility regime explaining everything — gold's daily range went from $25 to $174 over the sample. Sorting sessions by their own range instead of by date reverses it: inside the first half of the sample, large-range days complete 28.1% by 09:30 against 35.9% for small-range days, and inside the second half 38.8% against 42.6%. The sign flips in both halves, so the pooled correlation is Simpson's paradox and the calendar trend survives."
+    },
+    {
+      "tone": "good",
+      "title": "A busy Asian morning does not mean more is coming",
+      "detail": "Sorted into terciles by morning range against the trailing 20-session median, a busy morning goes with a bigger full day (median ratio 1.234 against 0.888) at Spearman 0.369 — but the rest of the day is flat across all three terciles at 0.68, 0.60 and 0.63, and Spearman between morning and rest-of-day is -0.074. The morning predicts the day only because it is part of it. It carries no information about what is left."
+    },
+    {
+      "tone": "good",
+      "title": "After 23:30 Taipei, the median day is finished",
+      "detail": "Median residual range after 23:30 is 0.0% in every period: on more than half of sessions no new extreme arrives after that. Mean residual after 02:30 is 2.9% to 4.0%, and a new daily extreme still appears on 23.7% to 26.7% of sessions — small but not zero, so this is a probability statement and not a curfew."
+    },
+    {
+      "tone": "warn",
+      "title": "Range accumulates ahead of volume, so the profile is not simply session participation",
+      "detail": "Cumulative range runs 15.2 to 18.3 points ahead of cumulative volume through the day, and the per-slot share correlation between the two is only 0.40 to 0.53. The largest single divergence is the 07:00 session open, where range takes 10 to 14 points more share than volume does. Whatever produces the profile, 'more people are trading' is not a sufficient description of it."
+    },
+    {
+      "tone": "warn",
+      "title": "The first null was wrong and would have produced a confident false finding",
+      "detail": "Permuting whole bars into different slots moves each bar's absolute price level with it, so a bar from the session high can land beside one from the session low and the entire range appears inside the first hour. That null completes 39.0% by 07:30 against an observed 20.0%, sits above the observed profile at every slot, and returns |z| up to 85. It is retained in results.json as a rejected null because the failure is instructive: a null must preserve the path, not just the ingredients."
+    },
+    {
+      "tone": "warn",
+      "title": "Spearman on a cumulative curve is always 1.0 and proves nothing",
+      "detail": "Every cumulative profile is monotone, so any two of them rank-correlate perfectly. The first version of this study reported 1.0 for period stability, weekday stability, DST stability and the range-versus-volume screen, and all four numbers were vacuous. Every shape comparison here runs on per-slot increments instead, where the same four comparisons return 0.877 to 0.919, 0.914 to 0.966, 0.867 and 0.40 to 0.53."
+    },
+    {
+      "tone": "info",
+      "title": "Monday front-loads and Friday does not",
+      "detail": "Monday completes 45.3% of its range by 09:30 against 33.2% for Friday, with the same profile shape (increment Spearman 0.96 against all days). The weekend gap is absorbed in Monday's Asian morning. Mean daily range barely differs across weekdays ($64.79 to $70.50), so this is redistribution within the day rather than a busier day."
+    }
+  ],
+  "policy_impacts": [],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

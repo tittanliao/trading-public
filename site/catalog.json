@@ -271,6 +271,24 @@
       "title": "study"
     },
     {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260823-001/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260823-001/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260823-001/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
       "kind": "result",
       "path": "xauusd/weekly/2026-W34/summary.json",
       "section": "xauusd",

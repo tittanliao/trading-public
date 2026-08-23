@@ -1125,6 +1125,155 @@ def study_page_pullback_replay(study: dict[str, object]) -> str:
     )
 
 
+def study_page_range_profile(study: dict[str, object]) -> str:
+    """Intraday range-accumulation shape (RS-XAUUSD-20260823-001).
+
+    A price-structure study rather than a strategy report, so it shares no field names with
+    the fail-pattern/comparison/seasonality contracts and gets its own tables.
+    """
+    result = study["_result"]
+    fam = result["families"]
+    observed = fam["observed_profile"]
+    nulls = fam["vs_shuffled_returns_null"]
+    coverage = result["coverage"]
+    head = study["headline"]
+
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+
+    def table(headers: list[str], rows: list[list[str]], caption: str, note: str = "") -> str:
+        head_html = "".join(f"<th>{html.escape(h)}</th>" for h in headers)
+        body_html = "".join(
+            "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>" for row in rows
+        )
+        note_html = f'<p class="section-note">{html.escape(note)}</p>' if note else ""
+        return (
+            f'<section class="report-section"><h2>{html.escape(caption)}</h2>{note_html}'
+            f'<div class="table-wrap"><table><thead><tr>{head_html}</tr></thead>'
+            f"<tbody>{body_html}</tbody></table></div></section>"
+        )
+
+    marks = ["07:30", "09:00", "09:30", "11:00", "12:30", "15:30", "18:00",
+             "20:30", "21:30", "22:30", "23:30", "01:30", "02:30", "04:30"]
+    profile_rows = [
+        [f"<strong>{slot}</strong>",
+         f'{observed["train"]["range_completed_mean_pct"][slot]}%',
+         f'{observed["valid"]["range_completed_mean_pct"][slot]}%',
+         f'{observed["holdout"]["range_completed_mean_pct"][slot]}%',
+         f'{nulls["holdout"]["excess_pct"][slot]:+}']
+        for slot in marks
+    ]
+
+    consistent = sorted(
+        (row for row in fam["increment_consistency"]["detail"] if row["min_abs_z"] >= 2.0),
+        key=lambda row: -row["min_abs_z"],
+    )
+    consistent_rows = [
+        [f'<strong>{row["slot"]}</strong>',
+         "more than chance" if "more" in row["direction"] else "less than chance",
+         " / ".join(f"{value:+}" for value in row["excess_pct"]),
+         f'{row["min_abs_z"]}']
+        for row in consistent
+    ]
+
+    clock = fam["us_clock_alignment"]["et_0830_release_slot"]
+    clock_rows = [
+        ["08:30 ET, US summer time", "20:30 Taipei",
+         f'<strong>{clock["us_dst_on"]["mean_share_pct"]}%</strong>'],
+        ["08:30 ET, US winter time", "21:30 Taipei",
+         f'<strong>{clock["us_dst_off"]["mean_share_pct"]}%</strong>'],
+        ["same Taipei slot, winter", "20:30 Taipei",
+         f'{clock["same_slot_in_the_other_regime"]["20:30_when_dst_off"]}%'],
+        ["same Taipei slot, summer", "21:30 Taipei",
+         f'{clock["same_slot_in_the_other_regime"]["21:30_when_dst_on"]}%'],
+    ]
+
+    residual = fam["residual_and_extreme_risk"]["holdout"]
+    residual_rows = [
+        [f"<strong>{slot}</strong>",
+         f'{residual[slot]["residual_range_mean_pct"]}%',
+         f'{residual[slot]["residual_range_median_pct"]}%',
+         f'{residual[slot]["new_extreme_after_pct"]}%']
+        for slot in ["18:00", "20:30", "21:30", "22:30", "23:30", "00:30", "02:30", "03:30"]
+    ]
+
+    morning = fam["morning_conditioning"]
+    morning_rows = [
+        [f"<strong>{label.replace('_', ' ')}</strong>",
+         f'{morning[label]["median_morning_ratio"]}',
+         f'{morning[label]["median_day_ratio"]}',
+         f'<strong>{morning[label]["median_rest_of_day_ratio"]}</strong>']
+        for label in ["quiet_morning", "middle", "busy_morning"]
+    ]
+
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("Sessions", coverage["sessions_used"],
+                 f'{coverage["first_session"]} → {coverage["last_session"]}')
+        + metric("Family permutation p", head["family_permutation_p_holdout"],
+                 "all three periods; 200-shuffle resolution floor")
+        + metric("Half hours beating chance",
+                 f'{head["slots_consistent_and_abs_z_over_2_in_all_periods"]} of 48',
+                 "sign-consistent and |z|>2 in every period")
+        + "</div>"
+        + '<section class="report-section"><h2>Key findings</h2>'
+        f'<div class="insight-grid">{finding_html}</div></section>'
+        + impact_section_html(study)
+        + table(["Taipei", "train", "valid", "holdout", "holdout vs null"], profile_rows,
+                "How the day fills",
+                "Percent of the session's final range already traversed. The null shuffles "
+                "each session's own bar-to-bar changes and rebuilds the path, so it keeps "
+                "that day's volatility and the arcsine geometry of a random walk and "
+                "destroys only when the large moves happened. All 48 slots are in "
+                "results.json.")
+        + table(["Taipei", "direction", "excess % (train / valid / holdout)", "min |z|"],
+                consistent_rows,
+                "Half hours that beat chance in every period",
+                "32 of 48 slots are sign-consistent across all three periods against 12 "
+                "expected by chance; these also clear |z| > 2 in each period.")
+        + table(["release window", "clock slot", "share of the day's range"], clock_rows,
+                "The busiest US half hour moves twice a year",
+                "Taipei keeps no summer time and New York does. The peak of the US block is "
+                "the 08:30 ET release window, so on a fixed Taipei clock it shifts by an "
+                "hour — and the same Taipei slot carries five times less range in the other "
+                "half of the year.")
+        + table(["after", "mean residual", "median residual", "new daily extreme still arrives"],
+                residual_rows,
+                "What is left (holdout)",
+                "Median residual reaches zero at 23:30: on more than half of sessions no new "
+                "extreme arrives after that. It stays a probability, not a curfew.")
+        + table(["morning tercile", "morning range", "full day", "rest of day"], morning_rows,
+                "A busy morning says nothing about what is left",
+                "Ratios against each session's trailing 20-session median range. Morning "
+                "correlates with the full day at Spearman "
+                f'{morning["spearman_morning_vs_full_day"]} and with the rest of the day at '
+                f'{morning["spearman_morning_vs_rest_of_day"]} — it predicts the day only '
+                "because it is part of it.")
+        + '<section class="report-section"><h2>Limitations</h2>'
+        + text_list(result["limitations"]) + "</section>"
+        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
+        f'<p>{html.escape(str(study["hypothesis"]))}</p>'
+        "<p>Descriptive and never directional: the profile says how much range has "
+        "accumulated, not which way price moved. Raw CSV and private decision records remain "
+        "in trading-private. This public page carries reviewed aggregate results and the "
+        "reproducible method only — the published script reads its bars from a "
+        "<code>local-inputs/</code> folder you supply.</p>"
+        + file_actions_html(study)
+        + "</section></main>"
+    )
+    return document(
+        study["title"],
+        f'{study["market"]} research · {study["status"]} · {study["id"]}',
+        study["question"],
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -1141,9 +1290,11 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_pullback_replay(study)
     if "strategies" in result:
         return study_page_context_program(study)
+    if "families" in result:
+        return study_page_range_profile(study)
     raise ValueError(
         f'{study["id"]}: results.json matches none of the known report shapes '
-        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level")'
+        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", "families")'
     )
 
 
