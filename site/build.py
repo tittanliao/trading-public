@@ -1274,6 +1274,139 @@ def study_page_range_profile(study: dict[str, object]) -> str:
     )
 
 
+NULL_REGISTRY = ROOT / "research/null-results/null_results.json"
+
+VERDICT_STYLE = {
+    "no_evidence": ("bounded", "warn"),
+    "below_cost": ("below cost", "warn"),
+    "underpowered": ("untestable", "info"),
+    "survives_screens": ("survived", "good"),
+    "skipped": ("skipped", "info"),
+}
+
+
+def null_registry() -> dict[str, object] | None:
+    if not NULL_REGISTRY.is_file():
+        return None
+    try:
+        return json.loads(NULL_REGISTRY.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+
+
+def null_results_page(registry: dict[str, object]) -> str:
+    """The negative-results surface.
+
+    Deliberately plain. Its readers are a person deciding whether a question is worth
+    asking again, and a model deciding the same thing before spending a session on it —
+    and for the second reader the JSON beside this page is the real interface. The page
+    exists to make the JSON legible and to state, once and without hedging, that finding
+    nothing is the result rather than the absence of one.
+    """
+    totals = registry["totals"]
+    hypotheses = [e for e in registry["entries"] if e["kind"] == "hypothesis"]
+    by_verdict = totals["by_verdict"]
+
+    def chip(verdict: str, count: int) -> str:
+        label, tone = VERDICT_STYLE.get(verdict, (verdict, "info"))
+        return (f'<div class="metric"><div class="metric-label">{html.escape(label)}</div>'
+                f'<div class="metric-value">{count}</div>'
+                f'<div class="metric-detail">{html.escape(str(registry["how_to_read"]["verdicts"].get(verdict, "")))}</div></div>')
+
+    rows = []
+    for entry in sorted(hypotheses, key=lambda e: str(e["entry_id"])):
+        label, tone = VERDICT_STYLE.get(str(entry["verdict"]), (str(entry["verdict"]), "info"))
+        effect = entry.get("effect")
+        bound = entry.get("smallest_resolvable_effect")
+        ratio = ""
+        if isinstance(effect, (int, float)) and isinstance(bound, (int, float)) and bound:
+            ratio = f"{abs(effect) / bound:.2f}x"
+        rows.append(
+            "<tr>"
+            f'<td><code>{html.escape(str(entry["entry_id"]).split(":")[-1])}</code></td>'
+            f'<td>{html.escape(str(entry.get("claim") or ""))}</td>'
+            f'<td>{html.escape(str(entry.get("origin") or ""))}</td>'
+            f'<td class="num">{entry.get("n_condition") if entry.get("n_condition") is not None else "&mdash;"}</td>'
+            f'<td class="num">{effect if effect is not None else "&mdash;"}</td>'
+            f'<td class="num">{bound if bound is not None else "&mdash;"}</td>'
+            f'<td class="num">{ratio or "&mdash;"}</td>'
+            f'<td><span class="insight {tone}">{html.escape(label)}</span></td>'
+            "</tr>"
+        )
+
+    gaps = registry.get("data_gaps") or []
+    gap_html = "".join(
+        f'<li><strong>{html.escape(str(g["family"]))}</strong> &mdash; {html.escape(str(g["gap"]))}</li>'
+        for g in gaps
+    ) or "<li>None recorded.</li>"
+
+    families = "".join(
+        f"<tr><td>{html.escape(name)}</td>"
+        + "".join(f'<td class="num">{counts.get(v, 0)}</td>'
+                  for v in ("no_evidence", "below_cost", "underpowered", "survives_screens"))
+        + "</tr>"
+        for name, counts in sorted(totals["by_family"].items())
+    )
+
+    body = (
+        '<main class="shell report">'
+        '<div class="metric-grid">'
+        + metric("Studies", totals["studies"], "most of them negative")
+        + metric("Hypotheses on record", totals["hypotheses"], "each with its resolution bound")
+        + metric("Survivors", by_verdict.get("survives_screens", 0),
+                 "cleared every screen applied")
+        + "</div>"
+        '<section class="report-section"><h2>What this is</h2>'
+        "<p>A record of questions that were asked of this data and answered with "
+        "<em>no</em>. That is the finding, not a missing one. Most searches for a tradeable "
+        "edge end this way, and the ones that do not are usually the ones nobody wrote "
+        "down carefully enough to check.</p>"
+        "<p>The number that makes an entry worth keeping is the "
+        "<strong>smallest resolvable effect</strong>: the smallest thing the sample could "
+        "have seen. A null with a wide bound rules out very little and leaves the question "
+        "open. A null with a tight bound closes it. Flattening both into &ldquo;didn&rsquo;t "
+        "work&rdquo; throws away the difference, so nothing here does that.</p>"
+        "<p>The last column is that ratio &mdash; effect divided by bound. Below "
+        "<code>1.00x</code> the observed effect is inside the noise floor of its own "
+        "sample.</p></section>"
+        '<section class="report-section"><h2>Verdicts</h2><div class="metric-grid">'
+        + "".join(chip(v, c) for v, c in sorted(by_verdict.items()))
+        + "</div></section>"
+        '<section class="report-section"><h2>Hypotheses</h2>'
+        '<div class="table-wrap"><table><thead><tr>'
+        "<th>id</th><th>claim</th><th>origin</th><th>n</th><th>effect</th>"
+        "<th>resolvable</th><th>ratio</th><th>verdict</th>"
+        "</tr></thead><tbody>" + "".join(rows) + "</tbody></table></div>"
+        '<p class="section-note">An <code>external_claim</code> was specified by someone '
+        "else before this dataset was examined. Testing a claim you did not invent is a "
+        "weaker form of data mining than testing one you did.</p></section>"
+        '<section class="report-section"><h2>By family</h2>'
+        '<div class="table-wrap"><table><thead><tr><th>family</th><th>bounded</th>'
+        "<th>below cost</th><th>untestable</th><th>survived</th></tr></thead>"
+        f"<tbody>{families}</tbody></table></div></section>"
+        '<section class="report-section"><h2>Doors that were never opened</h2>'
+        "<p>An <em>untestable</em> verdict is not a failure to find something. It is a "
+        "failure to be able to look, and it names what looking would take. These are the "
+        "cheapest places to make progress, because the blocker is data rather than "
+        f"insight.</p><ul class=\"impact-list\">{gap_html}</ul></section>"
+        '<section class="report-section"><h2>For machines</h2>'
+        "<p>The registry is generated, not written, so it cannot drift from the studies it "
+        "describes. It is published beside this page as JSON and is the intended interface "
+        "for anything automated: read it, and skip what is already closed.</p>"
+        '<div class="file-actions"><a href="null_results.json">Registry JSON</a>'
+        '<a href="../">All studies</a></div></section>'
+        "</main>"
+    )
+    return document(
+        "What did not work",
+        "Negative results registry",
+        "Questions asked of this data and answered with no, each carrying the smallest "
+        "effect its sample could have resolved.",
+        body,
+        "../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -1489,10 +1622,32 @@ def section_page(
 
 
 def research_page(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
+    registry = null_registry()
+    banner = ""
+    if registry:
+        totals = registry["totals"]
+        # Placed above the study grid on purpose. The studies read as a list of things that
+        # were tried; the registry is the only place that says how hard, and it is the
+        # first thing worth knowing before asking a question of this data again.
+        banner = (
+            '<a class="card" data-card href="null-results/">'
+            '<div class="type">registry</div><h2>What did not work</h2>'
+            "<p>Every question asked of this data and answered with no, each carrying the "
+            "smallest effect its sample could have resolved. Published as JSON so anything "
+            "automated can skip what is already closed.</p>"
+            '<div class="mini-metrics">'
+            f'<span><strong>{totals["hypotheses"]}</strong> hypotheses</span>'
+            f'<span><strong>{totals["by_verdict"].get("survives_screens", 0)}</strong> survivors</span>'
+            f'<span><strong>{totals["studies"]}</strong> studies</span>'
+            "</div></a>"
+        )
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
         'placeholder="Filter studies" aria-label="Filter"></div></div>'
-        f'<main class="shell">{status_sheets_html(study_list)}</main>'
+        f'<main class="shell">'
+        + (f'<h2 class="section-title">Negative results</h2><div class="grid">{banner}</div>'
+           if banner else "")
+        + f'{status_sheets_html(study_list)}</main>'
     )
     return document(
         "Research studies",
@@ -1572,6 +1727,9 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
         ROOT / "tx/index.html": section_page(study_list, "tx", "TX studies", "Reviewed Taiwan index futures research presented as readable studies."),
         ROOT / "research/index.html": research_page(data, study_list),
     }
+    registry = null_registry()
+    if registry:
+        generated[ROOT / "research/null-results/index.html"] = null_results_page(registry)
     if weekly:
         generated[ROOT / "xauusd/weekly/index.html"] = weekly_summary_page(
             weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,

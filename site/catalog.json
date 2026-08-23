@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "kind": "report",
+      "path": "research/null-results/index.html",
+      "section": "research",
+      "title": "What did not work · Trading Research"
+    },
+    {
+      "kind": "result",
+      "path": "research/null-results/null_results.json",
+      "section": "research",
+      "title": "null results"
+    },
+    {
       "kind": "python",
       "path": "research/studies/RS-TX-20260728-001/analysis.py",
       "section": "research",
