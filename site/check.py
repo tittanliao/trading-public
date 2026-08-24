@@ -18,6 +18,15 @@ GENERATED_PAGES = [
     ROOT / "xauusd/index.html",
     ROOT / "tx/index.html",
     ROOT / "research/index.html",
+] + [
+    # Pages that exist only when their source data does. Listed conditionally rather than
+    # unconditionally: the glossary and the null registry are generated from optional
+    # inputs, and a hard entry would fail the check on a checkout that lacks them. Both
+    # went live once without being checked at all, which is how a 404 stayed invisible.
+    page for page in (
+        ROOT / "glossary/index.html",
+        ROOT / "research/null-results/index.html",
+    ) if page.is_file()
 ] + sorted((ROOT / "research/studies").glob("*/index.html")) + [
     source.parent / "index.html" for source in WEEKLY_SOURCES
 ]
