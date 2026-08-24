@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T09:54:37+08:00",
+  "generated_at": "2026-08-24T10:12:24+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 27,
+    "studies": 28,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002"
@@ -1285,6 +1285,19 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. 31 weekly COT reports transcribed from the owner's screenshots and verified against the official CSV (132 of 132 field-values matched). The report settles Tuesday and publishes Friday, so Wed-Fri is already history when it lands — a built-in placebo window almost no COT research has. Across 14 hypotheses the two windows correlate at 0.091 and agree in sign 7 of 14; of the five largest historical effects, two flip after publication and three shrink to zero. Nothing is resolvable: weekly return SD is 3.99% and 31 weeks resolve about 4 points, while every effect is under 2.2. The owner's producer/merchant hypothesis points the other way (-0.94% vs +1.23%), far inside the noise. A hedging mechanism was asserted for the decomposition and withdrawn the same day: the correlation with the concurrent week is 0.062, and both window differences (-1.672 +/- 0.980 and -0.514 +/- 0.735) have intervals containing zero, so which window the effect lives in is itself unresolvable. CFTC publishes ~880 weeks of history free; archiving it is the unlock and needs owner approval.",
+      "status": "confirmed",
+      "created_on": "2026-08-24"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-003",
+      "study_id": "RS-XAUUSD-20260824-003",
+      "kind": "study",
+      "family": "none — selection methodology tested on CFTC positioning",
+      "origin": "programme",
+      "claim": "Three owner claims tested on 274 weeks — one is circular, one measures the period, one buys win rate with return",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. CFTC disaggregated history downloaded with owner permission (503 gold weeks from 2017, verified 279/279 against the owner's screenshots), giving 274 usable weeks against 31. Claim 1, Monday sweeps the low then rises: a 30.1-point gap that falls to 1.35 once the condition is read at Monday's close instead of inside the window it predicts — the second lookahead of this kind in two days. Claim 2, >50% win rate is alpha: the Mon+Tue baseline is 45.6% in the sample's first half and 54.3% in the second, so the same threshold beats the market in one period and loses in the other; 1 of 182 conditions cleared 50% in the first half against 80% of all of them in the second, and win rate correlates -0.077 across halves. Claim 3, consensus: correct about the effect. Five of six positioning votes gives 62.5% against 48.8%, survives walk-forward, and loses money — payoff ratio 0.55 against 1.22, taking 11.7% of opportunities for -7.8% of return. Third independent demonstration that win rate is purchasable and the currency is expectancy.",
       "status": "confirmed",
       "created_on": "2026-08-24"
     }
