@@ -1,0 +1,383 @@
+{
+  "schema_version": "1.0",
+  "study_id": "RS-XAUUSD-20260824-005",
+  "generated_at": "2026-08-24T14:19:04+00:00",
+  "method": {
+    "screens": [
+      "resolution bound (smallest separable effect at ~80% power)",
+      "moving-block bootstrap, two-sided",
+      "sign consistency across chronological thirds of the hypothesis's own span",
+      "effect net of a 0.02% round trip must still clear the bound"
+    ],
+    "block_bootstrap_sessions": "3x the forward horizon, floored at 21",
+    "quantiles": "expanding rank, 250-session warm-up",
+    "macro_lookahead_guard": "macro read at day t; gold's forward window opens at the close of day t+1",
+    "seed": 20260825
+  },
+  "limitations": [
+    "Daily close-to-close only; nothing here bears on intraday entry timing.",
+    "The broad trade-weighted dollar index is not the ICE DXY. It is used only after a replication check on the overlapping window, and that check is reported whether or not it passes.",
+    "The 10-year real yield is a direct TIPS measurement from 2003, but gold's daily series starts 2008, so the extension is 2008-2026 rather than the full TIPS history.",
+    "A pre-registered hypothesis that fails on a larger sample is a stronger null than the same hypothesis failing on a smaller one. It is still a null."
+  ],
+  "coverage": {
+    "sessions": 4851,
+    "from": "2008-01-04",
+    "to": "2026-08-21",
+    "gold_start_is_binding": "FRED's LBMA gold series were withdrawn over licensing, so the gold side could not be extended past 2008-01-04"
+  },
+  "verdict_counts": {
+    "no_evidence": 8
+  },
+  "design": {
+    "primary_is_preregistered": true,
+    "preregistered_by": "RS-XAUUSD-20260824-004 h17",
+    "why_no_family_correction_on_primary": "It was written down by the previous study before this sample existed, so it is not a selection from this study's output and correcting it against this study's secondaries would penalise it for company it did not choose.",
+    "secondary_family_corrected": true
+  },
+  "primary": {
+    "id": "m01",
+    "family": "real_yield",
+    "claim": "The bottom quintile of 20-session change in the 10-year real yield (DFII10) precedes a stronger 20-session return for gold.",
+    "origin": "pre-registered by RS-XAUUSD-20260824-004 h17, which measured +0.4808% against a 0.5277% bound on 3196 sessions",
+    "null": "the real yield carries no information about gold's next month",
+    "unit": "% forward return",
+    "n_condition": 646,
+    "n_other": 3797,
+    "sessions_in_universe": 4443,
+    "effect": 0.3803,
+    "baseline_mean": 0.6703,
+    "win_rate_pct": 58.36,
+    "baseline_win_rate_pct": 54.23,
+    "win_rate_edge_pct": 4.13,
+    "smallest_resolvable_effect": 0.5648,
+    "bootstrap_p_two_sided": 0.48,
+    "bootstrap_share_above_zero": 0.76,
+    "effect_net_of_cost": 0.3603,
+    "by_period": {
+      "train": {
+        "n_condition": 180,
+        "effect": 0.4807
+      },
+      "valid": {
+        "n_condition": 189,
+        "effect": -0.5421
+      },
+      "holdout": {
+        "n_condition": 277,
+        "effect": 0.7843
+      }
+    },
+    "sign_consistent_all_periods": false,
+    "verdict": "no_evidence",
+    "reason": "effect +0.3803 is inside the +0.5648 these samples can separate",
+    "preregistered": true,
+    "prior": {
+      "study": "RS-XAUUSD-20260824-004",
+      "id": "h17",
+      "effect": 0.4808,
+      "bound": 0.5277,
+      "sessions": 3196,
+      "win_rate": 56.9,
+      "baseline": 52.46
+    },
+    "sessions_added": 1247
+  },
+  "secondary": [
+    {
+      "id": "m02",
+      "family": "real_yield",
+      "claim": "The real yield LEVEL, not its change: bottom quintile precedes a stronger month.",
+      "origin": "level versus change was never separated in the predecessor",
+      "null": "the level of the real yield carries no information",
+      "unit": "% forward return",
+      "n_condition": 1445,
+      "n_other": 3192,
+      "sessions_in_universe": 4637,
+      "effect": -0.3807,
+      "baseline_mean": 0.8784,
+      "win_rate_pct": 53.7,
+      "baseline_win_rate_pct": 56.05,
+      "win_rate_edge_pct": -2.34,
+      "smallest_resolvable_effect": 0.4191,
+      "bootstrap_p_two_sided": 0.456,
+      "bootstrap_share_above_zero": 0.228,
+      "effect_net_of_cost": 0.3607,
+      "by_period": {
+        "train": {
+          "n_condition": 819,
+          "effect": -0.5192
+        },
+        "valid": {
+          "n_condition": 153,
+          "effect": 0.4904
+        },
+        "holdout": {
+          "n_condition": 473,
+          "effect": -0.9776
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.3807 is inside the +0.4191 these samples can separate",
+      "preregistered": false
+    },
+    {
+      "id": "m03",
+      "family": "real_yield",
+      "claim": "A negative real yield is a regime, not a quantile: gold does better whenever DFII10 is below zero.",
+      "origin": "the most commonly stated version of the gold-and-real-rates claim",
+      "null": "the sign of the real yield carries no information",
+      "unit": "% forward return",
+      "n_condition": 955,
+      "n_other": 3682,
+      "sessions_in_universe": 4637,
+      "effect": -1.1497,
+      "baseline_mean": 0.9965,
+      "win_rate_pct": 47.23,
+      "baseline_win_rate_pct": 57.41,
+      "win_rate_edge_pct": -10.19,
+      "smallest_resolvable_effect": 0.48,
+      "bootstrap_p_two_sided": 0.059,
+      "bootstrap_share_above_zero": 0.0295,
+      "effect_net_of_cost": 1.1297,
+      "by_period": {
+        "train": {
+          "n_condition": 383,
+          "effect": -2.2839
+        },
+        "valid": {
+          "n_condition": 81,
+          "effect": 0.547
+        },
+        "holdout": {
+          "n_condition": 491,
+          "effect": -1.2537
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect clears the resolution bound but bootstrap p=0.059",
+      "preregistered": false
+    },
+    {
+      "id": "m04",
+      "family": "nominal_rates",
+      "claim": "The nominal 10-year yield falling hardest over 20 sessions precedes a stronger month.",
+      "origin": "the nominal channel, separated from the real one",
+      "null": "the nominal yield carries no information beyond the real yield",
+      "unit": "% forward return",
+      "n_condition": 654,
+      "n_other": 3789,
+      "sessions_in_universe": 4443,
+      "effect": 0.6726,
+      "baseline_mean": 0.6266,
+      "win_rate_pct": 63.3,
+      "baseline_win_rate_pct": 53.37,
+      "win_rate_edge_pct": 9.94,
+      "smallest_resolvable_effect": 0.562,
+      "bootstrap_p_two_sided": 0.212,
+      "bootstrap_share_above_zero": 0.894,
+      "effect_net_of_cost": 0.6526,
+      "by_period": {
+        "train": {
+          "n_condition": 177,
+          "effect": 0.4099
+        },
+        "valid": {
+          "n_condition": 243,
+          "effect": 1.1066
+        },
+        "holdout": {
+          "n_condition": 234,
+          "effect": 0.4092
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect clears the resolution bound but bootstrap p=0.212",
+      "preregistered": false
+    },
+    {
+      "id": "m05",
+      "family": "inflation_expectations",
+      "claim": "Rising breakeven inflation precedes a stronger month for gold.",
+      "origin": "the inflation-hedge claim, on nine more years than the predecessor had",
+      "null": "breakeven inflation carries no information",
+      "unit": "% forward return",
+      "n_condition": 599,
+      "n_other": 3844,
+      "sessions_in_universe": 4443,
+      "effect": -0.1438,
+      "baseline_mean": 0.745,
+      "win_rate_pct": 48.91,
+      "baseline_win_rate_pct": 55.75,
+      "win_rate_edge_pct": -6.83,
+      "smallest_resolvable_effect": 0.583,
+      "bootstrap_p_two_sided": 0.786,
+      "bootstrap_share_above_zero": 0.393,
+      "effect_net_of_cost": 0.1238,
+      "by_period": {
+        "train": {
+          "n_condition": 173,
+          "effect": 0.5442
+        },
+        "valid": {
+          "n_condition": 150,
+          "effect": -0.6965
+        },
+        "holdout": {
+          "n_condition": 276,
+          "effect": -0.5565
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.1438 is inside the +0.5830 these samples can separate",
+      "preregistered": false
+    },
+    {
+      "id": "m06",
+      "family": "dollar",
+      "claim": "A bottom-quintile 20-session move in the broad dollar index precedes a stronger month.",
+      "origin": "RS-XAUUSD-20260824-004 h18 on ICE DXY, 1174 sessions, 71.49% win rate",
+      "null": "the dollar carries no information about gold beyond the accounting link",
+      "unit": "% forward return",
+      "n_condition": 823,
+      "n_other": 3595,
+      "sessions_in_universe": 4418,
+      "effect": 0.0651,
+      "baseline_mean": 0.7097,
+      "win_rate_pct": 55.41,
+      "baseline_win_rate_pct": 54.66,
+      "win_rate_edge_pct": 0.75,
+      "smallest_resolvable_effect": 0.5147,
+      "bootstrap_p_two_sided": 0.87,
+      "bootstrap_share_above_zero": 0.565,
+      "effect_net_of_cost": 0.0451,
+      "by_period": {
+        "train": {
+          "n_condition": 180,
+          "effect": 0.7199
+        },
+        "valid": {
+          "n_condition": 274,
+          "effect": -0.4005
+        },
+        "holdout": {
+          "n_condition": 369,
+          "effect": -0.1549
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0651 is inside the +0.5147 these samples can separate",
+      "preregistered": false
+    },
+    {
+      "id": "m07",
+      "family": "conjunction",
+      "claim": "Falling real yields AND a falling dollar together.",
+      "origin": "the two macro channels required to agree",
+      "null": "the conjunction carries no more information than its parts",
+      "unit": "% forward return",
+      "n_condition": 230,
+      "n_other": 4155,
+      "sessions_in_universe": 4385,
+      "effect": 0.2483,
+      "baseline_mean": 0.7108,
+      "win_rate_pct": 61.74,
+      "baseline_win_rate_pct": 54.42,
+      "win_rate_edge_pct": 7.32,
+      "smallest_resolvable_effect": 0.9002,
+      "bootstrap_p_two_sided": 0.608,
+      "bootstrap_share_above_zero": 0.696,
+      "effect_net_of_cost": 0.2283,
+      "by_period": {
+        "train": {
+          "n_condition": 58,
+          "effect": 0.0938
+        },
+        "valid": {
+          "n_condition": 50,
+          "effect": 0.3021
+        },
+        "holdout": {
+          "n_condition": 122,
+          "effect": -0.0102
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.2483 is inside the +0.9002 these samples can separate",
+      "preregistered": false
+    },
+    {
+      "id": "m08",
+      "family": "risk_off",
+      "claim": "A top-quintile VIX reading precedes a stronger week for gold, on 2008 onward.",
+      "origin": "the safe-haven claim, now including the 2008 crisis the predecessor excluded",
+      "null": "equity volatility carries no information about gold",
+      "unit": "% forward return",
+      "n_condition": 441,
+      "n_other": 4270,
+      "sessions_in_universe": 4711,
+      "effect": 0.129,
+      "baseline_mean": 0.1798,
+      "win_rate_pct": 54.65,
+      "baseline_win_rate_pct": 54.73,
+      "win_rate_edge_pct": -0.08,
+      "smallest_resolvable_effect": 0.3453,
+      "bootstrap_p_two_sided": 0.565,
+      "bootstrap_share_above_zero": 0.7175,
+      "effect_net_of_cost": 0.109,
+      "by_period": {
+        "train": {
+          "n_condition": 49,
+          "effect": 0.3022
+        },
+        "valid": {
+          "n_condition": 125,
+          "effect": 0.5369
+        },
+        "holdout": {
+          "n_condition": 267,
+          "effect": -0.2077
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1290 is inside the +0.3453 these samples can separate",
+      "preregistered": false
+    }
+  ],
+  "family_permutation_secondary_only": {
+    "tested": 7,
+    "best_p_in_family": 0.059,
+    "family_p": 0.352,
+    "reading": "the chance that a family of this size produces a result this strong when every member is noise"
+  },
+  "dollar_replication": {
+    "question": "Does the broad trade-weighted dollar index reproduce the ICE DXY result on the window where both exist? Only then may it extend the sample.",
+    "overlap_sessions": 1151,
+    "level_correlation": 0.8379,
+    "twenty_day_change_correlation": 0.9255,
+    "median_absolute_level_gap": 19.1044,
+    "results": {
+      "dxy_ice": {
+        "n_condition": 224,
+        "win_rate_pct": 70.98,
+        "baseline_win_rate_pct": 59.76,
+        "effect_pct": 0.8773
+      },
+      "broad_twi": {
+        "n_condition": 260,
+        "win_rate_pct": 58.85,
+        "baseline_win_rate_pct": 62.85,
+        "effect_pct": -0.2853
+      }
+    },
+    "reproduces": false,
+    "reading": "Same sign and win rates within 10 points is the bar. The two indices weight different currencies, so exact agreement is not expected and would be suspicious if it appeared."
+  }
+}

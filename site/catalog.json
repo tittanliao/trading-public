@@ -313,6 +313,12 @@
       "title": "study"
     },
     {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-004/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
       "kind": "result",
       "path": "research/studies/RS-XAUUSD-20260824-004/results.json",
       "section": "research",
@@ -321,6 +327,24 @@
     {
       "kind": "result",
       "path": "research/studies/RS-XAUUSD-20260824-004/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-005/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-005/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-005/study.json",
       "section": "research",
       "title": "study"
     },

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T19:45:19+08:00",
+  "generated_at": "2026-08-24T22:17:51+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,15 +15,16 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 29,
+    "studies": 30,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
-      "RS-XAUUSD-20260824-004"
+      "RS-XAUUSD-20260824-004",
+      "RS-XAUUSD-20260824-005"
     ],
-    "hypotheses": 55,
+    "hypotheses": 63,
     "by_verdict": {
-      "no_evidence": 52,
+      "no_evidence": 60,
       "underpowered": 2,
       "below_cost": 1
     },
@@ -77,6 +78,24 @@
       },
       "macro_state": {
         "no_evidence": 7
+      },
+      "real_yield": {
+        "no_evidence": 3
+      },
+      "nominal_rates": {
+        "no_evidence": 1
+      },
+      "inflation_expectations": {
+        "no_evidence": 1
+      },
+      "dollar": {
+        "no_evidence": 1
+      },
+      "conjunction": {
+        "no_evidence": 1
+      },
+      "risk_off": {
+        "no_evidence": 1
       }
     }
   },
@@ -1744,6 +1763,187 @@
       "family": "none — hypothesis sweep on the daily price series and macro drivers",
       "origin": "programme",
       "claim": "Twenty hypotheses on 18 years of daily gold, and the macro drivers the programme had data for and never opened",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-08-24"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m01",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "real_yield",
+      "origin": "pre-registered by RS-XAUUSD-20260824-004 h17, which measured +0.4808% against a 0.5277% bound on 3196 sessions",
+      "claim": "The bottom quintile of 20-session change in the 10-year real yield (DFII10) precedes a stronger 20-session return for gold.",
+      "null_tested_against": "the real yield carries no information about gold's next month",
+      "verdict": "no_evidence",
+      "reason": "effect +0.3803 is inside the +0.5648 these samples can separate",
+      "n_condition": 646,
+      "effect": 0.3803,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.5648,
+      "effect_net_of_cost": 0.3603,
+      "bootstrap_p_two_sided": 0.48,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m02",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "real_yield",
+      "origin": "level versus change was never separated in the predecessor",
+      "claim": "The real yield LEVEL, not its change: bottom quintile precedes a stronger month.",
+      "null_tested_against": "the level of the real yield carries no information",
+      "verdict": "no_evidence",
+      "reason": "effect -0.3807 is inside the +0.4191 these samples can separate",
+      "n_condition": 1445,
+      "effect": -0.3807,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.4191,
+      "effect_net_of_cost": 0.3607,
+      "bootstrap_p_two_sided": 0.456,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m03",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "real_yield",
+      "origin": "the most commonly stated version of the gold-and-real-rates claim",
+      "claim": "A negative real yield is a regime, not a quantile: gold does better whenever DFII10 is below zero.",
+      "null_tested_against": "the sign of the real yield carries no information",
+      "verdict": "no_evidence",
+      "reason": "effect clears the resolution bound but bootstrap p=0.059",
+      "n_condition": 955,
+      "effect": -1.1497,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.48,
+      "effect_net_of_cost": 1.1297,
+      "bootstrap_p_two_sided": 0.059,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m04",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "nominal_rates",
+      "origin": "the nominal channel, separated from the real one",
+      "claim": "The nominal 10-year yield falling hardest over 20 sessions precedes a stronger month.",
+      "null_tested_against": "the nominal yield carries no information beyond the real yield",
+      "verdict": "no_evidence",
+      "reason": "effect clears the resolution bound but bootstrap p=0.212",
+      "n_condition": 654,
+      "effect": 0.6726,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.562,
+      "effect_net_of_cost": 0.6526,
+      "bootstrap_p_two_sided": 0.212,
+      "sign_consistent_all_periods": true,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m05",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "inflation_expectations",
+      "origin": "the inflation-hedge claim, on nine more years than the predecessor had",
+      "claim": "Rising breakeven inflation precedes a stronger month for gold.",
+      "null_tested_against": "breakeven inflation carries no information",
+      "verdict": "no_evidence",
+      "reason": "effect -0.1438 is inside the +0.5830 these samples can separate",
+      "n_condition": 599,
+      "effect": -0.1438,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.583,
+      "effect_net_of_cost": 0.1238,
+      "bootstrap_p_two_sided": 0.786,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m06",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "dollar",
+      "origin": "RS-XAUUSD-20260824-004 h18 on ICE DXY, 1174 sessions, 71.49% win rate",
+      "claim": "A bottom-quintile 20-session move in the broad dollar index precedes a stronger month.",
+      "null_tested_against": "the dollar carries no information about gold beyond the accounting link",
+      "verdict": "no_evidence",
+      "reason": "effect +0.0651 is inside the +0.5147 these samples can separate",
+      "n_condition": 823,
+      "effect": 0.0651,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.5147,
+      "effect_net_of_cost": 0.0451,
+      "bootstrap_p_two_sided": 0.87,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m07",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "conjunction",
+      "origin": "the two macro channels required to agree",
+      "claim": "Falling real yields AND a falling dollar together.",
+      "null_tested_against": "the conjunction carries no more information than its parts",
+      "verdict": "no_evidence",
+      "reason": "effect +0.2483 is inside the +0.9002 these samples can separate",
+      "n_condition": 230,
+      "effect": 0.2483,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.9002,
+      "effect_net_of_cost": 0.2283,
+      "bootstrap_p_two_sided": 0.608,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005:m08",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "hypothesis",
+      "family": "risk_off",
+      "origin": "the safe-haven claim, now including the 2008 crisis the predecessor excluded",
+      "claim": "A top-quintile VIX reading precedes a stronger week for gold, on 2008 onward.",
+      "null_tested_against": "equity volatility carries no information about gold",
+      "verdict": "no_evidence",
+      "reason": "effect +0.1290 is inside the +0.3453 these samples can separate",
+      "n_condition": 441,
+      "effect": 0.129,
+      "unit": "% forward return",
+      "smallest_resolvable_effect": 0.3453,
+      "effect_net_of_cost": 0.109,
+      "bootstrap_p_two_sided": 0.565,
+      "sign_consistent_all_periods": false,
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-005",
+      "study_id": "RS-XAUUSD-20260824-005",
+      "kind": "study",
+      "family": "none — pre-registered macro hypothesis on the daily price series",
+      "origin": "programme",
+      "claim": "The one hypothesis the last study left open, tested on the data it asked for",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": null,

@@ -1779,6 +1779,166 @@ def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
     )
 
 
+def study_page_preregistered(study: dict[str, object]) -> str:
+    """A pre-registered primary plus a family-corrected secondary set.
+
+    This page's job is different again. There is one question that was written down before
+    the data existed, and the reader has to be able to see that it really was — so the
+    before/after table leads, with the predecessor's recorded numbers beside the new ones.
+    Everything else is secondary and is labelled as such.
+    """
+    result = study["_result"]
+    primary = result["primary"]
+    prior = primary["prior"]
+    rep = result["dollar_replication"]
+    ice, twi = rep["results"]["dxy_ice"], rep["results"]["broad_twi"]
+    head = study["headline"]
+
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}">'
+        f'<strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+
+    def num(value, spec="{}"):
+        return "—" if value is None else html.escape(spec.format(value))
+
+    signs = ", ".join(
+        f'{v["effect"]:+.4f}' for v in primary["by_period"].values() if v["effect"] is not None
+    )
+    before_after = (
+        "<tr><td>sessions in universe</td>"
+        f'<td class="num">{prior["sessions"]}</td>'
+        f'<td class="num">{primary["sessions_in_universe"]}</td></tr>'
+        "<tr><td>effect</td>"
+        f'<td class="num">{prior["effect"]:+.4f}%</td>'
+        f'<td class="num">{primary["effect"]:+.4f}%</td></tr>'
+        "<tr><td>resolution bound</td>"
+        f'<td class="num">{prior["bound"]:.4f}%</td>'
+        f'<td class="num">{primary["smallest_resolvable_effect"]:.4f}%</td></tr>'
+        "<tr><td>win rate</td>"
+        f'<td class="num">{prior["win_rate"]}%</td>'
+        f'<td class="num">{primary["win_rate_pct"]}%</td></tr>'
+        "<tr><td>baseline win rate</td>"
+        f'<td class="num">{prior["baseline"]}%</td>'
+        f'<td class="num">{primary["baseline_win_rate_pct"]}%</td></tr>'
+        "<tr><td>sign across chronological thirds</td>"
+        '<td class="num">+, +, +</td>'
+        f'<td class="num">{html.escape(signs)}</td></tr>'
+    )
+
+    secondary_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(r["id"])}</code></td>'
+        f'<td>{html.escape(r["family"])}</td>'
+        f'<td>{html.escape(r["claim"])}</td>'
+        f'<td class="num">{r["n_condition"]}</td>'
+        f'<td class="num">{num(r.get("effect"), "{:+.4f}")}</td>'
+        f'<td class="num">{num(r.get("smallest_resolvable_effect"), "{:.4f}")}</td>'
+        f'<td class="num">{num(r.get("bootstrap_p_two_sided"))}</td>'
+        f'<td class="num">{num(r.get("win_rate_pct"), "{:.2f}")}</td>'
+        f'<td class="num">{num(r.get("baseline_win_rate_pct"), "{:.2f}")}</td>'
+        f'<td>{html.escape(r["verdict"])}</td></tr>'
+        for r in result["secondary"]
+    )
+
+    body = (
+        '<main class="shell">'
+        '<section class="report-section"><h2>What was measured</h2>'
+        f'<p>{html.escape(str(study["question"]))}</p>'
+        '<div class="mini-metrics">'
+        f'<span><strong>{head["sessions_before"]} → {head["sessions_after"]}</strong> sessions</span>'
+        f'<span><strong>{head["bound_change_pct"]:+.1f}%</strong> bound change</span>'
+        f'<span><strong>{html.escape(str(head["primary_verdict"]))}</strong> primary</span>'
+        f'<span><strong>{result["family_permutation_secondary_only"]["family_p"]}</strong> secondary family p</span>'
+        "</div></section>"
+
+        '<section class="report-section"><h2>Why the primary result is not family-corrected</h2>'
+        f'<p>{html.escape(str(result["design"]["why_no_family_correction_on_primary"]))} '
+        "The seven secondary hypotheses below <em>are</em> corrected as a family, and the "
+        "two numbers are reported separately so nobody has to take that argument on "
+        "trust.</p></section>"
+
+        f'<section class="report-section"><h2>Findings</h2>{finding_html}</section>'
+
+        '<section class="report-section"><h2>The pre-registered hypothesis, before and after</h2>'
+        f'<p>{html.escape(primary["claim"])}</p>'
+        '<div class="table-wrap"><table><thead><tr><th></th>'
+        f'<th>{html.escape(prior["study"])} {html.escape(prior["id"])}</th>'
+        "<th>this study</th></tr></thead>"
+        f"<tbody>{before_after}</tbody></table></div>"
+        "<p class=\"section-note\">The single property that made this worth pursuing was "
+        "that its sign held in all three chronological windows — the only macro condition "
+        "in the predecessor that managed it. Adding the earlier years breaks exactly that. "
+        "<strong>The stability was a feature of the sample, not of the relationship.</strong>"
+        "</p></section>"
+
+        '<section class="report-section"><h2>More data made the question harder</h2>'
+        "<p>The bound is <code>2.8 &times; &sigma; &times; &radic;(1/n₁ + 1/n₂)</code>. "
+        f'It rose {head["bound_change_pct"]:+.1f}%, and the two terms moved in opposite '
+        "directions.</p>"
+        '<div class="table-wrap"><table><thead><tr><th>term</th><th>change</th>'
+        "<th>why</th></tr></thead><tbody>"
+        f'<tr><td>&radic;(1/n₁ + 1/n₂)</td><td class="num">{head["sample_term_change_pct"]:+.1f}%</td>'
+        "<td>the universe grew 39% but the condition group did not — an expanding "
+        "percentile rank fires at whatever rate history dictates, 1.3% of 2018 and 31.5% "
+        "of 2020 — and the bound is dominated by the smaller group</td></tr>"
+        f'<tr><td>&sigma;</td><td class="num">{head["sigma_change_pct"]:+.1f}%</td>'
+        "<td>the added years are noisier: gold's 20-session forward return had a standard "
+        "deviation of 5.6351% across 2008-2012 against 4.3425% afterwards</td></tr>"
+        "</tbody></table></div>"
+        "<p class=\"section-note\"><strong>A bigger sample narrows a bound only if what it "
+        "adds is no noisier than what it had.</strong> That is worth stating because &ldquo;get "
+        "more data&rdquo; is the standard answer to an underpowered null, and here it was the "
+        "wrong one.</p></section>"
+
+        '<section class="report-section"><h2>The dollar extension does not replicate</h2>'
+        f'<p>{html.escape(str(rep["question"]))}</p>'
+        f'<p>The two indices are not the same instrument: correlation {rep["level_correlation"]} '
+        f'on levels, a median gap of {rep["median_absolute_level_gap"]} index points. So the '
+        f'longer one was asked to reproduce the shorter one on the {rep["overlap_sessions"]} '
+        "sessions where both exist, before being allowed to extend anything.</p>"
+        '<div class="table-wrap"><table><thead><tr><th>index</th><th>fires</th>'
+        "<th>win rate</th><th>baseline</th><th>effect</th></tr></thead><tbody>"
+        f'<tr><td>ICE DXY</td><td class="num">{ice["n_condition"]}</td>'
+        f'<td class="num">{ice["win_rate_pct"]}%</td>'
+        f'<td class="num">{ice["baseline_win_rate_pct"]}%</td>'
+        f'<td class="num">{ice["effect_pct"]:+.4f}%</td></tr>'
+        f'<tr><td>Broad trade-weighted</td><td class="num">{twi["n_condition"]}</td>'
+        f'<td class="num">{twi["win_rate_pct"]}%</td>'
+        f'<td class="num">{twi["baseline_win_rate_pct"]}%</td>'
+        f'<td class="num">{twi["effect_pct"]:+.4f}%</td></tr>'
+        "</tbody></table></div>"
+        "<p class=\"section-note\">Same window, same construction, <strong>opposite signs</strong>. "
+        "The extension is refused — and a result that flips sign when a closely related "
+        "measurement instrument is swapped in was never a finding. This check was built to "
+        "enable the result and it destroyed it instead.</p></section>"
+
+        '<section class="report-section"><h2>Secondary hypotheses</h2>'
+        '<p class="section-note">Corrected as a family. Family permutation p = '
+        f'<strong>{result["family_permutation_secondary_only"]["family_p"]}</strong>.</p>'
+        '<div class="table-wrap"><table><thead><tr><th>id</th><th>family</th><th>claim</th>'
+        "<th>n</th><th>effect %</th><th>bound %</th><th>boot p</th><th>win %</th>"
+        f"<th>baseline %</th><th>verdict</th></tr></thead><tbody>{secondary_rows}"
+        "</tbody></table></div></section>"
+
+        '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
+        + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
+        + "</ul></section>"
+        '<section class="report-section"><h2>Files</h2>'
+        '<div class="file-actions"><a href="results.json">results.json</a>'
+        '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
+        '<a href="../../null-results/">All null results</a>'
+        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        "</main>"
+    )
+    return document(
+        str(study["title"]), "Pre-registered test",
+        str(study.get("card_summary") or ""), body, "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -1799,6 +1959,8 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_range_profile(study)
     if "hypotheses" in result:
         return study_page_hypothesis_sweep(study)
+    if "primary" in result and "secondary" in result:
+        return study_page_preregistered(study)
     raise ValueError(
         f'{study["id"]}: results.json matches none of the known report shapes '
         '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", '

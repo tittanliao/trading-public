@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-005",
+  "revision": 1,
+  "title": "The one hypothesis the last study left open, tested on the data it asked for",
+  "market": "XAUUSD",
+  "strategy": "none — pre-registered macro hypothesis on the daily price series",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "RS-XAUUSD-20260824-004 left one hypothesis open with a number attached: falling 10-year real yields precede a stronger month for gold, +0.4808% against a 0.5277% resolution bound on 3196 sessions, sign stable in all three windows. Download the FRED series it named as the way to settle this, and settle it.",
+  "hypothesis": "With nine more years of macro data the effect either clears its bound or it does not, and either way the answer is worth more than the open question.",
+  "headline": {
+    "primary_preregistered": true,
+    "primary_verdict": "no_evidence",
+    "sessions_before": 3196,
+    "sessions_after": 4443,
+    "effect_before_pct": 0.4808,
+    "effect_after_pct": 0.3803,
+    "bound_before_pct": 0.5277,
+    "bound_after_pct": 0.5648,
+    "bound_change_pct": 7.0,
+    "sample_term_change_pct": -2.7,
+    "sigma_change_pct": 10.0,
+    "sign_stability_lost": true,
+    "dollar_reproduces": false,
+    "dxy_effect_pct": 0.8773,
+    "broad_twi_effect_pct": -0.2853,
+    "secondary_family_p": 0.352
+  },
+  "card_metrics": [
+    "primary_verdict",
+    "sessions",
+    "bound_change_pct",
+    "dollar_reproduces"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "The pre-registered hypothesis failed, and the reason is the interesting part",
+      "detail": "Falling 10-year real yields on 4443 sessions instead of 3196: effect +0.3803% against a 0.5648% bound. The single property that made this worth pursuing was that its sign held in all three chronological windows — the only macro condition in the predecessor that managed it. Adding 2008-2012 breaks exactly that: the middle window now runs -0.5421%. The stability was a feature of the sample, not of the relationship."
+    },
+    {
+      "tone": "warn",
+      "title": "More data made the question harder, not easier",
+      "detail": "The prediction before the download was that the bound would fall to about 0.435%. It rose 7.0%, to 0.5648%. Two things: the universe grew 39% but the condition group did not (659 to 646, because an expanding percentile rank fires at whatever rate history dictates — 1.3% of 2018, 31.5% of 2020), and the bound is dominated by the smaller group, so the sample term moved only -2.7%. Meanwhile the added years are noisier: sigma rose 10.0%. A bigger sample narrows a bound only if what it adds is no noisier than what it had. 'Get more data' was this programme's standing answer to an underpowered null and it is not automatically the right one."
+    },
+    {
+      "tone": "good",
+      "title": "The 71% dollar result does not survive changing the dollar index",
+      "detail": "The predecessor's loudest number was a 71.49% win rate on dollar weakness, limited to 1174 sessions by an ICE DXY export starting in 2021. FRED's broad trade-weighted index starts in 2006 and would have tripled that, so it was first asked to reproduce the result on the 1174 sessions where both exist. Same window, same construction, opposite signs: ICE DXY +0.8773% and 70.98% win, broad TWI -0.2853% and 58.85% win against its own 62.85% baseline. The extension is refused — and a result that flips sign when a closely related measurement instrument is swapped in was never a finding. This is a cleaner refutation than the era-matched baseline was, and it came from a test run to enable the result rather than to attack it."
+    },
+    {
+      "tone": "info",
+      "title": "The regime version of the claim is also closed",
+      "detail": "'Gold does better when the real yield is negative' is the most commonly stated version of this whole family and had never been tested here as a regime rather than a quantile. m03 measures it directly and returns -1.1497% against a 0.4800% bound. Seven secondary hypotheses, zero survivors, family p=0.352."
+    },
+    {
+      "tone": "good",
+      "title": "FRED agrees with the existing exports where it can be checked",
+      "detail": "VIX and the 10-year breakeven are identical to the repository's TradingView copies — correlation 1.0000, median absolute difference 0.0000 — and the 10-year nominal agrees at 0.9998 on levels. That is worth recording as a provenance result in its own right: the manual exports are not a separate estimate of these series, they are the same numbers, so agreement between them can never be evidence of anything."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "The one hypothesis the last study left open, tested on nine more years of FRED data. It failed — and adding data widened the bound instead of narrowing it.",
+  "summary_zh": "上一份研究唯一留下的線索（實質殖利率），用 FRED 多抓九年資料來定案。結果失敗：樣本從 3196 增加到 4443，但解析下限反而變寬 7.0%（樣本項只縮 2.7%，波動項卻升 10.0%），而且當初讓它值得追的「三期符號一致」在加入 2008–2012 後就破了。另一個收穫更大：h18 那個 71.49% 勝率，換成 FRED 的廣義美元指數在同一個視窗跑，符號相反（+0.8773% vs −0.2853%）——換一個相近的衡量工具就翻盤的結果，本來就不是發現。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
