@@ -97,3 +97,17 @@ tbody tr:last-child td { border-bottom: 0; }
 footer { border-top: 1px solid var(--line); padding: 26px 0 44px; color: var(--muted); font-size: .84rem; }
 @media (max-width: 850px) { .metric-grid, .insight-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { header { padding-top: 42px; } .shell { width: min(calc(100% - 22px), var(--max)); } .metric-grid, .insight-grid { grid-template-columns: 1fr; } }
+
+/* Card / table view switch. Both layouts are in the HTML and CSS hides one, so the table
+   works without JavaScript having to rebuild it. */
+.view-toggle { display: flex; gap: 8px; margin: 18px 0 0; }
+.view-toggle button { padding: 7px 15px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--muted); font: inherit; font-size: .84rem; cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+.view-toggle button:hover { border-color: var(--cyan); color: var(--text); }
+.view-toggle button[aria-pressed="true"] { border-color: var(--cyan); background: rgba(45, 212, 191, .12); color: var(--text); font-weight: 700; }
+table[data-sortable] th[data-sort] { cursor: pointer; user-select: none; white-space: nowrap; }
+table[data-sortable] th[data-sort]:hover { color: var(--cyan); }
+table[data-sortable] th[data-sort]::after { content: " \2195"; opacity: .3; font-size: .8em; }
+table[data-sortable] th[data-sort][aria-sort="ascending"]::after { content: " \2191"; opacity: 1; }
+table[data-sortable] th[data-sort][aria-sort="descending"]::after { content: " \2193"; opacity: 1; }
+table[data-sortable] td a { color: var(--text); text-decoration: none; }
+table[data-sortable] td a:hover { color: var(--cyan); text-decoration: underline; }

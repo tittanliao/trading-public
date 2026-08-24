@@ -228,6 +228,63 @@ THEME_BLURBS = {
 THEME_ORDER = ["strategy_diagnostics", "improvement_attempts", "market_structure", "methodology"]
 
 
+def study_table_html(study_list, prefix="../"):
+    """The same studies as a sortable table.
+
+    Cards are readable and do not scale: at 28 studies a grid is a page of scrolling, and
+    comparing two studies means holding one in your head while you find the other. A table
+    puts theme, market, status and the headline metric in fixed columns so the eye can run
+    down one of them, and sorting turns "which studies are confirmed" into one click.
+
+    Both layouts are generated and CSS hides one. That costs a few KB of HTML and avoids
+    re-rendering in JavaScript, which would mean the table only existed for readers with
+    scripting enabled.
+    """
+    rows = []
+    for study in study_list:
+        headline = study.get("headline") or {}
+        keys = study.get("card_metrics") or list(headline)[:1]
+        metric_key = next((k for k in keys if k in headline), None)
+        metric_text = (
+            f"{headline_display(metric_key, headline[metric_key])} {headline_label(metric_key)}"
+            if metric_key else "\u2014"
+        )
+        impact = "\u2713" if study.get("policy_impacts") else ""
+        rows.append(
+            "<tr>"
+            f'<td><a href="{html.escape(prefix + study["_relative"])}/">'
+            f'{html.escape(str(study["title"]))}</a></td>'
+            f'<td>{html.escape(THEME_LABELS.get(str(study.get("theme")), "\u2014"))}</td>'
+            f'<td>{html.escape(str(study.get("market", "")))}</td>'
+            f'<td>{html.escape(str(study.get("status", "")))}</td>'
+            f'<td>{html.escape(str(study.get("created_on", "")))}</td>'
+            f'<td class="num">{html.escape(metric_text)}</td>'
+            f'<td>{impact}</td>'
+            "</tr>"
+        )
+    return (
+        '<div data-view-table hidden><div class="table-wrap"><table data-sortable>'
+        "<thead><tr>"
+        '<th data-sort>Study</th><th data-sort>Theme</th><th data-sort>Market</th>'
+        '<th data-sort>Status</th><th data-sort>Date</th><th data-sort>Headline</th>'
+        '<th data-sort>\u5f71\u97ff\u8acb\u5206\u6790</th>'
+        "</tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+        '<p class="section-note">\u9ede\u6b04\u4f4d\u6a19\u984c\u53ef\u6392\u5e8f\u3002'
+        'Click a column heading to sort.</p></div>'
+    )
+
+
+def view_toggle_html() -> str:
+    """Card / table switch. The choice is remembered per reader in localStorage."""
+    return (
+        '<div class="view-toggle" data-view-toggle>'
+        '<button type="button" data-view="cards" aria-pressed="true">\u5361\u7247 Cards</button>'
+        '<button type="button" data-view="table" aria-pressed="false">\u8868\u683c Table</button>'
+        "</div>"
+    )
+
+
 def theme_sheets_html(study_list, prefix="../"):
     """Group by the question a study asked, not by how far through the process it is.
 
@@ -257,7 +314,8 @@ def theme_sheets_html(study_list, prefix="../"):
             f'<h2 class="section-title">{html.escape(theme)}</h2>'
             f'<div class="grid study-grid">{cards}</div>'
         )
-    return "".join(blocks) if blocks else '<p class="empty">No published study yet.</p>'
+    grid = "".join(blocks) if blocks else '<p class="empty">No published study yet.</p>'
+    return f'<div data-view-cards>{grid}</div>'
 
 
 def study_card(study: dict[str, object], prefix: str = "../") -> str:
@@ -1781,7 +1839,10 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
         f'<main class="shell">'
         + (f'<h2 class="section-title">Start here</h2><div class="grid">{banner}</div>'
            if banner else "")
-        + f'{theme_sheets_html(study_list)}</main>'
+        + view_toggle_html()
+        + theme_sheets_html(study_list)
+        + study_table_html(study_list)
+        + "</main>"
     )
     return document(
         "Research studies",
@@ -1824,7 +1885,17 @@ def overview(
         )),
         (xauusd_href, xauusd_title, xauusd_desc),
         ("tx/", "TX studies", "Active reviewed Taiwan index futures studies."),
-        ("research/", "All research", "Browse adopted human-readable study reports."),
+        ("research/", "All research",
+         f"Browse {len(study_list)} studies grouped by what they asked. Switch between "
+         "cards and a sortable table."),
+        # These two were reachable only from inside the research section, which meant the
+        # most useful entry point and the thing that makes the pages readable were both
+        # invisible from the front door.
+        ("research/null-results/", "What did not work",
+         "Every question answered with no, each carrying the smallest effect its sample "
+         "could have resolved. Published as JSON too."),
+        ("glossary/", "術語表 Glossary",
+         "每個技術名詞用中文定義一次，讓英文研究頁讀得下去。The vocabulary, defined once."),
     ]
     collections = '<div class="grid">' + "".join(
         f'<a class="card" href="{href}"><div class="type">analysis</div><h2>{title}</h2><p>{description}</p></a>'
@@ -1837,6 +1908,9 @@ def overview(
         f'{collections}'
         '<h2 class="section-title">Latest adopted studies</h2>'
         f'<div class="grid study-grid">{latest}</div>'
+        '<p class="section-note">'
+        '<a href="research/">All studies \u2192</a>'
+        '</p>'
         '<section class="report-section"><h2>Evidence lifecycle</h2>'
         '<div class="pipeline"><span>CSV + hash</span><b>→</b><span>Python runner</span><b>→</b>'
         '<span>Structured result</span><b>→</b><span>Owner decision</span><b>→</b>'
