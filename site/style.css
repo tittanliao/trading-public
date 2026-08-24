@@ -111,3 +111,11 @@ table[data-sortable] th[data-sort][aria-sort="ascending"]::after { content: " \2
 table[data-sortable] th[data-sort][aria-sort="descending"]::after { content: " \2193"; opacity: 1; }
 table[data-sortable] td a { color: var(--text); text-decoration: none; }
 table[data-sortable] td a:hover { color: var(--cyan); text-decoration: underline; }
+
+/* Front-door cards. The two instruments get more room than the reference links, because
+   the reason to open this site is almost always one of them. */
+.card-wide { min-height: 210px; }
+.card-wide h2 { font-size: 1.35rem; }
+.version-switch { display: flex; justify-content: flex-end; padding-top: 10px; }
+.version-switch a { color: var(--muted); font-size: .78rem; text-decoration: none; border-bottom: 1px dotted var(--line); }
+.version-switch a:hover { color: var(--cyan); border-color: var(--cyan); }

@@ -84,13 +84,37 @@ def catalog() -> dict[str, object]:
 
 
 def nav(prefix: str) -> str:
+    """Navigation by instrument, then by what you came to do.
+
+    The previous nav offered Overview / XAUUSD / TX / Research, and a study about gold
+    lived under Research rather than under XAUUSD — so a reader who wanted to know
+    something about gold had two plausible doors and no way to tell which. Studies now sit
+    inside the instrument they are about. What is left at the top level is the material
+    that genuinely spans both: the lessons, and the vocabulary.
+    """
     return (
         '<nav class="nav">'
-        f'<a href="{prefix}index.html">Overview</a>'
+        f'<a href="{prefix}index.html">\u9996\u9801</a>'
         f'<a href="{prefix}xauusd/">XAUUSD</a>'
         f'<a href="{prefix}tx/">TX</a>'
-        f'<a href="{prefix}research/">Research</a>'
+        f'<a href="{prefix}lessons/">\u4ec0\u9ebc\u6c92\u7528</a>'
+        f'<a href="{prefix}glossary/">\u8853\u8a9e</a>'
         '</nav>'
+    )
+
+
+def version_switch(prefix: str, current: str = "v2") -> str:
+    """A link back to the archived layout, kept because more re-layouts are expected.
+
+    Only the navigation pages are archived. The studies themselves are identical across
+    versions, and copying 5.9MB of charts to preserve a menu would be the wrong trade.
+    """
+    if current == "v1":
+        return ""
+    return (
+        '<div class="version-switch">'
+        f'<a href="{prefix}v1/">\u770b\u820a\u7248 v1.0</a>'
+        "</div>"
     )
 
 
@@ -106,6 +130,7 @@ def document(title: str, eyebrow: str, lede: str, body: str, prefix: str = "") -
 </head>
 <body>
   <header class="shell">
+    {version_switch(prefix)}
     <div class="eyebrow">{html.escape(eyebrow)}</div>
     <h1>{html.escape(title)}</h1>
     <p class="lede">{html.escape(lede)}</p>
@@ -1773,6 +1798,110 @@ def weekly_summary_page(
     )
 
 
+SIGNAL_PLAYBOOK = {
+    "XAUUSD": {
+        "intro": "\u8a0a\u865f\u5230\u4e86\u3002\u9019\u9801\u53ea\u56de\u7b54\u4e00\u4ef6\u4e8b\uff1a"
+                 "\u73fe\u5728\u6709\u4ec0\u9ebc\u5df2\u77e5\u7684\u6771\u897f\uff0c\u80fd\u5e6b\u4f60"
+                 "\u5224\u65b7\u9019\u7b46\u55ae\u3002",
+        "checks": [
+            {
+                "title": "\u9032\u5834\u50f9\u5728\u5e03\u6797\u901a\u9053\u7684\u54ea\u88e1\uff08S1\uff09",
+                "study": "RS-XAUUSD-20260823-002",
+                "what": "%B > 1.0\uff08\u6536\u5728\u4e0a\u8ecc\u4e4b\u5916\uff09\u7684\u9032\u5834\uff0c"
+                        "\u6b77\u53f2\u52dd\u7387 73.17%\uff08n=82\uff09\uff0c\u57fa\u6e96\u662f 55.93%\u3002"
+                        "\u800c\u4e14\u5b83\u5728\u6a23\u672c\u5916\u66f4\u5f37\uff0c\u4e0d\u662f\u8b8a\u5f31\u3002",
+                "caveat": "\u4f46\u62ff\u5b83\u7576\u904e\u6ffe\u5668\u6703\u8ce0\u9322\uff1a"
+                          "\u53ea\u7559 17% \u7684\u9032\u5834\u3001 44% \u7684\u5831\u916c\u3002"
+                          "\u5b83\u662f\u53c3\u8003\u8cc7\u8a0a\uff0c\u4e0d\u662f\u9598\u9580\u3002",
+            },
+            {
+                "title": "\u73fe\u5728\u9019\u500b\u6642\u9593\u9ede\uff0c\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593",
+                "study": "RS-XAUUSD-20260823-001",
+                "what": "\u53f0\u5317 23:30 \u4e4b\u5f8c\uff0c\u4e2d\u4f4d\u6578\u7684\u4e00\u5929"
+                        "\u5df2\u7d93\u8d70\u5b8c\u4e86\uff08\u5269\u9918\u5340\u9593\u4e2d\u4f4d\u6578 0%\uff09\u3002"
+                        "02:30 \u4e4b\u5f8c\u5e73\u5747\u53ea\u5269 4%\u3002",
+                "caveat": "\u9019\u53ea\u8b1b\u300c\u9084\u6709\u591a\u5c11\u7a7a\u9593\u300d\uff0c"
+                          "\u5b8c\u5168\u4e0d\u8b1b\u65b9\u5411\u3002",
+            },
+            {
+                "title": "\u9019\u500b\u7b56\u7565\u672c\u4f86\u5c31\u9577\u4ec0\u9ebc\u6a23",
+                "study": "RS-XAUUSD-20260727-007",
+                "what": "S2 V3.2 \u57fa\u6e96\u52dd\u7387 47.13%\u3001\u7372\u5229\u56e0\u5b50 2.05\u3002"
+                        "\u4f4e\u52dd\u7387\u9ad8\u8ce0\u7387\u662f\u6b63\u5e38\u5f62\u614b\uff0c"
+                        "\u53ea\u770b\u52dd\u7387\u6703\u8aa4\u5224\u3002",
+                "caveat": "S1 V3.9 \u7684\u57fa\u6e96\u662f 55.93% / PF 1.849\uff0c"
+                          "\u5e73\u5747\u6301\u6709 30 \u6839\u3002",
+            },
+        ],
+        "ruled_out": [
+            "Macro \u7d9c\u5408\u5206\u6578\u3001GVZ \u9580\u6abb\u2014\u2014\u5df2\u65bc 2026-08-17 \u64a4\u92b7\uff0c\u4e0d\u8981\u518d\u7528\u5b83\u5011\u6e1b\u78bc",
+            "30 \u5206\u9418\u6642\u69fd\u52dd\u7387\u2014\u2014\u8207\u96dc\u8a0a\u7121\u6cd5\u5340\u5206",
+            "\u9031\u4e00\u6700\u5f31\u3001\u9031\u4e94\u6700\u5f37\u2014\u2014\u5728\u9019\u4efd\u8cc7\u6599\u4e0a\u4e0d\u6210\u7acb",
+            "CFTC \u90e8\u4f4d\u2014\u2014\u76ee\u524d\u6a23\u672c\u770b\u4e0d\u51fa\u4efb\u4f55\u6771\u897f",
+        ],
+    },
+    "TX": {
+        "intro": "TX \u76ee\u524d\u53ea\u6709\u5b63\u7bc0\u6027\u8207\u56de\u6a94\u7d50\u69cb\u7684"
+                 "\u521d\u6b65\u7814\u7a76\uff0c\u9084\u6c92\u6709\u8a0a\u865f\u5c64\u7d1a\u7684"
+                 "\u5224\u65b7\u4f9d\u64da\u3002",
+        "checks": [],
+        "ruled_out": [],
+    },
+}
+
+
+def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefix: str) -> str:
+    """What to look at when a signal arrives — the reason the owner opens this site.
+
+    Everything else here is an archive organised for browsing. This is the one page with a
+    task: a signal just fired, and the question is whether anything known raises or lowers
+    confidence in taking it. It leads with the single finding that survived every screen,
+    and it says in the same breath that the finding cannot be traded as a filter, because
+    a number that raises win rate while destroying return is worse than useless if it is
+    presented without that.
+
+    The "already ruled out" list is here for the same reason: knowing what not to bother
+    checking is a decision aid, and it is the largest thing this programme has produced.
+    """
+    book = SIGNAL_PLAYBOOK.get(market)
+    if not book:
+        return ""
+    by_id = {str(study["id"]): study for study in study_list}
+
+    checks = []
+    for item in book["checks"]:
+        study = by_id.get(item["study"])
+        link = (
+            f'<a href="{html.escape(prefix + study["_relative"])}/">{html.escape(item["study"])}</a>'
+            if study else html.escape(item["study"])
+        )
+        checks.append(
+            '<article class="insight good">'
+            f'<strong>{html.escape(item["title"])}</strong>'
+            f'<p>{html.escape(item["what"])}</p>'
+            f'<p class="section-note">{html.escape(item["caveat"])}</p>'
+            f'<p class="section-note">{link}</p>'
+            "</article>"
+        )
+    ruled = "".join(f"<li>{html.escape(x)}</li>" for x in book["ruled_out"])
+    ruled_block = (
+        '<section class="report-section"><h2>\u4e0d\u7528\u518d\u770b\u7684</h2>'
+        f'<ul class="impact-list">{ruled}</ul>'
+        f'<p class="section-note">\u5b8c\u6574\u6e05\u55ae\u8207\u6bcf\u4e00\u9805\u7684'
+        f'\u89e3\u6790\u4e0b\u9650\uff1a<a href="{prefix}lessons/">\u4ec0\u9ebc\u6c92\u7528</a></p>'
+        "</section>"
+    ) if ruled else ""
+
+    return (
+        '<section class="report-section"><h2>\u8a0a\u865f\u4f86\u4e86\uff0c\u5148\u770b\u9019\u88e1</h2>'
+        f'<p>{html.escape(book["intro"])}</p>'
+        + (f'<div class="insight-grid">{"".join(checks)}</div>' if checks
+           else '<p class="section-note">\u5c1a\u7121\u53ef\u7528\u7684\u5224\u65b7\u4f9d\u64da\u3002</p>')
+        + "</section>"
+        + ruled_block
+    )
+
+
 def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, object]]) -> str:
     selected = [study for study in study_list if study["market"].lower() == "xauusd"]
     latest = weekly[0] if weekly else None
@@ -1781,17 +1910,24 @@ def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, obje
         if latest else '<p class="empty">No reviewed weekly outlook published yet.</p>'
     )
     body = (
-        '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter XAUUSD content" aria-label="Filter"></div></div>'
-        '<main class="shell"><h2 class="section-title">Latest weekly outlook</h2>'
+        '<main class="shell">'
+        + signal_playbook_html("XAUUSD", study_list, "../")
+        + '<h2 class="section-title">\u672c\u9031\u5c55\u671b</h2>'
         f'<div class="grid">{weekly_html}</div>'
-        f'<div class="stats"><span class="stat"><strong>{len(selected)}</strong> active studies</span></div>'
-        f'{status_sheets_html(selected)}</main>'
+        + '<h2 class="section-title">XAUUSD \u7814\u7a76 '
+        f'<span class="sheet-count">({len(selected)})</span></h2>'
+        + '<div class="toolbar"><div class="shell"><input data-search type="search" '
+        'placeholder="\u7be9\u9078 XAUUSD \u7814\u7a76" aria-label="Filter"></div></div>'
+        + view_toggle_html()
+        + theme_sheets_html(selected, "../")
+        + study_table_html(selected, "../")
+        + "</main>"
     )
     return document(
-        "XAUUSD research",
-        "xauusd",
-        "Reviewed weekly outlooks and gold research, without private source artifacts.",
+        "XAUUSD",
+        "\u9ec3\u91d1",
+        "\u8a0a\u865f\u4f86\u4e86\u8981\u770b\u4ec0\u9ebc\u3001\u672c\u9031\u5c55\u671b\uff0c"
+        "\u4ee5\u53ca\u6240\u6709\u9ec3\u91d1\u7814\u7a76\u3002",
         body,
         "../",
     )
@@ -1805,12 +1941,72 @@ def section_page(
 ) -> str:
     selected = [study for study in study_list if study["market"].lower() == market]
     body = (
-        '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter studies" aria-label="Filter"></div></div>'
-        f'<main class="shell"><div class="stats"><span class="stat"><strong>{len(selected)}</strong> active studies</span></div>'
-        f'{status_sheets_html(selected)}</main>'
+        '<main class="shell">'
+        + signal_playbook_html(market.upper(), study_list, "../")
+        + f'<h2 class="section-title">{html.escape(market.upper())} \u7814\u7a76 '
+        f'<span class="sheet-count">({len(selected)})</span></h2>'
+        + '<div class="toolbar"><div class="shell"><input data-search type="search" '
+        'placeholder="\u7be9\u9078\u7814\u7a76" aria-label="Filter"></div></div>'
+        + view_toggle_html()
+        + theme_sheets_html(selected, "../")
+        + study_table_html(selected, "../")
+        + "</main>"
     )
     return document(title, market, lede, body, "../")
+
+
+def lessons_page(registry, study_list) -> str:
+    """What was ruled out, and what the programme learned about testing.
+
+    Split off from the instrument pages because it is the one section that genuinely spans
+    both of them, and because it answers a different question: not "should I take this
+    trade" but "has this already been tried". Those are different visits and putting them
+    on the same page made each harder to find.
+    """
+    methodology = [s for s in study_list if s.get("theme") == "methodology"]
+    cards = "".join(study_card(s, "../") for s in methodology)
+    totals = (registry or {}).get("totals", {})
+    banner = ""
+    if totals:
+        banner = (
+            '<a class="card" data-card href="../research/null-results/">'
+            '<div class="type">registry</div><h2>\u5b8c\u6574\u767b\u9304</h2>'
+            "<p>\u6bcf\u4e00\u500b\u88ab\u554f\u904e\u4e26\u4e14\u5f97\u5230"
+            "\u300c\u6c92\u6709\u300d\u7684\u554f\u984c\uff0c\u6bcf\u4e00\u7b46"
+            "\u90fd\u5e36\u8457\u5b83\u7684\u89e3\u6790\u4e0b\u9650\u3002</p>"
+            '<div class="mini-metrics">'
+            f'<span><strong>{totals.get("hypotheses", 0)}</strong> hypotheses</span>'
+            f'<span><strong>{totals.get("by_verdict", {}).get("survives_screens", 0)}</strong> survivors</span>'
+            "</div></a>"
+        )
+    body = (
+        '<main class="shell">'
+        '<section class="report-section"><h2>\u70ba\u4ec0\u9ebc\u9019\u9801\u5b58\u5728</h2>'
+        "<p>\u9019\u500b\u7814\u7a76\u8a08\u756b\u7684\u7522\u51fa\u5927\u90e8\u5206"
+        "\u662f\u300c\u6c92\u6709\u300d\u3002\u90a3\u662f\u7d50\u8ad6\uff0c\u4e0d\u662f"
+        "\u7f3a\u5c11\u7d50\u8ad6\u2014\u2014\u800c\u4e14\u77e5\u9053\u4ec0\u9ebc"
+        "\u4e0d\u7528\u518d\u8a66\uff0c\u672c\u8eab\u5c31\u662f\u5224\u65b7\u4f9d\u64da\u3002</p>"
+        "<p>\u6bcf\u4e00\u7b46\u90fd\u5e36\u8457<strong>\u89e3\u6790\u4e0b\u9650</strong>\uff1a"
+        "\u9019\u500b\u6a23\u672c\u80fd\u5206\u8fa8\u7684\u6700\u5c0f\u5dee\u8ddd\u3002"
+        "\u754c\u9650\u5bec\u7684\u300c\u7121\u8b49\u64da\u300d\u4ec0\u9ebc\u90fd"
+        "\u6c92\u95dc\u6389\uff0c\u9019\u500b\u5340\u5225\u5f88\u91cd\u8981\u3002</p>"
+        "</section>"
+        + (f'<div class="grid">{banner}</div>' if banner else "")
+        + (f'<h2 class="section-title">\u65b9\u6cd5\u8ad6 '
+           f'<span class="sheet-count">({len(methodology)})</span></h2>'
+           f'<p class="section-note">\u95dc\u65bc\u300c\u600e\u9ebc\u6e2c\u300d\u5b78\u5230'
+           f'\u7684\u4e8b\uff0c\u901a\u5e38\u662f\u5148\u505a\u932f\u4e00\u6b21\u624d\u5b78\u5230\u7684\u3002</p>'
+           f'<div class="grid study-grid">{cards}</div>' if methodology else "")
+        + "</main>"
+    )
+    return document(
+        "\u4ec0\u9ebc\u6c92\u7528",
+        "negative results",
+        "\u88ab\u6392\u9664\u7684\u641c\u5c0b\u7a7a\u9593\uff0c\u4ee5\u53ca\u6bcf\u4e00\u500b"
+        "\u300c\u6c92\u6709\u300d\u5230\u5e95\u95dc\u6389\u4e86\u591a\u5c11\u9580\u3002",
+        body,
+        "../",
+    )
 
 
 def research_page(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
@@ -1858,69 +2054,92 @@ def overview(
     study_list: list[dict[str, object]],
     weekly: list[dict[str, object]],
 ) -> str:
-    # The live-impact study (non-empty policy_impacts), not "whichever XAUUSD study
-    # sorts first by directory name" — that previously picked an unrelated comparison
-    # report once a higher-numbered study existed. Falls back to the first XAUUSD
-    # study if none currently has live impact.
-    live_xauusd = next(
-        (study for study in study_list if study["market"].lower() == "xauusd" and study.get("policy_impacts")),
-        None,
-    ) or next(
-        (study for study in study_list if study["market"].lower() == "xauusd"),
-        None,
+    """The front door, organised by what the reader came to do.
+
+    The previous homepage offered "XAUUSD" and "Research" as sibling entries, and a study
+    about gold lived under the second one — so there were two plausible doors to the same
+    thing and no way to tell which. The owner said as much: 我都不知道要點哪裡.
+
+    The fix is that instruments are the top level and everything about an instrument lives
+    inside it. What stays at this level is the one thing that spans both — what has been
+    ruled out — and the vocabulary needed to read any of it.
+
+    The ordering is the owner's actual journey, not the archive's structure: a signal
+    arrives, and the first question is whether anything known makes this trade better or
+    worse. That gets the largest card.
+    """
+    registry = null_registry()
+    totals = (registry or {}).get("totals", {})
+    counts = {}
+    for study in study_list:
+        counts[str(study.get("market", "")).upper()] = counts.get(
+            str(study.get("market", "")).upper(), 0) + 1
+
+    weekly_line = (
+        f'{weekly[0]["forecast_week"]}\u5c55\u671b\u5df2\u767c\u5e03'
+        if weekly else "\u5c1a\u672a\u767c\u5e03\u9031\u5831"
     )
-    xauusd_href = (
-        f'{live_xauusd["_relative"]}/' if live_xauusd else "xauusd/"
+    primary = (
+        '<a class="card card-wide" data-card href="xauusd/">'
+        '<div class="type">\u8a0a\u865f\u4f86\u4e86</div>'
+        '<h2>XAUUSD \u9ec3\u91d1</h2>'
+        "<p>\u9032\u5834\u524d\u5148\u770b\uff1a\u5e03\u6797\u4f4d\u7f6e\u7684\u6b77\u53f2"
+        "\u52dd\u7387\u3001\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593\u3001"
+        "\u4ee5\u53ca\u54ea\u4e9b\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002</p>"
+        '<div class="mini-metrics">'
+        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> \u7bc7\u7814\u7a76</span>'
+        f'<span><strong>{html.escape(weekly_line)}</strong></span>'
+        "</div></a>"
+        '<a class="card card-wide" data-card href="tx/">'
+        '<div class="type">\u53e6\u4e00\u500b\u5546\u54c1</div>'
+        '<h2>TX \u53f0\u6307\u671f</h2>'
+        "<p>\u76ee\u524d\u53ea\u6709\u5b63\u7bc0\u6027\u8207\u56de\u6a94\u7d50\u69cb\u7684"
+        "\u521d\u6b65\u7814\u7a76\uff0c\u9084\u6c92\u6709\u8a0a\u865f\u5c64\u7d1a\u7684"
+        "\u5224\u65b7\u4f9d\u64da\u3002</p>"
+        '<div class="mini-metrics">'
+        f'<span><strong>{counts.get("TX", 0)}</strong> \u7bc7\u7814\u7a76</span>'
+        "</div></a>"
     )
-    xauusd_title = live_xauusd["title"] if live_xauusd else "XAUUSD studies"
-    xauusd_desc = (
-        f'Open the current live-impact study ({live_xauusd["id"]}) directly.'
-        if live_xauusd and live_xauusd.get("policy_impacts")
-        else "Active reviewed XAUUSD studies."
-    )
-    cards = [
-        ("xauusd/weekly/", "Latest XAUUSD weekly outlook", (
-            f'Reviewed {weekly[0]["forecast_week"]} aggregate from {weekly[0]["source_count"]} eligible source(s).'
-            if weekly else "No reviewed weekly outlook published yet."
-        )),
-        (xauusd_href, xauusd_title, xauusd_desc),
-        ("tx/", "TX studies", "Active reviewed Taiwan index futures studies."),
-        ("research/", "All research",
-         f"Browse {len(study_list)} studies grouped by what they asked. Switch between "
-         "cards and a sortable table."),
-        # These two were reachable only from inside the research section, which meant the
-        # most useful entry point and the thing that makes the pages readable were both
-        # invisible from the front door.
-        ("research/null-results/", "What did not work",
-         "Every question answered with no, each carrying the smallest effect its sample "
-         "could have resolved. Published as JSON too."),
-        ("glossary/", "術語表 Glossary",
-         "每個技術名詞用中文定義一次，讓英文研究頁讀得下去。The vocabulary, defined once."),
+
+    secondary = [
+        ("lessons/", "\u4ec0\u9ebc\u6c92\u7528",
+         f'{totals.get("hypotheses", 0)} \u500b\u5047\u8a2d\u88ab\u6e2c\u904e\uff0c'
+         f'{totals.get("by_verdict", {}).get("survives_screens", 0)} \u500b\u5b58\u6d3b\u3002'
+         "\u77e5\u9053\u4ec0\u9ebc\u4e0d\u7528\u518d\u8a66\uff0c\u672c\u8eab\u5c31\u662f"
+         "\u5224\u65b7\u4f9d\u64da\u3002"),
+        ("glossary/", "\u8853\u8a9e\u8868",
+         "\u7814\u7a76\u9801\u9762\u662f\u82f1\u6587\u7684\u3002\u9019\u88e1\u628a"
+         "\u6bcf\u500b\u6280\u8853\u540d\u8a5e\u7528\u4e2d\u6587\u5b9a\u7fa9\u4e00\u6b21\u3002"),
+        ("xauusd/weekly/", "\u9031\u5831",
+         "\u6bcf\u9031\u7684\u95dc\u9375\u50f9\u4f4d\u3001\u5287\u672c\u8207\u4e8b\u4ef6\u98a8\u96aa\u3002"),
     ]
-    collections = '<div class="grid">' + "".join(
-        f'<a class="card" href="{href}"><div class="type">analysis</div><h2>{title}</h2><p>{description}</p></a>'
-        for href, title, description in cards
-    ) + '</div>'
-    latest = "".join(study_card(study, "") for study in study_list[:3])
+    minor = '<div class="grid">' + "".join(
+        f'<a class="card" data-card href="{href}"><div class="type">\u53c3\u8003</div>'
+        f'<h2>{title}</h2><p>{description}</p></a>'
+        for href, title, description in secondary
+    ) + "</div>"
+
     body = (
         '<main class="shell">'
-        '<h2 class="section-title">Research collections</h2>'
-        f'{collections}'
-        '<h2 class="section-title">Latest adopted studies</h2>'
-        f'<div class="grid study-grid">{latest}</div>'
-        '<p class="section-note">'
-        '<a href="research/">All studies \u2192</a>'
-        '</p>'
-        '<section class="report-section"><h2>Evidence lifecycle</h2>'
-        '<div class="pipeline"><span>CSV + hash</span><b>→</b><span>Python runner</span><b>→</b>'
-        '<span>Structured result</span><b>→</b><span>Owner decision</span><b>→</b>'
-        '<span>請分析 policy</span></div></section>'
-        '</main>'
+        '<h2 class="section-title">\u4f60\u4ea4\u6613\u7684\u5546\u54c1</h2>'
+        f'<div class="grid">{primary}</div>'
+        '<h2 class="section-title">\u5176\u4ed6</h2>'
+        f"{minor}"
+        '<section class="report-section"><h2>\u9019\u500b\u7db2\u7ad9\u662f\u4ec0\u9ebc</h2>'
+        "<p>\u4e00\u500b\u4ea4\u6613\u7814\u7a76\u8a08\u756b\u7684\u516c\u958b\u90e8\u5206\u3002"
+        "\u5b83\u4e0d\u662f\u7d66\u5efa\u8b70\u7684\uff0c\u4e5f\u4e0d\u662f\u8a0e\u8ad6"
+        "\u4ec0\u9ebc\u7b56\u7565\u6709\u6548\u2014\u2014\u5b83\u8a18\u9304\u7684\u662f"
+        "\u54ea\u4e9b\u554f\u984c\u88ab\u554f\u904e\u3001\u7b54\u6848\u662f\u4ec0\u9ebc\uff0c"
+        "\u4ee5\u53ca\u90a3\u500b\u7b54\u6848\u6709\u591a\u53ef\u9760\u3002</p>"
+        "<p>\u5927\u90e8\u5206\u7684\u7b54\u6848\u662f\u300c\u6c92\u6709\u300d\u3002</p>"
+        "</section>"
+        "</main>"
     )
     return document(
-        "Trading research, without the maze.",
-        "Reviewed public workspace",
-        "A generated portal for published reports, code, and strategy evidence. Raw data and private model memory stay outside this repository.",
+        "\u4ea4\u6613\u7814\u7a76",
+        "\u516c\u958b\u5de5\u4f5c\u5340",
+        "\u8a0a\u865f\u4f86\u4e86\u8981\u770b\u4ec0\u9ebc\uff0c\u4ee5\u53ca\u54ea\u4e9b"
+        "\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002",
         body,
     )
 
@@ -1932,8 +2151,10 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
         ROOT / "site/catalog.json": json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         ROOT / "index.html": overview(data, study_list, weekly),
         ROOT / "xauusd/index.html": xauusd_page(study_list, weekly),
-        ROOT / "tx/index.html": section_page(study_list, "tx", "TX studies", "Reviewed Taiwan index futures research presented as readable studies."),
+        ROOT / "tx/index.html": section_page(
+            study_list, "tx", "TX \u53f0\u6307\u671f", "\u53f0\u6307\u671f\u7814\u7a76\u3002"),
         ROOT / "research/index.html": research_page(data, study_list),
+        ROOT / "lessons/index.html": lessons_page(null_registry(), study_list),
     }
     registry = null_registry()
     if registry:

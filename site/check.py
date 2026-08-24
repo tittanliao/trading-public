@@ -25,6 +25,7 @@ GENERATED_PAGES = [
     # went live once without being checked at all, which is how a 404 stayed invisible.
     page for page in (
         ROOT / "glossary/index.html",
+        ROOT / "lessons/index.html",
         ROOT / "research/null-results/index.html",
     ) if page.is_file()
 ] + sorted((ROOT / "research/studies").glob("*/index.html")) + [

@@ -8,6 +8,12 @@
     },
     {
       "kind": "report",
+      "path": "lessons/index.html",
+      "section": "research",
+      "title": "什麼沒用 · Trading Research"
+    },
+    {
+      "kind": "report",
       "path": "research/null-results/index.html",
       "section": "research",
       "title": "What did not work · Trading Research"
@@ -305,6 +311,66 @@
       "path": "research/studies/RS-XAUUSD-20260823-001/study.json",
       "section": "research",
       "title": "study"
+    },
+    {
+      "kind": "report",
+      "path": "v1/glossary/index.html",
+      "section": "research",
+      "title": "Glossary 術語表 · Trading Research"
+    },
+    {
+      "kind": "report",
+      "path": "v1/index.html",
+      "section": "research",
+      "title": "Trading research, without the maze. · Trading Research"
+    },
+    {
+      "kind": "report",
+      "path": "v1/research/index.html",
+      "section": "research",
+      "title": "Research studies · Trading Research"
+    },
+    {
+      "kind": "report",
+      "path": "v1/tx/index.html",
+      "section": "research",
+      "title": "TX studies · Trading Research"
+    },
+    {
+      "kind": "report",
+      "path": "v1/xauusd/index.html",
+      "section": "research",
+      "title": "XAUUSD research · Trading Research"
+    },
+    {
+      "kind": "report",
+      "path": "v1/xauusd/weekly/2026-W34/index.html",
+      "section": "research",
+      "title": "XAUUSD 2026-W34 outlook · Trading Research"
+    },
+    {
+      "kind": "result",
+      "path": "v1/xauusd/weekly/2026-W34/summary.json",
+      "section": "research",
+      "title": "summary"
+    },
+    {
+      "kind": "report",
+      "path": "v1/xauusd/weekly/2026-W35/index.html",
+      "section": "research",
+      "title": "XAUUSD 2026-W35 outlook · Trading Research"
+    },
+    {
+      "kind": "result",
+      "path": "v1/xauusd/weekly/2026-W35/summary.json",
+      "section": "research",
+      "title": "summary"
+    },
+    {
+      "kind": "report",
+      "path": "v1/xauusd/weekly/index.html",
+      "section": "research",
+      "title": "XAUUSD 2026-W35 outlook · Trading Research"
     },
     {
       "kind": "result",

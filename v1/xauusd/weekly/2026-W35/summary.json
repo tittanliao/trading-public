@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "market": "XAUUSD",
+  "forecast_week": "2026-W35",
+  "edition": "Sun",
+  "published_at": "2026-08-23T11:51:35+00:00",
+  "publication_mode": "multi_source",
+  "confidence": "medium",
+  "source_count": 2,
+  "source_producers": [
+    "claude",
+    "codex"
+  ],
+  "source_fingerprint": "ce8667e95848887e73b80b2497da353d68b4ef26c3435aabd458496abe205055",
+  "data_cutoff": "2026-08-21T20:30Z — W34 weekly close on TradingView FX_IDC:XAUUSD (weekend close, not a live quote)",
+  "market_summary": "W34 closed at 4,602.66 (+226.50, +5.18%), in the top 10% of the weekly range, clearing the W32–W33 consolidation high at 4,449.73. The move was triggered on 08-19, when price swept the prior day's low at 4,329.415 and reversed to close at 4,522.043 (+188.63 on the day) as the dollar index broke below its daily 200 EMA at 99.612. Both producers read the structure as bullish but short-term overheated: daily RSI 70.24, 4h RSI 72.63, and Friday's high of 4,632.22 tagged the daily upper Bollinger band at 4,632.94 before fading 29.56 points into the close. The dollar index at 98.839 with a daily RSI of 30.59 is the main headwind — an oversold bounce there is the most likely trigger for a pullback in gold.",
+  "scenario_comparison": [
+    {
+      "producer": "claude",
+      "scenarios": [
+        {
+          "direction": "range",
+          "probability": 40
+        },
+        {
+          "direction": "bullish",
+          "probability": 35
+        },
+        {
+          "direction": "bearish",
+          "probability": 25
+        }
+      ]
+    },
+    {
+      "producer": "codex",
+      "scenarios": [
+        {
+          "direction": "bullish",
+          "probability": 45
+        },
+        {
+          "direction": "range",
+          "probability": 35
+        },
+        {
+          "direction": "bearish",
+          "probability": 20
+        }
+      ]
+    }
+  ],
+  "adopted_scenarios": [
+    {
+      "direction": "range",
+      "probability": 40,
+      "conditions": "The 4,632.22–4,659.03 resistance cluster caps price while 4,495.02–4,519.81 holds; overbought momentum needs time to unwind ahead of a heavy event week.",
+      "invalidation": "A 4h close outside 4,519.81–4,659.03 that then holds on that side.",
+      "targets": "Rotation between 4,543.87 and 4,632.22; the 4,601.40–4,605.87 pivot separates the two halves of the range."
+    },
+    {
+      "direction": "bullish",
+      "probability": 35,
+      "conditions": "A 30m/4h close above 4,659.03 — clearing the whole band of upper Bollinger levels and the April–May supply at 4,639.01–4,660.28 — followed by a hold on the retest and a fresh formal breakout signal.",
+      "invalidation": "Price falls back below 4,632.22 after the breakout.",
+      "targets": "4,691.14–4,723.09, the April–May supply zone."
+    },
+    {
+      "direction": "bearish",
+      "probability": 25,
+      "conditions": "The dollar index bounces from oversold and reclaims its daily 200 EMA at 99.612, or the Wednesday inflation print and the Friday keynote turn hawkish; technically a 4h close below 4,543.87 starts it.",
+      "invalidation": "Price returns above 4,605.87 and holds.",
+      "targets": "4,508.96 → 4,495.02 → 4,484.79; below 4,450.39 the weekly breakout structure fails."
+    }
+  ],
+  "agreements": [
+    "Both producers report the same W34 weekly candle: open 4,376.16, high 4,632.22, low 4,324.80, close 4,602.66 (+226.50, +5.18%).",
+    "Both independent reports use the same frozen automated run and the same finalized primary TradingView snapshot, so their evidence identity is shared and their claim-by-claim comparison is eligible for multi-source publication.",
+    "The CFTC positioning figures for the 2026-08-18 report date were transcribed independently by each producer from the same official image and matched exactly, and both matched the official CSV on all seven fields: open interest 406,260 (+5,951), managed money long 154,595 (+5,961), short 12,947 (+1,975), spread 15,591 (+1,588), net long 141,648 (+3,986).",
+    "The same support ladder: 4,574.82–4,581.43, then 4,543.87–4,563.26, then 4,495.02–4,519.81, with 4,601.40–4,605.87 as the pivot.",
+    "No unfilled bearish 4h fair-value gap sits above price; overhead resistance comes from Bollinger bands and April–May supply.",
+    "Both end on the same single recommendation: conditional waiting, no chasing early in the week.",
+    "No employment or consumer-price release falls in the forecast week, so the Friday forced-close rule is not triggered."
+  ],
+  "disagreements": [
+    "Scenario ranking: one producer ranks range first at 40/35/25 (range/bullish/bearish), the other ranks bullish first at 45/35/20. The probability split is judgement rather than a directly verifiable fact, so it was left unresolved rather than averaged; the published ordering follows the more conservative reading, supported by the overbought daily and 4h RSI and Friday's 29.56-point fade from the high.",
+    "Breakout trigger: one report triggers on a close above 4,632.22, the other only above 4,659.03. The stricter level was adopted, because 4,632.22–4,659.03 is a single cluster of upper Bollinger levels and April–May supply, and triggering inside it means entering in the middle of resistance.",
+    "Stop placement: the adopted 4,632.20 stop is a structural invalidation — below it the breakout has failed — but it sits only 27.8 points from the reference entry, which is 0.69x the 4h ATR of 40.17. That noise risk is published alongside the level rather than smoothed away; a wider stop below the 4,601.40–4,605.87 pivot is the alternative, with position size reduced to hold the same risk limit.",
+    "Reversal zone: one report puts the first left-side reversal zone at 4,543.87–4,563.26, the other only at 4,495.02–4,519.81. The deeper zone was adopted as the priority, because the reversal strategy has limited out-of-sample confidence and a hard weekly cap on entries.",
+    "Upside targets: 4,691.14–4,723.09 (April–May supply, verifiable from the daily series) was adopted over a round-number/extension estimate; the two converge, since the other report's own 2R projection of 4,715.60 falls inside that band.",
+    "Event detail: one report left the Friday keynote time unknown because the symposium agenda was unpublished; the other carried 22:00 Taipei from the central bank's own calendar. The calendar time was adopted after re-verification, and the second report's separate Friday employment-benchmark revision was kept — together they make Friday 22:00 Taipei the only double-event window of the week.",
+    "Liquidity sweep and positioning caveat: only one report documented the 08-19 sweep of the prior day's low and the fact that the positioning data cuts off on 08-18, before the breakout. Both were adopted, since each is directly verifiable from the source data."
+  ],
+  "key_levels": [
+    {
+      "label": "Breakout trigger",
+      "value": "4,659.03",
+      "basis": "4h upper Bollinger band and the top of the April–May supply cluster"
+    },
+    {
+      "label": "Buy-side liquidity / cap",
+      "value": "4,632.22–4,636.92",
+      "basis": "W34 weekly high, daily upper Bollinger band 4,632.94, 30m upper band"
+    },
+    {
+      "label": "Pivot",
+      "value": "4,601.40–4,605.87",
+      "basis": "30m Bollinger basis; the weekly close sits on its lower edge"
+    },
+    {
+      "label": "First support",
+      "value": "4,574.82–4,581.43",
+      "basis": "30m lower band and 50 EMA, 1h Bollinger basis"
+    },
+    {
+      "label": "Second support",
+      "value": "4,543.87–4,563.26",
+      "basis": "two unfilled 4h bullish fair-value gaps"
+    },
+    {
+      "label": "Reversal watch zone",
+      "value": "4,495.02–4,519.81",
+      "basis": "4h bullish fair-value gap, 1h lower band, Friday's low at 4,508.957"
+    },
+    {
+      "label": "Structure defense",
+      "value": "4,450.39–4,484.79",
+      "basis": "08-20 lows and the 30m 200 EMA; 4h Bollinger basis at 4,482.80"
+    },
+    {
+      "label": "First upside target",
+      "value": "4,691.14–4,723.09",
+      "basis": "April–May 2026 supply on the daily series"
+    }
+  ],
+  "strategy_plan": [
+    {
+      "strategy": "S1 V3.9",
+      "stance": "wait",
+      "entry": "Only after a 30m/4h close above 4,659.03 with a fresh formal signal; reference entry 4,660.00. No entry inside 4,632.22–4,659.03.",
+      "stop": "4,632.20 (structural: below the W34 high the breakout has failed). This is 0.69x the 4h ATR of 40.17 — size accordingly, or use a wider stop below the 4,601.40–4,605.87 pivot with a smaller position.",
+      "risk": "0.75% of account maximum per trade"
+    },
+    {
+      "strategy": "S2 V3.2",
+      "stance": "wait",
+      "entry": "Only on a fresh live reversal signal inside 4,495.02–4,519.81; 4,543.87–4,563.26 is secondary.",
+      "stop": "Below the signal candle low; the 4h Bollinger basis at 4,482.80 is the reference floor for the priority zone.",
+      "risk": "0.75% of account maximum per trade; hard cap of 2 actual entries per week; combined exposure with S1 must not exceed 1.5%"
+    }
+  ],
+  "event_risk": [
+    {
+      "name": "US inflation and income report for July, released with the second estimate of Q2 GDP",
+      "scheduled_at": "2026-08-26T20:30:00+08:00",
+      "handling": "Named as a major release in the active policy: re-evaluate any open position before the print. Not a Friday employment or consumer-price release, so the forced-close clause does not apply."
+    },
+    {
+      "name": "Central bank symposium keynote and the annual employment benchmark revision (same hour)",
+      "scheduled_at": "2026-08-28T22:00:00+08:00",
+      "handling": "The only double-event window of the week and the widest gap risk. Decide on reducing exposure before it, and do not carry a position into the weekend."
+    },
+    {
+      "name": "Central bank economic symposium (full event)",
+      "scheduled_at": "2026-08-27",
+      "handling": "Runs 08-27 to 08-29. Sessions other than the keynote were not published at the time of writing and are recorded as unknown."
+    },
+    {
+      "name": "No employment or consumer-price release this week",
+      "scheduled_at": "unknown",
+      "handling": "The next employment report is 2026-09-04 and the next consumer-price report is 2026-09-11, so the Friday forced-close clause is not triggered in this forecast week. Recorded explicitly so the quiet calendar is not mistaken for a quiet week."
+    }
+  ],
+  "recommendation": {
+    "stance": "wait",
+    "summary": "Conditional waiting. The weekly structure is bullish but short-term overheated at the daily upper band, and the week carries a mid-week inflation print and a Friday double-event window. Do not chase early in the week: the breakout case only begins above 4,659.03 with a fresh formal signal, and the reversal case only inside 4,495.02–4,519.81 with a fresh live signal. Every entry, stop and target still requires confirmation on a live chart after the open.",
+    "invalidation": "A 4h close below 4,543.87 that is not recovered shifts the week to the pullback case; a 4h close above 4,659.03 that holds on the retest shifts it to the continuation case."
+  },
+  "evidence_limits": [
+    "The two independent reports share one frozen evidence identity and are compared claim by claim; agreement is stated only for claims both reports actually support, while judgement differences remain explicit.",
+    "The probability split between the two producers was left unresolved rather than averaged; the published ordering is a judgement, not an agreed figure.",
+    "Real rate, 10-year yield, volatility and gold-volatility inputs had no fresh source for this edition and are recorded as unknown rather than carried over from stale values.",
+    "The positioning data has a report date of 2026-08-18, before the 08-19 breakout day, so it does not reflect any position added on the move; the long/short ratio falling to 11.94:1 must not be read as crowding easing.",
+    "All levels are weekend reference values computed from the last close. They are not live quotes.",
+    "The publication uses the immutable weekend evidence cutoff; a later user-interface reload restored the chart, but it does not alter the frozen report input set or turn weekend values into live quotes."
+  ],
+  "disclaimer": "Research evidence, not trading advice. Live TradingView confirmation is required before execution."
+}
