@@ -94,11 +94,11 @@ def nav(prefix: str) -> str:
     """
     return (
         '<nav class="nav">'
-        f'<a href="{prefix}index.html">\u9996\u9801</a>'
+        f'<a href="{prefix}index.html">Home</a>'
         f'<a href="{prefix}xauusd/">XAUUSD</a>'
         f'<a href="{prefix}tx/">TX</a>'
-        f'<a href="{prefix}lessons/">\u4ec0\u9ebc\u6c92\u7528</a>'
-        f'<a href="{prefix}glossary/">\u8853\u8a9e</a>'
+        f'<a href="{prefix}lessons/">What Didn\u2019t Work</a>'
+        f'<a href="{prefix}glossary/">Glossary</a>'
         '</nav>'
     )
 
@@ -113,7 +113,7 @@ def version_switch(prefix: str, current: str = "v2") -> str:
         return ""
     return (
         '<div class="version-switch">'
-        f'<a href="{prefix}v1/">\u770b\u820a\u7248 v1.0</a>'
+        f'<a href="{prefix}v1/">v1.0 layout</a>'
         "</div>"
     )
 
@@ -2000,7 +2000,7 @@ def lessons_page(registry, study_list) -> str:
         + "</main>"
     )
     return document(
-        "\u4ec0\u9ebc\u6c92\u7528",
+        "What Didn\u2019t Work",
         "negative results",
         "\u88ab\u6392\u9664\u7684\u641c\u5c0b\u7a7a\u9593\uff0c\u4ee5\u53ca\u6bcf\u4e00\u500b"
         "\u300c\u6c92\u6709\u300d\u5230\u5e95\u95dc\u6389\u4e86\u591a\u5c11\u9580\u3002",
@@ -2081,51 +2081,51 @@ def overview(
     )
     primary = (
         '<a class="card card-wide" data-card href="xauusd/">'
-        '<div class="type">\u8a0a\u865f\u4f86\u4e86</div>'
-        '<h2>XAUUSD \u9ec3\u91d1</h2>'
+        '<div class="type">Signal fired</div>'
+        '<h2>XAUUSD Gold</h2>'
         "<p>\u9032\u5834\u524d\u5148\u770b\uff1a\u5e03\u6797\u4f4d\u7f6e\u7684\u6b77\u53f2"
         "\u52dd\u7387\u3001\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593\u3001"
         "\u4ee5\u53ca\u54ea\u4e9b\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002</p>"
         '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> \u7bc7\u7814\u7a76</span>'
+        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> studies</span>'
         f'<span><strong>{html.escape(weekly_line)}</strong></span>'
         "</div></a>"
         '<a class="card card-wide" data-card href="tx/">'
-        '<div class="type">\u53e6\u4e00\u500b\u5546\u54c1</div>'
-        '<h2>TX \u53f0\u6307\u671f</h2>'
+        '<div class="type">Second instrument</div>'
+        '<h2>TX Taiwan Index Futures</h2>'
         "<p>\u76ee\u524d\u53ea\u6709\u5b63\u7bc0\u6027\u8207\u56de\u6a94\u7d50\u69cb\u7684"
         "\u521d\u6b65\u7814\u7a76\uff0c\u9084\u6c92\u6709\u8a0a\u865f\u5c64\u7d1a\u7684"
         "\u5224\u65b7\u4f9d\u64da\u3002</p>"
         '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("TX", 0)}</strong> \u7bc7\u7814\u7a76</span>'
+        f'<span><strong>{counts.get("TX", 0)}</strong> studies</span>'
         "</div></a>"
     )
 
     secondary = [
-        ("lessons/", "\u4ec0\u9ebc\u6c92\u7528",
+        ("lessons/", "What Didn\u2019t Work",
          f'{totals.get("hypotheses", 0)} \u500b\u5047\u8a2d\u88ab\u6e2c\u904e\uff0c'
          f'{totals.get("by_verdict", {}).get("survives_screens", 0)} \u500b\u5b58\u6d3b\u3002'
          "\u77e5\u9053\u4ec0\u9ebc\u4e0d\u7528\u518d\u8a66\uff0c\u672c\u8eab\u5c31\u662f"
          "\u5224\u65b7\u4f9d\u64da\u3002"),
-        ("glossary/", "\u8853\u8a9e\u8868",
+        ("glossary/", "Glossary",
          "\u7814\u7a76\u9801\u9762\u662f\u82f1\u6587\u7684\u3002\u9019\u88e1\u628a"
          "\u6bcf\u500b\u6280\u8853\u540d\u8a5e\u7528\u4e2d\u6587\u5b9a\u7fa9\u4e00\u6b21\u3002"),
-        ("xauusd/weekly/", "\u9031\u5831",
+        ("xauusd/weekly/", "Weekly Report",
          "\u6bcf\u9031\u7684\u95dc\u9375\u50f9\u4f4d\u3001\u5287\u672c\u8207\u4e8b\u4ef6\u98a8\u96aa\u3002"),
     ]
     minor = '<div class="grid">' + "".join(
-        f'<a class="card" data-card href="{href}"><div class="type">\u53c3\u8003</div>'
+        f'<a class="card" data-card href="{href}"><div class="type">Reference</div>'
         f'<h2>{title}</h2><p>{description}</p></a>'
         for href, title, description in secondary
     ) + "</div>"
 
     body = (
         '<main class="shell">'
-        '<h2 class="section-title">\u4f60\u4ea4\u6613\u7684\u5546\u54c1</h2>'
+        '<h2 class="section-title">What you trade</h2>'
         f'<div class="grid">{primary}</div>'
-        '<h2 class="section-title">\u5176\u4ed6</h2>'
+        '<h2 class="section-title">Reference</h2>'
         f"{minor}"
-        '<section class="report-section"><h2>\u9019\u500b\u7db2\u7ad9\u662f\u4ec0\u9ebc</h2>'
+        '<section class="report-section"><h2>What this site is</h2>'
         "<p>\u4e00\u500b\u4ea4\u6613\u7814\u7a76\u8a08\u756b\u7684\u516c\u958b\u90e8\u5206\u3002"
         "\u5b83\u4e0d\u662f\u7d66\u5efa\u8b70\u7684\uff0c\u4e5f\u4e0d\u662f\u8a0e\u8ad6"
         "\u4ec0\u9ebc\u7b56\u7565\u6709\u6548\u2014\u2014\u5b83\u8a18\u9304\u7684\u662f"
@@ -2136,8 +2136,8 @@ def overview(
         "</main>"
     )
     return document(
-        "\u4ea4\u6613\u7814\u7a76",
-        "\u516c\u958b\u5de5\u4f5c\u5340",
+        "Trading Research",
+        "Public workspace",
         "\u8a0a\u865f\u4f86\u4e86\u8981\u770b\u4ec0\u9ebc\uff0c\u4ee5\u53ca\u54ea\u4e9b"
         "\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002",
         body,
