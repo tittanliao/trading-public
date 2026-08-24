@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T22:17:51+08:00",
+  "generated_at": "2026-08-24T22:38:02+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 30,
+    "studies": 31,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -1944,6 +1944,19 @@
       "family": "none — pre-registered macro hypothesis on the daily price series",
       "origin": "programme",
       "claim": "The one hypothesis the last study left open, tested on the data it asked for",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-08-24"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-006",
+      "study_id": "RS-XAUUSD-20260824-006",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": null,

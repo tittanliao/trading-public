@@ -1939,6 +1939,150 @@ def study_page_preregistered(study: dict[str, object]) -> str:
     )
 
 
+def study_page_robustness(study: dict[str, object]) -> str:
+    """One finding, measured several ways.
+
+    The page has to keep two things separate that a reader will otherwise merge: the effect
+    held every time, and the set of trades it selects did not. A table of win rates says
+    the first and hides the second, so the per-trade agreement table is given equal weight
+    rather than being a footnote.
+    """
+    result = study["_result"]
+    v = result["variants"]
+    ag = result["zone_agreement"]
+    sim = result["instrument_similarity"]
+    prior = result["prior"]
+    cov = result["coverage"]
+    head = study["headline"]
+
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}">'
+        f'<strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+    order = [k for k in ("A", "B", "C", "D") if k in v]
+    variant_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(k)}</code></td>'
+        f'<td>{html.escape(v[k]["description"])}</td>'
+        f'<td class="num">{v[k]["n_above_upper"]}</td>'
+        f'<td class="num">{v[k]["win_rate_above_pct"]:.2f}%</td>'
+        f'<td class="num">{v[k]["win_rate_rest_pct"]:.2f}%</td>'
+        f'<td class="num">{v[k]["gap_pct_points"]:+.2f}</td>'
+        f'<td class="num">{v[k]["smallest_resolvable_gap_pct_points"]:.2f}</td>'
+        f'<td class="num">{v[k]["permutation_p"]}</td>'
+        f'<td>{html.escape(v[k]["verdict"])}</td></tr>'
+        for k in order
+    )
+    money_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(k)}</code></td>'
+        f'<td class="num">{v[k]["n_above_upper"]}</td>'
+        f'<td class="num">{v[k]["win_rate_above_pct"]:.2f}%</td>'
+        f'<td class="num">{v[k]["share_of_trades_kept_pct"]:.2f}%</td>'
+        f'<td class="num">{v[k]["share_of_total_return_captured_pct"]:.2f}%</td></tr>'
+        for k in order
+    )
+    agree_rows = "".join(
+        "<tr>"
+        f'<td>{html.escape(key.replace("_vs_", " vs "))}</td>'
+        f'<td class="num">{row["same_zone_pct"]:.2f}%</td>'
+        f'<td class="num">{row["above_upper_in_first"]}</td>'
+        f'<td class="num">{row["above_upper_in_second"]}</td>'
+        f'<td class="num">{row["above_upper_in_both"]}</td>'
+        f'<td class="num">{row["jaccard"]}</td></tr>'
+        for key, row in ag.items()
+    )
+    ab = ag["A_vs_B"]
+
+    body = (
+        '<main class="shell">'
+        '<section class="report-section"><h2>What was measured</h2>'
+        f'<p>{html.escape(str(study["question"]))}</p>'
+        '<div class="mini-metrics">'
+        f'<span><strong>{head["variants_tested"]}</strong> measurements</span>'
+        f'<span><strong>{head["survivors"]}</strong> survive</span>'
+        f'<span><strong>{cov["trades_in_common_set"]}</strong> common trades</span>'
+        f'<span><strong>{ab["same_zone_pct"]:.0f}%</strong> zone agreement, 30m vs 1h</span>'
+        "</div></section>"
+        f'<section class="report-section"><h2>Findings</h2>{finding_html}</section>'
+
+        '<section class="report-section"><h2>The four measurements</h2>'
+        f'<p class="section-note">All scored on the same {cov["trades_in_common_set"]} '
+        f'trades — the ones every variant can price. {html.escape(str(cov["why_restricted"]))}. '
+        "A difference measured on different trades would be a difference between samples."
+        "</p>"
+        '<div class="table-wrap"><table><thead><tr><th>variant</th><th>measurement</th>'
+        "<th>n above upper</th><th>win rate</th><th>rest</th><th>gap (pp)</th>"
+        f"<th>bound (pp)</th><th>perm p</th><th>verdict</th></tr></thead><tbody>{variant_rows}"
+        "</tbody></table></div>"
+        f'<p class="section-note"><strong>All {head["survivors"]} survive.</strong> The '
+        f'effect held at {prior["win_rate"]}% on 30-minute bars in '
+        f'{html.escape(prior["study"])}, and it holds under every re-measurement here.</p>'
+        "</section>"
+
+        '<section class="report-section"><h2>How much that is worth</h2>'
+        "<p>Less than it sounds, and the number is here so nobody has to guess.</p>"
+        '<div class="table-wrap"><table><thead><tr><th></th><th>this study (futures vs spot)</th>'
+        "<th>the dollar test that inverted a finding</th></tr></thead><tbody>"
+        f'<tr><td>level correlation</td><td class="num">{sim["level_correlation"]}</td>'
+        f'<td class="num">{sim["comparison"]["dollar_test_level_correlation"]}</td></tr>'
+        f'<tr><td>return correlation</td><td class="num">{sim["return_correlation"]}</td>'
+        '<td class="num">—</td></tr></tbody></table></div>'
+        "<p class=\"section-note\">Passing an instrument test between two quotes of the same "
+        "metal is a much weaker statement than failing one between two genuinely different "
+        "constructions. A real instrument test for a gold signal needs something that is "
+        "not gold.</p></section>"
+
+        '<section class="report-section"><h2>The effect is robust. The label is not.</h2>'
+        '<div class="table-wrap"><table><thead><tr><th>pair</th><th>same zone</th>'
+        "<th>above upper (first)</th><th>above upper (second)</th><th>in both</th>"
+        f"<th>Jaccard</th></tr></thead><tbody>{agree_rows}</tbody></table></div>"
+        f'<p>Read the first row. Thirty-minute and hourly spot — <em>the same instrument, '
+        f'the same formula</em> — assign the same %B zone to only '
+        f'<strong>{ab["same_zone_pct"]:.2f}%</strong> of trades. The 30-minute chart calls '
+        f'{ab["above_upper_in_first"]} entries above the upper band; the hourly chart calls '
+        f'{ab["above_upper_in_second"]}; they agree on {ab["above_upper_in_both"]}.</p>'
+        '<p><strong>&ldquo;%B is above the upper band&rdquo; is not a property of the trade. '
+        "It is a property of the chart you happen to have open.</strong> The statistical "
+        "effect is real in every version; the label a person would act on is not stable "
+        "between versions.</p>"
+        "<p class=\"section-note\">This is invisible in a table of win rates, which is why "
+        "per-trade agreement was measured rather than inferred from the headline numbers "
+        "matching. Two of the variants posted identical win rates while sharing only 23 of "
+        "the 28 entries each selected.</p></section>"
+
+        '<section class="report-section"><h2>Selecting harder raised the win rate and gave up return</h2>'
+        '<div class="table-wrap"><table><thead><tr><th>variant</th><th>n</th>'
+        "<th>win rate</th><th>share of trades kept</th><th>share of total return captured</th>"
+        f"</tr></thead><tbody>{money_rows}</tbody></table></div>"
+        f'<p class="section-note">Variant B posts the best win rate at '
+        f'{head["best_win_rate_pct"]}% while capturing '
+        f'{head["best_win_rate_return_captured_pct"]}% of the return; variant A wins '
+        f'{head["original_variant_win_rate_pct"]}% and captures '
+        f'{head["original_variant_return_captured_pct"]}%. Tightening the selection bought '
+        "win-rate points and sold return — the fifth independent instance of that trade in "
+        "this programme, and it appeared here as a side effect of a test about something "
+        "else.</p></section>"
+
+        '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
+        + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
+        + "</ul></section>"
+        '<section class="report-section"><h2>Files</h2>'
+        '<div class="file-actions"><a href="results.json">results.json</a>'
+        '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
+        '<a href="impact.md">impact.md</a>'
+        '<a href="../../null-results/">All null results</a>'
+        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        "</main>"
+    )
+    return document(
+        str(study["title"]), "Robustness check",
+        str(study.get("card_summary") or ""), body, "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -1961,6 +2105,8 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_hypothesis_sweep(study)
     if "primary" in result and "secondary" in result:
         return study_page_preregistered(study)
+    if "variants" in result and "zone_agreement" in result:
+        return study_page_robustness(study)
     raise ValueError(
         f'{study["id"]}: results.json matches none of the known report shapes '
         '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", '
@@ -2125,14 +2271,19 @@ SIGNAL_PLAYBOOK = {
                  "\u5224\u65b7\u9019\u7b46\u55ae\u3002",
         "checks": [
             {
-                "title": "\u9032\u5834\u50f9\u5728\u5e03\u6797\u901a\u9053\u7684\u54ea\u88e1\uff08S1\uff09",
+                "title": "\u9032\u5834\u50f9\u5728\u5e03\u6797\u901a\u9053\u7684\u54ea\u88e1\uff08S1\u3001\u770b 30 \u5206K\uff09",
                 "study": "RS-XAUUSD-20260823-002",
                 "what": "%B > 1.0\uff08\u6536\u5728\u4e0a\u8ecc\u4e4b\u5916\uff09\u7684\u9032\u5834\uff0c"
                         "\u6b77\u53f2\u52dd\u7387 73.17%\uff08n=82\uff09\uff0c\u57fa\u6e96\u662f 55.93%\u3002"
                         "\u800c\u4e14\u5b83\u5728\u6a23\u672c\u5916\u66f4\u5f37\uff0c\u4e0d\u662f\u8b8a\u5f31\u3002",
-                "caveat": "\u4f46\u62ff\u5b83\u7576\u904e\u6ffe\u5668\u6703\u8ce0\u9322\uff1a"
-                          "\u53ea\u7559 17% \u7684\u9032\u5834\u3001 44% \u7684\u5831\u916c\u3002"
-                          "\u5b83\u662f\u53c3\u8003\u8cc7\u8a0a\uff0c\u4e0d\u662f\u9598\u9580\u3002",
+                "caveat": "\u5169\u4ef6\u4e8b\u3002\u4e00\uff1a\u62ff\u5b83\u7576"
+                          "\u904e\u6ffe\u5668\u6703\u8ce0\u9322\u2014\u2014\u53ea\u7559 17% \u7684"
+                          "\u9032\u5834\u3001 44% \u7684\u5831\u916c\u3002\u4e8c\uff1a"
+                          "\u4e00\u5b9a\u8981\u770b 30 \u5206K\u3002\u540c\u4e00\u7b46\u4ea4\u6613\uff0c"
+                          "30 \u5206K \u8207 1 \u5c0f\u6642\u5c0d %B \u5340\u9593\u7684\u5224\u5b9a"
+                          "\u53ea\u6709 32% \u4e00\u81f4\uff1b30 \u5206K \u8a8d\u5b9a 71 \u7b46\u5728"
+                          "\u4e0a\u7de3\uff0c1 \u5c0f\u6642\u53ea\u8a8d 28 \u7b46\u3002\u6c92\u8aaa"
+                          "\u9031\u671f\u7684 %B \u4e0d\u662f\u4e00\u500b\u8b80\u6578\u3002",
             },
             {
                 "title": "\u73fe\u5728\u9019\u500b\u6642\u9593\u9ede\uff0c\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593",

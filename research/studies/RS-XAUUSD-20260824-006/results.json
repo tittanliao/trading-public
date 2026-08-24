@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0",
+  "study_id": "RS-XAUUSD-20260824-006",
+  "generated_at": "2026-08-24T22:33:45+08:00",
+  "method": {
+    "bb": "close-based, sample stdev, std_mult 2.0, study convention",
+    "join": "merge_asof backward from entry time to the last completed bar",
+    "resample": "30-minute to hourly with label='left', matching TradingView's open-time stamp; the default would shift every bar forward an hour",
+    "screens": [
+      "resolution bound on the win-rate gap",
+      "label permutation, 4000 draws",
+      "moving-block bootstrap 90% interval, 4000 draws, block 10"
+    ],
+    "seed": 20260826
+  },
+  "limitations": [
+    "The common trade set is smaller than the original study's 472, so a variant failing here is not by itself proof the original was wrong — variant A is re-measured on the same subset precisely so the comparison is like for like.",
+    "MGC is a futures contract with its own roll and session; it is not spot gold quoted differently. That is the point of the test, and also its limit.",
+    "%B is computed on close with a sample standard deviation, the study convention. V3.9's Pine uses ohlc4 and a population stdev, so all four variants differ slightly from the strategy's own bands in the same way."
+  ],
+  "coverage": {
+    "trades_total": 472,
+    "trades_in_common_set": 422,
+    "why_restricted": "MGC hourly data begins 2024-05-06 while the trades begin 2024-01-03",
+    "spot_30m_bars": 30959,
+    "spot_1h_bars": 15488,
+    "mgc_1h_bars": 12972
+  },
+  "prior": {
+    "study": "RS-XAUUSD-20260823-002",
+    "n_above": 82,
+    "win_rate": 73.17,
+    "baseline": 55.93,
+    "gap": 20.86,
+    "resolvable_gap": 16.9,
+    "permutation_p": 0.003
+  },
+  "variants": {
+    "A": {
+      "variant": "A",
+      "description": "30-minute FX_IDC spot, %B(20, 2.0) — the original measurement",
+      "trades_priced": 422,
+      "n_above_upper": 71,
+      "n_rest": 351,
+      "win_rate_above_pct": 73.24,
+      "win_rate_rest_pct": 51.57,
+      "mean_return_above_pct": 0.4792,
+      "mean_return_rest_pct": 0.1268,
+      "share_of_trades_kept_pct": 16.82,
+      "share_of_total_return_captured_pct": 43.32,
+      "filter_concentrates_return": true,
+      "gap_pct_points": 21.67,
+      "smallest_resolvable_gap_pct_points": 18.12,
+      "permutation_p": 0.0008,
+      "bootstrap_ci90_pct_points": [
+        10.51,
+        31.0
+      ],
+      "dose_response_spearman": 0.9846,
+      "verdict": "survives_screens",
+      "reason": "clears resolution, permutation and bootstrap"
+    },
+    "B": {
+      "variant": "B",
+      "description": "1-hour FX_IDC spot, %B(20, 2.0) — bar-matched timeframe change",
+      "trades_priced": 422,
+      "n_above_upper": 28,
+      "n_rest": 394,
+      "win_rate_above_pct": 89.29,
+      "win_rate_rest_pct": 52.79,
+      "mean_return_above_pct": 0.7743,
+      "mean_return_rest_pct": 0.1443,
+      "share_of_trades_kept_pct": 6.64,
+      "share_of_total_return_captured_pct": 27.6,
+      "filter_concentrates_return": true,
+      "gap_pct_points": 36.49,
+      "smallest_resolvable_gap_pct_points": 27.23,
+      "permutation_p": 0.0,
+      "bootstrap_ci90_pct_points": [
+        24.4,
+        45.37
+      ],
+      "dose_response_spearman": 0.9172,
+      "verdict": "survives_screens",
+      "reason": "clears resolution, permutation and bootstrap"
+    },
+    "C": {
+      "variant": "C",
+      "description": "1-hour FX_IDC spot, %B(10, 2.0) — clock-matched, ~10 hours like the original",
+      "trades_priced": 422,
+      "n_above_upper": 58,
+      "n_rest": 364,
+      "win_rate_above_pct": 75.86,
+      "win_rate_rest_pct": 51.92,
+      "mean_return_above_pct": 0.5484,
+      "mean_return_rest_pct": 0.1284,
+      "share_of_trades_kept_pct": 13.74,
+      "share_of_total_return_captured_pct": 40.5,
+      "filter_concentrates_return": true,
+      "gap_pct_points": 23.94,
+      "smallest_resolvable_gap_pct_points": 19.69,
+      "permutation_p": 0.0013,
+      "bootstrap_ci90_pct_points": [
+        10.42,
+        34.28
+      ],
+      "dose_response_spearman": 0.9508,
+      "verdict": "survives_screens",
+      "reason": "clears resolution, permutation and bootstrap"
+    },
+    "D": {
+      "variant": "D",
+      "description": "1-hour COMEX MGC futures, %B(20, 2.0) — instrument change, control is B",
+      "trades_priced": 422,
+      "n_above_upper": 28,
+      "n_rest": 394,
+      "win_rate_above_pct": 89.29,
+      "win_rate_rest_pct": 52.79,
+      "mean_return_above_pct": 0.7296,
+      "mean_return_rest_pct": 0.1475,
+      "share_of_trades_kept_pct": 6.64,
+      "share_of_total_return_captured_pct": 26.01,
+      "filter_concentrates_return": true,
+      "gap_pct_points": 36.49,
+      "smallest_resolvable_gap_pct_points": 27.23,
+      "permutation_p": 0.0,
+      "bootstrap_ci90_pct_points": [
+        24.38,
+        45.65
+      ],
+      "dose_response_spearman": 0.9056,
+      "verdict": "survives_screens",
+      "reason": "clears resolution, permutation and bootstrap"
+    }
+  },
+  "zone_agreement": {
+    "A_vs_B": {
+      "trades_compared": 422,
+      "same_zone_pct": 32.23,
+      "above_upper_in_first": 71,
+      "above_upper_in_second": 28,
+      "above_upper_in_both": 22,
+      "jaccard": 0.2857
+    },
+    "A_vs_C": {
+      "trades_compared": 422,
+      "same_zone_pct": 68.72,
+      "above_upper_in_first": 71,
+      "above_upper_in_second": 58,
+      "above_upper_in_both": 44,
+      "jaccard": 0.5176
+    },
+    "A_vs_D": {
+      "trades_compared": 422,
+      "same_zone_pct": 32.23,
+      "above_upper_in_first": 71,
+      "above_upper_in_second": 28,
+      "above_upper_in_both": 20,
+      "jaccard": 0.2532
+    },
+    "B_vs_C": {
+      "trades_compared": 422,
+      "same_zone_pct": 35.55,
+      "above_upper_in_first": 28,
+      "above_upper_in_second": 58,
+      "above_upper_in_both": 21,
+      "jaccard": 0.3231
+    },
+    "B_vs_D": {
+      "trades_compared": 422,
+      "same_zone_pct": 82.23,
+      "above_upper_in_first": 28,
+      "above_upper_in_second": 28,
+      "above_upper_in_both": 23,
+      "jaccard": 0.697
+    },
+    "C_vs_D": {
+      "trades_compared": 422,
+      "same_zone_pct": 34.36,
+      "above_upper_in_first": 58,
+      "above_upper_in_second": 28,
+      "above_upper_in_both": 18,
+      "jaccard": 0.2647
+    }
+  },
+  "instrument_similarity": {
+    "overlap_bars": 12802,
+    "level_correlation": 0.9998,
+    "return_correlation": 0.9617,
+    "median_price_gap": 20.8,
+    "comparison": {
+      "dollar_test_level_correlation": 0.8379,
+      "study": "RS-XAUUSD-20260824-005",
+      "reading": "The dollar test swapped two indices correlated 0.8379 and the result inverted. MGC and spot gold are far closer than that, so this instrument test is a much weaker falsifier and passing it proves correspondingly less."
+    }
+  },
+  "conclusion": {
+    "survivors": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "timeframe_robust": true,
+    "instrument_robust": true,
+    "effect_robust_label_is_not": true,
+    "reading": "The effect clears every screen in all four measurements. Which trades it picks does not survive at all: 30-minute and hourly spot agree on the zone for a third of trades, and share 22 of the 71 and 28 entries they each call above the upper band."
+  }
+}

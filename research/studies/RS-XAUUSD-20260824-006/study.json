@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-006",
+  "revision": 1,
+  "title": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "The programme's only surviving finding — S1 entries with %B above the upper band win 73.17% against a 55.93% baseline — has only ever been measured on 30-minute bars of one price feed. RS-XAUUSD-20260824-005 has just shown a 71% win rate invert when its measuring instrument was swapped. Does this one survive the same treatment?",
+  "hypothesis": "Either the effect is a property of gold's price at S1 entries, or it is a property of the chart it was found on.",
+  "headline": {
+    "variants_tested": 4,
+    "survivors": 4,
+    "common_trades": 422,
+    "timeframe_robust": true,
+    "instrument_robust": true,
+    "zone_agreement_30m_vs_1h_pct": 32.23,
+    "jaccard_30m_vs_1h": 0.2857,
+    "above_upper_30m": 71,
+    "above_upper_1h": 28,
+    "above_upper_in_both": 22,
+    "mgc_vs_spot_level_correlation": 0.9998,
+    "dollar_test_level_correlation": 0.8379,
+    "best_win_rate_pct": 89.29,
+    "best_win_rate_return_captured_pct": 27.6,
+    "original_variant_win_rate_pct": 73.24,
+    "original_variant_return_captured_pct": 43.32
+  },
+  "card_metrics": [
+    "variants_tested",
+    "survivors",
+    "zone_agreement_30m_vs_1h_pct",
+    "jaccard_30m_vs_1h"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The effect survives all four measurements",
+      "detail": "30-minute spot, hourly spot at matched bars, hourly spot at a matched clock window, and hourly COMEX futures — every variant clears its resolution bound, its label permutation and its bootstrap interval, on the same 422 trades. The effect is not an artefact of a bar size and not an artefact of one price feed. That is worth something: the same test destroyed a 71% win rate two studies ago."
+    },
+    {
+      "tone": "warn",
+      "title": "The instrument test was weak, and the number says how weak",
+      "detail": "MGC and spot gold correlate 0.9998 on levels. The dollar test that inverted a finding swapped two indices correlated 0.8379. Passing an instrument test between two quotes of the same metal is a much weaker statement than failing one between two genuinely different constructions, and this study does not claim otherwise. A real instrument test for gold would need something that is not gold."
+    },
+    {
+      "tone": "warn",
+      "title": "The effect is robust; the label a person acts on is not",
+      "detail": "30-minute and hourly spot — same instrument, same formula — assign the same %B zone to only 32.23% of trades. The 30-minute chart calls 71 entries above the upper band, the hourly chart calls 28, and they agree on 22 (Jaccard 0.2857). Even the two near-identical instruments at the same bar size share 23 of the 28 each selects. “Above the upper band” is not a property of the trade; it is a property of the chart that is open. This is invisible in a table of win rates, which is why per-trade agreement was measured instead of inferred from the headlines matching."
+    },
+    {
+      "tone": "info",
+      "title": "Selecting harder raised the win rate and gave up half the return",
+      "detail": "Variant B posts the best win rate in the study, 89.29%. It keeps 6.64% of trades and captures 27.6% of the return. Variant A wins 73.24% and captures 43.32%. Tightening the selection bought win-rate points and sold return. Fifth independent instance in this programme, and it turned up as a side effect of a test about something else."
+    }
+  ],
+  "policy_impacts": [
+    {
+      "area": "signal surface",
+      "public_surface": "xauusd/ — the signal playbook's Bollinger %B check",
+      "key_expression": "Bollinger %B above the upper band ON 30-MINUTE BARS — 73.17% historical win rate. The hourly chart disagrees about two-thirds of the time, so the bar size is part of the reading rather than a footnote to it.",
+      "change": "The %B reading stays and gains a required qualifier: the bar size. It survived four independent measurements, but the set of trades it selects did not — 30-minute and hourly spot assign the same zone to only 32.23% of trades.",
+      "evidence": "zone_agreement.A_vs_B in results.json; impact.md",
+      "adopted_on": "2026-08-24",
+      "adopted_note": "Adopted the same day: the signal playbook's %B check now reads 「S1、看 30 分K」 and carries the 32% cross-timeframe agreement in its caveat."
+    }
+  ],
+  "theme": "methodology",
+  "card_summary": "The one finding that survives, measured four ways. The effect holds every time; which trades it selects does not — two charts of the same instrument agree on a third of them.",
+  "summary_zh": "把這個計畫唯一存活的發現（S1 進場時 %B 在上緣）用四種方式重測：30分K現貨、1小時現貨（同根數）、1小時現貨（同時鐘窗口）、1小時 MGC 期貨。四種全部通過所有篩子——效果是真的。但標籤不穩定：30分K 和 1小時 對同一筆交易的 %B 區間只有 32.23% 一致，30分K 認定 71 筆在上緣、1小時認定 28 筆、兩者只重疊 22 筆。「%B 在上緣」不是交易的性質，是你打開哪張圖的性質。另外要說清楚：MGC 和現貨相關 0.9998，而打掉 h18 的美元檢定是 0.8379——這次的商品檢定弱得多。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

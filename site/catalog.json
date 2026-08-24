@@ -349,6 +349,24 @@
       "title": "study"
     },
     {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-006/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-006/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-006/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
       "kind": "report",
       "path": "v1/glossary/index.html",
       "section": "research",
