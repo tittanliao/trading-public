@@ -1,0 +1,1002 @@
+{
+  "schema_version": "1.0",
+  "study_id": "RS-XAUUSD-20260824-004",
+  "generated_at": "2026-08-24T11:43:31+00:00",
+  "method": {
+    "bars": "XAUUSD daily close-to-close",
+    "block_bootstrap_sessions": "3x the forward horizon, floored at 21",
+    "bootstrap_draws": 2000,
+    "round_trip_cost_pct": 0.02,
+    "seed": 20260824,
+    "quantiles": "expanding rank with a 250-session warm-up, so a threshold never uses data from after the day it is applied to",
+    "macro_lookahead_guard": "macro conditions read day t; gold's forward return starts at the close of day t+1",
+    "universe": "each hypothesis is scored only on sessions where every series it reads exists; the comparison group comes from inside that same universe",
+    "period_split": "chronological thirds of the sessions the hypothesis spans, not of the gold series it sits inside",
+    "screens": [
+      "resolution bound (smallest separable effect at ~80% power)",
+      "moving-block bootstrap, two-sided",
+      "sign consistency across chronological thirds",
+      "effect net of a 0.02% round trip must still clear the bound"
+    ]
+  },
+  "limitations": [
+    "Daily close-to-close only. Nothing here says anything about intraday entries, which is where both live strategies operate.",
+    "The macro series end 2026-06-18 while gold runs to 2026-08-21, so macro-conditioned hypotheses see two months less than the calendar ones.",
+    "Gold's 00:00Z daily stamp and the US macro close are different instants. The one-session lag removes the ambiguity at the cost of testing a slightly later entry than a live trader would get.",
+    "A wider resolution bound is not evidence of absence. Every null is reported with the smallest effect its sample could have separated."
+  ],
+  "coverage": {
+    "sessions": 4851,
+    "from": "2008-01-04",
+    "to": "2026-08-21",
+    "macro_sessions": 3430,
+    "macro_to": "2026-06-18",
+    "prior_sweep_sessions": 672,
+    "power_multiple": 7.2
+  },
+  "verdict_counts": {
+    "no_evidence": 20
+  },
+  "family_permutation": {
+    "tested": 20,
+    "best_p_in_family": 0.072,
+    "family_p": 0.788,
+    "reading": "the chance that a family of this size produces a result this strong when every member is noise"
+  },
+  "hypotheses": [
+    {
+      "id": "h01",
+      "family": "calendar_long",
+      "claim": "Monday is gold's worst weekday.",
+      "origin": "prior sweep RS-XAUUSD-20260824-001 h01, on 672 sessions",
+      "null": "weekday carries no information about the next session",
+      "unit": "% forward return",
+      "n_condition": 972,
+      "n_other": 3878,
+      "sessions_in_universe": 4850,
+      "effect": -0.0256,
+      "baseline_mean": 0.0458,
+      "win_rate_pct": 53.81,
+      "baseline_win_rate_pct": 52.37,
+      "win_rate_edge_pct": 1.43,
+      "smallest_resolvable_effect": 0.1106,
+      "bootstrap_p_two_sided": 0.568,
+      "bootstrap_share_above_zero": 0.284,
+      "effect_net_of_cost": 0.0056,
+      "by_period": {
+        "train": {
+          "n_condition": 324,
+          "effect": -0.0434
+        },
+        "valid": {
+          "n_condition": 324,
+          "effect": -0.0283
+        },
+        "holdout": {
+          "n_condition": 324,
+          "effect": -0.0052
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0256 is inside the +0.1106 these samples can separate"
+    },
+    {
+      "id": "h02",
+      "family": "calendar_long",
+      "claim": "Friday is gold's strongest weekday.",
+      "origin": "prior sweep RS-XAUUSD-20260824-001 h02, on 672 sessions",
+      "null": "weekday carries no information about the next session",
+      "unit": "% forward return",
+      "n_condition": 967,
+      "n_other": 3883,
+      "sessions_in_universe": 4850,
+      "effect": -0.0465,
+      "baseline_mean": 0.0499,
+      "win_rate_pct": 50.57,
+      "baseline_win_rate_pct": 53.18,
+      "win_rate_edge_pct": -2.61,
+      "smallest_resolvable_effect": 0.1108,
+      "bootstrap_p_two_sided": 0.268,
+      "bootstrap_share_above_zero": 0.134,
+      "effect_net_of_cost": 0.0265,
+      "by_period": {
+        "train": {
+          "n_condition": 323,
+          "effect": -0.0314
+        },
+        "valid": {
+          "n_condition": 322,
+          "effect": -0.077
+        },
+        "holdout": {
+          "n_condition": 322,
+          "effect": -0.0312
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0465 is inside the +0.1108 these samples can separate"
+    },
+    {
+      "id": "h03",
+      "family": "calendar_long",
+      "claim": "September is gold's worst month.",
+      "origin": "widely repeated seasonal claim; previously untestable on 672 sessions",
+      "null": "month carries no information about the next 20 sessions",
+      "unit": "% forward return",
+      "n_condition": 387,
+      "n_other": 4444,
+      "sessions_in_universe": 4831,
+      "effect": -0.283,
+      "baseline_mean": 0.7837,
+      "win_rate_pct": 52.2,
+      "baseline_win_rate_pct": 55.65,
+      "win_rate_edge_pct": -3.45,
+      "smallest_resolvable_effect": 0.7005,
+      "bootstrap_p_two_sided": 0.767,
+      "bootstrap_share_above_zero": 0.3835,
+      "effect_net_of_cost": 0.263,
+      "by_period": {
+        "train": {
+          "n_condition": 129,
+          "effect": -0.4198
+        },
+        "valid": {
+          "n_condition": 128,
+          "effect": -1.2863
+        },
+        "holdout": {
+          "n_condition": 130,
+          "effect": 0.8353
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.2830 is inside the +0.7005 these samples can separate"
+    },
+    {
+      "id": "h04",
+      "family": "calendar_long",
+      "claim": "Turn of month: the last three and first three sessions outperform the middle.",
+      "origin": "prior sweep RS-XAUUSD-20260824-001 h04",
+      "null": "position within the month carries no information",
+      "unit": "% forward return",
+      "n_condition": 952,
+      "n_other": 3894,
+      "sessions_in_universe": 4846,
+      "effect": 0.1505,
+      "baseline_mean": 0.1695,
+      "win_rate_pct": 55.57,
+      "baseline_win_rate_pct": 54.7,
+      "win_rate_edge_pct": 0.87,
+      "smallest_resolvable_effect": 0.2488,
+      "bootstrap_p_two_sided": 0.263,
+      "bootstrap_share_above_zero": 0.8685,
+      "effect_net_of_cost": 0.1305,
+      "by_period": {
+        "train": {
+          "n_condition": 315,
+          "effect": -0.0236
+        },
+        "valid": {
+          "n_condition": 316,
+          "effect": 0.1957
+        },
+        "holdout": {
+          "n_condition": 321,
+          "effect": 0.2749
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1505 is inside the +0.2488 these samples can separate"
+    },
+    {
+      "id": "h05",
+      "family": "trend_state",
+      "claim": "Gold above its 200-day average keeps rising.",
+      "origin": "trend-following orthodoxy, never tested in this programme",
+      "null": "the 200-day average carries no information about the next week",
+      "unit": "% forward return",
+      "n_condition": 3047,
+      "n_other": 1600,
+      "sessions_in_universe": 4647,
+      "effect": 0.1024,
+      "baseline_mean": 0.1389,
+      "win_rate_pct": 55.6,
+      "baseline_win_rate_pct": 53.94,
+      "win_rate_edge_pct": 1.66,
+      "smallest_resolvable_effect": 0.2038,
+      "bootstrap_p_two_sided": 0.499,
+      "bootstrap_share_above_zero": 0.7505,
+      "effect_net_of_cost": 0.0824,
+      "by_period": {
+        "train": {
+          "n_condition": 1010,
+          "effect": 0.1998
+        },
+        "valid": {
+          "n_condition": 896,
+          "effect": 0.0446
+        },
+        "holdout": {
+          "n_condition": 1141,
+          "effect": 0.0134
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1024 is inside the +0.2038 these samples can separate"
+    },
+    {
+      "id": "h06",
+      "family": "trend_state",
+      "claim": "The top decile of stretch above the 200-day average mean-reverts over a month.",
+      "origin": "prior sweep tested this over 8 hours; the claim is usually made over weeks",
+      "null": "stretch carries no information about the next month",
+      "unit": "% forward return",
+      "n_condition": 649,
+      "n_other": 3983,
+      "sessions_in_universe": 4632,
+      "effect": 0.382,
+      "baseline_mean": 0.7876,
+      "win_rate_pct": 56.09,
+      "baseline_win_rate_pct": 55.66,
+      "win_rate_edge_pct": 0.42,
+      "smallest_resolvable_effect": 0.5369,
+      "bootstrap_p_two_sided": 0.668,
+      "bootstrap_share_above_zero": 0.666,
+      "effect_net_of_cost": 0.362,
+      "by_period": {
+        "train": {
+          "n_condition": 103,
+          "effect": -1.4712
+        },
+        "valid": {
+          "n_condition": 122,
+          "effect": -0.0779
+        },
+        "holdout": {
+          "n_condition": 424,
+          "effect": 0.8909
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.3820 is inside the +0.5369 these samples can separate"
+    },
+    {
+      "id": "h07",
+      "family": "trend_state",
+      "claim": "A new 52-week high is followed by more gains.",
+      "origin": "breakout continuation; needs years of history to have any 52-week highs at all",
+      "null": "a 52-week high carries no information about the next month",
+      "unit": "% forward return",
+      "n_condition": 282,
+      "n_other": 4298,
+      "sessions_in_universe": 4580,
+      "effect": 1.2262,
+      "baseline_mean": 0.7294,
+      "win_rate_pct": 60.64,
+      "baseline_win_rate_pct": 55.17,
+      "win_rate_edge_pct": 5.47,
+      "smallest_resolvable_effect": 0.7646,
+      "bootstrap_p_two_sided": 0.072,
+      "bootstrap_share_above_zero": 0.964,
+      "effect_net_of_cost": 1.2062,
+      "by_period": {
+        "train": {
+          "n_condition": 87,
+          "effect": 1.9783
+        },
+        "valid": {
+          "n_condition": 77,
+          "effect": -0.0927
+        },
+        "holdout": {
+          "n_condition": 118,
+          "effect": 1.4405
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect clears the resolution bound but bootstrap p=0.072"
+    },
+    {
+      "id": "h08",
+      "family": "trend_state",
+      "claim": "The deepest decile of drawdown from the 52-week high is a buying opportunity.",
+      "origin": "dip-buying orthodoxy",
+      "null": "drawdown depth carries no information about the next month",
+      "unit": "% forward return",
+      "n_condition": 477,
+      "n_other": 4103,
+      "sessions_in_universe": 4580,
+      "effect": 0.0106,
+      "baseline_mean": 0.8038,
+      "win_rate_pct": 56.39,
+      "baseline_win_rate_pct": 55.4,
+      "win_rate_edge_pct": 1.0,
+      "smallest_resolvable_effect": 0.6017,
+      "bootstrap_p_two_sided": 0.977,
+      "bootstrap_share_above_zero": 0.4885,
+      "effect_net_of_cost": -0.0094,
+      "by_period": {
+        "train": {
+          "n_condition": 380,
+          "effect": -0.0809
+        },
+        "valid": {
+          "n_condition": 0,
+          "effect": null
+        },
+        "holdout": {
+          "n_condition": 97,
+          "effect": 1.023
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0106 is inside the +0.6017 these samples can separate"
+    },
+    {
+      "id": "h09",
+      "family": "streak_long",
+      "claim": "Three consecutive down days are followed by a bounce.",
+      "origin": "prior sweep RS-XAUUSD-20260824-001, on 672 sessions",
+      "null": "a run of down days carries no information about the next one",
+      "unit": "% forward return",
+      "n_condition": 432,
+      "n_other": 4418,
+      "sessions_in_universe": 4850,
+      "effect": 0.0848,
+      "baseline_mean": 0.0331,
+      "win_rate_pct": 56.71,
+      "baseline_win_rate_pct": 52.26,
+      "win_rate_edge_pct": 4.45,
+      "smallest_resolvable_effect": 0.1555,
+      "bootstrap_p_two_sided": 0.142,
+      "bootstrap_share_above_zero": 0.929,
+      "effect_net_of_cost": 0.0648,
+      "by_period": {
+        "train": {
+          "n_condition": 135,
+          "effect": 0.2966
+        },
+        "valid": {
+          "n_condition": 167,
+          "effect": -0.0226
+        },
+        "holdout": {
+          "n_condition": 130,
+          "effect": 0.0079
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0848 is inside the +0.1555 these samples can separate"
+    },
+    {
+      "id": "h10",
+      "family": "streak_long",
+      "claim": "Five consecutive up days are followed by a pullback.",
+      "origin": "exhaustion folklore; five-day runs are too rare to test on 672 sessions",
+      "null": "a run of up days carries no information about the next one",
+      "unit": "% forward return",
+      "n_condition": 157,
+      "n_other": 4693,
+      "sessions_in_universe": 4850,
+      "effect": -0.0967,
+      "baseline_mean": 0.0438,
+      "win_rate_pct": 47.13,
+      "baseline_win_rate_pct": 52.84,
+      "win_rate_edge_pct": -5.71,
+      "smallest_resolvable_effect": 0.2502,
+      "bootstrap_p_two_sided": 0.242,
+      "bootstrap_share_above_zero": 0.121,
+      "effect_net_of_cost": 0.0767,
+      "by_period": {
+        "train": {
+          "n_condition": 52,
+          "effect": -0.2625
+        },
+        "valid": {
+          "n_condition": 48,
+          "effect": -0.067
+        },
+        "holdout": {
+          "n_condition": 57,
+          "effect": 0.0257
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0967 is inside the +0.2502 these samples can separate"
+    },
+    {
+      "id": "h11",
+      "family": "volatility_state",
+      "claim": "The top quintile of realized volatility precedes weaker returns.",
+      "origin": "vol-scaling orthodoxy",
+      "null": "realized volatility carries no information about direction",
+      "unit": "% forward return",
+      "n_condition": 483,
+      "n_other": 4343,
+      "sessions_in_universe": 4826,
+      "effect": 0.0249,
+      "baseline_mean": 0.1938,
+      "win_rate_pct": 53.83,
+      "baseline_win_rate_pct": 55.01,
+      "win_rate_edge_pct": -1.18,
+      "smallest_resolvable_effect": 0.3295,
+      "bootstrap_p_two_sided": 0.879,
+      "bootstrap_share_above_zero": 0.4395,
+      "effect_net_of_cost": 0.0049,
+      "by_period": {
+        "train": {
+          "n_condition": 107,
+          "effect": -0.1974
+        },
+        "valid": {
+          "n_condition": 62,
+          "effect": 0.5302
+        },
+        "holdout": {
+          "n_condition": 314,
+          "effect": -0.1262
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0249 is inside the +0.3295 these samples can separate"
+    },
+    {
+      "id": "h12",
+      "family": "volatility_state",
+      "claim": "A top-quintile GVZ reading precedes a stronger week for gold.",
+      "origin": "GVZ is in the repository and no study has ever used it",
+      "null": "implied gold volatility carries no information about direction",
+      "unit": "% forward return",
+      "n_condition": 506,
+      "n_other": 2924,
+      "sessions_in_universe": 3430,
+      "effect": 0.036,
+      "baseline_mean": 0.1336,
+      "win_rate_pct": 52.96,
+      "baseline_win_rate_pct": 53.93,
+      "win_rate_edge_pct": -0.97,
+      "smallest_resolvable_effect": 0.2998,
+      "bootstrap_p_two_sided": 0.711,
+      "bootstrap_share_above_zero": 0.6445,
+      "effect_net_of_cost": 0.016,
+      "by_period": {
+        "train": {
+          "n_condition": 39,
+          "effect": 0.8152
+        },
+        "valid": {
+          "n_condition": 171,
+          "effect": -0.0625
+        },
+        "holdout": {
+          "n_condition": 296,
+          "effect": -0.3218
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0360 is inside the +0.2998 these samples can separate"
+    },
+    {
+      "id": "h13",
+      "family": "volatility_state",
+      "claim": "A top-quintile variance risk premium (GVZ minus realized) precedes weaker returns.",
+      "origin": "the equity-market VRP result, asked of gold",
+      "null": "the gap between implied and realized volatility carries no directional information",
+      "unit": "% forward return",
+      "n_condition": 693,
+      "n_other": 2737,
+      "sessions_in_universe": 3430,
+      "effect": 0.1109,
+      "baseline_mean": 0.5499,
+      "win_rate_pct": 52.24,
+      "baseline_win_rate_pct": 53.42,
+      "win_rate_edge_pct": -1.18,
+      "smallest_resolvable_effect": 0.5134,
+      "bootstrap_p_two_sided": 0.776,
+      "bootstrap_share_above_zero": 0.612,
+      "effect_net_of_cost": 0.0909,
+      "by_period": {
+        "train": {
+          "n_condition": 188,
+          "effect": -0.3314
+        },
+        "valid": {
+          "n_condition": 211,
+          "effect": 0.3852
+        },
+        "holdout": {
+          "n_condition": 294,
+          "effect": -0.2467
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1109 is inside the +0.5134 these samples can separate"
+    },
+    {
+      "id": "h14",
+      "family": "macro_state",
+      "claim": "A top-quintile VIX reading precedes a stronger week for gold.",
+      "origin": "the safe-haven claim, stated as something measurable",
+      "null": "equity volatility carries no information about gold's direction",
+      "unit": "% forward return",
+      "n_condition": 971,
+      "n_other": 2459,
+      "sessions_in_universe": 3430,
+      "effect": 0.1001,
+      "baseline_mean": 0.1113,
+      "win_rate_pct": 54.17,
+      "baseline_win_rate_pct": 53.6,
+      "win_rate_edge_pct": 0.57,
+      "smallest_resolvable_effect": 0.236,
+      "bootstrap_p_two_sided": 0.579,
+      "bootstrap_share_above_zero": 0.7105,
+      "effect_net_of_cost": 0.0801,
+      "by_period": {
+        "train": {
+          "n_condition": 207,
+          "effect": 0.5449
+        },
+        "valid": {
+          "n_condition": 469,
+          "effect": 0.0837
+        },
+        "holdout": {
+          "n_condition": 295,
+          "effect": -0.3398
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1001 is inside the +0.2360 these samples can separate"
+    },
+    {
+      "id": "h15",
+      "family": "macro_state",
+      "claim": "A top-decile one-day rise in the 10-year yield hurts gold.",
+      "origin": "the nominal-rate channel",
+      "null": "a one-day yield move carries no information about gold's next session",
+      "unit": "% forward return",
+      "n_condition": 363,
+      "n_other": 2959,
+      "sessions_in_universe": 3322,
+      "effect": -0.0457,
+      "baseline_mean": 0.0323,
+      "win_rate_pct": 47.38,
+      "baseline_win_rate_pct": 52.45,
+      "win_rate_edge_pct": -5.07,
+      "smallest_resolvable_effect": 0.1546,
+      "bootstrap_p_two_sided": 0.386,
+      "bootstrap_share_above_zero": 0.193,
+      "effect_net_of_cost": 0.0257,
+      "by_period": {
+        "train": {
+          "n_condition": 89,
+          "effect": -0.1453
+        },
+        "valid": {
+          "n_condition": 89,
+          "effect": -0.0748
+        },
+        "holdout": {
+          "n_condition": 185,
+          "effect": -0.0142
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0457 is inside the +0.1546 these samples can separate"
+    },
+    {
+      "id": "h16",
+      "family": "macro_state",
+      "claim": "A top-quintile 20-day rise in breakeven inflation precedes a stronger month.",
+      "origin": "the inflation-hedge claim",
+      "null": "breakeven inflation carries no information about gold",
+      "unit": "% forward return",
+      "n_condition": 706,
+      "n_other": 2574,
+      "sessions_in_universe": 3280,
+      "effect": -0.3452,
+      "baseline_mean": 0.6199,
+      "win_rate_pct": 47.45,
+      "baseline_win_rate_pct": 54.35,
+      "win_rate_edge_pct": -6.9,
+      "smallest_resolvable_effect": 0.5143,
+      "bootstrap_p_two_sided": 0.502,
+      "bootstrap_share_above_zero": 0.251,
+      "effect_net_of_cost": 0.3252,
+      "by_period": {
+        "train": {
+          "n_condition": 189,
+          "effect": -0.7553
+        },
+        "valid": {
+          "n_condition": 326,
+          "effect": 0.4246
+        },
+        "holdout": {
+          "n_condition": 191,
+          "effect": -1.1648
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.3452 is inside the +0.5143 these samples can separate"
+    },
+    {
+      "id": "h17",
+      "family": "macro_state",
+      "claim": "Falling real yields are gold's actual driver: the bottom quintile of 20-day change in (10-year yield minus breakeven) precedes a stronger month.",
+      "origin": "the textbook mechanism; never tested in this programme",
+      "null": "the real yield carries no information about gold",
+      "unit": "% forward return",
+      "n_condition": 659,
+      "n_other": 2537,
+      "sessions_in_universe": 3196,
+      "effect": 0.4808,
+      "baseline_mean": 0.5047,
+      "win_rate_pct": 56.9,
+      "baseline_win_rate_pct": 52.46,
+      "win_rate_edge_pct": 4.44,
+      "smallest_resolvable_effect": 0.5277,
+      "bootstrap_p_two_sided": 0.464,
+      "bootstrap_share_above_zero": 0.768,
+      "effect_net_of_cost": 0.4608,
+      "by_period": {
+        "train": {
+          "n_condition": 172,
+          "effect": 0.0885
+        },
+        "valid": {
+          "n_condition": 262,
+          "effect": 0.6421
+        },
+        "holdout": {
+          "n_condition": 225,
+          "effect": 0.3412
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect +0.4808 is inside the +0.5277 these samples can separate"
+    },
+    {
+      "id": "h18",
+      "family": "macro_state",
+      "claim": "A bottom-quintile 20-day dollar move precedes a stronger month for gold.",
+      "origin": "prior sweep tested one hour of DXY; the claim is normally made over weeks",
+      "null": "the dollar carries no information about gold beyond the same-day accounting link",
+      "unit": "% forward return",
+      "n_condition": 228,
+      "n_other": 946,
+      "sessions_in_universe": 1174,
+      "effect": 0.8853,
+      "baseline_mean": 1.3534,
+      "win_rate_pct": 71.49,
+      "baseline_win_rate_pct": 59.94,
+      "win_rate_edge_pct": 11.55,
+      "smallest_resolvable_effect": 0.9848,
+      "bootstrap_p_two_sided": 0.351,
+      "bootstrap_share_above_zero": 0.8245,
+      "effect_net_of_cost": 0.8653,
+      "by_period": {
+        "train": {
+          "n_condition": 76,
+          "effect": 1.417
+        },
+        "valid": {
+          "n_condition": 67,
+          "effect": 0.5061
+        },
+        "holdout": {
+          "n_condition": 85,
+          "effect": 0.5735
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect +0.8853 is inside the +0.9848 these samples can separate"
+    },
+    {
+      "id": "h19",
+      "family": "macro_state",
+      "claim": "Risk-off and cheap money together: top-quintile VIX with falling real yields.",
+      "origin": "the two macro channels required to agree",
+      "null": "the conjunction carries no more information than its parts",
+      "unit": "% forward return",
+      "n_condition": 236,
+      "n_other": 2958,
+      "sessions_in_universe": 3194,
+      "effect": 0.7129,
+      "baseline_mean": 0.551,
+      "win_rate_pct": 58.05,
+      "baseline_win_rate_pct": 53.01,
+      "win_rate_edge_pct": 5.04,
+      "smallest_resolvable_effect": 0.8165,
+      "bootstrap_p_two_sided": 0.498,
+      "bootstrap_share_above_zero": 0.751,
+      "effect_net_of_cost": 0.6929,
+      "by_period": {
+        "train": {
+          "n_condition": 66,
+          "effect": 0.1249
+        },
+        "valid": {
+          "n_condition": 122,
+          "effect": 1.2672
+        },
+        "holdout": {
+          "n_condition": 48,
+          "effect": 0.5491
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect +0.7129 is inside the +0.8165 these samples can separate"
+    },
+    {
+      "id": "h20",
+      "family": "macro_state",
+      "claim": "A top-quintile GVZ with gold already below its 200-day average marks capitulation.",
+      "origin": "fear plus downtrend, the classic bottom description",
+      "null": "the conjunction carries no information",
+      "unit": "% forward return",
+      "n_condition": 50,
+      "n_other": 3380,
+      "sessions_in_universe": 3430,
+      "effect": -0.2427,
+      "baseline_mean": 0.5759,
+      "win_rate_pct": 50.0,
+      "baseline_win_rate_pct": 53.22,
+      "win_rate_edge_pct": -3.22,
+      "smallest_resolvable_effect": 1.72,
+      "bootstrap_p_two_sided": 0.5817,
+      "bootstrap_share_above_zero": 0.7092,
+      "effect_net_of_cost": 0.2227,
+      "by_period": {
+        "train": {
+          "n_condition": 8,
+          "effect": 0.775
+        },
+        "valid": {
+          "n_condition": 12,
+          "effect": 2.1186
+        },
+        "holdout": {
+          "n_condition": 30,
+          "effect": -2.1975
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.2427 is inside the +1.7200 these samples can separate"
+    }
+  ],
+  "consensus_analysis": {
+    "question": "The rule under test: a condition above 50% is an edge, and several such conditions agreeing is alpha. Both halves are measured here.",
+    "horizon": "5 sessions",
+    "conditions_tested": 11,
+    "per_condition": [
+      {
+        "id": "h01",
+        "claim": "Monday is gold's worst weekday.",
+        "pooled_win_rate_pct": 54.38,
+        "win_rate_by_block_pct": [
+          57.73,
+          48.21,
+          48.97,
+          56.7,
+          60.31
+        ],
+        "blocks_above_50": 3,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h02",
+        "claim": "Friday is gold's strongest weekday.",
+        "pooled_win_rate_pct": 54.5,
+        "win_rate_by_block_pct": [
+          57.95,
+          51.81,
+          48.19,
+          56.7,
+          57.81
+        ],
+        "blocks_above_50": 4,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h03",
+        "claim": "September is gold's worst month.",
+        "pooled_win_rate_pct": 50.39,
+        "win_rate_by_block_pct": [
+          57.83,
+          39.71,
+          40.0,
+          44.83,
+          73.44
+        ],
+        "blocks_above_50": 2,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h04",
+        "claim": "Turn of month: the last three and first three sessions outperform the middle.",
+        "pooled_win_rate_pct": 55.57,
+        "win_rate_by_block_pct": [
+          56.91,
+          48.17,
+          54.17,
+          62.23,
+          56.48
+        ],
+        "blocks_above_50": 4,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h05",
+        "claim": "Gold above its 200-day average keeps rising.",
+        "pooled_win_rate_pct": 55.6,
+        "win_rate_by_block_pct": [
+          60.42,
+          43.89,
+          48.79,
+          57.1,
+          58.68
+        ],
+        "blocks_above_50": 3,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h06",
+        "claim": "The top decile of stretch above the 200-day average mean-reverts over a month.",
+        "pooled_win_rate_pct": 53.31,
+        "win_rate_by_block_pct": [
+          46.6,
+          null,
+          32.14,
+          49.58,
+          57.64
+        ],
+        "blocks_above_50": 1,
+        "blocks_measured": 4
+      },
+      {
+        "id": "h07",
+        "claim": "A new 52-week high is followed by more gains.",
+        "pooled_win_rate_pct": 60.64,
+        "win_rate_by_block_pct": [
+          68.97,
+          null,
+          37.5,
+          52.31,
+          62.28
+        ],
+        "blocks_above_50": 3,
+        "blocks_measured": 4
+      },
+      {
+        "id": "h08",
+        "claim": "The deepest decile of drawdown from the 52-week high is a buying opportunity.",
+        "pooled_win_rate_pct": 55.49,
+        "win_rate_by_block_pct": [
+          null,
+          54.26,
+          null,
+          63.64,
+          54.39
+        ],
+        "blocks_above_50": 3,
+        "blocks_measured": 3
+      },
+      {
+        "id": "h09",
+        "claim": "Three consecutive down days are followed by a bounce.",
+        "pooled_win_rate_pct": 51.85,
+        "win_rate_by_block_pct": [
+          56.76,
+          56.84,
+          41.59,
+          51.39,
+          56.41
+        ],
+        "blocks_above_50": 4,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h10",
+        "claim": "Five consecutive up days are followed by a pullback.",
+        "pooled_win_rate_pct": 55.41,
+        "win_rate_by_block_pct": [
+          69.44,
+          35.0,
+          45.95,
+          60.0,
+          58.82
+        ],
+        "blocks_above_50": 3,
+        "blocks_measured": 5
+      },
+      {
+        "id": "h11",
+        "claim": "The top quintile of realized volatility precedes weaker returns.",
+        "pooled_win_rate_pct": 53.83,
+        "win_rate_by_block_pct": [
+          33.33,
+          53.41,
+          73.68,
+          50.5,
+          55.78
+        ],
+        "blocks_above_50": 4,
+        "blocks_measured": 5
+      }
+    ],
+    "conditions_above_50_in_every_block": [],
+    "by_vote_count": [
+      {
+        "votes": 0,
+        "n": 513,
+        "win_rate_pct": 54.39,
+        "mean_return_pct": 0.0851
+      },
+      {
+        "votes": 1,
+        "n": 1563,
+        "win_rate_pct": 55.6,
+        "mean_return_pct": 0.1765
+      },
+      {
+        "votes": 2,
+        "n": 1567,
+        "win_rate_pct": 54.31,
+        "mean_return_pct": 0.2428
+      },
+      {
+        "votes": 3,
+        "n": 811,
+        "win_rate_pct": 55.36,
+        "mean_return_pct": 0.2734
+      },
+      {
+        "votes": 4,
+        "n": 286,
+        "win_rate_pct": 51.75,
+        "mean_return_pct": 0.2213
+      },
+      {
+        "votes": 5,
+        "n": 92,
+        "win_rate_pct": 59.78,
+        "mean_return_pct": -0.3816
+      },
+      {
+        "votes": 6,
+        "n": 13,
+        "win_rate_pct": null,
+        "mean_return_pct": null
+      },
+      {
+        "votes": 7,
+        "n": 1,
+        "win_rate_pct": null,
+        "mean_return_pct": null
+      }
+    ],
+    "win_rate_monotone_in_votes": false,
+    "reading": "If consensus carries information, two things must hold: a condition's win rate stays above 50% in every block rather than only on average, and the win rate rises as more conditions agree. Either one failing means the pooled number was describing the period."
+  }
+}

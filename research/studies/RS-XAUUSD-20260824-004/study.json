@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-004",
+  "revision": 1,
+  "title": "Twenty hypotheses on 18 years of daily gold, and the macro drivers the programme had data for and never opened",
+  "market": "XAUUSD",
+  "strategy": "none — hypothesis sweep on the daily price series and macro drivers",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "Re-run the programme's hypothesis sweep on 4851 daily sessions instead of 672, so that 'no evidence' can be separated from 'not enough data', and open the macro family — VIX, GVZ, nominal and real yields — that the repository had data for and no study had ever used.",
+  "hypothesis": "Most nulls stay null with tighter bounds; the value is in which ones tighten and in what a properly-powered test does to the 50%-win-rate rule.",
+  "headline": {
+    "sessions": 4851,
+    "power_multiple_vs_prior_sweep": 7.2,
+    "hypotheses_tested": 20,
+    "survivors": 0,
+    "no_evidence": 20,
+    "family_permutation_p": 0.788,
+    "best_p_in_family": 0.072,
+    "macro_families_opened": 4,
+    "h18_win_rate_pct": 71.49,
+    "h18_baseline_win_rate_pct": 59.94,
+    "h18_baseline_shift_from_era_matching_pct": 5.38,
+    "h17_effect_pct": 0.4808,
+    "h17_resolution_bound_pct": 0.5277,
+    "conditions_above_50_in_every_block": 0,
+    "conditions_tested_for_stability": 11,
+    "consensus_win_rate_monotone": false,
+    "top_consensus_win_rate_pct": 59.78,
+    "top_consensus_mean_return_pct": -0.3816
+  },
+  "card_metrics": [
+    "sessions",
+    "hypotheses_tested",
+    "survivors",
+    "family_permutation_p"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Seven times the data did not turn any null into a finding",
+      "detail": "Twenty hypotheses on 4851 sessions, zero survivors, family permutation p=0.788. What changed is the bounds: the calendar claims that were arguably untested on 672 sessions now have resolution bounds around 0.11%, so 'Monday is worst' is closed rather than open. More data narrowed the question; it did not answer it differently."
+    },
+    {
+      "tone": "good",
+      "title": "A 71.5% win rate, and the 5.4-point reason it is not an edge",
+      "detail": "h18 fires 228 times and wins 71.49%. The days it is compared against win 59.94%, because the dollar series only covers 2021-2026 and gold rose through most of it. The first version of this study scored h18 against all 4851 sessions, produced a 54.56% baseline and a p of 0.032, and would have been published as a survivor. Restricting the comparison group to the condition's own era moved the baseline 5.38 points and the p-value to 0.351. This is the cleanest available demonstration that a win rate is a statement about the comparison group, not about the condition."
+    },
+    {
+      "tone": "info",
+      "title": "The real yield is the one macro channel worth more data",
+      "detail": "h17 — falling 10-year real yields precede a stronger month for gold — is the only macro condition whose sign holds in all three chronological windows. Its effect is +0.4808% against a resolution bound of 0.5277%: it misses by 0.048 percentage points. That is a specific instruction rather than a shrug. It is also the textbook mechanism, which makes it the one hypothesis here where a prior belief and the data point the same way."
+    },
+    {
+      "tone": "warn",
+      "title": "The consensus rule fails both halves of its own test",
+      "detail": "Zero of eleven conditions stay above a 50% win rate in all five chronological blocks — every one has a losing period hidden inside a winning average. And win rate is not monotone in how many conditions agree. At five agreeing conditions the win rate is the highest in the table (59.78%) while the mean return is the only negative one (-0.38%). The 92 sessions behind that row make the exact figure unstable, but the direction is the opposite of what the rule predicts, and it is the fourth independent time this programme has separated win rate from expectancy."
+    },
+    {
+      "tone": "warn",
+      "title": "Two design defects were found by inspecting a good-looking result",
+      "detail": "The first run rejected h18 for 'the sign does not hold across all three periods' when it had fired zero times in two of them — the split was taken over gold's 4851 sessions while the condition only existed for 1174. The same run compared macro conditions against years in which the macro series did not exist. Both were found by asking why a rejected hypothesis had a 71% win rate, not by a test failing. A screen that rejects for the wrong reason is more dangerous than one that does not fire."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "Twenty hypotheses on 18 years of daily gold — 7x the prior sweep — plus the macro family never opened. Zero survivors, and a 71% win rate that dissolves when the comparison group is matched to its own era.",
+  "summary_zh": "把假設掃描從 672 個交易日擴大到 4851 個（7.2 倍），並首次動用 VIX／GVZ／美債殖利率／通膨預期。20 個假設 0 個存活，族群置換 p=0.788。最重要的一筆：h18 勝率 71.49% 看似巨大，但把對照組限制在同一個年代後基準是 59.94% — 基準移動了 5.38 個百分點，p 從 0.032 變 0.351。共識規則兩半都不成立：11 個條件沒有一個能在五個時期都站上 50%，而共識最強那一格勝率最高（59.78%）卻是唯一負報酬（−0.38%）。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

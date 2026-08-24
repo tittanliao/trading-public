@@ -313,6 +313,18 @@
       "title": "study"
     },
     {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-004/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-004/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
       "kind": "report",
       "path": "v1/glossary/index.html",
       "section": "research",

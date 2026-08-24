@@ -1624,6 +1624,161 @@ def null_results_page(registry: dict[str, object]) -> str:
     )
 
 
+def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
+    """Hypothesis-sweep shape: many claims, one harness, mostly nulls.
+
+    A sweep's page has a different job from a strategy report's. Nobody reads twenty rows
+    looking for the winner — there isn't one. What a reader needs is to be able to check
+    two things: that a null is a measurement rather than a shrug, and that the one
+    good-looking number was tested honestly. So the resolution bound sits in the table
+    beside every effect, and the win rate sits beside the baseline it must be read against.
+    """
+    result = study["_result"]
+    coverage = result["coverage"]
+    head = study["headline"]
+    rows = {h["id"]: h for h in result["hypotheses"]}
+
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}">'
+        f'<strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in study["findings"]
+    )
+
+    def cell(value, spec="{}"):
+        return "—" if value is None else html.escape(spec.format(value))
+
+    sweep_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(h["id"])}</code></td>'
+        f'<td>{html.escape(h["family"])}</td>'
+        f'<td>{html.escape(h["claim"])}</td>'
+        f'<td class="num">{h["n_condition"]}</td>'
+        f'<td class="num">{cell(h.get("effect"), "{:+.4f}")}</td>'
+        f'<td class="num">{cell(h.get("smallest_resolvable_effect"), "{:.4f}")}</td>'
+        f'<td class="num">{cell(h.get("bootstrap_p_two_sided"))}</td>'
+        f'<td class="num">{cell(h.get("win_rate_pct"), "{:.2f}")}</td>'
+        f'<td class="num">{cell(h.get("baseline_win_rate_pct"), "{:.2f}")}</td>'
+        f'<td>{html.escape(h["verdict"])}</td>'
+        "</tr>"
+        for h in result["hypotheses"]
+    )
+
+    consensus = result.get("consensus_analysis", {})
+    vote_rows = "".join(
+        "<tr>"
+        f'<td class="num">{row["votes"]}</td><td class="num">{row["n"]}</td>'
+        f'<td class="num">{cell(row.get("win_rate_pct"), "{:.2f}")}</td>'
+        f'<td class="num">{cell(row.get("mean_return_pct"), "{:+.4f}")}</td>'
+        "</tr>"
+        for row in consensus.get("by_vote_count", [])
+    )
+    stability_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(c["id"])}</code></td>'
+        f'<td>{html.escape(c["claim"])}</td>'
+        f'<td class="num">{cell(c.get("pooled_win_rate_pct"), "{:.2f}")}</td>'
+        f'<td class="num">{c["blocks_above_50"]}/{c["blocks_measured"]}</td>'
+        "</tr>"
+        for c in consensus.get("per_condition", [])
+    )
+
+    h18 = rows.get("h18", {})
+    h17 = rows.get("h17", {})
+    family = result.get("family_permutation", {})
+
+    body = (
+        '<main class="shell">'
+        f'<section class="report-section"><h2>What was measured</h2>'
+        f'<p>{html.escape(str(study["question"]))}</p>'
+        '<div class="mini-metrics">'
+        f'<span><strong>{coverage["sessions"]}</strong> sessions</span>'
+        f'<span><strong>{coverage["power_multiple"]}x</strong> the prior sweep</span>'
+        f'<span><strong>{len(result["hypotheses"])}</strong> hypotheses</span>'
+        f'<span><strong>{head.get("survivors", 0)}</strong> survivors</span>'
+        f'<span><strong>{family.get("family_p")}</strong> family p</span>'
+        "</div></section>"
+        f'<section class="report-section"><h2>Findings</h2>{finding_html}</section>'
+
+        '<section class="report-section"><h2>How to read a null here</h2>'
+        "<p>Every row carries a <strong>resolution bound</strong>: the smallest difference "
+        "these two samples could have separated at roughly 80% power, computed as "
+        "<code>2.8 &times; &sigma; &times; &radic;(1/n₁ + 1/n₂)</code>. An effect inside its "
+        "bound means <em>this sample cannot tell it from zero</em> — not that it is zero. "
+        "A null with a bound is reusable evidence; a null without one is a shrug.</p>"
+        "<p>The win rate is reported beside the baseline it has to be read against, never "
+        "on its own. A rate above 50% is compatible with losing money, and the comparison "
+        "column is usually where that becomes visible.</p></section>"
+
+        '<section class="report-section"><h2>The twenty hypotheses</h2>'
+        '<div class="table-wrap"><table><thead><tr>'
+        "<th>id</th><th>family</th><th>claim</th><th>n</th><th>effect %</th>"
+        "<th>bound %</th><th>boot p</th><th>win %</th><th>baseline %</th><th>verdict</th>"
+        f"</tr></thead><tbody>{sweep_rows}</tbody></table></div></section>"
+
+        '<section class="report-section"><h2>A 71% win rate that is not an edge</h2>'
+        f'<p><code>h18</code> fires {h18.get("n_condition")} times and wins '
+        f'<strong>{h18.get("win_rate_pct")}%</strong>. The sessions it is compared against '
+        f'win <strong>{h18.get("baseline_win_rate_pct")}%</strong>, because the dollar '
+        f'series covers only {h18.get("sessions_in_universe")} of the '
+        f'{coverage["sessions"]} sessions in this study and gold rose through most of '
+        "that window. In an era where most days win, winning on 71% of them is close to "
+        "average.</p>"
+        "<p>An earlier version of this study scored the same condition against all "
+        f'{coverage["sessions"]} sessions. That produced a baseline of 54.56% and a '
+        "bootstrap p of 0.032, and it would have been published as a survivor. Matching "
+        "the comparison group to the condition's own era moved the baseline by "
+        "<strong>5.38 points</strong> and the p-value to "
+        f'{h18.get("bootstrap_p_two_sided")}.</p></section>'
+
+        '<section class="report-section"><h2>The one thread worth more data</h2>'
+        f'<p><code>h17</code> — falling 10-year real yields precede a stronger month for '
+        f'gold — gives {h17.get("effect"):+.4f}% against a bound of '
+        f'{h17.get("smallest_resolvable_effect"):.4f}%. It misses by 0.048 percentage '
+        "points, and it is the only macro condition whose sign holds in all three "
+        "chronological windows. It is also the textbook mechanism. That combination makes "
+        "it a data problem rather than an idea problem.</p></section>"
+
+        '<section class="report-section"><h2>Does a 50% win rate mean an edge?</h2>'
+        f'<p>{html.escape(str(consensus.get("reading", "")))}</p>'
+        "<h3>Does a condition stay above 50%, or only average above it?</h3>"
+        '<div class="table-wrap"><table><thead><tr><th>id</th><th>claim</th>'
+        "<th>pooled win %</th><th>blocks above 50%</th></tr></thead>"
+        f"<tbody>{stability_rows}</tbody></table></div>"
+        f'<p class="section-note"><strong>'
+        f'{len(consensus.get("conditions_above_50_in_every_block", []))} of '
+        f'{consensus.get("conditions_tested")}</strong> conditions stay above 50% in every '
+        "one of five chronological blocks. Every one of them has a losing period hidden "
+        "inside a winning average.</p>"
+        "<h3>Does agreement help?</h3>"
+        '<div class="table-wrap"><table><thead><tr><th>conditions agreeing</th>'
+        "<th>sessions</th><th>win %</th><th>mean return %</th></tr></thead>"
+        f"<tbody>{vote_rows}</tbody></table></div>"
+        f'<p class="section-note">Monotone in votes: <strong>'
+        f'{consensus.get("win_rate_monotone_in_votes")}</strong>. The highest-consensus '
+        "bucket has the highest win rate in the table and the only negative mean return. "
+        "The sessions behind that row are few enough that the magnitude is unstable; the "
+        "direction is the opposite of what the rule predicts.</p></section>"
+
+        '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
+        + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
+        + "</ul></section>"
+        '<section class="report-section"><h2>Files</h2>'
+        '<div class="file-actions"><a href="results.json">results.json</a>'
+        '<a href="study.json">study.json</a>'
+        '<a href="../../null-results/">All null results</a>'
+        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        "</main>"
+    )
+    return document(
+        str(study["title"]),
+        "Hypothesis sweep",
+        str(study.get("card_summary") or ""),
+        body,
+        "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -1642,9 +1797,12 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_context_program(study)
     if "families" in result:
         return study_page_range_profile(study)
+    if "hypotheses" in result:
+        return study_page_hypothesis_sweep(study)
     raise ValueError(
         f'{study["id"]}: results.json matches none of the known report shapes '
-        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", "families")'
+        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", '
+        '"families", "hypotheses")'
     )
 
 
