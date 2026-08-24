@@ -62,6 +62,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Macro composite and 30-minute timing were scored into S1 for months; neither survives review, and both were revoked.",
+  "summary_zh": "Macro 綜合分數與 30 分鐘時槽曾被寫進 S1 評分，用了好幾個月。重新檢視後兩者都撤銷：三個 Macro 組別的信賴區間幾乎完全重疊，而且排序跟獲利因子相反；48 個時槽分 450 筆交易，中位數只有 9 筆。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

@@ -48,6 +48,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Capping the chase after a signal, and replaying pullback entries that never filled.",
+  "summary_zh": "訊號出現後限制追價幅度，並重播那些從未成交的回踩掛單會怎麼樣。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

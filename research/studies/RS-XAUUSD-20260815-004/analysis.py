@@ -22,11 +22,10 @@ from typing import Any
 SCRIPT_PATH = Path(__file__).resolve()
 ROOT = SCRIPT_PATH.parents[2] if SCRIPT_PATH.parent.name == "research" else SCRIPT_PATH.parents[3]
 STUDY_ID = "RS-XAUUSD-20260815-004"
-DATA_ROOT = ROOT / "local-inputs"
 OUTPUT_DIR = Path("reproduced-s1-pullback")
-OFF_FILE = DATA_ROOT / "s1-off-trades.csv"
-BARS_FILE = DATA_ROOT / "xauusd-30m.csv"
-FORMAL_PINE = DATA_ROOT / "S1-V3.9.pine"
+OFF_FILE = ROOT / "local-inputs/s1-off-trades.csv"
+BARS_FILE = ROOT / "local-inputs/xauusd-30m.csv"
+FORMAL_PINE = ROOT / "local-inputs/S1-V3.9.pine"
 TICK = 0.001
 SL_PCT = 0.005
 TP1_PCT = 0.005

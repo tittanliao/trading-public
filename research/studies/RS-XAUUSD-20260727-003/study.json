@@ -42,6 +42,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "strategy_diagnostics",
+  "card_summary": "How S1 V3.4 loses: the four failure shapes and where they cluster.",
+  "summary_zh": "S1 V3.4 怎麼輸：拆成立即虧損、假突破、時間耗損、正常停損四種形態，看它們集中在哪裡。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

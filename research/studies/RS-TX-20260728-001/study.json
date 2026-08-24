@@ -35,6 +35,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "TX monthly seasonality — buying the month open and selling the close.",
+  "summary_zh": "台指期月份季節性：月初開盤買、月底收盤賣。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

@@ -213,6 +213,53 @@ def headline_display(key: str, value: object) -> str:
     return str(value)
 
 
+THEME_LABELS = {
+    "strategy_diagnostics": "Strategy diagnostics",
+    "improvement_attempts": "Improvement attempts",
+    "market_structure": "Market structure",
+    "methodology": "Methodology",
+}
+THEME_BLURBS = {
+    "strategy_diagnostics": "What the strategies actually do \u2014 how they win, how they lose, and what changed between versions.",
+    "improvement_attempts": "Things tried in order to make them better. Almost all of these are negative results, and that is the finding.",
+    "market_structure": "What the instrument itself looks like, independent of any strategy.",
+    "methodology": "What this programme learned about how to test, usually by getting it wrong first.",
+}
+THEME_ORDER = ["strategy_diagnostics", "improvement_attempts", "market_structure", "methodology"]
+
+
+def theme_sheets_html(study_list, prefix="../"):
+    """Group by the question a study asked, not by how far through the process it is.
+
+    Status \u2014 confirmed, progress, pending \u2014 is a workflow state. It tells a reader how
+    complete the paperwork is, which is not what they came to find out. Grouping by theme
+    also puts the negative results together, which is honest: improvement-attempts is the
+    largest section and almost entirely nulls.
+    """
+    grouped = {}
+    for study in study_list:
+        grouped.setdefault(str(study.get("theme") or "market_structure"), []).append(study)
+    blocks = []
+    for theme in THEME_ORDER:
+        items = grouped.get(theme)
+        if not items:
+            continue
+        cards = "".join(study_card(study, prefix) for study in items)
+        blocks.append(
+            f'<h2 class="section-title">{html.escape(THEME_LABELS[theme])} '
+            f'<span class="sheet-count">({len(items)})</span></h2>'
+            f'<p class="section-note">{html.escape(THEME_BLURBS[theme])}</p>'
+            f'<div class="grid study-grid">{cards}</div>'
+        )
+    for theme in [t for t in grouped if t not in THEME_ORDER]:
+        cards = "".join(study_card(study, prefix) for study in grouped[theme])
+        blocks.append(
+            f'<h2 class="section-title">{html.escape(theme)}</h2>'
+            f'<div class="grid study-grid">{cards}</div>'
+        )
+    return "".join(blocks) if blocks else '<p class="empty">No published study yet.</p>'
+
+
 def study_card(study: dict[str, object], prefix: str = "../") -> str:
     headline = study["headline"]
     # A study may curate its own card_metrics (ordered headline keys); otherwise the
@@ -230,7 +277,9 @@ def study_card(study: dict[str, object], prefix: str = "../") -> str:
         f'<a class="card study-card" data-card href="{html.escape(prefix + study["_relative"])}/">'
         f'<div class="type">{html.escape(study["status"])} · {html.escape(study["id"])}{badge}</div>'
         f'<h2>{html.escape(study["title"])}</h2>'
-        f'<p>{html.escape(study["question"])}</p>'
+        # The card states what was found. The question it answered belongs on the study
+        # page, where there is room for it; on a card it filled the space and said nothing.
+        f'<p>{html.escape(str(study.get("card_summary") or study["question"]))}</p>'
         f'<div class="mini-metrics">{metrics_html}</div></a>'
     )
 
@@ -420,7 +469,8 @@ def study_page_comparison(study: dict[str, object]) -> str:
     body = (
         '<main class="shell report">'
         f'<div class="metric-grid">{metric_html}</div>'
-        '<section class="report-section"><h2>Key findings</h2>'
+        + summary_zh_html(study)
+        + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
         + "".join(
@@ -520,8 +570,30 @@ def impact_section_html(study: dict[str, object]) -> str:
     return f'<section class="report-section"><h2>Impact on 請分析</h2>{body}</section>'
 
 
+def summary_zh_html(study: dict[str, object]) -> str:
+    """A short Chinese summary at the top of each study page.
+
+    Not a translation of the page — deliberately. The owner reads these in English as
+    practice, and a full Chinese version would simply replace it. Two or three sentences
+    stating what was found gives something to check comprehension against, and costs about
+    a twentieth of translating every finding.
+    """
+    text = str(study.get("summary_zh") or "").strip()
+    if not text:
+        return ""
+    return (
+        '<section class="report-section"><h2>中文摘要</h2>'
+        f'<p>{html.escape(text)}</p>'
+        '<p class="section-note">以下為英文原文。專有名詞見'
+        '<a href="../../../glossary/">術語表</a>。</p></section>'
+    )
+
+
 def file_actions_html(study: dict[str, object]) -> str:
     links = [
+        # First, deliberately. A reader who cannot get past the vocabulary cannot use any
+        # of the others.
+        '<a href="../../../glossary/">術語表 Glossary</a>',
         '<a href="results.json">Structured results</a>',
         '<a href="analysis.py">Python method</a>',
         '<a href="study.json">Study manifest</a>',
@@ -590,7 +662,8 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + metric("Profit factor", baseline["profit_factor"], f'Net ${baseline["net_pnl_usd"]:,.2f}')
         + metric("Max drawdown", f'${baseline["max_drawdown_usd"]:,.2f}', f'Max {baseline["max_consecutive_losses"]} consecutive losses')
         + '</div>'
-        '<section class="report-section"><h2>Key findings</h2>'
+        + summary_zh_html(study)
+        + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
         + chart_sections_html([c for c in result["charts"] if c["section"] in ("performance", "fail_pattern")])
@@ -700,7 +773,8 @@ def study_page_gap(study: dict[str, object]) -> str:
         + metric(f"PF diff ({label2}−{label1})", f'{bd["profit_factor_diff"]:+.3f}')
         + '</div>'
         f'<div class="note">{html.escape(result["method"]["risk_parameter_caveat"])}</div>'
-        '<section class="report-section"><h2>Key findings</h2>'
+        + summary_zh_html(study)
+        + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
         + chart_sections_html(result["charts"])
@@ -798,6 +872,7 @@ def study_page_seasonality(study: dict[str, object]) -> str:
         + metric("Avg monthly change", f'{overall["avg_chg_pts"]:+.0f} pts', result["instrument"])
         + "</div>"
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
+        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -842,6 +917,7 @@ def study_page_fib_pullback(study: dict[str, object]) -> str:
         '<main class="shell report">'
         f'<div class="metric-grid">{metric_html}</div>'
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
+        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -1069,7 +1145,8 @@ def study_page_context_program(study: dict[str, object]) -> str:
     body = (
         '<main class="shell report">'
         f'<div class="metric-grid">{context_program_metrics(study)}</div>'
-        '<section class="report-section"><h2>Key findings</h2>'
+        + summary_zh_html(study)
+        + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
         + impact_section_html(study)
         + chart_sections_html(result.get("charts", []))
@@ -1103,7 +1180,8 @@ def study_page_pullback_replay(study: dict[str, object]) -> str:
         f'{validation["n"]} OFF exit timestamps and IDs. Full OFF baseline: '
         f'WR {baseline["win_rate_pct"]}%, PF {baseline["profit_factor"]}, '
         f'average USD {baseline["average_pnl_usd"]}.</p></section>'
-        '<section class="report-section"><h2>Key findings</h2>'
+        + summary_zh_html(study)
+        + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
         + impact_section_html(study)
         + pullback_replay_table(result)
@@ -1220,6 +1298,7 @@ def study_page_range_profile(study: dict[str, object]) -> str:
                  f'{head["slots_consistent_and_abs_z_over_2_in_all_periods"]} of 48',
                  "sign-consistent and |z|>2 in every period")
         + "</div>"
+        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -1275,6 +1354,61 @@ def study_page_range_profile(study: dict[str, object]) -> str:
 
 
 NULL_REGISTRY = ROOT / "research/null-results/null_results.json"
+GLOSSARY = ROOT / "site/glossary.json"
+
+
+def glossary() -> list[dict[str, str]]:
+    if not GLOSSARY.is_file():
+        return []
+    try:
+        return json.loads(GLOSSARY.read_text(encoding="utf-8")).get("terms", [])
+    except json.JSONDecodeError:
+        return []
+
+
+def glossary_page(terms: list[dict[str, str]]) -> str:
+    """Bilingual vocabulary, written once for the whole site.
+
+    The pages are in English because the owner is using them to practise reading it. A
+    full Chinese translation would defeat that — given both, nobody reads the second one.
+    What actually blocks comprehension is the domain vocabulary, and that vocabulary
+    repeats: "win rate" appears 41 times across the studies, "holdout" 30. Defining each
+    once here costs a fraction of translating them in place, and leaves the English as the
+    thing being read.
+    """
+    rows = "".join(
+        f"<tr><td><strong>{html.escape(t['en'])}</strong></td>"
+        f"<td>{html.escape(t['zh'])}</td>"
+        f"<td>{html.escape(t['gloss'])}</td></tr>"
+        for t in terms
+    )
+    body = (
+        '<main class="shell report">'
+        '<section class="report-section"><h2>How to use this</h2>'
+        "<p>研究頁面是英文的，因為擁有者用它們練習閱讀。這裡不是翻譯——是把每個技術詞"
+        "定義一次，讓英文原文讀得下去。</p>"
+        "<p>The study pages stay in English. This defines the vocabulary that blocks "
+        "comprehension, once, so the English remains the thing being read.</p>"
+        "<p><strong>三個最該先看的：</strong>"
+        "<code>baseline</code>（沒有它，任何勝率都無法判讀）、"
+        "<code>resolution bound</code>（決定一個「無證據」關掉了多少門）、"
+        "<code>lookahead</code>（本站最大的假發現都來自它）。</p></section>"
+        '<section class="report-section"><h2>Terms</h2>'
+        '<div class="table-wrap"><table><thead><tr>'
+        "<th>English</th><th>中文</th><th>說明</th>"
+        f"</tr></thead><tbody>{rows}</tbody></table></div></section>"
+        '<div class="file-actions"><a href="../research/">All studies</a>'
+        '<a href="../research/null-results/">What did not work</a></div>'
+        "</main>"
+    )
+    return document(
+        "Glossary 術語表",
+        "Bilingual reference",
+        "Every technical term used across the studies, defined once in Chinese so the "
+        "English pages stay readable.",
+        body,
+        "../",
+    )
 
 VERDICT_STYLE = {
     "no_evidence": ("bounded", "warn"),
@@ -1394,7 +1528,7 @@ def null_results_page(registry: dict[str, object]) -> str:
         "describes. It is published beside this page as JSON and is the intended interface "
         "for anything automated: read it, and skip what is already closed.</p>"
         '<div class="file-actions"><a href="null_results.json">Registry JSON</a>'
-        '<a href="../">All studies</a></div></section>'
+        '<a href="../">All studies</a><a href="../../glossary/">術語表 Glossary</a></div></section>'
         "</main>"
     )
     return document(
@@ -1645,9 +1779,9 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
         'placeholder="Filter studies" aria-label="Filter"></div></div>'
         f'<main class="shell">'
-        + (f'<h2 class="section-title">Negative results</h2><div class="grid">{banner}</div>'
+        + (f'<h2 class="section-title">Start here</h2><div class="grid">{banner}</div>'
            if banner else "")
-        + f'{status_sheets_html(study_list)}</main>'
+        + f'{theme_sheets_html(study_list)}</main>'
     )
     return document(
         "Research studies",
@@ -1730,6 +1864,9 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
     registry = null_registry()
     if registry:
         generated[ROOT / "research/null-results/index.html"] = null_results_page(registry)
+    terms = glossary()
+    if terms:
+        generated[ROOT / "glossary/index.html"] = glossary_page(terms)
     if weekly:
         generated[ROOT / "xauusd/weekly/index.html"] = weekly_summary_page(
             weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,

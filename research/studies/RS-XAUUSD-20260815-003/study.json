@@ -48,6 +48,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Whether the week a CFTC report lands behaves differently from any other week.",
+  "summary_zh": "CFTC 報告公布的那一週，跟其他週有沒有不同。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

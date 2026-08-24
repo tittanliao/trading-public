@@ -42,6 +42,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "strategy_diagnostics",
+  "card_summary": "How S2 V1.9 loses, on the version that failed out-of-sample validation.",
+  "summary_zh": "S2 V1.9 怎麼輸——這個版本的樣本外驗證是失敗的，保留它是為了對照。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

@@ -14,11 +14,18 @@
   "hypothesis": "This is an exploratory, low-sample-size seasonal-pattern test, not a validated edge; the small n (7-8 trades per level) means results should be read as descriptive, not decision-grade, until a materially longer or higher-frequency dataset is available.",
   "headline": {
     "candidate_years": 13,
+    "level_0382_n": 8,
     "level_0382_win_rate_pct": 50.0,
+    "level_05_n": 8,
     "level_05_win_rate_pct": 62.5,
+    "level_0618_n": 7,
     "level_0618_win_rate_pct": 57.14
   },
-  "card_metrics": ["candidate_years", "level_0382_win_rate_pct", "level_05_win_rate_pct", "level_0618_win_rate_pct"],
+  "card_metrics": [
+    "level_0382_win_rate_pct",
+    "level_05_win_rate_pct",
+    "level_0618_win_rate_pct"
+  ],
   "findings": [
     {
       "tone": "warn",
@@ -28,20 +35,24 @@
     {
       "tone": "info",
       "title": "The 0.5 level shows the highest win rate in this small sample",
-      "detail": "n=8, 62.5% win rate, PF 3.557 — but n=8 with a 95% CI of 30.57-86.32% means this is consistent with anywhere from a coin-flip to a strong edge."
+      "detail": "n=8, 62.5% win rate, PF 3.557 -- but n=8 with a 95% CI of 30.57-86.32% means this is consistent with anywhere from a coin-flip to a strong edge."
     },
     {
       "tone": "info",
       "title": "0.382 (the shallowest, most-often-touched level) has the weakest win rate",
-      "detail": "n=8, 50.0% win rate — shallower retracements trigger more often but, in this sample, land closer to a coin flip than the deeper levels."
+      "detail": "n=8, 50.0% win rate -- shallower retracements trigger more often but, in this sample, land closer to a coin flip than the deeper levels."
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public",
-    "charts": "public"
+  "theme": "market_structure",
+  "card_summary": "The January-to-July TX rally and where its pullbacks land on a Fibonacci grid.",
+  "summary_zh": "台指期一月到七月的年度上漲，以及回檔落在費波納契格線的哪裡。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
   }
 }

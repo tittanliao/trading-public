@@ -61,6 +61,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Macro factors and GVZ thresholds, tested one at a time; nothing separates outcomes.",
+  "summary_zh": "Macro 各因子與 GVZ 門檻逐一測試，沒有任何一個能區分結果。S2 與 GVZ 的接近顯著在多重比較校正後 p=0.107。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

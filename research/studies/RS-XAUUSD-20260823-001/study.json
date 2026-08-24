@@ -99,6 +99,9 @@
     }
   ],
   "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "How the daily range fills across the Taipei clock — and why a fixed clock is the wrong axis.",
+  "summary_zh": "日內區間如何隨台北時間累積。形狀穩定但水位不穩定；而且最忙的美盤半小時是 08:30 ET，在固定台北時鐘上一年會移動兩次。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

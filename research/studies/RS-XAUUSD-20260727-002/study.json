@@ -9,11 +9,6 @@
     "version": "V3.4 and V3.9 (comparison)"
   },
   "status": "pending",
-  "superseded_by": [
-    "RS-XAUUSD-20260727-003",
-    "RS-XAUUSD-20260727-004",
-    "RS-XAUUSD-20260727-005"
-  ],
   "created_on": "2026-07-27",
   "question": "Using the same deterministic method, how does S1 AweWithBB's session/30-minute-entry-slot/Macro performance in the superseded V3.4 export compare with the current V3.9 export?",
   "hypothesis": "V3.4 and V3.9 differ in exit-rule structure (0.5% SL / TP2=2R vs V3.9's current exit rules) and in which market regime each was traded in, so raw 30-minute-slot performance is expected to differ and must not be read as a like-for-like backtest of the same rules across time.",
@@ -41,7 +36,7 @@
     {
       "tone": "warn",
       "title": "30-minute-slot deltas are noisy at this sample size",
-      "detail": "Most of the 48 slots have single-digit-to-teens counts per version; win-rate differences up to ±35 percentage points appear at low n and should not be read as a stable timing edge for either version."
+      "detail": "Most of the 48 slots have single-digit-to-teens counts per version; win-rate differences up to ±35 percentage points appear at low n (e.g. 14:30, 15:30, 16:30) and should not be read as a stable timing edge for either version."
     },
     {
       "tone": "warn",
@@ -50,15 +45,20 @@
     },
     {
       "tone": "info",
-      "title": "Method normalizes both TradingView export schemas",
-      "detail": "V3.4 exports use 'Trade #'/'Net P&L USD'/'Net P&L %'; V3.9 exports use 'Trade number'/'Net PnL USD'/'Return %'. The method maps both to one canonical schema so results are directly comparable."
+      "title": "Method now normalizes both TradingView export schemas",
+      "detail": "V3.4 exports use 'Trade #'/'Net P&L USD'/'Net P&L %'; V3.9 exports use 'Trade number'/'Net PnL USD'/'Return %'. The runner maps both to one canonical schema so results are directly comparable."
     }
   ],
   "policy_impacts": [],
-  "publication_boundary": {
-    "raw_csv": "private",
-    "conversation": "private decision record",
-    "aggregate_results": "public",
-    "method": "public"
+  "theme": "strategy_diagnostics",
+  "card_summary": "V3.4 against V3.9 by entry slot — the comparison that set the current formal version.",
+  "summary_zh": "V3.4 與 V3.9 按進場時槽逐格比較，這是決定目前正式版本的那份對照。注意兩版的出場結構不同，所以某個時槽表現較好可能來自出場而非進場。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
   }
 }

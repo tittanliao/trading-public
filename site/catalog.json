@@ -2,6 +2,12 @@
   "items": [
     {
       "kind": "report",
+      "path": "glossary/index.html",
+      "section": "research",
+      "title": "Glossary 術語表 · Trading Research"
+    },
+    {
+      "kind": "report",
       "path": "research/null-results/index.html",
       "section": "research",
       "title": "What did not work · Trading Research"
