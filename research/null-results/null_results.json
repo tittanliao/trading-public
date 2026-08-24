@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T09:53:44+08:00",
+  "generated_at": "2026-08-24T09:54:37+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -1284,7 +1284,7 @@
       "claim": "CFTC positioning — 31 weeks cannot answer it, and the publication lag says why that matters less than it looks",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": "None. 31 weekly COT reports transcribed from the owner's screenshots and verified against the official CSV (132 of 132 field-values matched). The report settles Tuesday and publishes Friday, so Wed-Fri is already history when it lands — a built-in placebo window almost no COT research has. Across 14 hypotheses the two windows correlate at 0.091 and agree in sign 7 of 14; of the five largest historical effects, two flip after publication and three shrink to zero. Nothing is resolvable: weekly return SD is 3.99% and 31 weeks resolve about 4 points, while every effect is under 2.2. The owner's producer/merchant hypothesis points the other way and the placebo explains why — hedgers short to hedge production, so their book follows the move rather than leading it. CFTC publishes ~880 weeks of history free; archiving it is the unlock and needs owner approval.",
+      "reason": "None. 31 weekly COT reports transcribed from the owner's screenshots and verified against the official CSV (132 of 132 field-values matched). The report settles Tuesday and publishes Friday, so Wed-Fri is already history when it lands — a built-in placebo window almost no COT research has. Across 14 hypotheses the two windows correlate at 0.091 and agree in sign 7 of 14; of the five largest historical effects, two flip after publication and three shrink to zero. Nothing is resolvable: weekly return SD is 3.99% and 31 weeks resolve about 4 points, while every effect is under 2.2. The owner's producer/merchant hypothesis points the other way (-0.94% vs +1.23%), far inside the noise. A hedging mechanism was asserted for the decomposition and withdrawn the same day: the correlation with the concurrent week is 0.062, and both window differences (-1.672 +/- 0.980 and -0.514 +/- 0.735) have intervals containing zero, so which window the effect lives in is itself unresolvable. CFTC publishes ~880 weeks of history free; archiving it is the unlock and needs owner approval.",
       "status": "confirmed",
       "created_on": "2026-08-24"
     }
