@@ -1,10 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24T00:20:29+08:00",
+  "generated_at": "2026-08-24T09:39:51+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
       "no_evidence": "tested and bounded: the effect is inside what the sample can resolve",
+      "resolvable": "the effect exceeds what the sample can resolve and clears its bootstrap",
       "below_cost": "real and untradeable: the effect nets out below the round-trip cost",
       "underpowered": "not testable on this data; the entry names what it would take",
       "survives_screens": "cleared every screen applied — treat as a candidate, not a rule",
@@ -14,14 +15,15 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 26,
+    "studies": 27,
     "sweep_studies": [
-      "RS-XAUUSD-20260824-001"
+      "RS-XAUUSD-20260824-001",
+      "RS-XAUUSD-20260824-002"
     ],
-    "hypotheses": 20,
+    "hypotheses": 35,
     "by_verdict": {
-      "no_evidence": 18,
-      "underpowered": 1,
+      "no_evidence": 32,
+      "underpowered": 2,
       "below_cost": 1
     },
     "by_family": {
@@ -55,6 +57,10 @@
       },
       "positioning": {
         "underpowered": 1
+      },
+      "None": {
+        "underpowered": 1,
+        "no_evidence": 14
       }
     }
   },
@@ -408,7 +414,9 @@
       "effect_net_of_cost": 0.002,
       "bootstrap_p_two_sided": 0.877,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h02_friday_strong",
@@ -427,7 +435,9 @@
       "effect_net_of_cost": 0.0032,
       "bootstrap_p_two_sided": 0.872,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h03_asia_fades_in_europe",
@@ -446,7 +456,9 @@
       "effect_net_of_cost": -0.0071,
       "bootstrap_p_two_sided": 0.675,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h04_turn_of_month",
@@ -465,7 +477,9 @@
       "effect_net_of_cost": 0.0544,
       "bootstrap_p_two_sided": 0.496,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h05_september_weak",
@@ -484,7 +498,9 @@
       "effect_net_of_cost": 0.2745,
       "bootstrap_p_two_sided": 0.001,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h06_gap_up_continues",
@@ -503,7 +519,9 @@
       "effect_net_of_cost": 0.0177,
       "bootstrap_p_two_sided": 0.812,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h07_gap_down_continues",
@@ -522,7 +540,9 @@
       "effect_net_of_cost": 0.1302,
       "bootstrap_p_two_sided": 0.656,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h08_nr4_range_expansion",
@@ -541,7 +561,9 @@
       "effect_net_of_cost": null,
       "bootstrap_p_two_sided": 0.647,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h09_inside_day_expansion",
@@ -560,7 +582,9 @@
       "effect_net_of_cost": null,
       "bootstrap_p_two_sided": 0.656,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h10_outside_day_direction",
@@ -579,7 +603,9 @@
       "effect_net_of_cost": 0.3828,
       "bootstrap_p_two_sided": 0.014,
       "sign_consistent_all_periods": true,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h11_three_up_days",
@@ -598,7 +624,9 @@
       "effect_net_of_cost": 0.0538,
       "bootstrap_p_two_sided": 0.625,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h12_three_down_days",
@@ -617,7 +645,9 @@
       "effect_net_of_cost": 0.1677,
       "bootstrap_p_two_sided": 0.539,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h13_stretched_above_ema200",
@@ -636,7 +666,9 @@
       "effect_net_of_cost": -0.0188,
       "bootstrap_p_two_sided": 0.955,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h14_volume_spike_direction",
@@ -655,7 +687,9 @@
       "effect_net_of_cost": 0.0172,
       "bootstrap_p_two_sided": 0.374,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h15_opening_range_breakout",
@@ -674,7 +708,9 @@
       "effect_net_of_cost": -0.0068,
       "bootstrap_p_two_sided": 0.982,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h16_strong_weekly_close",
@@ -693,7 +729,9 @@
       "effect_net_of_cost": 0.2919,
       "bootstrap_p_two_sided": 0.37,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h17_dxy_lead_gold",
@@ -712,7 +750,9 @@
       "effect_net_of_cost": 0.0044,
       "bootstrap_p_two_sided": 0.474,
       "sign_consistent_all_periods": true,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h18_cftc_crowding",
@@ -731,7 +771,9 @@
       "effect_net_of_cost": null,
       "bootstrap_p_two_sided": null,
       "sign_consistent_all_periods": null,
-      "data_gap": "The repository holds 12 weekly CFTC rows (2026-06-02 onward) because the weekly fetcher keeps a rolling window, not a history. This hypothesis needs years. CFTC publishes the full Commitments of Traders history free; archiving it is a prerequisite for any positioning hypothesis, and it is the single cheapest way to open a family this dataset currently cannot test."
+      "data_gap": "The repository holds 12 weekly CFTC rows (2026-06-02 onward) because the weekly fetcher keeps a rolling window, not a history. This hypothesis needs years. CFTC publishes the full Commitments of Traders history free; archiving it is a prerequisite for any positioning hypothesis, and it is the single cheapest way to open a family this dataset currently cannot test.",
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h19_us_release_slot_direction",
@@ -750,7 +792,9 @@
       "effect_net_of_cost": -0.0026,
       "bootstrap_p_two_sided": 0.216,
       "sign_consistent_all_periods": false,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001:h20_dead_zone_drift",
@@ -769,7 +813,9 @@
       "effect_net_of_cost": 0.0022,
       "bootstrap_p_two_sided": 0.004,
       "sign_consistent_all_periods": true,
-      "data_gap": null
+      "data_gap": null,
+      "windows_evaluated": null,
+      "placebo": null
     },
     {
       "entry_id": "RS-XAUUSD-20260824-001",
@@ -781,6 +827,464 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. Twenty hypotheses — six of them published claims about gold specified by others — through one harness: 18 no evidence, 1 untestable, 1 real but below cost, 0 survivors, family permutation p=0.928. Two method results carry further than the twenty answers. A lookahead bug produced the study's strongest number (+1.5704% at p=0.000) by comparing a session's high to its own opening range and predicting that same session; corrected, the effect is -0.0132% and the family p moves from 0.0675 to 0.928. And a cost screen must compare the NET effect to the resolution bound, not the gross effect to cost: the dead-zone drift passes the soft test and nets +0.0022% against a 0.0147% bound. Primary output is research/null_results.json, which puts every closed search space in one queryable shape with its resolution bound attached.",
+      "status": "confirmed",
+      "created_on": "2026-08-24"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h01_retail_long_mm_short_literal",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "owner",
+      "claim": "Retail adds length while managed money cuts it — the owner's stated combination.",
+      "null_tested_against": null,
+      "verdict": "underpowered",
+      "reason": "group sizes 2/29; need 6 each",
+      "n_condition": 2,
+      "effect": null,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": null,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": null,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": null
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h02_retail_vs_mm_divergence",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "owner_reformulated",
+      "claim": "Top-quartile divergence between retail and managed-money net positioning (retail crowded long relative to the funds) precedes weakness.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.495% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.495,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.6812,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 1.447,
+        "actionable_effect_pct": -0.495,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h03_producer_short_falls",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "owner",
+      "claim": "Producer/merchant shorts fall — less downside hedging — so the next week rises.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.514% vs a +2.090% resolution bound",
+      "n_condition": 18,
+      "effect": -0.514,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.09,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.293,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -1.672,
+        "actionable_effect_pct": -0.514,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h04_producer_short_falls_hard",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "owner_sharpened",
+      "claim": "A top-quartile *reduction* in producer/merchant shorts precedes a rise.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect +0.418% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": 0.418,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.8191,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -0.373,
+        "actionable_effect_pct": 0.418,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h05_producer_short_rises",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "study",
+      "claim": "Producer/merchant shorts rise — more hedging — so the next week falls.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect +0.514% vs a +2.090% resolution bound",
+      "n_condition": 13,
+      "effect": 0.514,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.09,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.2815,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 1.672,
+        "actionable_effect_pct": 0.514,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h06_retail_crowded_long",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "Retail net length in its top quartile precedes weakness.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.409% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.409,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.7226,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -0.447,
+        "actionable_effect_pct": -0.409,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h07_retail_capitulates",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "A bottom-quartile week for retail net positioning precedes strength.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.978% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.978,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.2525,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 1.227,
+        "actionable_effect_pct": -0.978,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h08_mm_crowded_long",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "Managed-money long/short ratio in its top quartile precedes weakness.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.373% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.373,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.6892,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 1.226,
+        "actionable_effect_pct": -0.373,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h09_mm_builds_length",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "A top-quartile weekly build in managed-money net length precedes weakness.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.297% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.297,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.5379,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 0.041,
+        "actionable_effect_pct": -0.297,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h10_oi_up_price_up",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "Open interest and price rising together — new money confirming the trend.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.481% vs a +2.272% resolution bound",
+      "n_condition": 9,
+      "effect": -0.481,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.272,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.3757,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -0.021,
+        "actionable_effect_pct": -0.481,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h11_oi_up_price_down",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "external_claim",
+      "claim": "Open interest rising while price falls — new shorts, or distribution.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect +0.025% vs a +2.206% resolution bound",
+      "n_condition": 10,
+      "effect": 0.025,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.206,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.8924,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 1.409,
+        "actionable_effect_pct": 0.025,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h12_mm_concentration",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "study",
+      "claim": "Managed-money length concentrated in fewer books precedes a larger move.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.562% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.562,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.5436,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -0.034,
+        "actionable_effect_pct": -0.562,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h13_all_speculators_agree",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "study",
+      "claim": "Retail, managed money and other reportables all move the same way in one week.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.329% vs a +2.117% resolution bound",
+      "n_condition": 12,
+      "effect": -0.329,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.117,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.4289,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": -0.519,
+        "actionable_effect_pct": -0.329,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h14_swap_dealers_add_shorts",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "study",
+      "claim": "Swap dealers adding shorts — the mirror of speculative length — precedes weakness.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -0.871% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -0.871,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.1547,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 0.107,
+        "actionable_effect_pct": -0.871,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002:h15_mm_net_level_high",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "hypothesis",
+      "family": null,
+      "origin": "study",
+      "claim": "The LEVEL of managed-money net length, top quartile.",
+      "null_tested_against": null,
+      "verdict": "no_evidence",
+      "reason": "effect -1.425% vs a +2.357% resolution bound",
+      "n_condition": 8,
+      "effect": -1.425,
+      "unit": "% forward return, post-publication window",
+      "smallest_resolvable_effect": 2.357,
+      "effect_net_of_cost": null,
+      "bootstrap_p_two_sided": 0.0117,
+      "sign_consistent_all_periods": null,
+      "data_gap": null,
+      "windows_evaluated": [
+        "fwd_wed_fri_pct",
+        "fwd_mon_tue_pct",
+        "fwd_week_pct"
+      ],
+      "placebo": {
+        "already_history_effect_pct": 0.588,
+        "actionable_effect_pct": -1.425,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260824-002",
+      "study_id": "RS-XAUUSD-20260824-002",
+      "kind": "study",
+      "family": "none — CFTC positioning structure",
+      "origin": "programme",
+      "claim": "CFTC positioning — 31 weeks cannot answer it, and the publication lag says why that matters less than it looks",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. 31 weekly COT reports transcribed from the owner's screenshots and verified against the official CSV (132 of 132 field-values matched). The report settles Tuesday and publishes Friday, so Wed-Fri is already history when it lands — a built-in placebo window almost no COT research has. Across 14 hypotheses the two windows correlate at 0.091 and agree in sign 7 of 14; of the five largest historical effects, two flip after publication and three shrink to zero. Nothing is resolvable: weekly return SD is 3.99% and 31 weeks resolve about 4 points, while every effect is under 2.2. The owner's producer/merchant hypothesis points the other way and the placebo explains why — hedgers short to hedge production, so their book follows the move rather than leading it. CFTC publishes ~880 weeks of history free; archiving it is the unlock and needs owner approval.",
       "status": "confirmed",
       "created_on": "2026-08-24"
     }
