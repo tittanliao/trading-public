@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260818-001",
+  "revision": 3,
+  "title": "S1 V3.9 / S2 V3.2 — trade-path structure: exit-side tuning, and one-bar confirmation entry",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
+  "status": "confirmed",
+  "created_on": "2026-08-18",
+  "question": "Every prior S1/S2 study conditioned on state outside the trade and found noise. Does the trade's own reconstructed path carry anything the strategy is not already using — can a take-profit, a tighter stop, an underwater time-exit, a trailing stop or a breakeven move, or a one-bar entry confirmation improve either strategy — and if confirmation selects better trades, does sizing express that better than filtering?",
+  "hypothesis": "Expected mostly negative on the exit side, because a take-profit buys win rate by construction and must be judged on return instead. The one genuine candidate was confirmation entry, whose viability was predicted in advance to depend on the chase cost as a share of the strategy's typical winning move — small for S2's long holds, large for S1's short ones.",
+  "headline": {
+    "s1_trades": 472,
+    "s2_trades": 167,
+    "exit_side_variants_tested": 75,
+    "exit_side_variants_improving_return": 0,
+    "s1_max_purchasable_win_rate_pct": 88.56,
+    "s2_max_purchasable_win_rate_pct": 95.81,
+    "largest_predictive_split_pp": 33.19,
+    "s2_confirmation_permutation_p": 0.0034,
+    "s1_confirmation_permutation_p": 0.4873,
+    "s2_confirmed_win_rate_pct": 62.64,
+    "s2_confirmed_avg_r_improvement_pct": 41.3,
+    "s1_confirmed_avg_r_improvement_pct": -20.0,
+    "s2_chase_share_of_winner_move_pct": 7.4,
+    "s1_chase_share_of_winner_move_pct": 20.3,
+    "s2_trade_count_share_pct": 54.5,
+    "s2_total_r_share_pct": 77.0,
+    "candidates_for_prospective_test": 1,
+    "exit_side_families_tested": 5,
+    "s2_share_of_baseline_at_equal_volatility_pct": 115.4,
+    "s1_share_of_baseline_at_equal_volatility_pct": 69.9,
+    "risk_alignments_compared": 4,
+    "scale_in_variants_improving": 0
+  },
+  "card_metrics": [
+    "s2_confirmation_permutation_p",
+    "s2_confirmed_avg_r_improvement_pct",
+    "exit_side_variants_improving_return"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Win rate is purchasable and worth nothing on its own",
+      "detail": "A full-size take-profit lifts S1 to 88.56% and S2 to 95.81%, because a take-profit can never turn a winner into a loser. Not one level in either strategy improves total return: S1 falls from 88.62% to between +14% and +36%. Any request to raise win rate has to be answered with what is being paid for it."
+    },
+    {
+      "tone": "info",
+      "title": "Five exit families tested, none improves return",
+      "detail": "75 exit-side variants per strategy across take-profit, stop tightening, time exit, trailing stop and breakeven move. Not one improves total return in either strategy. The best trailing stop costs S1 5.39% and S2 36.28% of total return; moving the stop to entry is worse still, costing S2 up to 59% at a 0.2% arm. Levels that appear positive sit at or beyond the existing stop and are the identity case."
+    },
+    {
+      "tone": "warn",
+      "title": "Revision 1 called the exit side closed before testing this family",
+      "detail": "Revision 1 tested a fixed take-profit, a tighter fixed stop and a time exit, and concluded the exit side was closed. None of those three lets a winner keep running while still cutting a reversal, which is the whole point of a trailing stop, so the claim was broader than the evidence. Revision 2 adds 30 trailing and breakeven variants per strategy. The conclusion is unchanged and now actually supported."
+    },
+    {
+      "tone": "warn",
+      "title": "The largest effect in the study is real and not tradeable",
+      "detail": "At one bar after entry, S1 trades in profit finish at 71.26% against 38.07% for those underwater — a 33.19pp gap on 472 trades, well past its resolution limit, and the underwater cohort has a profit factor below 1. Leaving those trades early still loses money at 22 of 24 settings: the recoveries forfeited exceed the losses saved."
+    },
+    {
+      "tone": "good",
+      "title": "S2 one-bar confirmation entry is the one candidate that survives",
+      "detail": "Waiting one bar and entering only if it closed in profit takes 91 of 167 S2 trades at 62.64% win rate and PF 2.971, against 47.9% and 2.062. Randomly selecting the same number of delayed trades reaches this mean 0.0023 of the time. Delay without selection changes nothing (0.5575% against 0.5881%), so the filter is doing the work."
+    },
+    {
+      "tone": "info",
+      "title": "The same rule fails on S1, for a reason that was predictable in advance",
+      "detail": "The chase costs almost the same in both (0.161% for S1, 0.177% for S2) but consumes 20.3% of S1's median winning move against 7.4% of S2's. S1's per-trade result falls and its permutation test is 0.4814. A filter is worth its delay only when the strategy holds long enough to absorb it."
+    },
+    {
+      "tone": "warn",
+      "title": "How you hold risk equal decides whether the S2 filter is better",
+      "detail": "Revision 2 reported the filter as 73.3% of baseline total R. That was one convention — fixed risk per trade — which charges the filter for taking fewer trades and gives it no credit for the risk it never deploys. Four alignments span 73.3% to 196.3%. At equal total volatility over the period — the standard risk-adjusted comparison and the one this study reads — it is 115.4%. A real but modest improvement, not the near-doubling the drawdown alignment suggests. S1 is 69.9% and worse under every convention."
+    },
+    {
+      "tone": "warn",
+      "title": "The most flattering number in the study is the least trustworthy",
+      "detail": "Matching max drawdown makes the S2 filter 196.3% of baseline, because its worst run was 5.52R against 14.79R. Max drawdown is one realization from one ordering: bootstrapping the implied scaling factor gives a 90% interval of 0.89x to 3.63x, so the same comparison supports anything from 65.1% to 266.4%. It cannot tell an improvement from a loss and is stored with that interval attached."
+    },
+    {
+      "tone": "info",
+      "title": "Sizing up the confirmed trades instead of filtering does not work",
+      "detail": "Confirmation is not known until a bar after entry, so it cannot set size at entry. The implementable version is to enter every signal and add to the confirmed ones. Six add factors from 0.25x to 2.0x per strategy, none improves total R in either: the added unit enters at a worse price against the same stop, so its risk denominator grows faster than the remaining move."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "152 exit variants across five families. Not one improves total return, and win rate turns out to be purchasable.",
+  "summary_zh": "五個家族、152 種出場變體。沒有一種提升總報酬。最重要的發現是勝率買得到——停利可以把 S1 拉到 88.6%，代價是總報酬從 +88.6% 掉到 +14~36%。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

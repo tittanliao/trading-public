@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260819-001",
+  "revision": 3,
+  "title": "XAUUSD 30-minute pattern mining — three artefacts and one regularity",
+  "market": "XAUUSD",
+  "strategy": "none — bar-level pattern mining, independent of S1 and S2",
+  "status": "confirmed",
+  "created_on": "2026-08-19",
+  "question": "The question was repeatable regularities in the 30-minute data and accepted overfitting. Mining broadly — including multi-bar discretised sequences under two encodings — which apparent patterns are artefacts of drift, arcsine geometry, selection or enumeration, and does anything survive a null built for it?",
+  "hypothesis": "Most of it artefact. The interesting question was not whether patterns would appear — they always do — but which null each family needed before its result meant anything.",
+  "headline": {
+    "slot_cells_scored": 230,
+    "slot_cells_significant": 13,
+    "slot_cells_expected_by_chance": 12,
+    "overfit_basket_train_sharpe": 3.07,
+    "overfit_basket_valid_sharpe": 1.38,
+    "overfit_basket_holdout_sharpe": -2.12,
+    "candlestick_t_ignoring_drift": 5.88,
+    "candlestick_t_after_drift_removed": 1.35,
+    "round_number_pooled_p": 0.1913,
+    "families_tested": 5,
+    "families_surviving": 1,
+    "hours_extremes_cluster": [
+      9,
+      21,
+      22,
+      23
+    ],
+    "hours_extremes_avoid": [
+      4
+    ],
+    "extreme_shape_stability_low_train_vs_valid": 0.763,
+    "sequence_settings_tested": 12,
+    "sequence_permutation_p_min": 0.236,
+    "sequence_permutation_p_max": 0.99,
+    "sequence_settings_below_null_median": 7
+  },
+  "card_metrics": [
+    "families_surviving",
+    "candlestick_t_after_drift_removed",
+    "overfit_basket_holdout_sharpe"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The 30-minute drift makes every candlestick pattern look profitable",
+      "detail": "At a 16-bar horizon, scored against zero, all twelve classic patterns return between +0.03% and +0.08% with t-statistics up to 5.88. The market's own baseline over the same window is +0.0465% on train. Subtracting it drops the largest excess t to 1.35. Every one of those patterns was measuring the rise, and any pattern study that scores against zero on a trending instrument will report the same false result."
+    },
+    {
+      "tone": "warn",
+      "title": "The weekly slot matrix is a noise field, and its basket is a demonstration",
+      "detail": "Of 230 half-hour-of-week cells, 13 reach |t|>2 against 12 expected by chance, and 64 are sign-consistent across all three periods against 57 expected. Building the basket an overfitter would build from the strongest five cells gives an annualised Sharpe of 3.07 on train, 1.38 on validation and -2.12 on holdout. It is kept in the output because the collapse is the useful part."
+    },
+    {
+      "tone": "info",
+      "title": "Round numbers are sign-consistent and fail their own mechanism test",
+      "detail": "Price within $10 of a $100 level outperforms in all three periods, which reads as replication. Block-bootstrapped it never reaches significance and pools to p=0.1913. The decisive evidence is elsewhere: the $50 and $25 levels show nothing, and order clustering that produced a $100 effect would produce weaker versions at the finer levels. Sign consistency without a mechanism is what noise looks like."
+    },
+    {
+      "tone": "good",
+      "title": "Daily extremes cluster at 09:00 and 22:00-23:00 far beyond a random walk",
+      "detail": "Compared against a null that shuffles each day's own bar-to-bar changes — preserving that day's volatility and length exactly — highs and lows both form more often than chance at hours 9, 21, 22, 23 Taipei and less often at hour 4. At 22:00 the high excess is [3.98, 1.46, 2.95] across the three periods. Magnitudes hold, not just signs."
+    },
+    {
+      "tone": "good",
+      "title": "The arcsine law is why the raw distribution could not be used",
+      "detail": "A random walk places its extremes at the start and end of any window, so the raw hourly distribution of daily highs and lows shows a pronounced U shape whether or not the market has structure. Reading it directly would have produced a confident finding about the 07:00 day boundary that is pure geometry. The excess over the shuffled null is what leaves the volatility profile visible underneath."
+    },
+    {
+      "tone": "warn",
+      "title": "The surviving regularity is about timing, never direction",
+      "detail": "It says when the day's extreme is likely to form, not which way price will go. Hour 04:00 shows a high excess of about -4.9, -4.8 and -5.3 in the three periods — nearly the same number three times — which means a new daily extreme is unlikely to be set there. That is useful for placing an exit or waiting for a better price, and useless as a directional signal."
+    },
+    {
+      "tone": "info",
+      "title": "Multi-bar sequences are less extreme than shuffling produces",
+      "detail": "Two encodings — close-to-close move in ATR units, and where the close sat inside its own bar — enumerated at lengths 2 to 4 against 4 and 8 bar horizons, 12 settings in all. Family permutation p runs from 0.236 to 0.99, and in 7 of 12 settings the observed largest |t| is *below* the null median. Enumerating every sequence and reporting the strongest finds less than a shuffle of the same returns typically finds."
+    },
+    {
+      "tone": "warn",
+      "title": "A nested neighbourhood looked like a real effect and was not",
+      "detail": "uU, dU, udU and uudU were all positive in all three periods and strengthened with specificity — +0.005% to +0.079% on train, rising to +0.194% on holdout for the longest. That nesting is what a real effect looks like and a single cell is not. The test that settled it was not significance: comparing the pattern against a large bar with no compression precondition shows the precondition adds essentially nothing (0.0184 against 0.0187 on holdout), the excess is at or below a 0.02% round trip, and the short side changes sign between periods."
+    },
+    {
+      "tone": "warn",
+      "title": "The close-position candidate had a story and failed its mirror",
+      "detail": "MTTT and TTTL were negative in all three periods with growing magnitude and shared a coherent reading: repeated closes at the top of the bar, then underperformance. If that is exhaustion it must be symmetric, so repeated closes at the bottom must outperform. In 6 settings the mirror holds in 0. At the one setting whose top side is consistent, the bottom side is -0.0274, 0.0473 and -0.0728 — negative in two periods of three, the wrong direction."
+    },
+    {
+      "tone": "good",
+      "title": "Two screens caught what sign-consistency let through",
+      "detail": "Both sequence candidates passed the naive test of holding their sign in all three periods, and both were killed by a check that test cannot perform. The move candidate died to an ablation — remove the supposed precondition and the effect is unchanged. The close-position candidate died to its mirror. Neither check is statistical; both ask whether the claimed mechanism produces the side effects it would have to produce."
+    },
+    {
+      "tone": "warn",
+      "title": "Revision 3 corrects a directional sentence this study's own verdict contradicted",
+      "detail": "impact.md stated that the day's low most often forms in the Asian morning and the high at the New York session. The surviving result is explicitly non-directional — under the shuffled null both extremes cluster at the same hours and both avoid 04:00 — and the raw frequencies do not carry the claim either: the low leads in 07:00-09:00 by 30.4% to 22.2%, but the high leads in 21:00-23:00 by only 2.1 points, and P(low before high) is 54.9/56.7/54.9% in a market that rose 112%. That last figure is drift, not structure. The sentence was written into a live operational summary and read back as a trading direction before it was caught; a non-directional finding has to be stated in a form that cannot be read directionally."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Pattern mining: three families that look spectacular and are artefacts, and one regularity that survives.",
+  "summary_zh": "四個形態家族：K 棒形態、週內時槽、整數關卡、多根序列。三個是假象，各自以不同方式失敗。唯一存活的是日內極值形成時間，而且它完全不講方向。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

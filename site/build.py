@@ -1223,7 +1223,7 @@ def study_page_context_program(study: dict[str, object]) -> str:
     elif "by_factor" in first:
         tables.extend(macro_attribution_tables(strategies))
     else:
-        raise ValueError(f'{study["id"]}: unknown multi-strategy context shape')
+        return study_page_generic(study)
 
     body = (
         '<main class="shell report">'
@@ -2083,6 +2083,124 @@ def study_page_robustness(study: dict[str, object]) -> str:
     )
 
 
+def render_value(value: object, depth: int = 0) -> str:
+    """Render an arbitrary results payload as readable HTML.
+
+    A list of flat dicts sharing keys becomes a table; a dict becomes a definition list;
+    anything else becomes text. Recursion is capped because a deeply nested block is a sign
+    the study deserves its own renderer, not a deeper generic one.
+    """
+    if value is None:
+        return "<em>—</em>"
+    if isinstance(value, bool):
+        return "<code>true</code>" if value else "<code>false</code>"
+    if isinstance(value, (int, float)):
+        return f'<span class="num">{html.escape(str(value))}</span>'
+    if isinstance(value, str):
+        return html.escape(value)
+    if isinstance(value, list):
+        if not value:
+            return "<em>none</em>"
+        if all(isinstance(item, dict) for item in value) and depth < 3:
+            columns: list[str] = []
+            for item in value:
+                for key in item:
+                    if key not in columns:
+                        columns.append(key)
+            if len(columns) <= 12:
+                head = "".join(f"<th>{html.escape(str(c))}</th>" for c in columns)
+                rows = "".join(
+                    "<tr>" + "".join(
+                        f"<td>{render_value(item.get(c), depth + 1)}</td>" for c in columns
+                    ) + "</tr>"
+                    for item in value
+                )
+                return (f'<div class="table-wrap"><table><thead><tr>{head}</tr></thead>'
+                        f"<tbody>{rows}</tbody></table></div>")
+        return ("<ul class=\"impact-list\">"
+                + "".join(f"<li>{render_value(item, depth + 1)}</li>" for item in value)
+                + "</ul>")
+    if isinstance(value, dict):
+        if depth >= 4:
+            return f"<code>{html.escape(json.dumps(value, ensure_ascii=False)[:400])}</code>"
+        return ('<dl class="generic-block">' + "".join(
+            f"<dt>{html.escape(str(key).replace('_', ' '))}</dt>"
+            f"<dd>{render_value(item, depth + 1)}</dd>"
+            for key, item in value.items()
+        ) + "</dl>")
+    return html.escape(str(value))
+
+
+# Keys every results.json carries for bookkeeping; they belong in the method section rather
+# than as sections of their own.
+GENERIC_SKIP = {
+    "schema_version", "study_id", "generated_at", "market", "strategy", "method",
+    "limitations", "coverage", "title",
+}
+
+
+def study_page_generic(study: dict[str, object]) -> str:
+    """The fallback every study shape lands on when it has no bespoke renderer.
+
+    This exists because the dispatcher used to raise on an unrecognised shape, which meant
+    a new kind of study could not be published until somebody wrote a page for it. Ten
+    confirmed studies sat unpublished behind that, including the one the signal playbook
+    cites. A plainer page beats an unpublishable one.
+    """
+    result = study["_result"]
+    head = study.get("headline") or {}
+
+    finding_html = "".join(
+        f'<article class="insight {html.escape(item["tone"])}">'
+        f'<strong>{html.escape(item["title"])}</strong>'
+        f'<p>{html.escape(item["detail"])}</p></article>'
+        for item in (study.get("findings") or [])
+        if isinstance(item, dict)
+    )
+    metrics = "".join(
+        f"<span><strong>{html.escape(str(head[key]))}</strong> "
+        f"{html.escape(str(key).replace('_', ' '))}</span>"
+        for key in (study.get("card_metrics") or [])
+        if key in head
+    )
+    sections = "".join(
+        f'<section class="report-section"><h2>'
+        f"{html.escape(str(key).replace('_', ' '))}</h2>{render_value(value)}</section>"
+        for key, value in result.items()
+        if key not in GENERIC_SKIP
+    )
+    coverage = (
+        f'<section class="report-section"><h2>Coverage</h2>'
+        f'{render_value(result["coverage"])}</section>' if "coverage" in result else ""
+    )
+
+    body = (
+        '<main class="shell">'
+        '<section class="report-section"><h2>What was measured</h2>'
+        f'<p>{html.escape(str(study.get("question") or ""))}</p>'
+        + (f'<div class="mini-metrics">{metrics}</div>' if metrics else "")
+        + "</section>"
+        + (f'<section class="report-section"><h2>Findings</h2>{finding_html}</section>'
+           if finding_html else "")
+        + coverage
+        + sections
+        + ('<section class="report-section"><h2>Limitations</h2>'
+           f'{render_value(result["limitations"])}</section>' if "limitations" in result else "")
+        + ('<section class="report-section"><h2>Method</h2>'
+           f'{render_value(result["method"])}</section>' if "method" in result else "")
+        + '<section class="report-section"><h2>Files</h2>'
+          '<div class="file-actions"><a href="results.json">results.json</a>'
+          '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
+          '<a href="../../null-results/">All null results</a>'
+          '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        "</main>"
+    )
+    return document(
+        str(study["title"]), "Study",
+        str(study.get("card_summary") or ""), body, "../../../",
+    )
+
+
 def study_page(study: dict[str, object]) -> str:
     result = study["_result"]
     if "versions" in result:
@@ -2099,19 +2217,18 @@ def study_page(study: dict[str, object]) -> str:
         return study_page_pullback_replay(study)
     if "strategies" in result:
         return study_page_context_program(study)
-    if "families" in result:
+    if isinstance(result.get("families"), dict) and "observed_profile" in result["families"]:
         return study_page_range_profile(study)
-    if "hypotheses" in result:
+    if "hypotheses" in result and "consensus_analysis" in result:
         return study_page_hypothesis_sweep(study)
     if "primary" in result and "secondary" in result:
         return study_page_preregistered(study)
     if "variants" in result and "zone_agreement" in result:
         return study_page_robustness(study)
-    raise ValueError(
-        f'{study["id"]}: results.json matches none of the known report shapes '
-        '("versions", "baseline_diff", "fail_pattern", "by_month", "by_level", '
-        '"families", "hypotheses")'
-    )
+    # No bespoke renderer: fall back rather than refuse. Raising here meant a study could
+    # not be published until someone wrote a page for its shape, and ten confirmed studies
+    # accumulated behind that — one of them the study the signal playbook cites.
+    return study_page_generic(study)
 
 
 STATUS_SHEET_ORDER = ["confirmed", "progress", "pending"]

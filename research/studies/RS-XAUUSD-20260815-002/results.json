@@ -1039,6 +1039,6 @@
     "Daily context is associative, not causal.",
     "D-1/D-2 sequence and post-signal interaction create low-n cells, especially for S2 V3.2.",
     "The +24h availability rule is deliberately conservative and avoids using an unfinished daily candle.",
-    "No daily-context result changes a live signal or formal strategy rule without a separate owner adoption decision."
+    "No daily-context result changes a live signal or formal strategy rule without a separate adoption decision."
   ]
 }

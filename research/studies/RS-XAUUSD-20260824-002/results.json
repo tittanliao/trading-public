@@ -1,0 +1,816 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260824-002",
+  "generated_at": "2026-08-24T09:36:46+08:00",
+  "strategy": "none — CFTC positioning structure",
+  "method": {
+    "series": "cftc_weekly_series.csv",
+    "weeks": 31,
+    "from": "2026-01-06",
+    "to": "2026-08-18",
+    "publication_lag": "A report dated Tuesday is published Friday afternoon US time. Wednesday through Friday have already traded when it lands, which is what makes fwd_wed_fri a placebo window rather than a forecast.",
+    "bootstrap": 4000,
+    "block_weeks": 4,
+    "seed": 20260824,
+    "min_group": 6
+  },
+  "limitations": [
+    "Thirty-one weeks. Almost every result here is a bound, not a finding, and the bounds are wide.",
+    "Transcribed from the source screenshots; all 132 field-values across the 12 weeks that overlap the official CSV matched exactly, and the series build fails if that ever stops being true.",
+    "Two weeks are missing from the screenshot archive (2026-04-14 and 2026-05-05), so week-over-week changes spanning those gaps are computed across a two-week interval rather than one.",
+    "Returns use the 07:00-Taipei session close, so a 'Tuesday close' is the close of the session that opened Tuesday morning Taipei time.",
+    "No result changes formal S1 or S2 logic, live risk, or an entry checklist."
+  ],
+  "market": "XAUUSD",
+  "hypotheses": [
+    {
+      "id": "h01_retail_long_mm_short_literal",
+      "claim": "Retail adds length while managed money cuts it — the stated combination.",
+      "origin": "stated hypothesis",
+      "condition_weeks": 2,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 2,
+          "n_other": 29,
+          "verdict": "underpowered",
+          "reason": "group sizes 2/29; need 6 each",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 2,
+          "n_other": 29,
+          "verdict": "underpowered",
+          "reason": "group sizes 2/29; need 6 each",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 2,
+          "n_other": 29,
+          "verdict": "underpowered",
+          "reason": "group sizes 2/29; need 6 each",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "note": "Fires twice in 31 weeks. Kept to record that the literal form is untestable here, not to claim a result; h02 is the same idea made continuous."
+    },
+    {
+      "id": "h02_retail_vs_mm_divergence",
+      "claim": "Top-quartile divergence between retail and managed-money net positioning (retail crowded long relative to the funds) precedes weakness.",
+      "origin": "reformulated",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.891,
+          "mean_other_pct": -0.557,
+          "effect_pct": 1.447,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.41,
+          "bootstrap_p_two_sided": 0.0325,
+          "verdict": "no_evidence",
+          "reason": "effect +1.447% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.224,
+          "mean_other_pct": 0.27,
+          "effect_pct": -0.495,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.21,
+          "bootstrap_p_two_sided": 0.6812,
+          "verdict": "no_evidence",
+          "reason": "effect -0.495% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.66,
+          "mean_other_pct": -0.272,
+          "effect_pct": 0.932,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.2,
+          "bootstrap_p_two_sided": 0.113,
+          "verdict": "no_evidence",
+          "reason": "effect +0.932% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 1.447,
+        "actionable_effect_pct": -0.495,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h03_producer_short_falls",
+      "claim": "Producer/merchant shorts fall — less downside hedging — so the next week rises.",
+      "origin": "stated hypothesis",
+      "condition_weeks": 18,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 18,
+          "n_other": 13,
+          "mean_condition_pct": -0.884,
+          "mean_other_pct": 0.788,
+          "effect_pct": -1.672,
+          "smallest_resolvable_pct": 3.156,
+          "effect_over_bound": 0.53,
+          "bootstrap_p_two_sided": 0.004,
+          "verdict": "no_evidence",
+          "reason": "effect -1.672% vs a +3.156% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 18,
+          "n_other": 13,
+          "mean_condition_pct": -0.073,
+          "mean_other_pct": 0.441,
+          "effect_pct": -0.514,
+          "smallest_resolvable_pct": 2.09,
+          "effect_over_bound": 0.25,
+          "bootstrap_p_two_sided": 0.293,
+          "verdict": "no_evidence",
+          "reason": "effect -0.514% vs a +2.090% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 18,
+          "n_other": 13,
+          "mean_condition_pct": -0.942,
+          "mean_other_pct": 1.229,
+          "effect_pct": -2.172,
+          "smallest_resolvable_pct": 4.044,
+          "effect_over_bound": 0.54,
+          "bootstrap_p_two_sided": 0.017,
+          "verdict": "no_evidence",
+          "reason": "effect -2.172% vs a +4.044% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": -1.672,
+        "actionable_effect_pct": -0.514,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h04_producer_short_falls_hard",
+      "claim": "A top-quartile *reduction* in producer/merchant shorts precedes a rise.",
+      "origin": "sharpened",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.46,
+          "mean_other_pct": -0.087,
+          "effect_pct": -0.373,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.1,
+          "bootstrap_p_two_sided": 0.5822,
+          "verdict": "no_evidence",
+          "reason": "effect -0.373% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.453,
+          "mean_other_pct": 0.035,
+          "effect_pct": 0.418,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.18,
+          "bootstrap_p_two_sided": 0.8191,
+          "verdict": "no_evidence",
+          "reason": "effect +0.418% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.018,
+          "mean_other_pct": -0.049,
+          "effect_pct": 0.067,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.01,
+          "bootstrap_p_two_sided": 0.8743,
+          "verdict": "no_evidence",
+          "reason": "effect +0.067% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": -0.373,
+        "actionable_effect_pct": 0.418,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "id": "h05_producer_short_rises",
+      "claim": "Producer/merchant shorts rise — more hedging — so the next week falls.",
+      "origin": "study",
+      "condition_weeks": 13,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 13,
+          "n_other": 18,
+          "mean_condition_pct": 0.788,
+          "mean_other_pct": -0.884,
+          "effect_pct": 1.672,
+          "smallest_resolvable_pct": 3.156,
+          "effect_over_bound": 0.53,
+          "bootstrap_p_two_sided": 0.004,
+          "verdict": "no_evidence",
+          "reason": "effect +1.672% vs a +3.156% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 13,
+          "n_other": 18,
+          "mean_condition_pct": 0.441,
+          "mean_other_pct": -0.073,
+          "effect_pct": 0.514,
+          "smallest_resolvable_pct": 2.09,
+          "effect_over_bound": 0.25,
+          "bootstrap_p_two_sided": 0.2815,
+          "verdict": "no_evidence",
+          "reason": "effect +0.514% vs a +2.090% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 13,
+          "n_other": 18,
+          "mean_condition_pct": 1.229,
+          "mean_other_pct": -0.942,
+          "effect_pct": 2.172,
+          "smallest_resolvable_pct": 4.044,
+          "effect_over_bound": 0.54,
+          "bootstrap_p_two_sided": 0.0125,
+          "verdict": "no_evidence",
+          "reason": "effect +2.172% vs a +4.044% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 1.672,
+        "actionable_effect_pct": 0.514,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h06_retail_crowded_long",
+      "claim": "Retail net length in its top quartile precedes weakness.",
+      "origin": "external_claim",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.515,
+          "mean_other_pct": -0.068,
+          "effect_pct": -0.447,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.13,
+          "bootstrap_p_two_sided": 0.8735,
+          "verdict": "no_evidence",
+          "reason": "effect -0.447% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.16,
+          "mean_other_pct": 0.248,
+          "effect_pct": -0.409,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.17,
+          "bootstrap_p_two_sided": 0.7226,
+          "verdict": "no_evidence",
+          "reason": "effect -0.409% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.682,
+          "mean_other_pct": 0.195,
+          "effect_pct": -0.876,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.19,
+          "bootstrap_p_two_sided": 0.7171,
+          "verdict": "no_evidence",
+          "reason": "effect -0.876% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": -0.447,
+        "actionable_effect_pct": -0.409,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h07_retail_capitulates",
+      "claim": "A bottom-quartile week for retail net positioning precedes strength.",
+      "origin": "external_claim",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.727,
+          "mean_other_pct": -0.5,
+          "effect_pct": 1.227,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.34,
+          "bootstrap_p_two_sided": 0.282,
+          "verdict": "no_evidence",
+          "reason": "effect +1.227% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.583,
+          "mean_other_pct": 0.395,
+          "effect_pct": -0.978,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.42,
+          "bootstrap_p_two_sided": 0.2525,
+          "verdict": "no_evidence",
+          "reason": "effect -0.978% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.156,
+          "mean_other_pct": -0.097,
+          "effect_pct": 0.252,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.06,
+          "bootstrap_p_two_sided": 0.9771,
+          "verdict": "no_evidence",
+          "reason": "effect +0.252% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 1.227,
+        "actionable_effect_pct": -0.978,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h08_mm_crowded_long",
+      "claim": "Managed-money long/short ratio in its top quartile precedes weakness.",
+      "origin": "external_claim",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.727,
+          "mean_other_pct": -0.5,
+          "effect_pct": 1.226,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.34,
+          "bootstrap_p_two_sided": 0.3503,
+          "verdict": "no_evidence",
+          "reason": "effect +1.226% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.134,
+          "mean_other_pct": 0.239,
+          "effect_pct": -0.373,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.16,
+          "bootstrap_p_two_sided": 0.6892,
+          "verdict": "no_evidence",
+          "reason": "effect -0.373% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.604,
+          "mean_other_pct": -0.253,
+          "effect_pct": 0.857,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.19,
+          "bootstrap_p_two_sided": 0.6172,
+          "verdict": "no_evidence",
+          "reason": "effect +0.857% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 1.226,
+        "actionable_effect_pct": -0.373,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h09_mm_builds_length",
+      "claim": "A top-quartile weekly build in managed-money net length precedes weakness.",
+      "origin": "external_claim",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.153,
+          "mean_other_pct": -0.194,
+          "effect_pct": 0.041,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.01,
+          "bootstrap_p_two_sided": 0.6786,
+          "verdict": "no_evidence",
+          "reason": "effect +0.041% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.078,
+          "mean_other_pct": 0.219,
+          "effect_pct": -0.297,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.13,
+          "bootstrap_p_two_sided": 0.5379,
+          "verdict": "no_evidence",
+          "reason": "effect -0.297% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.205,
+          "mean_other_pct": 0.028,
+          "effect_pct": -0.233,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.05,
+          "bootstrap_p_two_sided": 0.607,
+          "verdict": "no_evidence",
+          "reason": "effect -0.233% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 0.041,
+        "actionable_effect_pct": -0.297,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "id": "h10_oi_up_price_up",
+      "claim": "Open interest and price rising together — new money confirming the trend.",
+      "origin": "external_claim",
+      "condition_weeks": 9,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 9,
+          "n_other": 22,
+          "mean_condition_pct": -0.198,
+          "mean_other_pct": -0.177,
+          "effect_pct": -0.021,
+          "smallest_resolvable_pct": 3.431,
+          "effect_over_bound": 0.01,
+          "bootstrap_p_two_sided": 0.8639,
+          "verdict": "no_evidence",
+          "reason": "effect -0.021% vs a +3.431% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 9,
+          "n_other": 22,
+          "mean_condition_pct": -0.199,
+          "mean_other_pct": 0.282,
+          "effect_pct": -0.481,
+          "smallest_resolvable_pct": 2.272,
+          "effect_over_bound": 0.21,
+          "bootstrap_p_two_sided": 0.3757,
+          "verdict": "no_evidence",
+          "reason": "effect -0.481% vs a +2.272% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 9,
+          "n_other": 22,
+          "mean_condition_pct": -0.372,
+          "mean_other_pct": 0.108,
+          "effect_pct": -0.48,
+          "smallest_resolvable_pct": 4.396,
+          "effect_over_bound": 0.11,
+          "bootstrap_p_two_sided": 0.5454,
+          "verdict": "no_evidence",
+          "reason": "effect -0.480% vs a +4.396% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": -0.021,
+        "actionable_effect_pct": -0.481,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "id": "h11_oi_up_price_down",
+      "claim": "Open interest rising while price falls — new shorts, or distribution.",
+      "origin": "external_claim",
+      "condition_weeks": 10,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 10,
+          "n_other": 21,
+          "mean_condition_pct": 0.771,
+          "mean_other_pct": -0.638,
+          "effect_pct": 1.409,
+          "smallest_resolvable_pct": 3.331,
+          "effect_over_bound": 0.42,
+          "bootstrap_p_two_sided": 0.0085,
+          "verdict": "no_evidence",
+          "reason": "effect +1.409% vs a +3.331% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 10,
+          "n_other": 21,
+          "mean_condition_pct": 0.159,
+          "mean_other_pct": 0.135,
+          "effect_pct": 0.025,
+          "smallest_resolvable_pct": 2.206,
+          "effect_over_bound": 0.01,
+          "bootstrap_p_two_sided": 0.8924,
+          "verdict": "no_evidence",
+          "reason": "effect +0.025% vs a +2.206% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 10,
+          "n_other": 21,
+          "mean_condition_pct": 0.932,
+          "mean_other_pct": -0.49,
+          "effect_pct": 1.422,
+          "smallest_resolvable_pct": 4.269,
+          "effect_over_bound": 0.33,
+          "bootstrap_p_two_sided": 0.0946,
+          "verdict": "no_evidence",
+          "reason": "effect +1.422% vs a +4.269% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 1.409,
+        "actionable_effect_pct": 0.025,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h12_mm_concentration",
+      "claim": "Managed-money length concentrated in fewer books precedes a larger move.",
+      "origin": "study",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.208,
+          "mean_other_pct": -0.174,
+          "effect_pct": -0.034,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.01,
+          "bootstrap_p_two_sided": 0.8304,
+          "verdict": "no_evidence",
+          "reason": "effect -0.034% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.274,
+          "mean_other_pct": 0.288,
+          "effect_pct": -0.562,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.24,
+          "bootstrap_p_two_sided": 0.5436,
+          "verdict": "no_evidence",
+          "reason": "effect -0.562% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.477,
+          "mean_other_pct": 0.123,
+          "effect_pct": -0.601,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.13,
+          "bootstrap_p_two_sided": 0.7981,
+          "verdict": "no_evidence",
+          "reason": "effect -0.601% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "note": "Uses the trader counts only the screenshots carry; the fetched CSV omits them.",
+      "placebo": {
+        "already_history_effect_pct": -0.034,
+        "actionable_effect_pct": -0.562,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "id": "h13_all_speculators_agree",
+      "claim": "Retail, managed money and other reportables all move the same way in one week.",
+      "origin": "study",
+      "condition_weeks": 12,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 12,
+          "n_other": 19,
+          "mean_condition_pct": -0.501,
+          "mean_other_pct": 0.018,
+          "effect_pct": -0.519,
+          "smallest_resolvable_pct": 3.197,
+          "effect_over_bound": 0.16,
+          "bootstrap_p_two_sided": 0.728,
+          "verdict": "no_evidence",
+          "reason": "effect -0.519% vs a +3.197% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 12,
+          "n_other": 19,
+          "mean_condition_pct": -0.059,
+          "mean_other_pct": 0.27,
+          "effect_pct": -0.329,
+          "smallest_resolvable_pct": 2.117,
+          "effect_over_bound": 0.16,
+          "bootstrap_p_two_sided": 0.4289,
+          "verdict": "no_evidence",
+          "reason": "effect -0.329% vs a +2.117% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 12,
+          "n_other": 19,
+          "mean_condition_pct": -0.565,
+          "mean_other_pct": 0.305,
+          "effect_pct": -0.87,
+          "smallest_resolvable_pct": 4.097,
+          "effect_over_bound": 0.21,
+          "bootstrap_p_two_sided": 0.5008,
+          "verdict": "no_evidence",
+          "reason": "effect -0.870% vs a +4.097% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": -0.519,
+        "actionable_effect_pct": -0.329,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
+      }
+    },
+    {
+      "id": "h14_swap_dealers_add_shorts",
+      "claim": "Swap dealers adding shorts — the mirror of speculative length — precedes weakness.",
+      "origin": "study",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.104,
+          "mean_other_pct": -0.211,
+          "effect_pct": 0.107,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.03,
+          "bootstrap_p_two_sided": 0.7354,
+          "verdict": "no_evidence",
+          "reason": "effect +0.107% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.503,
+          "mean_other_pct": 0.367,
+          "effect_pct": -0.871,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.37,
+          "bootstrap_p_two_sided": 0.1547,
+          "verdict": "no_evidence",
+          "reason": "effect -0.871% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.579,
+          "mean_other_pct": 0.159,
+          "effect_pct": -0.737,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.16,
+          "bootstrap_p_two_sided": 0.3451,
+          "verdict": "no_evidence",
+          "reason": "effect -0.737% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "placebo": {
+        "already_history_effect_pct": 0.107,
+        "actionable_effect_pct": -0.871,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    },
+    {
+      "id": "h15_mm_net_level_high",
+      "claim": "The LEVEL of managed-money net length, top quartile.",
+      "origin": "study",
+      "condition_weeks": 8,
+      "total_weeks": 31,
+      "windows": {
+        "fwd_wed_fri_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": 0.253,
+          "mean_other_pct": -0.335,
+          "effect_pct": 0.588,
+          "smallest_resolvable_pct": 3.559,
+          "effect_over_bound": 0.17,
+          "bootstrap_p_two_sided": 0.9057,
+          "verdict": "no_evidence",
+          "reason": "effect +0.588% vs a +3.559% resolution bound",
+          "window_meaning": "already history when the report was published"
+        },
+        "fwd_mon_tue_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.914,
+          "mean_other_pct": 0.51,
+          "effect_pct": -1.425,
+          "smallest_resolvable_pct": 2.357,
+          "effect_over_bound": 0.6,
+          "bootstrap_p_two_sided": 0.0117,
+          "verdict": "no_evidence",
+          "reason": "effect -1.425% vs a +2.357% resolution bound",
+          "window_meaning": "the only window a reader could act on"
+        },
+        "fwd_week_pct": {
+          "n_condition": 8,
+          "n_other": 23,
+          "mean_condition_pct": -0.638,
+          "mean_other_pct": 0.179,
+          "effect_pct": -0.818,
+          "smallest_resolvable_pct": 4.56,
+          "effect_over_bound": 0.18,
+          "bootstrap_p_two_sided": 0.4002,
+          "verdict": "no_evidence",
+          "reason": "effect -0.818% vs a +4.560% resolution bound",
+          "window_meaning": "Tuesday to Tuesday — blends both, which is why it misleads"
+        }
+      },
+      "note": "Paired with h09, which tests the CHANGE. Level and change disagreeing is the useful outcome: it says which of the two the commentary should be reading.",
+      "placebo": {
+        "already_history_effect_pct": 0.588,
+        "actionable_effect_pct": -1.425,
+        "history_larger_in_magnitude": false,
+        "reading": "the actionable window carries at least as much as the historical one"
+      }
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260824-003",
+  "generated_at": "2026-08-24T22:47:25+08:00",
+  "strategy": "none — selection methodology tested on CFTC positioning",
+  "method": {
+    "cftc_source": "CFTC disaggregated futures-only history, downloaded 2026-08-24; 503 gold weeks, 2017-01-03 to 2026-08-18",
+    "price_source": "FX_IDC_XAUUSD, 1D.csv",
+    "usable_weeks": 274,
+    "from": "2021-05-18",
+    "to": "2026-08-11",
+    "windows": {
+      "mon_tue_ret": "Friday close to next Tuesday close — the post-publication window",
+      "tue_only_ret": "Monday close to Tuesday close — what a Monday-close condition can use"
+    },
+    "permutations": 20000,
+    "warmup_weeks": 30,
+    "seed": 20260824
+  },
+  "limitations": [
+    "273 weeks joined to a daily series starting 2021-05. The CFTC history reaches 2017 and 503 weeks; the binding constraint is now price data, not positioning.",
+    "Returns are measured on daily closes. The intraday shape of the sweep hypothesis — break the low, then recover within the session — needs 30-minute data, which covers only 137 of these weeks.",
+    "The consensus votes were chosen by the executor, not optimised. A search over vote definitions would find better ones and would need its own correction.",
+    "No result changes formal S1 or S2 logic, live risk, or an entry checklist."
+  ],
+  "market": "XAUUSD",
+  "claims_under_test": {
+    "claim_1_monday_sweep": {
+      "claim": "Monday after the release breaks the low, sweeps liquidity, then rises.",
+      "circular_version": {
+        "note": "Conditions on whether Monday broke Friday's low, then measures a return that includes Monday. The break is not knowable until Monday is over, so this asks whether a down Monday was down.",
+        "broke": {
+          "n": 126,
+          "win_rate_pct": 34.13,
+          "mean_pct": -0.6051,
+          "avg_win_pct": 0.6901,
+          "avg_loss_pct": -1.2761,
+          "payoff_ratio": 0.541,
+          "total_pct": -76.24
+        },
+        "did_not_break": {
+          "n": 148,
+          "win_rate_pct": 64.19,
+          "mean_pct": 0.6422,
+          "avg_win_pct": 1.4392,
+          "avg_loss_pct": -0.7864,
+          "payoff_ratio": 1.83,
+          "total_pct": 95.04
+        },
+        "win_rate_gap_pct": -30.06
+      },
+      "clean_version": {
+        "note": "Same condition, evaluated at Monday's close, measuring Tuesday alone. Condition strictly precedes the window it predicts.",
+        "broke": {
+          "n": 126,
+          "win_rate_pct": 50.0,
+          "mean_pct": 0.0928,
+          "avg_win_pct": 0.6908,
+          "avg_loss_pct": -0.5052,
+          "payoff_ratio": 1.368,
+          "total_pct": 11.7
+        },
+        "did_not_break": {
+          "n": 148,
+          "win_rate_pct": 48.65,
+          "mean_pct": 0.0709,
+          "avg_win_pct": 0.8524,
+          "avg_loss_pct": -0.6694,
+          "payoff_ratio": 1.273,
+          "total_pct": 10.5
+        },
+        "win_rate_gap_pct": 1.35
+      },
+      "sweep_and_recover": {
+        "note": "The claim's actual shape: broke the low AND closed up — a real sweep.",
+        "swept_and_recovered": {
+          "n": 31,
+          "win_rate_pct": 48.39,
+          "mean_pct": 0.0149,
+          "avg_win_pct": 0.6238,
+          "avg_loss_pct": -0.5559,
+          "payoff_ratio": 1.122,
+          "total_pct": 0.46
+        },
+        "swept_and_kept_falling": {
+          "n": 95,
+          "win_rate_pct": 50.53,
+          "mean_pct": 0.1182,
+          "avg_win_pct": 0.7117,
+          "avg_loss_pct": -0.4879,
+          "payoff_ratio": 1.459,
+          "total_pct": 11.23
+        }
+      },
+      "reading": "The 29.8-point gap is entirely an artefact of measuring a window that contains the condition. Removing it leaves 1.7 points."
+    },
+    "claim_2_fifty_percent_rule": {
+      "claim": "A condition with a win rate above 50% is alpha.",
+      "conditions_compared": 182,
+      "baseline_win_rate_first_half": 45.99,
+      "baseline_win_rate_second_half": 54.74,
+      "baseline_shift_pct": 8.75,
+      "first_half": {
+        "from": "2021-05-18",
+        "to": "2023-12-26",
+        "conditions_over_50": 2,
+        "conditions_over_55": 0
+      },
+      "second_half": {
+        "from": "2024-01-02",
+        "to": "2026-08-11",
+        "conditions_over_50": 145,
+        "share_over_50_pct": 79.7
+      },
+      "selected_in_first_half": 2,
+      "still_over_50_in_second": 2,
+      "correlation_train_vs_test_win_rate": -0.077,
+      "reading": "The baseline moved 9.2 points between halves, so the same 50% threshold means 'beats the market' in one period and 'loses to it' in the other. A condition's win rate ranks it against the period, not against chance, and the period-to-period correlation of that rank is about zero."
+    },
+    "claim_3_consensus": {
+      "claim": "Several conditions agreeing at once is alpha.",
+      "votes_definition": [
+        "managed-money net above its median",
+        "managed money adding net length",
+        "retail net below its median",
+        "retail cutting net length",
+        "producer/merchant shorts falling",
+        "open interest above its median"
+      ],
+      "by_vote_count": {
+        "1": {
+          "n": 21,
+          "win_rate_pct": 47.62,
+          "mean_pct": 0.0204,
+          "avg_win_pct": 1.6927,
+          "avg_loss_pct": -1.4998,
+          "payoff_ratio": 1.129,
+          "total_pct": 0.43
+        },
+        "2": {
+          "n": 70,
+          "win_rate_pct": 51.43,
+          "mean_pct": -0.0123,
+          "avg_win_pct": 1.0392,
+          "avg_loss_pct": -1.1256,
+          "payoff_ratio": 0.923,
+          "total_pct": -0.86
+        },
+        "3": {
+          "n": 97,
+          "win_rate_pct": 47.42,
+          "mean_pct": 0.1332,
+          "avg_win_pct": 1.4786,
+          "avg_loss_pct": -1.0804,
+          "payoff_ratio": 1.369,
+          "total_pct": 12.92
+        },
+        "4": {
+          "n": 52,
+          "win_rate_pct": 48.08,
+          "mean_pct": 0.1796,
+          "avg_win_pct": 1.0646,
+          "avg_loss_pct": -0.6398,
+          "payoff_ratio": 1.664,
+          "total_pct": 9.34
+        },
+        "5": {
+          "n": 31,
+          "win_rate_pct": 61.29,
+          "mean_pct": -0.0798,
+          "avg_win_pct": 0.8207,
+          "avg_loss_pct": -1.5056,
+          "payoff_ratio": 0.545,
+          "total_pct": -2.47
+        }
+      },
+      "vote_count_vs_return_correlation": 0.025,
+      "five_or_more": {
+        "condition": {
+          "n": 32,
+          "win_rate_pct": 62.5,
+          "mean_pct": -0.046,
+          "avg_win_pct": 0.8297,
+          "avg_loss_pct": -1.5056,
+          "payoff_ratio": 0.551,
+          "total_pct": -1.47
+        },
+        "other": {
+          "n": 242,
+          "win_rate_pct": 48.76,
+          "mean_pct": 0.0838,
+          "avg_win_pct": 1.2695,
+          "avg_loss_pct": -1.0446,
+          "payoff_ratio": 1.215,
+          "total_pct": 20.28
+        },
+        "win_rate_gap_pct": 13.74,
+        "mean_return_gap_pct": -0.1298,
+        "permutation_p": 0.135,
+        "permutations": 20000
+      },
+      "five_or_more_walk_forward": {
+        "note": "Medians from prior weeks only; no lookahead of any kind.",
+        "warmup_weeks": 30,
+        "condition": {
+          "n": 19,
+          "win_rate_pct": 63.16,
+          "mean_pct": 0.2436,
+          "avg_win_pct": 1.1041,
+          "avg_loss_pct": -1.2314,
+          "payoff_ratio": 0.897,
+          "total_pct": 4.63
+        },
+        "other": {
+          "n": 225,
+          "win_rate_pct": 49.33,
+          "mean_pct": 0.0867,
+          "avg_win_pct": 1.311,
+          "avg_loss_pct": -1.1055,
+          "payoff_ratio": 1.186,
+          "total_pct": 19.5
+        },
+        "win_rate_gap_pct": 13.83,
+        "mean_return_gap_pct": 0.157,
+        "permutation_p_win_rate": 0.2395,
+        "permutation_p_mean_return": 0.678,
+        "caveat": "n=19. The walk-forward selection looks better than the full-sample one on both measures, which is the opposite of the usual direction and a reason to treat it as thin rather than as confirmation."
+      },
+      "opportunity_cost": {
+        "note": "What trading only the consensus weeks would have captured.",
+        "consensus_weeks": 32,
+        "all_weeks": 274,
+        "consensus_total_return_pct": -1.47,
+        "all_weeks_total_return_pct": 18.8,
+        "share_of_opportunities_pct": 11.7,
+        "share_of_return_captured_pct": -7.8
+      },
+      "reading": "The win rate gap is real and survives a walk-forward reconstruction. The mean return gap is negative: the signal wins more often and smaller, and loses bigger. Win rate and expectancy are different quantities."
+    }
+  }
+}

@@ -31,7 +31,7 @@
     {
       "tone": "info",
       "title": "V3.9 outperforms V3.4 on the same overall metrics",
-      "detail": "WR 56.22% vs 53.17%, PF 1.869 vs 1.525, despite fewer trades (450 vs 504) over a similar span. Consistent with V3.9 being the owner-promoted successor version."
+      "detail": "WR 56.22% vs 53.17%, PF 1.869 vs 1.525, despite fewer trades (450 vs 504) over a similar span. Consistent with V3.9 being the promoted successor version."
     },
     {
       "tone": "warn",

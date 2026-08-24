@@ -48,6 +48,12 @@ PRIVATE_TOKENS = (
     ".docx", ".gdoc", "private_provenance",
 )
 
+# Scanned on every generated page, not only weekly summaries. Thirty-four references to a
+# private person reached thirteen published study pages before anyone looked, because the
+# only leak scan ran on the weekly JSON.
+PAGE_PRIVATE_TOKENS = PRIVATE_TOKENS + ("owner", "googledrive", "docs/strategy.md",
+                                        "docs/policy.md", "decision_log", "handoff.md")
+
 
 def git_files() -> list[str]:
     tracked = subprocess.check_output(
@@ -112,12 +118,29 @@ def main() -> int:
         if leaked:
             failures.append(f"weekly summary contains private token(s) {leaked}: {relative}")
 
+    # A study ID printed as text is a citation the reader cannot follow and no link check
+    # can see. The signal playbook cited a study that had no published page for days.
+    study_pattern = re.compile(r"RS-[A-Z]+-\d{8}-\d{3}")
+    published = {p.name for p in (ROOT / "research/studies").glob("*") if p.is_dir()}
+
     href_pattern = re.compile(r'href=["\']([^"\']+)["\']', re.I)
     for page in GENERATED_PAGES:
         if not page.is_file():
             failures.append(f"missing generated page: {page.relative_to(ROOT)}")
             continue
-        for href in href_pattern.findall(page.read_text(encoding="utf-8")):
+        page_text = page.read_text(encoding="utf-8")
+        lowered_page = page_text.lower()
+        for token in PAGE_PRIVATE_TOKENS:
+            if token in lowered_page:
+                failures.append(
+                    f"private token {token!r} on generated page: {page.relative_to(ROOT)}"
+                )
+        for cited in sorted(set(study_pattern.findall(page_text))):
+            if cited not in published:
+                failures.append(
+                    f"page cites an unpublished study: {page.relative_to(ROOT)} -> {cited}"
+                )
+        for href in href_pattern.findall(page_text):
             split = urlsplit(href)
             if split.scheme or split.netloc or href.startswith("#"):
                 continue

@@ -1,0 +1,763 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260818-003",
+  "generated_at": "2026-08-18T09:26:37+08:00",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
+  "method": {
+    "spot_source": "30-minute FX_IDC:XAUUSD export",
+    "futures_source": "30-minute COMEX_MINI_DL:MGC1! export",
+    "aligned_bars": 30934,
+    "spot_only_bars": 25,
+    "futures_only_bars": 59,
+    "feature_bar": "entry_index - 1, the last fully completed bar before the fill",
+    "roll_handling": "bars whose basis moves more than 8.0 USD in one step are roll bars; a trade is dropped if any of its 96-bar window is one",
+    "permutation_trials": 20000,
+    "random_seed": 20260818,
+    "timezone": "Asia/Taipei"
+  },
+  "strategies": {
+    "S1": {
+      "label": "S1 AweWithBB V3.9",
+      "trades_total": 472,
+      "trades_with_features": 443,
+      "dropped_for_roll_or_warmup": 29,
+      "baseline": {
+        "n": 443,
+        "wins": 246,
+        "win_rate_pct": 55.53,
+        "win_rate_ci95_pct": [
+          50.88,
+          60.09
+        ],
+        "profit_factor": 1.842,
+        "avg_return_pct": 0.1883
+      },
+      "by_futures_feature": {
+        "features": {
+          "basis_dev": {
+            "description": "basis minus its trailing 96-bar median, USD",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 84,
+                "win_rate_pct": 56.76,
+                "win_rate_ci95_pct": [
+                  48.7,
+                  64.47
+                ],
+                "profit_factor": 2.127,
+                "avg_return_pct": 0.2447
+              },
+              "mid": {
+                "n": 148,
+                "wins": 78,
+                "win_rate_pct": 52.7,
+                "win_rate_ci95_pct": [
+                  44.69,
+                  60.58
+                ],
+                "profit_factor": 1.478,
+                "avg_return_pct": 0.113
+              },
+              "high": {
+                "n": 147,
+                "wins": 84,
+                "win_rate_pct": 57.14,
+                "win_rate_ci95_pct": [
+                  49.06,
+                  64.86
+                ],
+                "profit_factor": 1.954,
+                "avg_return_pct": 0.2072
+              }
+            },
+            "win_rate_spread_pp": 4.44,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": false
+          },
+          "basis_dev_z": {
+            "description": "the same deviation standardised by its trailing dispersion",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 74,
+                "win_rate_pct": 50.0,
+                "win_rate_ci95_pct": [
+                  42.05,
+                  57.95
+                ],
+                "profit_factor": 1.5,
+                "avg_return_pct": 0.1251
+              },
+              "mid": {
+                "n": 148,
+                "wins": 84,
+                "win_rate_pct": 56.76,
+                "win_rate_ci95_pct": [
+                  48.7,
+                  64.47
+                ],
+                "profit_factor": 1.908,
+                "avg_return_pct": 0.197
+              },
+              "high": {
+                "n": 147,
+                "wins": 88,
+                "win_rate_pct": 59.86,
+                "win_rate_ci95_pct": [
+                  51.79,
+                  67.44
+                ],
+                "profit_factor": 2.194,
+                "avg_return_pct": 0.2431
+              }
+            },
+            "win_rate_spread_pp": 9.86,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": true
+          },
+          "basis_change_4": {
+            "description": "two-hour change in basis",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 81,
+                "win_rate_pct": 54.73,
+                "win_rate_ci95_pct": [
+                  46.69,
+                  62.53
+                ],
+                "profit_factor": 1.872,
+                "avg_return_pct": 0.1974
+              },
+              "mid": {
+                "n": 148,
+                "wins": 84,
+                "win_rate_pct": 56.76,
+                "win_rate_ci95_pct": [
+                  48.7,
+                  64.47
+                ],
+                "profit_factor": 1.768,
+                "avg_return_pct": 0.1678
+              },
+              "high": {
+                "n": 147,
+                "wins": 81,
+                "win_rate_pct": 55.1,
+                "win_rate_ci95_pct": [
+                  47.03,
+                  62.91
+                ],
+                "profit_factor": 1.884,
+                "avg_return_pct": 0.1997
+              }
+            },
+            "win_rate_spread_pp": 2.03,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": false
+          },
+          "mgc_vol_20": {
+            "description": "MGC contracts against the prior 20-bar median",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 93,
+                "win_rate_pct": 62.84,
+                "win_rate_ci95_pct": [
+                  54.82,
+                  70.21
+                ],
+                "profit_factor": 2.394,
+                "avg_return_pct": 0.2591
+              },
+              "mid": {
+                "n": 148,
+                "wins": 77,
+                "win_rate_pct": 52.03,
+                "win_rate_ci95_pct": [
+                  44.03,
+                  59.92
+                ],
+                "profit_factor": 1.726,
+                "avg_return_pct": 0.1761
+              },
+              "high": {
+                "n": 147,
+                "wins": 76,
+                "win_rate_pct": 51.7,
+                "win_rate_ci95_pct": [
+                  43.68,
+                  59.63
+                ],
+                "profit_factor": 1.533,
+                "avg_return_pct": 0.1292
+              }
+            },
+            "win_rate_spread_pp": 11.14,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": true
+          },
+          "mgc_vol_96": {
+            "description": "MGC contracts against the prior 96-bar median",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 91,
+                "win_rate_pct": 61.49,
+                "win_rate_ci95_pct": [
+                  53.45,
+                  68.94
+                ],
+                "profit_factor": 2.403,
+                "avg_return_pct": 0.2702
+              },
+              "mid": {
+                "n": 148,
+                "wins": 77,
+                "win_rate_pct": 52.03,
+                "win_rate_ci95_pct": [
+                  44.03,
+                  59.92
+                ],
+                "profit_factor": 1.684,
+                "avg_return_pct": 0.1659
+              },
+              "high": {
+                "n": 147,
+                "wins": 78,
+                "win_rate_pct": 53.06,
+                "win_rate_ci95_pct": [
+                  45.02,
+                  60.95
+                ],
+                "profit_factor": 1.544,
+                "avg_return_pct": 0.1282
+              }
+            },
+            "win_rate_spread_pp": 9.46,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": false
+          },
+          "spot_fut_vol_mix": {
+            "description": "spot ticks per MGC contract, against its own recent level",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 85,
+                "win_rate_pct": 57.43,
+                "win_rate_ci95_pct": [
+                  49.38,
+                  65.11
+                ],
+                "profit_factor": 1.959,
+                "avg_return_pct": 0.2045
+              },
+              "mid": {
+                "n": 148,
+                "wins": 73,
+                "win_rate_pct": 49.32,
+                "win_rate_ci95_pct": [
+                  41.39,
+                  57.29
+                ],
+                "profit_factor": 1.494,
+                "avg_return_pct": 0.1264
+              },
+              "high": {
+                "n": 147,
+                "wins": 88,
+                "win_rate_pct": 59.86,
+                "win_rate_ci95_pct": [
+                  51.79,
+                  67.44
+                ],
+                "profit_factor": 2.164,
+                "avg_return_pct": 0.2342
+              }
+            },
+            "win_rate_spread_pp": 10.54,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": false
+          },
+          "mgc_range_atr": {
+            "description": "MGC bar range against MGC ATR(14)",
+            "terciles": {
+              "low": {
+                "n": 148,
+                "wins": 87,
+                "win_rate_pct": 58.78,
+                "win_rate_ci95_pct": [
+                  50.73,
+                  66.39
+                ],
+                "profit_factor": 2.144,
+                "avg_return_pct": 0.2384
+              },
+              "mid": {
+                "n": 148,
+                "wins": 78,
+                "win_rate_pct": 52.7,
+                "win_rate_ci95_pct": [
+                  44.69,
+                  60.58
+                ],
+                "profit_factor": 1.596,
+                "avg_return_pct": 0.1414
+              },
+              "high": {
+                "n": 147,
+                "wins": 81,
+                "win_rate_pct": 55.1,
+                "win_rate_ci95_pct": [
+                  47.03,
+                  62.91
+                ],
+                "profit_factor": 1.822,
+                "avg_return_pct": 0.185
+              }
+            },
+            "win_rate_spread_pp": 6.08,
+            "min_detectable_pp": 15.7,
+            "separable": false,
+            "monotonic": false
+          }
+        },
+        "family_permutation_test": {
+          "trials": 20000,
+          "features_searched": 7,
+          "largest_observed_spread_pp": 11.14,
+          "largest_spread_feature": "mgc_vol_20",
+          "p_largest_spread_at_least_observed": 0.5733,
+          "any_feature_separates": false
+        }
+      },
+      "raw_basis_control": {
+        "applicable": true,
+        "terciles": {
+          "low": {
+            "n": 158,
+            "wins": 91,
+            "win_rate_pct": 57.59,
+            "win_rate_ci95_pct": [
+              49.8,
+              65.03
+            ],
+            "profit_factor": 2.063,
+            "avg_return_pct": 0.2282,
+            "even_month_share_pct": 1.3
+          },
+          "mid": {
+            "n": 157,
+            "wins": 78,
+            "win_rate_pct": 49.68,
+            "win_rate_ci95_pct": [
+              41.96,
+              57.42
+            ],
+            "profit_factor": 1.461,
+            "avg_return_pct": 0.1161,
+            "even_month_share_pct": 82.8
+          },
+          "high": {
+            "n": 157,
+            "wins": 95,
+            "win_rate_pct": 60.51,
+            "win_rate_ci95_pct": [
+              52.7,
+              67.82
+            ],
+            "profit_factor": 2.106,
+            "avg_return_pct": 0.2187,
+            "even_month_share_pct": 73.2
+          }
+        },
+        "win_rate_spread_pp": 10.83,
+        "baseline_win_rate_pct": 55.93,
+        "usable": false,
+        "why_not": "The terciles differ in even-month share by 82 points. This split is a calendar split wearing a basis label, and the spread it produces says nothing about the market state at entry."
+      }
+    },
+    "S2": {
+      "label": "S2 Hammer V3.2",
+      "trades_total": 167,
+      "trades_with_features": 156,
+      "dropped_for_roll_or_warmup": 11,
+      "baseline": {
+        "n": 156,
+        "wins": 76,
+        "win_rate_pct": 48.72,
+        "win_rate_ci95_pct": [
+          41.0,
+          56.5
+        ],
+        "profit_factor": 2.132,
+        "avg_return_pct": 0.5877
+      },
+      "by_futures_feature": {
+        "features": {
+          "basis_dev": {
+            "description": "basis minus its trailing 96-bar median, USD",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 28,
+                "win_rate_pct": 52.83,
+                "win_rate_ci95_pct": [
+                  39.66,
+                  65.62
+                ],
+                "profit_factor": 2.642,
+                "avg_return_pct": 0.7745
+              },
+              "mid": {
+                "n": 52,
+                "wins": 23,
+                "win_rate_pct": 44.23,
+                "win_rate_ci95_pct": [
+                  31.6,
+                  57.66
+                ],
+                "profit_factor": 1.754,
+                "avg_return_pct": 0.4238
+              },
+              "high": {
+                "n": 51,
+                "wins": 25,
+                "win_rate_pct": 49.02,
+                "win_rate_ci95_pct": [
+                  35.86,
+                  62.32
+                ],
+                "profit_factor": 2.067,
+                "avg_return_pct": 0.5606
+              }
+            },
+            "win_rate_spread_pp": 8.6,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "basis_dev_z": {
+            "description": "the same deviation standardised by its trailing dispersion",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 25,
+                "win_rate_pct": 47.17,
+                "win_rate_ci95_pct": [
+                  34.38,
+                  60.34
+                ],
+                "profit_factor": 2.028,
+                "avg_return_pct": 0.543
+              },
+              "mid": {
+                "n": 52,
+                "wins": 27,
+                "win_rate_pct": 51.92,
+                "win_rate_ci95_pct": [
+                  38.69,
+                  64.9
+                ],
+                "profit_factor": 2.4,
+                "avg_return_pct": 0.679
+              },
+              "high": {
+                "n": 51,
+                "wins": 24,
+                "win_rate_pct": 47.06,
+                "win_rate_ci95_pct": [
+                  34.05,
+                  60.48
+                ],
+                "profit_factor": 1.993,
+                "avg_return_pct": 0.541
+              }
+            },
+            "win_rate_spread_pp": 4.86,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "basis_change_4": {
+            "description": "two-hour change in basis",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 25,
+                "win_rate_pct": 47.17,
+                "win_rate_ci95_pct": [
+                  34.38,
+                  60.34
+                ],
+                "profit_factor": 2.223,
+                "avg_return_pct": 0.6515
+              },
+              "mid": {
+                "n": 52,
+                "wins": 28,
+                "win_rate_pct": 53.85,
+                "win_rate_ci95_pct": [
+                  40.5,
+                  66.66
+                ],
+                "profit_factor": 2.381,
+                "avg_return_pct": 0.6585
+              },
+              "high": {
+                "n": 51,
+                "wins": 23,
+                "win_rate_pct": 45.1,
+                "win_rate_ci95_pct": [
+                  32.27,
+                  58.62
+                ],
+                "profit_factor": 1.818,
+                "avg_return_pct": 0.4492
+              }
+            },
+            "win_rate_spread_pp": 8.75,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "mgc_vol_20": {
+            "description": "MGC contracts against the prior 20-bar median",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 26,
+                "win_rate_pct": 49.06,
+                "win_rate_ci95_pct": [
+                  36.12,
+                  62.12
+                ],
+                "profit_factor": 2.286,
+                "avg_return_pct": 0.6609
+              },
+              "mid": {
+                "n": 52,
+                "wins": 24,
+                "win_rate_pct": 46.15,
+                "win_rate_ci95_pct": [
+                  33.34,
+                  59.5
+                ],
+                "profit_factor": 1.892,
+                "avg_return_pct": 0.4804
+              },
+              "high": {
+                "n": 51,
+                "wins": 26,
+                "win_rate_pct": 50.98,
+                "win_rate_ci95_pct": [
+                  37.68,
+                  64.14
+                ],
+                "profit_factor": 2.228,
+                "avg_return_pct": 0.621
+              }
+            },
+            "win_rate_spread_pp": 4.83,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "mgc_vol_96": {
+            "description": "MGC contracts against the prior 96-bar median",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 23,
+                "win_rate_pct": 43.4,
+                "win_rate_ci95_pct": [
+                  30.95,
+                  56.73
+                ],
+                "profit_factor": 1.78,
+                "avg_return_pct": 0.4447
+              },
+              "mid": {
+                "n": 52,
+                "wins": 27,
+                "win_rate_pct": 51.92,
+                "win_rate_ci95_pct": [
+                  38.69,
+                  64.9
+                ],
+                "profit_factor": 2.491,
+                "avg_return_pct": 0.7167
+              },
+              "high": {
+                "n": 51,
+                "wins": 26,
+                "win_rate_pct": 50.98,
+                "win_rate_ci95_pct": [
+                  37.68,
+                  64.14
+                ],
+                "profit_factor": 2.196,
+                "avg_return_pct": 0.6047
+              }
+            },
+            "win_rate_spread_pp": 8.52,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "spot_fut_vol_mix": {
+            "description": "spot ticks per MGC contract, against its own recent level",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 27,
+                "win_rate_pct": 50.94,
+                "win_rate_ci95_pct": [
+                  37.88,
+                  63.88
+                ],
+                "profit_factor": 2.257,
+                "avg_return_pct": 0.6353
+              },
+              "mid": {
+                "n": 52,
+                "wins": 21,
+                "win_rate_pct": 40.38,
+                "win_rate_ci95_pct": [
+                  28.16,
+                  53.93
+                ],
+                "profit_factor": 1.426,
+                "avg_return_pct": 0.2542
+              },
+              "high": {
+                "n": 51,
+                "wins": 28,
+                "win_rate_pct": 54.9,
+                "win_rate_ci95_pct": [
+                  41.38,
+                  67.73
+                ],
+                "profit_factor": 2.928,
+                "avg_return_pct": 0.8782
+              }
+            },
+            "win_rate_spread_pp": 14.52,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          },
+          "mgc_range_atr": {
+            "description": "MGC bar range against MGC ATR(14)",
+            "terciles": {
+              "low": {
+                "n": 53,
+                "wins": 27,
+                "win_rate_pct": 50.94,
+                "win_rate_ci95_pct": [
+                  37.88,
+                  63.88
+                ],
+                "profit_factor": 2.297,
+                "avg_return_pct": 0.6421
+              },
+              "mid": {
+                "n": 52,
+                "wins": 21,
+                "win_rate_pct": 40.38,
+                "win_rate_ci95_pct": [
+                  28.16,
+                  53.93
+                ],
+                "profit_factor": 1.522,
+                "avg_return_pct": 0.311
+              },
+              "high": {
+                "n": 51,
+                "wins": 28,
+                "win_rate_pct": 54.9,
+                "win_rate_ci95_pct": [
+                  41.38,
+                  67.73
+                ],
+                "profit_factor": 2.744,
+                "avg_return_pct": 0.8133
+              }
+            },
+            "win_rate_spread_pp": 14.52,
+            "min_detectable_pp": 26.6,
+            "separable": false,
+            "monotonic": false
+          }
+        },
+        "family_permutation_test": {
+          "trials": 20000,
+          "features_searched": 7,
+          "largest_observed_spread_pp": 14.52,
+          "largest_spread_feature": "spot_fut_vol_mix",
+          "p_largest_spread_at_least_observed": 0.8638,
+          "any_feature_separates": false
+        }
+      },
+      "raw_basis_control": {
+        "applicable": true,
+        "terciles": {
+          "low": {
+            "n": 56,
+            "wins": 26,
+            "win_rate_pct": 46.43,
+            "win_rate_ci95_pct": [
+              34.02,
+              59.3
+            ],
+            "profit_factor": 1.927,
+            "avg_return_pct": 0.5005,
+            "even_month_share_pct": 0.0
+          },
+          "mid": {
+            "n": 55,
+            "wins": 23,
+            "win_rate_pct": 41.82,
+            "win_rate_ci95_pct": [
+              29.74,
+              54.97
+            ],
+            "profit_factor": 1.5,
+            "avg_return_pct": 0.2907,
+            "even_month_share_pct": 70.9
+          },
+          "high": {
+            "n": 55,
+            "wins": 30,
+            "win_rate_pct": 54.55,
+            "win_rate_ci95_pct": [
+              41.52,
+              66.97
+            ],
+            "profit_factor": 2.839,
+            "avg_return_pct": 0.8624,
+            "even_month_share_pct": 72.7
+          }
+        },
+        "win_rate_spread_pp": 12.73,
+        "baseline_win_rate_pct": 47.9,
+        "usable": false,
+        "why_not": "The terciles differ in even-month share by 73 points. This split is a calendar split wearing a basis label, and the spread it produces says nothing about the market state at entry."
+      }
+    }
+  },
+  "limitations": [
+    "MGC1! is a continuous front-month series. Detrending removes the roll cycle from the level, but a trade near a roll still sits in a market where two contracts are competing for liquidity, and dropping its window removes it rather than measuring it.",
+    "Basis is measured on 30-minute closes of two venues with different sessions and settlement conventions; a deviation of well under a dollar is inside the noise of that comparison.",
+    "Terciles are coarse and would dilute an effect confined to a narrow tail.",
+    "Both strategies are long-only over a strongly rising market.",
+    "No result changes formal S1 or S2 logic, live risk, or an active entry checklist."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260818-003",
+  "revision": 1,
+  "title": "S1 V3.9 / S2 V3.2 — COMEX MGC futures basis and real exchange volume",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
+  "status": "confirmed",
+  "created_on": "2026-08-18",
+  "question": "The MGC micro gold futures series has sat unused beside the spot data since 2024. Does the futures-spot basis carry anything at entry, and does real COMEX contract volume separate outcomes where spot tick volume did not?",
+  "hypothesis": "Mildly positive on volume, because RS-XAUUSD-20260818-002 recorded spot tick volume as a weak proxy and real exchange volume should be the better measurement. Neutral on basis once the roll cycle is removed.",
+  "headline": {
+    "s1_trades": 443,
+    "s2_trades": 156,
+    "features_tested": 7,
+    "features_separating_outcomes": 0,
+    "s1_family_permutation_p": 0.5733,
+    "s2_family_permutation_p": 0.8638,
+    "raw_basis_month_spread_usd": 39.71,
+    "detrended_month_spread_usd": 0.43,
+    "raw_basis_trap_spread_pp": 10.83,
+    "spot_vs_exchange_volume_spearman": 0.873,
+    "roll_bars_detected": 41
+  },
+  "card_metrics": [
+    "features_separating_outcomes",
+    "raw_basis_trap_spread_pp",
+    "spot_vs_exchange_volume_spearman"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Raw basis is a calendar, and splitting on it produces a convincing false result",
+      "detail": "Median basis by month spans 39.71 USD because a freshly rolled contract carries more time value and decays toward expiry. Splitting S1 trades by raw basis gives a 10.83pp win-rate spread — and the terciles hold 1.3%, 82.8% and 73.2% even-month trades. The split is a calendar split wearing a basis label. Measured against its own trailing median instead, the cross-month spread collapses to 0.43 USD."
+    },
+    {
+      "tone": "info",
+      "title": "Detrended basis separates nothing in either strategy",
+      "detail": "Basis deviation, its standardised form, and its two-hour change all sit inside their resolution limits. Across all 7 futures features the largest spread is 11.14pp for S1 and 14.52pp for S2, with family permutation p of 0.5733 and 0.8638. Whatever dislocation the basis records is not something these entries are exposed to."
+    },
+    {
+      "tone": "good",
+      "title": "The earlier study's volume limitation turns out to be immaterial",
+      "detail": "RS-XAUUSD-20260818-002 noted spot tick volume is broker activity, not exchange volume, and left open whether a real measure would do better. Across 30,814 aligned bars the two rank-correlate at 0.873 (Pearson 0.785). Real COMEX contract volume is close to the same measurement, and it separates nothing here either. The limitation can be closed rather than carried."
+    },
+    {
+      "tone": "info",
+      "title": "The one direction that repeats is not evidence, because the measures are not independent",
+      "detail": "S1's lowest MGC-volume tercile wins 62.84% against 51.7% for the highest, and it is monotonic where the spot-volume version in the earlier study was not. It would be tempting to call that two measurements agreeing. At Spearman 0.873 they are one measurement made twice, and it is 11.14pp against a 15.7pp resolution limit."
+    },
+    {
+      "tone": "info",
+      "title": "Roll contamination is dropped, not measured through",
+      "detail": "41 bars move the basis more than 8.0 USD in a single step. A trade whose 96-bar window contains one is dropped: 29 S1 and 11 S2 trades. Measuring a deviation across a contract discontinuity would have produced numbers with no meaning attached to them."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Real COMEX volume and the futures basis, closing the question the tick-volume proxy left open.",
+  "summary_zh": "用真實 COMEX 成交量與期貨基差，關掉上一篇留下的「tick volume 只是代理」這個疑問。兩者秩相關 0.873，代理是夠用的。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

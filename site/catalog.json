@@ -296,6 +296,114 @@
     },
     {
       "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260818-001/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-001/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-001/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260818-002/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-002/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-002/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260818-003/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-003/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-003/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260818-004/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-004/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-004/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260818-005/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-005/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260818-005/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260819-001/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260819-001/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260819-001/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
       "path": "research/studies/RS-XAUUSD-20260823-001/analysis.py",
       "section": "research",
       "title": "analysis"
@@ -309,6 +417,78 @@
     {
       "kind": "result",
       "path": "research/studies/RS-XAUUSD-20260823-001/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260823-002/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260823-002/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260823-002/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-001/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-001/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-001/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-002/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-002/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-002/study.json",
+      "section": "research",
+      "title": "study"
+    },
+    {
+      "kind": "python",
+      "path": "research/studies/RS-XAUUSD-20260824-003/analysis.py",
+      "section": "research",
+      "title": "analysis"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-003/results.json",
+      "section": "research",
+      "title": "results"
+    },
+    {
+      "kind": "result",
+      "path": "research/studies/RS-XAUUSD-20260824-003/study.json",
       "section": "research",
       "title": "study"
     },

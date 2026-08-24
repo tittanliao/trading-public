@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260818-005",
+  "revision": 2,
+  "title": "S1 V3.9 + S2 V3.2 — the two strategies as a portfolio, not as two strategies",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2 — portfolio construction",
+  "status": "confirmed",
+  "created_on": "2026-08-18",
+  "question": "After a bar-level alpha search found nothing tradeable, is there anything left in how the two existing strategies are combined — and can a genuinely uncorrelated third strategy be found for the same instrument, long or short?",
+  "hypothesis": "Expected close to nothing. Two long-only strategies on the same instrument should be near-redundant, and a diversification claim between them looked like a relabelling of the same directional bet.",
+  "headline": {
+    "months": 32,
+    "monthly_correlation_pearson": 0.234,
+    "monthly_correlation_spearman": 0.344,
+    "s1_sharpe": 3.664,
+    "s2_sharpe": 2.327,
+    "blend_sharpe": 3.882,
+    "s1_max_drawdown_r": 3.0,
+    "s2_max_drawdown_r": 12.79,
+    "blend_max_drawdown_r": 2.17,
+    "blend_beats_s2_p": 0.999,
+    "blend_beats_s1_p": 0.649,
+    "weight_plateau_sharpe_min": 3.707,
+    "weight_plateau_sharpe_max": 3.958,
+    "years_blend_beat_both": "2/3",
+    "s1_alpha_share_pct": 79.7,
+    "s2_alpha_share_pct": 77.0,
+    "s1_r_in_gold_down_months": 4.06,
+    "s2_r_in_gold_down_months": 1.507,
+    "gold_down_months": 8,
+    "uncorrelated_candidates_tested": 2,
+    "uncorrelated_candidates_worth_adding": 0,
+    "fade_correlation_to_blend": 0.036,
+    "fade_sharpe": -0.046,
+    "required_sharpe_at_zero_correlation": 0.8,
+    "required_sharpe_at_minus_025": -0.14
+  },
+  "card_metrics": [
+    "monthly_correlation_pearson",
+    "blend_beats_s2_p",
+    "blend_beats_s1_p"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The two strategies are much less redundant than they look",
+      "detail": "Monthly R returns correlate at 0.234 (Pearson) and 0.344 (Spearman) across 32 months, with both trading in 29 of them. Two long-only strategies on the same instrument were expected to be near-duplicates; they are not, and that is the whole basis for anything else here."
+    },
+    {
+      "tone": "good",
+      "title": "Blending is strongly better than running S2 alone",
+      "detail": "A 50/50 risk split lifts the annualised Sharpe from 2.327 to 3.882 and cuts the worst drawdown from 12.79R to 2.17R. Resampling months gives P(improvement > 0) = 0.999 for Sharpe and 0.99 for drawdown, with a 90% interval of [0.763, 2.377] on the Sharpe gain."
+    },
+    {
+      "tone": "warn",
+      "title": "And it is NOT demonstrably better than running S1 alone",
+      "detail": "Against S1 the Sharpe gain is 0.218 with a 90% interval of [-0.753, 0.985] and P(>0) = 0.649. That interval crosses zero comfortably. Reporting only the S2 comparison would have turned a real but one-sided result into a recommendation the data does not carry."
+    },
+    {
+      "tone": "info",
+      "title": "The weight does not matter, which is the useful part",
+      "detail": "Sharpe runs from 3.707 to 3.958 across every S1 weight between 0.4 and 0.8. The in-sample optimum sits inside that plateau, so it carries no information. 50/50 is reported because it is the weight a person picks without looking, and it gives up almost nothing."
+    },
+    {
+      "tone": "warn",
+      "title": "The Sharpe level is not a live expectation and the comparison is",
+      "detail": "Values near 3.9 do not survive real execution. These are Strategy Tester R multiples aggregated monthly over a market that rose 112%, with no slippage beyond the export's own. Every claim here is a ranking between allocations of the same backtest, never a forecast of what either will return."
+    },
+    {
+      "tone": "info",
+      "title": "Per year the blend leads twice out of three",
+      "detail": "The 50/50 blend has the best Sharpe of the three options in 2/3 years. In 2026 S1 alone is better, because S2 had a weak year — which is what a diversification result should look like rather than a uniform win."
+    },
+    {
+      "tone": "good",
+      "title": "The strategies are mostly alpha, so an uncorrelated third is not structurally blocked",
+      "detail": "Regressing monthly R on gold's monthly return gives S1 a beta of 0.444 and S2 0.27, with R-squared of 0.22 and 0.116. 79.7% of S1's return and 77.0% of S2's is alpha rather than being long gold, and in the 8 months gold fell both were still positive (4.06R and 1.507R). Had they been mostly beta, decorrelating would have required shorting gold and the search would have been hopeless. Caveat: this is backtest alpha, and the version history from V3.4 to V4.1 is itself a selection process."
+    },
+    {
+      "tone": "warn",
+      "title": "A counter-trend fade is genuinely uncorrelated and genuinely unprofitable",
+      "detail": "Fading a two-bar move of 2.5 ATR, held 8 bars, is symmetric long and short and correlates 0.036 with the blend, -0.054 with S1 and 0.128 with S2 — exactly the property being looked for. Over 700 trades its own Sharpe is -0.046 and its total is -3.08R, so it lowers the blend's Sharpe at every weight tested (3.882 down to 2.911 at 30%). Two of four variants held their sign from train to valid; surviving that is not the same as being worth adding."
+    },
+    {
+      "tone": "info",
+      "title": "The structural mirror of S2 does not work as a short",
+      "detail": "S2's hammer definition was reverse-engineered from the export's own flags and each characteristic reflected — body, both wicks, close position and Bollinger position — giving 96 shooting-star signals against 212 hammers. Shorting them loses in every period and every exit rule tested, with win rates from 13% to 39%. A working long pattern does not become a working short by reflection."
+    },
+    {
+      "tone": "good",
+      "title": "The reusable output is the bar a new strategy has to clear",
+      "detail": "At a 30% risk allocation, a candidate needs a Sharpe of 0.8 to improve the blend if it is uncorrelated, 1.65 at correlation 0.25 and 2.44 at 0.50 — but only -0.14 at correlation −0.25, where a candidate helps while losing money slightly. Correlation is worth more than return, which argues for a different instrument rather than another rule on this one."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "strategy_diagnostics",
+  "card_summary": "S1 and S2 as one portfolio: correlation 0.234, and what that is worth.",
+  "summary_zh": "把 S1 和 S2 當成一個投資組合看。月報酬相關性只有 0.234，遠低於同一標的兩個做多策略該有的水準。50/50 配置在夏普和回撤上都贏過單獨的 S2，但贏不過單獨的 S1。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

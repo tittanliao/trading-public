@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260818-002",
+  "revision": 1,
+  "title": "S1 V3.9 / S2 V3.2 — entry-side volume and realized-volatility structure, and cross-strategy interaction",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
+  "status": "confirmed",
+  "created_on": "2026-08-18",
+  "question": "RS-XAUUSD-20260817-001 found that GVZ and VIX separate nothing. Was the problem the external proxy, or volatility itself? And does anything in the volume, volatility or shape of the bars before entry — or in what the other strategy is doing — separate S1 or S2 outcomes?",
+  "hypothesis": "Weakly positive on volatility measured from price rather than from an external index, on the reasoning that GVZ is daily and lagged while ATR percentile is native to the 30-minute series the strategies trade. Neutral on the rest.",
+  "headline": {
+    "s1_trades": 469,
+    "s2_trades": 166,
+    "features_tested": 10,
+    "features_separating_outcomes": 0,
+    "s1_largest_spread_pp": 11.29,
+    "s1_family_permutation_p": 0.6297,
+    "s2_largest_spread_pp": 19.73,
+    "s2_family_permutation_p": 0.6034,
+    "cross_strategy_splits_separating": 0,
+    "s1_fill_position_in_bar": 0.443,
+    "s2_fill_position_in_bar": 0.501
+  },
+  "card_metrics": [
+    "features_separating_outcomes",
+    "s1_family_permutation_p",
+    "s2_family_permutation_p"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Volatility does not separate outcomes, and the proxy was not the problem",
+      "detail": "The largest spread from any of 10 features is 11.29pp for S1 and 19.73pp for S2, both from ATR percentile — and both below their own resolution limits. Shuffling outcomes reproduces a largest spread this big 0.6297 of the time for S1 and 0.6034 for S2. The earlier GVZ and VIX result was not a measurement failure; volatility regime does not separate these strategies from the price side either."
+    },
+    {
+      "tone": "warn",
+      "title": "The best-looking feature is non-monotonic in both strategies",
+      "detail": "ATR percentile gives S1 55.62% / 50.65% / 61.94% across terciles and S2 41.38% / 61.11% / 42.59%. Neither is ordered, and a middle tercile that beats both neighbours has no mechanism behind it. A monotonic gradient at the same p-value would have been worth a prospective test; this is not."
+    },
+    {
+      "tone": "info",
+      "title": "Volume carries nothing, at any horizon or as a trend",
+      "detail": "Bar volume against its 20-bar and 96-bar medians, and the last four bars' volume against the prior twenty, all sit inside their resolution limits in both strategies. This is the first study to use the Volume column at all, and it closes it."
+    },
+    {
+      "tone": "info",
+      "title": "Nothing in what the other strategy is doing separates either",
+      "detail": "Whether the other strategy is in position, how its last closed trade resolved, and whether it fired within 48 hours — six splits across both strategies, none separable. The largest is S2 after a losing S1 at 55.7% against 43.4%, which needs about 24pp to resolve on 61 trades and shows 12."
+    },
+    {
+      "tone": "good",
+      "title": "The look-ahead trap here was one line wide",
+      "detail": "Entry fills are intrabar: the fill sits inside the entry bar's range at a median position of 0.443 for S1 and 0.501 for S2, matching neither open nor close. Using the entry bar's own OHLC would have been the easiest way to manufacture an edge in this study. Every feature uses the last fully completed bar before the fill."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Volume, realised volatility and bar anatomy at entry — the entry-side context sweep.",
+  "summary_zh": "進場當下的成交量、已實現波動度、K 棒結構。家族置換 p 值 0.57 到 0.86。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

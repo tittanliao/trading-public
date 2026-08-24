@@ -1,0 +1,2171 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260819-001",
+  "generated_at": "2026-08-21T19:49:05+08:00",
+  "strategy": "none — bar-level pattern mining, independent of S1 and S2",
+  "method": {
+    "bar_source": "30-minute FX_IDC:XAUUSD export",
+    "bar_count": 30959,
+    "splits": {
+      "train": {
+        "bars": 17027,
+        "from": "2024-01-02",
+        "to": "2025-06-10"
+      },
+      "valid": {
+        "bars": 7740,
+        "from": "2025-06-10",
+        "to": "2026-02-06"
+      },
+      "holdout": {
+        "bars": 6192,
+        "from": "2026-02-06",
+        "to": "2026-08-15"
+      }
+    },
+    "brief": "the brief was repeatable regularities and accepted overfitting; each family is therefore reported with the null that decides it",
+    "round_trip_cost_pct": 0.02,
+    "random_seed": 20260819,
+    "timezone": "Asia/Taipei"
+  },
+  "limitations": [
+    "Three of the four families are reported as artefacts rather than findings. That is the result, not a failure of the search.",
+    "The surviving family is about WHEN extremes form, not about direction. It does not predict whether the next move is up or down and must not be read that way.",
+    "The daily boundary is 07:00 Taipei. A different boundary moves the arcsine edge effect to different hours; the null is recomputed with the same boundary so the excess is unaffected, but raw distributions are not comparable across choices.",
+    "One instrument, 32 months, one strong uptrend.",
+    "No result changes formal S1 or S2 logic, live risk, or an active entry checklist."
+  ],
+  "families": {
+    "weekly_slot_matrix": {
+      "cells_scored": 230,
+      "cells_with_abs_t_over_2": 13,
+      "cells_expected_by_chance": 12,
+      "cells_sign_consistent_all_three": 64,
+      "sign_consistent_expected_by_chance": 57,
+      "top_cells": [
+        {
+          "weekday": 4,
+          "hour": 1,
+          "minute": 30,
+          "n_train": 75,
+          "train_mean_pct": 0.0393,
+          "t": 3.42,
+          "valid_mean_pct": 0.0205,
+          "holdout_mean_pct": 0.0333
+        },
+        {
+          "weekday": 2,
+          "hour": 0,
+          "minute": 30,
+          "n_train": 75,
+          "train_mean_pct": 0.0397,
+          "t": 2.82,
+          "valid_mean_pct": 0.0391,
+          "holdout_mean_pct": -0.0214
+        },
+        {
+          "weekday": 3,
+          "hour": 6,
+          "minute": 0,
+          "n_train": 47,
+          "train_mean_pct": 0.0785,
+          "t": 2.8,
+          "valid_mean_pct": 0.0864,
+          "holdout_mean_pct": 0.0118
+        },
+        {
+          "weekday": 3,
+          "hour": 18,
+          "minute": 0,
+          "n_train": 75,
+          "train_mean_pct": 0.0488,
+          "t": 2.69,
+          "valid_mean_pct": -0.0124,
+          "holdout_mean_pct": -0.0169
+        },
+        {
+          "weekday": 1,
+          "hour": 21,
+          "minute": 0,
+          "n_train": 75,
+          "train_mean_pct": 0.0488,
+          "t": 2.68,
+          "valid_mean_pct": 0.0551,
+          "holdout_mean_pct": -0.0698
+        },
+        {
+          "weekday": 0,
+          "hour": 8,
+          "minute": 0,
+          "n_train": 75,
+          "train_mean_pct": -0.0422,
+          "t": -2.62,
+          "valid_mean_pct": 0.053,
+          "holdout_mean_pct": -0.0795
+        },
+        {
+          "weekday": 4,
+          "hour": 2,
+          "minute": 30,
+          "n_train": 74,
+          "train_mean_pct": 0.0281,
+          "t": 2.6,
+          "valid_mean_pct": -0.0106,
+          "holdout_mean_pct": -0.0193
+        },
+        {
+          "weekday": 3,
+          "hour": 7,
+          "minute": 0,
+          "n_train": 75,
+          "train_mean_pct": 0.0339,
+          "t": 2.54,
+          "valid_mean_pct": 0.0324,
+          "holdout_mean_pct": 0.057
+        },
+        {
+          "weekday": 4,
+          "hour": 6,
+          "minute": 0,
+          "n_train": 45,
+          "train_mean_pct": 0.0377,
+          "t": 2.47,
+          "valid_mean_pct": 0.0163,
+          "holdout_mean_pct": 0.0869
+        },
+        {
+          "weekday": 1,
+          "hour": 2,
+          "minute": 30,
+          "n_train": 72,
+          "train_mean_pct": 0.0244,
+          "t": 2.34,
+          "valid_mean_pct": 0.0138,
+          "holdout_mean_pct": 0.0672
+        },
+        {
+          "weekday": 3,
+          "hour": 4,
+          "minute": 30,
+          "n_train": 72,
+          "train_mean_pct": -0.0227,
+          "t": -2.14,
+          "valid_mean_pct": 0.0159,
+          "holdout_mean_pct": -0.0508
+        },
+        {
+          "weekday": 4,
+          "hour": 21,
+          "minute": 0,
+          "n_train": 73,
+          "train_mean_pct": -0.0442,
+          "t": -2.08,
+          "valid_mean_pct": -0.004,
+          "holdout_mean_pct": -0.0096
+        }
+      ],
+      "overfit_basket": {
+        "top_5": {
+          "train": {
+            "trades": 347,
+            "mean_pct": 0.0288,
+            "total_pct": 9.99,
+            "annualised_sharpe": 3.07
+          },
+          "valid": {
+            "trades": 156,
+            "mean_pct": 0.0143,
+            "total_pct": 2.24,
+            "annualised_sharpe": 1.38
+          },
+          "holdout": {
+            "trades": 132,
+            "mean_pct": -0.033,
+            "total_pct": -4.35,
+            "annualised_sharpe": -2.12
+          }
+        },
+        "top_10": {
+          "train": {
+            "trades": 688,
+            "mean_pct": 0.021,
+            "total_pct": 14.42,
+            "annualised_sharpe": 3.54
+          },
+          "valid": {
+            "trades": 306,
+            "mean_pct": -0.0032,
+            "total_pct": -0.99,
+            "annualised_sharpe": -0.28
+          },
+          "holdout": {
+            "trades": 262,
+            "mean_pct": -0.0006,
+            "total_pct": -0.15,
+            "annualised_sharpe": -0.05
+          }
+        },
+        "top_20": {
+          "train": {
+            "trades": 1398,
+            "mean_pct": 0.0152,
+            "total_pct": 21.32,
+            "annualised_sharpe": 3.59
+          },
+          "valid": {
+            "trades": 633,
+            "mean_pct": -0.0068,
+            "total_pct": -4.32,
+            "annualised_sharpe": -0.93
+          },
+          "holdout": {
+            "trades": 527,
+            "mean_pct": 0.0079,
+            "total_pct": 4.16,
+            "annualised_sharpe": 1.03
+          }
+        },
+        "top_40": {
+          "train": {
+            "trades": 2883,
+            "mean_pct": 0.0111,
+            "total_pct": 31.87,
+            "annualised_sharpe": 3.44
+          },
+          "valid": {
+            "trades": 1298,
+            "mean_pct": -0.008,
+            "total_pct": -10.34,
+            "annualised_sharpe": -1.45
+          },
+          "holdout": {
+            "trades": 1066,
+            "mean_pct": -0.0103,
+            "total_pct": -11.01,
+            "annualised_sharpe": -1.86
+          }
+        }
+      },
+      "verdict": "A noise field. The count of significant cells barely exceeds chance, and a basket built from the strongest cells earns a train Sharpe above 3 that does not survive either later period. This is what overfitting looks like when it is done deliberately."
+    },
+    "candlestick_and_round_numbers": {
+      "h4": {
+        "baseline_drift_pct": {
+          "train": 0.0116,
+          "valid": 0.0206,
+          "holdout": -0.0055
+        },
+        "patterns": {
+          "inside_bar": {
+            "n_train": 2502,
+            "raw_train_pct": 0.0156,
+            "raw_t_if_drift_ignored": 2.81,
+            "excess": {
+              "train": 0.004,
+              "valid": 0.0062,
+              "holdout": 0.0091
+            },
+            "excess_t_train": 0.72,
+            "sign_consistent": true
+          },
+          "outside_bar": {
+            "n_train": 1780,
+            "raw_train_pct": -0.0025,
+            "raw_t_if_drift_ignored": -0.35,
+            "excess": {
+              "train": -0.0141,
+              "valid": -0.0186,
+              "holdout": -0.0002
+            },
+            "excess_t_train": -2.01,
+            "sign_consistent": true
+          },
+          "narrowest_of_7": {
+            "n_train": 3085,
+            "raw_train_pct": 0.0131,
+            "raw_t_if_drift_ignored": 3.2,
+            "excess": {
+              "train": 0.0015,
+              "valid": -0.002,
+              "holdout": -0.0044
+            },
+            "excess_t_train": 0.37,
+            "sign_consistent": false
+          },
+          "widest_of_7": {
+            "n_train": 2667,
+            "raw_train_pct": 0.0107,
+            "raw_t_if_drift_ignored": 1.64,
+            "excess": {
+              "train": -0.001,
+              "valid": 0.0183,
+              "holdout": 0.0065
+            },
+            "excess_t_train": -0.15,
+            "sign_consistent": false
+          },
+          "bullish_engulfing": {
+            "n_train": 962,
+            "raw_train_pct": 0.0208,
+            "raw_t_if_drift_ignored": 2.21,
+            "excess": {
+              "train": 0.0092,
+              "valid": 0.0073,
+              "holdout": -0.0199
+            },
+            "excess_t_train": 0.98,
+            "sign_consistent": false
+          },
+          "bearish_engulfing": {
+            "n_train": 834,
+            "raw_train_pct": 0.0243,
+            "raw_t_if_drift_ignored": 2.25,
+            "excess": {
+              "train": 0.0127,
+              "valid": -0.0412,
+              "holdout": 0.0066
+            },
+            "excess_t_train": 1.17,
+            "sign_consistent": false
+          },
+          "three_up_closes": {
+            "n_train": 2240,
+            "raw_train_pct": 0.0056,
+            "raw_t_if_drift_ignored": 0.93,
+            "excess": {
+              "train": -0.006,
+              "valid": -0.0014,
+              "holdout": -0.0018
+            },
+            "excess_t_train": -0.99,
+            "sign_consistent": true
+          },
+          "three_down_closes": {
+            "n_train": 1783,
+            "raw_train_pct": 0.0044,
+            "raw_t_if_drift_ignored": 0.59,
+            "excess": {
+              "train": -0.0072,
+              "valid": 0.0488,
+              "holdout": -0.0074
+            },
+            "excess_t_train": -0.97,
+            "sign_consistent": false
+          },
+          "doji": {
+            "n_train": 2005,
+            "raw_train_pct": 0.0145,
+            "raw_t_if_drift_ignored": 2.48,
+            "excess": {
+              "train": 0.0029,
+              "valid": -0.0089,
+              "holdout": -0.0064
+            },
+            "excess_t_train": 0.5,
+            "sign_consistent": false
+          },
+          "near_round_100": {
+            "n_train": 475,
+            "raw_train_pct": 0.0097,
+            "raw_t_if_drift_ignored": 0.65,
+            "excess": {
+              "train": -0.0019,
+              "valid": -0.0291,
+              "holdout": 0.0273
+            },
+            "excess_t_train": -0.13,
+            "sign_consistent": false
+          },
+          "near_round_50": {
+            "n_train": 759,
+            "raw_train_pct": 0.0127,
+            "raw_t_if_drift_ignored": 1.16,
+            "excess": {
+              "train": 0.001,
+              "valid": -0.04,
+              "holdout": 0.0588
+            },
+            "excess_t_train": 0.09,
+            "sign_consistent": false
+          },
+          "near_round_10": {
+            "n_train": 1547,
+            "raw_train_pct": 0.0086,
+            "raw_t_if_drift_ignored": 1.13,
+            "excess": {
+              "train": -0.003,
+              "valid": -0.0016,
+              "holdout": -0.0012
+            },
+            "excess_t_train": -0.39,
+            "sign_consistent": true
+          }
+        },
+        "largest_abs_excess_t": 2.01,
+        "largest_abs_raw_t_if_drift_ignored": 3.2
+      },
+      "h16": {
+        "baseline_drift_pct": {
+          "train": 0.0465,
+          "valid": 0.0792,
+          "holdout": -0.0182
+        },
+        "patterns": {
+          "inside_bar": {
+            "n_train": 2502,
+            "raw_train_pct": 0.0525,
+            "raw_t_if_drift_ignored": 4.77,
+            "excess": {
+              "train": 0.006,
+              "valid": -0.0034,
+              "holdout": 0.012
+            },
+            "excess_t_train": 0.55,
+            "sign_consistent": false
+          },
+          "outside_bar": {
+            "n_train": 1780,
+            "raw_train_pct": 0.0379,
+            "raw_t_if_drift_ignored": 2.84,
+            "excess": {
+              "train": -0.0085,
+              "valid": 0.0028,
+              "holdout": 0.0604
+            },
+            "excess_t_train": -0.64,
+            "sign_consistent": false
+          },
+          "narrowest_of_7": {
+            "n_train": 3085,
+            "raw_train_pct": 0.0561,
+            "raw_t_if_drift_ignored": 5.88,
+            "excess": {
+              "train": 0.0096,
+              "valid": 0.0182,
+              "holdout": -0.0163
+            },
+            "excess_t_train": 1.01,
+            "sign_consistent": false
+          },
+          "widest_of_7": {
+            "n_train": 2667,
+            "raw_train_pct": 0.0423,
+            "raw_t_if_drift_ignored": 3.64,
+            "excess": {
+              "train": -0.0041,
+              "valid": 0.0012,
+              "holdout": 0.0358
+            },
+            "excess_t_train": -0.35,
+            "sign_consistent": false
+          },
+          "bullish_engulfing": {
+            "n_train": 962,
+            "raw_train_pct": 0.0654,
+            "raw_t_if_drift_ignored": 3.58,
+            "excess": {
+              "train": 0.0189,
+              "valid": 0.0266,
+              "holdout": -0.0249
+            },
+            "excess_t_train": 1.03,
+            "sign_consistent": false
+          },
+          "bearish_engulfing": {
+            "n_train": 834,
+            "raw_train_pct": 0.0635,
+            "raw_t_if_drift_ignored": 3.06,
+            "excess": {
+              "train": 0.0171,
+              "valid": -0.0655,
+              "holdout": 0.0823
+            },
+            "excess_t_train": 0.82,
+            "sign_consistent": false
+          },
+          "three_up_closes": {
+            "n_train": 2240,
+            "raw_train_pct": 0.0503,
+            "raw_t_if_drift_ignored": 4.14,
+            "excess": {
+              "train": 0.0039,
+              "valid": -0.0104,
+              "holdout": -0.1126
+            },
+            "excess_t_train": 0.32,
+            "sign_consistent": false
+          },
+          "three_down_closes": {
+            "n_train": 1783,
+            "raw_train_pct": 0.0332,
+            "raw_t_if_drift_ignored": 2.41,
+            "excess": {
+              "train": -0.0133,
+              "valid": -0.0041,
+              "holdout": -0.0286
+            },
+            "excess_t_train": -0.97,
+            "sign_consistent": true
+          },
+          "doji": {
+            "n_train": 2005,
+            "raw_train_pct": 0.0599,
+            "raw_t_if_drift_ignored": 5.02,
+            "excess": {
+              "train": 0.0134,
+              "valid": -0.0146,
+              "holdout": -0.0713
+            },
+            "excess_t_train": 1.12,
+            "sign_consistent": false
+          },
+          "near_round_100": {
+            "n_train": 475,
+            "raw_train_pct": 0.083,
+            "raw_t_if_drift_ignored": 3.07,
+            "excess": {
+              "train": 0.0366,
+              "valid": 0.0573,
+              "holdout": 0.0443
+            },
+            "excess_t_train": 1.35,
+            "sign_consistent": true
+          },
+          "near_round_50": {
+            "n_train": 759,
+            "raw_train_pct": 0.0361,
+            "raw_t_if_drift_ignored": 1.74,
+            "excess": {
+              "train": -0.0104,
+              "valid": -0.0299,
+              "holdout": 0.0429
+            },
+            "excess_t_train": -0.5,
+            "sign_consistent": false
+          },
+          "near_round_10": {
+            "n_train": 1547,
+            "raw_train_pct": 0.0318,
+            "raw_t_if_drift_ignored": 2.11,
+            "excess": {
+              "train": -0.0147,
+              "valid": 0.0127,
+              "holdout": -0.0418
+            },
+            "excess_t_train": -0.97,
+            "sign_consistent": false
+          }
+        },
+        "largest_abs_excess_t": 1.35,
+        "largest_abs_raw_t_if_drift_ignored": 5.88
+      },
+      "verdict": "Drift, not patterns. At a 16-bar horizon the raw returns make every pattern look profitable, with t-statistics up to about 5.9; after subtracting the same period's baseline the largest excess t falls to about 1.4. The round-number family is the only one whose sign holds in all three periods, and it is tested separately."
+    },
+    "round_number_bootstrap": {
+      "level_100_within_10": {
+        "train": {
+          "n_near": 2777,
+          "difference_pct": 0.0653,
+          "p_value": 0.075
+        },
+        "valid": {
+          "n_near": 1260,
+          "difference_pct": 0.0304,
+          "p_value": 0.645
+        },
+        "holdout": {
+          "n_near": 1221,
+          "difference_pct": 0.0076,
+          "p_value": 0.9193
+        },
+        "pooled": {
+          "n_near": 5258,
+          "difference_pct": 0.0409,
+          "p_value": 0.1913
+        }
+      },
+      "level_100_within_5": {
+        "train": {
+          "n_near": 1298,
+          "difference_pct": 0.0561,
+          "p_value": 0.184
+        },
+        "valid": {
+          "n_near": 568,
+          "difference_pct": 0.0798,
+          "p_value": 0.2858
+        },
+        "holdout": {
+          "n_near": 596,
+          "difference_pct": 0.0495,
+          "p_value": 0.5302
+        },
+        "pooled": {
+          "n_near": 2462,
+          "difference_pct": 0.0563,
+          "p_value": 0.1318
+        }
+      },
+      "level_50_within_5": {
+        "train": {
+          "n_near": 2866,
+          "difference_pct": -0.0008,
+          "p_value": 0.9782
+        },
+        "valid": {
+          "n_near": 1403,
+          "difference_pct": 0.0246,
+          "p_value": 0.6295
+        },
+        "holdout": {
+          "n_near": 1151,
+          "difference_pct": 0.0574,
+          "p_value": 0.2527
+        },
+        "pooled": {
+          "n_near": 5420,
+          "difference_pct": 0.0172,
+          "p_value": 0.4935
+        }
+      },
+      "level_25_within_3": {
+        "train": {
+          "n_near": 3886,
+          "difference_pct": -0.0311,
+          "p_value": 0.1535
+        },
+        "valid": {
+          "n_near": 1746,
+          "difference_pct": 0.0057,
+          "p_value": 0.879
+        },
+        "holdout": {
+          "n_near": 1475,
+          "difference_pct": 0.0079,
+          "p_value": 0.8267
+        },
+        "pooled": {
+          "n_near": 7107,
+          "difference_pct": -0.0149,
+          "p_value": 0.4303
+        }
+      },
+      "verdict": "Not supported. The 100 dollar level is positive in all three periods but never significant, pooled p is about 0.17, and the 50 and 25 dollar levels show nothing. A real order-clustering effect would appear at the finer levels too, weaker but present. Sign consistency without a mechanism is what noise looks like."
+    },
+    "daily_extreme_timing": {
+      "day_boundary_hour_taipei": 7,
+      "null": "each day's own bar-to-bar changes shuffled; volatility and length preserved",
+      "null_shuffles_per_day": 200,
+      "by_period": {
+        "train": {
+          "days": 360,
+          "high_excess_pct": {
+            "0": 2.18,
+            "1": 2.13,
+            "2": -1.08,
+            "3": -3.34,
+            "4": -5.11,
+            "5": -3.7,
+            "6": -1.54,
+            "7": -5.14,
+            "8": 0.4,
+            "9": 3.98,
+            "10": 0.07,
+            "11": -2.01,
+            "12": -2.17,
+            "13": 0.23,
+            "14": -0.9,
+            "15": -1.58,
+            "16": -1.0,
+            "17": 0.17,
+            "18": 0.1,
+            "19": 0.38,
+            "20": 1.37,
+            "21": 7.67,
+            "22": 5.07,
+            "23": 3.83
+          },
+          "low_excess_pct": {
+            "0": 1.15,
+            "1": 0.1,
+            "2": 0.3,
+            "3": 0.23,
+            "4": -3.4,
+            "5": -2.43,
+            "6": -4.81,
+            "7": -6.29,
+            "8": -1.69,
+            "9": 6.14,
+            "10": -0.61,
+            "11": -1.16,
+            "12": -1.97,
+            "13": -0.1,
+            "14": -0.2,
+            "15": -0.65,
+            "16": -0.2,
+            "17": 0.44,
+            "18": -1.28,
+            "19": -0.51,
+            "20": 2.69,
+            "21": 4.54,
+            "22": 6.09,
+            "23": 3.6
+          }
+        },
+        "valid": {
+          "days": 161,
+          "high_excess_pct": {
+            "0": 4.3,
+            "1": -2.41,
+            "2": -1.25,
+            "3": -2.0,
+            "4": -4.85,
+            "5": -1.04,
+            "6": -0.37,
+            "7": 1.8,
+            "8": 0.87,
+            "9": 1.46,
+            "10": -3.26,
+            "11": -1.87,
+            "12": -1.64,
+            "13": -0.35,
+            "14": 1.59,
+            "15": -0.99,
+            "16": 0.91,
+            "17": -0.19,
+            "18": -1.02,
+            "19": -2.31,
+            "20": 0.58,
+            "21": 2.01,
+            "22": 2.95,
+            "23": 7.08
+          },
+          "low_excess_pct": {
+            "0": 1.45,
+            "1": -0.68,
+            "2": -0.36,
+            "3": -1.2,
+            "4": -3.16,
+            "5": -1.45,
+            "6": -3.75,
+            "7": -1.4,
+            "8": 2.06,
+            "9": 2.46,
+            "10": -0.88,
+            "11": -1.68,
+            "12": -2.41,
+            "13": 0.6,
+            "14": 1.76,
+            "15": -0.63,
+            "16": 0.74,
+            "17": -0.41,
+            "18": -1.63,
+            "19": 0.46,
+            "20": 0.39,
+            "21": 2.18,
+            "22": 3.41,
+            "23": 4.15
+          }
+        },
+        "holdout": {
+          "days": 131,
+          "high_excess_pct": {
+            "0": -1.05,
+            "1": 0.23,
+            "2": 0.45,
+            "3": -3.95,
+            "4": -5.2,
+            "5": 0.31,
+            "6": -1.06,
+            "7": -1.47,
+            "8": 5.19,
+            "9": 2.95,
+            "10": -0.27,
+            "11": -0.59,
+            "12": -2.32,
+            "13": -0.06,
+            "14": -1.94,
+            "15": 0.29,
+            "16": -2.67,
+            "17": -2.01,
+            "18": -0.43,
+            "19": -1.03,
+            "20": 1.6,
+            "21": 3.23,
+            "22": 6.09,
+            "23": 3.71
+          },
+          "low_excess_pct": {
+            "0": 0.59,
+            "1": -3.0,
+            "2": -0.81,
+            "3": 1.21,
+            "4": -4.18,
+            "5": -1.08,
+            "6": -5.19,
+            "7": 3.8,
+            "8": 5.44,
+            "9": 2.16,
+            "10": -1.87,
+            "11": -1.4,
+            "12": -0.31,
+            "13": 0.74,
+            "14": -2.12,
+            "15": 0.29,
+            "16": -0.24,
+            "17": -1.23,
+            "18": -2.65,
+            "19": -1.97,
+            "20": -1.82,
+            "21": 4.69,
+            "22": 7.73,
+            "23": 1.21
+          }
+        }
+      },
+      "shape_stability_spearman": {
+        "high_train_vs_valid": 0.515,
+        "high_train_vs_holdout": 0.649,
+        "low_train_vs_valid": 0.763,
+        "low_train_vs_holdout": 0.411
+      },
+      "hours_consistent_in_all_three_periods": [
+        {
+          "hour": 4,
+          "direction": "extremes avoid this hour",
+          "high_excess": [
+            -5.11,
+            -4.85,
+            -5.2
+          ],
+          "low_excess": [
+            -3.4,
+            -3.16,
+            -4.18
+          ]
+        },
+        {
+          "hour": 9,
+          "direction": "extremes cluster here",
+          "high_excess": [
+            3.98,
+            1.46,
+            2.95
+          ],
+          "low_excess": [
+            6.14,
+            2.46,
+            2.16
+          ]
+        },
+        {
+          "hour": 21,
+          "direction": "extremes cluster here",
+          "high_excess": [
+            7.67,
+            2.01,
+            3.23
+          ],
+          "low_excess": [
+            4.54,
+            2.18,
+            4.69
+          ]
+        },
+        {
+          "hour": 22,
+          "direction": "extremes cluster here",
+          "high_excess": [
+            5.07,
+            2.95,
+            6.09
+          ],
+          "low_excess": [
+            6.09,
+            3.41,
+            7.73
+          ]
+        },
+        {
+          "hour": 23,
+          "direction": "extremes cluster here",
+          "high_excess": [
+            3.83,
+            7.08,
+            3.71
+          ],
+          "low_excess": [
+            3.6,
+            4.15,
+            1.21
+          ]
+        }
+      ],
+      "verdict": "The one family that survives. Daily extremes form at 09:00 and 22:00-23:00 Taipei far more often than a random walk on the same returns produces, and at 04:00-06:00 far less often, with comparable magnitudes in all three periods. It is the intraday volatility profile expressed in a form that can be acted on, and it says nothing about direction."
+    },
+    "multi_bar_sequences": {
+      "encodings": {
+        "move": {
+          "len2_h4": {
+            "family_permutation": {
+              "eligible_sequences": 16,
+              "observed_max_abs_t": 1.09,
+              "null_median_max_abs_t": 1.95,
+              "null_95th_max_abs_t": 2.85,
+              "p_max_at_least_observed": 0.99,
+              "observed_count_abs_t_over_2": 0,
+              "null_median_count": 0,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 3,
+            "top_consistent": [
+              {
+                "sequence": "dU",
+                "by_period": {
+                  "train": [
+                    887,
+                    0.01
+                  ],
+                  "valid": [
+                    443,
+                    0.0183
+                  ],
+                  "holdout": [
+                    341,
+                    0.0021
+                  ]
+                }
+              },
+              {
+                "sequence": "uU",
+                "by_period": {
+                  "train": [
+                    896,
+                    0.0053
+                  ],
+                  "valid": [
+                    428,
+                    0.0081
+                  ],
+                  "holdout": [
+                    318,
+                    0.0069
+                  ]
+                }
+              },
+              {
+                "sequence": "uD",
+                "by_period": {
+                  "train": [
+                    780,
+                    -0.0048
+                  ],
+                  "valid": [
+                    388,
+                    -0.0233
+                  ],
+                  "holdout": [
+                    325,
+                    -0.0052
+                  ]
+                }
+              }
+            ]
+          },
+          "len2_h8": {
+            "family_permutation": {
+              "eligible_sequences": 16,
+              "observed_max_abs_t": 1.67,
+              "null_median_max_abs_t": 1.97,
+              "null_95th_max_abs_t": 2.93,
+              "p_max_at_least_observed": 0.764,
+              "observed_count_abs_t_over_2": 0,
+              "null_median_count": 0,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 2,
+            "top_consistent": [
+              {
+                "sequence": "dU",
+                "by_period": {
+                  "train": [
+                    887,
+                    0.0086
+                  ],
+                  "valid": [
+                    443,
+                    0.0283
+                  ],
+                  "holdout": [
+                    341,
+                    0.0138
+                  ]
+                }
+              },
+              {
+                "sequence": "Ud",
+                "by_period": {
+                  "train": [
+                    950,
+                    0.0056
+                  ],
+                  "valid": [
+                    449,
+                    0.0056
+                  ],
+                  "holdout": [
+                    329,
+                    0.0156
+                  ]
+                }
+              }
+            ]
+          },
+          "len3_h4": {
+            "family_permutation": {
+              "eligible_sequences": 64,
+              "observed_max_abs_t": 2.13,
+              "null_median_max_abs_t": 2.55,
+              "null_95th_max_abs_t": 3.34,
+              "p_max_at_least_observed": 0.8873,
+              "observed_count_abs_t_over_2": 1,
+              "null_median_count": 3,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 18,
+            "top_consistent": [
+              {
+                "sequence": "uDD",
+                "by_period": {
+                  "train": [
+                    151,
+                    -0.0478
+                  ],
+                  "valid": [
+                    69,
+                    -0.0988
+                  ],
+                  "holdout": [
+                    68,
+                    -0.037
+                  ]
+                }
+              },
+              {
+                "sequence": "udU",
+                "by_period": {
+                  "train": [
+                    312,
+                    0.0275
+                  ],
+                  "valid": [
+                    146,
+                    0.0252
+                  ],
+                  "holdout": [
+                    105,
+                    0.0849
+                  ]
+                }
+              },
+              {
+                "sequence": "DDU",
+                "by_period": {
+                  "train": [
+                    151,
+                    -0.0218
+                  ],
+                  "valid": [
+                    70,
+                    -0.0439
+                  ],
+                  "holdout": [
+                    51,
+                    -0.096
+                  ]
+                }
+              },
+              {
+                "sequence": "uDU",
+                "by_period": {
+                  "train": [
+                    160,
+                    0.0205
+                  ],
+                  "valid": [
+                    87,
+                    0.0133
+                  ],
+                  "holdout": [
+                    64,
+                    0.1293
+                  ]
+                }
+              }
+            ]
+          },
+          "len3_h8": {
+            "family_permutation": {
+              "eligible_sequences": 64,
+              "observed_max_abs_t": 2.43,
+              "null_median_max_abs_t": 2.55,
+              "null_95th_max_abs_t": 3.37,
+              "p_max_at_least_observed": 0.6313,
+              "observed_count_abs_t_over_2": 3,
+              "null_median_count": 3,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 13,
+            "top_consistent": [
+              {
+                "sequence": "UDU",
+                "by_period": {
+                  "train": [
+                    132,
+                    0.0592
+                  ],
+                  "valid": [
+                    61,
+                    0.0451
+                  ],
+                  "holdout": [
+                    56,
+                    0.0226
+                  ]
+                }
+              },
+              {
+                "sequence": "DUU",
+                "by_period": {
+                  "train": [
+                    154,
+                    0.0497
+                  ],
+                  "valid": [
+                    63,
+                    0.0462
+                  ],
+                  "holdout": [
+                    40,
+                    0.1666
+                  ]
+                }
+              },
+              {
+                "sequence": "DDU",
+                "by_period": {
+                  "train": [
+                    151,
+                    -0.0353
+                  ],
+                  "valid": [
+                    70,
+                    -0.0987
+                  ],
+                  "holdout": [
+                    51,
+                    -0.1301
+                  ]
+                }
+              },
+              {
+                "sequence": "uDU",
+                "by_period": {
+                  "train": [
+                    160,
+                    0.0256
+                  ],
+                  "valid": [
+                    87,
+                    0.0038
+                  ],
+                  "holdout": [
+                    64,
+                    0.2849
+                  ]
+                }
+              }
+            ]
+          },
+          "len4_h4": {
+            "family_permutation": {
+              "eligible_sequences": 121,
+              "observed_max_abs_t": 2.62,
+              "null_median_max_abs_t": 2.81,
+              "null_95th_max_abs_t": 3.61,
+              "p_max_at_least_observed": 0.7013,
+              "observed_count_abs_t_over_2": 6,
+              "null_median_count": 6,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 28,
+            "top_consistent": [
+              {
+                "sequence": "uudU",
+                "by_period": {
+                  "train": [
+                    98,
+                    0.0794
+                  ],
+                  "valid": [
+                    48,
+                    0.1222
+                  ],
+                  "holdout": [
+                    33,
+                    0.1936
+                  ]
+                }
+              },
+              {
+                "sequence": "UduU",
+                "by_period": {
+                  "train": [
+                    50,
+                    0.0525
+                  ],
+                  "valid": [
+                    21,
+                    0.0613
+                  ],
+                  "holdout": [
+                    18,
+                    0.0931
+                  ]
+                }
+              },
+              {
+                "sequence": "DDUd",
+                "by_period": {
+                  "train": [
+                    52,
+                    -0.0467
+                  ],
+                  "valid": [
+                    20,
+                    -0.1157
+                  ],
+                  "holdout": [
+                    17,
+                    -0.0316
+                  ]
+                }
+              },
+              {
+                "sequence": "duuU",
+                "by_period": {
+                  "train": [
+                    106,
+                    0.0448
+                  ],
+                  "valid": [
+                    38,
+                    0.0398
+                  ],
+                  "holdout": [
+                    35,
+                    0.1033
+                  ]
+                }
+              }
+            ]
+          },
+          "len4_h8": {
+            "family_permutation": {
+              "eligible_sequences": 121,
+              "observed_max_abs_t": 3.14,
+              "null_median_max_abs_t": 2.83,
+              "null_95th_max_abs_t": 3.63,
+              "p_max_at_least_observed": 0.236,
+              "observed_count_abs_t_over_2": 4,
+              "null_median_count": 6,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 26,
+            "top_consistent": [
+              {
+                "sequence": "uudU",
+                "by_period": {
+                  "train": [
+                    98,
+                    0.1259
+                  ],
+                  "valid": [
+                    48,
+                    0.1036
+                  ],
+                  "holdout": [
+                    33,
+                    0.1931
+                  ]
+                }
+              },
+              {
+                "sequence": "DUud",
+                "by_period": {
+                  "train": [
+                    63,
+                    0.0898
+                  ],
+                  "valid": [
+                    32,
+                    0.057
+                  ],
+                  "holdout": [
+                    22,
+                    0.0855
+                  ]
+                }
+              },
+              {
+                "sequence": "UUdd",
+                "by_period": {
+                  "train": [
+                    62,
+                    0.0634
+                  ],
+                  "valid": [
+                    21,
+                    0.0766
+                  ],
+                  "holdout": [
+                    25,
+                    0.0941
+                  ]
+                }
+              },
+              {
+                "sequence": "Duud",
+                "by_period": {
+                  "train": [
+                    82,
+                    0.0555
+                  ],
+                  "valid": [
+                    45,
+                    0.0504
+                  ],
+                  "holdout": [
+                    33,
+                    0.0044
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "close_position": {
+          "len2_h4": {
+            "family_permutation": {
+              "eligible_sequences": 9,
+              "observed_max_abs_t": 1.85,
+              "null_median_max_abs_t": 1.65,
+              "null_95th_max_abs_t": 2.55,
+              "p_max_at_least_observed": 0.3433,
+              "observed_count_abs_t_over_2": 0,
+              "null_median_count": 0,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 0,
+            "top_consistent": []
+          },
+          "len2_h8": {
+            "family_permutation": {
+              "eligible_sequences": 9,
+              "observed_max_abs_t": 1.63,
+              "null_median_max_abs_t": 1.66,
+              "null_95th_max_abs_t": 2.57,
+              "p_max_at_least_observed": 0.5253,
+              "observed_count_abs_t_over_2": 0,
+              "null_median_count": 0,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 0,
+            "top_consistent": []
+          },
+          "len3_h4": {
+            "family_permutation": {
+              "eligible_sequences": 27,
+              "observed_max_abs_t": 2.52,
+              "null_median_max_abs_t": 2.19,
+              "null_95th_max_abs_t": 3.07,
+              "p_max_at_least_observed": 0.2467,
+              "observed_count_abs_t_over_2": 1,
+              "null_median_count": 1,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 5,
+            "top_consistent": [
+              {
+                "sequence": "TTT",
+                "by_period": {
+                  "train": [
+                    783,
+                    -0.013
+                  ],
+                  "valid": [
+                    352,
+                    -0.0146
+                  ],
+                  "holdout": [
+                    235,
+                    -0.0413
+                  ]
+                }
+              },
+              {
+                "sequence": "TMM",
+                "by_period": {
+                  "train": [
+                    772,
+                    0.0102
+                  ],
+                  "valid": [
+                    349,
+                    0.0087
+                  ],
+                  "holdout": [
+                    212,
+                    0.0041
+                  ]
+                }
+              },
+              {
+                "sequence": "TLL",
+                "by_period": {
+                  "train": [
+                    499,
+                    0.0095
+                  ],
+                  "valid": [
+                    255,
+                    0.0181
+                  ],
+                  "holdout": [
+                    226,
+                    0.016
+                  ]
+                }
+              },
+              {
+                "sequence": "TLM",
+                "by_period": {
+                  "train": [
+                    613,
+                    -0.0086
+                  ],
+                  "valid": [
+                    290,
+                    -0.0096
+                  ],
+                  "holdout": [
+                    252,
+                    -0.016
+                  ]
+                }
+              }
+            ]
+          },
+          "len3_h8": {
+            "family_permutation": {
+              "eligible_sequences": 27,
+              "observed_max_abs_t": 2.28,
+              "null_median_max_abs_t": 2.17,
+              "null_95th_max_abs_t": 3.02,
+              "p_max_at_least_observed": 0.3987,
+              "observed_count_abs_t_over_2": 1,
+              "null_median_count": 1,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 5,
+            "top_consistent": [
+              {
+                "sequence": "TTT",
+                "by_period": {
+                  "train": [
+                    783,
+                    -0.0318
+                  ],
+                  "valid": [
+                    352,
+                    -0.0236
+                  ],
+                  "holdout": [
+                    235,
+                    -0.0114
+                  ]
+                }
+              },
+              {
+                "sequence": "MLM",
+                "by_period": {
+                  "train": [
+                    529,
+                    -0.0186
+                  ],
+                  "valid": [
+                    267,
+                    -0.003
+                  ],
+                  "holdout": [
+                    230,
+                    -0.0744
+                  ]
+                }
+              },
+              {
+                "sequence": "MLT",
+                "by_period": {
+                  "train": [
+                    630,
+                    0.0047
+                  ],
+                  "valid": [
+                    307,
+                    0.0039
+                  ],
+                  "holdout": [
+                    223,
+                    0.0269
+                  ]
+                }
+              },
+              {
+                "sequence": "TLL",
+                "by_period": {
+                  "train": [
+                    499,
+                    0.0024
+                  ],
+                  "valid": [
+                    255,
+                    0.0132
+                  ],
+                  "holdout": [
+                    226,
+                    0.0162
+                  ]
+                }
+              }
+            ]
+          },
+          "len4_h4": {
+            "family_permutation": {
+              "eligible_sequences": 81,
+              "observed_max_abs_t": 2.36,
+              "null_median_max_abs_t": 2.64,
+              "null_95th_max_abs_t": 3.47,
+              "p_max_at_least_observed": 0.7727,
+              "observed_count_abs_t_over_2": 4,
+              "null_median_count": 3,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 20,
+            "top_consistent": [
+              {
+                "sequence": "TLLL",
+                "by_period": {
+                  "train": [
+                    116,
+                    -0.0304
+                  ],
+                  "valid": [
+                    80,
+                    -0.0172
+                  ],
+                  "holdout": [
+                    72,
+                    -0.0485
+                  ]
+                }
+              },
+              {
+                "sequence": "TTMM",
+                "by_period": {
+                  "train": [
+                    288,
+                    0.0264
+                  ],
+                  "valid": [
+                    135,
+                    0.009
+                  ],
+                  "holdout": [
+                    74,
+                    0.0206
+                  ]
+                }
+              },
+              {
+                "sequence": "LMTT",
+                "by_period": {
+                  "train": [
+                    217,
+                    -0.0248
+                  ],
+                  "valid": [
+                    118,
+                    -0.0323
+                  ],
+                  "holdout": [
+                    81,
+                    -0.0556
+                  ]
+                }
+              },
+              {
+                "sequence": "MMTM",
+                "by_period": {
+                  "train": [
+                    265,
+                    0.023
+                  ],
+                  "valid": [
+                    101,
+                    0.0055
+                  ],
+                  "holdout": [
+                    71,
+                    0.1631
+                  ]
+                }
+              }
+            ]
+          },
+          "len4_h8": {
+            "family_permutation": {
+              "eligible_sequences": 81,
+              "observed_max_abs_t": 2.86,
+              "null_median_max_abs_t": 2.63,
+              "null_95th_max_abs_t": 3.43,
+              "p_max_at_least_observed": 0.3133,
+              "observed_count_abs_t_over_2": 2,
+              "null_median_count": 4,
+              "note": "An observed maximum below the null median means the enumeration is less extreme than shuffling typically produces."
+            },
+            "sign_consistent_sequences": 23,
+            "top_consistent": [
+              {
+                "sequence": "TLLL",
+                "by_period": {
+                  "train": [
+                    116,
+                    -0.0633
+                  ],
+                  "valid": [
+                    80,
+                    -0.0037
+                  ],
+                  "holdout": [
+                    72,
+                    -0.0377
+                  ]
+                }
+              },
+              {
+                "sequence": "LLLM",
+                "by_period": {
+                  "train": [
+                    95,
+                    0.0529
+                  ],
+                  "valid": [
+                    57,
+                    0.0151
+                  ],
+                  "holdout": [
+                    68,
+                    0.012
+                  ]
+                }
+              },
+              {
+                "sequence": "MMTL",
+                "by_period": {
+                  "train": [
+                    215,
+                    -0.0345
+                  ],
+                  "valid": [
+                    106,
+                    -0.0412
+                  ],
+                  "holdout": [
+                    78,
+                    -0.0122
+                  ]
+                }
+              },
+              {
+                "sequence": "MTTT",
+                "by_period": {
+                  "train": [
+                    295,
+                    -0.0323
+                  ],
+                  "valid": [
+                    113,
+                    -0.0531
+                  ],
+                  "holdout": [
+                    68,
+                    -0.0959
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "focused_tests": {
+        "compression_then_thrust": {
+          "rows": {
+            "k1_h4_up": {
+              "with_compression": {
+                "train": [
+                  1783,
+                  0.0076
+                ],
+                "valid": [
+                  871,
+                  0.0133
+                ],
+                "holdout": [
+                  659,
+                  0.0044
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  3058,
+                  0.005
+                ],
+                "valid": [
+                  1513,
+                  0.0076
+                ],
+                "holdout": [
+                  1100,
+                  0.0187
+                ]
+              }
+            },
+            "k1_h4_down": {
+              "with_compression": {
+                "train": [
+                  1570,
+                  -0.0064
+                ],
+                "valid": [
+                  776,
+                  0.0033
+                ],
+                "holdout": [
+                  653,
+                  0.0026
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  2721,
+                  -0.007
+                ],
+                "valid": [
+                  1312,
+                  0.0048
+                ],
+                "holdout": [
+                  1121,
+                  -0.0016
+                ]
+              }
+            },
+            "k2_h4_up": {
+              "with_compression": {
+                "train": [
+                  1141,
+                  0.0128
+                ],
+                "valid": [
+                  546,
+                  0.0041
+                ],
+                "holdout": [
+                  413,
+                  0.0184
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  3058,
+                  0.005
+                ],
+                "valid": [
+                  1513,
+                  0.0076
+                ],
+                "holdout": [
+                  1100,
+                  0.0187
+                ]
+              }
+            },
+            "k2_h4_down": {
+              "with_compression": {
+                "train": [
+                  1005,
+                  -0.0106
+                ],
+                "valid": [
+                  508,
+                  0.0062
+                ],
+                "holdout": [
+                  409,
+                  -0.0285
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  2721,
+                  -0.007
+                ],
+                "valid": [
+                  1312,
+                  0.0048
+                ],
+                "holdout": [
+                  1121,
+                  -0.0016
+                ]
+              }
+            },
+            "k1_h8_up": {
+              "with_compression": {
+                "train": [
+                  1783,
+                  -0.001
+                ],
+                "valid": [
+                  871,
+                  0.0095
+                ],
+                "holdout": [
+                  659,
+                  0.0194
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  3058,
+                  -0.0007
+                ],
+                "valid": [
+                  1513,
+                  0.0023
+                ],
+                "holdout": [
+                  1100,
+                  0.0336
+                ]
+              }
+            },
+            "k1_h8_down": {
+              "with_compression": {
+                "train": [
+                  1570,
+                  -0.012
+                ],
+                "valid": [
+                  776,
+                  0.0065
+                ],
+                "holdout": [
+                  651,
+                  0.0141
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  2721,
+                  -0.0101
+                ],
+                "valid": [
+                  1312,
+                  0.0015
+                ],
+                "holdout": [
+                  1119,
+                  0.0151
+                ]
+              }
+            },
+            "k2_h8_up": {
+              "with_compression": {
+                "train": [
+                  1141,
+                  0.0118
+                ],
+                "valid": [
+                  546,
+                  -0.0061
+                ],
+                "holdout": [
+                  413,
+                  0.0274
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  3058,
+                  -0.0007
+                ],
+                "valid": [
+                  1513,
+                  0.0023
+                ],
+                "holdout": [
+                  1100,
+                  0.0336
+                ]
+              }
+            },
+            "k2_h8_down": {
+              "with_compression": {
+                "train": [
+                  1005,
+                  -0.0113
+                ],
+                "valid": [
+                  508,
+                  0.017
+                ],
+                "holdout": [
+                  407,
+                  -0.0074
+                ]
+              },
+              "large_bar_only": {
+                "train": [
+                  2721,
+                  -0.0101
+                ],
+                "valid": [
+                  1312,
+                  0.0015
+                ],
+                "holdout": [
+                  1119,
+                  0.0151
+                ]
+              }
+            }
+          },
+          "verdict": "Fails. The excess is 0.005% to 0.03%, at or below a 0.02% round trip; the down side changes sign between periods; and the compression precondition adds essentially nothing over a large bar alone, which is what the nested neighbourhood appeared to promise."
+        },
+        "close_position_exhaustion": {
+          "rows": {
+            "k2_h8": {
+              "top": {
+                "train": [
+                  2320,
+                  -0.0092
+                ],
+                "valid": [
+                  1008,
+                  -0.0264
+                ],
+                "holdout": [
+                  693,
+                  0.0132
+                ]
+              },
+              "bottom": {
+                "train": [
+                  1245,
+                  -0.0105
+                ],
+                "valid": [
+                  640,
+                  0.0311
+                ],
+                "holdout": [
+                  649,
+                  -0.0218
+                ]
+              },
+              "top_consistent": false,
+              "mirror_holds": false
+            },
+            "k3_h8": {
+              "top": {
+                "train": [
+                  783,
+                  -0.0318
+                ],
+                "valid": [
+                  352,
+                  -0.0236
+                ],
+                "holdout": [
+                  235,
+                  -0.0114
+                ]
+              },
+              "bottom": {
+                "train": [
+                  320,
+                  -0.0274
+                ],
+                "valid": [
+                  187,
+                  0.0473
+                ],
+                "holdout": [
+                  206,
+                  -0.0728
+                ]
+              },
+              "top_consistent": true,
+              "mirror_holds": false
+            },
+            "k4_h8": {
+              "top": {
+                "train": [
+                  256,
+                  -0.0488
+                ],
+                "valid": [
+                  120,
+                  0.0245
+                ],
+                "holdout": [
+                  73,
+                  0.0571
+                ]
+              },
+              "bottom": {
+                "train": [
+                  96,
+                  -0.0626
+                ],
+                "valid": [
+                  53,
+                  0.1133
+                ],
+                "holdout": [
+                  64,
+                  -0.0832
+                ]
+              },
+              "top_consistent": false,
+              "mirror_holds": false
+            },
+            "k2_h16": {
+              "top": {
+                "train": [
+                  2320,
+                  0.0064
+                ],
+                "valid": [
+                  1008,
+                  -0.0343
+                ],
+                "holdout": [
+                  693,
+                  -0.0496
+                ]
+              },
+              "bottom": {
+                "train": [
+                  1245,
+                  -0.0022
+                ],
+                "valid": [
+                  640,
+                  0.0398
+                ],
+                "holdout": [
+                  649,
+                  -0.0113
+                ]
+              },
+              "top_consistent": false,
+              "mirror_holds": false
+            },
+            "k3_h16": {
+              "top": {
+                "train": [
+                  783,
+                  -0.0157
+                ],
+                "valid": [
+                  352,
+                  0.0006
+                ],
+                "holdout": [
+                  235,
+                  -0.0909
+                ]
+              },
+              "bottom": {
+                "train": [
+                  320,
+                  -0.0068
+                ],
+                "valid": [
+                  187,
+                  0.0601
+                ],
+                "holdout": [
+                  206,
+                  -0.1345
+                ]
+              },
+              "top_consistent": false,
+              "mirror_holds": false
+            },
+            "k4_h16": {
+              "top": {
+                "train": [
+                  256,
+                  -0.0173
+                ],
+                "valid": [
+                  120,
+                  0.1441
+                ],
+                "holdout": [
+                  73,
+                  0.0035
+                ]
+              },
+              "bottom": {
+                "train": [
+                  96,
+                  -0.0717
+                ],
+                "valid": [
+                  53,
+                  0.1991
+                ],
+                "holdout": [
+                  64,
+                  -0.1769
+                ]
+              },
+              "top_consistent": false,
+              "mirror_holds": false
+            }
+          },
+          "settings_where_mirror_holds": [],
+          "verdict": "Fails its mirror. One setting has a consistent top side, and its bottom side is negative in two periods of three — the wrong direction for an exhaustion effect, which must be symmetric. The sequences that looked consistent were the survivors of an 81-cell enumeration."
+        }
+      },
+      "verdict": "Nothing. Under both encodings the enumeration is at or below what shuffling produces, and the two candidates that survived a naive consistency screen were each killed by a check the screen does not perform: the move-encoding candidate by comparing it against the same pattern without its supposed precondition, and the close-position candidate by its mirror."
+    }
+  },
+  "benchmark": {
+    "buy_and_hold_return_pct": 111.9
+  }
+}

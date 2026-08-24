@@ -1,472 +1,555 @@
 #!/usr/bin/env python3
-"""Public reproduction method for the section-5 fail-pattern report contract
-(docs/RESEARCH_DEVELOPMENT_SPEC.md, private repo).
+"""Build a single-strategy-version fail-pattern report per
+docs/RESEARCH_DEVELOPMENT_SPEC.md section 5. Despite the filename (kept for
+provenance continuity with RS-XAUUSD-20260727-003/-004), STUDY_CONFIG covers any
+strategy/market, not only S1.
 
-Raw TradingView CSVs are intentionally not included. Supply locally authorized CSV
-paths for the trade export plus 30m/60m/4H/1D XAUUSD and 1D DXY. Reproduces every
-published numeric field: baseline (including drawdown/streak/hold-bar summary),
-trade_period, fail-pattern breakdown, 30-minute timing, immediate-loss pre-entry
-profile, K-bar coverage, BB zone, DXY regime plus rolling correlation, full MTF
-alignment (by_alignment/by_4h_state/by_4h_bucket/by_1d_state/by_conflict/
-by_vol_regime/coverage), and hold-time/streak distribution. Chart PNGs are published
-as pre-verified static files and are not regenerated here; the executor manually
-reviewed the chart-generation code path (no file paths in any chart title/axis)
-before publishing them — see the Private decision_log.md.
+Selector is `--study-id`, not `--version`: two studies can share a version (e.g.
+RS-XAUUSD-20260727-001 and -004 are both S1 V3.9), so version alone is ambiguous
+(docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.6 item 2a).
+
+Usage:
+    /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-003
+    /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-004
+    /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-006
+    /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-007
+    /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-001
+
+Writes results.json, report.html, README.md, and charts/*.png into the study's
+research/studies/<id>/ directory. study.json/source_manifest.json/decision_log.md/
+handoff.md are authored separately (they carry owner-decision context this runner
+does not have).
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
-import math
+import sys
+from datetime import datetime
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
+sys.path.insert(0, str(Path(__file__).parent / "lib"))
+import fail_pattern_toolkit as tk  # noqa: E402
+import temporal_stability_toolkit as tst  # noqa: E402
 
-IMMEDIATE_LOSS_MFE_PCT = 0.10
-FALSE_BREAKOUT_MAE_MFE_RATIO = 2.0
-TIME_BLEED_MIN_BARS = 24
-ENTRY_SLOTS_30M = [f"{h:02d}:{m:02d}" for h in range(24) for m in (0, 30)]
-BB_ZONE_ORDER = ["below_lower", "near_lower", "lower_mid", "near_middle", "upper_mid", "near_upper", "above_upper"]
-DOW_LABELS = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
+DEFAULT_LEGACY = Path("../trading")
 
-TRADE_COLUMN_ALIASES = {
-    "trade_id": ["Trade number", "Trade #"], "type": ["Type"], "datetime": ["Date and time"],
-    "signal": ["Signal"], "price": ["Price USD"], "size_qty": ["Size (qty)"],
-    "net_pnl_usd": ["Net PnL USD", "Net P&L USD"], "return_pct": ["Return %", "Net P&L %"],
-    "mfe_pct": ["Favorable excursion %"], "mae_pct": ["Adverse excursion %"],
+STUDY_CONFIG = {
+    "RS-XAUUSD-20260727-001": {
+        "version": "V3.9",
+        "strategy_id": "S1-AweWithBB",
+        "trade_csv": "xauusd/XAUUSD-Long-S1-AweWithBB/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv",
+        "with_macro": True,
+        "policy_impact": True,
+        "with_temporal_stability": True,
+    },
+    "RS-XAUUSD-20260727-003": {
+        "version": "V3.4",
+        "strategy_id": "S1-AweWithBB",
+        "trade_csv": "xauusd/XAUUSD-Long-S1-AweWithBB/S1-Awe-V3.4_FX_IDC_XAUUSD_2026-04-26.csv",
+        "with_macro": False,
+        "policy_impact": False,
+    },
+    "RS-XAUUSD-20260727-004": {
+        "version": "V3.9",
+        "strategy_id": "S1-AweWithBB",
+        "trade_csv": "xauusd/XAUUSD-Long-S1-AweWithBB/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv",
+        "with_macro": False,
+        "policy_impact": False,
+    },
+    "RS-XAUUSD-20260727-006": {
+        "version": "V1.9",
+        "strategy_id": "S2-Hammer",
+        "trade_csv": "xauusd/XAUUSD-Long-S2-Hammer/S2-Pullback-V1.9_FX_IDC_XAUUSD_2026-07-11.csv",
+        "with_macro": False,
+        "policy_impact": False,
+    },
+    "RS-XAUUSD-20260727-007": {
+        "version": "V3.2",
+        "strategy_id": "S2-Hammer",
+        "trade_csv": "xauusd/XAUUSD-Long-S2-Hammer/S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-07-11.csv",
+        "with_macro": False,
+        "policy_impact": False,
+    },
 }
 
 
-def _pick(columns, canonical):
-    for alias in TRADE_COLUMN_ALIASES[canonical]:
-        if alias in columns:
-            return alias
-    raise KeyError(canonical)
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
-def load_trades(path: Path) -> pd.DataFrame:
-    frame = pd.read_csv(path)
-    frame.columns = [c.lstrip("﻿").strip() for c in frame.columns]
-    rename = {_pick(list(frame.columns), c): c for c in TRADE_COLUMN_ALIASES}
-    frame = frame.rename(columns=rename)
-    frame["datetime"] = pd.to_datetime(frame["datetime"])
-    entries = frame[frame["type"] == "Entry long"][["trade_id", "datetime"]].rename(columns={"datetime": "entry_time"})
-    exits = frame[frame["type"] == "Exit long"][
-        ["trade_id", "datetime", "signal", "net_pnl_usd", "return_pct", "mfe_pct", "mae_pct"]
-    ].rename(columns={"datetime": "exit_time", "signal": "exit_signal"})
-    trades = entries.merge(exits, on="trade_id", how="inner")
-    trades = trades[trades["exit_signal"].astype(str).str.upper() != "OPEN"].copy()
-    trades["hold_bars"] = ((trades["exit_time"] - trades["entry_time"]).dt.total_seconds() / 1800).astype(int)
-    trades["win"] = trades["net_pnl_usd"] > 0
-    trades["result"] = np.select([trades["net_pnl_usd"] > 0, trades["net_pnl_usd"] < 0], ["win", "loss"], default="breakeven")
-    trades["entry_slot_30m"] = trades["entry_time"].dt.strftime("%H:%M")
-    trades["entry_dow"] = trades["entry_time"].dt.dayofweek
-    minute = trades["entry_time"].dt.hour * 60 + trades["entry_time"].dt.minute
-    trades["session"] = np.select(
-        [minute.between(420, 899), minute.between(900, 1229), (minute >= 1230) | (minute < 60)],
-        ["asia", "europe", "us"], default="overnight",
-    )
-    return trades.sort_values("entry_time").reset_index(drop=True)
+CSS = """
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; color:#2c3e50; margin:0; padding:0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  h1 { font-size: 1.8em; margin-bottom: 4px; }
+  h2 { font-size: 1.2em; border-bottom: 2px solid #3498db; padding-bottom: 4px; margin-top: 36px; color: #2980b9; }
+  .meta { color: #7f8c8d; font-size: 0.9em; margin-bottom: 24px; }
+  .kpi-row { display: flex; flex-wrap: wrap; gap: 16px; margin: 20px 0; }
+  .kpi { background: white; border-radius: 10px; padding: 16px 24px; box-shadow: 0 1px 4px rgba(0,0,0,.1); min-width: 140px; flex: 1; }
+  .kpi-label { font-size: .8em; color: #7f8c8d; text-transform: uppercase; letter-spacing:.05em; }
+  .kpi-value { font-size: 1.6em; font-weight: 700; margin-top: 2px; }
+  .pos { color: #27ae60; } .neg { color: #e74c3c; } .neu { color: #2980b9; }
+  .card { background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-top: 20px; }
+  .tbl { border-collapse: collapse; width: 100%; font-size: .85em; }
+  .tbl th { background: #ecf0f1; padding: 6px 10px; text-align: left; }
+  .tbl td { padding: 5px 10px; border-top: 1px solid #ecf0f1; }
+  .note { background:#fef9e7; border-left:4px solid #f1c40f; padding:10px 16px; border-radius:4px; margin-top:12px; font-size:.88em; color:#7d6608; }
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:700px){ .chart-grid { grid-template-columns: 1fr; } }
+  footer { text-align:center; color:#bdc3c7; font-size:.8em; margin-top:40px; padding-top:16px; border-top:1px solid #ecf0f1; }
+</style>
+"""
 
 
-def _wilder_rsi(close, period=14):
-    delta = close.diff()
-    gain, loss = delta.clip(lower=0), -delta.clip(upper=0)
-    avg_gain = gain.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
-    avg_loss = loss.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
-    rsi = 100 - 100 / (1 + avg_gain / avg_loss)
-    return rsi, rsi.rolling(period).mean()
+def _img(b64: str) -> str:
+    return f'<img src="data:image/png;base64,{b64}" style="max-width:100%;margin:8px 0;">'
 
 
-def load_price(path: Path) -> pd.DataFrame:
-    raw = pd.read_csv(path, encoding="utf-8-sig")
-    raw.columns = [c.strip() for c in raw.columns]
-    tcol = next(c for c in raw.columns if "time" in c.lower())
-    raw[tcol] = pd.to_datetime(raw[tcol], utc=True).dt.tz_convert("Asia/Taipei").dt.tz_localize(None)
-    raw = raw.rename(columns={tcol: "time", "RSI": "rsi", "RSI-based MA": "rsi_ma"})
-    if "rsi" not in raw.columns:
-        raw["rsi"], raw["rsi_ma"] = _wilder_rsi(raw["close"])
-    keep = [c for c in ["time", "open", "high", "low", "close", "rsi", "rsi_ma"] if c in raw.columns]
-    return raw[keep].sort_values("time").reset_index(drop=True)
+def _table(headers: list[str], rows: list[list]) -> str:
+    head = "".join(f"<th>{h}</th>" for h in headers)
+    body = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in row) + "</tr>" for row in rows)
+    return f'<table class="tbl"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
 
 
-def wilson(wins, count, z=1.96):
-    if count == 0:
-        return None
-    p = wins / count
-    denom = 1 + z * z / count
-    centre = (p + z * z / (2 * count)) / denom
-    margin = z * math.sqrt(p * (1 - p) / count + z * z / (4 * count * count))
-    return [round(100 * (centre - margin / denom), 2), round(100 * (centre + margin / denom), 2)]
-
-
-def stats(frame: pd.DataFrame) -> dict:
-    count = len(frame)
-    if count == 0:
-        return {"n": 0, "wins": 0, "win_rate_pct": None, "win_rate_ci95_pct": None,
-                "profit_factor": None, "net_pnl_usd": 0.0, "avg_pnl_usd": None, "avg_return_pct": None}
-    wins = int((frame["net_pnl_usd"] > 0).sum())
-    gp = frame.loc[frame["net_pnl_usd"] > 0, "net_pnl_usd"].sum()
-    gl = abs(frame.loc[frame["net_pnl_usd"] < 0, "net_pnl_usd"].sum())
-    return {
-        "n": count, "wins": wins, "win_rate_pct": round(100 * wins / count, 2), "win_rate_ci95_pct": wilson(wins, count),
-        "profit_factor": round(gp / gl, 3) if gl else None, "net_pnl_usd": round(float(frame["net_pnl_usd"].sum()), 2),
-        "avg_pnl_usd": round(float(frame["net_pnl_usd"].mean()), 2), "avg_return_pct": round(float(frame["return_pct"].mean()), 4),
-    }
-
-
-def grouped(frame, col):
-    return {str(k): stats(g) for k, g in frame.groupby(col, observed=True)}
-
-
-def drawdown_series(trades: pd.DataFrame) -> pd.Series:
-    cum = trades["net_pnl_usd"].cumsum().reset_index(drop=True)
-    return cum - cum.cummax()
-
-
-def max_drawdown(trades: pd.DataFrame) -> float:
-    dd = drawdown_series(trades)
-    return float(dd.min()) if len(dd) else 0.0
-
-
-def consecutive_losses(trades: pd.DataFrame) -> pd.Series:
-    streaks, count = [], 0
-    for r in trades["result"]:
-        if r == "loss":
-            count += 1
-        else:
-            if count > 0:
-                streaks.append(count)
-            count = 0
-    if count > 0:
-        streaks.append(count)
-    return pd.Series(streaks, dtype=int, name="streak_length")
-
-
-def summary(trades: pd.DataFrame) -> dict:
-    base = stats(trades)
-    return {
-        **base,
-        "max_drawdown_usd": round(float(max_drawdown(trades)), 2),
-        "max_consecutive_losses": int(consecutive_losses(trades).max()) if len(trades) else 0,
-        "avg_hold_bars": round(float(trades["hold_bars"].mean()), 2) if len(trades) else None,
-    }
-
-
-def classify_fail(trades: pd.DataFrame) -> pd.DataFrame:
-    losses = trades[trades["result"] == "loss"].copy()
-    ratio = losses["mae_pct"] / losses["mfe_pct"].replace(0, np.nan)
-    conds = [losses["mfe_pct"] < IMMEDIATE_LOSS_MFE_PCT, ratio > FALSE_BREAKOUT_MAE_MFE_RATIO, losses["hold_bars"] >= TIME_BLEED_MIN_BARS]
-    losses["fail_type"] = np.select(conds, ["immediate_loss", "false_breakout", "time_bleed"], default="normal_sl")
-    return losses.reset_index(drop=True)
-
-
-def fail_by_session(classified: pd.DataFrame) -> dict:
-    table = pd.crosstab(classified["session"], classified["fail_type"])
-    return {session: {ft: int(v) for ft, v in row.items()} for session, row in table.iterrows()}
-
-
-def add_trade_context(trades: pd.DataFrame, classified: pd.DataFrame) -> pd.DataFrame:
-    df = trades.sort_values("entry_time").copy().reset_index(drop=True)
-    df = df.merge(classified[["trade_id", "fail_type"]], on="trade_id", how="left")
-    df["prev_result"] = df["result"].shift(1).fillna("none")
-    tsw, count = [], 0
-    for r in df["result"]:
-        tsw.append(count)
-        count = count + 1 if r != "win" else 0
-    df["trades_since_win"] = tsw
-    return df
-
-
-def _distribution_pair(imm, all_trades, column, index_labels=None):
-    imm_dist = imm[column].value_counts(normalize=True)
-    all_dist = all_trades[column].value_counts(normalize=True)
-    keys = sorted(set(imm_dist.index) | set(all_dist.index))
-    out = {}
+def _stats_rows(stats_dict: dict, order: list[str] | None = None) -> list[list]:
+    keys = order if order else list(stats_dict.keys())
+    rows = []
     for key in keys:
-        label = index_labels.get(key, str(key)) if index_labels else str(key)
-        out[label] = {
-            "immediate_loss": round(float(imm_dist.get(key, 0.0)), 3),
-            "all_trades": round(float(all_dist.get(key, 0.0)), 3),
+        v = stats_dict.get(key)
+        if not v or not v.get("n"):
+            continue
+        row = [key, v["n"], f'{v["win_rate_pct"]}%', v["profit_factor"] or "-", f'${v["net_pnl_usd"]:,.2f}']
+        if "rank_score" in v:
+            marker = " (low-sample)" if v.get("low_sample") else ""
+            row.append(f'{v["rank_score"]:+d}{marker}')
+        rows.append(row)
+    return rows
+
+
+def build(study_id: str, legacy_root: Path, output_dir: Path) -> dict:
+    cfg = STUDY_CONFIG[study_id]
+    version = cfg["version"]
+    strategy_id = cfg["strategy_id"]
+    market = study_id.split("-")[1]
+    with_macro = cfg["with_macro"]
+    legacy = legacy_root.resolve()
+    trade_path = legacy / cfg["trade_csv"]
+    csv_dir = legacy / "xauusd/csv/20260711"
+    csv_root = legacy / "xauusd/csv"
+    price_paths = {
+        "price_30m": csv_dir / "FX_IDC_XAUUSD, 30.csv",
+        "price_60m": csv_dir / "FX_IDC_XAUUSD, 60.csv",
+        "price_4h": csv_dir / "FX_IDC_XAUUSD, 240.csv",
+        "price_1d": csv_dir / "FX_IDC_XAUUSD, 1D.csv",
+        "dxy_1d": csv_dir / "TVC_DXY, 1D.csv",
+    }
+    macro_only_paths = {
+        "macro_us10y": csv_root / "TVC_US10Y, 1D.csv",
+        "macro_t10yie": csv_root / "FRED_T10YIE, 1D.csv",
+        "macro_vix": csv_root / "TVC_VIX, 1D.csv",
+    }
+    source_paths = {"trades": trade_path, **price_paths}
+    if with_macro:
+        source_paths.update(macro_only_paths)
+    for path in source_paths.values():
+        if not path.is_file():
+            raise FileNotFoundError(path)
+
+    trades = tk.load_trades(trade_path)
+    price_30m, rsi_prov_30m = tk.load_price_csv(price_paths["price_30m"])
+    price_60m, rsi_prov_60m = tk.load_price_csv(price_paths["price_60m"])
+    price_4h, rsi_prov_4h = tk.load_price_csv(price_paths["price_4h"])
+    price_1d, rsi_prov_1d = tk.load_price_csv(price_paths["price_1d"])
+    dxy_1d, rsi_prov_dxy = tk.load_price_csv(price_paths["dxy_1d"])
+
+    baseline = tk.summary(trades)
+    classified = tk.classify_fail(trades)
+    fail_summary = tk.fail_type_summary(classified)
+    session_stats = tk.grouped_stats(trades, "session")
+    fail_by_session = tk.fail_by_session(classified)
+    entry_30m = tk.entry_slot_30m_stats(trades)
+
+    ctx = tk.add_trade_context(trades, classified)
+    profile = tk.immediate_loss_profile(ctx)
+    kbar_enriched = tk.enrich_with_kbars(classified, price_30m)
+    kbar_cov = tk.kbar_coverage(kbar_enriched)
+
+    bb_enriched = tk.enrich_trades_with_bb(trades, price_30m)
+    bb_stats_out = tk.bb_stats(bb_enriched)
+
+    dxy_enriched = tk.enrich_trades_with_dxy(trades, dxy_1d)
+    dxy_stats_out = tk.dxy_regime_stats(dxy_enriched)
+    corr_df = tk.dxy_correlation_stats(price_1d, dxy_1d)
+    avg_corr = round(float(corr_df["rolling_corr"].dropna().mean()), 3)
+
+    htf_enriched = tk.enrich_trades_with_htf(trades, price_60m, price_4h, price_1d)
+    htf_stats_out = tk.htf_stats(htf_enriched)
+
+    streaks = tk.consecutive_losses(trades)
+
+    temporal_stability_block = None
+    if cfg.get("with_temporal_stability"):
+        by_period = tst.quarterly_bucket_stats(trades)
+        holdout = tst.chronological_holdout(trades, split_ratio=0.7)
+        temporal_stability_block = {
+            "by_period": by_period,
+            "holdout_split": holdout,
+            "degradation_flag": tst.degradation_flag(holdout),
         }
-    return out
 
+    macro_block = None
+    if with_macro:
+        macro = tk.build_macro_composite({
+            "us10y": macro_only_paths["macro_us10y"],
+            "t10yie": macro_only_paths["macro_t10yie"],
+            "dxy": price_paths["dxy_1d"],
+            "vix": macro_only_paths["macro_vix"],
+            "gold": price_paths["price_1d"],
+        })
+        macro_joined = tk.attach_macro(trades, macro)
+        macro_matched = macro_joined.dropna(subset=["macro_score"])
+        by_macro_verdict = tk.grouped_stats(macro_matched, "macro_verdict")
+        by_macro_score = tk.grouped_stats(macro_matched.assign(macro_score=macro_matched["macro_score"].astype(int)), "macro_score")
+        macro_session_interaction = {
+            f"{verdict}|{session}": tk.stats(group)
+            for (verdict, session), group in macro_matched.groupby(["macro_verdict", "session"], observed=True)
+        }
+        macro_block = {
+            "macro_period": {"start": str(macro["time"].min()), "end": str(macro["time"].max())},
+            "macro_coverage": tk.macro_coverage(macro_joined),
+            "by_macro_verdict": by_macro_verdict,
+            "by_macro_score": by_macro_score,
+            "macro_session_interaction": macro_session_interaction,
+        }
 
-def immediate_loss_profile(trades_ctx: pd.DataFrame) -> dict:
-    imm = trades_ctx[trades_ctx["fail_type"] == "immediate_loss"]
-    entry_slot = {slot: {"immediate_loss": 0.0, "all_trades": 0.0} for slot in ENTRY_SLOTS_30M}
-    entry_slot.update(_distribution_pair(imm, trades_ctx, "entry_slot_30m"))
-    return {
-        "entry_slot_30m": entry_slot,
-        "entry_dow": _distribution_pair(imm, trades_ctx, "entry_dow", DOW_LABELS),
-        "prev_result": _distribution_pair(imm, trades_ctx, "prev_result"),
-        "trades_since_win": _distribution_pair(imm, trades_ctx, "trades_since_win"),
+    # ---- Live-impact rank scores (spec section 13.2) — policy-impacting studies only ----
+    if cfg["policy_impact"]:
+        tk.compute_rank_scores(entry_30m, ordered_keys=tk.ENTRY_SLOTS_30M)
+        tk.compute_rank_scores(session_stats, ordered_keys=["asia", "europe", "us"])
+        tk.mark_descriptive_only(session_stats, [k for k in ["overnight"] if k in session_stats])
+        if macro_block is not None:
+            tk.compute_rank_scores(macro_block["by_macro_verdict"], ordered_keys=list(macro_block["by_macro_verdict"].keys()))
+
+    # ---- Charts ----
+    charts_dir = output_dir / "charts"
+    charts_dir.mkdir(parents=True, exist_ok=True)
+    charts_manifest = []
+
+    def save(fig, chart_id, title, section):
+        path = charts_dir / f"{chart_id}.png"
+        path.write_bytes(tk.fig_to_png_bytes(fig))
+        charts_manifest.append({"id": chart_id, "file": f"{chart_id}.png", "title": title, "section": section})
+
+    save(tk.chart_equity_curve(trades, strategy_id, version), "equity_curve", "Equity Curve & Drawdown", "performance")
+    save(tk.chart_fail_type_breakdown(classified, strategy_id, version), "fail_type_breakdown", "Fail Type Breakdown", "fail_pattern")
+    save(tk.chart_mfe_distribution(classified, strategy_id, version), "mfe_distribution", "MFE% Distribution", "fail_pattern")
+    save(tk.chart_mae_vs_mfe(classified, strategy_id, version), "mae_vs_mfe", "MAE vs MFE", "fail_pattern")
+    save(tk.chart_entry_slot_30m_winrate(entry_30m, strategy_id, version), "entry_slot_30m_winrate", "Win Rate by 30-Minute Entry Slot", "timing_30m")
+    save(tk.chart_pre_entry_slot_30m(profile["entry_slot_30m"], strategy_id, version), "immediate_loss_by_slot_30m", "Immediate Loss vs All Trades by 30-Min Slot", "timing_30m")
+    save(tk.chart_pre_entry_categorical(profile["entry_dow"], "Day-of-Week", strategy_id, version), "pre_entry_dow", "Immediate Loss by Day of Week", "pre_entry")
+    save(tk.chart_pre_entry_categorical(profile["prev_result"], "Previous Trade Result", strategy_id, version), "pre_entry_prev_result", "Immediate Loss by Previous Result", "pre_entry")
+    save(tk.chart_pre_entry_categorical(profile["trades_since_win"], "Trades Since Last Win", strategy_id, version), "pre_entry_tsw", "Immediate Loss by Trades Since Win", "pre_entry")
+    save(tk.chart_kbar_features(kbar_enriched, strategy_id, version), "kbar_features", "K-Bar Features at Entry", "kbar")
+    save(tk.chart_bb_zone_winrate(bb_stats_out, strategy_id, version), "bb_zone_winrate", "Win Rate by BB Zone", "bb")
+    save(tk.chart_dxy_winrate(dxy_stats_out, strategy_id, version), "dxy_winrate", "DXY Context vs Win Rate", "dxy")
+    save(tk.chart_dxy_correlation(corr_df, strategy_id, version, market), "dxy_correlation", f"DXY x {market} Rolling Correlation", "dxy")
+    save(tk.chart_htf_alignment(htf_stats_out, strategy_id, version), "htf_alignment", "Win Rate by HTF Alignment", "mtf")
+    save(tk.chart_htf_4h_state(htf_stats_out, strategy_id, version), "htf_4h_state", "Win Rate by 4H RSI State", "mtf")
+    save(tk.chart_htf_bucket_heatmap(htf_stats_out, strategy_id, version), "htf_4h_bucket", "Win Rate by 4H RSI Bucket", "mtf")
+    save(tk.chart_hold_time_dist(trades, strategy_id, version), "hold_time_dist", "Hold Time Distribution", "hold_time_streaks")
+    save(tk.chart_consecutive_losses(streaks, strategy_id, version), "consecutive_losses", "Consecutive Loss Streaks", "hold_time_streaks")
+    if macro_block is not None:
+        save(tk.chart_macro_verdict_winrate(macro_block["by_macro_verdict"], strategy_id, version), "macro_verdict_winrate", "Win Rate by Macro Composite Verdict", "macro")
+    if temporal_stability_block is not None:
+        save(
+            tst.chart_quarterly_stability(trades, temporal_stability_block["by_period"], 0.7, strategy_id, version),
+            "quarterly_stability", "Quarterly Win Rate — Chronological Holdout", "temporal_stability",
+        )
+
+    generated_at = datetime.now().astimezone().replace(microsecond=0).isoformat()
+    method = {
+        "fail_pattern_thresholds": {
+            "immediate_loss_mfe_pct": tk.IMMEDIATE_LOSS_MFE_PCT,
+            "false_breakout_mae_mfe_ratio": tk.FALSE_BREAKOUT_MAE_MFE_RATIO,
+            "time_bleed_min_bars": tk.TIME_BLEED_MIN_BARS,
+        },
+        "session_timezone": "Asia/Taipei (TradingView export-time assumption)",
+        "session_buckets": "overnight=01:00-06:59; asia=07:00-14:59; europe=15:00-20:29; us=20:30-00:59 (descriptive only)",
+        "primary_time_granularity": "30-minute entry slot (HH:00/HH:30, Asia/Taipei)",
+        "bb_params": "period=20, std_mult=2.0, computed on 30m close",
+        "dxy_params": "1D RSI bucket/trend(20D SMA)/RSI-vs-MA momentum; 30-day rolling DXY-XAUUSD daily return correlation",
+        "mtf_params": "60m/4H/1D RSI(14) state (bullish/bearish/neutral) and bucket, HTF alignment = count of bullish TFs",
+        "rsi_provenance": {
+            "price_30m": rsi_prov_30m, "price_60m": rsi_prov_60m, "price_4h": rsi_prov_4h,
+            "price_1d": rsi_prov_1d, "dxy_1d": rsi_prov_dxy,
+        },
     }
+    if macro_block is not None:
+        method["macro_score"] = "real_rate<MA50 +2; US10Y<MA50 +1; DXY<MA50 +1; VIX>MA50 +1; XAUUSD>MA50 +1"
+        method["macro_labels"] = "WAIT=0-2; NEUTRAL=3-4; STRONG BUY=5-6"
+        method["macro_assignment"] = "latest prior daily observation, maximum age 4 days"
+    if cfg["policy_impact"]:
+        method["scoring_method"] = "integer rank score"
+    if temporal_stability_block is not None:
+        method["temporal_stability_limitation"] = tst.TEMPORAL_STABILITY_LIMITATION
+        method["temporal_stability_buckets"] = "calendar quarter (YYYY-Qn) of entry_time; most recent bucket may be partial"
+        method["temporal_stability_holdout"] = "chronological split, first 70% entry-time-ordered trades = in_sample, last 30% = held_out"
+        method["temporal_stability_degradation_rule"] = (
+            "degraded: held_out.win_rate_pct < in_sample.win_rate_ci95_pct[0] OR held_out.profit_factor < 1.0; "
+            "improved: held_out.win_rate_pct > in_sample.win_rate_ci95_pct[1] AND held_out.profit_factor > in_sample.profit_factor; "
+            "else stable"
+        )
 
-
-def _kbar_features_at(price: pd.DataFrame, entry_time, n_lookback=3):
-    idx = price.index[price["time"] == entry_time]
-    if idx.empty:
-        diff = (price["time"] - entry_time).abs()
-        nearest = diff.idxmin()
-        if diff[nearest].total_seconds() > 1800:
-            return None
-        idx = pd.Index([nearest])
-    pos = idx[0]
-    if pos < n_lookback:
-        return None
-    bar = price.loc[pos]
-    prev_bars = price.loc[pos - n_lookback: pos - 1]
-    feat = {
-        "rsi": float(bar["rsi"]) if pd.notna(bar.get("rsi")) else None,
-        "rsi_vs_ma": float(bar["rsi"] - bar["rsi_ma"]) if pd.notna(bar.get("rsi")) and pd.notna(bar.get("rsi_ma")) else None,
+    results = {
+        "schema_version": 1,
+        "study_id": study_id,
+        "generated_at": generated_at,
+        "strategy": f"{strategy_id} {version}",
+        "method": method,
+        "trade_period": {"start": str(trades["entry_time"].min()), "end": str(trades["exit_time"].max())},
+        "baseline": baseline,
+        "fail_pattern": {"total_losses": len(classified), "by_type": fail_summary, "by_session": fail_by_session},
+        "by_session": session_stats,
+        "by_entry_30m": entry_30m,
+        "immediate_loss_profile": profile,
+        "kbar_coverage": kbar_cov,
+        "bb_zone": bb_stats_out,
+        "dxy": {"regime": dxy_stats_out, "avg_30d_correlation": avg_corr},
+        "mtf": htf_stats_out,
+        "hold_time_streaks": {
+            "avg_hold_bars": baseline["avg_hold_bars"],
+            "max_consecutive_losses": baseline["max_consecutive_losses"],
+            "streak_lengths": streaks.tolist(),
+        },
+        "charts": charts_manifest,
+        "sources": [{"role": role, "path": str(path), "sha256": sha256(path)} for role, path in source_paths.items()],
     }
-    if pos >= n_lookback + 1 and pd.notna(bar.get("rsi")) and pd.notna(price.loc[pos - n_lookback, "rsi"]):
-        feat["rsi_slope_3"] = round(float((bar["rsi"] - price.loc[pos - n_lookback, "rsi"]) / n_lookback), 3)
-    else:
-        feat["rsi_slope_3"] = None
-    prev_bar = price.loc[pos - 1]
-    feat["prev_1_dir"] = 1 if prev_bar["close"] >= prev_bar["open"] else -1
-    feat["prev_3_green"] = int((prev_bars["close"] >= prev_bars["open"]).sum())
-    oldest_close, prev_close = price.loc[pos - n_lookback, "close"], price.loc[pos - 1, "close"]
-    feat["momentum_3"] = round(float((prev_close - oldest_close) / oldest_close * 100), 4)
-    return feat
+    if macro_block is not None:
+        results.update(macro_block)
+    if temporal_stability_block is not None:
+        results["temporal_stability"] = temporal_stability_block
+    results = tk.to_json_safe(results)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "report.html").write_text(render_html(results, charts_dir), encoding="utf-8")
+    (output_dir / "README.md").write_text(render_readme(results), encoding="utf-8")
+    return results
 
 
-def enrich_with_kbars(classified: pd.DataFrame, price: pd.DataFrame, n_lookback=3) -> pd.DataFrame:
-    imm = classified[classified["fail_type"] == "immediate_loss"].copy().reset_index(drop=True)
-    cols = ["rsi", "rsi_vs_ma", "rsi_slope_3", "prev_1_dir", "prev_3_green", "momentum_3"]
-    for col in cols:
-        imm[col] = np.nan
-    for i, row in imm.iterrows():
-        feats = _kbar_features_at(price, row["entry_time"], n_lookback)
-        if feats:
-            for col, val in feats.items():
-                imm.at[i, col] = val
-    return imm
+def render_html(results: dict, charts_dir: Path) -> str:
+    b64 = {c["id"]: base64_of(charts_dir / c["file"]) for c in results["charts"]}
+    baseline = results["baseline"]
+    strategy = results["strategy"]
+    kpis = [
+        ("Trades", baseline["n"], "neu"),
+        ("Win Rate", f'{baseline["win_rate_pct"]}%', "pos" if baseline["win_rate_pct"] >= 50 else "neg"),
+        ("Profit Factor", baseline["profit_factor"], "pos" if (baseline["profit_factor"] or 0) >= 1.5 else "neu"),
+        ("Net P&L", f'${baseline["net_pnl_usd"]:,.0f}', "pos" if baseline["net_pnl_usd"] >= 0 else "neg"),
+        ("Max Drawdown", f'${baseline["max_drawdown_usd"]:,.0f}', "neg"),
+        ("Max Consec Loss", baseline["max_consecutive_losses"], "neu"),
+        ("Avg Hold", f'{baseline["avg_hold_bars"]:.0f} bars', "neu"),
+    ]
+    kpi_html = '<div class="kpi-row">' + "".join(
+        f'<div class="kpi"><div class="kpi-label">{l}</div><div class="kpi-value {c}">{v}</div></div>' for l, v, c in kpis
+    ) + "</div>"
+
+    fail_rows = [[k, v["count"], f'{v["pct"]}%'] for k, v in results["fail_pattern"]["by_type"].items()]
+    session_rows = _stats_rows(results["by_session"], ["asia", "europe", "us", "overnight"])
+    entry_30m_rows = _stats_rows(results["by_entry_30m"], tk.ENTRY_SLOTS_30M)
+    bb_rows = _stats_rows(results["bb_zone"], tk.BB_ZONE_ORDER)
+    dxy_bucket_rows = _stats_rows(results["dxy"]["regime"]["by_bucket"])
+    mtf_align_rows = _stats_rows(results["mtf"]["by_alignment"])
+
+    has_rank_score = "rank_score" in results["by_entry_30m"].get(tk.ENTRY_SLOTS_30M[0], {})
+    session_headers = ["session", "n", "WR", "PF", "Net"] + (["Score"] if has_rank_score else [])
+    entry_headers = ["slot", "n", "WR", "PF", "Net"] + (["Score"] if has_rank_score else [])
+
+    macro_html = ""
+    if "by_macro_verdict" in results:
+        macro_rows = _stats_rows(results["by_macro_verdict"], ["WAIT", "NEUTRAL", "STRONG BUY"])
+        macro_headers = ["verdict", "n", "WR", "PF", "Net"] + (["Score"] if has_rank_score else [])
+        macro_html = f"""
+  <h2>Macro Composite Context</h2>
+  <div class="card">
+    {_img(b64.get("macro_verdict_winrate", ""))}
+    {_table(macro_headers, macro_rows)}
+    <div class="note">Macro coverage: {results["macro_coverage"]["matched"]}/{results["macro_coverage"]["matched"] + results["macro_coverage"]["unmatched"]} trades ({results["macro_coverage"]["pct"]}%).</div>
+  </div>
+"""
+
+    temporal_html = ""
+    if "temporal_stability" in results:
+        ts = results["temporal_stability"]
+        period_rows = _stats_rows(ts["by_period"])
+        holdout = ts["holdout_split"]
+        flag = ts["degradation_flag"]
+        flag_class = {"stable": "neu", "improved": "pos", "degraded": "neg"}.get(flag, "neu")
+        temporal_html = f"""
+  <h2>Temporal Stability — Chronological Holdout</h2>
+  <div class="card">
+    {_img(b64.get("quarterly_stability", ""))}
+    {_table(["quarter", "n", "WR", "PF", "Net"], period_rows)}
+    <div class="note">
+      In-sample ({holdout['split_ratio']*100:.0f}%, {holdout['in_sample']['period']['start']} &rarr; {holdout['in_sample']['period']['end']}):
+      n={holdout['in_sample']['n']}, WR {holdout['in_sample']['win_rate_pct']}%, PF {holdout['in_sample']['profit_factor']}.
+      Held-out ({(1-holdout['split_ratio'])*100:.0f}%, {holdout['held_out']['period']['start']} &rarr; {holdout['held_out']['period']['end']}):
+      n={holdout['held_out']['n']}, WR {holdout['held_out']['win_rate_pct']}%, PF {holdout['held_out']['profit_factor']}.
+      Degradation flag: <span class="{flag_class}"><b>{flag}</b></span>.
+      {results['method'].get('temporal_stability_limitation', '')}
+    </div>
+  </div>
+"""
+
+    generated_at = results["generated_at"]
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{strategy} — Fail Pattern Report (30-min)</title>
+{CSS}
+</head>
+<body>
+<div class="wrap">
+  <h1>{strategy}</h1>
+  <div class="meta">Generated {generated_at} &nbsp;|&nbsp; {results["trade_period"]["start"]} → {results["trade_period"]["end"]}</div>
+  {kpi_html}
+
+  <h2>Equity Curve & Drawdown</h2>
+  <div class="card">{_img(b64["equity_curve"])}</div>
+
+  <h2>Fail Pattern Breakdown</h2>
+  <div class="card">
+    <div class="chart-grid">{_img(b64["fail_type_breakdown"])}{_img(b64["mfe_distribution"])}</div>
+    {_img(b64["mae_vs_mfe"])}
+    {_table(["fail_type", "count", "pct"], fail_rows)}
+  </div>
+
+  <h2>Session Summary {"(scored; overnight descriptive)" if has_rank_score else "(descriptive)"}</h2>
+  <div class="card">{_table(session_headers, session_rows)}</div>
+
+  <h2>30-Minute Entry-Slot Timing (primary evidence)</h2>
+  <div class="card">
+    {_img(b64["entry_slot_30m_winrate"])}
+    {_img(b64["immediate_loss_by_slot_30m"])}
+    {_table(entry_headers, entry_30m_rows)}
+  </div>
+  {macro_html}
+  {temporal_html}
+  <h2>Pre-Entry Context — Immediate Loss</h2>
+  <div class="card">
+    <div class="chart-grid">{_img(b64["pre_entry_dow"])}{_img(b64["pre_entry_prev_result"])}</div>
+    {_img(b64["pre_entry_tsw"])}
+  </div>
+
+  <h2>K-Bar Features at Entry</h2>
+  <div class="card">
+    {_img(b64["kbar_features"])}
+    <div class="note">K-Bar coverage: {results["kbar_coverage"]["with_kbar_data"]}/{results["kbar_coverage"]["total_immediate_loss"]} immediate_loss trades ({results["kbar_coverage"]["coverage_pct"]}%).</div>
+  </div>
+
+  <h2>Bollinger Band Position</h2>
+  <div class="card">{_img(b64["bb_zone_winrate"])}{_table(["zone", "n", "WR", "PF", "Net"], bb_rows)}</div>
+
+  <h2>DXY Context</h2>
+  <div class="card">
+    {_img(b64["dxy_winrate"])}
+    {_img(b64["dxy_correlation"])}
+    <div class="note">Avg 30-day rolling DXY-XAUUSD correlation: {results["dxy"]["avg_30d_correlation"]}</div>
+    {_table(["DXY RSI bucket", "n", "WR", "PF", "Net"], dxy_bucket_rows)}
+  </div>
+
+  <h2>Multi-Timeframe Alignment</h2>
+  <div class="card">
+    {_img(b64["htf_alignment"])}
+    {_img(b64["htf_4h_state"])}
+    {_img(b64["htf_4h_bucket"])}
+    {_table(["HTF alignment", "n", "WR", "PF", "Net"], mtf_align_rows)}
+  </div>
+
+  <h2>Hold Time & Streaks</h2>
+  <div class="card"><div class="chart-grid">{_img(b64["hold_time_dist"])}{_img(b64["consecutive_losses"])}</div></div>
+
+  <footer>XAUUSD Strategy Fail-Pattern Toolkit (30-min contract) &nbsp;·&nbsp; {generated_at}</footer>
+</div>
+</body>
+</html>"""
+    return html
 
 
-def kbar_coverage(enriched: pd.DataFrame) -> dict:
-    total = len(enriched)
-    covered = int(enriched["rsi"].notna().sum())
-    return {"total_immediate_loss": total, "with_kbar_data": covered,
-            "coverage_pct": round(100 * covered / total, 1) if total else 0.0}
+def base64_of(path: Path) -> str:
+    import base64
+    return base64.b64encode(path.read_bytes()).decode()
 
 
-def compute_bb(price: pd.DataFrame, period=20, std_mult=2.0) -> pd.DataFrame:
-    df = price.copy()
-    df["bb_mid"] = df["close"].rolling(period, min_periods=period).mean()
-    df["bb_std"] = df["close"].rolling(period, min_periods=period).std(ddof=1)
-    df["bb_upper"], df["bb_lower"] = df["bb_mid"] + std_mult * df["bb_std"], df["bb_mid"] - std_mult * df["bb_std"]
-    rng = df["bb_upper"] - df["bb_lower"]
-    df["bb_pct_b"] = np.where(rng != 0, (df["close"] - df["bb_lower"]) / rng, np.nan)
-    df.loc[df["bb_mid"].isna(), "bb_pct_b"] = np.nan
-    return df
-
-
-def bb_zone(pct_b):
-    if pct_b is None or (isinstance(pct_b, float) and np.isnan(pct_b)):
-        return "unknown"
-    if 0.8 <= pct_b <= 1.0:
-        return "near_upper"
-    for lo, hi, label in [(-np.inf, 0.0, "below_lower"), (0.0, 0.2, "near_lower"), (0.2, 0.4, "lower_mid"),
-                           (0.4, 0.6, "near_middle"), (0.6, 0.8, "upper_mid"), (1.0, np.inf, "above_upper")]:
-        if lo <= pct_b < hi:
-            return label
-    return "unknown"
-
-
-def enrich_bb(trades, price):
-    bb = compute_bb(price)
-    lookup = bb[["time", "bb_pct_b"]].sort_values("time").reset_index(drop=True)
-    merged = pd.merge_asof(trades.sort_values("entry_time"), lookup, left_on="entry_time", right_on="time", direction="backward")
-    merged["bb_zone"] = merged["bb_pct_b"].apply(bb_zone)
-    return merged
-
-
-def enrich_dxy(trades, dxy_1d):
-    dxy = dxy_1d.copy()
-    dxy["sma20"] = dxy["close"].rolling(20, min_periods=1).mean()
-    dxy["date"] = dxy["time"].dt.normalize()
-    lookup = dxy[["date", "rsi", "rsi_ma", "close", "sma20"]].sort_values("date").reset_index(drop=True)
-    result = trades.sort_values("entry_time").copy()
-    result["date"] = result["entry_time"].dt.normalize()
-    merged = pd.merge_asof(result, lookup, on="date", direction="backward")
-    merged["dxy_rsi_bucket"] = np.select(
-        [merged["rsi"] < 30, merged["rsi"] < 50, merged["rsi"] < 70],
-        ["oversold(<30)", "neutral_low(30-50)", "neutral_high(50-70)"], default="overbought(>70)",
-    )
-    merged.loc[merged["rsi"].isna(), "dxy_rsi_bucket"] = "unknown"
-    merged["dxy_trend_1d"] = np.where(merged["close"] > merged["sma20"], "up", "down")
-    dxy_rsi_vs_ma = merged["rsi"] - merged["rsi_ma"]
-    merged["dxy_momentum"] = np.where(
-        dxy_rsi_vs_ma.isna(), "unknown",
-        np.where(dxy_rsi_vs_ma > 0, "RSI>MA (USD gaining)", "RSI<MA (USD losing)"),
-    )
-    return merged
-
-
-def dxy_correlation_stats(xauusd_1d: pd.DataFrame, dxy_1d: pd.DataFrame, window=30) -> pd.DataFrame:
-    dxy = dxy_1d[["time", "close"]].rename(columns={"close": "dxy_close"}).copy()
-    xau = xauusd_1d[["time", "close"]].rename(columns={"close": "xau_close"}).copy()
-    dxy["dxy_ret"] = dxy["dxy_close"].pct_change()
-    xau["xau_ret"] = xau["xau_close"].pct_change()
-    merged = pd.merge(dxy[["time", "dxy_ret"]], xau[["time", "xau_ret"]], on="time", how="inner").dropna()
-    merged["rolling_corr"] = merged["dxy_ret"].rolling(window).corr(merged["xau_ret"])
-    return merged
-
-
-def _compute_atr(df, period=14):
-    d = df.copy()
-    prev_c = d["close"].shift(1)
-    tr = np.maximum(d["high"] - d["low"], np.maximum((d["high"] - prev_c).abs(), (d["low"] - prev_c).abs()))
-    d["atr"] = tr.rolling(period, min_periods=1).mean()
-    d["atr_sma20"] = d["atr"].rolling(20, min_periods=1).mean()
-    d["vol_ratio"] = d["atr"] / d["atr_sma20"].replace(0, np.nan)
-    return d
-
-
-def _rsi_state(rsi, rsi_ma, slope):
-    if pd.isna(rsi) or pd.isna(rsi_ma):
-        return "unknown"
-    above, rising = rsi > rsi_ma, (not pd.isna(slope)) and slope > 0
-    if above and rising:
-        return "bullish"
-    if (not above) and (not rising):
-        return "bearish"
-    return "neutral"
-
-
-def _rsi_bucket(rsi):
-    if pd.isna(rsi):
-        return "unknown"
-    if rsi < 30:
-        return "oversold(<30)"
-    if rsi < 50:
-        return "low(30-50)"
-    if rsi < 70:
-        return "high(50-70)"
-    return "overbought(>70)"
-
-
-def _enrich_tf(trades, price, prefix):
-    p = _compute_atr(price.sort_values("time").reset_index(drop=True))
-    p["_slope"] = p["rsi_ma"].diff(3) if "rsi_ma" in p.columns else np.nan
-    p = p.rename(columns={"rsi": f"{prefix}_rsi", "rsi_ma": f"{prefix}_rsi_ma", "_slope": f"{prefix}_slope",
-                           "vol_ratio": f"{prefix}_vol_ratio", "time": "entry_time"})
-    keep = ["entry_time", f"{prefix}_rsi", f"{prefix}_rsi_ma", f"{prefix}_slope", f"{prefix}_vol_ratio"]
-    p = p[[c for c in keep if c in p.columns]]
-    merged = pd.merge_asof(trades.sort_values("entry_time"), p, on="entry_time", direction="backward")
-    rsi_col, ma_col, slope_col = f"{prefix}_rsi", f"{prefix}_rsi_ma", f"{prefix}_slope"
-    merged[f"{prefix}_rsi_state"] = merged.apply(
-        lambda r: _rsi_state(r.get(rsi_col), r.get(ma_col), r.get(slope_col)), axis=1
-    )
-    merged[f"{prefix}_rsi_bucket"] = merged[rsi_col].apply(_rsi_bucket)
-    return merged.drop(columns=[slope_col], errors="ignore")
-
-
-def enrich_htf(trades, price_60m, price_4h, price_1d):
-    result = trades.copy()
-    for prefix, price in [("htf_60m", price_60m), ("htf_4h", price_4h), ("htf_1d", price_1d)]:
-        result = _enrich_tf(result, price, prefix)
-    state_cols = [c for c in result.columns if c.startswith("htf_") and c.endswith("_rsi_state")]
-    result["htf_alignment"] = result[state_cols].apply(lambda row: int((row == "bullish").sum()), axis=1)
-    n_tfs = len(state_cols)
-    result["htf_alignment_label"] = result["htf_alignment"].map(
-        lambda x: f"{x}/{n_tfs} " + ("None" if x == 0 else "Weak" if x == 1 else "Moderate" if x == n_tfs - 1 and n_tfs > 1 else "Full")
-    )
-    result["htf_conflict"] = result.get("htf_4h_rsi_state", pd.Series("unknown", index=result.index)) == "bearish"
-    result["htf_high_vol"] = result.get("htf_4h_vol_ratio", pd.Series(np.nan, index=result.index)) > 1.3
-    return result
-
-
-def htf_stats(enriched: pd.DataFrame) -> dict:
-    out = {"by_alignment": grouped(enriched, "htf_alignment_label")}
-    for col, key in [("htf_4h_rsi_state", "by_4h_state"), ("htf_4h_rsi_bucket", "by_4h_bucket"), ("htf_1d_rsi_state", "by_1d_state")]:
-        if col in enriched.columns:
-            valid = enriched[enriched[col] != "unknown"]
-            out[key] = grouped(valid, col)
-    labeled = enriched.copy()
-    labeled["_conflict_label"] = labeled["htf_conflict"].map({True: "counter-trend (4H bearish)", False: "aligned (4H not bearish)"})
-    out["by_conflict"] = grouped(labeled, "_conflict_label")
-    labeled["_vol_label"] = labeled["htf_high_vol"].map({True: "high-vol (ATR>1.3xSMA)", False: "normal vol"})
-    out["by_vol_regime"] = grouped(labeled, "_vol_label")
-    coverage = {}
-    for col, label in [("htf_60m_rsi", "60m"), ("htf_4h_rsi", "4H"), ("htf_1d_rsi", "1D")]:
-        if col in enriched.columns:
-            n_with = int(enriched[col].notna().sum())
-            coverage[label] = {"trades_covered": n_with, "total_trades": len(enriched),
-                                "coverage_pct": round(100 * n_with / len(enriched), 1) if len(enriched) else 0.0}
-    out["coverage"] = coverage
-    return out
+def render_readme(results: dict) -> str:
+    baseline = results["baseline"]
+    lines = [
+        f"# {results['study_id']} — {results['strategy']} fail-pattern report",
+        "",
+        f"Generated: `{results['generated_at']}`",
+        "",
+        "## Scope",
+        "",
+        f"- Closed trades: **{baseline['n']}**, {results['trade_period']['start']} to {results['trade_period']['end']}.",
+        "- 30-minute entry slot is the primary time axis (docs/RESEARCH_DEVELOPMENT_SPEC.md section 5).",
+        f"- K-bar coverage for immediate_loss trades: {results['kbar_coverage']['coverage_pct']}%.",
+    ]
+    if "by_macro_verdict" in results:
+        lines.append(f"- Macro composite coverage: {results['macro_coverage']['pct']}% (section 5.1 item 10).")
+    if "scoring_method" in results.get("method", {}):
+        lines.append("- This study is policy-impacting: by_entry_30m/by_session/by_macro_verdict carry integer rank_score (section 13.2). See `impact.md`.")
+    if "temporal_stability" in results:
+        ts = results["temporal_stability"]
+        lines.append(
+            f"- Temporal stability (section 5.1 item 11): chronological 70/30 holdout — "
+            f"degradation flag **{ts['degradation_flag']}**. Not a re-optimized walk-forward; see `method.temporal_stability_limitation`."
+        )
+    lines += [
+        "",
+        "## Baseline",
+        "",
+        f"- WR **{baseline['win_rate_pct']}%**, PF **{baseline['profit_factor']}**, "
+        f"net **${baseline['net_pnl_usd']:,.2f}**, max drawdown **${baseline['max_drawdown_usd']:,.2f}**.",
+        "",
+        "## Fail pattern",
+        "",
+    ]
+    for name, v in results["fail_pattern"]["by_type"].items():
+        lines.append(f"- `{name}`: {v['count']} ({v['pct']}%)")
+    lines += [
+        "",
+        "## Interpretation",
+        "",
+        "- 30-minute slot and DXY/MTF/BB context are descriptive evidence, not entry gates.",
+        "- See `report.html` for the full chart-embedded report and `results.json` for structured data.",
+        "",
+        "## Source provenance",
+        "",
+    ]
+    for source in results["sources"]:
+        lines.append(f"- `{source['role']}`: `{source['path']}` — SHA-256 `{source['sha256']}`")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--trades", type=Path, required=True)
-    parser.add_argument("--price-30m", type=Path, required=True)
-    parser.add_argument("--price-60m", type=Path, required=True)
-    parser.add_argument("--price-4h", type=Path, required=True)
-    parser.add_argument("--price-1d", type=Path, required=True)
-    parser.add_argument("--dxy-1d", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--study-id", required=True, choices=list(STUDY_CONFIG))
+    parser.add_argument("--legacy-root", type=Path, default=DEFAULT_LEGACY)
+    parser.add_argument("--output-dir", type=Path, default=None)
     args = parser.parse_args()
-
-    trades = load_trades(args.trades)
-    price_30m, price_60m, price_4h, price_1d = (load_price(p) for p in [args.price_30m, args.price_60m, args.price_4h, args.price_1d])
-    dxy_1d = load_price(args.dxy_1d)
-
-    baseline = summary(trades)
-    classified = classify_fail(trades)
-    total_losses = len(classified)
-    fail_by_type = {
-        name: {"count": int(count), "pct": round(100 * count / total_losses, 1) if total_losses else 0.0}
-        for name, count in classified["fail_type"].value_counts().items()
-    }
-    by_session = grouped(trades, "session")
-    by_entry_30m = {slot: stats(trades[trades["entry_slot_30m"] == slot]) for slot in ENTRY_SLOTS_30M}
-
-    trades_ctx = add_trade_context(trades, classified)
-    profile = immediate_loss_profile(trades_ctx)
-
-    kbar_enriched = enrich_with_kbars(classified, price_30m)
-    coverage = kbar_coverage(kbar_enriched)
-
-    bb_enriched = enrich_bb(trades, price_30m)
-    valid_bb = bb_enriched[bb_enriched["bb_zone"] != "unknown"]
-    bb_zone_stats = {z: stats(valid_bb[valid_bb["bb_zone"] == z]) for z in BB_ZONE_ORDER}
-
-    dxy_enriched = enrich_dxy(trades, dxy_1d)
-    dxy_regime = {
-        "by_bucket": grouped(dxy_enriched[dxy_enriched["dxy_rsi_bucket"] != "unknown"], "dxy_rsi_bucket"),
-        "by_trend": grouped(dxy_enriched, "dxy_trend_1d"),
-        "by_momentum": grouped(dxy_enriched[dxy_enriched["dxy_momentum"] != "unknown"], "dxy_momentum"),
-    }
-    corr = dxy_correlation_stats(price_1d, dxy_1d)
-    dxy_stats = {"regime": dxy_regime, "avg_30d_correlation": round(float(corr["rolling_corr"].dropna().mean()), 3)}
-
-    htf_enriched = enrich_htf(trades, price_60m, price_4h, price_1d)
-    mtf_stats = htf_stats(htf_enriched)
-
-    output = {
-        "baseline": baseline,
-        "trade_period": {"start": str(trades["entry_time"].min()), "end": str(trades["exit_time"].max())},
-        "fail_pattern": {"total_losses": total_losses, "by_type": fail_by_type, "by_session": fail_by_session(classified)},
-        "by_session": by_session,
-        "by_entry_30m": by_entry_30m,
-        "immediate_loss_profile": profile,
-        "kbar_coverage": coverage,
-        "bb_zone": bb_zone_stats,
-        "dxy": dxy_stats,
-        "mtf": mtf_stats,
-        "hold_time_streaks": {
-            "avg_hold_bars": baseline["avg_hold_bars"],
-            "max_consecutive_losses": baseline["max_consecutive_losses"],
-            "streak_lengths": consecutive_losses(trades).tolist(),
-        },
-    }
-    args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_dir = args.output_dir or Path("research/studies") / args.study_id
+    results = build(args.study_id, args.legacy_root, output_dir.resolve())
+    print(json.dumps({
+        "study_id": args.study_id, "output": str(output_dir),
+        "baseline": results["baseline"], "chart_count": len(results["charts"]),
+    }, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

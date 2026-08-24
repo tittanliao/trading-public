@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260823-002",
+  "generated_at": "2026-08-23T23:31:21+08:00",
+  "strategy": "S1 AweWithBB V3.9",
+  "method": {
+    "trades": "S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv",
+    "bars": "30-minute FX_IDC:XAUUSD export",
+    "bb_params": "period=20, std_mult=2.0, close, sample stdev (study convention)",
+    "bb_note": "V3.9's Pine computes its own bands on ohlc4 with a population stdev. The study convention is kept here so this result is comparable with RS-XAUUSD-20260727-001; the two differ slightly near a bucket boundary.",
+    "momentum_bars": 6,
+    "split": {
+      "train_end": 0.55,
+      "valid_end": 0.8,
+      "unit": "trade index"
+    },
+    "permutations": 4000,
+    "bootstrap": 4000,
+    "block_size": 10,
+    "cost_pct_round_trip": 0.02,
+    "seed": 20260823
+  },
+  "limitations": [
+    "One strategy, one instrument, 472 trades over one strong uptrend.",
+    "%B is computed from the study's close-based bands, not V3.9's ohlc4 bands; a trade sitting on a bucket boundary can fall either side of it.",
+    "The filter sweep is applied to trades the strategy actually took. It cannot show what a differently-filtered strategy would have entered instead, so the retained-return column is an upper bound on the benefit, not a backtest.",
+    "Entry momentum is a proxy built from the same price series, so the ablation bounds the confound rather than eliminating it.",
+    "No result changes formal S1 logic, live risk, or an entry checklist without a separate adoption decision."
+  ],
+  "market": "XAUUSD",
+  "coverage": {
+    "trades": 472,
+    "bb_joined": 472,
+    "from": "2024-01-03 10:30:00",
+    "to": "2026-08-13 20:30:00",
+    "prior_study_bb_coverage": "165 of 450 trades (RS-XAUUSD-20260727-001)"
+  },
+  "families": {
+    "zone_table": {
+      "baseline": {
+        "n": 472,
+        "wins": 264,
+        "win_rate_pct": 55.93,
+        "win_rate_ci95_pct": [
+          51.42,
+          60.35
+        ],
+        "profit_factor": 1.849,
+        "net_pnl_usd": 8714.86,
+        "avg_return_pct": 0.1878,
+        "total_return_pct": 88.62
+      },
+      "zones": {
+        "below_lower": {
+          "n": 3,
+          "wins": 1,
+          "win_rate_pct": 33.33,
+          "win_rate_ci95_pct": [
+            6.15,
+            79.23
+          ],
+          "profit_factor": 0.45,
+          "net_pnl_usd": -60.83,
+          "avg_return_pct": -0.21,
+          "total_return_pct": -0.63,
+          "win_rate_excess_pct": -22.6,
+          "avg_return_excess_pct": -0.3978
+        },
+        "near_lower": {
+          "n": 3,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "win_rate_ci95_pct": [
+            0.0,
+            56.15
+          ],
+          "profit_factor": 0.0,
+          "net_pnl_usd": -147.36,
+          "avg_return_pct": -0.5,
+          "total_return_pct": -1.5,
+          "win_rate_excess_pct": -55.93,
+          "avg_return_excess_pct": -0.6878
+        },
+        "lower_mid": {
+          "n": 18,
+          "wins": 6,
+          "win_rate_pct": 33.33,
+          "win_rate_ci95_pct": [
+            16.28,
+            56.25
+          ],
+          "profit_factor": 0.702,
+          "net_pnl_usd": -175.95,
+          "avg_return_pct": -0.0972,
+          "total_return_pct": -1.75,
+          "win_rate_excess_pct": -22.6,
+          "avg_return_excess_pct": -0.285
+        },
+        "near_middle": {
+          "n": 81,
+          "wins": 33,
+          "win_rate_pct": 40.74,
+          "win_rate_ci95_pct": [
+            30.7,
+            51.62
+          ],
+          "profit_factor": 1.171,
+          "net_pnl_usd": 410.24,
+          "avg_return_pct": 0.0506,
+          "total_return_pct": 4.1,
+          "win_rate_excess_pct": -15.19,
+          "avg_return_excess_pct": -0.1372
+        },
+        "upper_mid": {
+          "n": 165,
+          "wins": 92,
+          "win_rate_pct": 55.76,
+          "win_rate_ci95_pct": [
+            48.13,
+            63.12
+          ],
+          "profit_factor": 1.696,
+          "net_pnl_usd": 2497.74,
+          "avg_return_pct": 0.1539,
+          "total_return_pct": 25.39,
+          "win_rate_excess_pct": -0.17,
+          "avg_return_excess_pct": -0.0339
+        },
+        "near_upper": {
+          "n": 120,
+          "wins": 72,
+          "win_rate_pct": 60.0,
+          "win_rate_ci95_pct": [
+            51.06,
+            68.32
+          ],
+          "profit_factor": 2.001,
+          "net_pnl_usd": 2355.95,
+          "avg_return_pct": 0.1999,
+          "total_return_pct": 23.99,
+          "win_rate_excess_pct": 4.07,
+          "avg_return_excess_pct": 0.0121
+        },
+        "above_upper": {
+          "n": 82,
+          "wins": 60,
+          "win_rate_pct": 73.17,
+          "win_rate_ci95_pct": [
+            62.7,
+            81.56
+          ],
+          "profit_factor": 4.541,
+          "net_pnl_usd": 3835.07,
+          "avg_return_pct": 0.4759,
+          "total_return_pct": 39.02,
+          "win_rate_excess_pct": 17.24,
+          "avg_return_excess_pct": 0.2881
+        }
+      }
+    },
+    "monotonicity": {
+      "zones_in_order": [
+        "below_lower",
+        "near_lower",
+        "lower_mid",
+        "near_middle",
+        "upper_mid",
+        "near_upper",
+        "above_upper"
+      ],
+      "win_rates_pct": [
+        33.33,
+        0.0,
+        33.33,
+        40.74,
+        55.76,
+        60.0,
+        73.17
+      ],
+      "n_per_zone": [
+        3,
+        3,
+        18,
+        81,
+        165,
+        120,
+        82
+      ],
+      "spearman_vs_bucket_order": 0.849,
+      "ascending_steps": "5/6"
+    },
+    "above_upper_vs_rest": {
+      "above_upper": {
+        "n": 82,
+        "wins": 60,
+        "win_rate_pct": 73.17,
+        "win_rate_ci95_pct": [
+          62.7,
+          81.56
+        ],
+        "profit_factor": 4.541,
+        "net_pnl_usd": 3835.07,
+        "avg_return_pct": 0.4759,
+        "total_return_pct": 39.02
+      },
+      "rest": {
+        "n": 390,
+        "wins": 204,
+        "win_rate_pct": 52.31,
+        "win_rate_ci95_pct": [
+          47.35,
+          57.22
+        ],
+        "profit_factor": 1.531,
+        "net_pnl_usd": 4879.79,
+        "avg_return_pct": 0.1272,
+        "total_return_pct": 49.6
+      },
+      "win_rate_gap_pct": 20.86,
+      "smallest_resolvable_gap_pct": 16.9,
+      "gap_exceeds_resolution": true
+    },
+    "by_period": {
+      "train": {
+        "n": 259,
+        "from": "2024-01-03 10:30:00",
+        "to": "2025-07-18 15:30:00",
+        "baseline_win_rate_pct": 56.76,
+        "above_upper": {
+          "n": 43,
+          "wins": 28,
+          "win_rate_pct": 65.12,
+          "win_rate_ci95_pct": [
+            50.17,
+            77.58
+          ],
+          "profit_factor": 2.914,
+          "net_pnl_usd": 1413.96,
+          "avg_return_pct": 0.3314,
+          "total_return_pct": 14.25,
+          "win_rate_excess_pct": 8.36,
+          "avg_return_excess_pct": 0.1582
+        },
+        "zone_win_rates_pct": {
+          "below_lower": 50.0,
+          "near_lower": 0.0,
+          "lower_mid": 50.0,
+          "near_middle": 48.94,
+          "upper_mid": 55.06,
+          "near_upper": 61.76,
+          "above_upper": 65.12
+        }
+      },
+      "valid": {
+        "n": 118,
+        "from": "2025-07-22 20:00:00",
+        "to": "2026-03-03 08:00:00",
+        "baseline_win_rate_pct": 57.63,
+        "above_upper": {
+          "n": 16,
+          "wins": 13,
+          "win_rate_pct": 81.25,
+          "win_rate_ci95_pct": [
+            56.99,
+            93.41
+          ],
+          "profit_factor": 7.085,
+          "net_pnl_usd": 895.5,
+          "avg_return_pct": 0.5725,
+          "total_return_pct": 9.16,
+          "win_rate_excess_pct": 23.62,
+          "avg_return_excess_pct": 0.314
+        },
+        "zone_win_rates_pct": {
+          "near_lower": 0.0,
+          "lower_mid": 40.0,
+          "near_middle": 33.33,
+          "upper_mid": 58.33,
+          "near_upper": 66.67,
+          "above_upper": 81.25
+        }
+      },
+      "holdout": {
+        "n": 95,
+        "from": "2026-03-05 08:00:00",
+        "to": "2026-08-13 20:30:00",
+        "baseline_win_rate_pct": 51.58,
+        "above_upper": {
+          "n": 23,
+          "wins": 19,
+          "win_rate_pct": 82.61,
+          "win_rate_ci95_pct": [
+            62.86,
+            93.02
+          ],
+          "profit_factor": 8.74,
+          "net_pnl_usd": 1525.61,
+          "avg_return_pct": 0.6787,
+          "total_return_pct": 15.61,
+          "win_rate_excess_pct": 31.03,
+          "avg_return_excess_pct": 0.539
+        },
+        "zone_win_rates_pct": {
+          "below_lower": 0.0,
+          "lower_mid": 0.0,
+          "near_middle": 23.08,
+          "upper_mid": 53.57,
+          "near_upper": 48.0,
+          "above_upper": 82.61
+        }
+      }
+    },
+    "family_permutation": {
+      "observed_max_abs_t": 3.144,
+      "null_median_max_abs_t": 1.365,
+      "permutations": 4000,
+      "p_value": 0.003
+    },
+    "block_bootstrap": {
+      "observed_win_rate_gap_pct": 20.86,
+      "win_rate_gap_ci90_pct": [
+        10.96,
+        29.64
+      ],
+      "win_rate_gap_p_above_zero": 1.0,
+      "observed_avg_return_gap_pct": 0.3487,
+      "avg_return_gap_ci90_pct": [
+        0.1954,
+        0.4911
+      ],
+      "block_size": 10,
+      "resamples": 4000
+    },
+    "dose_response": {
+      "by_pct_b_decile": [
+        {
+          "decile": 1,
+          "pct_b_range": [
+            -0.262,
+            0.498
+          ],
+          "n": 47,
+          "win_rate_pct": 36.17,
+          "avg_return_pct": -0.0117
+        },
+        {
+          "decile": 2,
+          "pct_b_range": [
+            0.499,
+            0.585
+          ],
+          "n": 47,
+          "win_rate_pct": 42.55,
+          "avg_return_pct": -0.0019
+        },
+        {
+          "decile": 3,
+          "pct_b_range": [
+            0.585,
+            0.65
+          ],
+          "n": 47,
+          "win_rate_pct": 44.68,
+          "avg_return_pct": 0.1415
+        },
+        {
+          "decile": 4,
+          "pct_b_range": [
+            0.651,
+            0.702
+          ],
+          "n": 47,
+          "win_rate_pct": 44.68,
+          "avg_return_pct": 0.0179
+        },
+        {
+          "decile": 5,
+          "pct_b_range": [
+            0.705,
+            0.753
+          ],
+          "n": 48,
+          "win_rate_pct": 64.58,
+          "avg_return_pct": 0.2337
+        },
+        {
+          "decile": 6,
+          "pct_b_range": [
+            0.754,
+            0.809
+          ],
+          "n": 47,
+          "win_rate_pct": 59.57,
+          "avg_return_pct": 0.1664
+        },
+        {
+          "decile": 7,
+          "pct_b_range": [
+            0.812,
+            0.892
+          ],
+          "n": 47,
+          "win_rate_pct": 70.21,
+          "avg_return_pct": 0.313
+        },
+        {
+          "decile": 8,
+          "pct_b_range": [
+            0.895,
+            0.972
+          ],
+          "n": 47,
+          "win_rate_pct": 59.57,
+          "avg_return_pct": 0.2234
+        },
+        {
+          "decile": 9,
+          "pct_b_range": [
+            0.977,
+            1.102
+          ],
+          "n": 47,
+          "win_rate_pct": 55.32,
+          "avg_return_pct": 0.21
+        },
+        {
+          "decile": 10,
+          "pct_b_range": [
+            1.102,
+            1.526
+          ],
+          "n": 48,
+          "win_rate_pct": 81.25,
+          "avg_return_pct": 0.576
+        }
+      ],
+      "spearman_win_rate_vs_pct_b_decile": 0.839,
+      "within_above_upper": {
+        "lower_half": {
+          "n": 41,
+          "wins": 27,
+          "win_rate_pct": 65.85,
+          "win_rate_ci95_pct": [
+            50.55,
+            78.44
+          ],
+          "profit_factor": 3.156,
+          "net_pnl_usd": 1488.1,
+          "avg_return_pct": 0.369,
+          "total_return_pct": 15.13
+        },
+        "upper_half": {
+          "n": 41,
+          "wins": 33,
+          "win_rate_pct": 80.49,
+          "win_rate_ci95_pct": [
+            65.99,
+            89.77
+          ],
+          "profit_factor": 6.976,
+          "net_pnl_usd": 2346.97,
+          "avg_return_pct": 0.5827,
+          "total_return_pct": 23.89
+        },
+        "reading": "dose-response inside above_upper: does more distance keep helping?"
+      }
+    },
+    "momentum_ablation": {
+      "low": {
+        "momentum_range_pct": [
+          -0.526,
+          0.211
+        ],
+        "above_upper": {
+          "n": 7,
+          "wins": 4,
+          "win_rate_pct": 57.14,
+          "win_rate_ci95_pct": [
+            25.05,
+            84.18
+          ],
+          "profit_factor": 1.352,
+          "net_pnl_usd": 51.59,
+          "avg_return_pct": 0.0714,
+          "total_return_pct": 0.5
+        },
+        "rest": {
+          "n": 151,
+          "wins": 73,
+          "win_rate_pct": 48.34,
+          "win_rate_ci95_pct": [
+            40.51,
+            56.26
+          ],
+          "profit_factor": 1.295,
+          "net_pnl_usd": 1135.83,
+          "avg_return_pct": 0.0765,
+          "total_return_pct": 11.55
+        },
+        "win_rate_gap_pct": 8.8
+      },
+      "mid": {
+        "momentum_range_pct": [
+          0.211,
+          0.427
+        ],
+        "above_upper": {
+          "n": 25,
+          "wins": 17,
+          "win_rate_pct": 68.0,
+          "win_rate_ci95_pct": [
+            48.41,
+            82.8
+          ],
+          "profit_factor": 3.457,
+          "net_pnl_usd": 965.6,
+          "avg_return_pct": 0.3904,
+          "total_return_pct": 9.76
+        },
+        "rest": {
+          "n": 132,
+          "wins": 71,
+          "win_rate_pct": 53.79,
+          "win_rate_ci95_pct": [
+            45.3,
+            62.07
+          ],
+          "profit_factor": 1.665,
+          "net_pnl_usd": 2020.06,
+          "avg_return_pct": 0.155,
+          "total_return_pct": 20.46
+        },
+        "win_rate_gap_pct": 14.21
+      },
+      "high": {
+        "momentum_range_pct": [
+          0.428,
+          2.415
+        ],
+        "above_upper": {
+          "n": 50,
+          "wins": 39,
+          "win_rate_pct": 78.0,
+          "win_rate_ci95_pct": [
+            64.76,
+            87.25
+          ],
+          "profit_factor": 6.183,
+          "net_pnl_usd": 2817.88,
+          "avg_return_pct": 0.5752,
+          "total_return_pct": 28.76
+        },
+        "rest": {
+          "n": 107,
+          "wins": 60,
+          "win_rate_pct": 56.07,
+          "win_rate_ci95_pct": [
+            46.62,
+            65.11
+          ],
+          "profit_factor": 1.75,
+          "net_pnl_usd": 1723.9,
+          "avg_return_pct": 0.1644,
+          "total_return_pct": 17.59
+        },
+        "win_rate_gap_pct": 21.93
+      },
+      "reading": "the band survives momentum if the gap holds in every tercile; if it exists only in the high tercile the effect belongs to momentum",
+      "gap_positive_in_all_terciles": true
+    },
+    "threshold_sweep": {
+      "baseline": {
+        "n": 472,
+        "wins": 264,
+        "win_rate_pct": 55.93,
+        "win_rate_ci95_pct": [
+          51.42,
+          60.35
+        ],
+        "profit_factor": 1.849,
+        "net_pnl_usd": 8714.86,
+        "avg_return_pct": 0.1878,
+        "total_return_pct": 88.62
+      },
+      "cost_pct_round_trip": 0.02,
+      "sweep": [
+        {
+          "bb_pct_b_min": 0.0,
+          "trades_kept": 469,
+          "trades_kept_pct": 99.4,
+          "win_rate_pct": 56.08,
+          "profit_factor": 1.864,
+          "total_return_pct": 89.25,
+          "total_return_pct_after_cost": 79.87,
+          "net_pnl_usd": 8775.69,
+          "return_retained_pct": 100.7
+        },
+        {
+          "bb_pct_b_min": 0.2,
+          "trades_kept": 466,
+          "trades_kept_pct": 98.7,
+          "win_rate_pct": 56.44,
+          "profit_factor": 1.892,
+          "total_return_pct": 90.75,
+          "total_return_pct_after_cost": 81.43,
+          "net_pnl_usd": 8923.05,
+          "return_retained_pct": 102.4
+        },
+        {
+          "bb_pct_b_min": 0.4,
+          "trades_kept": 448,
+          "trades_kept_pct": 94.9,
+          "win_rate_pct": 57.37,
+          "profit_factor": 1.966,
+          "total_return_pct": 92.5,
+          "total_return_pct_after_cost": 83.54,
+          "net_pnl_usd": 9099.0,
+          "return_retained_pct": 104.4
+        },
+        {
+          "bb_pct_b_min": 0.6,
+          "trades_kept": 367,
+          "trades_kept_pct": 77.8,
+          "win_rate_pct": 61.04,
+          "profit_factor": 2.237,
+          "total_return_pct": 88.4,
+          "total_return_pct_after_cost": 81.06,
+          "net_pnl_usd": 8688.76,
+          "return_retained_pct": 99.8
+        },
+        {
+          "bb_pct_b_min": 0.8,
+          "trades_kept": 202,
+          "trades_kept_pct": 42.8,
+          "win_rate_pct": 65.35,
+          "profit_factor": 2.802,
+          "total_return_pct": 63.01,
+          "total_return_pct_after_cost": 58.97,
+          "net_pnl_usd": 6191.02,
+          "return_retained_pct": 71.1
+        },
+        {
+          "bb_pct_b_min": 1.0,
+          "trades_kept": 82,
+          "trades_kept_pct": 17.4,
+          "win_rate_pct": 73.17,
+          "profit_factor": 4.541,
+          "total_return_pct": 39.02,
+          "total_return_pct_after_cost": 37.38,
+          "net_pnl_usd": 3835.07,
+          "return_retained_pct": 44.0
+        },
+        {
+          "bb_pct_b_min": 1.1,
+          "trades_kept": 49,
+          "trades_kept_pct": 10.4,
+          "win_rate_pct": 79.59,
+          "profit_factor": 6.419,
+          "total_return_pct": 27.15,
+          "total_return_pct_after_cost": 26.17,
+          "net_pnl_usd": 2667.59,
+          "return_retained_pct": 30.6
+        }
+      ],
+      "highest_total_return_at": 0.4,
+      "highest_win_rate_at": 1.1,
+      "win_rate_and_return_agree": false
+    }
+  }
+}

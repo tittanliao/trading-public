@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260824-001",
+  "generated_at": "2026-08-24T00:14:30+08:00",
+  "strategy": "none — hypothesis sweep on the price series",
+  "method": {
+    "bars": "30-minute FX_IDC:XAUUSD export",
+    "day_boundary_hour_taipei": 7,
+    "bootstrap": 2000,
+    "block_size": 12,
+    "family_permutations": 2000,
+    "split": "train 0-55%, valid 55-80%, holdout 80-100% by index",
+    "seed": 20260824,
+    "cost_pct_round_trip": 0.02,
+    "verdict_rule": "survives_screens requires all three: the effect exceeds what the samples can resolve, the block bootstrap two-sided p is at or below 0.05, and the sign holds in train, valid and holdout."
+  },
+  "limitations": [
+    "One instrument, 32 months, one strong uptrend. A calendar hypothesis needing many years — the month-of-year claims in particular — cannot be settled here and is reported as underpowered rather than as absence of effect.",
+    "Forward returns overlap for the intraday hypotheses; the moving-block bootstrap accounts for the clustering but does not eliminate it.",
+    "A verdict of no_evidence bounds an effect, it does not prove one is absent. The bound is printed beside every result for exactly that reason.",
+    "No result changes formal S1 or S2 logic, live risk, or an entry checklist."
+  ],
+  "market": "XAUUSD",
+  "coverage": {
+    "bars": 30959,
+    "sessions": 672,
+    "from": "2024-01-02 07:00:00",
+    "to": "2026-08-15 04:30:00"
+  },
+  "verdict_counts": {
+    "no_evidence": 18,
+    "underpowered": 1,
+    "below_cost": 1
+  },
+  "family_permutation": {
+    "tested": 19,
+    "largest_observed_units_of_resolution": 1.51,
+    "null_median": 2.102,
+    "p_value": 0.928,
+    "note": "An effect below 1.0 is inside what its own sample can separate, whatever its p-value looks like in isolation."
+  },
+  "hypotheses": [
+    {
+      "id": "h01_monday_weak",
+      "family": "calendar",
+      "claim": "Gold starts the week weak: Monday is the worst weekday.",
+      "origin": "external_claim",
+      "null": "all weekdays share one return distribution",
+      "unit": "% forward return",
+      "n_condition": 135,
+      "n_other": 536,
+      "effect": -0.022,
+      "baseline_mean": 0.126,
+      "smallest_resolvable_effect": 0.3637,
+      "bootstrap_p_two_sided": 0.877,
+      "bootstrap_share_above_zero": 0.4385,
+      "effect_net_of_cost": 0.002,
+      "by_period": {
+        "train": {
+          "n_condition": 74,
+          "effect": 0.0631
+        },
+        "valid": {
+          "n_condition": 34,
+          "effect": 0.0233
+        },
+        "holdout": {
+          "n_condition": 27,
+          "effect": -0.3156
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0220 is inside the +0.3637 these samples can separate"
+    },
+    {
+      "id": "h02_friday_strong",
+      "family": "calendar",
+      "claim": "Gold rises into the weekend: Friday is the strongest weekday.",
+      "origin": "external_claim",
+      "null": "all weekdays share one return distribution",
+      "unit": "% forward return",
+      "n_condition": 130,
+      "n_other": 541,
+      "effect": 0.0232,
+      "baseline_mean": 0.1171,
+      "smallest_resolvable_effect": 0.3689,
+      "bootstrap_p_two_sided": 0.872,
+      "bootstrap_share_above_zero": 0.564,
+      "effect_net_of_cost": 0.0032,
+      "by_period": {
+        "train": {
+          "n_condition": 72,
+          "effect": -0.1145
+        },
+        "valid": {
+          "n_condition": 34,
+          "effect": 0.2218
+        },
+        "holdout": {
+          "n_condition": 24,
+          "effect": 0.1223
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0232 is inside the +0.3689 these samples can separate"
+    },
+    {
+      "id": "h03_asia_fades_in_europe",
+      "family": "session",
+      "claim": "Asian-session buying fades once London opens.",
+      "origin": "external_claim",
+      "null": "the European block is independent of the Asian block's sign",
+      "unit": "% forward return",
+      "n_condition": 375,
+      "n_other": 301,
+      "effect": 0.0129,
+      "baseline_mean": 0.0332,
+      "smallest_resolvable_effect": 0.1422,
+      "bootstrap_p_two_sided": 0.675,
+      "bootstrap_share_above_zero": 0.6625,
+      "effect_net_of_cost": -0.0071,
+      "by_period": {
+        "train": {
+          "n_condition": 211,
+          "effect": 0.0281
+        },
+        "valid": {
+          "n_condition": 94,
+          "effect": -0.0313
+        },
+        "holdout": {
+          "n_condition": 70,
+          "effect": 0.0204
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0129 is inside the +0.1422 these samples can separate"
+    },
+    {
+      "id": "h04_turn_of_month",
+      "family": "calendar",
+      "claim": "Turn-of-month: the first and last three sessions outperform the middle.",
+      "origin": "external_claim",
+      "null": "position within the month carries no return information",
+      "unit": "% forward return",
+      "n_condition": 191,
+      "n_other": 480,
+      "effect": 0.0744,
+      "baseline_mean": 0.1004,
+      "smallest_resolvable_effect": 0.3231,
+      "bootstrap_p_two_sided": 0.496,
+      "bootstrap_share_above_zero": 0.752,
+      "effect_net_of_cost": 0.0544,
+      "by_period": {
+        "train": {
+          "n_condition": 105,
+          "effect": 0.0395
+        },
+        "valid": {
+          "n_condition": 46,
+          "effect": -0.108
+        },
+        "holdout": {
+          "n_condition": 40,
+          "effect": 0.4021
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.0744 is inside the +0.3231 these samples can separate"
+    },
+    {
+      "id": "h05_september_weak",
+      "family": "calendar",
+      "claim": "September is gold's worst month.",
+      "origin": "external_claim",
+      "null": "all months share one return distribution",
+      "unit": "% forward return",
+      "n_condition": 43,
+      "n_other": 628,
+      "effect": 0.2945,
+      "baseline_mean": 0.1027,
+      "smallest_resolvable_effect": 0.5953,
+      "bootstrap_p_two_sided": 0.001,
+      "bootstrap_share_above_zero": 0.9995,
+      "effect_net_of_cost": 0.2745,
+      "by_period": {
+        "train": {
+          "n_condition": 21,
+          "effect": 0.1826
+        },
+        "valid": {
+          "n_condition": 22,
+          "effect": 0.2658
+        },
+        "holdout": {
+          "n_condition": 0,
+          "effect": null
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.2945 is inside the +0.5953 these samples can separate"
+    },
+    {
+      "id": "h06_gap_up_continues",
+      "family": "gap",
+      "claim": "A session that opens more than 0.1% above the prior close keeps going.",
+      "origin": "internal_idea",
+      "null": "the opening gap carries no information about the session that follows",
+      "unit": "% forward return",
+      "n_condition": 42,
+      "n_other": 629,
+      "effect": -0.0377,
+      "baseline_mean": 0.1239,
+      "smallest_resolvable_effect": 0.6019,
+      "bootstrap_p_two_sided": 0.812,
+      "bootstrap_share_above_zero": 0.406,
+      "effect_net_of_cost": 0.0177,
+      "by_period": {
+        "train": {
+          "n_condition": 19,
+          "effect": 0.1645
+        },
+        "valid": {
+          "n_condition": 11,
+          "effect": -0.1127
+        },
+        "holdout": {
+          "n_condition": 12,
+          "effect": -0.2388
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0377 is inside the +0.6019 these samples can separate"
+    },
+    {
+      "id": "h07_gap_down_continues",
+      "family": "gap",
+      "claim": "A session that opens more than 0.1% below the prior close keeps going.",
+      "origin": "internal_idea",
+      "null": "the opening gap carries no information about the session that follows",
+      "unit": "% forward return",
+      "n_condition": 38,
+      "n_other": 633,
+      "effect": 0.1502,
+      "baseline_mean": 0.1131,
+      "smallest_resolvable_effect": 0.6308,
+      "bootstrap_p_two_sided": 0.656,
+      "bootstrap_share_above_zero": 0.672,
+      "effect_net_of_cost": 0.1302,
+      "by_period": {
+        "train": {
+          "n_condition": 17,
+          "effect": -0.0324
+        },
+        "valid": {
+          "n_condition": 7,
+          "effect": 0.5211
+        },
+        "holdout": {
+          "n_condition": 14,
+          "effect": 0.3221
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect +0.1502 is inside the +0.6308 these samples can separate"
+    },
+    {
+      "id": "h08_nr4_range_expansion",
+      "family": "range",
+      "claim": "NR4: the narrowest range in four sessions precedes an expansion.",
+      "origin": "external_claim",
+      "null": "today's range rank carries no information about tomorrow's range",
+      "unit": "USD next-session range",
+      "n_condition": 180,
+      "n_other": 491,
+      "effect": -1.8557,
+      "baseline_mean": 67.358,
+      "smallest_resolvable_effect": 15.4412,
+      "bootstrap_p_two_sided": 0.647,
+      "bootstrap_share_above_zero": 0.3235,
+      "effect_net_of_cost": null,
+      "by_period": {
+        "train": {
+          "n_condition": 89,
+          "effect": 0.5495
+        },
+        "valid": {
+          "n_condition": 47,
+          "effect": -22.7996
+        },
+        "holdout": {
+          "n_condition": 44,
+          "effect": -8.2798
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -1.8557 is inside the +15.4412 these samples can separate"
+    },
+    {
+      "id": "h09_inside_day_expansion",
+      "family": "range",
+      "claim": "An inside day precedes a larger range.",
+      "origin": "external_claim",
+      "null": "containment carries no information about tomorrow's range",
+      "unit": "USD next-session range",
+      "n_condition": 109,
+      "n_other": 562,
+      "effect": -3.646,
+      "baseline_mean": 67.4525,
+      "smallest_resolvable_effect": 18.5471,
+      "bootstrap_p_two_sided": 0.656,
+      "bootstrap_share_above_zero": 0.328,
+      "effect_net_of_cost": null,
+      "by_period": {
+        "train": {
+          "n_condition": 66,
+          "effect": 7.6126
+        },
+        "valid": {
+          "n_condition": 20,
+          "effect": -19.5877
+        },
+        "holdout": {
+          "n_condition": 23,
+          "effect": -10.2637
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -3.6460 is inside the +18.5471 these samples can separate"
+    },
+    {
+      "id": "h10_outside_day_direction",
+      "family": "range",
+      "claim": "An outside day sets the next session's direction.",
+      "origin": "internal_idea",
+      "null": "engulfing the prior range carries no directional information",
+      "unit": "% forward return",
+      "n_condition": 66,
+      "n_other": 605,
+      "effect": -0.4028,
+      "baseline_mean": 0.1612,
+      "smallest_resolvable_effect": 0.4896,
+      "bootstrap_p_two_sided": 0.014,
+      "bootstrap_share_above_zero": 0.007,
+      "effect_net_of_cost": 0.3828,
+      "by_period": {
+        "train": {
+          "n_condition": 38,
+          "effect": -0.1135
+        },
+        "valid": {
+          "n_condition": 16,
+          "effect": -1.0607
+        },
+        "holdout": {
+          "n_condition": 12,
+          "effect": -0.455
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect -0.4028 is inside the +0.4896 these samples can separate"
+    },
+    {
+      "id": "h11_three_up_days",
+      "family": "streak",
+      "claim": "Three consecutive up sessions are followed by a pullback.",
+      "origin": "internal_idea",
+      "null": "streak length carries no information about the next session",
+      "unit": "% forward return",
+      "n_condition": 98,
+      "n_other": 573,
+      "effect": -0.0738,
+      "baseline_mean": 0.1324,
+      "smallest_resolvable_effect": 0.4128,
+      "bootstrap_p_two_sided": 0.625,
+      "bootstrap_share_above_zero": 0.3125,
+      "effect_net_of_cost": 0.0538,
+      "by_period": {
+        "train": {
+          "n_condition": 51,
+          "effect": -0.1467
+        },
+        "valid": {
+          "n_condition": 39,
+          "effect": 0.006
+        },
+        "holdout": {
+          "n_condition": 8,
+          "effect": -0.5451
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0738 is inside the +0.4128 these samples can separate"
+    },
+    {
+      "id": "h12_three_down_days",
+      "family": "streak",
+      "claim": "Three consecutive down sessions are followed by a bounce.",
+      "origin": "internal_idea",
+      "null": "streak length carries no information about the next session",
+      "unit": "% forward return",
+      "n_condition": 52,
+      "n_other": 619,
+      "effect": -0.1877,
+      "baseline_mean": 0.1361,
+      "smallest_resolvable_effect": 0.5453,
+      "bootstrap_p_two_sided": 0.539,
+      "bootstrap_share_above_zero": 0.2695,
+      "effect_net_of_cost": 0.1677,
+      "by_period": {
+        "train": {
+          "n_condition": 28,
+          "effect": 0.0075
+        },
+        "valid": {
+          "n_condition": 8,
+          "effect": 0.738
+        },
+        "holdout": {
+          "n_condition": 16,
+          "effect": -0.9269
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.1877 is inside the +0.5453 these samples can separate"
+    },
+    {
+      "id": "h13_stretched_above_ema200",
+      "family": "mean_reversion",
+      "claim": "The top decile of stretch above the 200 EMA mean-reverts over eight hours.",
+      "origin": "internal_idea",
+      "null": "distance from trend carries no information about the next eight hours",
+      "unit": "% forward return",
+      "n_condition": 3096,
+      "n_other": 27847,
+      "effect": -0.0012,
+      "baseline_mean": 0.0419,
+      "smallest_resolvable_effect": 0.0405,
+      "bootstrap_p_two_sided": 0.955,
+      "bootstrap_share_above_zero": 0.4775,
+      "effect_net_of_cost": -0.0188,
+      "by_period": {
+        "train": {
+          "n_condition": 1126,
+          "effect": -0.0265
+        },
+        "valid": {
+          "n_condition": 1307,
+          "effect": 0.0076
+        },
+        "holdout": {
+          "n_condition": 663,
+          "effect": 0.0003
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0012 is inside the +0.0405 these samples can separate"
+    },
+    {
+      "id": "h14_volume_spike_direction",
+      "family": "volume",
+      "claim": "A three-sigma volume spike predicts the next two hours.",
+      "origin": "internal_idea",
+      "null": "volume carries no directional information",
+      "unit": "% forward return",
+      "n_condition": 161,
+      "n_other": 30747,
+      "effect": -0.0372,
+      "baseline_mean": 0.0107,
+      "smallest_resolvable_effect": 0.0851,
+      "bootstrap_p_two_sided": 0.374,
+      "bootstrap_share_above_zero": 0.187,
+      "effect_net_of_cost": 0.0172,
+      "by_period": {
+        "train": {
+          "n_condition": 87,
+          "effect": -0.0341
+        },
+        "valid": {
+          "n_condition": 52,
+          "effect": 0.0071
+        },
+        "holdout": {
+          "n_condition": 22,
+          "effect": -0.1655
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0372 is inside the +0.0851 these samples can separate"
+    },
+    {
+      "id": "h15_opening_range_breakout",
+      "family": "session",
+      "claim": "Breaking the 07:00 opening range by 10:00 predicts the rest of the session.",
+      "origin": "external_claim",
+      "null": "an opening-range break carries no information about the hours after it",
+      "unit": "% forward return",
+      "n_condition": 485,
+      "n_other": 187,
+      "effect": -0.0132,
+      "baseline_mean": 0.0271,
+      "smallest_resolvable_effect": 0.2532,
+      "bootstrap_p_two_sided": 0.982,
+      "bootstrap_share_above_zero": 0.509,
+      "effect_net_of_cost": -0.0068,
+      "by_period": {
+        "train": {
+          "n_condition": 277,
+          "effect": 0.011
+        },
+        "valid": {
+          "n_condition": 114,
+          "effect": 0.1229
+        },
+        "holdout": {
+          "n_condition": 94,
+          "effect": -0.2574
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0132 is inside the +0.2532 these samples can separate"
+    },
+    {
+      "id": "h16_strong_weekly_close",
+      "family": "weekly",
+      "claim": "A weekly close in the top fifth of its range predicts the next week.",
+      "origin": "internal_idea",
+      "null": "where the week closes in its own range carries no information",
+      "unit": "% forward return",
+      "n_condition": 39,
+      "n_other": 97,
+      "effect": -0.3119,
+      "baseline_mean": 0.6836,
+      "smallest_resolvable_effect": 1.3761,
+      "bootstrap_p_two_sided": 0.37,
+      "bootstrap_share_above_zero": 0.185,
+      "effect_net_of_cost": 0.2919,
+      "by_period": {
+        "train": {
+          "n_condition": 21,
+          "effect": -0.2053
+        },
+        "valid": {
+          "n_condition": 12,
+          "effect": -1.3816
+        },
+        "holdout": {
+          "n_condition": 6,
+          "effect": 0.4023
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.3119 is inside the +1.3761 these samples can separate"
+    },
+    {
+      "id": "h17_dxy_lead_gold",
+      "family": "cross_asset",
+      "claim": "A bottom-decile DXY hour predicts the next hour of gold.",
+      "origin": "internal_idea",
+      "null": "DXY at t carries no information about gold at t+1",
+      "unit": "% forward return",
+      "n_condition": 96,
+      "n_other": 862,
+      "effect": -0.0244,
+      "baseline_mean": 0.0058,
+      "smallest_resolvable_effect": 0.0911,
+      "bootstrap_p_two_sided": 0.474,
+      "bootstrap_share_above_zero": 0.237,
+      "effect_net_of_cost": 0.0044,
+      "by_period": {
+        "train": {
+          "n_condition": 55,
+          "effect": -0.005
+        },
+        "valid": {
+          "n_condition": 26,
+          "effect": -0.0059
+        },
+        "holdout": {
+          "n_condition": 15,
+          "effect": -0.1117
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0244 is inside the +0.0911 these samples can separate"
+    },
+    {
+      "id": "h18_cftc_crowding",
+      "family": "positioning",
+      "claim": "A top-quartile weekly build in managed-money net length precedes a weaker week.",
+      "origin": "external_claim",
+      "null": "positioning change carries no information about the following week",
+      "unit": "% forward return",
+      "n_condition": 2,
+      "n_other": 7,
+      "verdict": "underpowered",
+      "reason": "condition fires 2 times; below the 20 needed to say anything",
+      "data_gap": "The repository holds 12 weekly CFTC rows (2026-06-02 onward) because the weekly fetcher keeps a rolling window, not a history. This hypothesis needs years. CFTC publishes the full Commitments of Traders history free; archiving it is a prerequisite for any positioning hypothesis, and it is the single cheapest way to open a family this dataset currently cannot test."
+    },
+    {
+      "id": "h19_us_release_slot_direction",
+      "family": "session",
+      "claim": "The 20:30 Taipei US-release slot has a directional bias.",
+      "origin": "internal_idea",
+      "null": "the release slot moves price but carries no direction",
+      "unit": "% forward return",
+      "n_condition": 676,
+      "n_other": 30281,
+      "effect": -0.0174,
+      "baseline_mean": 0.0056,
+      "smallest_resolvable_effect": 0.03,
+      "bootstrap_p_two_sided": 0.216,
+      "bootstrap_share_above_zero": 0.108,
+      "effect_net_of_cost": -0.0026,
+      "by_period": {
+        "train": {
+          "n_condition": 371,
+          "effect": -0.0311
+        },
+        "valid": {
+          "n_condition": 170,
+          "effect": 0.004
+        },
+        "holdout": {
+          "n_condition": 135,
+          "effect": -0.0067
+        }
+      },
+      "sign_consistent_all_periods": false,
+      "verdict": "no_evidence",
+      "reason": "effect -0.0174 is inside the +0.0300 these samples can separate"
+    },
+    {
+      "id": "h20_dead_zone_drift",
+      "family": "session",
+      "claim": "The 03:00-06:00 Taipei dead zone drifts in one direction.",
+      "origin": "internal_idea",
+      "null": "the quiet block carries no directional information",
+      "unit": "% forward return",
+      "n_condition": 3046,
+      "n_other": 27911,
+      "effect": 0.0222,
+      "baseline_mean": 0.003,
+      "smallest_resolvable_effect": 0.0147,
+      "bootstrap_p_two_sided": 0.004,
+      "bootstrap_share_above_zero": 0.998,
+      "effect_net_of_cost": 0.0022,
+      "by_period": {
+        "train": {
+          "n_condition": 1703,
+          "effect": 0.0125
+        },
+        "valid": {
+          "n_condition": 774,
+          "effect": 0.0515
+        },
+        "holdout": {
+          "n_condition": 569,
+          "effect": 0.011
+        }
+      },
+      "sign_consistent_all_periods": true,
+      "verdict": "below_cost",
+      "reason": "gross effect +0.0222% clears its bound, but net of a 0.02% round trip it is +0.0022%, inside the +0.0147% these samples can separate"
+    }
+  ]
+}

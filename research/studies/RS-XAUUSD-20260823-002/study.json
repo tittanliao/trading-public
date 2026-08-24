@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260823-002",
+  "revision": 1,
+  "title": "S1 V3.9 Bollinger %B at entry — the strongest effect in the programme, and why it is not a filter",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9",
+  "status": "confirmed",
+  "created_on": "2026-08-23",
+  "question": "S1 V3.9's entry Bollinger %B shows a monotone win-rate gradient topping at 73.17% for entries above the upper band against a 55.93% baseline. Does it survive the screens that reduced every other candidate in this programme to an artefact, and if it does, is filtering on it worth anything after opportunity cost?",
+  "hypothesis": "That the gradient is real — it has a mechanism, unlike the candidates that failed — and that filtering on it will nevertheless destroy return, because the programme has already established that win rate is purchasable.",
+  "headline": {
+    "trades": 472,
+    "baseline_win_rate_pct": 55.93,
+    "baseline_profit_factor": 1.849,
+    "above_upper_n": 82,
+    "above_upper_win_rate_pct": 73.17,
+    "above_upper_profit_factor": 4.541,
+    "win_rate_gap_pct": 20.86,
+    "smallest_resolvable_gap_pct": 16.9,
+    "family_permutation_p": 0.003,
+    "block_bootstrap_ci90_pct": [
+      10.96,
+      29.64
+    ],
+    "monotonicity_spearman": 0.849,
+    "dose_response_spearman": 0.839,
+    "holdout_above_upper_win_rate_pct": 82.61,
+    "holdout_baseline_win_rate_pct": 51.58,
+    "momentum_gap_positive_in_all_terciles": true,
+    "return_maximising_threshold_pct_b": 0.4,
+    "win_rate_maximising_threshold_pct_b": 1.1,
+    "return_retained_at_pct_b_1_0": 44.0,
+    "trades_retained_at_pct_b_1_0_pct": 17.4
+  },
+  "card_metrics": [
+    "above_upper_win_rate_pct",
+    "above_upper_n",
+    "family_permutation_p"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The gradient is real, and it is the first thing in this programme to clear every screen",
+      "detail": "Entries above the upper band win 73.17% on 82 trades against a 55.93% baseline — a 20.86-point gap where the smallest gap these samples could resolve is 16.9. Family permutation across all seven buckets gives p=0.003 with an observed max |t| of 3.14 against a null median of 1.37. A moving-block bootstrap puts the 90% interval at 10.96 to 29.64 points, excluding zero in every one of 4000 resamples. Nothing else in twenty-four studies has done this."
+    },
+    {
+      "tone": "good",
+      "title": "It strengthens out of sample while the strategy itself decays",
+      "detail": "Above-upper win rate runs 65.12% on train (n=43), 81.25% on validation (n=16) and 82.61% on holdout (n=23). Over the same three periods the baseline goes 56.76%, 57.63%, 51.58% — the strategy got worse and this bucket got better. That is the opposite of the overfitting signature: RS-XAUUSD-20260819-001's slot basket ran Sharpe 3.07 to -2.12 across the same kind of split."
+    },
+    {
+      "tone": "good",
+      "title": "The response is continuous, so it is not a bucketing artefact",
+      "detail": "Sorted into %B deciles the win rate rises from 36.17% in the lowest to 81.25% in the highest, Spearman 0.839. It also keeps rising *inside* the above-upper bucket: the lower half of those 82 trades wins 65.85% and the upper half 80.49%. A real gradient does that; an effect manufactured by where a boundary was drawn shows a step at the boundary and flatness either side of it."
+    },
+    {
+      "tone": "good",
+      "title": "It survives the momentum it could have been a proxy for",
+      "detail": "Closing outside the band is itself a strong move, so the obvious deflation is that the band is measuring momentum. Split by six-bar entry momentum, the above-upper advantage holds in all three terciles: +8.8 points in the lowest, +14.21 in the middle, +21.93 in the highest. It does grow with momentum, so the two are not independent — but the band adds something at every level of it rather than only where momentum is already extreme."
+    },
+    {
+      "tone": "warn",
+      "title": "Filtering on it destroys more return than it saves, and the two objectives point at different thresholds",
+      "detail": "Requiring %B above 1.0 lifts win rate to 73.17% and profit factor to 4.541 — while keeping 17.4% of the entries and 44.0% of the total return. Push it to 1.1 and win rate reaches 79.59% on 10.4% of trades and 30.6% of the return. The threshold that maximises total return is 0.4, which filters almost nothing (94.9% kept) for +4.4% return, itself well inside noise. Best win rate and best return do not agree at any threshold tested."
+    },
+    {
+      "tone": "warn",
+      "title": "This is the same lesson RS-XAUUSD-20260818-001 already paid for",
+      "detail": "That study lifted S1 to 88.6% win rate with a take-profit overlay and cut return from +88.6% to between +14% and +36%. Here the mechanism is different — discarding entries rather than truncating winners — and the arithmetic lands in the same place. A rule that raises win rate by taking fewer trades has to be judged in return, and when it is, this one loses."
+    },
+    {
+      "tone": "info",
+      "title": "The prior table understated it because it saw a third of the trades",
+      "detail": "RS-XAUUSD-20260727-001 joined %B for 165 of its 450 trades and reported above_upper at 79.31% on n=29. On the full 472 with complete coverage the figure is 73.17% on n=82 — lower, and far better evidenced. Its neighbouring buckets moved too: near_middle went from 28.0% on n=25 to 40.74% on n=81. The direction survived triple the sample; the extremes were small-sample noise."
+    },
+    {
+      "tone": "info",
+      "title": "An unprompted impression, the Pine tooltip and the data agree, and that is why it was worth testing",
+      "detail": "An unprompted impression that signals high in the band win more often. V3.9's Pine already carries a disabled use_bb_filter whose tooltip records 'above_upper (%B>100%) 勝率 77.8%'. Neither is evidence — a tooltip is not a study and an impression is not a sample — but three independent statements of the same claim justified spending the screens on it rather than dismissing it with the others."
+    },
+    {
+      "tone": "good",
+      "title": "Its value is as information at decision time, not as a gate",
+      "detail": "Everything above points the same way: %B genuinely separates outcomes, and acting on it by refusing entries costs money. That is precisely the shape of a number that belongs in front of a human who is deciding, and does not belong in the strategy. It is already displayed that way in the signal-feedback message, with its sample size attached and no recommendation."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "Bollinger %B at entry clears every screen in the programme — and filtering on it still loses money.",
+  "summary_zh": "進場時的布林 %B 是整個計畫裡唯一通過所有篩子的候選——置換 p=0.003、bootstrap 區間不含 0、樣本外還變強。但拿它當過濾器會賠錢：只留 17% 的進場、44% 的報酬。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

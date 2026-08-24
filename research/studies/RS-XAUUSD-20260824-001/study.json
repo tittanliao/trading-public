@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-001",
+  "revision": 1,
+  "title": "Twenty hypotheses, zero survivors — and a registry so the next twenty do not repeat them",
+  "market": "XAUUSD",
+  "strategy": "none — hypothesis sweep on the price series",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "Run twenty hypotheses drawn from published claims about gold and from the obvious structural ideas, through one harness with identical screens, and record every result — including the nulls — in a shape a later session can query before spending effort on the same ground.",
+  "hypothesis": "Nearly all of them fail, and the value is in the bounds attached to the failures rather than in any survivor.",
+  "headline": {
+    "hypotheses_tested": 20,
+    "survivors": 0,
+    "no_evidence": 18,
+    "below_cost": 1,
+    "underpowered": 1,
+    "family_permutation_p": 0.928,
+    "family_largest_effect_in_units_of_resolution": 1.51,
+    "family_null_median": 2.102,
+    "external_claims_tested": 9,
+    "lookahead_effect_before_fix": 1.5704,
+    "lookahead_effect_after_fix": -0.0132,
+    "family_p_before_lookahead_fix": 0.0675
+  },
+  "card_metrics": [
+    "hypotheses_tested",
+    "survivors",
+    "family_permutation_p"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Twenty hypotheses, no survivors, and the family test says that is exactly right",
+      "detail": "Eighteen return no evidence, one is untestable on this data and one is real but smaller than the round trip. Across the whole family the largest observed effect is 2.02 units of its own resolution against a null median of 2.10, p=0.928. Running twenty tests and reporting the best is how noise gets published; corrected across the set, this set contains nothing."
+    },
+    {
+      "tone": "warn",
+      "title": "One lookahead bug produced the strongest result in the study, and it was circular",
+      "detail": "The opening-range hypothesis first compared the session's HIGH to its opening-range high and predicted that same session's return — asking whether a session that went up went up. It scored +1.5704% against a 0.5271% bound with a bootstrap p of 0.000, and lifted the family p to 0.0675. Rebuilt so the break is judged by 10:00 and the return measured from 10:00 onward, the effect is -0.0132% and the family p is 0.928. The single most convincing number in the run was an artefact of the condition being observable after the thing it predicted."
+    },
+    {
+      "tone": "warn",
+      "title": "The cost screen has to compare the NET effect to the resolution bound, not the gross effect to cost",
+      "detail": "The 03:00-06:00 dead zone drifts +0.0222% over the following hour, clears its 0.0147% bound and has a bootstrap p of 0.004. Against a 0.02% round trip the gross effect still looks larger than cost — but net it is +0.0022%, an order of magnitude inside its own noise floor. Comparing gross effect to cost passes it as a survivor; comparing the net effect to the bound classifies it correctly as below_cost."
+    },
+    {
+      "tone": "info",
+      "title": "The published claims about gold do not reproduce here",
+      "detail": "Monday-weak returns -0.0220% against a 0.3637% bound and Friday-strong +0.0232% against 0.3689% — both an order of magnitude inside what 130-odd observations can separate. Asian buying fading into the European session gives +0.0129% with a bootstrap p of 0.675. Turn-of-month is +0.0744% against a 0.3231% bound. None of these are refutations; they are bounds, and the bounds are wide."
+    },
+    {
+      "tone": "warn",
+      "title": "September could not be tested and neither can any month-of-year claim",
+      "detail": "The external claim is that September is gold's worst month. On 43 sessions the effect is +0.2945% — the opposite sign — with a bound of 0.5953%, so the sample cannot separate it either way. Thirty-two months of data contains at most three of any given month. Month-of-year seasonality is not open or closed here; it is untestable, and that is the entry that belongs in the registry."
+    },
+    {
+      "tone": "warn",
+      "title": "Positioning is the cheapest closed door to open, and the blocker is archiving not analysis",
+      "detail": "The CFTC hypothesis fires twice. The repository holds twelve weekly rows because the weekly fetcher keeps a rolling window rather than a history, so the whole positioning family is currently untestable. CFTC publishes the full Commitments of Traders series free. Archiving it is a data task, not a research one, and it opens a family this dataset cannot currently touch."
+    },
+    {
+      "tone": "good",
+      "title": "The failures are now queryable instead of narrative",
+      "detail": "Every result carries its claim, its null, its sample, its effect and the smallest effect that sample could have resolved, and all of it lands in research/null_results.json alongside every prior study. A null with a bound attached is reusable evidence — it says not here, and how small an effect we could have seen. A null in prose is a shrug. This is the first study whose primary output is the shape of its own failures."
+    },
+    {
+      "tone": "info",
+      "title": "Range hypotheses are the widest bounds in the set and are effectively untested",
+      "detail": "NR4 gives -1.86 USD of next-session range against a bound of 15.44, and the inside-day version -3.65 against 18.55. The bounds are eight to ten times the effects, so these are not evidence of absence in any useful sense. They are recorded as open with wide bounds rather than as closed, which is the distinction the registry exists to preserve."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "Twenty hypotheses through one harness, zero survivors, and a registry so the next twenty are not repeats.",
+  "summary_zh": "20 個假設走同一套 harness，0 個存活，族群置換 p=0.928。兩個方法教訓比 20 個答案更重要：一個前視偏誤產生了全篇最強的數字；以及成本要用「淨額對解析下限」比，不是「毛額對成本」。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

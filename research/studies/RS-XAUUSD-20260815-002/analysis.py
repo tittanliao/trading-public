@@ -329,7 +329,7 @@ def build_daily(frames: dict[str, pd.DataFrame], price30: pd.DataFrame, daily: p
             "Daily context is associative, not causal.",
             "D-1/D-2 sequence and post-signal interaction create low-n cells, especially for S2 V3.2.",
             "The +24h availability rule is deliberately conservative and avoids using an unfinished daily candle.",
-            "No daily-context result changes a live signal or formal strategy rule without a separate owner adoption decision.",
+            "No daily-context result changes a live signal or formal strategy rule without a separate adoption decision.",
         ],
         "charts": [{"id": "prior_day_direction_winrate", "file": "prior_day_direction_winrate.png", "title": "Prior-Day Direction Win Rate", "section": "comparison"}],
     }
@@ -432,7 +432,7 @@ def build_cftc(frames: dict[str, pd.DataFrame], cftc: pd.DataFrame, study_id: st
             "The conservative +7-day availability rule sacrifices some freshness to prevent release-time leakage.",
             "Trade-level confidence intervals do not adjust for clustering of several trades under the same CFTC report; distinct report counts are shown.",
             "The CFTC snapshot begins in 2022 only to provide a 52-report expanding-percentile warm-up before 2024 trades.",
-            "No CFTC subgroup becomes a live filter without separate owner approval and chronological validation.",
+            "No CFTC subgroup becomes a live filter without separate approval and chronological validation.",
         ],
         "charts": [{"id": "cftc_net_oi_regime_winrate", "file": "cftc_net_oi_regime_winrate.png", "title": "CFTC Net/OI Regime Win Rate", "section": "macro"}],
     }

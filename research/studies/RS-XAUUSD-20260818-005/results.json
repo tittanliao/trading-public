@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260818-005",
+  "generated_at": "2026-08-18T23:46:38+08:00",
+  "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2 — portfolio construction",
+  "method": {
+    "unit": "R per trade (return / nominal stop), summed by calendar month",
+    "months": 32,
+    "first_month": "2024-01",
+    "last_month": "2026-08",
+    "reported_weight_s1": 0.5,
+    "bootstrap": "monthly resample with replacement",
+    "bootstrap_trials": 20000,
+    "random_seed": 20260818,
+    "timezone": "Asia/Taipei"
+  },
+  "limitations": [
+    "Sharpe near 3.9 is not a live expectation. These are Strategy Tester R multiples over a market that rose 112% with no slippage beyond the export's own. The ranking between allocations is the result; the level is not.",
+    "32 months is a small sample for a Sharpe comparison, which is why every claim here carries a bootstrap interval and why the S1 comparison is reported as unsupported rather than as a small positive.",
+    "Monthly aggregation assumes risk can be allocated between the two strategies at a stable ratio. With fixed-fractional sizing per trade that is what already happens; it is not a new mechanism.",
+    "Both strategies are long-only on one instrument in one regime. A correlation of 0.234 measured here need not hold in a falling market, and the diversification is between two expressions of the same directional bet.",
+    "No result changes formal S1 or S2 logic, live risk, or an active entry checklist."
+  ],
+  "standalone": {
+    "S1": {
+      "months": 32,
+      "mean_monthly_r": 5.539,
+      "sd_monthly_r": 5.237,
+      "annualised_sharpe": 3.664,
+      "max_drawdown_r": 3.0,
+      "total_r": 177.24,
+      "positive_months": 26
+    },
+    "S2": {
+      "months": 32,
+      "mean_monthly_r": 2.92,
+      "sd_monthly_r": 4.348,
+      "annualised_sharpe": 2.327,
+      "max_drawdown_r": 12.79,
+      "total_r": 93.45,
+      "positive_months": 21
+    }
+  },
+  "correlation": {
+    "pearson": 0.234,
+    "spearman": 0.344,
+    "months_both_traded": 29
+  },
+  "blend_50_50": {
+    "months": 32,
+    "mean_monthly_r": 4.23,
+    "sd_monthly_r": 3.774,
+    "annualised_sharpe": 3.882,
+    "max_drawdown_r": 2.17,
+    "total_r": 135.34,
+    "positive_months": 28
+  },
+  "by_weight": {
+    "w_s1=0.0": {
+      "months": 32,
+      "mean_monthly_r": 2.92,
+      "sd_monthly_r": 4.348,
+      "annualised_sharpe": 2.327,
+      "max_drawdown_r": 12.79,
+      "total_r": 93.45,
+      "positive_months": 21
+    },
+    "w_s1=0.1": {
+      "months": 32,
+      "mean_monthly_r": 3.182,
+      "sd_monthly_r": 4.068,
+      "annualised_sharpe": 2.71,
+      "max_drawdown_r": 9.94,
+      "total_r": 101.83,
+      "positive_months": 24
+    },
+    "w_s1=0.2": {
+      "months": 32,
+      "mean_monthly_r": 3.444,
+      "sd_monthly_r": 3.86,
+      "annualised_sharpe": 3.091,
+      "max_drawdown_r": 7.08,
+      "total_r": 110.21,
+      "positive_months": 25
+    },
+    "w_s1=0.3": {
+      "months": 32,
+      "mean_monthly_r": 3.706,
+      "sd_monthly_r": 3.737,
+      "annualised_sharpe": 3.435,
+      "max_drawdown_r": 4.61,
+      "total_r": 118.59,
+      "positive_months": 27
+    },
+    "w_s1=0.4": {
+      "months": 32,
+      "mean_monthly_r": 3.968,
+      "sd_monthly_r": 3.708,
+      "annualised_sharpe": 3.707,
+      "max_drawdown_r": 2.55,
+      "total_r": 126.97,
+      "positive_months": 27
+    },
+    "w_s1=0.5": {
+      "months": 32,
+      "mean_monthly_r": 4.23,
+      "sd_monthly_r": 3.774,
+      "annualised_sharpe": 3.882,
+      "max_drawdown_r": 2.17,
+      "total_r": 135.34,
+      "positive_months": 28
+    },
+    "w_s1=0.6": {
+      "months": 32,
+      "mean_monthly_r": 4.491,
+      "sd_monthly_r": 3.931,
+      "annualised_sharpe": 3.958,
+      "max_drawdown_r": 2.33,
+      "total_r": 143.72,
+      "positive_months": 28
+    },
+    "w_s1=0.7": {
+      "months": 32,
+      "mean_monthly_r": 4.753,
+      "sd_monthly_r": 4.169,
+      "annualised_sharpe": 3.95,
+      "max_drawdown_r": 2.5,
+      "total_r": 152.1,
+      "positive_months": 29
+    },
+    "w_s1=0.8": {
+      "months": 32,
+      "mean_monthly_r": 5.015,
+      "sd_monthly_r": 4.474,
+      "annualised_sharpe": 3.883,
+      "max_drawdown_r": 2.67,
+      "total_r": 160.48,
+      "positive_months": 27
+    },
+    "w_s1=0.9": {
+      "months": 32,
+      "mean_monthly_r": 5.277,
+      "sd_monthly_r": 4.834,
+      "annualised_sharpe": 3.782,
+      "max_drawdown_r": 2.83,
+      "total_r": 168.86,
+      "positive_months": 27
+    },
+    "w_s1=1.0": {
+      "months": 32,
+      "mean_monthly_r": 5.539,
+      "sd_monthly_r": 5.237,
+      "annualised_sharpe": 3.664,
+      "max_drawdown_r": 3.0,
+      "total_r": 177.24,
+      "positive_months": 26
+    }
+  },
+  "weight_plateau_0_4_to_0_8": {
+    "sharpe_min": 3.707,
+    "sharpe_max": 3.958,
+    "note": "The in-sample optimum sits inside a plateau this flat, so the weight decision does not matter and should not be optimised."
+  },
+  "bootstrap": {
+    "sharpe_blend_minus_s1": {
+      "observed": 0.218,
+      "ci90": [
+        -0.753,
+        0.985
+      ],
+      "p_positive": 0.649,
+      "supported": false
+    },
+    "sharpe_blend_minus_s2": {
+      "observed": 1.555,
+      "ci90": [
+        0.763,
+        2.377
+      ],
+      "p_positive": 0.999,
+      "supported": true
+    },
+    "drawdown_gain_vs_s2": {
+      "observed": 10.62,
+      "ci90": [
+        0.74,
+        11.28
+      ],
+      "p_positive": 0.99,
+      "supported": true
+    },
+    "drawdown_gain_vs_s1": {
+      "observed": 0.83,
+      "ci90": [
+        -0.77,
+        2.65
+      ],
+      "p_positive": 0.794,
+      "supported": false
+    }
+  },
+  "by_year": {
+    "2024": {
+      "months": 12,
+      "s1_sharpe": 3.385,
+      "s2_sharpe": 3.685,
+      "blend_sharpe": 4.191
+    },
+    "2025": {
+      "months": 12,
+      "s1_sharpe": 3.546,
+      "s2_sharpe": 3.311,
+      "blend_sharpe": 4.04
+    },
+    "2026": {
+      "months": 8,
+      "s1_sharpe": 4.887,
+      "s2_sharpe": 0.429,
+      "blend_sharpe": 3.62
+    }
+  },
+  "years_blend_beat_both": "2/3",
+  "beta_decomposition": {
+    "months": 31,
+    "gold_mean_monthly_pct": 2.623,
+    "S1": {
+      "beta": 0.444,
+      "alpha_r_per_month": 4.585,
+      "r_squared": 0.22,
+      "beta_contribution_r_per_month": 1.166,
+      "alpha_share_of_return_pct": 79.7,
+      "mean_r_in_gold_down_months": 4.06,
+      "mean_r_in_gold_up_months": 6.338,
+      "down_months": 8
+    },
+    "S2": {
+      "beta": 0.27,
+      "alpha_r_per_month": 2.372,
+      "r_squared": 0.116,
+      "beta_contribution_r_per_month": 0.707,
+      "alpha_share_of_return_pct": 77.0,
+      "mean_r_in_gold_down_months": 1.507,
+      "mean_r_in_gold_up_months": 3.626,
+      "down_months": 8
+    }
+  },
+  "uncorrelated_candidates": {
+    "counter_trend_fade": {
+      "shortlist_fixed_on": "train",
+      "variants": {
+        "n8_x4.0_h8": {
+          "train": {
+            "n": 473,
+            "mean_pct": 0.0276,
+            "t": 1.38
+          },
+          "valid": {
+            "n": 242,
+            "mean_pct": -0.0329,
+            "t": -0.97
+          },
+          "sign_held": false
+        },
+        "n2_x2.5_h8": {
+          "train": {
+            "n": 377,
+            "mean_pct": 0.0322,
+            "t": 1.19
+          },
+          "valid": {
+            "n": 167,
+            "mean_pct": 0.0075,
+            "t": 0.16
+          },
+          "sign_held": true
+        },
+        "n2_x2.5_h16": {
+          "train": {
+            "n": 377,
+            "mean_pct": 0.0386,
+            "t": 1.17
+          },
+          "valid": {
+            "n": 167,
+            "mean_pct": 0.0351,
+            "t": 0.49
+          },
+          "sign_held": true
+        },
+        "n4_x2.5_h16": {
+          "train": {
+            "n": 992,
+            "mean_pct": 0.0191,
+            "t": 0.95
+          },
+          "valid": {
+            "n": 432,
+            "mean_pct": -0.0862,
+            "t": -1.98
+          },
+          "sign_held": false
+        }
+      },
+      "sign_held_and_positive": [
+        "n2_x2.5_h8",
+        "n2_x2.5_h16"
+      ],
+      "best_survivor_full_period": {
+        "variant": "n2_x2.5_h8",
+        "monthly": {
+          "2024-01": 0.5261258144182741,
+          "2024-02": 2.6896728290305987,
+          "2024-03": -12.884528904378524,
+          "2024-04": 20.168814755884796,
+          "2024-05": 0.7309971750337549,
+          "2024-06": -4.981421940775043,
+          "2024-07": 1.799065623024676,
+          "2024-08": 6.2094530355358755,
+          "2024-09": 4.86977275416196,
+          "2024-10": -0.4686523805556204,
+          "2024-11": -10.541968352702362,
+          "2024-12": 3.436225617129392,
+          "2025-01": 4.0386228551235845,
+          "2025-02": 1.4204796122107515,
+          "2025-03": -0.9512445427148132,
+          "2025-04": 5.12594275933972,
+          "2025-05": 2.678547863924311,
+          "2025-06": 9.32558835357979,
+          "2025-07": -3.8203040201843086,
+          "2025-08": -0.03658387414696651,
+          "2025-09": -4.167227292868556,
+          "2025-10": -1.34332540559301,
+          "2025-11": 1.8720553667120359,
+          "2025-12": 3.9115676196962745,
+          "2026-01": -4.932535508491404,
+          "2026-02": 7.667094784648025,
+          "2026-03": -22.550909878080812,
+          "2026-04": 0.5188275215889373,
+          "2026-05": -9.038682804157986,
+          "2026-06": -4.504606271620114,
+          "2026-07": 3.1101057542898487,
+          "2026-08": -2.9538846101028917
+        },
+        "trades": 700
+      }
+    },
+    "mirror_short": {
+      "signals": 96,
+      "hammer_signals_for_comparison": 212,
+      "definition": "each hammer characteristic reflected: body<=0.31, upper wick>=0.61, lower wick<=0.11, close position<=0.19, Bollinger position>=0.75",
+      "by_period": {
+        "train": {
+          "n": 44,
+          "win_rate_pct": 34.1,
+          "mean_pct": -0.1715,
+          "total_pct": -7.55
+        },
+        "valid": {
+          "n": 30,
+          "win_rate_pct": 36.7,
+          "mean_pct": -0.2809,
+          "total_pct": -8.43
+        }
+      },
+      "profitable_anywhere": false
+    }
+  },
+  "bar_for_a_new_strategy": {
+    "candidate_weight": 0.3,
+    "blend_sharpe": 3.882,
+    "minimum_sharpe_to_improve": {
+      "rho=-0.50": -1.19,
+      "rho=-0.25": -0.14,
+      "rho=+0.00": 0.8,
+      "rho=+0.25": 1.65,
+      "rho=+0.50": 2.44,
+      "rho=+0.75": 3.18,
+      "rho=+1.00": 3.88
+    },
+    "note": "At zero correlation a candidate needs a Sharpe of about 0.8 to help. At -0.25 it helps even while losing money slightly. Correlation is worth more than return, which is the argument for a different instrument rather than a different rule on this one."
+  },
+  "candidate_portfolio_impact": {
+    "variant": "n2_x2.5_h8",
+    "trades": 700,
+    "candidate_sharpe": -0.046,
+    "candidate_total_r": -3.08,
+    "correlation_to_blend": 0.036,
+    "correlation_to_s1": -0.054,
+    "correlation_to_s2": 0.128,
+    "blend_sharpe_by_candidate_weight": {
+      "w=0.0": {
+        "sharpe": 3.882,
+        "total_r": 135.34
+      },
+      "w=0.1": {
+        "sharpe": 3.758,
+        "total_r": 121.5
+      },
+      "w=0.2": {
+        "sharpe": 3.428,
+        "total_r": 107.66
+      },
+      "w=0.3": {
+        "sharpe": 2.911,
+        "total_r": 93.82
+      }
+    },
+    "verdict": "Genuinely uncorrelated and genuinely unprofitable. It clears the correlation half of the bar and fails the return half, so it lowers the blend's Sharpe at every weight. Surviving train-to-valid is not the same as being worth adding."
+  }
+}

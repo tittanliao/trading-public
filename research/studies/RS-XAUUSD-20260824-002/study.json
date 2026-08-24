@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-002",
+  "revision": 1,
+  "title": "CFTC positioning — 31 weeks cannot answer it, and the publication lag says why that matters less than it looks",
+  "market": "XAUUSD",
+  "strategy": "none — CFTC positioning structure",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "Two positioning hypotheses and one observation about the report's publication lag. Do the hypotheses survive, and what does the lag let us test that a normal positioning study cannot?",
+  "hypothesis": "The sample is far too small to settle any of it, but the lag turns the report's own timing into a placebo window, and that is worth more than another underpowered result.",
+  "headline": {
+    "weeks": 31,
+    "hypotheses_tested": 15,
+    "resolvable_in_actionable_window": 0,
+    "typical_resolution_bound_pct": 3.991,
+    "weekly_return_sd_pct": 3.968,
+    "window_correlation": 0.091,
+    "same_sign_both_windows": "7/14",
+    "history_window_larger": "8/14",
+    "transcription_fields_verified": 132,
+    "transcription_fields_matched": 132,
+    "available_history_weeks_if_archived": 880,
+    "producer_concurrent_correlation": 0.062,
+    "mm_concurrent_correlation": 0.199,
+    "history_window_diff_se": 0.98,
+    "actionable_window_diff_se": 0.735
+  },
+  "card_metrics": [
+    "weeks",
+    "typical_resolution_bound_pct",
+    "hypotheses_tested"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The publication lag turns the report's own timing into a placebo window",
+      "detail": "A COT report is dated Tuesday and published Friday afternoon US time. Wednesday, Thursday and Friday have already traded when it lands, so nothing in the report can have caused them. Splitting the response into fwd_wed_fri (already history) and fwd_mon_tue (the only window a reader could act on) gives every hypothesis a built-in control. Almost no positioning research has one, because almost all of it reports a single Tuesday-to-Tuesday return that blends the two. This was spotted unprompted and it is the most valuable thing in the study."
+    },
+    {
+      "tone": "warn",
+      "title": "Where relationships appear at all, they do not survive publication",
+      "detail": "Across fourteen testable hypotheses the effect in the already-happened window correlates with the effect in the actionable window at 0.091, and the signs agree in 7 of 14 — a coin flip. Among the five largest historical effects, two flip sign after publication and the rest shrink toward zero. If positioning genuinely carried information forward, those two windows would move together. They do not."
+    },
+    {
+      "tone": "warn",
+      "title": "Thirty-one weeks resolves nothing, and that is the honest headline",
+      "detail": "Weekly gold returns carry a standard deviation of 3.99% over this sample. Split into two groups of roughly fifteen, the smallest weekly difference separable from noise is about 3.99 percentage points. Every effect measured here is under 2.2 points. Zero of fifteen hypotheses are resolvable in the actionable window — not because they were refuted, but because the sample cannot see an effect of any plausible size."
+    },
+    {
+      "tone": "warn",
+      "title": "The producer/merchant result has no supported mechanism, and the decomposition is inside its own error bars",
+      "detail": "Weeks when producer/merchant shorts fell were followed by -0.94% against +1.23% when they rose — the opposite sign to the hypothesis, and far inside the noise floor, so not a refutation. A hedging mechanism was asserted for this and then withdrawn: the correlation between the weekly change in those shorts and the price move of the week it was built during is 0.062, indistinguishable from zero, so the book is not visibly responding to price either. The grouped means and the correlation point opposite ways, which means the grouping rests on a few weeks. And the decomposition itself does not survive its error bars: the already-happened window difference is -1.672 +/- 0.980 and the actionable one -0.514 +/- 0.735, both intervals containing zero. On 31 weeks nothing here is resolvable, including which window the apparent effect lives in."
+    },
+    {
+      "tone": "info",
+      "title": "The retail-long-with-funds-short combination fires twice in 31 weeks",
+      "detail": "The stated combination — retail adding length while managed money cuts it — occurs on two of thirty-one weeks. That is not a weak result, it is no result: two observations cannot support any statement. It is recorded as untestable and reformulated continuously as the retail-versus-managed-money divergence, which fires on eight weeks and is still inside its own noise floor."
+    },
+    {
+      "tone": "good",
+      "title": "The screenshots were a better dataset than the fetched feed, and are now verified",
+      "detail": "The repository held 31 weekly screenshots going back to 2026-01-06 while the fetched CSV kept only a 12-week rolling window and omits Nonreportable (retail) positions entirely — the exact field both hypotheses need. All 31 are now transcribed into a 58-column weekly series, and all 132 field-values across the 12 overlapping weeks matched the official CSV exactly. That check re-runs on every build and fails the build rather than warning."
+    },
+    {
+      "tone": "warn",
+      "title": "The unlock is archiving, not analysis",
+      "detail": "CFTC publishes the complete disaggregated futures-only history back to September 2009 as annual archives — roughly 880 weeks against the 31 here, a 28-fold increase that would take the resolution bound from about 4 percentage points to well under 1. Every hypothesis in this study would become answerable. It is a download and a parser, not a research problem, and it needs an approval decision rather than more thinking."
+    },
+    {
+      "tone": "info",
+      "title": "Level versus change is a question this data will eventually settle",
+      "detail": "Most COT commentary reads the level of managed-money net length; h09 and h15 test the change and the level of the same quantity against the same windows. Here they disagree in the actionable window (-0.30% for the change, -1.43% for the level) and both are far inside the bound, so nothing follows yet. With the full history the pair becomes a direct test of which of the two the commentary should be reading."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "CFTC positioning, with the report's own publication lag used as a placebo control.",
+  "summary_zh": "CFTC 部位資料，用報告本身的公布時差當安慰劑對照。報告週二結算週五公布，中間三天早就走完——那三天是對照組。14 個假設中兩個視窗的相關性只有 0.091。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

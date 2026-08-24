@@ -808,7 +808,7 @@
     "The conservative +7-day availability rule sacrifices some freshness to prevent release-time leakage.",
     "Trade-level confidence intervals do not adjust for clustering of several trades under the same CFTC report; distinct report counts are shown.",
     "The CFTC snapshot begins in 2022 only to provide a 52-report expanding-percentile warm-up before 2024 trades.",
-    "No CFTC subgroup becomes a live filter without separate owner approval and chronological validation."
+    "No CFTC subgroup becomes a live filter without separate approval and chronological validation."
   ],
   "cftc_period": {
     "start": "2022-01-04",

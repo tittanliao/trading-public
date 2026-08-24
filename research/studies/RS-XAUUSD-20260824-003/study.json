@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260824-003",
+  "revision": 1,
+  "title": "Three stated claims tested on 274 weeks — one is circular, one measures the period, one buys win rate with return",
+  "market": "XAUUSD",
+  "strategy": "none — selection methodology tested on CFTC positioning",
+  "status": "confirmed",
+  "created_on": "2026-08-24",
+  "question": "An objection was raised to repeated findings of no significance and proposed a different standard: a condition above 50% win rate is alpha, and several conditions agreeing is alpha. With the CFTC history downloaded, is the standard testable, and what does it produce?",
+  "hypothesis": "Sample size was never the whole disagreement. Two of the three claims fail for reasons visible in the data rather than in a p-value, and the third produces exactly the effect it promises while losing money.",
+  "headline": {
+    "usable_weeks": 274,
+    "cftc_weeks_downloaded": 503,
+    "screenshot_verification": "279/279",
+    "monday_sweep_gap_circular_pct": -30.06,
+    "monday_sweep_gap_clean_pct": 1.35,
+    "baseline_first_half_pct": 45.99,
+    "baseline_second_half_pct": 54.74,
+    "conditions_over_50_first_half": 2,
+    "conditions_over_50_second_half_share_pct": 79.7,
+    "win_rate_correlation_across_halves": -0.077,
+    "consensus_win_rate_gap_pct": 13.74,
+    "consensus_mean_return_gap_pct": -0.1298,
+    "consensus_share_of_opportunities_pct": 11.7,
+    "consensus_share_of_return_pct": -7.8,
+    "consensus_walk_forward_p_win_rate": 0.2395,
+    "consensus_walk_forward_p_mean_return": 0.678
+  },
+  "card_metrics": [
+    "usable_weeks",
+    "monday_sweep_gap_clean_pct",
+    "consensus_share_of_return_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The sample objection was fair and is now removed",
+      "detail": "The CFTC disaggregated history was downloaded with permission: 503 gold weeks from 2017, verified against their 31 screenshots at 279 of 279 field-values. Joined to the daily series it gives 274 usable weeks against the 31 that made the previous study unanswerable. The binding constraint is now the price history starting 2021-05, not the positioning data."
+    },
+    {
+      "tone": "warn",
+      "title": "The Monday sweep gap is 29.8 points and it is circular",
+      "detail": "Weeks where Monday broke Friday's low finished Mon+Tue positive 33.6% of the time against 63.6% otherwise. But whether Monday broke the low is not knowable until Monday has closed, and the measured return includes Monday. Evaluating the condition at Monday's close and measuring Tuesday alone leaves a gap of 1.35 points. The 30-point version asks whether a down Monday was down."
+    },
+    {
+      "tone": "warn",
+      "title": "A 50% threshold measures the period, not the condition",
+      "detail": "The Mon+Tue baseline win rate is 45.6% in the first half of the sample and 54.3% in the second — an 8.75-point shift as gold moved from range to trend. The same 50% line therefore means 'beats the market' in one period and 'loses to it' in the other. Of 182 comparable conditions, one cleared 50% in the first half while 80% of all conditions cleared it in the second, and the win rate of a condition in one half correlates with its win rate in the other at -0.077."
+    },
+    {
+      "tone": "good",
+      "title": "Consensus does what the claim said it would, and it costs money",
+      "detail": "Five of six positioning votes agreeing gives a 62.5% win rate against 48.8% — a genuine 13.7-point gap, and it survives a walk-forward reconstruction with every median computed from prior weeks only. It also earns -0.046% per week against +0.084%. It wins more often and smaller: +0.83% per win against +1.27%, -1.45% per loss against -1.05%, a payoff ratio of 0.55 against 1.22. Taking 11.7% of the opportunities captures -7.8% of the total return."
+    },
+    {
+      "tone": "info",
+      "title": "Win rate and expectancy are different quantities, demonstrated a third way",
+      "detail": "RS-XAUUSD-20260818-001 bought 88.6% win rate with a take-profit overlay and paid for it in return. RS-XAUUSD-20260823-002 bought 79.6% by refusing entries and paid the same way. This study buys 62.5% by requiring positioning consensus and pays again. Three different mechanisms, one arithmetic: a rule that raises win rate by being more selective or by cutting winners short has to be judged in return, and each time it has been, it lost."
+    },
+    {
+      "tone": "warn",
+      "title": "The walk-forward version looks better, which is a reason for caution rather than confidence",
+      "detail": "Recomputing the votes with only prior data gives 63.2% against 49.3% on 19 weeks, and a positive mean-return gap of +0.157% where the full-sample version was negative. A restriction that improves a result is the opposite of the usual direction. Its permutation p values are 0.24 for the win-rate gap and 0.68 for the return gap, so the honest reading is that 19 weeks cannot separate the two selections."
+    },
+    {
+      "tone": "warn",
+      "title": "A numpy boolean silently turned six votes into one",
+      "detail": "The walk-forward vote count was written as a chain of comparisons joined with +. Numpy booleans overload + as logical OR, so the sum collapsed to 0 or 1 and the vote distribution came back as {0: 1, 1: 243} with n=0 in the 5+ bucket. That result was visibly absurd and got caught. The same bug landing on a plausible number is the one that would not have been."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "Testing a win-rate selection rule on 274 weeks: what it picks, and what it costs.",
+  "summary_zh": "在 274 週真實資料上測試「勝率 >50% 就是 alpha」這個選股標準。基準線本身在前後半段從 45.6% 移到 54.3%，所以同一條 50% 線在兩段意義相反。共識條件確實把勝率拉到 62.5%，但總報酬是負的。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

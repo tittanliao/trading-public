@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260818-004",
+  "revision": 1,
+  "title": "XAUUSD 30-minute bars — direction is not forecastable, volatility is, and the risk framework already absorbs it",
+  "market": "XAUUSD",
+  "strategy": "none — bar-level, independent of S1 and S2",
+  "status": "confirmed",
+  "created_on": "2026-08-18",
+  "question": "Setting S1 and S2 aside: does the 30-minute bar series carry a directional edge at all, and if some other quantity is forecastable instead, is it worth anything?",
+  "hypothesis": "Weak directional signals were expected at short horizons (reversal) and longer ones (momentum), and expected to die on costs. Volatility was expected to forecast well. The open question was whether a working volatility forecast could be converted into return through stop placement or sizing.",
+  "headline": {
+    "features_scanned": 26,
+    "horizons": 6,
+    "combinations_scanned": 156,
+    "largest_directional_ic": 0.0399,
+    "shortlist_size": 5,
+    "shortlist_survivors": 0,
+    "shortlist_sign_flips": 2,
+    "volatility_forecast_ic_train": 0.684,
+    "volatility_forecast_ic_valid": 0.684,
+    "volatility_forecast_ic_holdout": 0.571,
+    "hour_factor_stability_train_vs_holdout": 0.863,
+    "hour_peak_to_trough_ratio": 3.28,
+    "s1_stop_spread_in_vol_units": 15.2,
+    "s2_stop_spread_in_vol_units": 18.3,
+    "s1_best_volatility_application_pct": 100.3,
+    "s2_best_volatility_application_pct": 101.4,
+    "buy_and_hold_pct": 111.9
+  },
+  "card_metrics": [
+    "largest_directional_ic",
+    "volatility_forecast_ic_holdout",
+    "shortlist_survivors"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "No directional feature survives validation",
+      "detail": "26 features across 6 horizons were scanned on TRAIN only; the largest |IC| anywhere is 0.0399. The five-feature shortlist fixed on TRAIN produced 2 sign flips in VALID, and the block-bootstrap p-values for the rest run 0.14 to 0.90. Nothing survives. Once the overlap in a 48-bar forward return is respected, the validation period holds roughly 160 independent windows, not 7,740."
+    },
+    {
+      "tone": "warn",
+      "title": "Costs remove the short-horizon effects before statistics gets a turn",
+      "detail": "Short-horizon reversal is the most visible pattern in the scan — one- and two-bar returns, distance from the 8 and 24-bar means, body ratio and streak all carry the same negative sign at h=1 and h=2. Its quintile spread is 0.004% to 0.007% against round-trip costs of 0.010% to 0.040%. The pattern is real and worth less than the spread, which is the ordinary reason such patterns persist."
+    },
+    {
+      "tone": "good",
+      "title": "Volatility forecasts an order of magnitude better than direction",
+      "detail": "ATR(14) scaled by an hour-of-day factor reaches Spearman 0.684 on TRAIN, 0.684 on VALID and 0.571 on HOLDOUT, against 0.409 for ATR alone. The hour factor spans 3.28x trough to peak and its shape rank-correlates 0.924 between TRAIN and VALID and 0.863 between TRAIN and HOLDOUT. Same bars, same method, same splits as the directional scan: what fails for direction is stable for magnitude."
+    },
+    {
+      "tone": "warn",
+      "title": "A fixed percentage stop delivers wildly inconsistent risk geometry",
+      "detail": "Measured in forecast-volatility units, S1's 0.5% stop ranges over a factor of 15.2 across its trades (median 2.38x, from 0.47x to 7.17x) and S2's 1.0% stop over a factor of 18.3. The same percentage is sometimes half an expected bar range and sometimes seven of them."
+    },
+    {
+      "tone": "info",
+      "title": "And fixing it does not help, which is the most useful result here",
+      "detail": "Volatility-scaled stops reach at best 91.3% of baseline for S1 and 92.6% for S2 once returns are compared at equal volatility over the period. Volatility-targeted sizing reaches 100.3% and 101.4%. Neither beats doing nothing."
+    },
+    {
+      "tone": "good",
+      "title": "One mechanism explains three separate negative results",
+      "detail": "R per trade by forecast-volatility tercile has an almost flat dispersion: S1 1.477 / 1.285 / 1.598, S2 1.664 / 1.779 / 1.645. A fixed-percentage stop with fixed-fractional risk already normalises returns by volatility, so a volatility forecast has nothing left to correct. That single fact explains this study's sizing result, its stop result, and RS-XAUUSD-20260818-002's finding that ATR at entry separates nothing."
+    },
+    {
+      "tone": "warn",
+      "title": "Session direction looked consistent for two periods out of three",
+      "detail": "Overnight bars led London bars in forward return on both TRAIN and VALID, which reads as replication. On HOLDOUT the sign reverses and the Welch t is -0.13. Two agreeing periods out of three is what a coin does. Session volatility, by contrast, is stable to two decimal places across all three."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Direction is not forecastable on this data and volatility is — an order of magnitude apart.",
+  "summary_zh": "26 個特徵、6 個時間horizon，在訓練／驗證／保留的協定下測試。方向不可預測（最大 |IC| 只有 0.040），但波動度可預測（Spearman 0.68）——差了一個數量級。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
