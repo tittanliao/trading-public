@@ -139,6 +139,14 @@ def main() -> int:
                 failures.append(
                     f"private token {token!r} on generated page: {page.relative_to(ROOT)}"
                 )
+        # A raw JSON object in a <code> block means a renderer gave up on a shape rather
+        # than rendering it. Five published pages carried 366 of these before anyone
+        # looked, because nothing failed — they were valid HTML, just unreadable.
+        blobs = re.findall(r'<code>\{[^<]{40,}</code>', page_text)
+        if blobs:
+            failures.append(
+                f"raw JSON rendered on page: {page.relative_to(ROOT)} ({len(blobs)} blocks)"
+            )
         for cited in sorted(set(study_pattern.findall(page_text))):
             if cited not in published:
                 failures.append(

@@ -2058,32 +2058,123 @@ def study_page_robustness(study: dict[str, object]) -> str:
     )
 
 
-def render_value(value: object, depth: int = 0) -> str:
-    """Render an arbitrary results payload as readable HTML.
+LABEL_OVERRIDES = {
+    "n": "n",
+    "ci95": "95% CI",
+    "win_rate_ci95_pct": "win rate 95% CI",
+    "pct": "%",
+}
 
-    A list of flat dicts sharing keys becomes a table; a dict becomes a definition list;
-    anything else becomes text. Recursion is capped because a deeply nested block is a sign
-    the study deserves its own renderer, not a deeper generic one.
-    """
+
+def humanise(key: str) -> str:
+    """`win_rate_pct` -> `win rate %`. Table headers are read, not parsed."""
+    if key in LABEL_OVERRIDES:
+        return LABEL_OVERRIDES[key]
+    text = str(key).replace("_", " ")
+    for suffix, replacement in ((" pct", " %"), (" usd", " USD"), (" r", " R")):
+        if text.endswith(suffix):
+            text = text[: -len(suffix)] + replacement
+    return text
+
+
+def is_scalar(value: object) -> bool:
+    return value is None or isinstance(value, (bool, int, float, str))
+
+
+def scalar_html(value: object) -> str:
     if value is None:
         return "<em>—</em>"
     if isinstance(value, bool):
-        return "<code>true</code>" if value else "<code>false</code>"
+        return "yes" if value else "no"
     if isinstance(value, (int, float)):
         return f'<span class="num">{html.escape(str(value))}</span>'
-    if isinstance(value, str):
-        return html.escape(value)
+    return html.escape(str(value))
+
+
+def inline_list(values: list) -> str | None:
+    """A short list of scalars belongs on one line, not as a bulleted list.
+
+    A confidence interval is the case that matters: `[51.42, 60.35]` rendered as a
+    two-item bullet list is unreadable, and it appears hundreds of times.
+    """
+    if not values or not all(is_scalar(v) for v in values):
+        return None
+    if len(values) == 2 and all(isinstance(v, (int, float)) for v in values):
+        return f'<span class="num">{values[0]} – {values[1]}</span>'
+    if len(values) <= 8 and all(len(str(v)) <= 24 for v in values):
+        return ", ".join(scalar_html(v) for v in values)
+    return None
+
+
+def uniform_rows(mapping: dict) -> list[str] | None:
+    """If every value is a dict with the same keys, this is a table with named rows."""
+    values = list(mapping.values())
+    if len(values) < 2 or not all(isinstance(v, dict) for v in values):
+        return None
+    signatures = {tuple(v.keys()) for v in values}
+    if len(signatures) != 1:
+        return None
+    columns = list(values[0].keys())
+    if not columns or len(columns) > 12:
+        return None
+    if not all(is_scalar(cell) or isinstance(cell, list) for v in values for cell in v.values()):
+        return None
+    return columns
+
+
+def table_from_mapping(mapping: dict, columns: list[str], first_header: str = "") -> str:
+    # The row-label column is deliberately unheaded: the heading above the table already
+    # says what the rows are, and repeating it reads as "levels | levels".
+    head = f"<th>{html.escape(first_header)}</th>" + "".join(
+        f"<th>{html.escape(humanise(c))}</th>" for c in columns
+    )
+    rows = "".join(
+        "<tr>" + f"<td><strong>{html.escape(humanise(name))}</strong></td>" + "".join(
+            f"<td>{render_value(row.get(c))}</td>" for c in columns
+        ) + "</tr>"
+        for name, row in mapping.items()
+    )
+    return (f'<div class="table-wrap"><table><thead><tr>{head}</tr></thead>'
+            f"<tbody>{rows}</tbody></table></div>")
+
+
+def render_value(value: object, depth: int = 0, name: str = "") -> str:
+    """Render an arbitrary results payload as tables and definition lists.
+
+    Written after five published pages turned out to be dumping raw JSON into <code>
+    blocks — 366 of them — because the first version capped recursion depth and gave up.
+    Depth is the wrong thing to cap: what matters is the shape. A dict whose values all
+    share a key set is a table however deep it sits, and everything else decomposes into
+    scalars, short inline lists, or named subsections.
+    """
+    if is_scalar(value):
+        return scalar_html(value)
+
     if isinstance(value, list):
         if not value:
             return "<em>none</em>"
-        if all(isinstance(item, dict) for item in value) and depth < 3:
+        # A chart manifest is a list of {file, caption}. Rendering it as a table of
+        # filenames hands the reader the name of a picture that is sitting right there.
+        if all(isinstance(item, dict) and str(item.get("file", "")).endswith(
+                (".png", ".svg", ".jpg", ".jpeg")) for item in value):
+            return '<div class="chart-grid">' + "".join(
+                f'<figure class="chart"><img src="charts/{html.escape(str(item["file"]))}" '
+                f'alt="{html.escape(str(item.get("caption") or item["file"]))}" loading="lazy">'
+                f'<figcaption>{html.escape(str(item.get("caption") or ""))}</figcaption>'
+                "</figure>"
+                for item in value
+            ) + "</div>"
+        inline = inline_list(value)
+        if inline is not None:
+            return inline
+        if all(isinstance(item, dict) for item in value):
             columns: list[str] = []
             for item in value:
                 for key in item:
                     if key not in columns:
                         columns.append(key)
             if len(columns) <= 12:
-                head = "".join(f"<th>{html.escape(str(c))}</th>" for c in columns)
+                head = "".join(f"<th>{html.escape(humanise(c))}</th>" for c in columns)
                 rows = "".join(
                     "<tr>" + "".join(
                         f"<td>{render_value(item.get(c), depth + 1)}</td>" for c in columns
@@ -2092,22 +2183,38 @@ def render_value(value: object, depth: int = 0) -> str:
                 )
                 return (f'<div class="table-wrap"><table><thead><tr>{head}</tr></thead>'
                         f"<tbody>{rows}</tbody></table></div>")
-        return ("<ul class=\"impact-list\">"
+        return ('<ul class="impact-list">'
                 + "".join(f"<li>{render_value(item, depth + 1)}</li>" for item in value)
                 + "</ul>")
+
     if isinstance(value, dict):
-        if depth >= 4:
-            return f"<code>{html.escape(json.dumps(value, ensure_ascii=False)[:400])}</code>"
-        return ('<dl class="generic-block">' + "".join(
-            f"<dt>{html.escape(str(key).replace('_', ' '))}</dt>"
-            f"<dd>{render_value(item, depth + 1)}</dd>"
-            for key, item in value.items()
-        ) + "</dl>")
+        if not value:
+            return "<em>none</em>"
+        columns = uniform_rows(value)
+        if columns:
+            return table_from_mapping(value, columns)
+
+        scalars = {k: v for k, v in value.items()
+                   if is_scalar(v) or (isinstance(v, list) and inline_list(v) is not None)}
+        nested = {k: v for k, v in value.items() if k not in scalars}
+
+        parts = []
+        if scalars:
+            parts.append('<dl class="generic-block">' + "".join(
+                f"<dt>{html.escape(humanise(k))}</dt><dd>{render_value(v, depth + 1, k)}</dd>"
+                for k, v in scalars.items()
+            ) + "</dl>")
+        for key, child in nested.items():
+            # A named subsection rather than a nested definition list: at three levels of
+            # <dl> the indentation stops carrying meaning and the reader loses the key.
+            heading = "h3" if depth == 0 else "h4"
+            parts.append(f'<{heading} class="block-title">{html.escape(humanise(key))}</{heading}>'
+                         + render_value(child, depth + 1, key))
+        return "".join(parts)
+
     return html.escape(str(value))
 
 
-# Keys every results.json carries for bookkeeping; they belong in the method section rather
-# than as sections of their own.
 GENERIC_SKIP = {
     "schema_version", "study_id", "generated_at", "market", "strategy", "method",
     "limitations", "coverage", "title",
