@@ -57,7 +57,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Real COMEX volume and the futures basis, closing the question the tick-volume proxy left open.",
-  "summary_zh": "用真實 COMEX 成交量與期貨基差，關掉上一篇留下的「tick volume 只是代理」這個疑問。兩者秩相關 0.873，代理是夠用的。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

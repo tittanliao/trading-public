@@ -53,7 +53,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Waiting one or two bars after a signal before entering — does patience pay?",
-  "summary_zh": "訊號出現後等一到兩根 K 棒再進場，耐心有沒有回報。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

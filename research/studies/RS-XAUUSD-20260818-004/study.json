@@ -73,7 +73,6 @@
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "Direction is not forecastable on this data and volatility is — an order of magnitude apart.",
-  "summary_zh": "26 個特徵、6 個時間horizon，在訓練／驗證／保留的協定下測試。方向不可預測（最大 |IC| 只有 0.040），但波動度可預測（Spearman 0.68）——差了一個數量級。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

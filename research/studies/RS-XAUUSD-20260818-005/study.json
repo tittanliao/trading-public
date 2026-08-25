@@ -96,7 +96,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "S1 and S2 as one portfolio: correlation 0.234, and what that is worth.",
-  "summary_zh": "把 S1 和 S2 當成一個投資組合看。月報酬相關性只有 0.234，遠低於同一標的兩個做多策略該有的水準。50/50 配置在夏普和回撤上都贏過單獨的 S2，但贏不過單獨的 S1。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

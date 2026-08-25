@@ -52,7 +52,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "V3.4 against V3.9 by entry slot — the comparison that set the current formal version.",
-  "summary_zh": "V3.4 與 V3.9 按進場時槽逐格比較，這是決定目前正式版本的那份對照。注意兩版的出場結構不同，所以某個時槽表現較好可能來自出場而非進場。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

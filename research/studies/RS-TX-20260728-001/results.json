@@ -28,7 +28,7 @@
   },
   "by_month": {
     "1": {
-      "month_name": "一月",
+      "month_name": "January",
       "n": 14,
       "win_rate_pct": 71.43,
       "avg_chg_pts": 376.93,
@@ -39,7 +39,7 @@
       "bias": "LONG"
     },
     "2": {
-      "month_name": "二月",
+      "month_name": "February",
       "n": 14,
       "win_rate_pct": 64.29,
       "avg_chg_pts": 396.21,
@@ -50,7 +50,7 @@
       "bias": "LONG"
     },
     "3": {
-      "month_name": "三月",
+      "month_name": "March",
       "n": 14,
       "win_rate_pct": 57.14,
       "avg_chg_pts": -256.71,
@@ -61,7 +61,7 @@
       "bias": "LONG"
     },
     "4": {
-      "month_name": "四月",
+      "month_name": "April",
       "n": 14,
       "win_rate_pct": 64.29,
       "avg_chg_pts": 517.5,
@@ -72,7 +72,7 @@
       "bias": "LONG"
     },
     "5": {
-      "month_name": "五月",
+      "month_name": "May",
       "n": 15,
       "win_rate_pct": 66.67,
       "avg_chg_pts": 285.67,
@@ -83,7 +83,7 @@
       "bias": "LONG"
     },
     "6": {
-      "month_name": "六月",
+      "month_name": "June",
       "n": 14,
       "win_rate_pct": 71.43,
       "avg_chg_pts": 132.71,
@@ -94,7 +94,7 @@
       "bias": "LONG"
     },
     "7": {
-      "month_name": "七月",
+      "month_name": "July",
       "n": 14,
       "win_rate_pct": 64.29,
       "avg_chg_pts": 36.43,
@@ -105,7 +105,7 @@
       "bias": "LONG"
     },
     "8": {
-      "month_name": "八月",
+      "month_name": "August",
       "n": 14,
       "win_rate_pct": 64.29,
       "avg_chg_pts": 108.29,
@@ -116,7 +116,7 @@
       "bias": "LONG"
     },
     "9": {
-      "month_name": "九月",
+      "month_name": "September",
       "n": 14,
       "win_rate_pct": 42.86,
       "avg_chg_pts": 56.93,
@@ -127,7 +127,7 @@
       "bias": "SHORT"
     },
     "10": {
-      "month_name": "十月",
+      "month_name": "October",
       "n": 14,
       "win_rate_pct": 57.14,
       "avg_chg_pts": 113.21,
@@ -138,7 +138,7 @@
       "bias": "LONG"
     },
     "11": {
-      "month_name": "十一月",
+      "month_name": "November",
       "n": 14,
       "win_rate_pct": 64.29,
       "avg_chg_pts": 324.93,
@@ -149,7 +149,7 @@
       "bias": "LONG"
     },
     "12": {
-      "month_name": "十二月",
+      "month_name": "December",
       "n": 14,
       "win_rate_pct": 78.57,
       "avg_chg_pts": 285.43,
@@ -162,35 +162,35 @@
   },
   "week_in_month": {
     "1": {
-      "week_label": "第1週（月初）",
+      "week_label": "Week 1 (month open)",
       "n": 169,
       "win_rate_pct": 58.58,
       "avg_chg_pts": 71.17,
       "median_chg_pts": 49.0
     },
     "2": {
-      "week_label": "第2週",
+      "week_label": "Week 2",
       "n": 169,
       "win_rate_pct": 53.85,
       "avg_chg_pts": 49.8,
       "median_chg_pts": 23.0
     },
     "3": {
-      "week_label": "第3週",
+      "week_label": "Week 3",
       "n": 168,
       "win_rate_pct": 55.36,
       "avg_chg_pts": 9.67,
       "median_chg_pts": 31.0
     },
     "4": {
-      "week_label": "第4週",
+      "week_label": "Week 4",
       "n": 159,
       "win_rate_pct": 61.01,
       "avg_chg_pts": 56.7,
       "median_chg_pts": 71.0
     },
     "5": {
-      "week_label": "第5週（月底）",
+      "week_label": "Week 5 (month close)",
       "n": 58,
       "win_rate_pct": 60.34,
       "avg_chg_pts": 54.67,

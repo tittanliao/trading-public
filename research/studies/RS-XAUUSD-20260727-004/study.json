@@ -44,7 +44,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "How S1 V3.9 loses: the same breakdown on the current formal version.",
-  "summary_zh": "同樣的拆解，但用在目前的正式版 S1 V3.9 上。這是後續所有 S1 研究的基準線。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

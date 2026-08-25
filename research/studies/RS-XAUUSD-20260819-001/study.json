@@ -101,7 +101,6 @@
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "Pattern mining: three families that look spectacular and are artefacts, and one regularity that survives.",
-  "summary_zh": "四個形態家族：K 棒形態、週內時槽、整數關卡、多根序列。三個是假象，各自以不同方式失敗。唯一存活的是日內極值形成時間，而且它完全不講方向。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

@@ -13,7 +13,7 @@
   ],
   "source_fingerprint": "471955d2006bbbdd94b752504348d087cc332e5ba49eb2d35db42004c6727c7f",
   "data_cutoff": "2026-08-15 04:30 Asia/Taipei weekend close",
-  "market_summary": "W32 急漲後，W33 收在 4,376.16 並轉為高檔整理。偏多結構尚未確認破壞，但 4,385.54–4,405.77 上方供給密集，W34 採條件式等待、不追價。",
+  "market_summary": "After W32's sharp advance, W33 closed at 4,376.16 and turned into high-level consolidation. The bullish structure is not confirmed broken, but supply is dense above 4,385.54–4,405.77, so W34 waits on conditions rather than chasing.",
   "scenario_comparison": [
     {
       "producer": "claude",
@@ -54,37 +54,37 @@
     {
       "direction": "bullish",
       "probability": 38,
-      "conditions": "30m 收上 4,397.78，回踩守住 4,385.54–4,397.78，且出現新的 S1 V3.9 訊號。",
-      "invalidation": "突破後重新跌回 4,374.40 下方，或無法守住 4,385.54。",
-      "targets": "4,405.77 → 4,432.32–4,449.73。"
+      "conditions": "A 30-minute close above 4,397.78, a pullback that holds 4,385.54–4,397.78, and a fresh S1 V3.9 signal.",
+      "invalidation": "Falling back below 4,374.40 after the break, or failing to hold 4,385.54.",
+      "targets": "4,405.77 then 4,432.32–4,449.73."
     },
     {
       "direction": "range",
       "probability": 38,
-      "conditions": "4,356.88–4,405.77 內反覆、30m 與 4H 無有效方向突破。",
-      "invalidation": "4H 有效站上 4,405.77 轉多方；4H 收破 4,311.01 確認空方。",
-      "targets": "以 4,374.40–4,390.67 為中軸輪動，區間兩端不追價。"
+      "conditions": "Rotation inside 4,356.88–4,405.77 with no valid directional break on either the 30-minute or 4-hour chart.",
+      "invalidation": "A valid 4-hour hold above 4,405.77 turns it bullish; a 4-hour close below 4,311.01 confirms bearish.",
+      "targets": "Rotation around a 4,374.40–4,390.67 midline; no chasing at either edge."
     },
     {
       "direction": "bearish",
       "probability": 24,
-      "conditions": "先失守 4,356.88，之後 4H 收破 4,311.01 且反抽無法收復 4,325.38。",
-      "invalidation": "重新收復並守住 4,374.40，或出現有效 S1 V3.9 多方訊號。",
-      "targets": "4,325.38–4,311.01 → 4,283.45。"
+      "conditions": "Losing 4,356.88 first, then a 4-hour close below 4,311.01 with the bounce failing to recover 4,325.38.",
+      "invalidation": "Recovering and holding 4,374.40, or a valid S1 V3.9 long signal.",
+      "targets": "4,325.38–4,311.01 then 4,283.45."
     }
   ],
   "agreements": [
-    "W33 收盤 4,376.16；W32 急漲後 W33 轉為高檔整理，偏多結構尚未確認破壞。",
-    "DXY 99.636、日 RSI 38.39 對黃金偏支撐，但利率與波動率證據不完整。",
-    "不在 4,376 附近追價；S1 V3.9 必須等待約 4,397.78 上方的 30m 收盤與新訊號。",
-    "任何進場、停損與目標都必須由開盤後的即時 TradingView 再確認。",
-    "FOMC Minutes 是本週主要事件風險；單筆風險上限 0.75%。"
+    "W33 closed at 4,376.16. After W32's sharp advance W33 turned to high-level consolidation, and the bullish structure is not confirmed broken.",
+    "DXY at 99.636 and a daily RSI of 38.39 lean supportive for gold, but the rate and volatility evidence is incomplete.",
+    "No chasing near 4,376. S1 V3.9 waits for a 30-minute close above roughly 4,397.78 and a fresh signal.",
+    "Every entry, stop and target must be reconfirmed on a live chart after the open.",
+    "The FOMC Minutes are the week's main event risk. Risk per trade is capped at 0.75%."
   ],
   "disagreements": [
-    "主劇本排序不同：一份偏區間、一份偏多。採同權重後，以 bullish 38%、range 38%、bearish 24% 表達方向仍未決。",
-    "空方切換門檻不同：採 4,356.88 為預警、4H 收破 4,311.01 為確認，避免把早期預警視為完成反轉。",
-    "S2 觀察區不同：4,356.88–4,363.72 與 4,311.01–4,325.38 都只列觀察，沒有新的 V3.2 反轉訊號不進場。",
-    "次要事件清單不同：共同保留 FOMC Minutes 為主要風險；其他事件須在交易前再查官方時間。"
+    "The two reports ranked the primary scenario differently — one favoured range, the other bullish. Weighting them equally gives bullish 38%, range 38%, bearish 24%, which says direction is undecided.",
+    "They set different bearish trigger levels. 4,356.88 is taken as the early warning and a 4-hour close below 4,311.01 as confirmation, so an early warning is not mistaken for a completed reversal.",
+    "They named different S2 watch zones. Both 4,356.88–4,363.72 and 4,311.01–4,325.38 are listed as watch-only; without a fresh V3.2 reversal signal there is no entry.",
+    "Their secondary event lists differed. Both keep the FOMC Minutes as the main risk; other events need their official times rechecked before trading."
   ],
   "key_levels": [
     {
@@ -122,45 +122,46 @@
     {
       "strategy": "S1 V3.9",
       "stance": "conditional wait",
-      "entry": "30m 收上 4,397.78、回踩守穩並出現新訊號後才評估。",
-      "stop": "依新的正式訊號停損；週末點位不直接成為委託。",
-      "risk": "每筆不超過 0.75%；S1+S2 合計不超過 1.5%。"
+      "entry": "Evaluate only after a 30-minute close above 4,397.78, a pullback that holds, and a fresh signal.",
+      "stop": "Stop placed by the new formal signal. A weekend level does not become an order.",
+      "risk": "No more than 0.75% per trade; S1 and S2 together no more than 1.5%."
     },
     {
       "strategy": "S2 V3.2",
       "stance": "observe only",
-      "entry": "兩個支撐觀察區出現新的 Hammer／RSI 反轉後才評估。",
-      "stop": "置於正式訊號 K 棒低點下方並由即時圖確認。",
-      "risk": "每筆不超過 0.75%；每週最多 2 次；波動率極端時減碼。"
+      "entry": "Evaluate only after a fresh Hammer or RSI reversal in one of the two support watch zones.",
+      "stop": "Below the low of the formal signal bar, confirmed on a live chart.",
+      "risk": "No more than 0.75% per trade, at most two per week, sized down in extreme volatility."
     }
   ],
   "event_risk": [
     {
       "name": "U.S. Import and Export Price Indexes",
       "scheduled_at": "2026-08-18 20:30 Asia/Taipei",
-      "handling": "公布前後避免新追價；已有部位依既定風險管理。"
+      "handling": "Avoid new chasing around the release; manage existing positions to the established plan."
     },
     {
       "name": "FOMC Minutes",
       "scheduled_at": "2026-08-20 02:00 Asia/Taipei",
-      "handling": "本週主要波動窗口；發布前不開新倉並重新評估既有風險。"
+      "handling": "The week's main volatility window. No new positions before the release, and re-assess existing risk."
     },
     {
       "name": "Flash PMI",
       "scheduled_at": "2026-08-21; exact time unknown",
-      "handling": "交易前重新查核官方時間；不以未確認時間建立精確進出場。"
+      "handling": "Recheck the official time before trading; do not build precise entries or exits on an unconfirmed time."
     }
   ],
   "recommendation": {
-    "stance": "條件式等待",
-    "summary": "W34 不在週末收盤附近追價。只有 30m 確認突破並出現新的正式訊號，才評估 S1；S2 也必須等支撐區的即時反轉訊號。",
-    "invalidation": "開盤跳空、即時圖結構改變，或 4H 收破 4,311.01 時，必須重新分析。"
+    "stance": "conditional wait",
+    "summary": "W34 does not chase near the weekend close. S1 is evaluated only on a confirmed 30-minute break with a fresh formal signal; S2 also waits for a live reversal signal in a support zone.",
+    "invalidation": "A gap at the open, a change in live chart structure, or a 4-hour close below 4,311.01 all require a fresh analysis."
   },
   "evidence_limits": [
-    "這是週末收盤快照，不是即時報價。",
-    "US10Y、實質利率、VIX 與 GVZ 缺少同等新鮮的完整證據。",
-    "來源比較史尚未達八個有效週次，替代資料仍不能升格為正式來源。",
-    "開盤跳空可能使預設區間與風險報酬失效。"
+    "This is a weekend close snapshot, not a live quote.",
+    "US10Y, real rates, VIX and GVZ lack complete evidence of equal freshness.",
+    "The source-comparison history has not reached eight valid weeks, so the alternate feed cannot yet be promoted to a formal source.",
+    "A gap at the open can invalidate the assumed ranges and reward-to-risk."
   ],
-  "disclaimer": "研究證據，不是交易建議；執行前必須以即時 TradingView 確認，擁有者保留最終判斷。"
+  "disclaimer": "Research evidence, not trading advice. Confirm on a live chart before acting; the final judgement is the reader's.",
+  "language_note": "Translated from the Chinese source report. Numbers and levels are unchanged."
 }

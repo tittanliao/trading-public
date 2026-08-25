@@ -88,7 +88,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "152 exit variants across five families. Not one improves total return, and win rate turns out to be purchasable.",
-  "summary_zh": "五個家族、152 種出場變體。沒有一種提升總報酬。最重要的發現是勝率買得到——停利可以把 S1 拉到 88.6%，代價是總報酬從 +88.6% 掉到 +14~36%。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

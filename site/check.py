@@ -42,6 +42,9 @@ WEEKLY_KEYS = {
     "adopted_scenarios", "agreements", "disagreements", "key_levels",
     "strategy_plan", "event_risk", "recommendation", "evidence_limits", "disclaimer",
 }
+# Present only on an edition published as a translation. The 2026-W34 report was written in
+# Chinese; everything from W35 is English, so this should stay rare.
+WEEKLY_OPTIONAL_KEYS = {"language_note"}
 PRIVATE_TOKENS = (
     "/users/", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
     "journal_locator", "input_set_id", "ledger_run_id", "resource_key",
@@ -79,7 +82,8 @@ def main() -> int:
         except json.JSONDecodeError as exc:
             failures.append(f"invalid weekly JSON: {relative}: {exc}")
             continue
-        if set(summary) != WEEKLY_KEYS:
+        keys = set(summary)
+        if not WEEKLY_KEYS <= keys or (keys - WEEKLY_KEYS) - WEEKLY_OPTIONAL_KEYS:
             failures.append(f"weekly summary key mismatch: {relative}")
         if summary.get("schema_version") != "1.0" or summary.get("market") != "XAUUSD":
             failures.append(f"weekly summary identity mismatch: {relative}")

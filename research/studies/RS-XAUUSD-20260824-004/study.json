@@ -65,7 +65,6 @@
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Twenty hypotheses on 18 years of daily gold — 7x the prior sweep — plus the macro family never opened. Zero survivors, and a 71% win rate that dissolves when the comparison group is matched to its own era.",
-  "summary_zh": "把假設掃描從 672 個交易日擴大到 4851 個（7.2 倍），並首次動用 VIX／GVZ／美債殖利率／通膨預期。20 個假設 0 個存活，族群置換 p=0.788。最重要的一筆：h18 勝率 71.49% 看似巨大，但把對照組限制在同一個年代後基準是 59.94% — 基準移動了 5.38 個百分點，p 從 0.032 變 0.351。共識規則兩半都不成立：11 個條件沒有一個能在五個時期都站上 50%，而共識最強那一格勝率最高（59.78%）卻是唯一負報酬（−0.38%）。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

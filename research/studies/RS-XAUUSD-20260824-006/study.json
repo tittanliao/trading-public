@@ -57,10 +57,11 @@
   ],
   "policy_impacts": [
     {
-      "area": "signal surface",
+      "surface": "config/xauusd_decision_context.json",
       "public_surface": "xauusd/ — the signal playbook's Bollinger %B check",
-      "key_expression": "Bollinger %B above the upper band ON 30-MINUTE BARS — 73.17% historical win rate. The hourly chart disagrees about two-thirds of the time, so the bar size is part of the reading rather than a footnote to it.",
-      "change": "The %B reading stays and gains a required qualifier: the bar size. It survived four independent measurements, but the set of trades it selects did not — 30-minute and hourly spot assign the same zone to only 32.23% of trades.",
+      "type": "advisory_context",
+      "summary": "The %B reading stays and gains a required qualifier: the bar size. It survived four independent measurements, but the set of trades it selects did not — 30-minute and hourly spot assign the same zone to only 32.23% of trades.",
+      "key_expression": "zone_agreement.A_vs_B",
       "evidence": "zone_agreement.A_vs_B in results.json; impact.md",
       "adopted_on": "2026-08-24",
       "adopted_note": "Adopted the same day: the signal playbook's %B check now reads 「S1、看 30 分K」 and carries the 32% cross-timeframe agreement in its caveat."
@@ -68,7 +69,6 @@
   ],
   "theme": "methodology",
   "card_summary": "The one finding that survives, measured four ways. The effect holds every time; which trades it selects does not — two charts of the same instrument agree on a third of them.",
-  "summary_zh": "把這個計畫唯一存活的發現（S1 進場時 %B 在上緣）用四種方式重測：30分K現貨、1小時現貨（同根數）、1小時現貨（同時鐘窗口）、1小時 MGC 期貨。四種全部通過所有篩子——效果是真的。但標籤不穩定：30分K 和 1小時 對同一筆交易的 %B 區間只有 32.23% 一致，30分K 認定 71 筆在上緣、1小時認定 28 筆、兩者只重疊 22 筆。「%B 在上緣」不是交易的性質，是你打開哪張圖的性質。另外要說清楚：MGC 和現貨相關 0.9998，而打掉 h18 的美元檢定是 0.8379——這次的商品檢定弱得多。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

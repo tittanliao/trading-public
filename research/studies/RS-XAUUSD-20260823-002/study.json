@@ -77,7 +77,7 @@
     {
       "tone": "info",
       "title": "An unprompted impression, the Pine tooltip and the data agree, and that is why it was worth testing",
-      "detail": "An unprompted impression that signals high in the band win more often. V3.9's Pine already carries a disabled use_bb_filter whose tooltip records 'above_upper (%B>100%) 勝率 77.8%'. Neither is evidence — a tooltip is not a study and an impression is not a sample — but three independent statements of the same claim justified spending the screens on it rather than dismissing it with the others."
+      "detail": "An unprompted impression that signals high in the band win more often. V3.9's Pine already carries a disabled use_bb_filter whose tooltip records a 77.8% win rate for entries above the upper band. Neither is evidence — a tooltip is not a study and an impression is not a sample — but three independent statements of the same claim justified spending the screens on it rather than dismissing it with the others."
     },
     {
       "tone": "good",
@@ -88,7 +88,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Bollinger %B at entry clears every screen in the programme — and filtering on it still loses money.",
-  "summary_zh": "進場時的布林 %B 是整個計畫裡唯一通過所有篩子的候選——置換 p=0.003、bootstrap 區間不含 0、樣本外還變強。但拿它當過濾器會賠錢：只留 17% 的進場、44% 的報酬。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

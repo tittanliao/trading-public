@@ -44,7 +44,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "How S2 V3.2 loses: 47% win rate at profit factor 2.05 is the shape, not a defect.",
-  "summary_zh": "S2 V3.2 怎麼輸。勝率 47%、獲利因子 2.05 是低勝率高賠率的正常形態，不是缺陷；只看勝率會誤判。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

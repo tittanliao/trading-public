@@ -7,7 +7,7 @@
   "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
   "status": "confirmed",
   "created_on": "2026-08-17",
-  "question": "After the Macro composite was revoked from the 請分析 score for lacking power, does any individual Macro factor separate S1 or S2 outcomes; how much of the composite is one input counted twice; and does GVZ have any breakpoint at all, rather than the assumed 13/20?",
+  "question": "After the Macro composite was revoked from the analysis score for lacking power, does any individual Macro factor separate S1 or S2 outcomes; how much of the composite is one input counted twice; and does GVZ have any breakpoint at all, rather than the assumed 13/20?",
   "hypothesis": "Expected negative. The composite's failure was a sample-size failure, and splitting the same trades by single factors cannot add power. GVZ was the one plausible exception because its rule claimed a mechanism (S2 mean reversion degrading in high volatility) rather than a correlation.",
   "headline": {
     "s1_trades": 400,
@@ -63,7 +63,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Macro factors and GVZ thresholds, tested one at a time; nothing separates outcomes.",
-  "summary_zh": "Macro 各因子與 GVZ 門檻逐一測試，沒有任何一個能區分結果。S2 與 GVZ 的接近顯著在多重比較校正後 p=0.107。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

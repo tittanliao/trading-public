@@ -63,7 +63,6 @@
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "The one hypothesis the last study left open, tested on nine more years of FRED data. It failed — and adding data widened the bound instead of narrowing it.",
-  "summary_zh": "上一份研究唯一留下的線索（實質殖利率），用 FRED 多抓九年資料來定案。結果失敗：樣本從 3196 增加到 4443，但解析下限反而變寬 7.0%（樣本項只縮 2.7%，波動項卻升 10.0%），而且當初讓它值得追的「三期符號一致」在加入 2008–2012 後就破了。另一個收穫更大：h18 那個 71.49% 勝率，換成 FRED 的廣義美元指數在同一個視窗跑，符號相反（+0.8773% vs −0.2853%）——換一個相近的衡量工具就翻盤的結果，本來就不是發現。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

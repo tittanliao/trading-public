@@ -73,7 +73,6 @@
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Twenty hypotheses through one harness, zero survivors, and a registry so the next twenty are not repeats.",
-  "summary_zh": "20 個假設走同一套 harness，0 個存活，族群置換 p=0.928。兩個方法教訓比 20 個答案更重要：一個前視偏誤產生了全篇最強的數字；以及成本要用「淨額對解析下限」比，不是「毛額對成本」。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

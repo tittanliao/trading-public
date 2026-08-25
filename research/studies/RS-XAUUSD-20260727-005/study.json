@@ -56,7 +56,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "What actually changed between S1 V3.4 and V3.9, measured rather than described.",
-  "summary_zh": "V3.4 到 V3.9 之間實際改變了什麼，用數字測量而不是用描述。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

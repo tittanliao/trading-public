@@ -56,7 +56,6 @@
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "What changed between S2 V1.9 and V3.2, and what did not.",
-  "summary_zh": "S2 V1.9 到 V3.2 改變了什麼、又有什麼沒變。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

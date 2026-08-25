@@ -57,7 +57,6 @@
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Volume, realised volatility and bar anatomy at entry — the entry-side context sweep.",
-  "summary_zh": "進場當下的成交量、已實現波動度、K 棒結構。家族置換 p 值 0.57 到 0.86。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

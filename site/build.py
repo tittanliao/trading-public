@@ -98,7 +98,7 @@ def nav(prefix: str) -> str:
         f'<a href="{prefix}xauusd/">XAUUSD</a>'
         f'<a href="{prefix}tx/">TX</a>'
         f'<a href="{prefix}lessons/">What Didn\u2019t Work</a>'
-        f'<a href="{prefix}glossary/">Glossary</a>'
+        f'<a href="{prefix}jargon/">Jargon</a>'
         '</nav>'
     )
 
@@ -292,10 +292,10 @@ def study_table_html(study_list, prefix="../"):
         "<thead><tr>"
         '<th data-sort>Study</th><th data-sort>Theme</th><th data-sort>Market</th>'
         '<th data-sort>Status</th><th data-sort>Date</th><th data-sort>Headline</th>'
-        '<th data-sort>\u5f71\u97ff\u8acb\u5206\u6790</th>'
+        '<th data-sort>Changes practice</th>'
         "</tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table></div>"
-        '<p class="section-note">\u9ede\u6b04\u4f4d\u6a19\u984c\u53ef\u6392\u5e8f\u3002'
+        '<p class="section-note">Click a column heading to sort.</p></div>'
         'Click a column heading to sort.</p></div>'
     )
 
@@ -304,8 +304,8 @@ def view_toggle_html() -> str:
     """Card / table switch. The choice is remembered per reader in localStorage."""
     return (
         '<div class="view-toggle" data-view-toggle>'
-        '<button type="button" data-view="cards" aria-pressed="true">\u5361\u7247 Cards</button>'
-        '<button type="button" data-view="table" aria-pressed="false">\u8868\u683c Table</button>'
+        '<button type="button" data-view="cards" aria-pressed="true">Cards</button>'
+        '<button type="button" data-view="table" aria-pressed="false">Table</button>'
         "</div>"
     )
 
@@ -355,7 +355,7 @@ def study_card(study: dict[str, object], prefix: str = "../") -> str:
         for key in keys
         if key in headline
     )
-    badge = '<span class="badge-live">影響請分析</span>' if study.get("policy_impacts") else ""
+    badge = '<span class="badge-live">Changes practice</span>' if study.get("policy_impacts") else ""
     return (
         f'<a class="card study-card" data-card href="{html.escape(prefix + study["_relative"])}/">'
         f'<div class="type">{html.escape(study["status"])} · {html.escape(study["id"])}{badge}</div>'
@@ -552,7 +552,6 @@ def study_page_comparison(study: dict[str, object]) -> str:
     body = (
         '<main class="shell report">'
         f'<div class="metric-grid">{metric_html}</div>'
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -638,8 +637,8 @@ def impact_section_html(study: dict[str, object]) -> str:
     impacts = study.get("policy_impacts") or []
     if not impacts:
         return (
-            '<section class="report-section"><h2>Impact on 請分析</h2>'
-            '<p class="callout">No active 請分析 policy change. '
+            '<section class="report-section"><h2>Impact on practice</h2>'
+            '<p class="callout">No active policy change. '
             "Research/publication only for this study.</p></section>"
         )
     impact_md_path = STUDY_ROOT / study["id"] / "impact.md"
@@ -650,33 +649,14 @@ def impact_section_html(study: dict[str, object]) -> str:
             f'<li><strong>{html.escape(item["surface"])}</strong> · {html.escape(item["summary"])}</li>'
             for item in impacts
         ) + "</ul>"
-    return f'<section class="report-section"><h2>Impact on 請分析</h2>{body}</section>'
-
-
-def summary_zh_html(study: dict[str, object]) -> str:
-    """A short Chinese summary at the top of each study page.
-
-    Not a translation of the page — deliberately. The owner reads these in English as
-    practice, and a full Chinese version would simply replace it. Two or three sentences
-    stating what was found gives something to check comprehension against, and costs about
-    a twentieth of translating every finding.
-    """
-    text = str(study.get("summary_zh") or "").strip()
-    if not text:
-        return ""
-    return (
-        '<section class="report-section"><h2>中文摘要</h2>'
-        f'<p>{html.escape(text)}</p>'
-        '<p class="section-note">以下為英文原文。專有名詞見'
-        '<a href="../../../glossary/">術語表</a>。</p></section>'
-    )
+    return f'<section class="report-section"><h2>Impact on practice</h2>{body}</section>'
 
 
 def file_actions_html(study: dict[str, object]) -> str:
     links = [
         # First, deliberately. A reader who cannot get past the vocabulary cannot use any
         # of the others.
-        '<a href="../../../glossary/">術語表 Glossary</a>',
+        '<a href="../../../jargon/">Jargon</a>',
         '<a href="results.json">Structured results</a>',
         '<a href="analysis.py">Python method</a>',
         '<a href="study.json">Study manifest</a>',
@@ -745,7 +725,6 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + metric("Profit factor", baseline["profit_factor"], f'Net ${baseline["net_pnl_usd"]:,.2f}')
         + metric("Max drawdown", f'${baseline["max_drawdown_usd"]:,.2f}', f'Max {baseline["max_consecutive_losses"]} consecutive losses')
         + '</div>'
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -856,7 +835,6 @@ def study_page_gap(study: dict[str, object]) -> str:
         + metric(f"PF diff ({label2}−{label1})", f'{bd["profit_factor_diff"]:+.3f}')
         + '</div>'
         f'<div class="note">{html.escape(result["method"]["risk_parameter_caveat"])}</div>'
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -955,7 +933,6 @@ def study_page_seasonality(study: dict[str, object]) -> str:
         + metric("Avg monthly change", f'{overall["avg_chg_pts"]:+.0f} pts', result["instrument"])
         + "</div>"
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -1000,7 +977,6 @@ def study_page_fib_pullback(study: dict[str, object]) -> str:
         '<main class="shell report">'
         f'<div class="metric-grid">{metric_html}</div>'
         + (f'<div class="note">{html.escape(caveat)}</div>' if caveat else "")
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -1228,7 +1204,6 @@ def study_page_context_program(study: dict[str, object]) -> str:
     body = (
         '<main class="shell report">'
         f'<div class="metric-grid">{context_program_metrics(study)}</div>'
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
         + impact_section_html(study)
@@ -1263,7 +1238,6 @@ def study_page_pullback_replay(study: dict[str, object]) -> str:
         f'{validation["n"]} OFF exit timestamps and IDs. Full OFF baseline: '
         f'WR {baseline["win_rate_pct"]}%, PF {baseline["profit_factor"]}, '
         f'average USD {baseline["average_pnl_usd"]}.</p></section>'
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
         + impact_section_html(study)
@@ -1381,7 +1355,6 @@ def study_page_range_profile(study: dict[str, object]) -> str:
                  f'{head["slots_consistent_and_abs_z_over_2_in_all_periods"]} of 48',
                  "sign-consistent and |z|>2 in every period")
         + "</div>"
-        + summary_zh_html(study)
         + '<section class="report-section"><h2>Key findings</h2>'
         f'<div class="insight-grid">{finding_html}</div></section>'
         + impact_section_html(study)
@@ -1450,14 +1423,16 @@ def glossary() -> list[dict[str, str]]:
 
 
 def glossary_page(terms: list[dict[str, str]]) -> str:
-    """Bilingual vocabulary, written once for the whole site.
+    """The one bilingual page on the site, and the reason the rest can stay English.
 
-    The pages are in English because the owner is using them to practise reading it. A
-    full Chinese translation would defeat that — given both, nobody reads the second one.
-    What actually blocks comprehension is the domain vocabulary, and that vocabulary
-    repeats: "win rate" appears 41 times across the studies, "holdout" 30. Defining each
-    once here costs a fraction of translating them in place, and leaves the English as the
-    thing being read.
+    Everything else is English. This page is the exception rather than a translation
+    layer: given a full Chinese version of a study, nobody reads the English one, and
+    reading the English is the point. What actually blocks comprehension is the domain
+    vocabulary, and it repeats — "win rate" appears 41 times across the studies,
+    "holdout" 30. Defining each term once costs a fraction of translating them in place.
+
+    Named "Jargon" rather than "Glossary" because that is the word this vocabulary is
+    called by in the industry the owner works in.
     """
     rows = "".join(
         f"<tr><td><strong>{html.escape(t['en'])}</strong></td>"
@@ -1468,24 +1443,24 @@ def glossary_page(terms: list[dict[str, str]]) -> str:
     body = (
         '<main class="shell report">'
         '<section class="report-section"><h2>How to use this</h2>'
-        "<p>研究頁面是英文的，因為擁有者用它們練習閱讀。這裡不是翻譯——是把每個技術詞"
-        "定義一次，讓英文原文讀得下去。</p>"
-        "<p>The study pages stay in English. This defines the vocabulary that blocks "
-        "comprehension, once, so the English remains the thing being read.</p>"
-        "<p><strong>三個最該先看的：</strong>"
-        "<code>baseline</code>（沒有它，任何勝率都無法判讀）、"
-        "<code>resolution bound</code>（決定一個「無證據」關掉了多少門）、"
-        "<code>lookahead</code>（本站最大的假發現都來自它）。</p></section>"
+        "<p>Every other page on this site is in English. This one is not a translation of "
+        "them — it defines the vocabulary that blocks comprehension, once, so the English "
+        "stays the thing being read.</p>"
+        "<p><strong>Three worth reading first:</strong> "
+        "<code>baseline</code> — without it no win rate can be interpreted; "
+        "<code>resolution bound</code> — it decides how much a “no evidence” actually "
+        "closed; <code>lookahead</code> — every large false finding on this site came "
+        "from it.</p></section>"
         '<section class="report-section"><h2>Terms</h2>'
         '<div class="table-wrap"><table><thead><tr>'
-        "<th>English</th><th>中文</th><th>說明</th>"
+        "<th>English</th><th>中文</th><th>Gloss</th>"
         f"</tr></thead><tbody>{rows}</tbody></table></div></section>"
         '<div class="file-actions"><a href="../research/">All studies</a>'
         '<a href="../research/null-results/">What did not work</a></div>'
         "</main>"
     )
     return document(
-        "Glossary 術語表",
+        "Jargon",
         "Bilingual reference",
         "Every technical term used across the studies, defined once in Chinese so the "
         "English pages stay readable.",
@@ -1611,7 +1586,7 @@ def null_results_page(registry: dict[str, object]) -> str:
         "describes. It is published beside this page as JSON and is the intended interface "
         "for anything automated: read it, and skip what is already closed.</p>"
         '<div class="file-actions"><a href="null_results.json">Registry JSON</a>'
-        '<a href="../">All studies</a><a href="../../glossary/">術語表 Glossary</a></div></section>'
+        '<a href="../">All studies</a><a href="../../jargon/">Jargon</a></div></section>'
         "</main>"
     )
     return document(
@@ -1767,7 +1742,7 @@ def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
         '<div class="file-actions"><a href="results.json">results.json</a>'
         '<a href="study.json">study.json</a>'
         '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        '<a href="../../../jargon/">Jargon</a></div></section>'
         "</main>"
     )
     return document(
@@ -1930,7 +1905,7 @@ def study_page_preregistered(study: dict[str, object]) -> str:
         '<div class="file-actions"><a href="results.json">results.json</a>'
         '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
         '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        '<a href="../../../jargon/">Jargon</a></div></section>'
         "</main>"
     )
     return document(
@@ -2074,7 +2049,7 @@ def study_page_robustness(study: dict[str, object]) -> str:
         '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
         '<a href="impact.md">impact.md</a>'
         '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+        '<a href="../../../jargon/">Jargon</a></div></section>'
         "</main>"
     )
     return document(
@@ -2192,7 +2167,7 @@ def study_page_generic(study: dict[str, object]) -> str:
           '<div class="file-actions"><a href="results.json">results.json</a>'
           '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
           '<a href="../../null-results/">All null results</a>'
-          '<a href="../../../glossary/">術語表 Glossary</a></div></section>'
+          '<a href="../../../jargon/">Jargon</a></div></section>'
         "</main>"
     )
     return document(
@@ -2383,55 +2358,49 @@ def weekly_summary_page(
 
 SIGNAL_PLAYBOOK = {
     "XAUUSD": {
-        "intro": "\u8a0a\u865f\u5230\u4e86\u3002\u9019\u9801\u53ea\u56de\u7b54\u4e00\u4ef6\u4e8b\uff1a"
-                 "\u73fe\u5728\u6709\u4ec0\u9ebc\u5df2\u77e5\u7684\u6771\u897f\uff0c\u80fd\u5e6b\u4f60"
-                 "\u5224\u65b7\u9019\u7b46\u55ae\u3002",
+        "intro": "A signal just fired. This page answers one question: what is already "
+                 "known that bears on this trade?",
         "checks": [
             {
-                "title": "\u9032\u5834\u50f9\u5728\u5e03\u6797\u901a\u9053\u7684\u54ea\u88e1\uff08S1\u3001\u770b 30 \u5206K\uff09",
+                "title": "Where the entry sits in the Bollinger band (S1, on 30-minute bars)",
                 "study": "RS-XAUUSD-20260823-002",
-                "what": "%B > 1.0\uff08\u6536\u5728\u4e0a\u8ecc\u4e4b\u5916\uff09\u7684\u9032\u5834\uff0c"
-                        "\u6b77\u53f2\u52dd\u7387 73.17%\uff08n=82\uff09\uff0c\u57fa\u6e96\u662f 55.93%\u3002"
-                        "\u800c\u4e14\u5b83\u5728\u6a23\u672c\u5916\u66f4\u5f37\uff0c\u4e0d\u662f\u8b8a\u5f31\u3002",
-                "caveat": "\u5169\u4ef6\u4e8b\u3002\u4e00\uff1a\u62ff\u5b83\u7576"
-                          "\u904e\u6ffe\u5668\u6703\u8ce0\u9322\u2014\u2014\u53ea\u7559 17% \u7684"
-                          "\u9032\u5834\u3001 44% \u7684\u5831\u916c\u3002\u4e8c\uff1a"
-                          "\u4e00\u5b9a\u8981\u770b 30 \u5206K\u3002\u540c\u4e00\u7b46\u4ea4\u6613\uff0c"
-                          "30 \u5206K \u8207 1 \u5c0f\u6642\u5c0d %B \u5340\u9593\u7684\u5224\u5b9a"
-                          "\u53ea\u6709 32% \u4e00\u81f4\uff1b30 \u5206K \u8a8d\u5b9a 71 \u7b46\u5728"
-                          "\u4e0a\u7de3\uff0c1 \u5c0f\u6642\u53ea\u8a8d 28 \u7b46\u3002\u6c92\u8aaa"
-                          "\u9031\u671f\u7684 %B \u4e0d\u662f\u4e00\u500b\u8b80\u6578\u3002",
+                "what": "Entries with %B above 1.0 — closing outside the upper band — won "
+                        "73.17% historically (n=82) against a 55.93% baseline. It was "
+                        "stronger out of sample, not weaker.",
+                "caveat": "Two things. One: as a filter it loses money — it keeps 17% of "
+                          "entries and 44% of the return. Two: it has to be the 30-minute "
+                          "chart. For the same trade, 30-minute and hourly agree on the %B "
+                          "zone only 32% of the time; the 30-minute chart calls 71 entries "
+                          "above the upper band, the hourly chart calls 28. A %B reading "
+                          "without its bar size is not a reading.",
             },
             {
-                "title": "\u73fe\u5728\u9019\u500b\u6642\u9593\u9ede\uff0c\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593",
+                "title": "How much of the day's range is left at this hour",
                 "study": "RS-XAUUSD-20260823-001",
-                "what": "\u53f0\u5317 23:30 \u4e4b\u5f8c\uff0c\u4e2d\u4f4d\u6578\u7684\u4e00\u5929"
-                        "\u5df2\u7d93\u8d70\u5b8c\u4e86\uff08\u5269\u9918\u5340\u9593\u4e2d\u4f4d\u6578 0%\uff09\u3002"
-                        "02:30 \u4e4b\u5f8c\u5e73\u5747\u53ea\u5269 4%\u3002",
-                "caveat": "\u9019\u53ea\u8b1b\u300c\u9084\u6709\u591a\u5c11\u7a7a\u9593\u300d\uff0c"
-                          "\u5b8c\u5168\u4e0d\u8b1b\u65b9\u5411\u3002",
+                "what": "After 23:30 Taipei the median day is finished — median remaining "
+                        "range 0%. After 02:30 the average is 4%.",
+                "caveat": "This says how much room is left. It says nothing about direction.",
             },
             {
-                "title": "\u9019\u500b\u7b56\u7565\u672c\u4f86\u5c31\u9577\u4ec0\u9ebc\u6a23",
+                "title": "What this strategy looks like normally",
                 "study": "RS-XAUUSD-20260727-007",
-                "what": "S2 V3.2 \u57fa\u6e96\u52dd\u7387 47.13%\u3001\u7372\u5229\u56e0\u5b50 2.05\u3002"
-                        "\u4f4e\u52dd\u7387\u9ad8\u8ce0\u7387\u662f\u6b63\u5e38\u5f62\u614b\uff0c"
-                        "\u53ea\u770b\u52dd\u7387\u6703\u8aa4\u5224\u3002",
-                "caveat": "S1 V3.9 \u7684\u57fa\u6e96\u662f 55.93% / PF 1.849\uff0c"
-                          "\u5e73\u5747\u6301\u6709 30 \u6839\u3002",
+                "what": "S2 V3.2 has a 47.13% baseline win rate and a 2.05 profit factor. A "
+                        "low win rate with a high payoff is its normal shape; reading the "
+                        "win rate alone will mislead you.",
+                "caveat": "S1 V3.9's baseline is 55.93% at PF 1.849, holding about 30 bars.",
             },
         ],
         "ruled_out": [
-            "Macro \u7d9c\u5408\u5206\u6578\u3001GVZ \u9580\u6abb\u2014\u2014\u5df2\u65bc 2026-08-17 \u64a4\u92b7\uff0c\u4e0d\u8981\u518d\u7528\u5b83\u5011\u6e1b\u78bc",
-            "30 \u5206\u9418\u6642\u69fd\u52dd\u7387\u2014\u2014\u8207\u96dc\u8a0a\u7121\u6cd5\u5340\u5206",
-            "\u9031\u4e00\u6700\u5f31\u3001\u9031\u4e94\u6700\u5f37\u2014\u2014\u5728\u9019\u4efd\u8cc7\u6599\u4e0a\u4e0d\u6210\u7acb",
-            "CFTC \u90e8\u4f4d\u2014\u2014\u76ee\u524d\u6a23\u672c\u770b\u4e0d\u51fa\u4efb\u4f55\u6771\u897f",
+            "The Macro composite score and the GVZ threshold — revoked 2026-08-17. Do not "
+            "size down on them.",
+            "30-minute slot win rates — indistinguishable from noise.",
+            "Monday weakest, Friday strongest — not supported on this data.",
+            "CFTC positioning — the available sample resolves nothing.",
         ],
     },
     "TX": {
-        "intro": "TX \u76ee\u524d\u53ea\u6709\u5b63\u7bc0\u6027\u8207\u56de\u6a94\u7d50\u69cb\u7684"
-                 "\u521d\u6b65\u7814\u7a76\uff0c\u9084\u6c92\u6709\u8a0a\u865f\u5c64\u7d1a\u7684"
-                 "\u5224\u65b7\u4f9d\u64da\u3002",
+        "intro": "TX has only preliminary work on seasonality and pullback structure. "
+                 "Nothing at the signal layer yet.",
         "checks": [],
         "ruled_out": [],
     },
@@ -2473,18 +2442,18 @@ def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefi
         )
     ruled = "".join(f"<li>{html.escape(x)}</li>" for x in book["ruled_out"])
     ruled_block = (
-        '<section class="report-section"><h2>\u4e0d\u7528\u518d\u770b\u7684</h2>'
+        '<section class="report-section"><h2>Not worth checking</h2>'
         f'<ul class="impact-list">{ruled}</ul>'
-        f'<p class="section-note">\u5b8c\u6574\u6e05\u55ae\u8207\u6bcf\u4e00\u9805\u7684'
-        f'\u89e3\u6790\u4e0b\u9650\uff1a<a href="{prefix}lessons/">\u4ec0\u9ebc\u6c92\u7528</a></p>'
+        f'<p class="section-note">The full list, each with its resolution bound: '
+        f'<a href="{prefix}lessons/">What Didn’t Work</a></p>'
         "</section>"
     ) if ruled else ""
 
     return (
-        '<section class="report-section"><h2>\u8a0a\u865f\u4f86\u4e86\uff0c\u5148\u770b\u9019\u88e1</h2>'
+        '<section class="report-section"><h2>A signal fired — start here</h2>'
         f'<p>{html.escape(book["intro"])}</p>'
         + (f'<div class="insight-grid">{"".join(checks)}</div>' if checks
-           else '<p class="section-note">\u5c1a\u7121\u53ef\u7528\u7684\u5224\u65b7\u4f9d\u64da\u3002</p>')
+           else '<p class="section-note">Nothing usable yet.</p>')
         + "</section>"
         + ruled_block
     )
@@ -2500,12 +2469,12 @@ def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, obje
     body = (
         '<main class="shell">'
         + signal_playbook_html("XAUUSD", study_list, "../")
-        + '<h2 class="section-title">\u672c\u9031\u5c55\u671b</h2>'
+        + '<h2 class="section-title">This week</h2>'
         f'<div class="grid">{weekly_html}</div>'
-        + '<h2 class="section-title">XAUUSD \u7814\u7a76 '
+        + '<h2 class="section-title">XAUUSD studies '
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="\u7be9\u9078 XAUUSD \u7814\u7a76" aria-label="Filter"></div></div>'
+        'placeholder="Filter XAUUSD studies" aria-label="Filter"></div></div>'
         + view_toggle_html()
         + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
@@ -2513,9 +2482,8 @@ def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, obje
     )
     return document(
         "XAUUSD",
-        "\u9ec3\u91d1",
-        "\u8a0a\u865f\u4f86\u4e86\u8981\u770b\u4ec0\u9ebc\u3001\u672c\u9031\u5c55\u671b\uff0c"
-        "\u4ee5\u53ca\u6240\u6709\u9ec3\u91d1\u7814\u7a76\u3002",
+        "Gold",
+        "What to check when a signal fires, this week's outlook, and every gold study.",
         body,
         "../",
     )
@@ -2531,10 +2499,10 @@ def section_page(
     body = (
         '<main class="shell">'
         + signal_playbook_html(market.upper(), study_list, "../")
-        + f'<h2 class="section-title">{html.escape(market.upper())} \u7814\u7a76 '
+        + f'<h2 class="section-title">{html.escape(market.upper())} studies '
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="\u7be9\u9078\u7814\u7a76" aria-label="Filter"></div></div>'
+        'placeholder="Filter studies" aria-label="Filter"></div></div>'
         + view_toggle_html()
         + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
@@ -2558,10 +2526,9 @@ def lessons_page(registry, study_list) -> str:
     if totals:
         banner = (
             '<a class="card" data-card href="../research/null-results/">'
-            '<div class="type">registry</div><h2>\u5b8c\u6574\u767b\u9304</h2>'
-            "<p>\u6bcf\u4e00\u500b\u88ab\u554f\u904e\u4e26\u4e14\u5f97\u5230"
-            "\u300c\u6c92\u6709\u300d\u7684\u554f\u984c\uff0c\u6bcf\u4e00\u7b46"
-            "\u90fd\u5e36\u8457\u5b83\u7684\u89e3\u6790\u4e0b\u9650\u3002</p>"
+            '<div class="type">registry</div><h2>The full registry</h2>'
+            "<p>Every question that was asked and answered with no, each one carrying "
+            "the smallest effect its sample could have resolved.</p>"
             '<div class="mini-metrics">'
             f'<span><strong>{totals.get("hypotheses", 0)}</strong> hypotheses</span>'
             f'<span><strong>{totals.get("by_verdict", {}).get("survives_screens", 0)}</strong> survivors</span>'
@@ -2569,29 +2536,27 @@ def lessons_page(registry, study_list) -> str:
         )
     body = (
         '<main class="shell">'
-        '<section class="report-section"><h2>\u70ba\u4ec0\u9ebc\u9019\u9801\u5b58\u5728</h2>'
-        "<p>\u9019\u500b\u7814\u7a76\u8a08\u756b\u7684\u7522\u51fa\u5927\u90e8\u5206"
-        "\u662f\u300c\u6c92\u6709\u300d\u3002\u90a3\u662f\u7d50\u8ad6\uff0c\u4e0d\u662f"
-        "\u7f3a\u5c11\u7d50\u8ad6\u2014\u2014\u800c\u4e14\u77e5\u9053\u4ec0\u9ebc"
-        "\u4e0d\u7528\u518d\u8a66\uff0c\u672c\u8eab\u5c31\u662f\u5224\u65b7\u4f9d\u64da\u3002</p>"
-        "<p>\u6bcf\u4e00\u7b46\u90fd\u5e36\u8457<strong>\u89e3\u6790\u4e0b\u9650</strong>\uff1a"
-        "\u9019\u500b\u6a23\u672c\u80fd\u5206\u8fa8\u7684\u6700\u5c0f\u5dee\u8ddd\u3002"
-        "\u754c\u9650\u5bec\u7684\u300c\u7121\u8b49\u64da\u300d\u4ec0\u9ebc\u90fd"
-        "\u6c92\u95dc\u6389\uff0c\u9019\u500b\u5340\u5225\u5f88\u91cd\u8981\u3002</p>"
+        '<section class="report-section"><h2>Why this page exists</h2>'
+        "<p>Most of what this programme produces is <em>no</em>. That is a conclusion, "
+        "not the absence of one — and knowing what not to try again is itself something "
+        "to decide with.</p>"
+        "<p>Every entry carries its <strong>resolution bound</strong>: the smallest "
+        "difference that sample could have separated. A “no evidence” with a wide bound "
+        "closed nothing at all, and that distinction is the whole point.</p>"
         "</section>"
         + (f'<div class="grid">{banner}</div>' if banner else "")
-        + (f'<h2 class="section-title">\u65b9\u6cd5\u8ad6 '
+        + (f'<h2 class="section-title">Methodology '
            f'<span class="sheet-count">({len(methodology)})</span></h2>'
-           f'<p class="section-note">\u95dc\u65bc\u300c\u600e\u9ebc\u6e2c\u300d\u5b78\u5230'
-           f'\u7684\u4e8b\uff0c\u901a\u5e38\u662f\u5148\u505a\u932f\u4e00\u6b21\u624d\u5b78\u5230\u7684\u3002</p>'
+           f'<p class="section-note">What was learned about how to measure — usually '
+           f'by getting it wrong once first.</p>'
            f'<div class="grid study-grid">{cards}</div>' if methodology else "")
         + "</main>"
     )
     return document(
         "What Didn\u2019t Work",
         "negative results",
-        "\u88ab\u6392\u9664\u7684\u641c\u5c0b\u7a7a\u9593\uff0c\u4ee5\u53ca\u6bcf\u4e00\u500b"
-        "\u300c\u6c92\u6709\u300d\u5230\u5e95\u95dc\u6389\u4e86\u591a\u5c11\u9580\u3002",
+        "The search space that has been ruled out, and how much each “no” actually "
+        "closed.",
         body,
         "../",
     )
@@ -2646,7 +2611,7 @@ def overview(
 
     The previous homepage offered "XAUUSD" and "Research" as sibling entries, and a study
     about gold lived under the second one — so there were two plausible doors to the same
-    thing and no way to tell which. The owner said as much: 我都不知道要點哪裡.
+    thing and no way to tell which, which is exactly what the reader reported.
 
     The fix is that instruments are the top level and everything about an instrument lives
     inside it. What stays at this level is the one thing that spans both — what has been
@@ -2664,16 +2629,15 @@ def overview(
             str(study.get("market", "")).upper(), 0) + 1
 
     weekly_line = (
-        f'{weekly[0]["forecast_week"]}\u5c55\u671b\u5df2\u767c\u5e03'
-        if weekly else "\u5c1a\u672a\u767c\u5e03\u9031\u5831"
+        f'{weekly[0]["forecast_week"]} outlook published'
+        if weekly else "no weekly published yet"
     )
     primary = (
         '<a class="card card-wide" data-card href="xauusd/">'
         '<div class="type">Signal fired</div>'
         '<h2>XAUUSD Gold</h2>'
-        "<p>\u9032\u5834\u524d\u5148\u770b\uff1a\u5e03\u6797\u4f4d\u7f6e\u7684\u6b77\u53f2"
-        "\u52dd\u7387\u3001\u7576\u65e5\u9084\u5269\u591a\u5c11\u7a7a\u9593\u3001"
-        "\u4ee5\u53ca\u54ea\u4e9b\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002</p>"
+        "<p>Before an entry: the historical win rate by Bollinger position, how much "
+        "of the day's range is left, and what has already been ruled out.</p>"
         '<div class="mini-metrics">'
         f'<span><strong>{counts.get("XAUUSD", 0)}</strong> studies</span>'
         f'<span><strong>{html.escape(weekly_line)}</strong></span>'
@@ -2681,9 +2645,8 @@ def overview(
         '<a class="card card-wide" data-card href="tx/">'
         '<div class="type">Second instrument</div>'
         '<h2>TX Taiwan Index Futures</h2>'
-        "<p>\u76ee\u524d\u53ea\u6709\u5b63\u7bc0\u6027\u8207\u56de\u6a94\u7d50\u69cb\u7684"
-        "\u521d\u6b65\u7814\u7a76\uff0c\u9084\u6c92\u6709\u8a0a\u865f\u5c64\u7d1a\u7684"
-        "\u5224\u65b7\u4f9d\u64da\u3002</p>"
+        "<p>Only preliminary work on seasonality and pullback structure so far. "
+        "Nothing at the signal layer yet.</p>"
         '<div class="mini-metrics">'
         f'<span><strong>{counts.get("TX", 0)}</strong> studies</span>'
         "</div></a>"
@@ -2691,15 +2654,14 @@ def overview(
 
     secondary = [
         ("lessons/", "What Didn\u2019t Work",
-         f'{totals.get("hypotheses", 0)} \u500b\u5047\u8a2d\u88ab\u6e2c\u904e\uff0c'
-         f'{totals.get("by_verdict", {}).get("survives_screens", 0)} \u500b\u5b58\u6d3b\u3002'
-         "\u77e5\u9053\u4ec0\u9ebc\u4e0d\u7528\u518d\u8a66\uff0c\u672c\u8eab\u5c31\u662f"
-         "\u5224\u65b7\u4f9d\u64da\u3002"),
-        ("glossary/", "Glossary",
-         "\u7814\u7a76\u9801\u9762\u662f\u82f1\u6587\u7684\u3002\u9019\u88e1\u628a"
-         "\u6bcf\u500b\u6280\u8853\u540d\u8a5e\u7528\u4e2d\u6587\u5b9a\u7fa9\u4e00\u6b21\u3002"),
+         f'{totals.get("hypotheses", 0)} hypotheses tested, '
+         f'{totals.get("by_verdict", {}).get("survives_screens", 0)} survived. '
+         "Knowing what not to try again is itself something to decide with."),
+        ("jargon/", "Jargon",
+         "The site is in English. This defines every technical term once, in "
+         "Chinese, so it stays readable."),
         ("xauusd/weekly/", "Weekly Report",
-         "\u6bcf\u9031\u7684\u95dc\u9375\u50f9\u4f4d\u3001\u5287\u672c\u8207\u4e8b\u4ef6\u98a8\u96aa\u3002"),
+         "Key levels, scenarios and event risk, week by week."),
     ]
     minor = '<div class="grid">' + "".join(
         f'<a class="card" data-card href="{href}"><div class="type">Reference</div>'
@@ -2714,20 +2676,17 @@ def overview(
         '<h2 class="section-title">Reference</h2>'
         f"{minor}"
         '<section class="report-section"><h2>What this site is</h2>'
-        "<p>\u4e00\u500b\u4ea4\u6613\u7814\u7a76\u8a08\u756b\u7684\u516c\u958b\u90e8\u5206\u3002"
-        "\u5b83\u4e0d\u662f\u7d66\u5efa\u8b70\u7684\uff0c\u4e5f\u4e0d\u662f\u8a0e\u8ad6"
-        "\u4ec0\u9ebc\u7b56\u7565\u6709\u6548\u2014\u2014\u5b83\u8a18\u9304\u7684\u662f"
-        "\u54ea\u4e9b\u554f\u984c\u88ab\u554f\u904e\u3001\u7b54\u6848\u662f\u4ec0\u9ebc\uff0c"
-        "\u4ee5\u53ca\u90a3\u500b\u7b54\u6848\u6709\u591a\u53ef\u9760\u3002</p>"
-        "<p>\u5927\u90e8\u5206\u7684\u7b54\u6848\u662f\u300c\u6c92\u6709\u300d\u3002</p>"
+        "<p>The public half of a trading research programme. It does not give advice and "
+        "it does not argue about which strategies work — it records which questions were "
+        "asked, what the answer was, and how much that answer can be trusted.</p>"
+        "<p>Most of the answers are no.</p>"
         "</section>"
         "</main>"
     )
     return document(
         "Trading Research",
         "Public workspace",
-        "\u8a0a\u865f\u4f86\u4e86\u8981\u770b\u4ec0\u9ebc\uff0c\u4ee5\u53ca\u54ea\u4e9b"
-        "\u6771\u897f\u5df2\u7d93\u78ba\u5b9a\u6c92\u7528\u3002",
+        "What to check when a signal fires, and what has already been ruled out.",
         body,
     )
 
@@ -2740,7 +2699,7 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
         ROOT / "index.html": overview(data, study_list, weekly),
         ROOT / "xauusd/index.html": xauusd_page(study_list, weekly),
         ROOT / "tx/index.html": section_page(
-            study_list, "tx", "TX \u53f0\u6307\u671f", "\u53f0\u6307\u671f\u7814\u7a76\u3002"),
+            study_list, "tx", "TX Taiwan Index Futures", "Studies on Taiwan index futures."),
         ROOT / "research/index.html": research_page(data, study_list),
         ROOT / "lessons/index.html": lessons_page(null_registry(), study_list),
     }
@@ -2749,7 +2708,7 @@ def outputs(data: dict[str, object]) -> dict[Path, str]:
         generated[ROOT / "research/null-results/index.html"] = null_results_page(registry)
     terms = glossary()
     if terms:
-        generated[ROOT / "glossary/index.html"] = glossary_page(terms)
+        generated[ROOT / "jargon/index.html"] = glossary_page(terms)
     if weekly:
         generated[ROOT / "xauusd/weekly/index.html"] = weekly_summary_page(
             weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,

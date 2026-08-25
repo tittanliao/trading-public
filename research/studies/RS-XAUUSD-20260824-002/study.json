@@ -76,7 +76,6 @@
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "CFTC positioning, with the report's own publication lag used as a placebo control.",
-  "summary_zh": "CFTC 部位資料，用報告本身的公布時差當安慰劑對照。報告週二結算週五公布，中間三天早就走完——那三天是對照組。14 個假設中兩個視窗的相關性只有 0.091。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

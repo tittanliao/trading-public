@@ -72,7 +72,6 @@
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Testing a win-rate selection rule on 274 weeks: what it picks, and what it costs.",
-  "summary_zh": "在 274 週真實資料上測試「勝率 >50% 就是 alpha」這個選股標準。基準線本身在前後半段從 45.6% 移到 54.3%，所以同一條 50% 線在兩段意義相反。共識條件確實把勝率拉到 62.5%，但總報酬是負的。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
