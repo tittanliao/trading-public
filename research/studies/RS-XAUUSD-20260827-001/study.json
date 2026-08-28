@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260827-001",
+  "revision": 1,
+  "title": "Position sizing for monthly gold-futures accumulation — when a backtest answers with the top of the tested range",
+  "market": "XAUUSD",
+  "strategy": "none — 1OZ futures accumulation and position sizing",
+  "status": "progress",
+  "created_on": "2026-08-27",
+  "question": "Four monthly buys of gold futures from September, held to the following March: which leverage survives, and does the historical answer or the arithmetic one govern?",
+  "hypothesis": "The backtest will clear every tested size because the September window has never contained a large drawdown, and that is a fact about eighteen samples rather than about the calendar.",
+  "headline": {
+    "cycles": 18,
+    "leverage_backtest_permits": 4.34,
+    "leverage_arithmetic_permits": 2.48,
+    "worst_trough_vs_cost_pct": -14.18,
+    "worst_equity_drawdown_pct_at_2_5x": 37.09,
+    "share_of_all_windows_past_minus_19_pct": 6.46,
+    "months_that_separate": 0,
+    "roll_cost_excluded": true
+  },
+  "card_metrics": [
+    "cycles",
+    "leverage_arithmetic_permits",
+    "leverage_backtest_permits",
+    "share_of_all_windows_past_minus_19_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The question as usually asked answers with the top of the tested range",
+      "detail": "\"The largest size with a zero margin-call rate\" cannot be answered by eighteen September-to-March cycles whose worst trough against average cost is -14.18%, because the tightest margin trigger among the sizes tested is -18.96%. Every size clears, so the answer is whatever the range topped out at — 4.34x leverage here, and it would have been higher had higher been tested. That is a fact about eighteen draws, not about the calendar."
+    },
+    {
+      "tone": "good",
+      "title": "The arithmetic gives a different answer and it is the one that governs",
+      "detail": "Gold fell 29.44% between January and June 2026, the largest fall in the daily record. Margin call arrives at -28.17% at 3.1x leverage and -22.8% at 3.72x, so only 2.48x and below survive a repeat: its trigger is -36.24%. The fall happened outside the September build window, which is exactly why the backtest does not see it and cannot be used to rule it out."
+    },
+    {
+      "tone": "warn",
+      "title": "Surviving margin and surviving the holder are different sizes",
+      "detail": "Two drawdowns are reported and they are not the same quantity. Trough against average cost is what margin tests, because maintenance compares equity to a requirement and equity is price minus cost. Peak-to-trough on the equity curve is larger and is what the position felt like: 37.09% at 2.48x leverage, and the worst case is a cycle that finished 20% up. It built near 3,900, rode gold to 5,597 in January and exited at 4,683, giving back a quarter of the account from its high on the way."
+    },
+    {
+      "tone": "info",
+      "title": "The seasonal premise is half backwards, and unresolvable in either direction",
+      "detail": "A December-to-March seasonal strength is often asserted. December and January are the strong pair; February and March are the two weakest months of the year, so holding to end-March captures January and then sits through both. But no month separates: 47 observations against a resolvable gap of about 21 percentage points, with the strongest month 11.7 points clear of the rest. The claim is neither supported nor refuted, and exit timing is reported as a parameter with its bound rather than as a recommendation."
+    },
+    {
+      "tone": "warn",
+      "title": "Roll cost is excluded, and it is the largest omission",
+      "detail": "Carry on a 4,650 contract at prevailing rates puts a two-month roll near $36 an ounce while the front-month basis measurable here is $1 to $3 — and that basis is not the calendar spread, so it cannot settle the question. Two to three rolls sit between September and March. Against a mean cycle return of 6.2% of capital the difference between a token roll cost and a carry-implied one is most of the profit, so every figure here is optimistic and the leverage ceiling is an upper bound."
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "Four monthly buys of gold futures held to March. The backtest clears every size tested because eighteen September cycles never met a large drawdown; the arithmetic stops well short.",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
