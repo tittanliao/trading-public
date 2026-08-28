@@ -13,26 +13,39 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 WEEKLY_SOURCES = sorted((ROOT / "xauusd/weekly").glob("*/summary.json"))
-GENERATED_PAGES = [
-    ROOT / "index.html",
-    ROOT / "xauusd/index.html",
-    ROOT / "tx/index.html",
-    ROOT / "research/index.html",
-] + [
-    # Pages that exist only when their source data does. Listed conditionally rather than
-    # unconditionally: the glossary and the null registry are generated from optional
-    # inputs, and a hard entry would fail the check on a checkout that lacks them. Both
-    # went live once without being checked at all, which is how a 404 stayed invisible.
-    page for page in (
-        ROOT / "glossary/index.html",
-        ROOT / "lessons/index.html",
-        ROOT / "research/null-results/index.html",
-    ) if page.is_file()
-] + sorted((ROOT / "research/studies").glob("*/index.html")) + [
-    source.parent / "index.html" for source in WEEKLY_SOURCES
+def _english_pages() -> list[Path]:
+    return [
+        ROOT / "index.html",
+        ROOT / "xauusd/index.html",
+        ROOT / "tx/index.html",
+        ROOT / "research/index.html",
+    ] + [
+        # Pages that exist only when their source data does. Listed conditionally rather
+        # than unconditionally: jargon and the null registry are generated from optional
+        # inputs, and a hard entry would fail the check on a checkout that lacks them. Both
+        # went live once without being checked at all, which is how a 404 stayed invisible.
+        page for page in (
+            ROOT / "jargon/index.html",
+            ROOT / "lessons/index.html",
+            ROOT / "research/null-results/index.html",
+        ) if page.is_file()
+    ] + sorted((ROOT / "research/studies").glob("*/index.html")) + [
+        source.parent / "index.html" for source in WEEKLY_SOURCES
+    ] + ([ROOT / "xauusd/weekly/index.html"] if WEEKLY_SOURCES else [])
+
+
+# The bilingual mirror at zh/ is structurally identical to the English tree (see
+# apply_lang_switches in site/build.py), except it omits xauusd/weekly/* — a separate,
+# untranslated pipeline — and includes jargon/ as an identical, already-bilingual copy.
+# Every check below runs over both trees, because a leak or a broken link is exactly as
+# real on a Chinese page as on an English one.
+GENERATED_PAGES = _english_pages()
+GENERATED_PAGES += [
+    ROOT / "zh" / page.relative_to(ROOT)
+    for page in GENERATED_PAGES
+    if not str(page.relative_to(ROOT)).startswith("xauusd/weekly")
+    and (ROOT / "zh" / page.relative_to(ROOT)).is_file()
 ]
-if WEEKLY_SOURCES:
-    GENERATED_PAGES.append(ROOT / "xauusd/weekly/index.html")
 PROHIBITED_SUFFIXES = {".csv", ".doc", ".docx", ".xls", ".xlsx"}
 PROHIBITED_EXACT = {"data/logs.json", "xauusd/signal_status.json"}
 WEEKLY_KEYS = {

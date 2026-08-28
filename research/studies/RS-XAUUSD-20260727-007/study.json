@@ -23,27 +23,39 @@
     {
       "tone": "good",
       "title": "Higher WR and PF than V1.9 on a smaller sample",
-      "detail": "WR 47.13% (+6.06pp vs V1.9), PF 2.047 (+0.512 vs V1.9), on 157 trades vs V1.9's 224 — fewer signals, better quality per signal."
+      "detail": "WR 47.13% (+6.06pp vs V1.9), PF 2.047 (+0.512 vs V1.9), on 157 trades vs V1.9's 224 — fewer signals, better quality per signal.",
+      "title_zh": "樣本較小，但勝率與獲利因子都比 V1.9 高",
+      "detail_zh": "勝率 47.13%（比 V1.9 高 6.06 個百分點），獲利因子 2.047（比 V1.9 高 0.512），樣本 157 筆，少於 V1.9 的 224 筆——訊號變少了，但每個訊號的品質變好了。"
     },
     {
       "tone": "warn",
       "title": "time_bleed remains the dominant fail type",
-      "detail": "48 of 83 losses (57.8%) are time_bleed, even more concentrated than V1.9's 53.8% — losses still drag rather than fail instantly under V3.2's Hammer-candle entry rule."
+      "detail": "48 of 83 losses (57.8%) are time_bleed, even more concentrated than V1.9's 53.8% — losses still drag rather than fail instantly under V3.2's Hammer-candle entry rule.",
+      "title_zh": "time_bleed 仍是最主要的虧損型態",
+      "detail_zh": "83 筆虧損裡有 48 筆（57.8%）屬於 time_bleed，比 V1.9 的 53.8% 更集中——在 V3.2 的 錘子線進場規則下，虧損仍然是慢慢磨掉，不是立刻打掉停損。"
     },
     {
       "tone": "good",
       "title": "MTF counter-trend penalty nearly disappeared",
-      "detail": "4H-bearish counter-trend WR 46.15% vs 47.62% aligned (1.47pp gap, near noise) — down from V1.9's 4.76pp. The Hammer-candle entry appears less sensitive to 4H trend state than the Pullback entry was."
+      "detail": "4H-bearish counter-trend WR 46.15% vs 47.62% aligned (1.47pp gap, near noise) — down from V1.9's 4.76pp. The Hammer-candle entry appears less sensitive to 4H trend state than the Pullback entry was.",
+      "title_zh": "多時框逆勢的懲罰幾乎消失了",
+      "detail_zh": "4 小時偏空逆勢的勝率 46.15%，順勢是 47.62%（差距 1.47 個百分點，接近雜訊）——比 V1.9 的 4.76 個百分點小很多。錘子線進場看起來對 4 小時趨勢狀態的敏感度，比之前的回踩進場低。"
     },
     {
       "tone": "warn",
       "title": "Sample size is the binding limitation",
-      "detail": "157 trades total means most subgroup cells (fail-type, BB zone, DXY bucket, MTF state) are low-n; OOS confidence for V3.2 remains limited. Treat every context table here as descriptive, not as grounds for a new hard rule."
+      "detail": "157 trades total means most subgroup cells (fail-type, BB zone, DXY bucket, MTF state) are low-n; OOS confidence for V3.2 remains limited. Treat every context table here as descriptive, not as grounds for a new hard rule.",
+      "title_zh": "樣本數是主要限制",
+      "detail_zh": "總共 157 筆交易，代表大部分子分組（失敗型態、BB 區間、DXY 分桶、多時框狀態）樣本數都很少；V3.2 的樣本外信心本來就有限。這裡的每一張脈絡表都應該當成描述性資訊，不能拿來訂新的硬性規則。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "How S2 V3.2 loses: 47% win rate at profit factor 2.05 is the shape, not a defect.",
+  "title_zh": "S2-Hammer V3.2——fail-pattern 報告（30 分鐘合約）",
+  "question_zh": "依照標準的 30 分鐘 fail-pattern 報告規範，目前正式運作的 S2-Hammer V3.2，在 fail-pattern、30 分鐘時段、BB／DXY／多時框脈絡幾個角度分別看起來是什麼樣子？",
+  "hypothesis_zh": "這是針對目前正式版本 S2 的完整覆蓋 fail-pattern 重現，不是單一假設檢定；它是 RS-XAUUSD-20260727-008 差異報告裡 V3.2 那一半。",
+  "card_summary_zh": "S2 V3.2 怎麼輸：47% 勝率、獲利因子 2.05，這是它的正常形態，不是缺陷。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

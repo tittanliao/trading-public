@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260825-001",
+  "revision": 1,
+  "title": "Do S1 and S2 work better in some market states than others?",
+  "market": "XAUUSD",
+  "strategy": "none — regime classification over the existing S1 and S2",
+  "status": "progress",
+  "created_on": "2026-08-25",
+  "question": "Not a search for a new signal: a test of whether the two signals that already exist perform differently in identifiable market states, at three time scales, each against the strategy's own unconditional baseline.",
+  "hypothesis": "If any scale carries a usable state, its cells separate by more than the resolution bound and survive a family correction.",
+  "headline": {
+    "state_variables": 10,
+    "cells_that_separate": 0,
+    "cells_worth_more_trades": 7,
+    "s1_trades": 472,
+    "s2_trades": 167,
+    "s1_baseline_win_rate_pct": 55.93,
+    "s2_baseline_win_rate_pct": 47.9,
+    "best_candidate": "S2 Asian session",
+    "best_candidate_gap_pct_points": -15.28,
+    "best_candidate_bound_pct_points": 22.73,
+    "best_candidate_trades_needed": 370,
+    "worst_family_p": 0.9735
+  },
+  "card_metrics": [
+    "state_variables",
+    "cells_that_separate",
+    "best_candidate_gap_pct_points",
+    "best_candidate_trades_needed"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Nothing separates at any of the three scales",
+      "detail": "Ten state variables across intraday, swing and macro, scored on S1's 472 trades and S2's 167, each against the same strategy's unconditional baseline. Zero cells clear their resolution bound and permutation. Family p by scale runs 0.721 to 0.9735 for S1 and 0.54 to 0.6955 for S2. The Hurst state machine that prompted this study is among them: S1 in a trending regime wins 52.00% against 58.53% in a random walk, the opposite of what a trend gate predicts, and inside its bound either way.",
+      "title_zh": "三個尺度上都沒有任何一個分離開來",
+      "detail_zh": "日內、波段、總經三個尺度共十個狀態變數，分別對 S1 的 472 筆與 S2 的 167 筆交易評分，每個都對照同一個策略自己不分狀態時的基準。沒有任何一格同時通過解析下限與置換檢定。S1 各尺度的族群 p 值介於 0.721 到 0.9735，S2 介於 0.54 到 0.6955。促成這份研究的 Hurst 狀態機也在其中：S1 在趨勢盤裡勝率 52.00%，在隨機漫步盤裡反而是 58.53%——跟趨勢開關的預測方向相反，而且不管哪一種都在解析下限之內。"
+    },
+    {
+      "tone": "good",
+      "title": "For the first time, a candidate points the same way on win rate and on money",
+      "detail": "S2 in the Asian session takes 34.73% of the trades and returns 14.53% of the profit: win rate -15.28 points below the rest, mean return -0.4986% below. New York is the mirror — 38.32% of trades, 56.69% of return. Every prior candidate in this programme moved win rate and return in opposite directions; the take-profit ladder, the %B filter and the consensus count all bought win-rate points and sold return. This one does not, and the mechanism is at least coherent: S2 is a reversal strategy and the Asian session is its thinnest tape.",
+      "title_zh": "第一次，有一個候選在勝率與金額上指向同一個方向",
+      "detail_zh": "S2 在亞盤佔了 34.73% 的交易，卻只拿到 14.53% 的報酬：勝率比其餘時段低 15.28 個百分點，平均報酬低 0.4986%。紐約盤剛好相反——佔 38.32% 的交易，卻拿到 56.69% 的報酬。這個計畫裡之前每一個候選都是勝率與報酬往相反方向移動——停利階梯、%B 過濾器、共識計數都是用報酬換勝率。這一個沒有，而且機制至少講得通：S2 是反轉策略，亞盤是它最清淡的時段。"
+    },
+    {
+      "tone": "warn",
+      "title": "It is still inside the bound, and the shortfall is measured in years",
+      "detail": "The Asian-session gap is 15.28 points against a bound of 22.73 — 167 trades would need roughly 23 points to see anything. Resolving the gap actually observed takes about 370 S2 trades. At the rate this strategy fires, roughly 64 a year, that is another three years or so. Every S1 cell is further away still: its nearest needs about 1,400 trades against the 472 it has. This is not a null to file and forget; it is a number that says when the question can be answered.",
+      "title_zh": "它仍然在下限之內，而且差多少年才能定案是算得出來的",
+      "detail_zh": "亞盤這個差距是 15.28 個百分點，下限是 22.73——167 筆交易大概要看到 23 個百分點的差距才能分辨。要解析出實際觀察到的這個差距，大約需要 370 筆 S2 交易。以這個策略現在大約一年 64 筆的頻率，還要再等三年左右。每一個 S1 的格子距離更遠：最近的那格也要大約 1,400 筆，現有的只有 472 筆。這不是一個歸檔了事的「沒有」，是一個講清楚「什麼時候能有答案」的數字。"
+    },
+    {
+      "tone": "warn",
+      "title": "Two of the eleven state variables were the same variable",
+      "detail": "Bollinger band width and realised volatility assigned 99.70% of bars to the same bucket, because width is 2 x rolling sd x close / rolling mean and that last ratio sits at 1. They produced identical cells to four decimal places, which is what exposed it. Two names for one variable inflate the denominator of a family correction and let one coincidence read as two independent hits. Band width is removed; the count in this study is ten, not eleven.",
+      "title_zh": "十一個狀態變數裡有兩個其實是同一個變數",
+      "detail_zh": "布林通道寬度跟已實現波動率把 99.70% 的 K 棒分到同一個桶，因為通道寬度算出來是 2 倍滾動標準差乘以收盤價再除以滾動均價，而後面那個比值幾乎恆等於 1。兩者算出來的格子數字精確到小數點後四位都一樣，這正是抓到問題的原因。同一個變數取兩個名字，會膨脹族群校正的分母，讓一個巧合看起來像兩個獨立的命中。通道寬度已經拿掉，這份研究裡的變數數是十個，不是十一個。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "Ten market states at three time scales against S1 and S2. Nothing separates — but the strongest candidate is the first in this programme to move win rate and return the same way, and it carries the trade count that would settle it.",
+  "title_zh": "S1 和 S2 在某些市場狀態下表現比較好嗎？——以及一個讓重寫這件事停下來的套件",
+  "question_zh": "不是在找新訊號：這是在測試已經存在的兩個訊號，在三個時間尺度上、在可辨識的市場狀態下表現有沒有差別，每一格都對照那個策略自己不分狀態時的基準表現。",
+  "hypothesis_zh": "如果任何一個尺度真的帶有可用的狀態，它的格子分離幅度會超過解析下限，而且撐得過族群校正。",
+  "card_summary_zh": "十個市場狀態、三個時間尺度，對照 S1 與 S2。沒有一個分離開來——但最強的候選是這個計畫裡第一個讓勝率與報酬同方向移動的候選，而且它附帶了「要多少樣本才能定案」的數字。",
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

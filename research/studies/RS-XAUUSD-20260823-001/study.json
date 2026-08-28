@@ -45,62 +45,88 @@
     {
       "tone": "good",
       "title": "The intraday range profile is real, and it is not the arcsine of a random walk",
-      "detail": "Against a null that shuffles each session's own bar-to-bar changes and rebuilds the path — preserving that day's realised volatility, its bar count and the arcsine geometry — the observed profile's family permutation p is 0.005 in all three periods, the resolution floor at 200 shuffles. The largest |z| is 9.07 on train and 4.62 on holdout against a null median near 1.9. Thirty-two of 48 half-hour slots are sign-consistent across all three periods against 12 expected by chance, and 10 of them clear |z|>2 in every period."
+      "detail": "Against a null that shuffles each session's own bar-to-bar changes and rebuilds the path — preserving that day's realised volatility, its bar count and the arcsine geometry — the observed profile's family permutation p is 0.005 in all three periods, the resolution floor at 200 shuffles. The largest |z| is 9.07 on train and 4.62 on holdout against a null median near 1.9. Thirty-two of 48 half-hour slots are sign-consistent across all three periods against 12 expected by chance, and 10 of them clear |z|>2 in every period.",
+      "title_zh": "日內區間輪廓是真的，而且不是隨機漫步的反正弦分布",
+      "detail_zh": "虛無假設是打散每個交易日自己的逐根變動再重建路徑——保留當天的已實現波動率、K棒數量與反正弦幾何——觀察到的輪廓在三個時期的族群置換 p 值都是 0.005，這是打散 200 次能到達的解析下限。最大 |z| 在訓練集是 9.07、留存集是 4.62，對照虛無分布中位數只有 1.9。48 個半小時時段裡有 32 個在三個時期符號都一致，遠高於純屬巧合預期的 12 個，其中 10 個在每個時期都達到 |z|>2。"
     },
     {
       "tone": "good",
       "title": "Ten half hours carry consistently more or less range than chance",
-      "detail": "More: 09:00 Taipei (z 7.07 / 5.54 / 5.92), and the block 20:30 through 23:00. Less: 10:00, 12:00 and 12:30, the Taipei lunch window. 09:00 is the single strongest non-boundary slot at 7.32% of the average day's range. This is the intraday volatility profile at 30-minute resolution, and it says nothing about direction."
+      "detail": "More: 09:00 Taipei (z 7.07 / 5.54 / 5.92), and the block 20:30 through 23:00. Less: 10:00, 12:00 and 12:30, the Taipei lunch window. 09:00 is the single strongest non-boundary slot at 7.32% of the average day's range. This is the intraday volatility profile at 30-minute resolution, and it says nothing about direction.",
+      "title_zh": "有十個半小時時段，區間份額持續高於或低於機率預期",
+      "detail_zh": "偏高：台北 09:00（z 為 7.07／5.54／5.92），以及 20:30 到 23:00 這一整段。偏低：10:00、12:00 與 12:30，也就是台北的午休時段。09:00 是唯一一個非邊界時段裡最強的一格，佔平均一天區間的 7.32%。這是 30 分鐘解析度的日內波動輪廓，完全不涉及方向。"
     },
     {
       "tone": "warn",
       "title": "The busiest US half hour moves one hour twice a year, and a fixed Taipei clock is wrong by 5x when it does",
-      "detail": "The peak of the US block is 08:30 ET, the standard macro release time. On the Taipei clock that is 20:30 when US DST is on and 21:30 when it is off. Taipei 20:30 carries 4.51% of the day's range during DST and 0.88% outside it — a factor of five in the same clock slot. Aligning the US window to the New York clock sharpens its peak (4.81% vs 4.43%). Any profile read off a fixed Taipei clock averages two different markets for a third of the year."
+      "detail": "The peak of the US block is 08:30 ET, the standard macro release time. On the Taipei clock that is 20:30 when US DST is on and 21:30 when it is off. Taipei 20:30 carries 4.51% of the day's range during DST and 0.88% outside it — a factor of five in the same clock slot. Aligning the US window to the New York clock sharpens its peak (4.81% vs 4.43%). Any profile read off a fixed Taipei clock averages two different markets for a third of the year.",
+      "title_zh": "美盤最忙的那個半小時，一年會移動一小時兩次，固定台北時鐘在那時候會錯 5 倍",
+      "detail_zh": "美盤那一段的高峰在美東時間 08:30，也就是標準總經數據公布時間。換算台北時鐘，夏令時間是 20:30、非夏令時間是 21:30。台北 20:30 這一格，在夏令時間佔當天區間 4.51%，非夏令時間只佔 0.88%——同一個時鐘格差了五倍。改用紐約時鐘去對齊美盤窗口，高峰反而更銳利（4.81% 對 4.43%）。任何用固定台北時鐘讀出來的輪廓，有三分之一的時間其實是在把兩個不同的市場平均在一起。"
     },
     {
       "tone": "warn",
       "title": "The shape is stable and the level is not",
-      "detail": "Increment Spearman across periods is 0.877 to 0.919 and every weekday reproduces the same shape at 0.91 to 0.97. But the share completed by 09:30 rose from 27.2% in 2024Q1 to 39.5% in 2026Q3, Spearman 0.873 against time, and the largest level gap between train and holdout is 12.23 points. A threshold memorised from the pooled profile understates the morning by roughly a fifth of the day's range."
+      "detail": "Increment Spearman across periods is 0.877 to 0.919 and every weekday reproduces the same shape at 0.91 to 0.97. But the share completed by 09:30 rose from 27.2% in 2024Q1 to 39.5% in 2026Q3, Spearman 0.873 against time, and the largest level gap between train and holdout is 12.23 points. A threshold memorised from the pooled profile understates the morning by roughly a fifth of the day's range.",
+      "title_zh": "形狀是穩定的，水位不是",
+      "detail_zh": "各時期之間的逐格增量 Spearman 相關是 0.877 到 0.919，每個星期幾也都重現同樣的形狀，相關在 0.91 到 0.97 之間。但到 09:30 為止已完成的份額，從 2024 Q1 的 27.2% 升到 2026 Q3 的 39.5%，對時間的 Spearman 相關 0.873，訓練集與留存集之間最大的水位差距達 12.23 個百分點。用合併樣本記住的門檻，會把早盤低估掉大約當天區間的五分之一。"
     },
     {
       "tone": "good",
       "title": "The rise in the Asian share is a time trend, not a volatility artefact, and the obvious test says the opposite",
-      "detail": "Quarterly Asian share correlates with quarterly mean range at Spearman 0.936, which reads as the volatility regime explaining everything — gold's daily range went from $25 to $174 over the sample. Sorting sessions by their own range instead of by date reverses it: inside the first half of the sample, large-range days complete 28.1% by 09:30 against 35.9% for small-range days, and inside the second half 38.8% against 42.6%. The sign flips in both halves, so the pooled correlation is Simpson's paradox and the calendar trend survives."
+      "detail": "Quarterly Asian share correlates with quarterly mean range at Spearman 0.936, which reads as the volatility regime explaining everything — gold's daily range went from $25 to $174 over the sample. Sorting sessions by their own range instead of by date reverses it: inside the first half of the sample, large-range days complete 28.1% by 09:30 against 35.9% for small-range days, and inside the second half 38.8% against 42.6%. The sign flips in both halves, so the pooled correlation is Simpson's paradox and the calendar trend survives.",
+      "title_zh": "亞盤份額上升是時間趨勢，不是波動率造成的假象——而且直接的檢驗結果剛好相反",
+      "detail_zh": "逐季的亞盤份額跟逐季平均區間的 Spearman 相關高達 0.936，看起來像是波動率體制解釋了一切——黃金的日均區間在樣本期間從 25 美元漲到 174 美元。但改成依每個交易日自己的區間排序而不是依日期排序，結果就反過來了：在樣本前半段，區間大的日子到 09:30 只完成 28.1%，區間小的日子完成 35.9%；在樣本後半段，分別是 38.8% 對 42.6%。符號在前後兩半都反過來，所以合併起來的那個相關是辛普森悖論，而日曆趨勢本身是撐得住的。"
     },
     {
       "tone": "good",
       "title": "A busy Asian morning does not mean more is coming",
-      "detail": "Sorted into terciles by morning range against the trailing 20-session median, a busy morning goes with a bigger full day (median ratio 1.234 against 0.888) at Spearman 0.369 — but the rest of the day is flat across all three terciles at 0.68, 0.60 and 0.63, and Spearman between morning and rest-of-day is -0.074. The morning predicts the day only because it is part of it. It carries no information about what is left."
+      "detail": "Sorted into terciles by morning range against the trailing 20-session median, a busy morning goes with a bigger full day (median ratio 1.234 against 0.888) at Spearman 0.369 — but the rest of the day is flat across all three terciles at 0.68, 0.60 and 0.63, and Spearman between morning and rest-of-day is -0.074. The morning predicts the day only because it is part of it. It carries no information about what is left.",
+      "title_zh": "亞盤早上忙，不代表接下來會更忙",
+      "detail_zh": "依早盤區間對照過去 20 個交易日中位數分成三等分後，早盤忙的那組確實對應全天區間較大（中位數比值 1.234 對 0.888），Spearman 相關 0.369——但當天剩餘時間在三組裡幾乎一樣平（0.68、0.60、0.63），早盤與剩餘時間之間的 Spearman 相關只有 -0.074。早盤能預測全天，只是因為它本來就是全天的一部分。它對「剩下的部分」完全沒有預測力。"
     },
     {
       "tone": "good",
       "title": "After 23:30 Taipei, the median day is finished",
-      "detail": "Median residual range after 23:30 is 0.0% in every period: on more than half of sessions no new extreme arrives after that. Mean residual after 02:30 is 2.9% to 4.0%, and a new daily extreme still appears on 23.7% to 26.7% of sessions — small but not zero, so this is a probability statement and not a curfew."
+      "detail": "Median residual range after 23:30 is 0.0% in every period: on more than half of sessions no new extreme arrives after that. Mean residual after 02:30 is 2.9% to 4.0%, and a new daily extreme still appears on 23.7% to 26.7% of sessions — small but not zero, so this is a probability statement and not a curfew.",
+      "title_zh": "台北 23:30 之後，中位數的一天已經走完了",
+      "detail_zh": "23:30 之後的剩餘區間中位數在每個時期都是 0.0%：超過一半的交易日，那之後不會再出現新極值。02:30 之後的平均剩餘區間是 2.9% 到 4.0%，而且仍有 23.7% 到 26.7% 的交易日會出現新的當日極值——不多，但不是零，所以這是機率陳述，不是宵禁。"
     },
     {
       "tone": "warn",
       "title": "Range accumulates ahead of volume, so the profile is not simply session participation",
-      "detail": "Cumulative range runs 15.2 to 18.3 points ahead of cumulative volume through the day, and the per-slot share correlation between the two is only 0.40 to 0.53. The largest single divergence is the 07:00 session open, where range takes 10 to 14 points more share than volume does. Whatever produces the profile, 'more people are trading' is not a sufficient description of it."
+      "detail": "Cumulative range runs 15.2 to 18.3 points ahead of cumulative volume through the day, and the per-slot share correlation between the two is only 0.40 to 0.53. The largest single divergence is the 07:00 session open, where range takes 10 to 14 points more share than volume does. Whatever produces the profile, 'more people are trading' is not a sufficient description of it.",
+      "title_zh": "區間的累積跑在成交量前面，所以這個輪廓不能只用「參與的人變多」來解釋",
+      "detail_zh": "累積區間比累積成交量領先 15.2 到 18.3 個百分點，兩者逐格份額的相關只有 0.40 到 0.53。差距最大的單一時點是 07:00 盤開，區間佔的份額比成交量多出 10 到 14 個百分點。不管是什麼東西造成了這個輪廓，「交易的人變多了」不足以完整描述它。"
     },
     {
       "tone": "warn",
       "title": "The first null was wrong and would have produced a confident false finding",
-      "detail": "Permuting whole bars into different slots moves each bar's absolute price level with it, so a bar from the session high can land beside one from the session low and the entire range appears inside the first hour. That null completes 39.0% by 07:30 against an observed 20.0%, sits above the observed profile at every slot, and returns |z| up to 85. It is retained in results.json as a rejected null because the failure is instructive: a null must preserve the path, not just the ingredients."
+      "detail": "Permuting whole bars into different slots moves each bar's absolute price level with it, so a bar from the session high can land beside one from the session low and the entire range appears inside the first hour. That null completes 39.0% by 07:30 against an observed 20.0%, sits above the observed profile at every slot, and returns |z| up to 85. It is retained in results.json as a rejected null because the failure is instructive: a null must preserve the path, not just the ingredients.",
+      "title_zh": "第一個虛無假設設計錯了，而且會做出一個看起來很有信心的假發現",
+      "detail_zh": "把整根 K 棒隨機換到不同時段，會把每根棒子的絕對價位一起帶走，所以來自當天最高點的棒子可能被換到當天最低點旁邊，整個區間看起來就像是在第一個小時內全部走完。這個虛無假設到 07:30 就完成了 39.0%（觀察值只有 20.0%），在每一格都高於觀察到的輪廓，|z| 最高到 85。它被保留在 results.json 裡標成「被拒絕的虛無假設」，因為這個失敗本身有教育意義：虛無假設必須保留路徑，不是只保留材料。"
     },
     {
       "tone": "warn",
       "title": "Spearman on a cumulative curve is always 1.0 and proves nothing",
-      "detail": "Every cumulative profile is monotone, so any two of them rank-correlate perfectly. The first version of this study reported 1.0 for period stability, weekday stability, DST stability and the range-versus-volume screen, and all four numbers were vacuous. Every shape comparison here runs on per-slot increments instead, where the same four comparisons return 0.877 to 0.919, 0.914 to 0.966, 0.867 and 0.40 to 0.53."
+      "detail": "Every cumulative profile is monotone, so any two of them rank-correlate perfectly. The first version of this study reported 1.0 for period stability, weekday stability, DST stability and the range-versus-volume screen, and all four numbers were vacuous. Every shape comparison here runs on per-slot increments instead, where the same four comparisons return 0.877 to 0.919, 0.914 to 0.966, 0.867 and 0.40 to 0.53.",
+      "title_zh": "累積曲線上算 Spearman 永遠是 1.0，什麼都證明不了",
+      "detail_zh": "每一條累積輪廓都是單調遞增的，所以任兩條累積曲線的等級相關必然是完美的 1.0。這份研究的第一版曾經拿這個數字去報告時期穩定性、星期幾穩定性、夏令時間穩定性，以及區間對成交量的檢驗，四個數字全部是空的。現在這裡的每一個形狀比較都改用逐格增量，同樣四項比較分別變成 0.877 到 0.919、0.914 到 0.966、0.867，以及 0.40 到 0.53。"
     },
     {
       "tone": "info",
       "title": "Monday front-loads and Friday does not",
-      "detail": "Monday completes 45.3% of its range by 09:30 against 33.2% for Friday, with the same profile shape (increment Spearman 0.96 against all days). The weekend gap is absorbed in Monday's Asian morning. Mean daily range barely differs across weekdays ($64.79 to $70.50), so this is redistribution within the day rather than a busier day."
+      "detail": "Monday completes 45.3% of its range by 09:30 against 33.2% for Friday, with the same profile shape (increment Spearman 0.96 against all days). The weekend gap is absorbed in Monday's Asian morning. Mean daily range barely differs across weekdays ($64.79 to $70.50), so this is redistribution within the day rather than a busier day.",
+      "title_zh": "週一前段填得快，週五不會",
+      "detail_zh": "週一到 09:30 已完成 45.3% 的區間，週五只有 33.2%，但兩者的輪廓形狀相同（逐格增量對所有星期幾的 Spearman 相關都是 0.96）。週末累積的缺口在週一亞盤早上被吸收掉了。平均日區間在星期幾之間差異很小（64.79 到 70.50 美元），所以這是同一天內部的重新分配，不是那天本身比較忙。"
     }
   ],
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "How the daily range fills across the Taipei clock — and why a fixed clock is the wrong axis.",
+  "title_zh": "XAUUSD 日內區間累積——形狀站得住，時鐘會移動，而且水位不是固定的",
+  "question_zh": "RS-XAUUSD-20260819-001 確立了日內極值何時形成。這裡把它延伸到價格型態而不是 alpha：日內區間在台北時區的每個 30 分鐘刻度上是怎麼累積的、這個輪廓跟同一天報酬的隨機漫步有沒有不同，以及它穩不穩定到可以直接從圖上讀出來。",
+  "hypothesis_zh": "這個輪廓是真的，但它能用的形式比看起來窄——具體來說，固定的台北時鐘是錯的座標軸，而且這個輪廓的水位不是恆定的。",
+  "card_summary_zh": "日內區間怎麼在台北時鐘上填滿——以及為什麼固定時鐘是錯的座標軸。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

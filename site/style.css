@@ -119,6 +119,8 @@ table[data-sortable] td a:hover { color: var(--cyan); text-decoration: underline
 .version-switch { display: flex; justify-content: flex-end; padding-top: 10px; }
 .version-switch a { color: var(--muted); font-size: .78rem; text-decoration: none; border-bottom: 1px dotted var(--line); }
 .version-switch a:hover { color: var(--cyan); border-color: var(--cyan); }
+.version-switch a.lang-switch { font-weight: 700; color: var(--text); border-bottom-style: solid; }
+.version-switch a.lang-switch:hover { color: var(--cyan); }
 
 /* Generic study rendering. These pages have no bespoke layout, so the shape of the data
    has to do the work: a two-column grid for scalar blocks, and a heading before every

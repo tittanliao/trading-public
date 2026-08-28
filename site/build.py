@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -21,7 +22,244 @@ GENERATED = {
     Path("research/index.html"),
     Path("site/catalog.json"),
 }
-EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__"}
+
+
+# ---------------------------------------------------------------------------
+# Bilingual chrome. English is the default tree (unprefixed, unchanged paths);
+# Chinese is a structurally identical mirror under /zh/. Everything in this dict is site
+# chrome the author wrote directly, so it is translated in full here. Study content
+# (title, question, findings, limitations) carries its own optional `_zh` fields on
+# study.json and falls back to English when a study has not been translated yet — this
+# is deliberately incremental, translated one study at a time rather than all at once.
+# ---------------------------------------------------------------------------
+
+LANG_SWITCH_TOKEN = "__LANG_SWITCH_HREF__"
+
+CHROME = {
+    "en": {
+        "nav.home": "Home",
+        "nav.xauusd": "XAUUSD",
+        "nav.tx": "TX",
+        "nav.lessons": "What Didn’t Work",
+        "nav.jargon": "Jargon",
+        "lang_switch_label": "中文",
+        "footer": "Generated from reviewed repository contents. Research evidence, not "
+                  "trading advice.",
+        "untranslated_notice": (
+            "This study's detailed analysis has not been translated to Chinese yet. "
+            "Titles, questions and findings above are translated; the tables and "
+            "narrative below are the English original."
+        ),
+        "home.title": "Trading Research",
+        "home.eyebrow": "Public workspace",
+        "home.lede": "What to check when a signal fires, and what has already been "
+                    "ruled out.",
+        "home.what_you_trade": "What you trade",
+        "home.reference": "Reference",
+        "home.signal_fired": "Signal fired",
+        "home.xauusd_title": "XAUUSD Gold",
+        "home.xauusd_desc": "Before an entry: the historical win rate by Bollinger "
+                            "position, how much of the day's range is left, and what "
+                            "has already been ruled out.",
+        "home.studies_unit": "studies",
+        "home.second_instrument": "Second instrument",
+        "home.tx_title": "TX Taiwan Index Futures",
+        "home.tx_desc": "Only preliminary work on seasonality and pullback structure "
+                        "so far. Nothing at the signal layer yet.",
+        "home.lessons_desc_tpl": "{n} hypotheses tested, {survived} survived. Knowing "
+                                "what not to try again is itself something to decide "
+                                "with.",
+        "home.jargon_desc": "The site is in English. This defines every technical "
+                            "term once, in Chinese, so it stays readable.",
+        "home.weekly_title": "Weekly Report",
+        "home.weekly_desc": "Key levels, scenarios and event risk, week by week.",
+        "home.what_this_site_is": "What this site is",
+        "home.what_this_site_p1": "The public half of a trading research programme. "
+                                 "It does not give advice and it does not argue about "
+                                 "which strategies work — it records which questions "
+                                 "were asked, what the answer was, and how much that "
+                                 "answer can be trusted.",
+        "home.what_this_site_p2": "Most of the answers are no.",
+        "home.weekly_published_tpl": "{week} outlook published",
+        "home.no_weekly": "no weekly published yet",
+        "home.card_reference": "Reference",
+        "xauusd.eyebrow": "Gold",
+        "xauusd.lede": "What to check when a signal fires, this week's outlook, and "
+                      "every gold study.",
+        "xauusd.this_week": "This week",
+        "xauusd.studies_heading": "XAUUSD studies",
+        "xauusd.filter_placeholder": "Filter XAUUSD studies",
+        "xauusd.no_weekly_yet": "No reviewed weekly outlook published yet.",
+        "section.filter_placeholder": "Filter studies",
+        "section.studies_heading_tpl": "{market} studies",
+        "playbook.start_here": "A signal fired — start here",
+        "playbook.nothing_yet": "Nothing usable yet.",
+        "playbook.not_worth_checking": "Not worth checking",
+        "playbook.full_list_tpl": "The full list, each with its resolution bound: {link}",
+        "lessons.title": "What Didn’t Work",
+        "lessons.eyebrow": "negative results",
+        "lessons.lede": "The search space that has been ruled out, and how much each "
+                        "“no” actually closed.",
+        "lessons.why_exists": "Why this page exists",
+        "lessons.why_p1": "Most of what this programme produces is <em>no</em>. That "
+                          "is a conclusion, not the absence of one — and knowing what "
+                          "not to try again is itself something to decide with.",
+        "lessons.why_p2": "Every entry carries its <strong>resolution bound</strong>: "
+                          "the smallest difference that sample could have separated. "
+                          "A “no evidence” with a wide bound closed nothing "
+                          "at all, and that distinction is the whole point.",
+        "lessons.registry_type": "registry",
+        "lessons.registry_title": "The full registry",
+        "lessons.registry_desc": "Every question that was asked and answered with no, "
+                                 "each one carrying the smallest effect its sample "
+                                 "could have resolved.",
+        "lessons.hypotheses_unit": "hypotheses",
+        "lessons.survivors_unit": "survivors",
+        "lessons.methodology": "Methodology",
+        "lessons.methodology_note": "What was learned about how to measure — usually "
+                                    "by getting it wrong once first.",
+        "null.title": "What did not work",
+        "null.eyebrow": "Negative results registry",
+        "null.lede": "Questions asked of this data and answered with no, each "
+                     "carrying the smallest effect its sample could have resolved.",
+        "research.title": "Research studies",
+        "research.eyebrow": "Evidence → decision → workflow",
+        "research.lede": "Reviewed studies preserve the question, reproducible method, "
+                         "aggregate result, and operational impact without publishing "
+                         "raw CSV or private conversation.",
+        "research.start_here": "Start here",
+        "research.registry_title": "What did not work",
+        "research.registry_desc": "Every question asked of this data and answered with "
+                                  "no, each carrying the smallest effect its sample "
+                                  "could have resolved. Published as JSON so anything "
+                                  "automated can skip what is already closed.",
+        "research.studies_unit": "studies",
+    },
+    "zh": {
+        "nav.home": "首頁",
+        "nav.xauusd": "XAUUSD 黃金",
+        "nav.tx": "TX 台指期",
+        "nav.lessons": "什麼沒用",
+        "nav.jargon": "術語",
+        "lang_switch_label": "English",
+        "footer": "內容產生自已審閱的倉庫內容。研究證據，非交易建議。",
+        "untranslated_notice": (
+            "這篇研究的詳細分析尚未翻譯成中文。上方的標題、問題與 Findings 已翻譯；"
+            "下方的表格與敘述仍為英文原文。"
+        ),
+        "home.title": "交易研究",
+        "home.eyebrow": "公開工作區",
+        "home.lede": "訊號來了要看什麼，以及哪些東西已經確定沒用。",
+        "home.what_you_trade": "你交易的商品",
+        "home.reference": "參考",
+        "home.signal_fired": "訊號來了",
+        "home.xauusd_title": "XAUUSD 黃金",
+        "home.xauusd_desc": "進場前先看：布林位置的歷史勝率、當日還剩多少空間，"
+                            "以及哪些東西已經確定沒用。",
+        "home.studies_unit": "篇研究",
+        "home.second_instrument": "第二個商品",
+        "home.tx_title": "TX 台指期",
+        "home.tx_desc": "目前只有季節性與回檔結構的初步研究，還沒有訊號層級的判斷依據。",
+        "home.lessons_desc_tpl": "{n} 個假設被測過，{survived} 個存活。知道什麼不用再試，"
+                                "本身就是判斷依據。",
+        "home.jargon_desc": "研究頁面是英文的。這裡把每個技術名詞用中文定義一次。",
+        "home.weekly_title": "週報",
+        "home.weekly_desc": "每週的關鍵價位、劇本與事件風險。",
+        "home.what_this_site_is": "這個網站是什麼",
+        "home.what_this_site_p1": "一個交易研究計畫的公開部分。它不是給建議的，也不是"
+                                 "討論什麼策略有效——它記錄的是哪些問題被問過、答案是"
+                                 "什麼，以及那個答案有多可靠。",
+        "home.what_this_site_p2": "大部分的答案是「沒有」。",
+        "home.weekly_published_tpl": "{week} 展望已發布",
+        "home.no_weekly": "尚未發布週報",
+        "home.card_reference": "參考",
+        "xauusd.eyebrow": "黃金",
+        "xauusd.lede": "訊號來了要看什麼、本週展望，以及所有黃金研究。",
+        "xauusd.this_week": "本週展望",
+        "xauusd.studies_heading": "XAUUSD 研究",
+        "xauusd.filter_placeholder": "篩選 XAUUSD 研究",
+        "xauusd.no_weekly_yet": "尚無已審閱的週報。",
+        "section.filter_placeholder": "篩選研究",
+        "section.studies_heading_tpl": "{market} 研究",
+        "playbook.start_here": "訊號來了，先看這裡",
+        "playbook.nothing_yet": "尚無可用的判斷依據。",
+        "playbook.not_worth_checking": "不用再看的",
+        "playbook.full_list_tpl": "完整清單與每一項的解析下限：{link}",
+        "lessons.title": "什麼沒用",
+        "lessons.eyebrow": "負面結果",
+        "lessons.lede": "被排除的搜尋空間，以及每一個「沒有」到底關掉了多少門。",
+        "lessons.why_exists": "為什麼這頁存在",
+        "lessons.why_p1": "這個研究計畫的產出大部分是<em>沒有</em>。那是結論，不是"
+                          "缺少結論——而且知道什麼不用再試，本身就是判斷依據。",
+        "lessons.why_p2": "每一筆都帶著<strong>解析下限</strong>：這個樣本能分辨的"
+                          "最小差距。界限寬的「無證據」什麼都沒關掉，這個區別很重要。",
+        "lessons.registry_type": "登錄",
+        "lessons.registry_title": "完整登錄",
+        "lessons.registry_desc": "每一個被問過並且得到「沒有」的問題，每一筆都帶著它的"
+                                 "解析下限。",
+        "lessons.hypotheses_unit": "個假設",
+        "lessons.survivors_unit": "個存活",
+        "lessons.methodology": "方法論",
+        "lessons.methodology_note": "關於「怎麼測」學到的事，通常是先做錯一次才學到的。",
+        "null.title": "什麼沒有效",
+        "null.eyebrow": "負面結果登錄",
+        "null.lede": "問過這份資料並得到「沒有」的問題，每一筆都帶著它的樣本能分辨的"
+                     "最小效應。",
+        "research.title": "研究列表",
+        "research.eyebrow": "證據 → 決策 → 工作流程",
+        "research.lede": "已審閱的研究保留問題、可重現的方法、彙總結果與實務影響，"
+                         "不發布原始 CSV 或私人對話。",
+        "research.start_here": "先看這裡",
+        "research.registry_title": "什麼沒有效",
+        "research.registry_desc": "每一個問過這份資料並得到「沒有」的問題，每一筆都帶著"
+                                  "它的樣本能分辨的最小效應。以 JSON 發布，讓自動化工具"
+                                  "可以跳過已經關掉的問題。",
+        "research.studies_unit": "篇研究",
+    },
+}
+
+
+def t(key: str, lang: str) -> str:
+    return CHROME[lang][key]
+
+
+def zh(item: dict[str, object] | None, field: str, lang: str) -> str:
+    """The `_zh` counterpart of a study.json/results.json prose field, with fallback.
+
+    A study that has not been translated yet still renders correctly: the English field
+    is used, and the page carries an honest notice rather than a silently mixed page.
+    """
+    if item is None:
+        return ""
+    if lang == "zh":
+        value = item.get(f"{field}_zh")
+        if value:
+            return str(value)
+    return str(item.get(field, ""))
+
+
+def findings_html(study: dict[str, object], lang: str = "en") -> str:
+    """The insight-card loop shared by every study-page renderer.
+
+    Factored out because it was written out twelve times, once per report shape. A
+    single point of translation here makes "Findings" bilingual on every page shape at
+    once, rather than requiring twelve separate edits kept in sync by hand.
+    """
+    items = study.get("findings") or []
+    parts = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        title = zh(item, "title", lang)
+        detail = zh(item, "detail", lang)
+        parts.append(
+            f'<article class="insight {html.escape(str(item.get("tone", "info")))}">'
+            f'<strong>{html.escape(title)}</strong>'
+            f'<p>{html.escape(detail)}</p></article>'
+        )
+    return "".join(parts)
+
+EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__", "zh"}
 STUDY_ROOT = ROOT / "research/studies"
 WEEKLY_ROOT = ROOT / "xauusd/weekly"
 
@@ -83,7 +321,7 @@ def catalog() -> dict[str, object]:
     return {"schema_version": 1, "legacy_source_commit": SOURCE_COMMIT, "items": items}
 
 
-def nav(prefix: str) -> str:
+def nav(prefix: str, lang: str = "en") -> str:
     """Navigation by instrument, then by what you came to do.
 
     The previous nav offered Overview / XAUUSD / TX / Research, and a study about gold
@@ -94,51 +332,77 @@ def nav(prefix: str) -> str:
     """
     return (
         '<nav class="nav">'
-        f'<a href="{prefix}index.html">Home</a>'
-        f'<a href="{prefix}xauusd/">XAUUSD</a>'
-        f'<a href="{prefix}tx/">TX</a>'
-        f'<a href="{prefix}lessons/">What Didn\u2019t Work</a>'
-        f'<a href="{prefix}jargon/">Jargon</a>'
+        f'<a href="{prefix}index.html">{t("nav.home", lang)}</a>'
+        f'<a href="{prefix}xauusd/">{t("nav.xauusd", lang)}</a>'
+        f'<a href="{prefix}tx/">{t("nav.tx", lang)}</a>'
+        f'<a href="{prefix}lessons/">{t("nav.lessons", lang)}</a>'
+        f'<a href="{prefix}jargon/">{t("nav.jargon", lang)}</a>'
         '</nav>'
     )
 
 
-def version_switch(prefix: str, current: str = "v2") -> str:
+def version_switch(asset_prefix: str, current: str = "v2") -> str:
     """A link back to the archived layout, kept because more re-layouts are expected.
 
     Only the navigation pages are archived. The studies themselves are identical across
     versions, and copying 5.9MB of charts to preserve a menu would be the wrong trade.
+    v1/ lives only under the true repository root, never under zh/, so this takes the
+    already-adjusted asset_prefix rather than the same-tree nav prefix.
     """
     if current == "v1":
         return ""
     return (
         '<div class="version-switch">'
-        f'<a href="{prefix}v1/">v1.0 layout</a>'
+        f'<a href="{asset_prefix}v1/">v1.0 layout</a>'
+        f'<a href="{LANG_SWITCH_TOKEN}" class="lang-switch">{{SWITCH_LABEL}}</a>'
         "</div>"
     )
 
 
-def document(title: str, eyebrow: str, lede: str, body: str, prefix: str = "") -> str:
+def document(title: str, eyebrow: str, lede: str, body: str, prefix: str = "",
+            lang: str = "en", untranslated_body: bool = False) -> str:
+    """Every page's shell. `lang` sets the document language and the visible chrome text.
+
+    `untranslated_body` marks a Chinese page whose dense body (tables and hand-written
+    narrative unique to its report shape) has not been translated yet, only its title,
+    question and findings. Translation proceeds one study at a time; a study that has not
+    had its turn still gets a fully bilingual shell and an honest notice, rather than a
+    silently mixed page.
+
+    The lang-switch link's real href is filled in after BOTH trees exist (see outputs()):
+    document() only ever builds one tree at a time, so it cannot yet know the path to the
+    page it should point at. It writes a stable placeholder token instead.
+    """
+    html_lang = "zh-Hant" if lang == "zh" else "en"
+    # site/ and v1/ exist only under the true repository root, never under zh/, so a
+    # Chinese page needs one more ../ than its same-tree nav prefix to reach them.
+    asset_prefix = prefix if lang == "en" else prefix + "../"
+    switch_html = version_switch(asset_prefix).replace("{SWITCH_LABEL}", html.escape(t("lang_switch_label", lang)))
+    notice = (
+        f'<div class="callout">{html.escape(t("untranslated_notice", lang))}</div>'
+        if untranslated_body and lang == "zh" else ""
+    )
     return f"""<!doctype html>
-<html lang="zh-Hant">
+<html lang="{html_lang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="{html.escape(lede)}">
   <title>{html.escape(title)} · Trading Research</title>
-  <link rel="stylesheet" href="{prefix}site/style.css">
+  <link rel="stylesheet" href="{asset_prefix}site/style.css">
 </head>
 <body>
   <header class="shell">
-    {version_switch(prefix)}
+    {switch_html}
     <div class="eyebrow">{html.escape(eyebrow)}</div>
     <h1>{html.escape(title)}</h1>
     <p class="lede">{html.escape(lede)}</p>
-    {nav(prefix)}
+    {nav(prefix, lang)}
   </header>
+  {notice}
   {body}
-  <footer><div class="shell">Generated from reviewed repository contents. Research evidence, not trading advice.</div></footer>
-  <script src="{prefix}site/app.js"></script>
+  <footer><div class="shell">{html.escape(t("footer", lang))}</div></footer>
+  <script src="{asset_prefix}site/app.js"></script>
 </body>
 </html>
 """
@@ -533,14 +797,10 @@ def comparison_entry_slot_table(comparison: dict[str, dict[str, object]]) -> str
     )
 
 
-def study_page_comparison(study: dict[str, object]) -> str:
+def study_page_comparison(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     versions = result["versions"]
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     metric_html = "".join(
         metric(
             f'{version} n / WR / PF',
@@ -570,18 +830,20 @@ def study_page_comparison(study: dict[str, object]) -> str:
             for version, data in versions.items()
         )
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
         "contains reviewed aggregate results and the reproducible method only.</p>"
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + "</section></main>"
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -652,17 +914,58 @@ def impact_section_html(study: dict[str, object]) -> str:
     return f'<section class="report-section"><h2>Impact on practice</h2>{body}</section>'
 
 
-def file_actions_html(study: dict[str, object]) -> str:
+def study_asset_href(lang: str, study_id: str, filename: str) -> str:
+    """Link to a study's own data file: raw results, method, charts.
+
+    Never mirrored into zh/. study.json and results.json already carry `_zh` translation
+    fields inline, and duplicating 30 studies' raw data and chart images into a second
+    tree for no reason would repeat exactly the mistake v1/ was built to avoid -- that
+    archive keeps only its navigation layer for the same reason. A Chinese study page's
+    file links point back into the English-rooted study directory instead. Every study
+    page sits at research/studies/<id>/, four directories below whichever tree's root,
+    so the four ../ below is not a guess.
+    """
+    if lang == "en":
+        return filename
+    return f"../../../../research/studies/{study_id}/{filename}"
+
+
+def en_link_jargon(lang: str) -> str:
+    """jargon/ IS mirrored into zh/ (it is already bilingual), so a study page's own-
+    tree relative path to it works in both trees without adjustment."""
+    return "../../../jargon/"
+
+
+def files_section_html(study: dict[str, object], lang: str,
+                       include: tuple[str, ...] = ("results.json", "study.json")) -> str:
+    """The bilingual "Files" section shared by the newer bespoke renderers.
+
+    Factored out because it was written out four times with only the file list
+    differing, which is exactly the kind of duplication that turns into four separate
+    bugs the next time the link scheme changes -- as it just did, for zh/.
+    """
+    sid = str(study["id"])
+    links = "".join(f'<a href="{study_asset_href(lang, sid, name)}">{name}</a>' for name in include)
+    return (
+        f'<section class="report-section"><h2>Files</h2>'
+        f'<div class="file-actions">{links}'
+        '<a href="../../null-results/">All null results</a>'
+        f'<a href="{en_link_jargon(lang)}">{html.escape(t("nav.jargon", lang))}</a></div></section>'
+    )
+
+
+def file_actions_html(study: dict[str, object], lang: str = "en") -> str:
+    sid = str(study["id"])
     links = [
         # First, deliberately. A reader who cannot get past the vocabulary cannot use any
         # of the others.
-        '<a href="../../../jargon/">Jargon</a>',
-        '<a href="results.json">Structured results</a>',
-        '<a href="analysis.py">Python method</a>',
-        '<a href="study.json">Study manifest</a>',
+        f'<a href="{en_link_jargon(lang)}">{html.escape(t("nav.jargon", lang))}</a>',
+        f'<a href="{study_asset_href(lang, sid, "results.json")}">Structured results</a>',
+        f'<a href="{study_asset_href(lang, sid, "analysis.py")}">Python method</a>',
+        f'<a href="{study_asset_href(lang, sid, "study.json")}">Study manifest</a>',
     ]
     if (STUDY_ROOT / study["id"] / "impact.md").is_file():
-        links.append('<a href="impact.md">Impact record</a>')
+        links.append(f'<a href="{study_asset_href(lang, sid, "impact.md")}">Impact record</a>')
     return f'<div class="file-actions">{"".join(links)}</div>'
 
 
@@ -677,14 +980,10 @@ def fail_type_table(by_type: dict[str, dict[str, object]]) -> str:
     )
 
 
-def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
+def study_page_fail_pattern_solo(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     baseline = result["baseline"]
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     kbar = result["kbar_coverage"]
     macro_html = ""
     if "by_macro_verdict" in result:
@@ -752,17 +1051,19 @@ def study_page_fail_pattern_solo(study: dict[str, object]) -> str:
         + macro_html
         + temporal_html
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + '</section></main>'
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -810,17 +1111,13 @@ def gap_entry_slot_table(comparison: dict[str, dict[str, object]], p1: str, p2: 
     )
 
 
-def study_page_gap(study: dict[str, object]) -> str:
+def study_page_gap(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     bd = result["baseline_diff"]
     p1, p2 = gap_version_prefixes(bd)
     version_labels = result.get("version_labels", {})
     label1, label2 = version_labels.get(p1, p1.upper()), version_labels.get(p2, p2.upper())
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     fail_rows = "".join(
         f"<tr><td><strong>{html.escape(name)}</strong></td><td>{v[f'{p1}_pct']}%</td><td>{v[f'{p2}_pct']}%</td>"
         f"<td>{v['diff']:+.1f}pp</td></tr>"
@@ -844,18 +1141,20 @@ def study_page_gap(study: dict[str, object]) -> str:
         f'<div class="table-wrap"><table><thead><tr><th>fail_type</th><th>{html.escape(label1)}</th><th>{html.escape(label2)}</th><th>diff</th></tr></thead>'
         f'<tbody>{fail_rows}</tbody></table></div></section>'
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         f'<p>{html.escape(result["method"]["basis"])}</p>'
         '<p>Raw CSV and private decision conversations remain in trading-private. This public page contains reviewed aggregate results, charts, and the reproducible method only.</p>'
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + '</section></main>'
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -915,14 +1214,10 @@ def year_month_heatmap_table(heatmap: dict[str, dict[str, object]]) -> str:
     )
 
 
-def study_page_seasonality(study: dict[str, object]) -> str:
+def study_page_seasonality(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     overall = result["overall"]
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     caveat = result["method"].get("continuous_contract_caveat")
     body = (
         '<main class="shell report">'
@@ -941,29 +1236,27 @@ def study_page_seasonality(study: dict[str, object]) -> str:
         + week_in_month_table(result["week_in_month"])
         + year_month_heatmap_table(result["year_month_heatmap"])
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
         "contains reviewed aggregate results, charts, and the reproducible method only.</p>"
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + "</section></main>"
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page_fib_pullback(study: dict[str, object]) -> str:
+def study_page_fib_pullback(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     by_level = result["by_level"]
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     caveat = result["method"].get("continuous_contract_caveat")
     metric_html = "".join(
         metric(
@@ -986,20 +1279,22 @@ def study_page_fib_pullback(study: dict[str, object]) -> str:
             net_pnl_key="net_pnl_pts", net_pnl_label="Net pts", show_adjustment=False,
         )
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         f'<p>{html.escape(result["method"]["retracement_formula"])}</p>'
         "<p>Raw CSV and private decision conversations remain in trading-private. This public page "
         "contains reviewed aggregate results, charts, and the reproducible method only. Full "
-        'year-by-year detail is in <a href="results.json">results.json</a>’s <code>yearly_detail</code>.</p>'
-        + file_actions_html(study)
+        f'year-by-year detail is in <a href="{study_asset_href(lang, str(study["id"]), "results.json")}">results.json</a>’s <code>yearly_detail</code>.</p>'
+        + file_actions_html(study, lang)
         + "</section></main>"
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -1013,12 +1308,8 @@ def context_program_metrics(study: dict[str, object]) -> str:
     )
 
 
-def context_program_findings(study: dict[str, object]) -> str:
-    return "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+def context_program_findings(study: dict[str, object], lang: str = "en") -> str:
+    return findings_html(study, lang)
 
 
 def context_program_limitations(result: dict[str, object]) -> str:
@@ -1152,7 +1443,7 @@ def macro_attribution_tables(strategies: dict[str, dict]) -> list[str]:
     return tables
 
 
-def study_page_context_program(study: dict[str, object]) -> str:
+def study_page_context_program(study: dict[str, object], lang: str = "en") -> str:
     """Render multi-strategy context studies from their shared aggregate shape.
 
     The strategy-specific tables are detected from result keys so later confirmation,
@@ -1199,34 +1490,36 @@ def study_page_context_program(study: dict[str, object]) -> str:
     elif "by_factor" in first:
         tables.extend(macro_attribution_tables(strategies))
     else:
-        return study_page_generic(study)
+        return study_page_generic(study, lang)
 
     body = (
         '<main class="shell report">'
         f'<div class="metric-grid">{context_program_metrics(study)}</div>'
         + '<section class="report-section"><h2>Key findings</h2>'
-        f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
+        f'<div class="insight-grid">{context_program_findings(study, lang)}</div></section>'
         + impact_section_html(study)
         + chart_sections_html(result.get("charts", []))
         + "".join(tables)
         + context_program_limitations(result)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         '<p>All trading timestamps use Asia/Taipei. Raw CSV, source manifests, and private decision records are not published. '
         'This page contains reviewed aggregate results, one reproducible method, and pre-reviewed charts only.</p>'
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + '</section></main>'
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page_pullback_replay(study: dict[str, object]) -> str:
+def study_page_pullback_replay(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     validation = result["emulator_validation"]
     baseline = result["off_baseline_metrics"]
@@ -1239,28 +1532,30 @@ def study_page_pullback_replay(study: dict[str, object]) -> str:
         f'WR {baseline["win_rate_pct"]}%, PF {baseline["profit_factor"]}, '
         f'average USD {baseline["average_pnl_usd"]}.</p></section>'
         + '<section class="report-section"><h2>Key findings</h2>'
-        f'<div class="insight-grid">{context_program_findings(study)}</div></section>'
+        f'<div class="insight-grid">{context_program_findings(study, lang)}</div></section>'
         + impact_section_html(study)
         + pullback_replay_table(result)
         + context_program_limitations(result)
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(study["hypothesis"])}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         '<p>All timestamps use Asia/Taipei. Raw CSV, per-trade output, source manifests, '
         'and private decision records are not published. The Python method accepts '
         'locally authorized inputs and reproduces the reviewed aggregate.</p>'
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + '</section></main>'
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page_range_profile(study: dict[str, object]) -> str:
+def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
     """Intraday range-accumulation shape (RS-XAUUSD-20260823-001).
 
     A price-structure study rather than a strategy report, so it shares no field names with
@@ -1273,11 +1568,7 @@ def study_page_range_profile(study: dict[str, object]) -> str:
     coverage = result["coverage"]
     head = study["headline"]
 
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}"><strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
 
     def table(headers: list[str], rows: list[list[str]], caption: str, note: str = "") -> str:
         head_html = "".join(f"<th>{html.escape(h)}</th>" for h in headers)
@@ -1391,21 +1682,23 @@ def study_page_range_profile(study: dict[str, object]) -> str:
         + '<section class="report-section"><h2>Limitations</h2>'
         + text_list(result["limitations"]) + "</section>"
         + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(str(study["hypothesis"]))}</p>'
+        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
         "<p>Descriptive and never directional: the profile says how much range has "
         "accumulated, not which way price moved. Raw CSV and private decision records remain "
         "in trading-private. This public page carries reviewed aggregate results and the "
         "reproducible method only — the published script reads its bars from a "
         "<code>local-inputs/</code> folder you supply.</p>"
-        + file_actions_html(study)
+        + file_actions_html(study, lang)
         + "</section></main>"
     )
     return document(
-        study["title"],
+        zh(study, "title", lang),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        study["question"],
+        zh(study, "question", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -1422,7 +1715,7 @@ def glossary() -> list[dict[str, str]]:
         return []
 
 
-def glossary_page(terms: list[dict[str, str]]) -> str:
+def glossary_page(terms: list[dict[str, str]], lang: str = "en") -> str:
     """The one bilingual page on the site, and the reason the rest can stay English.
 
     Everything else is English. This page is the exception rather than a translation
@@ -1460,12 +1753,13 @@ def glossary_page(terms: list[dict[str, str]]) -> str:
         "</main>"
     )
     return document(
-        "Jargon",
+        t("nav.jargon", lang),
         "Bilingual reference",
         "Every technical term used across the studies, defined once in Chinese so the "
         "English pages stay readable.",
         body,
         "../",
+        lang=lang,
     )
 
 VERDICT_STYLE = {
@@ -1486,7 +1780,7 @@ def null_registry() -> dict[str, object] | None:
         return None
 
 
-def null_results_page(registry: dict[str, object]) -> str:
+def null_results_page(registry: dict[str, object], lang: str = "en") -> str:
     """The negative-results surface.
 
     Deliberately plain. Its readers are a person deciding whether a question is worth
@@ -1585,21 +1879,22 @@ def null_results_page(registry: dict[str, object]) -> str:
         "<p>The registry is generated, not written, so it cannot drift from the studies it "
         "describes. It is published beside this page as JSON and is the intended interface "
         "for anything automated: read it, and skip what is already closed.</p>"
-        '<div class="file-actions"><a href="null_results.json">Registry JSON</a>'
-        '<a href="../">All studies</a><a href="../../jargon/">Jargon</a></div></section>'
+        f'<div class="file-actions"><a href="{en_link("../../", lang, "research/null-results/null_results.json")}">Registry JSON</a>'
+        f'<a href="../">All studies</a><a href="../../jargon/">{html.escape(t("nav.jargon", lang))}</a></div></section>'
         "</main>"
     )
     return document(
-        "What did not work",
-        "Negative results registry",
-        "Questions asked of this data and answered with no, each carrying the smallest "
-        "effect its sample could have resolved.",
+        t("null.title", lang),
+        t("null.eyebrow", lang),
+        t("null.lede", lang),
         body,
         "../../",
+        lang=lang,
+        untranslated_body=True,
     )
 
 
-def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
+def study_page_hypothesis_sweep(study: dict[str, object], lang: str = "en") -> str:
     """Hypothesis-sweep shape: many claims, one harness, mostly nulls.
 
     A sweep's page has a different job from a strategy report's. Nobody reads twenty rows
@@ -1613,12 +1908,7 @@ def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
     head = study["headline"]
     rows = {h["id"]: h for h in result["hypotheses"]}
 
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}">'
-        f'<strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
 
     def cell(value, spec="{}"):
         return "—" if value is None else html.escape(spec.format(value))
@@ -1665,7 +1955,7 @@ def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
     body = (
         '<main class="shell">'
         f'<section class="report-section"><h2>What was measured</h2>'
-        f'<p>{html.escape(str(study["question"]))}</p>'
+        f'<p>{html.escape(zh(study, "question", lang))}</p>'
         '<div class="mini-metrics">'
         f'<span><strong>{coverage["sessions"]}</strong> sessions</span>'
         f'<span><strong>{coverage["power_multiple"]}x</strong> the prior sweep</span>'
@@ -1738,23 +2028,21 @@ def study_page_hypothesis_sweep(study: dict[str, object]) -> str:
         '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
         + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
         + "</ul></section>"
-        '<section class="report-section"><h2>Files</h2>'
-        '<div class="file-actions"><a href="results.json">results.json</a>'
-        '<a href="study.json">study.json</a>'
-        '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../jargon/">Jargon</a></div></section>'
-        "</main>"
+        + files_section_html(study, lang)
+        + "</main>"
     )
     return document(
-        str(study["title"]),
+        zh(study, "title", lang),
         "Hypothesis sweep",
-        str(study.get("card_summary") or ""),
+        zh(study, "card_summary", lang),
         body,
         "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page_preregistered(study: dict[str, object]) -> str:
+def study_page_preregistered(study: dict[str, object], lang: str = "en") -> str:
     """A pre-registered primary plus a family-corrected secondary set.
 
     This page's job is different again. There is one question that was written down before
@@ -1769,12 +2057,7 @@ def study_page_preregistered(study: dict[str, object]) -> str:
     ice, twi = rep["results"]["dxy_ice"], rep["results"]["broad_twi"]
     head = study["headline"]
 
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}">'
-        f'<strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
 
     def num(value, spec="{}"):
         return "—" if value is None else html.escape(spec.format(value))
@@ -1821,7 +2104,7 @@ def study_page_preregistered(study: dict[str, object]) -> str:
     body = (
         '<main class="shell">'
         '<section class="report-section"><h2>What was measured</h2>'
-        f'<p>{html.escape(str(study["question"]))}</p>'
+        f'<p>{html.escape(zh(study, "question", lang))}</p>'
         '<div class="mini-metrics">'
         f'<span><strong>{head["sessions_before"]} → {head["sessions_after"]}</strong> sessions</span>'
         f'<span><strong>{head["bound_change_pct"]:+.1f}%</strong> bound change</span>'
@@ -1901,20 +2184,18 @@ def study_page_preregistered(study: dict[str, object]) -> str:
         '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
         + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
         + "</ul></section>"
-        '<section class="report-section"><h2>Files</h2>'
-        '<div class="file-actions"><a href="results.json">results.json</a>'
-        '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
-        '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../jargon/">Jargon</a></div></section>'
-        "</main>"
+        + files_section_html(study, lang, ("results.json", "study.json", "analysis.py"))
+        + "</main>"
     )
     return document(
-        str(study["title"]), "Pre-registered test",
-        str(study.get("card_summary") or ""), body, "../../../",
+        zh(study, "title", lang), "Pre-registered test",
+        zh(study, "card_summary", lang), body, "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page_robustness(study: dict[str, object]) -> str:
+def study_page_robustness(study: dict[str, object], lang: str = "en") -> str:
     """One finding, measured several ways.
 
     The page has to keep two things separate that a reader will otherwise merge: the effect
@@ -1930,12 +2211,7 @@ def study_page_robustness(study: dict[str, object]) -> str:
     cov = result["coverage"]
     head = study["headline"]
 
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}">'
-        f'<strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in study["findings"]
-    )
+    finding_html = findings_html(study, lang)
     order = [k for k in ("A", "B", "C", "D") if k in v]
     variant_rows = "".join(
         "<tr>"
@@ -1974,7 +2250,7 @@ def study_page_robustness(study: dict[str, object]) -> str:
     body = (
         '<main class="shell">'
         '<section class="report-section"><h2>What was measured</h2>'
-        f'<p>{html.escape(str(study["question"]))}</p>'
+        f'<p>{html.escape(zh(study, "question", lang))}</p>'
         '<div class="mini-metrics">'
         f'<span><strong>{head["variants_tested"]}</strong> measurements</span>'
         f'<span><strong>{head["survivors"]}</strong> survive</span>'
@@ -2044,17 +2320,14 @@ def study_page_robustness(study: dict[str, object]) -> str:
         '<section class="report-section"><h2>Limitations</h2><ul class="impact-list">'
         + "".join(f"<li>{html.escape(item)}</li>" for item in result.get("limitations", []))
         + "</ul></section>"
-        '<section class="report-section"><h2>Files</h2>'
-        '<div class="file-actions"><a href="results.json">results.json</a>'
-        '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
-        '<a href="impact.md">impact.md</a>'
-        '<a href="../../null-results/">All null results</a>'
-        '<a href="../../../jargon/">Jargon</a></div></section>'
-        "</main>"
+        + files_section_html(study, lang, ("results.json", "study.json", "analysis.py", "impact.md"))
+        + "</main>"
     )
     return document(
-        str(study["title"]), "Robustness check",
-        str(study.get("card_summary") or ""), body, "../../../",
+        zh(study, "title", lang), "Robustness check",
+        zh(study, "card_summary", lang), body, "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
@@ -2221,7 +2494,7 @@ GENERIC_SKIP = {
 }
 
 
-def study_page_generic(study: dict[str, object]) -> str:
+def study_page_generic(study: dict[str, object], lang: str = "en") -> str:
     """The fallback every study shape lands on when it has no bespoke renderer.
 
     This exists because the dispatcher used to raise on an unrecognised shape, which meant
@@ -2232,13 +2505,7 @@ def study_page_generic(study: dict[str, object]) -> str:
     result = study["_result"]
     head = study.get("headline") or {}
 
-    finding_html = "".join(
-        f'<article class="insight {html.escape(item["tone"])}">'
-        f'<strong>{html.escape(item["title"])}</strong>'
-        f'<p>{html.escape(item["detail"])}</p></article>'
-        for item in (study.get("findings") or [])
-        if isinstance(item, dict)
-    )
+    finding_html = findings_html(study, lang)
     metrics = "".join(
         f"<span><strong>{html.escape(str(head[key]))}</strong> "
         f"{html.escape(str(key).replace('_', ' '))}</span>"
@@ -2270,47 +2537,45 @@ def study_page_generic(study: dict[str, object]) -> str:
            f'{render_value(result["limitations"])}</section>' if "limitations" in result else "")
         + ('<section class="report-section"><h2>Method</h2>'
            f'{render_value(result["method"])}</section>' if "method" in result else "")
-        + '<section class="report-section"><h2>Files</h2>'
-          '<div class="file-actions"><a href="results.json">results.json</a>'
-          '<a href="study.json">study.json</a><a href="analysis.py">analysis.py</a>'
-          '<a href="../../null-results/">All null results</a>'
-          '<a href="../../../jargon/">Jargon</a></div></section>'
-        "</main>"
+        + files_section_html(study, lang, ("results.json", "study.json", "analysis.py"))
+        + "</main>"
     )
     return document(
-        str(study["title"]), "Study",
-        str(study.get("card_summary") or ""), body, "../../../",
+        zh(study, "title", lang), "Study",
+        zh(study, "card_summary", lang), body, "../../../",
+        lang=lang,
+        untranslated_body=not study.get("body_translated_zh"),
     )
 
 
-def study_page(study: dict[str, object]) -> str:
+def study_page(study: dict[str, object], lang: str = "en") -> str:
     result = study["_result"]
     if "versions" in result:
-        return study_page_comparison(study)
+        return study_page_comparison(study, lang)
     if "baseline_diff" in result:
-        return study_page_gap(study)
+        return study_page_gap(study, lang)
     if "fail_pattern" in result:
-        return study_page_fail_pattern_solo(study)
+        return study_page_fail_pattern_solo(study, lang)
     if "by_month" in result:
-        return study_page_seasonality(study)
+        return study_page_seasonality(study, lang)
     if "by_level" in result:
-        return study_page_fib_pullback(study)
+        return study_page_fib_pullback(study, lang)
     if "policies" in result and "emulator_validation" in result:
-        return study_page_pullback_replay(study)
+        return study_page_pullback_replay(study, lang)
     if "strategies" in result:
-        return study_page_context_program(study)
+        return study_page_context_program(study, lang)
     if isinstance(result.get("families"), dict) and "observed_profile" in result["families"]:
-        return study_page_range_profile(study)
+        return study_page_range_profile(study, lang)
     if "hypotheses" in result and "consensus_analysis" in result:
-        return study_page_hypothesis_sweep(study)
+        return study_page_hypothesis_sweep(study, lang)
     if "primary" in result and "secondary" in result:
-        return study_page_preregistered(study)
+        return study_page_preregistered(study, lang)
     if "variants" in result and "zone_agreement" in result:
-        return study_page_robustness(study)
+        return study_page_robustness(study, lang)
     # No bespoke renderer: fall back rather than refuse. Raising here meant a study could
     # not be published until someone wrote a page for its shape, and ten confirmed studies
     # accumulated behind that — one of them the study the signal playbook cites.
-    return study_page_generic(study)
+    return study_page_generic(study, lang)
 
 
 STATUS_SHEET_ORDER = ["confirmed", "progress", "pending"]
@@ -2467,34 +2732,50 @@ SIGNAL_PLAYBOOK = {
     "XAUUSD": {
         "intro": "A signal just fired. This page answers one question: what is already "
                  "known that bears on this trade?",
+        "intro_zh": "訊號到了。這頁只回答一件事：現在有什麼已知的東西，能幫你判斷這筆單。",
         "checks": [
             {
                 "title": "Where the entry sits in the Bollinger band (S1, on 30-minute bars)",
+                "title_zh": "進場價在布林通道的哪裡（S1、看 30 分K）",
                 "study": "RS-XAUUSD-20260823-002",
                 "what": "Entries with %B above 1.0 — closing outside the upper band — won "
                         "73.17% historically (n=82) against a 55.93% baseline. It was "
                         "stronger out of sample, not weaker.",
+                "what_zh": "%B > 1.0（收在上軌之外）的進場，歷史勝率 73.17%（n=82），基準是 "
+                           "55.93%。而且它在樣本外更強，不是變弱。",
                 "caveat": "Two things. One: as a filter it loses money — it keeps 17% of "
                           "entries and 44% of the return. Two: it has to be the 30-minute "
                           "chart. For the same trade, 30-minute and hourly agree on the %B "
                           "zone only 32% of the time; the 30-minute chart calls 71 entries "
                           "above the upper band, the hourly chart calls 28. A %B reading "
                           "without its bar size is not a reading.",
+                "caveat_zh": "兩件事。一：拿它當過濾器會賠錢——只留 17% 的進場、44% 的報酬。"
+                             "二：一定要看 30 分K。同一筆交易，30 分K 與 1 小時對 %B 區間的判定"
+                             "只有 32% 一致；30 分K 認定 71 筆在上緣，1 小時只認 28 筆。沒說週期"
+                             "的 %B 不是一個讀數。",
             },
             {
                 "title": "How much of the day's range is left at this hour",
+                "title_zh": "現在這個時間點，當日還剩多少空間",
                 "study": "RS-XAUUSD-20260823-001",
                 "what": "After 23:30 Taipei the median day is finished — median remaining "
                         "range 0%. After 02:30 the average is 4%.",
+                "what_zh": "台北 23:30 之後，中位數的一天已經走完了（剩餘區間中位數 0%）。"
+                           "02:30 之後平均只剩 4%。",
                 "caveat": "This says how much room is left. It says nothing about direction.",
+                "caveat_zh": "這只講「還有多少空間」，完全不講方向。",
             },
             {
                 "title": "What this strategy looks like normally",
+                "title_zh": "這個策略本來就長什麼樣",
                 "study": "RS-XAUUSD-20260727-007",
                 "what": "S2 V3.2 has a 47.13% baseline win rate and a 2.05 profit factor. A "
                         "low win rate with a high payoff is its normal shape; reading the "
                         "win rate alone will mislead you.",
+                "what_zh": "S2 V3.2 基準勝率 47.13%、獲利因子 2.05。低勝率高賠率是正常形態，"
+                           "只看勝率會誤判。",
                 "caveat": "S1 V3.9's baseline is 55.93% at PF 1.849, holding about 30 bars.",
+                "caveat_zh": "S1 V3.9 的基準是 55.93% / PF 1.849，平均持有 30 根。",
             },
         ],
         "ruled_out": [
@@ -2504,17 +2785,25 @@ SIGNAL_PLAYBOOK = {
             "Monday weakest, Friday strongest — not supported on this data.",
             "CFTC positioning — the available sample resolves nothing.",
         ],
+        "ruled_out_zh": [
+            "Macro 綜合分數、GVZ 門檻——已於 2026-08-17 撤銷，不要再用它們減碼",
+            "30 分鐘時槽勝率——與雜訊無法區分",
+            "週一最弱、週五最強——在這份資料上不成立",
+            "CFTC 部位——目前樣本看不出任何東西",
+        ],
     },
     "TX": {
         "intro": "TX has only preliminary work on seasonality and pullback structure. "
                  "Nothing at the signal layer yet.",
+        "intro_zh": "TX 目前只有季節性與回檔結構的初步研究，還沒有訊號層級的判斷依據。",
         "checks": [],
         "ruled_out": [],
     },
 }
 
 
-def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefix: str) -> str:
+def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefix: str,
+                         lang: str = "en") -> str:
     """What to look at when a signal arrives — the reason the owner opens this site.
 
     Everything else here is an archive organised for browsing. This is the one page with a
@@ -2532,6 +2821,11 @@ def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefi
         return ""
     by_id = {str(study["id"]): study for study in study_list}
 
+    def pick(source: dict, field: str) -> str:
+        if lang == "zh" and source.get(f"{field}_zh"):
+            return str(source[f"{field}_zh"])
+        return str(source.get(field, ""))
+
     checks = []
     for item in book["checks"]:
         study = by_id.get(item["study"])
@@ -2541,47 +2835,65 @@ def signal_playbook_html(market: str, study_list: list[dict[str, object]], prefi
         )
         checks.append(
             '<article class="insight good">'
-            f'<strong>{html.escape(item["title"])}</strong>'
-            f'<p>{html.escape(item["what"])}</p>'
-            f'<p class="section-note">{html.escape(item["caveat"])}</p>'
+            f'<strong>{html.escape(pick(item, "title"))}</strong>'
+            f'<p>{html.escape(pick(item, "what"))}</p>'
+            f'<p class="section-note">{html.escape(pick(item, "caveat"))}</p>'
             f'<p class="section-note">{link}</p>'
             "</article>"
         )
-    ruled = "".join(f"<li>{html.escape(x)}</li>" for x in book["ruled_out"])
+    ruled_items = book.get("ruled_out_zh") if lang == "zh" and book.get("ruled_out_zh") else book["ruled_out"]
+    ruled = "".join(f"<li>{html.escape(x)}</li>" for x in ruled_items)
+    lessons_link = f'<a href="{prefix}lessons/">{html.escape(t("nav.lessons", lang))}</a>' 
     ruled_block = (
-        '<section class="report-section"><h2>Not worth checking</h2>'
+        f'<section class="report-section"><h2>{t("playbook.not_worth_checking", lang)}</h2>'
         f'<ul class="impact-list">{ruled}</ul>'
-        f'<p class="section-note">The full list, each with its resolution bound: '
-        f'<a href="{prefix}lessons/">What Didn’t Work</a></p>'
+        f'<p class="section-note">{t("playbook.full_list_tpl", lang).format(link=lessons_link)}</p>'
         "</section>"
     ) if ruled else ""
 
     return (
-        '<section class="report-section"><h2>A signal fired — start here</h2>'
-        f'<p>{html.escape(book["intro"])}</p>'
+        f'<section class="report-section"><h2>{t("playbook.start_here", lang)}</h2>'
+        f'<p>{html.escape(pick(book, "intro"))}</p>'
         + (f'<div class="insight-grid">{"".join(checks)}</div>' if checks
-           else '<p class="section-note">Nothing usable yet.</p>')
+           else f'<p class="section-note">{t("playbook.nothing_yet", lang)}</p>')
         + "</section>"
         + ruled_block
     )
+def en_link(prefix: str, lang: str, path: str) -> str:
+    """Link to an English-only resource (currently: the weekly report) from either tree.
+
+    `path` is always relative to the TREE ROOT, never to the calling page's own
+    directory -- that is what lets one formula serve callers at any depth. For English,
+    descending from the current page back to root and down into `path` is `prefix + path`.
+    For Chinese, `path` lives only in the English tree, so one more step (`../`) escapes
+    the zh/ wrapper before the same descent.
+
+    The weekly report pipeline is a separate workflow (docs/WEEKLY_REPORT_WORKFLOW.md) and
+    is not translated in this pass; this is how a Chinese page reaches it without
+    publishing an untranslated page under a zh/ URL with no explanation.
+    """
+    if lang != "zh":
+        return prefix + path
+    return prefix + "../" + path
 
 
-def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, object]]) -> str:
+def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, object]],
+                lang: str = "en") -> str:
     selected = [study for study in study_list if study["market"].lower() == "xauusd"]
     latest = weekly[0] if weekly else None
     weekly_html = (
-        weekly_card(latest, "weekly/")
-        if latest else '<p class="empty">No reviewed weekly outlook published yet.</p>'
+        weekly_card(latest, en_link("../", lang, "xauusd/weekly/"))
+        if latest else f'<p class="empty">{t("xauusd.no_weekly_yet", lang)}</p>'
     )
     body = (
         '<main class="shell">'
-        + signal_playbook_html("XAUUSD", study_list, "../")
-        + '<h2 class="section-title">This week</h2>'
+        + signal_playbook_html("XAUUSD", study_list, "../", lang)
+        + f'<h2 class="section-title">{t("xauusd.this_week", lang)}</h2>'
         f'<div class="grid">{weekly_html}</div>'
-        + '<h2 class="section-title">XAUUSD studies '
+        + f'<h2 class="section-title">{t("xauusd.studies_heading", lang)} '
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter XAUUSD studies" aria-label="Filter"></div></div>'
+        f'placeholder="{html.escape(t("xauusd.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
         + view_toggle_html()
         + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
@@ -2589,10 +2901,11 @@ def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, obje
     )
     return document(
         "XAUUSD",
-        "Gold",
-        "What to check when a signal fires, this week's outlook, and every gold study.",
+        t("xauusd.eyebrow", lang),
+        t("xauusd.lede", lang),
         body,
         "../",
+        lang=lang,
     )
 
 
@@ -2601,24 +2914,23 @@ def section_page(
     market: str,
     title: str,
     lede: str,
+    lang: str = "en",
 ) -> str:
     selected = [study for study in study_list if study["market"].lower() == market]
     body = (
         '<main class="shell">'
-        + signal_playbook_html(market.upper(), study_list, "../")
-        + f'<h2 class="section-title">{html.escape(market.upper())} studies '
+        + signal_playbook_html(market.upper(), study_list, "../", lang)
+        + f'<h2 class="section-title">{t("section.studies_heading_tpl", lang).format(market=html.escape(market.upper()))} '
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter studies" aria-label="Filter"></div></div>'
+        f'placeholder="{html.escape(t("section.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
         + view_toggle_html()
         + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
         + "</main>"
     )
-    return document(title, market, lede, body, "../")
-
-
-def lessons_page(registry, study_list) -> str:
+    return document(title, market, lede, body, "../", lang=lang)
+def lessons_page(registry, study_list, lang: str = "en") -> str:
     """What was ruled out, and what the programme learned about testing.
 
     Split off from the instrument pages because it is the one section that genuinely spans
@@ -2626,50 +2938,46 @@ def lessons_page(registry, study_list) -> str:
     trade" but "has this already been tried". Those are different visits and putting them
     on the same page made each harder to find.
     """
-    methodology = [s for s in study_list if s.get("theme") == "methodology"]
-    cards = "".join(study_card(s, "../") for s in methodology)
+    methodology = [x for x in study_list if x.get("theme") == "methodology"]
+    cards = "".join(study_card(x, "../") for x in methodology)
     totals = (registry or {}).get("totals", {})
     banner = ""
     if totals:
         banner = (
             '<a class="card" data-card href="../research/null-results/">'
-            '<div class="type">registry</div><h2>The full registry</h2>'
-            "<p>Every question that was asked and answered with no, each one carrying "
-            "the smallest effect its sample could have resolved.</p>"
+            f'<div class="type">{t("lessons.registry_type", lang)}</div>'
+            f'<h2>{t("lessons.registry_title", lang)}</h2>'
+            f'<p>{t("lessons.registry_desc", lang)}</p>'
             '<div class="mini-metrics">'
-            f'<span><strong>{totals.get("hypotheses", 0)}</strong> hypotheses</span>'
-            f'<span><strong>{totals.get("by_verdict", {}).get("survives_screens", 0)}</strong> survivors</span>'
+            f'<span><strong>{totals.get("hypotheses", 0)}</strong> {t("lessons.hypotheses_unit", lang)}</span>'
+            f'<span><strong>{totals.get("by_verdict", {}).get("survives_screens", 0)}</strong> {t("lessons.survivors_unit", lang)}</span>'
             "</div></a>"
         )
     body = (
         '<main class="shell">'
-        '<section class="report-section"><h2>Why this page exists</h2>'
-        "<p>Most of what this programme produces is <em>no</em>. That is a conclusion, "
-        "not the absence of one — and knowing what not to try again is itself something "
-        "to decide with.</p>"
-        "<p>Every entry carries its <strong>resolution bound</strong>: the smallest "
-        "difference that sample could have separated. A “no evidence” with a wide bound "
-        "closed nothing at all, and that distinction is the whole point.</p>"
+        f'<section class="report-section"><h2>{t("lessons.why_exists", lang)}</h2>'
+        f'<p>{t("lessons.why_p1", lang)}</p>'
+        f'<p>{t("lessons.why_p2", lang)}</p>'
         "</section>"
         + (f'<div class="grid">{banner}</div>' if banner else "")
-        + (f'<h2 class="section-title">Methodology '
+        + (f'<h2 class="section-title">{t("lessons.methodology", lang)} '
            f'<span class="sheet-count">({len(methodology)})</span></h2>'
-           f'<p class="section-note">What was learned about how to measure — usually '
-           f'by getting it wrong once first.</p>'
+           f'<p class="section-note">{t("lessons.methodology_note", lang)}</p>'
            f'<div class="grid study-grid">{cards}</div>' if methodology else "")
         + "</main>"
     )
     return document(
-        "What Didn\u2019t Work",
-        "negative results",
-        "The search space that has been ruled out, and how much each “no” actually "
-        "closed.",
+        t("lessons.title", lang),
+        t("lessons.eyebrow", lang),
+        t("lessons.lede", lang),
         body,
         "../",
+        lang=lang,
     )
 
 
-def research_page(data: dict[str, object], study_list: list[dict[str, object]]) -> str:
+def research_page(data: dict[str, object], study_list: list[dict[str, object]],
+                  lang: str = "en") -> str:
     registry = null_registry()
     banner = ""
     if registry:
@@ -2679,21 +2987,20 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
         # first thing worth knowing before asking a question of this data again.
         banner = (
             '<a class="card" data-card href="null-results/">'
-            '<div class="type">registry</div><h2>What did not work</h2>'
-            "<p>Every question asked of this data and answered with no, each carrying the "
-            "smallest effect its sample could have resolved. Published as JSON so anything "
-            "automated can skip what is already closed.</p>"
+            f'<div class="type">{t("lessons.registry_type", lang)}</div>'
+            f'<h2>{t("research.registry_title", lang)}</h2>'
+            f'<p>{t("research.registry_desc", lang)}</p>'
             '<div class="mini-metrics">'
-            f'<span><strong>{totals["hypotheses"]}</strong> hypotheses</span>'
-            f'<span><strong>{totals["by_verdict"].get("survives_screens", 0)}</strong> survivors</span>'
-            f'<span><strong>{totals["studies"]}</strong> studies</span>'
+            f'<span><strong>{totals["hypotheses"]}</strong> {t("lessons.hypotheses_unit", lang)}</span>'
+            f'<span><strong>{totals["by_verdict"].get("survives_screens", 0)}</strong> {t("lessons.survivors_unit", lang)}</span>'
+            f'<span><strong>{totals["studies"]}</strong> {t("research.studies_unit", lang)}</span>'
             "</div></a>"
         )
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
-        'placeholder="Filter studies" aria-label="Filter"></div></div>'
+        f'placeholder="{html.escape(t("section.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
         f'<main class="shell">'
-        + (f'<h2 class="section-title">Start here</h2><div class="grid">{banner}</div>'
+        + (f'<h2 class="section-title">{t("research.start_here", lang)}</h2><div class="grid">{banner}</div>'
            if banner else "")
         + view_toggle_html()
         + theme_sheets_html(study_list)
@@ -2701,18 +3008,19 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]]) 
         + "</main>"
     )
     return document(
-        "Research studies",
-        "Evidence → decision → workflow",
-        "Reviewed studies preserve the question, reproducible method, aggregate result, and operational impact without publishing raw CSV or private conversation.",
+        t("research.title", lang),
+        t("research.eyebrow", lang),
+        t("research.lede", lang),
         body,
         "../",
+        lang=lang,
     )
-
 
 def overview(
     data: dict[str, object],
     study_list: list[dict[str, object]],
     weekly: list[dict[str, object]],
+    lang: str = "en",
 ) -> str:
     """The front door, organised by what the reader came to do.
 
@@ -2736,104 +3044,155 @@ def overview(
             str(study.get("market", "")).upper(), 0) + 1
 
     weekly_line = (
-        f'{weekly[0]["forecast_week"]} outlook published'
-        if weekly else "no weekly published yet"
+        t("home.weekly_published_tpl", lang).format(week=weekly[0]["forecast_week"])
+        if weekly else t("home.no_weekly", lang)
     )
     primary = (
         '<a class="card card-wide" data-card href="xauusd/">'
-        '<div class="type">Signal fired</div>'
-        '<h2>XAUUSD Gold</h2>'
-        "<p>Before an entry: the historical win rate by Bollinger position, how much "
-        "of the day's range is left, and what has already been ruled out.</p>"
+        f'<div class="type">{t("home.signal_fired", lang)}</div>'
+        f'<h2>{t("home.xauusd_title", lang)}</h2>'
+        f'<p>{t("home.xauusd_desc", lang)}</p>'
         '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> studies</span>'
+        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> {t("home.studies_unit", lang)}</span>'
         f'<span><strong>{html.escape(weekly_line)}</strong></span>'
         "</div></a>"
         '<a class="card card-wide" data-card href="tx/">'
-        '<div class="type">Second instrument</div>'
-        '<h2>TX Taiwan Index Futures</h2>'
-        "<p>Only preliminary work on seasonality and pullback structure so far. "
-        "Nothing at the signal layer yet.</p>"
+        f'<div class="type">{t("home.second_instrument", lang)}</div>'
+        f'<h2>{t("home.tx_title", lang)}</h2>'
+        f'<p>{t("home.tx_desc", lang)}</p>'
         '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("TX", 0)}</strong> studies</span>'
+        f'<span><strong>{counts.get("TX", 0)}</strong> {t("home.studies_unit", lang)}</span>'
         "</div></a>"
     )
 
     secondary = [
-        ("lessons/", "What Didn\u2019t Work",
-         f'{totals.get("hypotheses", 0)} hypotheses tested, '
-         f'{totals.get("by_verdict", {}).get("survives_screens", 0)} survived. '
-         "Knowing what not to try again is itself something to decide with."),
-        ("jargon/", "Jargon",
-         "The site is in English. This defines every technical term once, in "
-         "Chinese, so it stays readable."),
-        ("xauusd/weekly/", "Weekly Report",
-         "Key levels, scenarios and event risk, week by week."),
+        ("lessons/", t("nav.lessons", lang),
+         t("home.lessons_desc_tpl", lang).format(
+             n=totals.get("hypotheses", 0),
+             survived=totals.get("by_verdict", {}).get("survives_screens", 0))),
+        ("jargon/", t("nav.jargon", lang), t("home.jargon_desc", lang)),
+        (en_link("", lang, "xauusd/weekly/"), t("home.weekly_title", lang), t("home.weekly_desc", lang)),
     ]
     minor = '<div class="grid">' + "".join(
-        f'<a class="card" data-card href="{href}"><div class="type">Reference</div>'
+        f'<a class="card" data-card href="{href}"><div class="type">{t("home.card_reference", lang)}</div>'
         f'<h2>{title}</h2><p>{description}</p></a>'
         for href, title, description in secondary
     ) + "</div>"
 
     body = (
         '<main class="shell">'
-        '<h2 class="section-title">What you trade</h2>'
+        f'<h2 class="section-title">{t("home.what_you_trade", lang)}</h2>'
         f'<div class="grid">{primary}</div>'
-        '<h2 class="section-title">Reference</h2>'
+        f'<h2 class="section-title">{t("home.reference", lang)}</h2>'
         f"{minor}"
-        '<section class="report-section"><h2>What this site is</h2>'
-        "<p>The public half of a trading research programme. It does not give advice and "
-        "it does not argue about which strategies work — it records which questions were "
-        "asked, what the answer was, and how much that answer can be trusted.</p>"
-        "<p>Most of the answers are no.</p>"
+        f'<section class="report-section"><h2>{t("home.what_this_site_is", lang)}</h2>'
+        f'<p>{t("home.what_this_site_p1", lang)}</p>'
+        f'<p>{t("home.what_this_site_p2", lang)}</p>'
         "</section>"
         "</main>"
     )
     return document(
-        "Trading Research",
-        "Public workspace",
-        "What to check when a signal fires, and what has already been ruled out.",
+        t("home.title", lang),
+        t("home.eyebrow", lang),
+        t("home.lede", lang),
         body,
+        lang=lang,
     )
 
 
-def outputs(data: dict[str, object]) -> dict[Path, str]:
+
+def outputs(data: dict[str, object], lang: str = "en") -> dict[Path, str]:
+    """Build one full tree — English at ROOT, Chinese at ROOT/"zh" — from the same data.
+
+    The two trees are structurally identical: every relative path and every `prefix`
+    argument below is exactly what it would be for a single-language site, computed as if
+    ROOT were wherever this tree happens to be rooted. That is what makes generating both
+    trees from one function safe: nothing here needs to know which tree it is building.
+
+    Three things are NOT mirrored into the Chinese tree by design:
+    - `site/catalog.json`, an internal data dump with no reader-facing text.
+    - `xauusd/weekly/*`, a separate pipeline (docs/WEEKLY_REPORT_WORKFLOW.md) not
+      translated in this pass; Chinese pages reach it via en_link() instead.
+    `jargon/` IS mirrored, unlike weekly: its content is already bilingual (see
+    glossary.json), so serving the identical page from both trees costs nothing and needs
+    no translation.
+    """
+    root = ROOT if lang == "en" else ROOT / "zh"
     study_list = studies()
     weekly = weekly_summaries()
-    generated = {
-        ROOT / "site/catalog.json": json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
-        ROOT / "index.html": overview(data, study_list, weekly),
-        ROOT / "xauusd/index.html": xauusd_page(study_list, weekly),
-        ROOT / "tx/index.html": section_page(
-            study_list, "tx", "TX Taiwan Index Futures", "Studies on Taiwan index futures."),
-        ROOT / "research/index.html": research_page(data, study_list),
-        ROOT / "lessons/index.html": lessons_page(null_registry(), study_list),
+    generated: dict[Path, str] = {
+        root / "index.html": overview(data, study_list, weekly, lang),
+        root / "xauusd/index.html": xauusd_page(study_list, weekly, lang),
+        root / "tx/index.html": section_page(
+            study_list, "tx", "TX Taiwan Index Futures",
+            "Studies on Taiwan index futures." if lang == "en" else "台指期研究。", lang),
+        root / "research/index.html": research_page(data, study_list, lang),
+        root / "lessons/index.html": lessons_page(null_registry(), study_list, lang),
     }
+    if lang == "en":
+        generated[root / "site/catalog.json"] = (
+            json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+        )
     registry = null_registry()
     if registry:
-        generated[ROOT / "research/null-results/index.html"] = null_results_page(registry)
+        generated[root / "research/null-results/index.html"] = null_results_page(registry, lang)
     terms = glossary()
     if terms:
-        generated[ROOT / "jargon/index.html"] = glossary_page(terms)
-    if weekly:
-        generated[ROOT / "xauusd/weekly/index.html"] = weekly_summary_page(
+        generated[root / "jargon/index.html"] = glossary_page(terms, lang)
+    if lang == "en" and weekly:
+        generated[root / "xauusd/weekly/index.html"] = weekly_summary_page(
             weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,
         )
         for summary in weekly:
-            generated[ROOT / summary["_relative"] / "index.html"] = weekly_summary_page(
+            generated[root / summary["_relative"] / "index.html"] = weekly_summary_page(
                 summary, weekly, prefix="../../../", source_href="summary.json", latest=False,
             )
     for study in study_list:
-        generated[ROOT / study["_relative"] / "index.html"] = study_page(study)
+        generated[root / study["_relative"] / "index.html"] = study_page(study, lang)
     return generated
+
+
+def relative_href(from_path: Path, to_path: Path) -> str:
+    """A relative link from one generated page's directory to another's."""
+    rel = os.path.relpath(to_path.parent, start=from_path.parent)
+    return "./" if rel == "." else rel.replace(os.sep, "/") + "/"
+
+
+def apply_lang_switches(en_pages: dict[Path, str], zh_pages: dict[Path, str]) -> None:
+    """Fill in the LANG_SWITCH_TOKEN placeholder now that both trees exist.
+
+    document() cannot compute this link itself: at the moment an English page is rendered,
+    the Chinese tree may not exist yet (and vice versa), so the placeholder is filled in
+    here, once both dicts are complete. A page present in only one tree — nothing, today,
+    since outputs() mirrors every path except catalog.json and weekly, neither of which
+    calls document() — keeps its placeholder link removed rather than pointing at a 404.
+    """
+    zh_root = ROOT / "zh"
+    for en_path, en_html in list(en_pages.items()):
+        zh_path = zh_root / en_path.relative_to(ROOT)
+        if zh_path in zh_pages:
+            href = relative_href(en_path, zh_path)
+            en_pages[en_path] = en_html.replace(LANG_SWITCH_TOKEN, html.escape(href))
+        else:
+            en_pages[en_path] = en_html.replace(LANG_SWITCH_TOKEN, "#")
+    for zh_path, zh_html in list(zh_pages.items()):
+        en_path = ROOT / zh_path.relative_to(zh_root)
+        if en_path in en_pages:
+            href = relative_href(zh_path, en_path)
+            zh_pages[zh_path] = zh_html.replace(LANG_SWITCH_TOKEN, html.escape(href))
+        else:
+            zh_pages[zh_path] = zh_html.replace(LANG_SWITCH_TOKEN, "#")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    generated = outputs(catalog())
+    data = catalog()
+    en_pages = outputs(data, "en")
+    zh_pages = outputs(data, "zh")
+    apply_lang_switches(en_pages, zh_pages)
+    generated: dict[Path, str] = {**en_pages, **zh_pages}
     failures: list[str] = []
     for path, expected in generated.items():
         if args.check:

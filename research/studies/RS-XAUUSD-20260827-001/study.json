@@ -29,32 +29,46 @@
     {
       "tone": "warn",
       "title": "The question as usually asked answers with the top of the tested range",
-      "detail": "\"The largest size with a zero margin-call rate\" cannot be answered by eighteen September-to-March cycles whose worst trough against average cost is -14.18%, because the tightest margin trigger among the sizes tested is -18.96%. Every size clears, so the answer is whatever the range topped out at — 4.34x leverage here, and it would have been higher had higher been tested. That is a fact about eighteen draws, not about the calendar."
+      "detail": "\"The largest size with a zero margin-call rate\" cannot be answered by eighteen September-to-March cycles whose worst trough against average cost is -14.18%, because the tightest margin trigger among the sizes tested is -18.96%. Every size clears, so the answer is whatever the range topped out at — 4.34x leverage here, and it would have been higher had higher been tested. That is a fact about eighteen draws, not about the calendar.",
+      "title_zh": "這個問題照通常的問法，答案永遠是測試範圍的上限",
+      "detail_zh": "「追繳率為零的最大部位規模」這個問題，用十八個九月到三月的週期回答不出來——這些週期裡相對均成本的最糟低點是 −14.18%，而測試過的規模裡最緊的追繳門檻是 −18.96%。每一個規模都通過，所以答案就是測試範圍剛好碰到的上限——這裡是 4.34 倍槓桿，如果測試更大的規模，答案還會更大。這是十八次抽樣的性質，不是日曆的性質。"
     },
     {
       "tone": "good",
       "title": "The arithmetic gives a different answer and it is the one that governs",
-      "detail": "Gold fell 29.44% between January and June 2026, the largest fall in the daily record. Margin call arrives at -28.17% at 3.1x leverage and -22.8% at 3.72x, so only 2.48x and below survive a repeat: its trigger is -36.24%. The fall happened outside the September build window, which is exactly why the backtest does not see it and cannot be used to rule it out."
+      "detail": "Gold fell 29.44% between January and June 2026, the largest fall in the daily record. Margin call arrives at -28.17% at 3.1x leverage and -22.8% at 3.72x, so only 2.48x and below survive a repeat: its trigger is -36.24%. The fall happened outside the September build window, which is exactly why the backtest does not see it and cannot be used to rule it out.",
+      "title_zh": "算術推導給出不同的答案，而且是該當數的那個",
+      "detail_zh": "黃金在 2026 年 1 月到 6 月之間跌了 29.44%，是日線紀錄裡最大的一次下跌。3.1 倍槓桿在 −28.17% 觸發追繳，3.72 倍槓桿在 −22.8% 觸發，所以只有 2.48 倍以下能撐過再來一次同樣的下跌：它的觸發點是 −36.24%。那次下跌發生在九月建倉窗口之外，這正是回測看不到它、也不能用回測去排除它的原因。"
     },
     {
       "tone": "warn",
       "title": "Surviving margin and surviving the holder are different sizes",
-      "detail": "Two drawdowns are reported and they are not the same quantity. Trough against average cost is what margin tests, because maintenance compares equity to a requirement and equity is price minus cost. Peak-to-trough on the equity curve is larger and is what the position felt like: 37.09% at 2.48x leverage, and the worst case is a cycle that finished 20% up. It built near 3,900, rode gold to 5,597 in January and exited at 4,683, giving back a quarter of the account from its high on the way."
+      "detail": "Two drawdowns are reported and they are not the same quantity. Trough against average cost is what margin tests, because maintenance compares equity to a requirement and equity is price minus cost. Peak-to-trough on the equity curve is larger and is what the position felt like: 37.09% at 2.48x leverage, and the worst case is a cycle that finished 20% up. It built near 3,900, rode gold to 5,597 in January and exited at 4,683, giving back a quarter of the account from its high on the way.",
+      "title_zh": "撐得過追繳，和撐得過持有的人，是兩個不同的規模",
+      "detail_zh": "這裡報告了兩種回撤，它們不是同一個量。相對均成本的低點是追繳測試用的東西，因為維持保證金比的是權益對照要求，而權益就是價格減成本。權益曲線的峰谷回撤比較大，是持有這個部位的人實際感受到的東西：2.48 倍槓桿下達到 37.09%，而且最糟的那個週期最後是賺20% 出場的。它在 3,900 附近建倉，一月跟著黃金衝到 5,597，三月在 4,683 出場，過程中從高點回吐了帳戶四分之一的錢。"
     },
     {
       "tone": "info",
       "title": "The seasonal premise is half backwards, and unresolvable in either direction",
-      "detail": "A December-to-March seasonal strength is often asserted. December and January are the strong pair; February and March are the two weakest months of the year, so holding to end-March captures January and then sits through both. But no month separates: 47 observations against a resolvable gap of about 21 percentage points, with the strongest month 11.7 points clear of the rest. The claim is neither supported nor refuted, and exit timing is reported as a parameter with its bound rather than as a recommendation."
+      "detail": "A December-to-March seasonal strength is often asserted. December and January are the strong pair; February and March are the two weakest months of the year, so holding to end-March captures January and then sits through both. But no month separates: 47 observations against a resolvable gap of about 21 percentage points, with the strongest month 11.7 points clear of the rest. The claim is neither supported nor refuted, and exit timing is reported as a parameter with its bound rather than as a recommendation.",
+      "title_zh": "季節性的前提反了一半，而且不管哪個方向都無法定案",
+      "detail_zh": "常有人說黃金在十二月到三月有季節性強勢。十二月和一月確實是最強的一對，但二月和三月是全年最弱的兩個月，所以持有到三月底等於吃到一月，然後穿過這兩個最弱的月份。但沒有任何一個月分辨得出來：47 個觀測值對照大約 21 個百分點的解析下限，最強的月份也只領先其餘月份 11.7 個百分點。這個說法既不成立也不能推翻，出場時點在這裡被當成一個附解析下限的參數來報告，不是一個建議。"
     },
     {
       "tone": "warn",
       "title": "Roll cost is excluded, and it is the largest omission",
-      "detail": "Carry on a 4,650 contract at prevailing rates puts a two-month roll near $36 an ounce while the front-month basis measurable here is $1 to $3 — and that basis is not the calendar spread, so it cannot settle the question. Two to three rolls sit between September and March. Against a mean cycle return of 6.2% of capital the difference between a token roll cost and a carry-implied one is most of the profit, so every figure here is optimistic and the leverage ceiling is an upper bound."
+      "detail": "Carry on a 4,650 contract at prevailing rates puts a two-month roll near $36 an ounce while the front-month basis measurable here is $1 to $3 — and that basis is not the calendar spread, so it cannot settle the question. Two to three rolls sit between September and March. Against a mean cycle return of 6.2% of capital the difference between a token roll cost and a carry-implied one is most of the profit, so every figure here is optimistic and the leverage ceiling is an upper bound.",
+      "title_zh": "轉倉成本被排除在外，這是最大的缺漏",
+      "detail_zh": "以 4,650 的合約價位、按目前的利率推算，兩個月的轉倉成本大約落在每盎司 36 美元，而這裡能實測到的近月對現貨基差只有 1 到 3 美元——那個基差不是月曆價差，沒辦法用它來定案。九月到三月之間要轉倉兩到三次。相對於平均每個週期 6.2% 資金報酬，象徵性的轉倉成本跟依持有成本推算出來的轉倉成本，兩者之間的差距幾乎吃掉大半的獲利，所以這裡的每一個數字都偏樂觀，槓桿上限只能當成一個上界。"
     }
   ],
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Four monthly buys of gold futures held to March. The backtest clears every size tested because eighteen September cycles never met a large drawdown; the arithmetic stops well short.",
+  "title_zh": "黃金期貨每月分批建倉的部位規模——回測給的答案，是測試範圍的上限",
+  "question_zh": "從九月起每月買一次黃金期貨，共四次，持有到隔年三月：哪個槓桿撐得住，而且是歷史回測的答案，還是算術推導的答案該當數？",
+  "hypothesis_zh": "回測會讓每一個測試過的部位規模都通過，因為九月開始的視窗從來沒遇過大跌，而這是十八個樣本的性質，不是日曆的性質。",
+  "card_summary_zh": "每月買一次黃金期貨，共四次，持有到三月。回測讓每一個測試過的規模都通過，因為十八個九月週期從來沒遇過大跌；算術推導出來的答案小得多。",
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

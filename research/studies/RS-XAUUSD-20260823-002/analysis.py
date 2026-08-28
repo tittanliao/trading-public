@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """RS-XAUUSD-20260823-002 — S1 V3.9's Bollinger %B at entry, put through every screen.
 
-This candidate arrived differently from the others in the programme. The owner reported an
-impression that S1 signals near the top of the band win more often; V3.9's own Pine carries
+This candidate arrived differently from the others in the programme. An unprompted
+impression held that S1 signals near the top of the band win more often; V3.9's own Pine carries
 a disabled `use_bb_filter` whose tooltip records "above_upper (%B>100%) 勝率 77.8%"; and
 RS-XAUUSD-20260727-001's `bb_zone` table shows a monotone gradient topping at 79.31%. Three
 independent statements of the same thing is a reason to test it properly, not a reason to
@@ -447,7 +447,7 @@ def build() -> dict:
             "Entry momentum is a proxy built from the same price series, so the ablation "
             "bounds the confound rather than eliminating it.",
             "No result changes formal S1 logic, live risk, or an entry checklist without a "
-            "separate owner decision.",
+            "separate adoption decision.",
         ],
     }
 

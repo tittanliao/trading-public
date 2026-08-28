@@ -373,8 +373,8 @@ def public_view(payload: dict) -> dict:
 
     Everything here is expressed per unit of capital or as a percentage, so the findings
     travel without the size of a particular account travelling with them. The private
-    results keep the dollars, because sizing a real position needs them and the owner is
-    the reader there.
+    results keep the dollars, because sizing a real position needs them and the person
+    sizing it is the reader there.
 
     Normalising is not redaction. Nothing is hidden that changes a conclusion: leverage,
     drawdown, win rate and the margin triggers are all ratios already, and the one figure
