@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Build the V3.4 vs V3.9 gap ("comparison") report per
-docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.
+"""Build the V3.4 vs V3.9 gap ("comparison") report using the project's standard
+30-minute-granularity contract.
 
 Reads the two solo studies' results.json (never recomputes the underlying fail-pattern
 breakdown) and produces version-delta tables/charts only.

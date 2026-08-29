@@ -6,12 +6,12 @@ input and writes derived research artifacts only inside ``trading-private``. It
 generalizes ``analyze_s1_v39_context.py`` to run the same deterministic method across
 two TradingView "List of Trades" export schemas (V3.4's older column names and V3.9's
 current ones) so results are directly comparable at 30-minute granularity. No
-fail-pattern (fail_type/DXY/MTF/K-bar) breakdown is computed here by owner request;
+fail-pattern (fail_type/DXY/MTF/K-bar) breakdown is computed here by request;
 session and Macro context are retained because they are part of the existing 001
 methodology, not the fail-pattern report.
 
 Provenance-only, serving only the superseded RS-XAUUSD-20260727-002 (status: pending,
-never migrated per docs/RESEARCH_DEVELOPMENT_SPEC.md section 5). Not rerun or extended.
+never migrated to the current fail-pattern report format). Not rerun or extended.
 """
 from __future__ import annotations
 
@@ -279,12 +279,12 @@ def markdown_report(result: dict) -> str:
         f"{v39['trade_period']['start']} to {v39['trade_period']['end']}.",
         "- Entry timestamps are TradingView export time, interpreted as Asia/Taipei.",
         "- No fail-pattern (fail_type/DXY/MTF/K-bar) breakdown; this study covers session, "
-        "30-minute entry slot, and Macro context only, per owner scope for this rerun.",
+        "30-minute entry slot, and Macro context only, per the agreed scope for this rerun.",
         "- **Risk-parameter caveat**: V3.4 used 0.5% SL with TP2 = 2R; V3.9 uses a different "
-        "exit structure (see `docs/STRATEGY.md`). Win-rate/PF differences between versions "
+        "exit structure. Win-rate/PF differences between versions "
         "may reflect exit-rule changes, not only timing/regime differences — do not read this "
         "as a pure like-for-like backtest.",
-        "- V3.4 is superseded (owner-confirmed active version is V3.9). This study is historical "
+        "- V3.4 is superseded (the confirmed active version is V3.9). This study is historical "
         "comparison only; it does not reinstate V3.4 or change any active `請分析` rule.",
         "",
         "## Baseline",
@@ -367,7 +367,7 @@ def main() -> None:
             "macro_assignment": "latest prior daily observation, maximum age 4 days",
             "session_timezone": "Asia/Taipei (TradingView export-time assumption)",
             "session_buckets": "overnight=01:00-06:59; asia=07:00-14:59; europe=15:00-20:29; us=20:30-00:59 (descriptive only)",
-            "primary_granularity": "30-minute entry slot (HH:00/HH:30), by standing instruction for this and future studies",
+            "primary_granularity": "30-minute entry slot (HH:00/HH:30), the standard granularity for this and future studies",
             "advisory_delta": "average-return empirical Bayes shrinkage toward each version's own baseline, prior_n=30; Macro capped ±10 and 30-minute entry slots capped ±4",
             "column_normalization": "V3.4 export uses 'Trade #'/'Net P&L USD'/'Net P&L %'; V3.9 export uses 'Trade number'/'Net PnL USD'/'Return %'. Both mapped to the same canonical schema before computation.",
         },

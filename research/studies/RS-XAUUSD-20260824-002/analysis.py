@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """RS-XAUUSD-20260824-002 — CFTC positioning, and a placebo the publication lag hands us.
 
-The owner supplied two hypotheses and one observation. The observation is the more valuable
+Two hypotheses and one observation were supplied for this study. The observation is the more valuable
 of the three, and it shapes the whole study.
 
 ## The observation, and why it is a study design rather than a hypothesis
 
 A COT report is dated Tuesday and published Friday afternoon US time — Saturday morning in
 Taipei. By the time anyone reads it, Wednesday, Thursday and Friday have already traded.
-The owner noticed this and asked to look at both windows separately.
+That prompted looking at both windows separately.
 
 That is a **built-in placebo test**, and most positioning research does not have one:
 
@@ -165,14 +165,14 @@ def hypothesis(frame: pd.DataFrame, name: str, claim: str, origin: str,
 
 
 def build_hypotheses(d: pd.DataFrame) -> list[dict]:
-    """Owner hypotheses first, then the ones this study adds."""
+    """The originally stated hypotheses first, then the ones this study adds."""
     out = []
 
     def quantile_flag(column: str, q: float, above: bool = True) -> np.ndarray:
         threshold = d[column].quantile(q)
         return (d[column] > threshold if above else d[column] < threshold).to_numpy()
 
-    # --- owner hypothesis 1 ---------------------------------------------------------
+    # --- stated hypothesis 1 ---------------------------------------------------------
     # Stated as "retail long while managed money is short, then a rise followed by a fall".
     # The literal binary version fires twice in 31 weeks, so it is reported as underpowered
     # AND reformulated continuously: the divergence between retail and managed-money net
@@ -180,8 +180,8 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
     combo = ((d["retail_net_chg"] > 0) & (d["mm_net_chg"] < 0)).to_numpy()
     out.append(hypothesis(
         d, "h01_retail_long_mm_short_literal",
-        "Retail adds length while managed money cuts it — the owner's stated combination.",
-        "owner", combo,
+        "Retail adds length while managed money cuts it — the stated combination.",
+        "stated hypothesis", combo,
         note="Fires twice in 31 weeks. Kept to record that the literal form is untestable "
              "here, not to claim a result; h02 is the same idea made continuous.",
     ))
@@ -189,19 +189,19 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
         d, "h02_retail_vs_mm_divergence",
         "Top-quartile divergence between retail and managed-money net positioning "
         "(retail crowded long relative to the funds) precedes weakness.",
-        "owner_reformulated", quantile_flag("retail_vs_mm_divergence", 0.75),
+        "reformulated", quantile_flag("retail_vs_mm_divergence", 0.75),
     ))
 
-    # --- owner hypothesis 2 ---------------------------------------------------------
+    # --- stated hypothesis 2 ---------------------------------------------------------
     out.append(hypothesis(
         d, "h03_producer_short_falls",
         "Producer/merchant shorts fall — less downside hedging — so the next week rises.",
-        "owner", (d["prod_merc_short_chg"] < 0).to_numpy(),
+        "stated hypothesis", (d["prod_merc_short_chg"] < 0).to_numpy(),
     ))
     out.append(hypothesis(
         d, "h04_producer_short_falls_hard",
         "A top-quartile *reduction* in producer/merchant shorts precedes a rise.",
-        "owner_sharpened", quantile_flag("prod_merc_short_chg", 0.25, above=False),
+        "sharpened", quantile_flag("prod_merc_short_chg", 0.25, above=False),
     ))
 
     # --- what a hedger's book actually is -------------------------------------------
@@ -410,7 +410,7 @@ def main() -> int:
         "limitations": [
             "Thirty-one weeks. Almost every result here is a bound, not a finding, and the "
             "bounds are wide.",
-            "Transcribed from the owner's screenshots; all 132 field-values across the 12 "
+            "Transcribed from the source screenshots; all 132 field-values across the 12 "
             "weeks that overlap the official CSV matched exactly, and the series build fails "
             "if that ever stops being true.",
             "Two weeks are missing from the screenshot archive (2026-04-14 and 2026-05-05), "

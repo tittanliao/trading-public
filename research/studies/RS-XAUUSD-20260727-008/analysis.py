@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Build the S2 V1.9 vs V3.2 gap ("comparison") report per
-docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.
+"""Build the S2 V1.9 vs V3.2 gap ("comparison") report using the project's standard
+30-minute-granularity contract.
 
 Reads the two solo studies' results.json (never recomputes the underlying fail-pattern
 breakdown) and produces version-delta tables/charts only. Structurally identical to
@@ -318,7 +318,7 @@ def render_readme(results: dict) -> str:
         "## Interpretation",
         "",
         "- See `report.html` for the full chart-embedded comparison and `results.json` for structured deltas.",
-        "- Only the owner-confirmed active S2 version is eligible to affect any live S2 advisory score.",
+        "- Only the confirmed active S2 version is eligible to affect any live S2 advisory score.",
         "",
     ]
     return "\n".join(lines) + "\n"

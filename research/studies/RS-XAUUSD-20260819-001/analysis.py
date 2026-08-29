@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """RS-XAUUSD-20260819-001 — pattern mining on 30-minute gold, and what survives a null.
 
-The owner asked for repeatable regularities in the 30-minute data and said overfitting was
-acceptable. This runs the mining broadly and reports what it finds — including three
+A request was made for repeatable regularities in the 30-minute data, with overfitting
+accepted as a cost. This runs the mining broadly and reports what it finds — including three
 families that produce spectacular in-sample results and are artefacts, and one that is real.
 
 The distinction is not made by significance testing alone. Each family is compared against a
@@ -649,7 +649,7 @@ def main() -> int:
                            "from": bars[v[0]]["t"].date().isoformat(),
                            "to": bars[v[1] - 1]["t"].date().isoformat()}
                        for k, v in sp.items()},
-            "brief": ("owner asked for repeatable regularities and accepted overfitting; "
+            "brief": ("repeatable regularities were requested and overfitting accepted; "
                       "each family is therefore reported with the null that decides it"),
             "round_trip_cost_pct": COST_PCT,
             "random_seed": RANDOM_SEED,

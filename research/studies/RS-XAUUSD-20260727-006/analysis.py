@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Build a single-strategy-version fail-pattern report per
-docs/RESEARCH_DEVELOPMENT_SPEC.md section 5. Despite the filename (kept for
+"""Build a single-strategy-version fail-pattern report using the project's standard
+30-minute-granularity contract. Despite the filename (kept for
 provenance continuity with RS-XAUUSD-20260727-003/-004), STUDY_CONFIG covers any
 strategy/market, not only S1.
 
 Selector is `--study-id`, not `--version`: two studies can share a version (e.g.
-RS-XAUUSD-20260727-001 and -004 are both S1 V3.9), so version alone is ambiguous
-(docs/RESEARCH_DEVELOPMENT_SPEC.md section 13.6 item 2a).
+RS-XAUUSD-20260727-001 and -004 are both S1 V3.9), so version alone is ambiguous.
 
 Usage:
     /opt/homebrew/bin/python3.12 scripts/research/build_s1_fail_pattern_solo.py --study-id RS-XAUUSD-20260727-003
@@ -17,7 +16,7 @@ Usage:
 
 Writes results.json, report.html, README.md, and charts/*.png into the study's
 research/studies/<id>/ directory. study.json/source_manifest.json/decision_log.md/
-handoff.md are authored separately (they carry owner-decision context this runner
+handoff.md are authored separately (they carry decision context this runner
 does not have).
 """
 from __future__ import annotations
@@ -498,7 +497,7 @@ def render_readme(results: dict) -> str:
         "## Scope",
         "",
         f"- Closed trades: **{baseline['n']}**, {results['trade_period']['start']} to {results['trade_period']['end']}.",
-        "- 30-minute entry slot is the primary time axis (docs/RESEARCH_DEVELOPMENT_SPEC.md section 5).",
+        "- 30-minute entry slot is the primary time axis (the project's standard granularity).",
         f"- K-bar coverage for immediate_loss trades: {results['kbar_coverage']['coverage_pct']}%.",
     ]
     if "by_macro_verdict" in results:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a monthly seasonality report per docs/RESEARCH_DEVELOPMENT_SPEC.md section 14.
+"""Build a monthly seasonality report using the project's standard seasonality contract.
 
 STUDY_CONFIG covers any instrument with a weekly OHLC CSV, not just TX — market-
 agnostic by construction, matching section 14's own scope language.
@@ -9,7 +9,7 @@ Usage:
 
 Writes results.json, report.html, README.md, and charts/*.png into the study's
 research/studies/<id>/ directory. study.json/source_manifest.json/decision_log.md/
-handoff.md are authored separately (they carry owner-decision context this runner
+handoff.md are authored separately (they carry decision context this runner
 does not have).
 """
 from __future__ import annotations
@@ -209,7 +209,7 @@ def render_html(results: dict, heatmap: dict, b64_by_id: dict) -> str:
 <p class="meta">所有月份合併，看月初、月中、月底哪一週的多頭勝率最高。</p>
 <div class="card">{_img(b64_by_id['week_in_month_winrate'])}{_week_table(results['week_in_month'])}</div>
 
-<footer>docs/RESEARCH_DEVELOPMENT_SPEC.md section 14 &nbsp;·&nbsp; {generated}</footer>
+<footer>Monthly seasonality contract &nbsp;·&nbsp; {generated}</footer>
 </div></body></html>"""
 
 

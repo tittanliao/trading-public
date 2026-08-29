@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build RS-TX-20260728-002: annual Jan-open -> Jul-1 rally, Fibonacci pullback
 re-entry, exit the following March 31. One-off TX study, not a spec-section contract
-(docs/RESEARCH_DEVELOPMENT_SPEC.md does not define a generic version of this — see
+(no generic version of this exists elsewhere — see
 that study's decision_log.md for the full method rationale).
 
-Method (owner-confirmed 2026-07-28):
+Method (confirmed 2026-07-28):
   - For each candidate year Y: jan_open = Y's first trading day's open in January;
     jul1_price = the close of the trading day on or immediately before July 1 of Y.
   - Year qualifies only if jul1_price > jan_open (a real rally happened).

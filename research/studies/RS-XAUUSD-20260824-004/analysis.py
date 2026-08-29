@@ -3,8 +3,8 @@
 
 Every sweep in this programme so far ran on a short window. The last one used 672 sessions
 (2024-01 to 2026-08) and returned twenty nulls, and the honest reading of several of those
-was not "the effect is absent" but "672 sessions could not resolve it". The owner's
-objection is the same one, in plainer words: 就算樣本少 應該還是有可能有 PATTERN.
+was not "the effect is absent" but "672 sessions could not resolve it". That is
+the same objection raised here, in plainer words: 就算樣本少 應該還是有可能有 PATTERN.
 
 The daily series in this repository goes back to 2008-01-04 — 4851 sessions, 7.2x the last
 sweep. Four macro series sitting in `manual/csv` have never been used by any study: VIX,
@@ -370,7 +370,7 @@ def write_readme(payload: dict, frame: pd.DataFrame) -> None:
     """Generate the README, with every number carrying its own derivation.
 
     Spec section 4.4b: a reader must be able to reconstruct any figure from what is on the
-    page. The owner's complaint was exact — 給我一個數值卻沒有說明數值產生的過程 讓我很多
+    page. That complaint was exact — 給我一個數值卻沒有說明數值產生的過程 讓我很多
     問號 — so a bare table is not an acceptable output here.
     """
     rows = {h["id"]: h for h in payload["hypotheses"]}

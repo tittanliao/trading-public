@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""RS-XAUUSD-20260824-003 — the owner's selection rule, tested on 273 weeks of real data.
+"""RS-XAUUSD-20260824-003 — a stated selection rule, tested on 273 weeks of real data.
 
-The owner made three specific claims and one criticism, and all four deserved a direct
+Three specific claims and one criticism were raised, and all four deserved a direct
 answer rather than an argument about statistics:
 
 1. Monday after the COT release breaks the low, sweeps liquidity, then rises.
@@ -9,13 +9,13 @@ answer rather than an argument about statistics:
 3. Several conditions agreeing is alpha.
 4. "I dislike you constantly saying not significant and then inventing a story."
 
-Point 4 is fair and it shapes how this file works. Every claim below is tested with the
-owner's own criterion first, on their own data, and the result is shown before any
-interpretation. Where the owner's method and a conventional one disagree, both numbers are
+Point 4 is fair and it shapes how this file works. Every claim below is tested with its
+own stated criterion first, on its own data, and the result is shown before any
+interpretation. Where the stated method and a conventional one disagree, both numbers are
 printed side by side so the disagreement is visible rather than asserted.
 
 The sample is no longer the constraint. The CFTC disaggregated history was downloaded with
-the owner's permission — 503 weeks for gold, 2017 to 2026 — and joined to the daily series
+permission — 503 weeks for gold, 2017 to 2026 — and joined to the daily series
 gives **273 usable weeks**, up from the 31 that made the previous study unanswerable.
 
 ## What the three tests found
@@ -39,7 +39,7 @@ walk-forward reconstruction (13.6 points, no lookahead). And it earns +0.022% pe
 against +0.071%. It wins more often and smaller: +0.83% per win against +1.27%, −1.45% per
 loss against −1.05%. Trading it takes 4% of the total return for 11% of the opportunities.
 
-That last result is the useful one, and it is not a rejection of the owner's instinct. The
+That last result is the useful one, and it is not a rejection of the original instinct. The
 consensus signal really does pick weeks that end green more often. It just does not pay,
 because win rate and expectancy are different quantities and this programme has now
 demonstrated that three separate ways.
@@ -108,7 +108,7 @@ def build_frame() -> pd.DataFrame:
             "oi": r["open_interest"],
         })
     f = pd.DataFrame(rows).sort_values("report_date").reset_index(drop=True)
-    # The window the owner cares about: the two sessions after publication.
+    # The window that matters for action: the two sessions after publication.
     f["mon_tue_ret"] = 100 * (f["tue_close"] / f["fri_close"] - 1)
     # The same window with Monday removed, which is what a Monday-close condition can use.
     f["tue_only_ret"] = 100 * (f["tue_close"] / f["mon_close"] - 1)
@@ -166,7 +166,7 @@ def test_monday_sweep(f: pd.DataFrame) -> dict:
                 win_rate(swept["tue_only_ret"]) - win_rate(quiet["tue_only_ret"]), 2),
         },
         "sweep_and_recover": {
-            "note": "The owner's actual shape: broke the low AND closed up — a real sweep.",
+            "note": "The claimed shape: broke the low AND closed up — a real sweep.",
             "swept_and_recovered": block(recovered["tue_only_ret"]),
             "swept_and_kept_falling": block(kept_falling["tue_only_ret"]),
         },
@@ -391,8 +391,8 @@ def main() -> int:
         "market": "XAUUSD",
         "strategy": "none — selection methodology tested on CFTC positioning",
         "method": {
-            "cftc_source": "CFTC disaggregated futures-only history, downloaded with owner "
-                           "permission 2026-08-24; 503 gold weeks, 2017-01-03 to 2026-08-18",
+            "cftc_source": "CFTC disaggregated futures-only history, downloaded "
+                           "2026-08-24; 503 gold weeks, 2017-01-03 to 2026-08-18",
             "price_source": str(DAILY.relative_to(ROOT)),
             "usable_weeks": int(len(f)),
             "from": str(f["report_date"].min().date()),
@@ -411,7 +411,7 @@ def main() -> int:
         "limitations": [
             "273 weeks joined to a daily series starting 2021-05. The CFTC history reaches "
             "2017 and 503 weeks; the binding constraint is now price data, not positioning.",
-            "Returns are measured on daily closes. The intraday shape of the owner's sweep "
+            "Returns are measured on daily closes. The intraday shape of the sweep "
             "hypothesis — break the low, then recover within the session — needs 30-minute "
             "data, which covers only 137 of these weeks.",
             "The consensus votes were chosen by the executor, not optimised. A search over "
