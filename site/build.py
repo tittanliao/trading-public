@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 POC_STUDIES = [
     "RS-XAUUSD-20260727-001",
     "RS-XAUUSD-20260727-005",
+    "RS-XAUUSD-20260727-007",
     "RS-XAUUSD-20260818-001",
 ]
 
@@ -66,7 +67,7 @@ def routes() -> list[str]:
 # route that does not exist yet. All three phases are listed: reporting only 2A and 2B
 # under-counted the queue by 13 studies in the first cutover.
 PHASE_2A = [
-    "RS-XAUUSD-20260727-007", "RS-XAUUSD-20260823-001", "RS-XAUUSD-20260823-002",
+    "RS-XAUUSD-20260823-001", "RS-XAUUSD-20260823-002",
     "RS-XAUUSD-20260825-001", "RS-XAUUSD-20260827-001",
 ]
 PHASE_2B = [

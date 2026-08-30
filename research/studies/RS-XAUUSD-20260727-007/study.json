@@ -19,6 +19,12 @@
     "time_bleed_pct": 57.8,
     "kbar_coverage_pct": 66.7
   },
+  "interpretation_zh": "S2 V3.2 的訊號比 V1.9 少，但每筆訊號的品質較好：勝率與獲利因子都上升。不過，這不是把任一脈絡欄位變成新規則的理由。最大的虧損型態仍是 time_bleed，代表虧損通常是逐步磨損；而 4 小時逆勢的勝率差距已縮小到接近雜訊。整體樣本只有 157 筆，所有細分結果都只能作為描述與後續監測，不足以支撐新的硬性篩選。",
+  "limitations_zh": [
+    "總樣本只有 157 筆；失敗型態、布林區位、DXY 與多時間框的細分格子多為低樣本，不能用來新增硬性規則。",
+    "本研究比較的是既有匯出交易的描述性分組，沒有重新最佳化策略或檢驗新的進場條件。",
+    "V3.2 的樣本外信心仍有限；這些結果不改變正式策略、即時風險或下單流程。"
+  ],
   "findings": [
     {
       "tone": "good",
@@ -48,6 +54,19 @@
       "title_zh": "樣本數是主要限制",
       "detail_zh": "總共 157 筆交易，代表大部分子分組（失敗型態、BB 區間、DXY 分桶、多時框狀態）樣本數都很少；V3.2 的樣本外信心本來就有限。這裡的每一張脈絡表都應該當成描述性資訊，不能拿來訂新的硬性規則。"
     }
+  ],
+  "presentation": [
+    {"type": "metrics", "source": "headline", "keys": ["trades", "win_rate_pct", "profit_factor", "time_bleed_pct"]},
+    {"type": "findings", "source": "findings"},
+    {"type": "evidence_pair", "title": "Failure Types 失敗型態", "takeaway_zh": "time_bleed 是最主要的虧損型態；它描述慢性磨損，並不自動導向新的出場規則。", "chart_file": "fail_type_breakdown.png", "table_source": "fail_pattern.by_type", "table_title": "Fail Type Breakdown", "columns": ["n", "pct"]},
+    {"type": "evidence_pair", "title": "30-Minute Entry Slots 進場時槽", "takeaway_zh": "各時槽樣本有限；用來理解交易分布，不應直接訂成新的入場限制。", "chart_file": "entry_slot_30m_winrate.png", "table_source": "by_entry_30m", "table_title": "30-Minute Entry Slot", "columns": ["n", "win_rate_pct", "profit_factor"]},
+    {"type": "evidence_pair", "title": "Bollinger Band Zone 布林區位", "takeaway_zh": "布林區位僅提供進場脈絡，低樣本分組不支持獨立篩選。", "chart_file": "bb_zone_winrate.png", "table_source": "bb_zone", "table_title": "Bollinger Band Zone", "columns": ["n", "win_rate_pct", "profit_factor"]},
+    {"type": "evidence_pair", "title": "DXY Context 美元指數脈絡", "takeaway_zh": "美元指數狀態是輔助描述，不能取代策略本身的訊號。", "chart_file": "dxy_winrate.png", "table_source": "dxy.regime.by_bucket", "table_title": "DXY Regime Bucket", "columns": ["n", "win_rate_pct", "profit_factor"]},
+    {"type": "evidence_pair", "title": "Multi-Timeframe Alignment 多時間框對齊", "takeaway_zh": "V3.2 的逆勢懲罰已接近雜訊；目前維持觀察，不納入硬性條件。", "chart_file": "htf_alignment.png", "table_source": "mtf.by_alignment", "table_title": "Multi-Timeframe Alignment", "columns": ["n", "win_rate_pct", "profit_factor"]},
+    {"type": "evidence_pair", "title": "4H Trend State 四小時趨勢", "takeaway_zh": "4H 偏空與順勢的差距很小，不能從這份樣本推導出新的趨勢篩選。", "chart_file": "htf_4h_state.png", "table_source": "mtf.by_4h_state", "table_title": "4H Trend State", "columns": ["n", "win_rate_pct", "profit_factor"]},
+    {"type": "interpretation", "source": "interpretation_zh"},
+    {"type": "limitations", "source": "limitations_zh"},
+    {"type": "evidence_links"}
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
