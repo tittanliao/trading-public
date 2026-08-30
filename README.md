@@ -10,19 +10,24 @@ data, binary source documents, and migration provenance live in sibling
 
 ## Website
 
-Rebuilt clean on 2026-08-31 (`../trading-private/docs/PUBLIC_SITE_REBUILD_SPEC.md`).
+Rebuilt clean on 2026-08-30 (`../trading-private/docs/PUBLIC_SITE_REBUILD_SPEC.md`).
 Weekly is the primary product; Research is the evidence library behind it. Global
-navigation is `Home / Weekly / Research`, and the generator writes exactly eight
-canonical routes — nothing else:
+navigation is `Home / Weekly / Research`, and the generator writes only the canonical
+route allow-list below — nothing else:
 
 ```text
 /
 /xauusd/weekly/
-/xauusd/weekly/<forecast-week>/     (only 2026-W36 exists in this phase)
+/xauusd/weekly/<forecast-week>/     (one page per published edition; W34, W35, W36)
 /research/
 /research/null-results/
 /research/studies/<study-id>/       (only the 3 Phase 1 studies exist in this phase)
 ```
+
+Every published Weekly edition keeps a dated archive page. That is a contract, not a
+preference: `docs/BASE_WEEKLY_REPORT_WORKFLOW.md` declares `/xauusd/weekly/<week>/` stable
+and Private release receipts record those exact URLs as publication proof, so deleting one
+breaks a signed record. `site/check.py` fails if a published `summary.json` has no page.
 
 ```sh
 python3 site/build.py            # write mode
@@ -35,6 +40,12 @@ Edit `research/studies/<id>/study.json` (narrative, presentation blueprint) or
 `../trading-private/scripts/xauusd_weekly/publish_public_summary.py`), then regenerate.
 Do not hand-edit any generated `index.html`, `site/style.css`, or `site/catalog.json` —
 `site/catalog.json` is now the live route allow-list, not a repository-wide inventory.
+
+Two conventions every table inherits from the shared renderer, so they cannot regress
+page by page: each is sortable by clicking a column header (the raw value travels in
+`data-sort`, so formatted text is never re-parsed), and each sizes to the available width,
+scrolling sideways only when the viewport is genuinely too narrow. Charts render full
+width and legible inline; opening the original PNG is a convenience, never a requirement.
 
 A research report is composed from a small named vocabulary of presentation blocks
 (`metrics`, `findings`, `table`, `comparison_table`, `matrix_table`, `charts`,
@@ -68,7 +79,7 @@ links, images, and prohibited private/raw paths.
 ## Retired routes
 
 `jargon/`, `lessons/`, `tx/`, `v1/`, `zh/`, `xauusd/index.html`, and the 28 non-Phase-1
-study detail pages were removed on 2026-08-31 along with the language/version switch and
+study detail pages were removed on 2026-08-30 along with the language/version switch and
 the card/table view toggle. They return 404 rather than redirecting to another layout.
 Git history is the recovery path; no content was deleted from the sibling `research/`
 evidence packages, only their now-unmigrated detail pages.

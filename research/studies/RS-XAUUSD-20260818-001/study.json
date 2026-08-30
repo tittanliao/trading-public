@@ -127,6 +127,10 @@
       "source": "findings"
     },
     {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
       "type": "table",
       "title": "S1 Underwater-State Predictive Split (Bar 1)",
       "source": "strategies.S1.underwater_time_exit.predictive_split.bar_1"
@@ -162,8 +166,8 @@
       "source": "strategies.S2.risk_alignment.risk_alignments"
     },
     {
-      "type": "charts",
-      "source": "charts"
+      "type": "interpretation",
+      "source": "interpretation_zh"
     },
     {
       "type": "limitations",

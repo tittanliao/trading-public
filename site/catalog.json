@@ -1,9 +1,11 @@
 {
   "schema_version": 2,
-  "generated_by": "site/build.py (clean rebuild)",
+  "generated_by": "site/build.py",
   "routes": [
     "/",
     "/xauusd/weekly/",
+    "/xauusd/weekly/2026-W34/",
+    "/xauusd/weekly/2026-W35/",
     "/xauusd/weekly/2026-W36/",
     "/research/",
     "/research/null-results/",
@@ -11,26 +13,30 @@
     "/research/studies/RS-XAUUSD-20260727-005/",
     "/research/studies/RS-XAUUSD-20260818-001/"
   ],
-  "poc_studies": [
+  "weekly_editions": [
+    "2026-W36",
+    "2026-W35",
+    "2026-W34"
+  ],
+  "published_studies": [
     "RS-XAUUSD-20260727-001",
     "RS-XAUUSD-20260727-005",
     "RS-XAUUSD-20260818-001"
   ],
-  "weekly_forecast_week": "2026-W36",
   "migration_tracker": {
-    "phase_1": [
+    "phase_1_published": [
       "RS-XAUUSD-20260727-001",
       "RS-XAUUSD-20260727-005",
       "RS-XAUUSD-20260818-001"
     ],
-    "phase_2a": [
+    "phase_2a_queued": [
       "RS-XAUUSD-20260727-007",
       "RS-XAUUSD-20260823-001",
       "RS-XAUUSD-20260823-002",
       "RS-XAUUSD-20260825-001",
       "RS-XAUUSD-20260827-001"
     ],
-    "phase_2b": [
+    "phase_2b_queued": [
       "RS-TX-20260728-001",
       "RS-TX-20260728-002",
       "RS-XAUUSD-20260727-003",
@@ -41,6 +47,21 @@
       "RS-XAUUSD-20260815-002",
       "RS-XAUUSD-20260815-003",
       "RS-XAUUSD-20260817-001"
+    ],
+    "phase_2c_queued": [
+      "RS-XAUUSD-20260727-002",
+      "RS-XAUUSD-20260815-004",
+      "RS-XAUUSD-20260818-002",
+      "RS-XAUUSD-20260818-003",
+      "RS-XAUUSD-20260818-004",
+      "RS-XAUUSD-20260818-005",
+      "RS-XAUUSD-20260819-001",
+      "RS-XAUUSD-20260824-001",
+      "RS-XAUUSD-20260824-002",
+      "RS-XAUUSD-20260824-003",
+      "RS-XAUUSD-20260824-004",
+      "RS-XAUUSD-20260824-005",
+      "RS-XAUUSD-20260824-006"
     ]
   }
 }

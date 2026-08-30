@@ -1,46 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="XAUUSD and TX research evidence index.">
-<title>Research</title>
+<title>Research · Trading Research</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../favicon.svg">
 <link rel="stylesheet" href="../site/style.css">
 </head>
 <body>
-<header class="shell">
-<nav class="nav"><a href="../index.html">Home</a><a href="../xauusd/weekly/">Weekly</a><a href="../research/">Research</a></nav>
+<header class="shell wide">
+<nav class="nav"><a class="brand" href="../index.html">Trading Research</a><div class="nav-links"><a href="../index.html">Home</a><a href="../xauusd/weekly/">Weekly</a><a href="../research/">Research</a></div></nav>
 </header>
-<main class="shell">
+<main class="shell wide">
 
 <h1>Research</h1>
-<p class="lede">研究證據庫，涵蓋每一個市場。</p>
+<p class="lede">研究證據庫，涵蓋所有市場，最新的在最上面。點欄位標題可重新排序。</p>
 <div class="filter-bar">
   <button type="button" data-filter="all" class="active">All</button>
-  <button type="button" data-filter="XAUUSD">XAUUSD</button>
-  <button type="button" data-filter="TX">TX</button>
-  <input type="search" id="research-search" placeholder="Search…">
+  <button type="button" data-filter="TX">TX</button><button type="button" data-filter="XAUUSD">XAUUSD</button>
+  <input type="search" id="research-search" placeholder="搜尋標題、主題…" aria-label="Search research">
 </div>
-<p><a href="null-results/">Null Results / 沒有效果的研究 →</a></p>
-<div class="table-scroll"><table id="research-table">
-<thead><tr><th>Title</th><th>Market</th><th>Theme</th><th>Published</th><th>Evidence</th></tr></thead>
-<tbody><tr data-market="XAUUSD"><td><a href="studies/RS-XAUUSD-20260727-001/">S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report</a></td><td>XAUUSD</td><td>improvement_attempts</td><td>2026-07-27</td><td>20 charts</td></tr><tr data-market="XAUUSD"><td><a href="studies/RS-XAUUSD-20260727-005/">S1 AweWithBB V3.4 vs V3.9 — gap report</a></td><td>XAUUSD</td><td>strategy_diagnostics</td><td>2026-07-27</td><td>5 charts</td></tr><tr data-market="XAUUSD"><td><a href="studies/RS-XAUUSD-20260818-001/">S1 V3.9 / S2 V3.2 — trade-path structure: exit-side tuning, and one-bar confirmation entry</a></td><td>XAUUSD</td><td>improvement_attempts</td><td>2026-08-18</td><td>6 charts</td></tr></tbody>
-</table></div>
-<p class="empty-note">另有 15 篇研究排入後續遷移階段（5 篇已有完整中文、10 篇待補中文），尚未於此版本上線，故不提供連結。</p>
+<p class="more"><a href="null-results/">Null Results / 沒有效果的研究 →</a></p>
+<div id="research-table"><div class="table-wrap"><table data-sortable><thead><tr><th scope="col" data-type="text"><button type="button" class="sort-btn">Title<span class="sort-ind"></span></button></th><th scope="col" data-type="text"><button type="button" class="sort-btn">Market<span class="sort-ind"></span></button></th><th scope="col" data-type="text"><button type="button" class="sort-btn">Theme<span class="sort-ind"></span></button></th><th scope="col" data-type="text"><button type="button" class="sort-btn">Published<span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">Evidence<span class="sort-ind"></span></button></th></tr></thead><tbody><tr data-market="XAUUSD"><th data-sort="s1 v3.9 / s2 v3.2 — trade-path structure: exit-side tuning, and one-bar confirmation entry"><a href="studies/RS-XAUUSD-20260818-001/">S1 V3.9 / S2 V3.2 — trade-path structure: exit-side tuning, and one-bar confirmation entry</a></th><td data-sort="xauusd"><span class="tag">XAUUSD</span></td><td data-sort="improvement_attempts">improvement_attempts</td><td data-sort="2026-08-18">2026-08-18</td><td data-sort="6.0" class="num">6 charts</td></tr><tr data-market="XAUUSD"><th data-sort="s1 v3.9 — macro composite, 30-minute timing, temporal stability, and full fail-pattern report"><a href="studies/RS-XAUUSD-20260727-001/">S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report</a></th><td data-sort="xauusd"><span class="tag">XAUUSD</span></td><td data-sort="improvement_attempts">improvement_attempts</td><td data-sort="2026-07-27">2026-07-27</td><td data-sort="20.0" class="num">20 charts</td></tr><tr data-market="XAUUSD"><th data-sort="s1 awewithbb v3.4 vs v3.9 — gap report"><a href="studies/RS-XAUUSD-20260727-005/">S1 AweWithBB V3.4 vs V3.9 — gap report</a></th><td data-sort="xauusd"><span class="tag">XAUUSD</span></td><td data-sort="strategy_diagnostics">strategy_diagnostics</td><td data-sort="2026-07-27">2026-07-27</td><td data-sort="5.0" class="num">5 charts</td></tr></tbody></table></div></div>
+<p class="empty-note">另有 28 篇研究（TX 2 篇、XAUUSD 26 篇）已完成並保留完整證據，
+但詳細頁面排在後續遷移階段，本版尚未上線，因此不提供連結。</p>
 <script>
 (function () {
-  var table = document.getElementById("research-table");
-  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var scope = document.getElementById("research-table");
+  if (!scope) return;
+  var rows = Array.prototype.slice.call(scope.querySelectorAll("tbody tr"));
   var buttons = document.querySelectorAll(".filter-bar button");
   var search = document.getElementById("research-search");
   var active = "all";
   function apply() {
     var q = search.value.trim().toLowerCase();
     rows.forEach(function (row) {
-      var market = row.getAttribute("data-market");
+      var market = row.getAttribute("data-market") || "";
       var text = row.textContent.toLowerCase();
-      var matches = (active === "all" || market === active) && text.indexOf(q) !== -1;
-      row.style.display = matches ? "" : "none";
+      var ok = (active === "all" || market === active) && text.indexOf(q) !== -1;
+      row.hidden = !ok;
     });
   }
   buttons.forEach(function (btn) {
@@ -56,6 +56,7 @@
 </script>
 
 </main>
-<footer class="shell"><p>研究證據，不是交易建議；執行前必須以即時 TradingView 確認。Research evidence, not trading advice.</p></footer>
+<footer class="shell wide"><p>研究證據，不是交易建議；執行前必須以即時 TradingView 確認。Research evidence, not trading advice.</p></footer>
+<script src="../site/table.js" defer></script>
 </body>
 </html>

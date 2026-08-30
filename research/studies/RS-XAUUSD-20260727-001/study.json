@@ -99,6 +99,10 @@
       "source": "findings"
     },
     {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
       "type": "table",
       "title": "Session Summary",
       "source": "by_session"
@@ -149,8 +153,8 @@
       "source": "temporal_stability.by_period"
     },
     {
-      "type": "charts",
-      "source": "charts"
+      "type": "interpretation",
+      "source": "interpretation_zh"
     },
     {
       "type": "limitations",

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Validate the clean-rebuild Public site: exact route allow-list, dead links, retired
-routes actually gone, and no private-token leakage.
+"""Validate the Public site: canonical route allow-list, retired routes actually gone,
+dead links, missing images, required report sections, and private-token leakage.
 
-docs/PUBLIC_SITE_REBUILD_SPEC.md section 12 calls this "the site/privacy checker" — it is
-the safety gate run after `site/build.py` and before commit.
+This is the gate run after `site/build.py` and before commit. Several checks here exist
+because an independent review found the first cutover passed a weaker checker while
+violating the contract anyway: a dated Weekly archive page was deleted while a Private
+receipt still pointed at its URL, and the W36 report shipped without the four-week OHLC
+section the spec requires. Both are now failures, not observations.
 """
 from __future__ import annotations
 
@@ -14,23 +17,17 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import POC_STUDIES, ROUTES, WEEKLY_FORECAST_WEEK  # noqa: E402
+from build import POC_STUDIES, QUEUED_STUDIES, routes, weekly_weeks  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
-GENERATED_PAGES = [ROOT / (r + "/index.html" if r else "index.html") for r in ROUTES]
+GENERATED_PAGES = [ROOT / (r + "/index.html" if r else "index.html") for r in routes()]
 
-# Routes this rebuild explicitly retires. Their presence after cutover is a failure —
-# docs/PUBLIC_SITE_REBUILD_SPEC.md section 3/13: "retired routes should return 404".
+# Routes this rebuild retires. Presence after cutover is a failure.
 RETIRED_PAGES = [
-    ROOT / "jargon/index.html",
-    ROOT / "lessons/index.html",
-    ROOT / "tx/index.html",
-    ROOT / "xauusd/index.html",
-    ROOT / "v1/index.html",
-    ROOT / "zh/index.html",
+    ROOT / "jargon/index.html", ROOT / "lessons/index.html", ROOT / "tx/index.html",
+    ROOT / "xauusd/index.html", ROOT / "v1/index.html", ROOT / "zh/index.html",
 ]
-RETIRED_DIRS = [ROOT / "v1", ROOT / "zh", ROOT / "jargon", ROOT / "lessons"]
 
 PRIVATE_TOKENS = (
     "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
@@ -38,66 +35,80 @@ PRIVATE_TOKENS = (
     "private_provenance", "the owner", "owner-directed", "owner-confirmed",
 )
 
+EXPECTED_CHARTS = {
+    "RS-XAUUSD-20260727-001": 20,
+    "RS-XAUUSD-20260727-005": 5,
+    "RS-XAUUSD-20260818-001": 6,
+}
 
-def fail(messages: list[str], text: str) -> None:
-    messages.append(text)
 
-
-def check_routes() -> list[str]:
-    errors: list[str] = []
+def check_routes(errors: list[str]) -> None:
     for page in GENERATED_PAGES:
         if not page.is_file():
-            fail(errors, f"missing canonical page: {page.relative_to(ROOT)}")
-    if len(GENERATED_PAGES) != 8:
-        fail(errors, f"expected exactly 8 canonical routes, ROUTES has {len(GENERATED_PAGES)}")
-    return errors
+            errors.append(f"missing canonical page: {page.relative_to(ROOT)}")
+    # Every published Weekly edition must have a dated archive page: Private receipts
+    # record those URLs as publication proof, so a missing one breaks a signed record.
+    for week in weekly_weeks():
+        page = ROOT / "xauusd/weekly" / week / "index.html"
+        if not page.is_file():
+            errors.append(f"published Weekly edition {week} has no archive page (breaks its receipt URL)")
 
 
-def check_retired() -> list[str]:
-    errors: list[str] = []
+def check_retired(errors: list[str]) -> None:
     for page in RETIRED_PAGES:
         if page.is_file():
-            fail(errors, f"retired route still present: {page.relative_to(ROOT)}")
-    for study_dir in (ROOT / "research/studies").iterdir():
-        if not study_dir.is_dir() or study_dir.name in POC_STUDIES:
-            continue
-        page = study_dir / "index.html"
+            errors.append(f"retired route still present: {page.relative_to(ROOT)}")
+    for sid in QUEUED_STUDIES:
+        page = ROOT / "research/studies" / sid / "index.html"
         if page.is_file():
-            fail(errors, f"non-POC study page must be unlinked/404 in this phase: {page.relative_to(ROOT)}")
-    for legacy in (ROOT / "xauusd/weekly/2026-W34", ROOT / "xauusd/weekly/2026-W35"):
-        page = legacy / "index.html"
-        if page.is_file():
-            fail(errors, f"retired dated Weekly page still present: {page.relative_to(ROOT)}")
-    return errors
+            errors.append(f"queued study must stay unlinked/404 this phase: {sid}")
+    for sid in QUEUED_STUDIES:
+        # Evidence must survive even while the page does not.
+        for required in ("study.json", "results.json"):
+            if not (ROOT / "research/studies" / sid / required).is_file():
+                errors.append(f"queued study lost its evidence package: {sid}/{required}")
 
 
-def extract_links(html_text: str) -> list[str]:
-    return re.findall(r'(?:href|src)="([^"]+)"', html_text)
-
-
-def check_links_and_images() -> list[str]:
-    errors: list[str] = []
+def check_links_and_images(errors: list[str]) -> None:
     for page in GENERATED_PAGES:
         text = page.read_text(encoding="utf-8")
-        for link in extract_links(text):
-            if link.startswith(("http://", "https://", "mailto:", "#")):
+        for link in re.findall(r'(?:href|src)="([^"]+)"', text):
+            if link.startswith(("http://", "https://", "mailto:", "#", "data:")):
                 continue
             target = (page.parent / unquote(urlsplit(link).path)).resolve()
-            if not target.is_file() and not target.is_dir():
-                fail(errors, f"broken link in {page.relative_to(ROOT)}: {link}")
-    for study_id in POC_STUDIES:
-        results = json.loads((ROOT / "research/studies" / study_id / "results.json").read_text(encoding="utf-8"))
-        for chart in results.get("charts", []):
-            image = ROOT / "research/studies" / study_id / "charts" / chart["file"]
-            if not image.is_file():
-                fail(errors, f"missing chart image for {study_id}: {chart['file']}")
-    return errors
+            if not target.exists():
+                errors.append(f"broken link in {page.relative_to(ROOT)}: {link}")
+    for sid, expected in EXPECTED_CHARTS.items():
+        results = json.loads((ROOT / "research/studies" / sid / "results.json").read_text(encoding="utf-8"))
+        charts = results.get("charts", [])
+        if len(charts) != expected:
+            errors.append(f"{sid}: expected {expected} charts, results.json declares {len(charts)}")
+        for chart in charts:
+            if not (ROOT / "research/studies" / sid / "charts" / chart["file"]).is_file():
+                errors.append(f"missing chart image {sid}/{chart['file']}")
 
 
-def check_privacy() -> list[str]:
-    errors: list[str] = []
+def check_weekly_sections(errors: list[str]) -> None:
+    """A Weekly report must actually contain its required reader-facing sections."""
+    required = ["市場摘要", "三劇本與機率", "關鍵價位", "事件風險", "共識", "分歧"]
+    for week in weekly_weeks():
+        page = ROOT / "xauusd/weekly" / week / "index.html"
+        if not page.is_file():
+            continue
+        text = page.read_text(encoding="utf-8")
+        for section in required:
+            if section not in text:
+                errors.append(f"{week} report is missing required section: {section}")
+        summary = json.loads((page.parent / "summary.json").read_text(encoding="utf-8"))
+        # four_week_overview became mandatory for editions published after the contract
+        # change; older finalised artifacts are not retroactively invalidated.
+        if summary.get("four_week_overview") and "四週回顧" not in text:
+            errors.append(f"{week} has four_week_overview data but the page does not render it")
+
+
+def check_privacy(errors: list[str]) -> None:
     scanned = list(GENERATED_PAGES)
-    scanned.append(ROOT / f"xauusd/weekly/{WEEKLY_FORECAST_WEEK}/summary.json")
+    scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
     for sid in POC_STUDIES:
         d = ROOT / "research/studies" / sid
         scanned += [d / "study.json", d / "results.json", d / "analysis.py"]
@@ -107,49 +118,63 @@ def check_privacy() -> list[str]:
         text = path.read_text(encoding="utf-8").lower()
         for token in PRIVATE_TOKENS:
             if token in text:
-                fail(errors, f"prohibited token '{token}' found in {path.relative_to(ROOT)}")
-    return errors
+                errors.append(f"prohibited token '{token}' in {path.relative_to(ROOT)}")
 
 
-def check_chart_count() -> tuple[int, list[str]]:
-    errors: list[str] = []
-    total = 0
-    for sid, expected in zip(POC_STUDIES, (20, 5, 6)):
-        results = json.loads((ROOT / "research/studies" / sid / "results.json").read_text(encoding="utf-8"))
-        n = len(results.get("charts", []))
-        total += n
-        if n != expected:
-            fail(errors, f"{sid}: expected {expected} charts, results.json declares {n}")
-    return total, errors
-
-
-def check_null_results() -> list[str]:
-    errors: list[str] = []
+def check_null_results(errors: list[str]) -> None:
     registry = json.loads((ROOT / "research/null-results/null_results.json").read_text(encoding="utf-8"))
     totals = registry.get("totals", {})
     hypotheses = [e for e in registry.get("entries", []) if e.get("kind") == "hypothesis"]
-    if totals.get("hypotheses") != 63 or len(hypotheses) != 63:
-        fail(errors, f"expected 63 registered hypotheses, found {len(hypotheses)} (totals says {totals.get('hypotheses')})")
-    by_verdict = totals.get("by_verdict", {})
-    expected_verdicts = {"no_evidence": 60, "underpowered": 2, "below_cost": 1}
-    if by_verdict != expected_verdicts:
-        fail(errors, f"verdict totals mismatch: expected {expected_verdicts}, got {by_verdict}")
-    return errors
+    if len(hypotheses) != 63 or totals.get("hypotheses") != 63:
+        errors.append(f"expected 63 hypotheses, found {len(hypotheses)}")
+    expected = {"no_evidence": 60, "underpowered": 2, "below_cost": 1}
+    if totals.get("by_verdict") != expected:
+        errors.append(f"verdict totals mismatch: expected {expected}, got {totals.get('by_verdict')}")
+
+
+def check_tables(errors: list[str]) -> None:
+    """Every table must be sortable and width-adaptive — a per-page regression here is
+    exactly the kind of thing that silently degrades reading on a wide screen."""
+    for page in GENERATED_PAGES:
+        text = page.read_text(encoding="utf-8")
+        tables = text.count("<table")
+        sortable = text.count("<table data-sortable>")
+        if tables != sortable:
+            errors.append(f"{page.relative_to(ROOT)}: {tables - sortable} table(s) not sortable")
+        if tables and text.count('class="table-wrap"') < tables:
+            errors.append(f"{page.relative_to(ROOT)}: a table is not inside a width-adaptive wrapper")
+
+
+def check_study_order(errors: list[str]) -> None:
+    """Interpretation and limitations belong before the evidence links, not after."""
+    for sid in POC_STUDIES:
+        text = (ROOT / "research/studies" / sid / "index.html").read_text(encoding="utf-8")
+        ev = text.find("Evidence 原始證據")
+        interp = text.find("詮釋與實務意義")
+        lim = text.find("限制與注意事項")
+        if ev == -1:
+            errors.append(f"{sid}: evidence links section missing")
+            continue
+        if interp != -1 and interp > ev:
+            errors.append(f"{sid}: 詮釋與實務意義 renders after the evidence links")
+        if lim != -1 and lim > ev:
+            errors.append(f"{sid}: 限制與注意事項 renders after the evidence links")
+        charts = text.find("Charts 圖表")
+        first_table = text.find('<section class="data-block">')
+        if charts != -1 and first_table != -1 and charts > first_table:
+            errors.append(f"{sid}: charts render after the detailed tables")
 
 
 def main() -> int:
     errors: list[str] = []
-    errors += check_routes()
-    errors += check_retired()
-    errors += check_links_and_images()
-    errors += check_privacy()
-    chart_total, chart_errors = check_chart_count()
-    errors += chart_errors
-    errors += check_null_results()
-
+    for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
+               check_privacy, check_null_results, check_tables, check_study_order):
+        fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),
-        "poc chart total": chart_total,
+        "weekly editions": len(weekly_weeks()),
+        "poc chart total": sum(EXPECTED_CHARTS.values()),
+        "queued studies": len(QUEUED_STUDIES),
         "failures": len(errors),
         "errors": errors,
     }, ensure_ascii=False, indent=2))

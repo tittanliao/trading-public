@@ -84,6 +84,10 @@
       "source": "findings"
     },
     {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
       "type": "comparison_table",
       "title": "Baseline: V3.4 vs V3.9",
       "source": "baseline_diff"
@@ -119,8 +123,8 @@
       "source": "mtf_conflict_diff"
     },
     {
-      "type": "charts",
-      "source": "charts"
+      "type": "interpretation",
+      "source": "interpretation_zh"
     },
     {
       "type": "limitations",
