@@ -50,22 +50,32 @@ a{color:var(--cyan);}
 
 .block-section{margin:1.4em 0;}
 .data-block{margin:1.8em 0;}
+.reading-rail{max-width:800px;margin-left:auto;margin-right:auto;}
+.weekly-intro{margin-bottom:2.2rem;}
 .metrics-strip{display:flex;flex-wrap:wrap;gap:14px;}
 .metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;min-width:130px;flex:0 1 auto;}
 .metric-value{font-size:1.34rem;font-weight:650;line-height:1.25;}
 .metric-label{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+.metrics-strip.metrics-featured{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:960px;}
+.metrics-strip.metrics-featured .metric{min-width:0;width:100%;}
+.compact-metric-table{max-width:800px;}
 
 .findings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;}
 .finding-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}
 .finding-card h3{margin:0 0 .5em;font-size:1rem;line-height:1.45;}
 .finding-card p{color:var(--muted);margin:0;font-size:.92rem;}
 
-/* Charts read inline at full width. Opening the original is a bonus, never a requirement. */
+/* General chart galleries remain broad; evidence units use a calmer reading width. */
 .chart-gallery{display:grid;grid-template-columns:1fr;gap:26px;}
 .chart-figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
 .chart-figure img{width:100%;height:auto;border-radius:8px;display:block;background:#fff;}
 .chart-figure figcaption{color:var(--muted);font-size:.86rem;margin-top:10px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .chart-full{font-size:.8rem;white-space:nowrap;}
+.evidence-unit{max-width:980px;margin:3.4rem auto;}
+.evidence-unit h2{margin-top:0;}
+.evidence-takeaway{max-width:76ch;color:var(--muted);margin:.1rem 0 1rem;}
+.evidence-figure{max-width:860px;margin:0 auto;}
+.evidence-unit .data-block{max-width:980px;margin:1.4rem auto 0;}
 @media (min-width:1400px){.chart-gallery.dense{grid-template-columns:repeat(2,1fr);}}
 
 /* Tables: fill the available width, wrap prose columns, and only scroll when truly needed. */
@@ -116,6 +126,7 @@ tbody tr[hidden]{display:none;}
   h1{font-size:1.5rem;}
   .metric{min-width:104px;padding:11px 13px;}
   .metric-value{font-size:1.15rem;}
+  .metrics-strip.metrics-featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
   .filter-bar input{margin-left:0;width:100%;}
   table{font-size:.82rem;}
 }

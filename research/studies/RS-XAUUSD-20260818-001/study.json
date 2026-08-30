@@ -120,50 +120,83 @@
   "presentation": [
     {
       "type": "metrics",
-      "source": "headline"
+      "source": "headline",
+      "keys": [
+        "exit_side_variants_tested",
+        "exit_side_variants_improving_return",
+        "s2_confirmation_permutation_p",
+        "candidates_for_prospective_test"
+      ]
     },
     {
       "type": "findings",
       "source": "findings"
     },
     {
-      "type": "charts",
-      "source": "charts"
+      "type": "metric_table",
+      "title": "Sample & Coverage 樣本與覆蓋範圍",
+      "source": "headline",
+      "keys": ["s1_trades", "s2_trades", "exit_side_families_tested", "risk_alignments_compared"]
     },
     {
-      "type": "table",
-      "title": "S1 Underwater-State Predictive Split (Bar 1)",
-      "source": "strategies.S1.underwater_time_exit.predictive_split.bar_1"
+      "type": "metric_table",
+      "title": "Confirmation Entry 確認進場",
+      "source": "headline",
+      "keys": ["largest_predictive_split_pp", "s2_confirmed_win_rate_pct", "s2_confirmed_avg_r_improvement_pct", "s1_confirmed_avg_r_improvement_pct", "s2_chase_share_of_winner_move_pct", "s1_chase_share_of_winner_move_pct"]
     },
     {
-      "type": "table",
-      "title": "S1 Take-Profit Overlay",
-      "source": "strategies.S1.take_profit_overlay.levels"
+      "type": "metric_table",
+      "title": "Risk-normalized Comparison 風險調整比較",
+      "source": "headline",
+      "keys": ["s2_share_of_baseline_at_equal_volatility_pct", "s1_share_of_baseline_at_equal_volatility_pct", "s2_trade_count_share_pct", "s2_total_r_share_pct", "scale_in_variants_improving"]
     },
     {
-      "type": "table",
-      "title": "S2 Take-Profit Overlay",
-      "source": "strategies.S2.take_profit_overlay.levels"
+      "type": "evidence_pair",
+      "title": "S1 Take-Profit 停利取捨",
+      "takeaway_zh": "S1 的停利能拉高勝率，但沒有任何一個設定改善總報酬；先看報酬與勝率的取捨，再讀每個設定。",
+      "chart_file": "s1_take_profit_tradeoff.png",
+      "table_source": "strategies.S1.take_profit_overlay.levels",
+      "table_title": "S1 Take-Profit Overlay"
     },
     {
-      "type": "table",
-      "title": "S1 Trailing Stop & Breakeven",
-      "source": "strategies.S1.trailing_and_breakeven.trailing_stop"
+      "type": "evidence_pair",
+      "title": "S1 Underwater State 套牢狀態",
+      "takeaway_zh": "進場後一根 K 棒的盈虧狀態，對最終勝率有很大差異；但這個差異不等於提早出場就會改善報酬。",
+      "chart_file": "s1_underwater_split.png",
+      "table_source": "strategies.S1.underwater_time_exit.predictive_split.bar_1",
+      "table_title": "S1 Underwater-State Predictive Split (Bar 1)"
     },
     {
-      "type": "table",
-      "title": "S2 Trailing Stop & Breakeven",
-      "source": "strategies.S2.trailing_and_breakeven.trailing_stop"
+      "type": "evidence_pair",
+      "title": "S1 Confirmation Entry 一根 K 棒確認進場",
+      "takeaway_zh": "同樣的確認規則在 S1 沒有顯著改善：等待的追價成本對持有時間較短的策略太高。",
+      "chart_file": "s1_confirmation_gradient.png",
+      "table_source": "strategies.S1.confirmation_entry.by_bar.bar_1",
+      "table_title": "S1 One-Bar Confirmation Entry"
     },
     {
-      "type": "table",
-      "title": "S2 One-Bar Confirmation Entry",
-      "source": "strategies.S2.confirmation_entry.by_bar.bar_1"
+      "type": "evidence_pair",
+      "title": "S2 Take-Profit 停利取捨",
+      "takeaway_zh": "S2 也呈現同一件事：勝率可以上升，但沒有任何停利設定讓總報酬更好。",
+      "chart_file": "s2_take_profit_tradeoff.png",
+      "table_source": "strategies.S2.take_profit_overlay.levels",
+      "table_title": "S2 Take-Profit Overlay"
     },
     {
-      "type": "table",
-      "title": "S2 Risk-Alignment Comparison",
-      "source": "strategies.S2.risk_alignment.risk_alignments"
+      "type": "evidence_pair",
+      "title": "S2 Underwater State 套牢狀態",
+      "takeaway_zh": "S2 的早期路徑也能區分最終結果，但是否可交易，仍要回到完整出場反事實測試。",
+      "chart_file": "s2_underwater_split.png",
+      "table_source": "strategies.S2.underwater_time_exit.predictive_split.bar_1",
+      "table_title": "S2 Underwater-State Predictive Split (Bar 1)"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S2 Confirmation Entry 一根 K 棒確認進場",
+      "takeaway_zh": "這是唯一可進一步前瞻測試的候選：統計上有訊號，但樣本與保留期仍不足以改成正式規則。",
+      "chart_file": "s2_confirmation_gradient.png",
+      "table_source": "strategies.S2.confirmation_entry.by_bar.bar_1",
+      "table_title": "S2 One-Bar Confirmation Entry"
     },
     {
       "type": "interpretation",

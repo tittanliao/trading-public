@@ -263,13 +263,16 @@ def render_records_table(records: dict[str, dict] | list[dict], row_label: str =
 # Presentation blocks
 # ---------------------------------------------------------------------------
 
-def block_metrics(value: dict) -> str:
+def block_metrics(value: dict, keys: list[str] | None = None) -> str:
+    if keys:
+        value = {key: value[key] for key in keys if key in value}
     items = "".join(
         f'<div class="metric"><div class="metric-value">{fmt_cell(v)}</div>'
         f'<div class="metric-label">{label_col(k)}</div></div>'
         for k, v in value.items()
     )
-    return f'<div class="metrics-strip">{items}</div>'
+    klass = " metrics-featured" if keys else ""
+    return f'<div class="metrics-strip{klass}">{items}</div>'
 
 
 def block_findings(value: list[dict]) -> str:
@@ -298,7 +301,7 @@ def block_charts(value: list[dict]) -> str:
     figures = []
     for chart in value:
         file_name = chart.get("file", "")
-        title = chart.get("title", file_name)
+        title = chart.get("caption") or chart.get("title", file_name)
         href = f"charts/{file_name}"
         figures.append(
             f'<figure class="chart-figure">'
@@ -307,6 +310,41 @@ def block_charts(value: list[dict]) -> str:
             f'<a class="chart-full" href="{attr(href)}">開啟原圖 ↗</a></figcaption></figure>'
         )
     return f'<div class="chart-gallery">{"".join(figures)}</div>'
+
+
+def block_metric_table(value: dict, title: str, keys: list[str]) -> str:
+    rows = [[
+        ("th", esc(label_col(key)), key.lower(), False),
+        ("td", fmt_cell(value.get(key)), sort_key(value.get(key)), is_numeric(value.get(key))),
+    ] for key in keys if key in value]
+    if not rows:
+        return ""
+    return f'<section class="data-block compact-metric-table"><h3>{esc(title)}</h3>' \
+           f'{render_table([("項目", False), ("數值", True)], rows)}</section>'
+
+
+def block_evidence_pair(block: dict, study: dict, results: dict) -> str:
+    """A research evidence unit keeps the chart immediately beside the table it explains.
+
+    The chart is looked up by file name from results.json, so presentation metadata never
+    duplicates captions or gives the page a second, editable version of evidence.
+    """
+    file_name = block.get("chart_file", "")
+    chart = next((item for item in results.get("charts", []) if item.get("file") == file_name), None)
+    value = resolve_source(study, results, block.get("table_source", ""))
+    if not chart or value is None:
+        return ""
+    caption = chart.get("caption") or chart.get("title") or file_name
+    href = f"charts/{file_name}"
+    title = block.get("title", "")
+    takeaway = block.get("takeaway_zh", "")
+    table_title = block.get("table_title", "")
+    return f'''<section class="evidence-unit">
+<h2>{esc(title)}</h2>
+<p class="evidence-takeaway">{esc(takeaway)}</p>
+<figure class="chart-figure evidence-figure"><img src="{attr(href)}" alt="{attr(caption)}" loading="lazy">
+<figcaption>{esc(caption)} <a class="chart-full" href="{attr(href)}">開啟原圖 ↗</a></figcaption></figure>
+{block_table(value, table_title)}</section>'''
 
 
 def block_limitations(value: list[str]) -> str:
@@ -338,6 +376,8 @@ SECTION_BLOCKS = {"metrics", "findings", "charts", "interpretation", "limitation
 def render_block(block: dict, study: dict, results: dict) -> str:
     kind = block["type"]
     title = block.get("title", BLOCK_TITLES.get(kind, ""))
+    if kind == "evidence_pair":
+        return block_evidence_pair(block, study, results)
     if kind == "evidence_links":
         body = block_evidence_links()
     else:
@@ -345,11 +385,13 @@ def render_block(block: dict, study: dict, results: dict) -> str:
         if value is None:
             return ""
         if kind == "metrics":
-            body = block_metrics(value)
+            body = block_metrics(value, block.get("keys"))
         elif kind == "findings":
             body = block_findings(value)
         elif kind in ("table", "comparison_table", "matrix_table"):
             return block_table(value, title)
+        elif kind == "metric_table":
+            return block_metric_table(value, title, block.get("keys", []))
         elif kind in ("prose", "interpretation"):
             body = block_prose(value)
         elif kind == "charts":
@@ -561,23 +603,24 @@ def weekly_report_page(week: str) -> str:
         return "".join(f"<li>{esc(x)}</li>" for x in items)
 
     body = f"""
+<div class="reading-rail weekly-intro">
 <p class="eyebrow">{esc(s['forecast_week'])} · {esc(s['edition'])} · {esc(s['publication_mode'])} · confidence {esc(s['confidence'])}</p>
 <h1>{esc(s['market'])} {esc(s['forecast_week'])} 週報</h1>
 <p class="lede recommendation">{esc(s['recommendation']['summary'])}</p>
 <p class="invalidation-note"><strong>轉折條件：</strong>{esc(s['recommendation']['invalidation'])}</p>
-
 <section class="block-section"><h2>市場摘要</h2><p class="prose">{esc(s['market_summary'])}</p>
 <p class="data-cutoff">資料截止：{esc(s['data_cutoff'])}</p></section>
+</div>
 {four_week}
 <section class="block-section"><h2>三劇本與機率</h2>{render_table(sc_headers, sc_rows)}</section>
 <section class="block-section"><h2>關鍵價位</h2>{render_table(lv_headers, lv_rows)}</section>
 <section class="block-section"><h2>S1／S2 計畫</h2>{render_table(sp_headers, sp_rows)}</section>
 <section class="block-section"><h2>事件風險</h2>{render_table(ev_headers, ev_rows)}</section>
 <section class="block-section"><h2>Producer 劇本機率對照</h2>{render_table(cmp_headers, cmp_rows)}</section>
-<section class="block-section"><h2>共識</h2><ul class="limitations-list">{bullets(s['agreements'])}</ul></section>
-<section class="block-section"><h2>分歧</h2><ul class="limitations-list">{bullets(s['disagreements'])}</ul></section>
-<section class="block-section"><h2>未解決問題與證據限制</h2><ul class="limitations-list">{bullets(s['evidence_limits'])}</ul></section>
-<section class="block-section"><p class="disclaimer">{esc(s['disclaimer'])}</p></section>
+<section class="block-section reading-rail"><h2>共識</h2><ul class="limitations-list">{bullets(s['agreements'])}</ul></section>
+<section class="block-section reading-rail"><h2>分歧</h2><ul class="limitations-list">{bullets(s['disagreements'])}</ul></section>
+<section class="block-section reading-rail"><h2>未解決問題與證據限制</h2><ul class="limitations-list">{bullets(s['evidence_limits'])}</ul></section>
+<section class="block-section reading-rail"><p class="disclaimer">{esc(s['disclaimer'])}</p></section>
 """
     return document(f"{s['market']} {s['forecast_week']} 週報", s["market_summary"][:150], 3, body, wide=True)
 
@@ -791,22 +834,32 @@ a{color:var(--cyan);}
 
 .block-section{margin:1.4em 0;}
 .data-block{margin:1.8em 0;}
+.reading-rail{max-width:800px;margin-left:auto;margin-right:auto;}
+.weekly-intro{margin-bottom:2.2rem;}
 .metrics-strip{display:flex;flex-wrap:wrap;gap:14px;}
 .metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;min-width:130px;flex:0 1 auto;}
 .metric-value{font-size:1.34rem;font-weight:650;line-height:1.25;}
 .metric-label{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+.metrics-strip.metrics-featured{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:960px;}
+.metrics-strip.metrics-featured .metric{min-width:0;width:100%;}
+.compact-metric-table{max-width:800px;}
 
 .findings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;}
 .finding-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}
 .finding-card h3{margin:0 0 .5em;font-size:1rem;line-height:1.45;}
 .finding-card p{color:var(--muted);margin:0;font-size:.92rem;}
 
-/* Charts read inline at full width. Opening the original is a bonus, never a requirement. */
+/* General chart galleries remain broad; evidence units use a calmer reading width. */
 .chart-gallery{display:grid;grid-template-columns:1fr;gap:26px;}
 .chart-figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
 .chart-figure img{width:100%;height:auto;border-radius:8px;display:block;background:#fff;}
 .chart-figure figcaption{color:var(--muted);font-size:.86rem;margin-top:10px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .chart-full{font-size:.8rem;white-space:nowrap;}
+.evidence-unit{max-width:980px;margin:3.4rem auto;}
+.evidence-unit h2{margin-top:0;}
+.evidence-takeaway{max-width:76ch;color:var(--muted);margin:.1rem 0 1rem;}
+.evidence-figure{max-width:860px;margin:0 auto;}
+.evidence-unit .data-block{max-width:980px;margin:1.4rem auto 0;}
 @media (min-width:1400px){.chart-gallery.dense{grid-template-columns:repeat(2,1fr);}}
 
 /* Tables: fill the available width, wrap prose columns, and only scroll when truly needed. */
@@ -857,6 +910,7 @@ tbody tr[hidden]{display:none;}
   h1{font-size:1.5rem;}
   .metric{min-width:104px;padding:11px 13px;}
   .metric-value{font-size:1.15rem;}
+  .metrics-strip.metrics-featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
   .filter-bar input{margin-left:0;width:100%;}
   table{font-size:.82rem;}
 }
