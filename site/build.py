@@ -2542,6 +2542,46 @@ THEME_ZH = {
 TONE_ZH = {"good": "成立", "warn": "限制", "bad": "否定", "info": "描述"}
 
 
+def study_chart_gallery_html(study: dict[str, object]) -> str:
+    """Render every chart declared by results.json, independent of result shape.
+
+    The research runner owns the image and its English labels. The site owns only the
+    surrounding Chinese reading context. Keeping the gallery metadata-driven prevents a
+    future reader-layout refactor from silently dropping already-published evidence.
+    """
+    charts = study["_result"].get("charts", [])
+    if not charts:
+        return ""
+
+    figures = []
+    for chart in charts:
+        if not isinstance(chart, dict):
+            raise ValueError(f'invalid chart metadata in {study["id"]}')
+        filename = str(chart.get("file", "")).strip()
+        if not filename or Path(filename).name != filename:
+            raise ValueError(f'invalid chart filename in {study["id"]}: {filename!r}')
+        chart_path = ROOT / str(study["_relative"]) / "charts" / filename
+        if not chart_path.is_file():
+            raise FileNotFoundError(f'missing published chart for {study["id"]}: {filename}')
+        caption = str(
+            chart.get("title") or chart.get("caption") or Path(filename).stem.replace("_", " ")
+        )
+        figures.append(
+            '<figure class="chart">'
+            f'<a href="charts/{html.escape(filename)}">'
+            f'<img src="charts/{html.escape(filename)}" alt="{html.escape(caption)}" loading="lazy">'
+            '</a>'
+            f'<figcaption lang="en">{html.escape(caption)}</figcaption>'
+            '</figure>'
+        )
+    return (
+        '<section class="report-section study-charts" data-study-charts>'
+        f'<h2>研究圖表 <span class="section-count">({len(figures)})</span></h2>'
+        '<p class="section-note">圖題、座標與圖內標註保留英文，便於直接對照可重跑的研究輸出；點擊圖片可查看原尺寸。</p>'
+        f'<div class="chart-grid">{"".join(figures)}</div></section>'
+    )
+
+
 def study_page(study: dict[str, object], lang: str = "en") -> str:
     """One scalable reading page for every result shape.
 
@@ -2621,6 +2661,7 @@ def study_page(study: dict[str, object], lang: str = "en") -> str:
         '<section class="report-section"><h2>核心數據</h2>'
         '<div class="table-wrap compact-table"><table><thead><tr><th>指標</th><th>數值</th></tr></thead>'
         f'<tbody>{metric_rows}</tbody></table></div></section>'
+        f'{study_chart_gallery_html(study)}'
         '<section class="report-section"><h2>研究識別</h2>'
         '<div class="table-wrap compact-table"><table><tbody>'
         f'{identity_rows}</tbody></table></div></section>'

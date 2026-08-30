@@ -76,6 +76,7 @@ def git_files() -> list[str]:
 
 def main() -> int:
     failures: list[str] = []
+    published_chart_count = 0
 
     canonical = [page for page in _english_pages() if page.is_file()]
     for page in canonical:
@@ -104,6 +105,12 @@ def main() -> int:
         failures.append(f"orphan Chinese study copy: {sorted(editorial_ids - source_ids)}")
     for source in study_sources:
         study = json.loads(source.read_text(encoding="utf-8"))
+        result = json.loads((source.parent / "results.json").read_text(encoding="utf-8"))
+        charts = result.get("charts", []) if isinstance(result, dict) else []
+        if not isinstance(charts, list):
+            failures.append(f"study charts metadata is not a list: {source.parent.name}")
+            charts = []
+        published_chart_count += len(charts)
         copy = editorial.get(source.parent.name, {})
         if not (study.get("question_zh") or copy.get("question")):
             failures.append(f"study lacks Chinese question: {source.parent.name}")
@@ -121,6 +128,42 @@ def main() -> int:
         if any(token in page_text for token in ("insight-grid", "metric-grid", "study-card",
                                                  "data-view-toggle")):
             failures.append(f"Chinese reader page contains legacy card layout: {source.parent.name}")
+
+        registered_files: set[str] = set()
+        for chart in charts:
+            if not isinstance(chart, dict):
+                failures.append(f"invalid chart metadata: {source.parent.name}")
+                continue
+            filename = str(chart.get("file", ""))
+            if not filename or Path(filename).name != filename:
+                failures.append(f"invalid chart filename: {source.parent.name} -> {filename!r}")
+                continue
+            registered_files.add(filename)
+            if not (source.parent / "charts" / filename).is_file():
+                failures.append(f"missing chart file: {source.parent.name} -> {filename}")
+            if f'src="charts/{filename}"' not in page_text:
+                failures.append(f"registered chart missing from reader: {source.parent.name} -> {filename}")
+
+        chart_dir = source.parent / "charts"
+        published_files = {
+            path.name for path in chart_dir.iterdir()
+            if chart_dir.is_dir() and path.is_file()
+        } if chart_dir.is_dir() else set()
+        if published_files != registered_files:
+            failures.append(
+                f"chart metadata/file mismatch: {source.parent.name}: "
+                f"unregistered={sorted(published_files - registered_files)}, "
+                f"missing={sorted(registered_files - published_files)}"
+            )
+        if charts:
+            if "研究圖表" not in page_text or "data-study-charts" not in page_text:
+                failures.append(f"reader lacks chart section: {source.parent.name}")
+            rendered = page_text.count('<figure class="chart">')
+            if rendered != len(charts):
+                failures.append(
+                    f"reader chart count mismatch: {source.parent.name}: "
+                    f"rendered={rendered}, registered={len(charts)}"
+                )
     catalog = json.loads((ROOT / "site/catalog.json").read_text(encoding="utf-8"))
     for item in catalog["items"]:
         if not (ROOT / item["path"]).is_file():
@@ -225,6 +268,7 @@ def main() -> int:
     print(f"catalog items: {len(catalog['items'])}")
     print(f"generated pages: {len(GENERATED_PAGES)}")
     print(f"weekly summaries: {len(WEEKLY_SOURCES)}")
+    print(f"published study charts: {published_chart_count}")
     print(f"failures: {len(failures)}")
     for failure in failures:
         print(failure)

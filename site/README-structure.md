@@ -33,13 +33,16 @@ Git 歷史就是舊版封存，因此不在 Public 再複製一套 `_retire` 網
 2. 中文研究問題
 3. 「判讀／結論／如何閱讀」表格
 4. 核心數據表
-5. 研究識別表
-6. 實務影響與公開證據邊界
-7. Results JSON、Python method、Study manifest
+5. `results.json` 已登錄的研究圖表；圖題、座標與圖內標註保留英文
+6. 研究識別表
+7. 實務影響與公開證據邊界
+8. Results JSON、Python method、Study manifest
 
 31 篇研究全部使用同一個 reader renderer，不再依 `results.json` 的十一種資料形狀建立
 十一套頁面架構。已審閱完整中文 findings 的研究會顯示完整結論表；其餘研究顯示中文主結論
-與關鍵限制，完整結構化數值與方法仍由頁尾連結提供。
+與關鍵限制，完整結構化數值與方法仍由頁尾連結提供。研究 Python 繼續負責可重跑計算與產圖，
+不為網頁翻譯改寫；reader 會依 `results.json.charts` 自動載入圖表。任何已登錄圖表缺檔或未出現在
+頁面，`site/check.py` 都必須失敗。
 
 ## 加入新研究
 
