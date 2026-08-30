@@ -58,7 +58,7 @@ a{color:var(--cyan);}
 .metric-label{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
 .metrics-strip.metrics-featured{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:960px;}
 .metrics-strip.metrics-featured .metric{min-width:0;width:100%;}
-.compact-metric-table{max-width:800px;}
+.compact-metric-table{max-width:980px;margin-left:auto;margin-right:auto;}
 
 .findings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;}
 .finding-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}

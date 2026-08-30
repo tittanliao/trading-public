@@ -237,14 +237,20 @@ def render_table(headers: list[str], rows: list[list[tuple[str, str, bool]]],
     )
 
 
-def render_records_table(records: dict[str, dict] | list[dict], row_label: str = "") -> str:
+def render_records_table(records: dict[str, dict] | list[dict], row_label: str = "",
+                         columns: list[str] | None = None,
+                         record_keys: list[str] | None = None) -> str:
     if isinstance(records, dict):
-        raw = [(key, flatten_record(value)) for key, value in records.items() if isinstance(value, dict)]
+        raw = [
+            (key, flatten_record(value)) for key, value in records.items()
+            if isinstance(value, dict) and (record_keys is None or key in record_keys)
+        ]
     else:
         raw = [(str(i), flatten_record(value)) for i, value in enumerate(records) if isinstance(value, dict)]
     if not raw:
         return '<p class="empty-note">No rows.</p>'
-    columns = ordered_columns([r for _, r in raw])
+    available_columns = ordered_columns([r for _, r in raw])
+    columns = [column for column in columns if column in available_columns] if columns else available_columns
     numeric_col = {
         c: any(is_numeric(record.get(c)) for _, record in raw) for c in columns
     }
@@ -284,9 +290,10 @@ def block_findings(value: list[dict]) -> str:
     return f'<div class="findings-grid">{cards}</div>'
 
 
-def block_table(value: Any, title: str) -> str:
+def block_table(value: Any, title: str, columns: list[str] | None = None,
+                record_keys: list[str] | None = None) -> str:
     heading = f"<h3>{esc(title)}</h3>" if title else ""
-    return f'<section class="data-block">{heading}{render_records_table(value)}</section>'
+    return f'<section class="data-block">{heading}{render_records_table(value, columns=columns, record_keys=record_keys)}</section>'
 
 
 def block_prose(value: str) -> str:
@@ -344,7 +351,7 @@ def block_evidence_pair(block: dict, study: dict, results: dict) -> str:
 <p class="evidence-takeaway">{esc(takeaway)}</p>
 <figure class="chart-figure evidence-figure"><img src="{attr(href)}" alt="{attr(caption)}" loading="lazy">
 <figcaption>{esc(caption)} <a class="chart-full" href="{attr(href)}">開啟原圖 ↗</a></figcaption></figure>
-{block_table(value, table_title)}</section>'''
+{block_table(value, table_title, block.get("columns"), block.get("record_keys"))}</section>'''
 
 
 def block_limitations(value: list[str]) -> str:
@@ -389,7 +396,7 @@ def render_block(block: dict, study: dict, results: dict) -> str:
         elif kind == "findings":
             body = block_findings(value)
         elif kind in ("table", "comparison_table", "matrix_table"):
-            return block_table(value, title)
+            return block_table(value, title, block.get("columns"), block.get("record_keys"))
         elif kind == "metric_table":
             return block_metric_table(value, title, block.get("keys", []))
         elif kind in ("prose", "interpretation"):
@@ -842,7 +849,7 @@ a{color:var(--cyan);}
 .metric-label{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
 .metrics-strip.metrics-featured{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:960px;}
 .metrics-strip.metrics-featured .metric{min-width:0;width:100%;}
-.compact-metric-table{max-width:800px;}
+.compact-metric-table{max-width:980px;margin-left:auto;margin-right:auto;}
 
 .findings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;}
 .finding-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}

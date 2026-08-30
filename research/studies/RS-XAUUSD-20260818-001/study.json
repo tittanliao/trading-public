@@ -156,7 +156,8 @@
       "takeaway_zh": "S1 的停利能拉高勝率，但沒有任何一個設定改善總報酬；先看報酬與勝率的取捨，再讀每個設定。",
       "chart_file": "s1_take_profit_tradeoff.png",
       "table_source": "strategies.S1.take_profit_overlay.levels",
-      "table_title": "S1 Take-Profit Overlay"
+      "table_title": "S1 Take-Profit Overlay",
+      "columns": ["win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct", "total_return_delta_pct"]
     },
     {
       "type": "evidence_pair",
@@ -164,7 +165,8 @@
       "takeaway_zh": "進場後一根 K 棒的盈虧狀態，對最終勝率有很大差異；但這個差異不等於提早出場就會改善報酬。",
       "chart_file": "s1_underwater_split.png",
       "table_source": "strategies.S1.underwater_time_exit.predictive_split.bar_1",
-      "table_title": "S1 Underwater-State Predictive Split (Bar 1)"
+      "table_title": "S1 Underwater-State Predictive Split (Bar 1)",
+      "columns": ["n", "wins", "win_rate_pct", "profit_factor"]
     },
     {
       "type": "evidence_pair",
@@ -172,7 +174,9 @@
       "takeaway_zh": "同樣的確認規則在 S1 沒有顯著改善：等待的追價成本對持有時間較短的策略太高。",
       "chart_file": "s1_confirmation_gradient.png",
       "table_source": "strategies.S1.confirmation_entry.by_bar.bar_1",
-      "table_title": "S1 One-Bar Confirmation Entry"
+      "table_title": "S1 One-Bar Confirmation Entry",
+      "record_keys": ["delay_only", "confirmed"],
+      "columns": ["n", "wins", "win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct"]
     },
     {
       "type": "evidence_pair",
@@ -180,7 +184,8 @@
       "takeaway_zh": "S2 也呈現同一件事：勝率可以上升，但沒有任何停利設定讓總報酬更好。",
       "chart_file": "s2_take_profit_tradeoff.png",
       "table_source": "strategies.S2.take_profit_overlay.levels",
-      "table_title": "S2 Take-Profit Overlay"
+      "table_title": "S2 Take-Profit Overlay",
+      "columns": ["win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct", "total_return_delta_pct"]
     },
     {
       "type": "evidence_pair",
@@ -188,7 +193,8 @@
       "takeaway_zh": "S2 的早期路徑也能區分最終結果，但是否可交易，仍要回到完整出場反事實測試。",
       "chart_file": "s2_underwater_split.png",
       "table_source": "strategies.S2.underwater_time_exit.predictive_split.bar_1",
-      "table_title": "S2 Underwater-State Predictive Split (Bar 1)"
+      "table_title": "S2 Underwater-State Predictive Split (Bar 1)",
+      "columns": ["n", "wins", "win_rate_pct", "profit_factor"]
     },
     {
       "type": "evidence_pair",
@@ -196,7 +202,9 @@
       "takeaway_zh": "這是唯一可進一步前瞻測試的候選：統計上有訊號，但樣本與保留期仍不足以改成正式規則。",
       "chart_file": "s2_confirmation_gradient.png",
       "table_source": "strategies.S2.confirmation_entry.by_bar.bar_1",
-      "table_title": "S2 One-Bar Confirmation Entry"
+      "table_title": "S2 One-Bar Confirmation Entry",
+      "record_keys": ["delay_only", "confirmed"],
+      "columns": ["n", "wins", "win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct"]
     },
     {
       "type": "interpretation",
