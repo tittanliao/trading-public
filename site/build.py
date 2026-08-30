@@ -35,6 +35,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260727-005",
     "RS-XAUUSD-20260727-007",
     "RS-XAUUSD-20260818-001",
+    "RS-XAUUSD-20260823-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -67,7 +68,7 @@ def routes() -> list[str]:
 # route that does not exist yet. All three phases are listed: reporting only 2A and 2B
 # under-counted the queue by 13 studies in the first cutover.
 PHASE_2A = [
-    "RS-XAUUSD-20260823-001", "RS-XAUUSD-20260823-002",
+    "RS-XAUUSD-20260823-002",
     "RS-XAUUSD-20260825-001", "RS-XAUUSD-20260827-001",
 ]
 PHASE_2B = [
@@ -292,9 +293,14 @@ def block_findings(value: list[dict]) -> str:
 
 
 def block_table(value: Any, title: str, columns: list[str] | None = None,
-                record_keys: list[str] | None = None) -> str:
+                record_keys: list[str] | None = None, takeaway: str = "") -> str:
     heading = f"<h3>{esc(title)}</h3>" if title else ""
-    return f'<section class="data-block">{heading}{render_records_table(value, columns=columns, record_keys=record_keys)}</section>'
+    # A takeaway above the table gives a chartless study the same reading pattern as an
+    # evidence_pair: Chinese context first, then the evidence. 17 of the 31 studies have no
+    # charts at all, so this is the normal case for the rest of the migration, not a
+    # special case — without it those pages would be a wall of unexplained tables.
+    lead = f'<p class="evidence-takeaway">{esc(takeaway)}</p>' if takeaway else ""
+    return f'<section class="data-block">{heading}{lead}{render_records_table(value, columns=columns, record_keys=record_keys)}</section>'
 
 
 def block_prose(value: str) -> str:
@@ -397,7 +403,8 @@ def render_block(block: dict, study: dict, results: dict) -> str:
         elif kind == "findings":
             body = block_findings(value)
         elif kind in ("table", "comparison_table", "matrix_table"):
-            return block_table(value, title, block.get("columns"), block.get("record_keys"))
+            return block_table(value, title, block.get("columns"), block.get("record_keys"),
+                               block.get("takeaway_zh", ""))
         elif kind == "metric_table":
             return block_metric_table(value, title, block.get("keys", []))
         elif kind in ("prose", "interpretation"):

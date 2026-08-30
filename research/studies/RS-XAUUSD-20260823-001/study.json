@@ -127,6 +127,101 @@
   "question_zh": "RS-XAUUSD-20260819-001 確立了日內極值何時形成。這裡把它延伸到價格型態而不是 alpha：日內區間在台北時區的每個 30 分鐘刻度上是怎麼累積的、這個輪廓跟同一天報酬的隨機漫步有沒有不同，以及它穩不穩定到可以直接從圖上讀出來。",
   "hypothesis_zh": "這個輪廓是真的，但它能用的形式比看起來窄——具體來說，固定的台北時鐘是錯的座標軸，而且這個輪廓的水位不是恆定的。",
   "card_summary_zh": "日內區間怎麼在台北時鐘上填滿——以及為什麼固定時鐘是錯的座標軸。",
+  "limitations_zh": [
+    "這是價格結構研究，不是策略研究：全篇沒有任何進出場規則、沒有勝率、也沒有報酬。區間輪廓描述的是「一天的波動什麼時候發生」，不是「往哪個方向發生」，因此不能直接轉成方向性的交易訊號。",
+    "水位不穩定是本研究自己量出來的限制：同一時段在訓練期與保留期的份額最大差距達 12.23 個百分點。任何把某個百分比當成固定門檻的用法都會踩到這個誤差。",
+    "亞盤份額隨時間上升（Spearman 0.873）是一個尚未解釋的趨勢。本研究排除了「純粹是波動率變化造成的假象」這個解釋，但沒有找出真正的成因，因此不能假設它會延續下去。",
+    "區間的累積跑在成交量前面，所以這個輪廓無法只用「參與者變多」來解釋。機制未知，這代表它也可能隨市場結構改變而失效。",
+    "研究過程中有兩個方法錯誤被記錄下來而不是隱藏：第一版的虛無假設設計錯誤，會產生一個看起來很有信心的假發現；另外，在累積曲線上算 Spearman 永遠會得到 1.0，什麼都證明不了。兩者都已修正，保留在報告中是為了讓同樣的錯誤不會被重犯。",
+    "652 個交易日、涵蓋 2024-01 至 2026-08。這是單一市場、單一時區切分（台北 07:00 為日界）的結果，換市場或換日界都需要重新檢定。"
+  ],
+  "interpretation_zh": "這份研究確認了一件實務上可用、但很容易被誤用的事：XAUUSD 的日內區間確實有一個穩定的累積輪廓，它不是隨機漫步該有的形狀，而且這個形狀從訓練期到保留期幾乎沒變（Spearman 0.907）。真正要小心的是「形狀穩定」不等於「水位穩定」——同一個時段在不同期間的實際份額最多可以差 12.23 個百分點，所以可以拿來讀節奏，不能拿來當固定門檻。\n\n另一個直接影響實務的結果是時鐘問題。美國最忙的那半小時是綁在紐約時間 08:30（美國總體數據的標準發布時間），不是綁在台北時鐘上。夏令時間切換時它會在台北 20:30 與 21:30 之間移動。固定盯著台北 20:30 的人，在非夏令期間會落在一個份額只有 0.88% 的時段——同一個時鐘格在夏令期間是 4.51%，也就是同格差了約 5 倍；而該期間真正的高峰其實在 21:30（5.43%）。要盯數據行情，應該跟著紐約時間走，不是跟著台北時鐘。\n\n最後一個可以直接用的觀察是殘餘風險：台北 23:30 之後，中位數的一天其實已經走完了（殘餘區間中位數 0.0%），但仍有 44.3% 的日子會在那之後創出新的極值。這兩個數字並不矛盾——它說的是「大多數日子沒事，但尾巴很長」，所以 23:30 之後的部位管理應該看的是尾部風險，而不是用平均值安慰自己。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "sessions",
+        "family_permutation_p_holdout",
+        "slots_consistent_and_abs_z_over_2_in_all_periods",
+        "increment_shape_spearman_train_vs_holdout"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "title": "Most Consistent Slots 最穩定的時段",
+      "takeaway_zh": "這八個半小時在訓練、驗證、保留三個期間都同向偏離機率預期，且 z 值皆未跌破門檻。excess_pct 與 z 各為三期依序的值；min_abs_z 是三期中最保守的一個。",
+      "source": "families.increment_consistency.strongest",
+      "columns": [
+        "slot",
+        "direction",
+        "excess_pct",
+        "z",
+        "min_abs_z"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "title": "US Clock Alignment 美國時鐘錯位",
+      "source": "headline",
+      "keys": [
+        "et_0830_share_when_dst_on_taipei_2030_pct",
+        "et_0830_share_when_dst_off_taipei_2130_pct",
+        "taipei_2030_share_when_dst_off_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Weekday Profiles 星期別輪廓",
+      "takeaway_zh": "週一前段填得最快（09:30 前已完成 45.3%），週五最慢。各星期的輪廓形狀與全樣本高度一致（Spearman 皆在 0.95 以上），差的是速度不是形狀。",
+      "source": "families.weekday_profiles",
+      "columns": [
+        "days",
+        "completed_by_09_30_pct",
+        "completed_by_15_30_pct",
+        "completed_by_21_30_pct",
+        "increment_spearman_vs_all_days",
+        "mean_daily_range_usd"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Residual Risk After Late Slots 深夜後的殘餘風險",
+      "takeaway_zh": "保留期資料。台北 23:30 之後殘餘區間的中位數已是 0.0%，但仍有 44.3% 的日子會創出新極值；02:30 之後仍有 26.7%。中位數看起來安全，尾巴並不安全——深夜的部位管理要看 new_extreme_after_pct，不是看中位數。",
+      "source": "families.residual_and_extreme_risk.holdout",
+      "columns": [
+        "residual_range_mean_pct",
+        "residual_range_median_pct",
+        "new_extreme_after_pct",
+        "n"
+      ],
+      "record_keys": [
+        "21:30",
+        "22:30",
+        "23:30",
+        "00:30",
+        "01:30",
+        "02:30",
+        "03:30",
+        "04:30"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
