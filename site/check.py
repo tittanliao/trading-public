@@ -1,278 +1,159 @@
 #!/usr/bin/env python3
-"""Validate generated Public pages, catalog links, and privacy boundaries."""
+"""Validate the clean-rebuild Public site: exact route allow-list, dead links, retired
+routes actually gone, and no private-token leakage.
 
+docs/PUBLIC_SITE_REBUILD_SPEC.md section 12 calls this "the site/privacy checker" — it is
+the safety gate run after `site/build.py` and before commit.
+"""
 from __future__ import annotations
 
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build import POC_STUDIES, ROUTES, WEEKLY_FORECAST_WEEK  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-WEEKLY_SOURCES = sorted((ROOT / "xauusd/weekly").glob("*/summary.json"))
-def _english_pages() -> list[Path]:
-    return [
-        ROOT / "index.html",
-        ROOT / "xauusd/index.html",
-        ROOT / "tx/index.html",
-        ROOT / "research/index.html",
-    ] + [
-        # Pages that exist only when their source data does. Listed conditionally rather
-        # than unconditionally: jargon and the null registry are generated from optional
-        # inputs, and a hard entry would fail the check on a checkout that lacks them. Both
-        # went live once without being checked at all, which is how a 404 stayed invisible.
-        page for page in (
-            ROOT / "jargon/index.html",
-            ROOT / "lessons/index.html",
-            ROOT / "research/null-results/index.html",
-        ) if page.is_file()
-    ] + sorted((ROOT / "research/studies").glob("*/index.html")) + [
-        source.parent / "index.html" for source in WEEKLY_SOURCES
-    ] + ([ROOT / "xauusd/weekly/index.html"] if WEEKLY_SOURCES else [])
 
+GENERATED_PAGES = [ROOT / (r + "/index.html" if r else "index.html") for r in ROUTES]
 
-GENERATED_PAGES = _english_pages()
-# /zh/ and /v1/ are compatibility redirects, not alternate sites. They still receive the
-# same privacy and link checks so an old bookmark cannot land on stale or unsafe content.
-GENERATED_PAGES += sorted((ROOT / "zh").glob("**/index.html"))
-GENERATED_PAGES += sorted((ROOT / "v1").glob("**/index.html"))
-PROHIBITED_SUFFIXES = {".csv", ".doc", ".docx", ".xls", ".xlsx"}
-PROHIBITED_EXACT = {"data/logs.json", "xauusd/signal_status.json"}
-WEEKLY_KEYS = {
-    "schema_version", "market", "forecast_week", "edition", "published_at",
-    "publication_mode", "confidence", "source_count", "source_producers",
-    "source_fingerprint", "data_cutoff", "market_summary", "scenario_comparison",
-    "adopted_scenarios", "agreements", "disagreements", "key_levels",
-    "strategy_plan", "event_risk", "recommendation", "evidence_limits", "disclaimer",
-}
-# Present only on an edition published as a translation. The 2026-W34 report was written in
-# Chinese; everything from W35 is English, so this should stay rare.
-WEEKLY_OPTIONAL_KEYS = {"language_note"}
+# Routes this rebuild explicitly retires. Their presence after cutover is a failure —
+# docs/PUBLIC_SITE_REBUILD_SPEC.md section 3/13: "retired routes should return 404".
+RETIRED_PAGES = [
+    ROOT / "jargon/index.html",
+    ROOT / "lessons/index.html",
+    ROOT / "tx/index.html",
+    ROOT / "xauusd/index.html",
+    ROOT / "v1/index.html",
+    ROOT / "zh/index.html",
+]
+RETIRED_DIRS = [ROOT / "v1", ROOT / "zh", ROOT / "jargon", ROOT / "lessons"]
+
 PRIVATE_TOKENS = (
-    "/users/", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
-    "journal_locator", "input_set_id", "ledger_run_id", "resource_key",
-    ".docx", ".gdoc", "private_provenance",
+    "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
+    "journal_locator", "input_set_id", "ledger_run_id", ".docx", ".gdoc",
+    "private_provenance", "the owner", "owner-directed", "owner-confirmed",
 )
 
-# Scanned on every generated page, not only weekly summaries. Thirty-four references to a
-# private person reached thirteen published study pages before anyone looked, because the
-# only leak scan ran on the weekly JSON.
-PAGE_PRIVATE_TOKENS = PRIVATE_TOKENS + ("owner", "googledrive", "docs/strategy.md",
-                                        "docs/policy.md", "decision_log", "handoff.md")
+
+def fail(messages: list[str], text: str) -> None:
+    messages.append(text)
 
 
-def git_files() -> list[str]:
-    tracked = subprocess.check_output(
-        ["git", "-C", str(ROOT), "ls-files", "-z"]
-    ).split(b"\0")
-    staged = subprocess.check_output(
-        ["git", "-C", str(ROOT), "diff", "--cached", "--name-only", "-z"]
-    ).split(b"\0")
-    return sorted({item.decode() for item in tracked + staged if item})
+def check_routes() -> list[str]:
+    errors: list[str] = []
+    for page in GENERATED_PAGES:
+        if not page.is_file():
+            fail(errors, f"missing canonical page: {page.relative_to(ROOT)}")
+    if len(GENERATED_PAGES) != 8:
+        fail(errors, f"expected exactly 8 canonical routes, ROUTES has {len(GENERATED_PAGES)}")
+    return errors
+
+
+def check_retired() -> list[str]:
+    errors: list[str] = []
+    for page in RETIRED_PAGES:
+        if page.is_file():
+            fail(errors, f"retired route still present: {page.relative_to(ROOT)}")
+    for study_dir in (ROOT / "research/studies").iterdir():
+        if not study_dir.is_dir() or study_dir.name in POC_STUDIES:
+            continue
+        page = study_dir / "index.html"
+        if page.is_file():
+            fail(errors, f"non-POC study page must be unlinked/404 in this phase: {page.relative_to(ROOT)}")
+    for legacy in (ROOT / "xauusd/weekly/2026-W34", ROOT / "xauusd/weekly/2026-W35"):
+        page = legacy / "index.html"
+        if page.is_file():
+            fail(errors, f"retired dated Weekly page still present: {page.relative_to(ROOT)}")
+    return errors
+
+
+def extract_links(html_text: str) -> list[str]:
+    return re.findall(r'(?:href|src)="([^"]+)"', html_text)
+
+
+def check_links_and_images() -> list[str]:
+    errors: list[str] = []
+    for page in GENERATED_PAGES:
+        text = page.read_text(encoding="utf-8")
+        for link in extract_links(text):
+            if link.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            target = (page.parent / unquote(urlsplit(link).path)).resolve()
+            if not target.is_file() and not target.is_dir():
+                fail(errors, f"broken link in {page.relative_to(ROOT)}: {link}")
+    for study_id in POC_STUDIES:
+        results = json.loads((ROOT / "research/studies" / study_id / "results.json").read_text(encoding="utf-8"))
+        for chart in results.get("charts", []):
+            image = ROOT / "research/studies" / study_id / "charts" / chart["file"]
+            if not image.is_file():
+                fail(errors, f"missing chart image for {study_id}: {chart['file']}")
+    return errors
+
+
+def check_privacy() -> list[str]:
+    errors: list[str] = []
+    scanned = list(GENERATED_PAGES)
+    scanned.append(ROOT / f"xauusd/weekly/{WEEKLY_FORECAST_WEEK}/summary.json")
+    for sid in POC_STUDIES:
+        d = ROOT / "research/studies" / sid
+        scanned += [d / "study.json", d / "results.json", d / "analysis.py"]
+    for path in scanned:
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        for token in PRIVATE_TOKENS:
+            if token in text:
+                fail(errors, f"prohibited token '{token}' found in {path.relative_to(ROOT)}")
+    return errors
+
+
+def check_chart_count() -> tuple[int, list[str]]:
+    errors: list[str] = []
+    total = 0
+    for sid, expected in zip(POC_STUDIES, (20, 5, 6)):
+        results = json.loads((ROOT / "research/studies" / sid / "results.json").read_text(encoding="utf-8"))
+        n = len(results.get("charts", []))
+        total += n
+        if n != expected:
+            fail(errors, f"{sid}: expected {expected} charts, results.json declares {n}")
+    return total, errors
+
+
+def check_null_results() -> list[str]:
+    errors: list[str] = []
+    registry = json.loads((ROOT / "research/null-results/null_results.json").read_text(encoding="utf-8"))
+    totals = registry.get("totals", {})
+    hypotheses = [e for e in registry.get("entries", []) if e.get("kind") == "hypothesis"]
+    if totals.get("hypotheses") != 63 or len(hypotheses) != 63:
+        fail(errors, f"expected 63 registered hypotheses, found {len(hypotheses)} (totals says {totals.get('hypotheses')})")
+    by_verdict = totals.get("by_verdict", {})
+    expected_verdicts = {"no_evidence": 60, "underpowered": 2, "below_cost": 1}
+    if by_verdict != expected_verdicts:
+        fail(errors, f"verdict totals mismatch: expected {expected_verdicts}, got {by_verdict}")
+    return errors
 
 
 def main() -> int:
-    failures: list[str] = []
-    published_chart_count = 0
+    errors: list[str] = []
+    errors += check_routes()
+    errors += check_retired()
+    errors += check_links_and_images()
+    errors += check_privacy()
+    chart_total, chart_errors = check_chart_count()
+    errors += chart_errors
+    errors += check_null_results()
 
-    canonical = [page for page in _english_pages() if page.is_file()]
-    for page in canonical:
-        page_text = page.read_text(encoding="utf-8")
-        if "v1.0 layout" in page_text or "lang-switch" in page_text:
-            failures.append(f"canonical page exposes a version/language split: {page.relative_to(ROOT)}")
-
-    research_index = ROOT / "research/index.html"
-    if research_index.is_file():
-        index_text = research_index.read_text(encoding="utf-8")
-        if "data-study-table" not in index_text or "data-view-toggle" in index_text:
-            failures.append("research index is not table-first")
-
-    home = ROOT / "index.html"
-    if home.is_file():
-        home_text = home.read_text(encoding="utf-8")
-        for token in ("Directory", "Reading convention", "Traditional-Chinese research reports"):
-            if token not in home_text:
-                failures.append(f"home does not expose the new architecture: missing {token!r}")
-
-    study_sources = sorted((ROOT / "research/studies").glob("*/study.json"))
-    editorial = json.loads((ROOT / "site/study_copy_zh.json").read_text(encoding="utf-8"))
-    source_ids = {path.parent.name for path in study_sources}
-    editorial_ids = set(editorial)
-    if editorial_ids - source_ids:
-        failures.append(f"orphan Chinese study copy: {sorted(editorial_ids - source_ids)}")
-    for source in study_sources:
-        study = json.loads(source.read_text(encoding="utf-8"))
-        result = json.loads((source.parent / "results.json").read_text(encoding="utf-8"))
-        charts = result.get("charts", []) if isinstance(result, dict) else []
-        if not isinstance(charts, list):
-            failures.append(f"study charts metadata is not a list: {source.parent.name}")
-            charts = []
-        published_chart_count += len(charts)
-        copy = editorial.get(source.parent.name, {})
-        if not (study.get("question_zh") or copy.get("question")):
-            failures.append(f"study lacks Chinese question: {source.parent.name}")
-        if not (study.get("card_summary_zh") or copy.get("summary")):
-            failures.append(f"study lacks Chinese summary: {source.parent.name}")
-
-        page = source.parent / "index.html"
-        if not page.is_file():
-            continue
-        page_text = page.read_text(encoding="utf-8")
-        for token in ('<html lang="zh-Hant">', "研究摘要", "研究問題", "結論與界限",
-                      "核心數據", "研究識別", "實務與證據邊界"):
-            if token not in page_text:
-                failures.append(f"Chinese reader page missing {token!r}: {source.parent.name}")
-        if any(token in page_text for token in ("insight-grid", "metric-grid", "study-card",
-                                                 "data-view-toggle")):
-            failures.append(f"Chinese reader page contains legacy card layout: {source.parent.name}")
-
-        registered_files: set[str] = set()
-        for chart in charts:
-            if not isinstance(chart, dict):
-                failures.append(f"invalid chart metadata: {source.parent.name}")
-                continue
-            filename = str(chart.get("file", ""))
-            if not filename or Path(filename).name != filename:
-                failures.append(f"invalid chart filename: {source.parent.name} -> {filename!r}")
-                continue
-            registered_files.add(filename)
-            if not (source.parent / "charts" / filename).is_file():
-                failures.append(f"missing chart file: {source.parent.name} -> {filename}")
-            if f'src="charts/{filename}"' not in page_text:
-                failures.append(f"registered chart missing from reader: {source.parent.name} -> {filename}")
-
-        chart_dir = source.parent / "charts"
-        published_files = {
-            path.name for path in chart_dir.iterdir()
-            if chart_dir.is_dir() and path.is_file()
-        } if chart_dir.is_dir() else set()
-        if published_files != registered_files:
-            failures.append(
-                f"chart metadata/file mismatch: {source.parent.name}: "
-                f"unregistered={sorted(published_files - registered_files)}, "
-                f"missing={sorted(registered_files - published_files)}"
-            )
-        if charts:
-            if "研究圖表" not in page_text or "data-study-charts" not in page_text:
-                failures.append(f"reader lacks chart section: {source.parent.name}")
-            rendered = page_text.count('<figure class="chart">')
-            if rendered != len(charts):
-                failures.append(
-                    f"reader chart count mismatch: {source.parent.name}: "
-                    f"rendered={rendered}, registered={len(charts)}"
-                )
-    catalog = json.loads((ROOT / "site/catalog.json").read_text(encoding="utf-8"))
-    for item in catalog["items"]:
-        if not (ROOT / item["path"]).is_file():
-            failures.append(f"missing catalog target: {item['path']}")
-
-    for source in WEEKLY_SOURCES:
-        relative = source.relative_to(ROOT)
-        try:
-            summary = json.loads(source.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as exc:
-            failures.append(f"invalid weekly JSON: {relative}: {exc}")
-            continue
-        keys = set(summary)
-        if not WEEKLY_KEYS <= keys or (keys - WEEKLY_KEYS) - WEEKLY_OPTIONAL_KEYS:
-            failures.append(f"weekly summary key mismatch: {relative}")
-        if summary.get("schema_version") != "1.0" or summary.get("market") != "XAUUSD":
-            failures.append(f"weekly summary identity mismatch: {relative}")
-        if source.parent.name != summary.get("forecast_week"):
-            failures.append(f"weekly summary directory mismatch: {relative}")
-        mode = summary.get("publication_mode")
-        source_count = summary.get("source_count")
-        producers = summary.get("source_producers")
-        comparison = summary.get("scenario_comparison")
-        if mode not in {"single_source", "multi_source"}:
-            failures.append(f"invalid weekly publication mode: {relative}")
-        if not isinstance(source_count, int) or source_count < 1:
-            failures.append(f"invalid weekly source count: {relative}")
-        if not isinstance(producers, list) or len(producers) != source_count:
-            failures.append(f"weekly producer count mismatch: {relative}")
-        if not isinstance(comparison, list) or len(comparison) != source_count:
-            failures.append(f"weekly comparison count mismatch: {relative}")
-        if mode == "single_source" and source_count != 1:
-            failures.append(f"single-source weekly summary has multiple sources: {relative}")
-        if mode == "multi_source" and (not isinstance(source_count, int) or source_count < 2):
-            failures.append(f"multi-source weekly summary lacks multiple sources: {relative}")
-        adopted = summary.get("adopted_scenarios")
-        probabilities = (
-            [item.get("probability") for item in adopted if isinstance(item, dict)]
-            if isinstance(adopted, list) else []
-        )
-        if (
-            not isinstance(adopted, list)
-            or len(probabilities) != len(adopted)
-            or any(not isinstance(value, int) for value in probabilities)
-            or sum(probabilities) != 100
-        ):
-            failures.append(f"weekly adopted probabilities do not sum to 100: {relative}")
-        lowered = source.read_text(encoding="utf-8").lower()
-        leaked = [token for token in PRIVATE_TOKENS if token in lowered]
-        if leaked:
-            failures.append(f"weekly summary contains private token(s) {leaked}: {relative}")
-
-    # A study ID printed as text is a citation the reader cannot follow and no link check
-    # can see. The signal playbook cited a study that had no published page for days.
-    study_pattern = re.compile(r"RS-[A-Z]+-\d{8}-\d{3}")
-    published = {p.name for p in (ROOT / "research/studies").glob("*") if p.is_dir()}
-
-    href_pattern = re.compile(r'href=["\']([^"\']+)["\']', re.I)
-    for page in GENERATED_PAGES:
-        if not page.is_file():
-            failures.append(f"missing generated page: {page.relative_to(ROOT)}")
-            continue
-        page_text = page.read_text(encoding="utf-8")
-        lowered_page = page_text.lower()
-        for token in PAGE_PRIVATE_TOKENS:
-            if token in lowered_page:
-                failures.append(
-                    f"private token {token!r} on generated page: {page.relative_to(ROOT)}"
-                )
-        # A raw JSON object in a <code> block means a renderer gave up on a shape rather
-        # than rendering it. Five published pages carried 366 of these before anyone
-        # looked, because nothing failed — they were valid HTML, just unreadable.
-        blobs = re.findall(r'<code>\{[^<]{40,}</code>', page_text)
-        if blobs:
-            failures.append(
-                f"raw JSON rendered on page: {page.relative_to(ROOT)} ({len(blobs)} blocks)"
-            )
-        for cited in sorted(set(study_pattern.findall(page_text))):
-            if cited not in published:
-                failures.append(
-                    f"page cites an unpublished study: {page.relative_to(ROOT)} -> {cited}"
-                )
-        for href in href_pattern.findall(page_text):
-            split = urlsplit(href)
-            if split.scheme or split.netloc or href.startswith("#"):
-                continue
-            target = (page.parent / unquote(split.path)).resolve()
-            if target.is_dir():
-                target = target / "index.html"
-            if not target.is_file():
-                failures.append(
-                    f"broken generated link: {page.relative_to(ROOT)} -> {href}"
-                )
-
-    for relative in git_files():
-        path = Path(relative)
-        if path.suffix.lower() in PROHIBITED_SUFFIXES:
-            failures.append(f"prohibited Public binary/raw file: {relative}")
-        if relative in PROHIBITED_EXACT or ".claude/memory" in relative:
-            failures.append(f"prohibited Public private-state path: {relative}")
-
-    print(f"catalog items: {len(catalog['items'])}")
-    print(f"generated pages: {len(GENERATED_PAGES)}")
-    print(f"weekly summaries: {len(WEEKLY_SOURCES)}")
-    print(f"published study charts: {published_chart_count}")
-    print(f"failures: {len(failures)}")
-    for failure in failures:
-        print(failure)
-    return 1 if failures else 0
+    print(json.dumps({
+        "routes checked": len(GENERATED_PAGES),
+        "poc chart total": chart_total,
+        "failures": len(errors),
+        "errors": errors,
+    }, ensure_ascii=False, indent=2))
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

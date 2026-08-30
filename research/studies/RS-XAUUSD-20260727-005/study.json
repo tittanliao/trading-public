@@ -30,32 +30,106 @@
     {
       "tone": "info",
       "title": "V3.9 outperforms V3.4 on every headline metric",
-      "detail": "WR +3.05pp (56.22% vs 53.17%), PF +0.344 (1.869 vs 1.525), despite 54 fewer trades over a similar span."
+      "detail": "WR +3.05pp (56.22% vs 53.17%), PF +0.344 (1.869 vs 1.525), despite 54 fewer trades over a similar span.",
+      "title_zh": "V3.9 在每一項標頭指標上都優於 V3.4",
+      "detail_zh": "勝率 +3.05 個百分點（56.22% 對 53.17%），獲利因子 +0.344（1.869 對 1.525），而且交易筆數在相近的時間範圍內還少了 54 筆。"
     },
     {
       "tone": "good",
       "title": "immediate_loss share dropped 5 points",
-      "detail": "immediate_loss fell from 30.9% of V3.4 losses to 25.9% of V3.9 losses; normal_sl rose from 48.3% to 52.8%. Consistent with fewer instantly-wrong entries under V3.9."
+      "detail": "immediate_loss fell from 30.9% of V3.4 losses to 25.9% of V3.9 losses; normal_sl rose from 48.3% to 52.8%. Consistent with fewer instantly-wrong entries under V3.9.",
+      "title_zh": "立即虧損占比下降了 5 個百分點",
+      "detail_zh": "立即虧損占虧損交易的比例，從 V3.4 的 30.9% 降到 V3.9 的 25.9%；正常停損則從 48.3% 升到 52.8%。與 V3.9 進場後立刻判斷錯誤的情況減少相符。"
     },
     {
       "tone": "warn",
       "title": "Counter-trend penalty widened, not narrowed",
-      "detail": "The 4H-bearish counter-trend win-rate gap grew from 9.6pp (V3.4) to 12.25pp (V3.9) versus aligned entries — V3.9 did not fix this, it got more pronounced."
+      "detail": "The 4H-bearish counter-trend win-rate gap grew from 9.6pp (V3.4) to 12.25pp (V3.9) versus aligned entries — V3.9 did not fix this, it got more pronounced.",
+      "title_zh": "逆勢懲罰擴大了，不是縮小",
+      "detail_zh": "相對於順勢對齊的進場，4H 空頭逆勢進場的勝率差距從 V3.4 的 9.6 個百分點，擴大到 V3.9 的 12.25 個百分點——V3.9 並沒有修正這個問題，反而讓它更明顯。"
     },
     {
       "tone": "warn",
       "title": "30-minute-slot deltas remain low-n and noisy",
-      "detail": "Most slots have single-digit-to-teens counts per version; treat the per-slot diff chart as descriptive, not as a basis for a new timing rule."
+      "detail": "Most slots have single-digit-to-teens counts per version; treat the per-slot diff chart as descriptive, not as a basis for a new timing rule.",
+      "title_zh": "各 30 分鐘時槽的差異仍屬低樣本、雜訊偏高",
+      "detail_zh": "兩個版本在多數時槽裡都只有個位數到十幾筆交易；請把逐時槽差異圖當成描述性資料，不要拿它當成新增進場時機規則的依據。"
     },
     {
       "tone": "warn",
       "title": "Exit-rule differences confound every delta",
-      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. None of these deltas isolate a pure timing/regime effect."
+      "detail": "V3.4 used 0.5% SL with TP2=2R; V3.9's exit structure differs. None of these deltas isolate a pure timing/regime effect.",
+      "title_zh": "出場規則差異混雜了每一項比較",
+      "detail_zh": "V3.4 使用 0.5% 停損搭配 TP2=2R；V3.9 的出場結構與此不同。這些差異都無法單獨分離出純粹的時機或市場狀態效果。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "What actually changed between S1 V3.4 and V3.9, measured rather than described.",
+  "question_zh": "對照 RS-XAUUSD-20260727-003（V3.4）與 -004（V3.9）兩份 fail-pattern 報告，這兩個策略版本在 30 分鐘進場時機、失敗型態占比、布林區位、DXY 狀態與多時間框對齊上，實際差在哪裡？",
+  "hypothesis_zh": "V3.4 與 V3.9 在出場規則結構（0.5% 停損／TP2=2R，相對於 V3.9 目前的出場規則）以及各自交易當下所處的市場狀態都不同，所以出現差異是預期中的事，不應該被解讀成同一套規則跨時間的對等回測比較。",
+  "card_summary_zh": "S1 V3.4 與 V3.9 之間實際改變了什麼——用數字衡量，而非用印象描述。",
+  "limitations_zh": [
+    "V3.4 使用 0.5% 停損搭配 TP2=2R，V3.9 的出場結構與此不同，因此本報告的每一項差異都同時混雜了出場規則的改變，無法單獨分離出純粹的時機或市場狀態效果。",
+    "多數 30 分鐘時槽在兩個版本裡都只有個位數到十幾筆交易，樣本量偏低；逐時槽差異圖只能當描述性資料看，不足以做為新增進場時機規則的依據。"
+  ],
+  "interpretation_zh": "V3.9 在每一項標頭指標上都優於 V3.4——勝率高 3.05 個百分點、獲利因子高 0.344，而且交易筆數還少了 54 筆。立即虧損占比從 V3.4 的 30.9% 降到 V3.9 的 25.9%，顯示明顯進錯場的情況減少了；但逆勢（4H 空頭）進場的表現差距不但沒有縮小，反而從 9.6 個百分點擴大到 12.25 個百分點，代表這個弱點在 V3.9 上更明顯，不是被修好了。因為兩個版本的出場規則本身就不同，所有差異都必須連同這個混雜因素一起讀，不能直接當成純粹的策略升級證據。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline"
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "comparison_table",
+      "title": "Baseline: V3.4 vs V3.9",
+      "source": "baseline_diff"
+    },
+    {
+      "type": "table",
+      "title": "30-Minute Entry Slot Delta",
+      "source": "by_entry_30m_diff"
+    },
+    {
+      "type": "table",
+      "title": "Fail-Type Share Delta",
+      "source": "fail_type_share_diff"
+    },
+    {
+      "type": "table",
+      "title": "Bollinger Band Zone Delta",
+      "source": "bb_zone_diff"
+    },
+    {
+      "type": "table",
+      "title": "DXY Bucket Delta",
+      "source": "dxy_bucket_diff"
+    },
+    {
+      "type": "table",
+      "title": "4H Trend State Delta",
+      "source": "mtf_4h_state_diff"
+    },
+    {
+      "type": "table",
+      "title": "MTF Conflict Delta",
+      "source": "mtf_conflict_diff"
+    },
+    {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

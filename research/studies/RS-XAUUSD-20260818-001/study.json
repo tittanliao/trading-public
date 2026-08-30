@@ -42,52 +42,137 @@
     {
       "tone": "warn",
       "title": "Win rate is purchasable and worth nothing on its own",
-      "detail": "A full-size take-profit lifts S1 to 88.56% and S2 to 95.81%, because a take-profit can never turn a winner into a loser. Not one level in either strategy improves total return: S1 falls from 88.62% to between +14% and +36%. Any request to raise win rate has to be answered with what is being paid for it."
+      "detail": "A full-size take-profit lifts S1 to 88.56% and S2 to 95.81%, because a take-profit can never turn a winner into a loser. Not one level in either strategy improves total return: S1 falls from 88.62% to between +14% and +36%. Any request to raise win rate has to be answered with what is being paid for it.",
+      "title_zh": "勝率可以用錢買到，但單看勝率毫無意義",
+      "detail_zh": "全額停利可以把 S1 拉到 88.56%、S2 拉到 95.81%，因為停利在結構上絕不可能把賺錢單變成賠錢單。但兩個策略裡沒有任何一個停利設定改善總報酬：S1 的報酬從 88.62% 掉到 +14% 至 +36% 之間。任何『拉高勝率』的要求，都必須回答『用什麼代價換來的』。"
     },
     {
       "tone": "info",
       "title": "Five exit families tested, none improves return",
-      "detail": "75 exit-side variants per strategy across take-profit, stop tightening, time exit, trailing stop and breakeven move. Not one improves total return in either strategy. The best trailing stop costs S1 5.39% and S2 36.28% of total return; moving the stop to entry is worse still, costing S2 up to 59% at a 0.2% arm. Levels that appear positive sit at or beyond the existing stop and are the identity case."
+      "detail": "75 exit-side variants per strategy across take-profit, stop tightening, time exit, trailing stop and breakeven move. Not one improves total return in either strategy. The best trailing stop costs S1 5.39% and S2 36.28% of total return; moving the stop to entry is worse still, costing S2 up to 59% at a 0.2% arm. Levels that appear positive sit at or beyond the existing stop and are the identity case.",
+      "title_zh": "測了五大類出場方式，沒有一種改善報酬",
+      "detail_zh": "每個策略各測 75 種出場端變體，涵蓋停利、收緊停損、時間出場、移動停損與移到保本。兩個策略都沒有任何一種改善總報酬。表現最好的移動停損仍讓 S1 損失 5.39%、S2 損失 36.28% 的總報酬；把停損移到進場價更糟，S2 在 0.2% 觸發幅度下最多損失 59%。看似正向的設定，其實都落在原本停損的位置或更寬鬆，等同於原本的做法。"
     },
     {
       "tone": "warn",
       "title": "Revision 1 called the exit side closed before testing this family",
-      "detail": "Revision 1 tested a fixed take-profit, a tighter fixed stop and a time exit, and concluded the exit side was closed. None of those three lets a winner keep running while still cutting a reversal, which is the whole point of a trailing stop, so the claim was broader than the evidence. Revision 2 adds 30 trailing and breakeven variants per strategy. The conclusion is unchanged and now actually supported."
+      "detail": "Revision 1 tested a fixed take-profit, a tighter fixed stop and a time exit, and concluded the exit side was closed. None of those three lets a winner keep running while still cutting a reversal, which is the whole point of a trailing stop, so the claim was broader than the evidence. Revision 2 adds 30 trailing and breakeven variants per strategy. The conclusion is unchanged and now actually supported.",
+      "title_zh": "第一版報告在測試這一類方法之前，就宣稱出場端已經測完",
+      "detail_zh": "第一版只測了固定停利、收緊固定停損與時間出場，就下結論說出場端已經沒有空間。這三種都無法在讓獲利單繼續跑的同時、仍能在反轉時停損出場——而這正是移動停損存在的意義，所以原本的結論範圍超過了證據能支持的程度。第二版為每個策略新增 30 種移動停損與保本變體，結論不變，但這次才真正有證據支持。"
     },
     {
       "tone": "warn",
       "title": "The largest effect in the study is real and not tradeable",
-      "detail": "At one bar after entry, S1 trades in profit finish at 71.26% against 38.07% for those underwater — a 33.19pp gap on 472 trades, well past its resolution limit, and the underwater cohort has a profit factor below 1. Leaving those trades early still loses money at 22 of 24 settings: the recoveries forfeited exceed the losses saved."
+      "detail": "At one bar after entry, S1 trades in profit finish at 71.26% against 38.07% for those underwater — a 33.19pp gap on 472 trades, well past its resolution limit, and the underwater cohort has a profit factor below 1. Leaving those trades early still loses money at 22 of 24 settings: the recoveries forfeited exceed the losses saved.",
+      "title_zh": "本研究最大的效應是真實的，但無法拿來交易",
+      "detail_zh": "進場後一根 K 棒，仍在獲利的 S1 交易最終有 71.26% 賺錢，套牢中的只有 38.07%——在 472 筆交易上差距達 33.19 個百分點，遠超過可解析的門檻，而套牢那組的獲利因子低於1。但提早出掉這些套牢交易，在 24 種設定中有 22 種仍然虧錢，因為放棄掉的反彈比省下的虧損還多。"
     },
     {
       "tone": "good",
       "title": "S2 one-bar confirmation entry is the one candidate that survives",
-      "detail": "Waiting one bar and entering only if it closed in profit takes 91 of 167 S2 trades at 62.64% win rate and PF 2.971, against 47.9% and 2.062. Randomly selecting the same number of delayed trades reaches this mean 0.0023 of the time. Delay without selection changes nothing (0.5575% against 0.5881%), so the filter is doing the work."
+      "detail": "Waiting one bar and entering only if it closed in profit takes 91 of 167 S2 trades at 62.64% win rate and PF 2.971, against 47.9% and 2.062. Randomly selecting the same number of delayed trades reaches this mean 0.0023 of the time. Delay without selection changes nothing (0.5575% against 0.5881%), so the filter is doing the work.",
+      "title_zh": "S2 等一根 K 棒再確認進場，是唯一站得住的候選方法",
+      "detail_zh": "等一根 K 棒、只在收在獲利時才進場，167 筆 S2 交易中取走 91 筆，勝率 62.64%、獲利因子 2.971，相對於未篩選的 47.9% 與 2.062。隨機挑選同樣數量的延遲交易，達到這個平均值的機率只有 0.0023。單純延遲進場而不篩選並不會改變結果（0.5575% 對 0.5881%），代表真正發揮作用的是篩選本身。"
     },
     {
       "tone": "info",
       "title": "The same rule fails on S1, for a reason that was predictable in advance",
-      "detail": "The chase costs almost the same in both (0.161% for S1, 0.177% for S2) but consumes 20.3% of S1's median winning move against 7.4% of S2's. S1's per-trade result falls and its permutation test is 0.4814. A filter is worth its delay only when the strategy holds long enough to absorb it."
+      "detail": "The chase costs almost the same in both (0.161% for S1, 0.177% for S2) but consumes 20.3% of S1's median winning move against 7.4% of S2's. S1's per-trade result falls and its permutation test is 0.4814. A filter is worth its delay only when the strategy holds long enough to absorb it.",
+      "title_zh": "同一套規則在 S1 上失敗，而且原因事前就能預測",
+      "detail_zh": "兩個策略的追價成本幾乎相同（S1 為 0.161%、S2 為 0.177%），但這個成本占 S1 典型獲利波動的 20.3%，卻只占 S2 的 7.4%。S1 每筆交易的結果因此變差，隨機排列檢定 p=0.4814（不顯著）。一個篩選機制只有在策略持有夠久、能吸收等待成本時才划算。"
     },
     {
       "tone": "warn",
       "title": "How you hold risk equal decides whether the S2 filter is better",
-      "detail": "Revision 2 reported the filter as 73.3% of baseline total R. That was one convention — fixed risk per trade — which charges the filter for taking fewer trades and gives it no credit for the risk it never deploys. Four alignments span 73.3% to 196.3%. At equal total volatility over the period — the standard risk-adjusted comparison and the one this study reads — it is 115.4%. A real but modest improvement, not the near-doubling the drawdown alignment suggests. S1 is 69.9% and worse under every convention."
+      "detail": "Revision 2 reported the filter as 73.3% of baseline total R. That was one convention — fixed risk per trade — which charges the filter for taking fewer trades and gives it no credit for the risk it never deploys. Four alignments span 73.3% to 196.3%. At equal total volatility over the period — the standard risk-adjusted comparison and the one this study reads — it is 115.4%. A real but modest improvement, not the near-doubling the drawdown alignment suggests. S1 is 69.9% and worse under every convention.",
+      "title_zh": "用什麼方式讓風險對等，決定了 S2 濾網看起來是否更好",
+      "detail_zh": "第二版報告把濾網的表現記為基準總 R 的 73.3%——這只是其中一種算法（固定每筆風險），會因為交易筆數變少而懲罰濾網，卻不會因為省下的風險而給予任何加分。四種對齊方式的結果從 73.3% 到 196.3% 都有。若以相同的總波動度對齊——這是標準的風險調整比較方式，也是本研究採用的讀法——結果是 115.4%：一個真實但溫和的改善，不是用最大回撤對齊時看起來的近乎翻倍。S1 在任何一種算法下都是 69.9% 或更差。"
     },
     {
       "tone": "warn",
       "title": "The most flattering number in the study is the least trustworthy",
-      "detail": "Matching max drawdown makes the S2 filter 196.3% of baseline, because its worst run was 5.52R against 14.79R. Max drawdown is one realization from one ordering: bootstrapping the implied scaling factor gives a 90% interval of 0.89x to 3.63x, so the same comparison supports anything from 65.1% to 266.4%. It cannot tell an improvement from a loss and is stored with that interval attached."
+      "detail": "Matching max drawdown makes the S2 filter 196.3% of baseline, because its worst run was 5.52R against 14.79R. Max drawdown is one realization from one ordering: bootstrapping the implied scaling factor gives a 90% interval of 0.89x to 3.63x, so the same comparison supports anything from 65.1% to 266.4%. It cannot tell an improvement from a loss and is stored with that interval attached.",
+      "title_zh": "本研究裡最好看的數字，也是最不可信的數字",
+      "detail_zh": "用最大回撤對齊會讓 S2 濾網看起來是基準的 196.3%，因為它最糟的一段回撤是 5.52R，而基準是 14.79R。最大回撤只是某一種交易順序下的單一結果：對隱含的縮放係數做拔靴重抽樣，90% 區間落在 0.89 倍到 3.63 倍之間，代表同一個比較方式其實可以支持 65.1% 到 266.4% 之間的任何數字。它分不出改善和虧損，因此本研究連同這個區間一起記錄，不單獨引用點估計值。"
     },
     {
       "tone": "info",
       "title": "Sizing up the confirmed trades instead of filtering does not work",
-      "detail": "Confirmation is not known until a bar after entry, so it cannot set size at entry. The implementable version is to enter every signal and add to the confirmed ones. Six add factors from 0.25x to 2.0x per strategy, none improves total R in either: the added unit enters at a worse price against the same stop, so its risk denominator grows faster than the remaining move."
+      "detail": "Confirmation is not known until a bar after entry, so it cannot set size at entry. The implementable version is to enter every signal and add to the confirmed ones. Six add factors from 0.25x to 2.0x per strategy, none improves total R in either: the added unit enters at a worse price against the same stop, so its risk denominator grows faster than the remaining move.",
+      "title_zh": "把確認過的交易加碼，而不是用篩選，並不划算",
+      "detail_zh": "確認結果要到進場後一根 K 棒才知道，所以無法在進場當下就決定倉位大小。可實作的版本是每個訊號都進場，再對確認過的交易加碼。兩個策略各測了 0.25 倍到 2.0 倍共六種加碼係數，沒有一種改善總 R：加碼的部位是在更差的價位進場、卻共用同一個停損，風險分母增加的速度比剩餘的可能波動還快。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "152 exit variants across five families. Not one improves total return, and win rate turns out to be purchasable.",
+  "question_zh": "先前所有 S1／S2 研究都以交易之外的市場狀態做條件篩選，結果都只找到雜訊。這次改問：交易自己重建出來的路徑，是否藏著策略目前沒用上的東西——停利、更緊的停損、套牢時間出場、移動停損或移到保本，或是等一根 K 棒再確認進場，能不能改善任一策略？如果『確認』真的能挑出比較好的交易，用加碼表達會不會比直接篩選更好？",
+  "hypothesis_zh": "預期出場端多半是負面結果，因為停利本來就是用結構性方式買勝率，必須改用報酬來評判。唯一真正的候選是確認進場，而它是否可行，事前就能從『追價成本占策略典型獲利波動的比例』預測出來——這個比例對持有較久的 S2 很小，對持有較短的 S1 卻很大。",
+  "card_summary_zh": "五大類、152 種出場變體全部測過，沒有一種改善總報酬，而勝率被證實是可以用錢買到的。",
+  "limitations_zh": [
+    "每一個反事實模擬都沿用原本的出場價格與時間；如果真的用即時的確認進場，停損與目標會重新錨定在較晚的進場點，進而改變哪些交易會被停損出場——這個二階效應本研究沒有建模。",
+    "停利與停損的反事實判斷是用 30 分鐘 K 棒上量到的 MFE／MAE 決定的。如果同一根 K 棒裡同時包含停損價與目標價，棒內的先後順序無法得知，一律以模型設定的價位為準。",
+    "S2 確認進場的結果建立在總共 91 筆確認交易、其中保留期只有 25 筆的基礎上。保留期的隨機排列檢定本身沒有達到顯著，只能確認方向一致。",
+    "兩個策略都是只做多，涵蓋的期間金價又是強勁上漲趨勢。挑選『延續』的確認濾網，可能讀到的是這段趨勢本身，而不是訊號本身帶有的訊息。",
+    "本研究的任何結果都不會改變 S1 或 S2 的正式邏輯、即時風險，或現行的進場檢核表。"
+  ],
+  "interpretation_zh": "這份研究把「交易本身的路徑還藏著什麼」這個問題問到底：五大類、每個策略各 75 種出場端變體，沒有一種能改善總報酬——停利可以把勝率衝到 88.56%（S1）與 95.81%（S2），但代價是報酬大幅縮水，因為停利在結構上就不可能把賺錢單變成賠錢單，它只是提早離場而已。真正站得住腳的候選只有一個：S2 等一根 K 棒、只在收在獲利時才進場，91 筆交易勝率拉到 62.64%、獲利因子 2.971，隨機排列檢定 p=0.0034，統計上站得住；同一套規則放到 S1 卻失敗，而這個失敗事前就能從追價成本占典型獲利波動的比例（S1 佔 20.3%、S2 只佔 7.4%）預測出來——持有夠久才扛得住等待的代價。至於用什麼基準比較風險調整後的報酬，結論會因為選的比較方式不同而完全不一樣：以相同總波動度比較，S2 的濾網是基準的 115.4%（真實但溫和的改善）；但如果拿去對齊最大回撤，數字會膨脹到 196.3%，而拔靴法顯示同一個比較在 90% 區間內其實可以落在 65.1% 到 266.4% 之間，代表這個數字分不出改善和虧損。整份研究最大的效應反而是不能拿來交易的：進場後一根 K 棒仍在獲利的 S1 交易，最終有 71.26% 賺錢，套牢中的只有 38.07%，差距 33.19 個百分點，遠超過可解析的門檻——但提早出掉套牢交易在24 種設定中有 22 種反而更虧錢，因為放棄的反彈比省下的虧損還多。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline"
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "title": "S1 Underwater-State Predictive Split (Bar 1)",
+      "source": "strategies.S1.underwater_time_exit.predictive_split.bar_1"
+    },
+    {
+      "type": "table",
+      "title": "S1 Take-Profit Overlay",
+      "source": "strategies.S1.take_profit_overlay.levels"
+    },
+    {
+      "type": "table",
+      "title": "S2 Take-Profit Overlay",
+      "source": "strategies.S2.take_profit_overlay.levels"
+    },
+    {
+      "type": "table",
+      "title": "S1 Trailing Stop & Breakeven",
+      "source": "strategies.S1.trailing_and_breakeven.trailing_stop"
+    },
+    {
+      "type": "table",
+      "title": "S2 Trailing Stop & Breakeven",
+      "source": "strategies.S2.trailing_and_breakeven.trailing_stop"
+    },
+    {
+      "type": "table",
+      "title": "S2 One-Bar Confirmation Entry",
+      "source": "strategies.S2.confirmation_entry.by_bar.bar_1"
+    },
+    {
+      "type": "table",
+      "title": "S2 Risk-Alignment Comparison",
+      "source": "strategies.S2.risk_alignment.risk_alignments"
+    },
+    {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

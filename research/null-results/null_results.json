@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-29T23:21:44+08:00",
+  "generated_at": "2026-08-30T21:31:48+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {

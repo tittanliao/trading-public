@@ -10,7 +10,7 @@
   },
   "status": "pending",
   "created_on": "2026-07-27",
-  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full section 5 fail-pattern/BB/DXY/MTF breakdown show for the same trades? Revision 4 adds: is V3.9's backtest edge stable across time, or concentrated in an earlier stretch of the same export (added to test an overfitting concern about TradingView-developed strategies)?",
+  "question": "Do the Macro composite verdict and each 30-minute entry slot justify S1 advisory score adjustments under the current V3.9 trade export, and what does the full fail-pattern/BB/DXY/MTF breakdown show for the same trades? Revision 4 adds: is V3.9's backtest edge stable across time, or concentrated in an earlier stretch of the same export (added after an overfitting concern was raised about TradingView-developed strategies)?",
   "hypothesis": "Macro and 30-minute timing may change expectancy, but should not be assumed to be binary permissions without V3.9 evidence; any live adjustment must be small, integer, and always shown with its own sample size and confidence interval. The temporal-stability check does not retrain or re-tune the strategy; it only tests whether the already-fixed backtest's win rate/profit factor holds up in the most recent 30% of trades by entry time versus the earlier 70%.",
   "headline": {
     "trades": 450,
@@ -23,47 +23,143 @@
     {
       "tone": "good",
       "title": "Macro WAIT remained profitable",
-      "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block; rank score is 0 (middle of the 3 verdicts), not negative."
+      "detail": "211 matched trades; WR 56.87%, PF 1.837. The evidence does not support a categorical S1 block; rank score is 0 (middle of the 3 verdicts), not negative.",
+      "title_zh": "Macro WAIT 判定下仍然是賺錢的",
+      "detail_zh": "211 筆符合條件的交易，勝率 56.87%，獲利因子 1.837。證據不支持把 WAIT 當成 S1 的封鎖條件；排序分數是 0（三個判定中的中段），不是負分。"
     },
     {
       "tone": "warn",
       "title": "NEUTRAL is the weakest Macro verdict under the rank-score method",
-      "detail": "NEUTRAL has the lowest win rate (53.66%) of the three verdicts despite the highest PF (1.963) and the smallest sample (82) — it ranks last (rank_score -1), reversing its prior +1.4 shrinkage-based ranking. Both methods are reading the same 82 trades; they disagree because they rank on different statistics (win rate vs shrunk average return)."
+      "detail": "NEUTRAL has the lowest win rate (53.66%) of the three verdicts despite the highest PF (1.963) and the smallest sample (82) — it ranks last (rank_score -1), reversing its prior +1.4 shrinkage-based ranking. Both methods are reading the same 82 trades; they disagree because they rank on different statistics (win rate vs shrunk average return).",
+      "title_zh": "以排序分數法計算，NEUTRAL 才是最弱的 Macro 判定",
+      "detail_zh": "NEUTRAL 的勝率（53.66%）是三個判定裡最低的，儘管獲利因子最高（1.963）、樣本數也最小（82 筆）——排序分數為 -1，敬陪末座，與先前用收縮平均報酬法算出的 +1.4（原本排第一）方向完全相反。兩種方法讀的是同一批 82 筆交易，會得出相反結論是因為排序依據的統計量不同（勝率 vs. 收縮後的平均報酬）。"
     },
     {
       "tone": "good",
       "title": "Asia was not the weak V3.9 session",
-      "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported; asia ranks best of the 3 scored sessions (rank_score +1)."
+      "detail": "154 trades; WR 57.79%, PF 1.999. The inherited Asia-only observation rule is not supported; asia ranks best of the 3 scored sessions (rank_score +1).",
+      "title_zh": "亞盤並不是 V3.9 表現較弱的盤別",
+      "detail_zh": "154 筆交易，勝率 57.79%，獲利因子 1.999。原本沿用的『亞盤獨弱』觀察並不成立；在三個列入計分的盤別中，亞盤的排序分數是 +1，表現最好。"
     },
     {
       "tone": "info",
       "title": "Use the matching 30-minute slot",
-      "detail": "The operational score looks up the current HH:00/HH:30 entry slot's integer rank score (section 13.2), range -2...+2. 5 of 48 slots are low-sample (n<5) and score 0."
+      "detail": "The operational score looks up the current HH:00/HH:30 entry slot's integer rank score (section 13.2), range -2...+2. 5 of 48 slots are low-sample (n<5) and score 0.",
+      "title_zh": "應查對應時槽，而非套用印象",
+      "detail_zh": "即時分數會查目前 HH:00／HH:30 進場時槽自己的整數排序分數，範圍 -2 至 +2。48 個時槽中有 5 個樣本過小（n<5），一律計 0 分。"
     },
     {
       "tone": "warn",
       "title": "normal_sl is the dominant fail type, not immediate_loss",
-      "detail": "104 of 197 losses (52.8%) are a clean normal_sl stop-out; immediate_loss is 25.9% (51 trades). Descriptive context, not a live-impact mechanism."
+      "detail": "104 of 197 losses (52.8%) are a clean normal_sl stop-out; immediate_loss is 25.9% (51 trades). Descriptive context, not a live-impact mechanism.",
+      "title_zh": "主要失敗型態是正常停損，不是立即虧損",
+      "detail_zh": "197 筆虧損交易中，104 筆（52.8%）是乾淨的 normal_sl 停損出場；immediate_loss 只佔25.9%（51 筆）。這是描述性脈絡，不是即時分數的調整依據。"
     },
     {
       "tone": "warn",
       "title": "Counter-trend (4H bearish) entries underperform",
-      "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades. Descriptive context (section 5.1 item 8), not currently a live-impact mechanism."
+      "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades. Descriptive context (section 5.1 item 8), not currently a live-impact mechanism.",
+      "title_zh": "逆勢（4H 空頭）進場表現較弱",
+      "detail_zh": "在 4H RSI 呈空頭狀態下進場的 146 筆交易，勝率 47.95%，相對於順勢對齊的 304 筆交易勝率 60.2%。這是描述性脈絡，目前不是即時分數的調整依據。"
     },
     {
       "tone": "info",
       "title": "Chronological holdout: flagged stable, not clearly degraded",
-      "detail": "70/30 holdout split by entry time: in-sample (2024-01-05 to 2025-11-18, n=315) WR 57.14% PF 1.886; held-out (2025-11-20 to 2026-07-10, n=135) WR 54.07% PF 1.832. Held-out win rate sits inside the in-sample 95% CI [51.62, 62.49] and held-out PF stays above 1.0, so the fixed rule (section 5.1 item 11) flags 'stable', not 'degraded'. This is a chronological-bucket check on one already-fixed backtest export, not a re-optimized walk-forward — see results.json method.temporal_stability_limitation before treating this as proof the strategy is not overfit."
+      "detail": "70/30 holdout split by entry time: in-sample (2024-01-05 to 2025-11-18, n=315) WR 57.14% PF 1.886; held-out (2025-11-20 to 2026-07-10, n=135) WR 54.07% PF 1.832. Held-out win rate sits inside the in-sample 95% CI [51.62, 62.49] and held-out PF stays above 1.0, so the fixed rule (section 5.1 item 11) flags 'stable', not 'degraded'. This is a chronological-bucket check on one already-fixed backtest export, not a re-optimized walk-forward — see results.json method.temporal_stability_limitation before treating this as proof the strategy is not overfit.",
+      "title_zh": "時間保留集檢定：判定為穩定，未見明顯退化",
+      "detail_zh": "依進場時間 70/30 切分：樣本內（2024-01-05 至 2025-11-18，n=315）勝率 57.14%、獲利因子 1.886；保留集（2025-11-20 至 2026-07-10，n=135）勝率 54.07%、獲利因子 1.832。保留集勝率落在樣本內 95% 信賴區間 [51.62, 62.49] 之內，獲利因子也維持在 1 以上，因此這條固定規則判定為『穩定』，不是『退化』。這只是對同一份已定案回測做的時間分段檢查，不是重新最佳化的 walk-forward——把它當成『策略沒有過度配適』的證明之前，請先看 results.json 裡 method.temporal_stability_limitation 的完整說明。"
     },
     {
       "tone": "warn",
       "title": "2026Q2 was the weakest full quarter in the export, not 2026Q1",
-      "detail": "Quarterly win rate ranges 48.94%-62.96% across 11 quarters with no monotonic trend. 2026Q1 was the best quarter (n=55, WR 60.0%, PF 2.563); 2026Q2 was the weakest full quarter (n=47, WR 48.94%, PF 1.429), though still PF>1. The quarterly shape is worth cross-referencing against execution records before concluding the backtest edge itself changed: a live result that weakens while the backtest holds points at execution, not at the strategy."
+      "detail": "Quarterly win rate ranges 48.94%-62.96% across 11 quarters with no monotonic trend. 2026Q1 was the best quarter (n=55, WR 60.0%, PF 2.563); 2026Q2 was the weakest full quarter (n=47, WR 48.94%, PF 1.429), though still PF>1. The quarterly shape is worth cross-referencing against execution records before concluding the backtest edge itself changed: a live result that weakens while the backtest holds points at execution, not at the strategy.",
+      "title_zh": "匯出資料中最弱的完整季度是 2026Q2，不是 2026Q1",
+      "detail_zh": "11 個季度的勝率介於 48.94%–62.96% 之間，沒有單調的趨勢。2026Q1 是表現最好的季度（n=55，勝率 60.0%，獲利因子 2.563）；2026Q2 是表現最弱的完整季度（n=47，勝率 48.94%，獲利因子 1.429），但獲利因子仍大於 1。這個季度形狀值得拿去對照實際下單紀錄再確認：如果實盤結果轉弱、但回測本身沒有變，問題更可能出在執行面，而不是策略本身。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Macro composite and 30-minute timing were scored into S1 for months; neither survives review, and both were revoked.",
+  "question_zh": "在目前的 V3.9 交易匯出資料下，Macro 綜合判定與各個 30 分鐘進場時槽，是否足以支持 S1 建議分數的調整？同一批交易的完整 fail-pattern／BB／DXY／MTF 拆解又顯示什麼？第 4 版另外追加一個問題：V3.9 的回測優勢是否隨時間穩定，還是集中在同一批匯出資料裡較早的一段（這是在有人對 TradingView 開發的策略提出過度配適疑慮之後才加入的）？",
+  "hypothesis_zh": "Macro 與 30 分鐘進場時間可能會改變期望值，但不應被當成二元的准入條件，除非有 V3.9 自己的證據支持；任何即時調整都必須是小幅、整數，且永遠附上自己的樣本數與信賴區間。時間穩定性檢定不會重新訓練或重新調參策略；它只檢驗這個已經固定下來的回測，其勝率／獲利因子在依進場時間切分的最近 30% 交易裡，是否還撐得住前面 70% 的表現。",
+  "card_summary_zh": "Macro 綜合判定與 30 分鐘時槽曾被計入 S1 分數長達數月；重新檢驗後兩者都撐不住，已雙雙撤銷。",
+  "limitations_zh": [
+    "Macro 覆蓋率為 97.11%（437／450 筆有對應的 Macro 讀值），13 筆缺值不計入 Macro 相關統計，不會用舊值或估計值填補。",
+    "時間穩定性檢定是對「同一份已經定案」的 TradingView 策略測試匯出檔做時間分段／保留集切分，不是重新最佳化的 walk-forward：Pine Script 的策略邏輯全程沒有在任何子區間重新跑過或重新調參。它能看出目前記錄的勝率／獲利因子是穩定的還是集中在較早的一段；它不能證明「如果一開始只有早期資料，參數會被選成一樣的樣子」。",
+    "normal_sl 與逆勢（4H 空頭）進場的兩項發現是描述性脈絡，目前不是即時分數的調整依據——它們說明了「為什麼」，不是「該怎麼扣分」。"
+  ],
+  "interpretation_zh": "這份研究做的事情很單純：把兩條已經活在即時分數裡好幾個月的規則（Macro 綜合判定、30 分鐘時槽）攤開來，用同一批 450 筆 V3.9 交易重新檢驗一次。結果是兩條都撐不住——Macro 的 WAIT 判定其實還是賺錢的，NEUTRAL 才是三個判定裡最弱的一個，跟原本用於分數調整的排序方向相反；30 分鐘時槽則需要對照當下的時槽分數表，而不是套用一套固定印象。同一份資料另外拆出的 fail-pattern、BB、DXY、MTF、時間穩定性等面向，是把整份 V3.9 匯出資料能看到的東西盡量看完整，而不是只挑對假設有利的角度。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline"
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "title": "Session Summary",
+      "source": "by_session"
+    },
+    {
+      "type": "table",
+      "title": "30-Minute Entry Slot (48 slots)",
+      "source": "by_entry_30m"
+    },
+    {
+      "type": "table",
+      "title": "Fail Type Breakdown",
+      "source": "fail_pattern.by_type"
+    },
+    {
+      "type": "table",
+      "title": "Bollinger Band Zone",
+      "source": "bb_zone"
+    },
+    {
+      "type": "table",
+      "title": "DXY Regime Bucket",
+      "source": "dxy.regime.by_bucket"
+    },
+    {
+      "type": "table",
+      "title": "Multi-Timeframe Alignment",
+      "source": "mtf.by_alignment"
+    },
+    {
+      "type": "table",
+      "title": "4H Trend State",
+      "source": "mtf.by_4h_state"
+    },
+    {
+      "type": "table",
+      "title": "Macro Verdict",
+      "source": "by_macro_verdict"
+    },
+    {
+      "type": "table",
+      "title": "Macro Score",
+      "source": "by_macro_score"
+    },
+    {
+      "type": "table",
+      "title": "Chronological Holdout by Quarter",
+      "source": "temporal_stability.by_period"
+    },
+    {
+      "type": "charts",
+      "source": "charts"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

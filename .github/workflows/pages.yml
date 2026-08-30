@@ -32,7 +32,7 @@ jobs:
       # anyway: excluded from navigation, still reachable by direct URL. This makes the
       # deployment honour the exclusion the generator states.
       #
-      # site/ stays: index.html loads site/style.css and site/app.js.
+      # site/ stays: every generated page loads site/style.css.
       #
       # Nothing is deleted, so this stops future serving but does not remove anything
       # already in the public git history.
