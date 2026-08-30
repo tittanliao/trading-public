@@ -1,63 +1,50 @@
-# 網站結構 v2.0
+# 網站資訊架構
 
-> 重構於 2026-08-24。v1.0 封存在 `/v1/`，切換連結在每頁右上角。
+> 2026-08-30 起採單一 canonical 網站。不再用 `v1.0`、`v2.0` 或 `/zh/` 區分內容。
 
-## 為什麼要改
+## 閱讀原則
 
-v1 的導覽是 `Overview / XAUUSD / TX / Research`。一篇關於黃金的研究住在 **Research**
-底下，不在 **XAUUSD** 底下 —— 所以想查黃金的事情有兩個看起來都合理的入口，而且沒辦法
-分辨該點哪個。擁有者的原話：**「我都不知道要點哪裡」**。
+- 首頁與各商品的 Sheet／研究索引維持英文，讓短標籤、欄位與跨工具名稱一致。
+- 研究標題維持英文；進入研究後，問題、結論、證據說明與限制以繁體中文為主。
+- 研究清單預設只有表格，不再同時產生 Cards／Table 兩套閱讀模式。
+- Cards 只保留在首頁、每週展望或少量需要突出行動的入口，不拿來承載長篇研究。
+- 每篇研究只有一個 canonical URL：`/research/studies/<study-id>/`。
 
-更根本的問題是：v1 是照「研究檔案庫」organized，但實際的使用動線是
-**訊號來了 → 這筆單值不值得做 → 有什麼已知的東西能幫我判斷**。那是完全不同的問題。
+## 目前結構
 
-## 現在的結構
-
+```text
+/                    English homepage
+/xauusd/             English XAUUSD sheet：signal context、weekly、study table
+/tx/                 English TX sheet：study table
+/research/           English cross-market study table
+/lessons/            English negative-results／methodology sheet
+/jargon/             中英對照術語
+/research/studies/   English title + 中文研究內文
+/v1/*                相容轉址，不是舊站
+/zh/*                相容轉址，不是中文副站
 ```
-/                    首頁 — 你交易的兩個商品，其他放次要
-/xauusd/             訊號來了先看這裡 → 本週展望 → 黃金研究
-/tx/                 台指期研究（訊號手冊待研究成熟後補）
-/lessons/            什麼沒用 — 被排除的搜尋空間 + 方法論
-/glossary/           術語表 — 英文頁面讀不下去時看這裡
-/research/           完整研究索引（跨商品，仍保留）
-/v1/                 封存的舊版導覽
-```
 
-**商品是最上層**，關於某個商品的東西全部住在它底下。留在頂層的只有真正跨商品的兩件事：
-被排除的東西，和讀懂它們需要的詞彙。
+Git 歷史就是舊版封存，因此不在 Public 再複製一套 `_retire` 網站。舊 URL 只留下輕量轉址，
+避免書籤失效，也避免兩套內容繼續競爭。
 
-## 訊號手冊（新頁面）
+## 新研究報告順序
 
-`SIGNAL_PLAYBOOK` in `build.py`。這是唯一有「任務」的頁面 —— 其他都是給人瀏覽的檔案庫。
+1. 英文標題與研究識別
+2. 中文研究問題
+3. 一列表格交代樣本、主檢定與最重要的界限
+4. 「判讀／結論／證據與限制」表格
+5. 支撐結論的明細表格；圖只在無法用表格表達時使用
+6. 實務影響、限制、方法與公開證據邊界
+7. Results JSON、Python method、Study manifest
 
-它回答一件事：訊號剛出現，**有什麼已知的東西能提高或降低對這筆單的信心**。
+第一個完成遷移的範例是 `RS-XAUUSD-20260823-001`。其餘研究沿用原 canonical URL，
+逐篇換版，不建立任何新的版本路徑。
 
-三個原則：
+## 加入新研究
 
-1. **先講唯一通過全部篩子的發現**（BB %B），但在同一段裡就說清楚它不能當過濾器 ——
-   一個提高勝率卻摧毀報酬的數字，如果不附上這句就比沒有更糟。
-2. **「不用再看的」和正向發現一樣重要。** 知道什麼不用查是判斷依據，而且那是這個
-   研究計畫產出最多的東西。
-3. **每一條都連回研究頁**，數字不是憑空出現的。
-
-新增商品的訊號手冊 = 在 `SIGNAL_PLAYBOOK` 加一個 key。沒有這個 key 的商品就不顯示這區。
-
-## 版本切換
-
-只封存**導覽層**（8 頁，128K），不封存研究頁 —— 研究內容兩版完全相同，複製 5.9MB
-的圖表只為了保留一個選單是錯的取捨。
-
-v1 的相對路徑是**用每個檔案自己的深度算出來的**，不是手推的。第一次手推就錯了：
-depth 0 的頁面多爬了一層，產生 6 個斷連結。
-
-再改版時：`cp` 導覽頁到 `/v2/`，跑同一段路徑改寫，更新切換連結。
-
-## 加新商品
-
-1. `study.json` 的 `market` 欄位填新商品
-2. `set_study_themes.py` 加 `ASSIGNMENTS` 一行
-3. `outputs()` 加一個 `section_page(...)`
-4. 首頁 `primary` 加一張卡
-5.（可選）`SIGNAL_PLAYBOOK` 加一個 key
-
-**不要為了「未來可能有更多商品」再抽象一層。** 擁有者只交易兩個。
+1. 依 `docs/RESEARCH_PUBLICATION_SPEC.md` 完成審閱與三檔 Public package。
+2. `study.json` 的 `title` 使用英文；新增或維護 `question_zh`、`findings[*].title_zh`、
+   `findings[*].detail_zh`。
+3. 優先使用既有表格 renderer；只有資料形狀真的不同才新增 generic renderer。
+4. 執行 `python3 site/build.py`、`python3 site/build.py --check`、`python3 site/check.py`。
+5. 確認 canonical 頁面沒有版本切換、語言切換或私人資料後再發布。

@@ -33,8 +33,6 @@ GENERATED = {
 # is deliberately incremental, translated one study at a time rather than all at once.
 # ---------------------------------------------------------------------------
 
-LANG_SWITCH_TOKEN = "__LANG_SWITCH_HREF__"
-
 CHROME = {
     "en": {
         "nav.home": "Home",
@@ -259,7 +257,7 @@ def findings_html(study: dict[str, object], lang: str = "en") -> str:
         )
     return "".join(parts)
 
-EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__", "zh"}
+EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__", "v1", "zh"}
 STUDY_ROOT = ROOT / "research/studies"
 WEEKLY_ROOT = ROOT / "xauusd/weekly"
 
@@ -341,43 +339,17 @@ def nav(prefix: str, lang: str = "en") -> str:
     )
 
 
-def version_switch(asset_prefix: str, current: str = "v2") -> str:
-    """A link back to the archived layout, kept because more re-layouts are expected.
-
-    Only the navigation pages are archived. The studies themselves are identical across
-    versions, and copying 5.9MB of charts to preserve a menu would be the wrong trade.
-    v1/ lives only under the true repository root, never under zh/, so this takes the
-    already-adjusted asset_prefix rather than the same-tree nav prefix.
-    """
-    if current == "v1":
-        return ""
-    return (
-        '<div class="version-switch">'
-        f'<a href="{asset_prefix}v1/">v1.0 layout</a>'
-        f'<a href="{LANG_SWITCH_TOKEN}" class="lang-switch">{{SWITCH_LABEL}}</a>'
-        "</div>"
-    )
-
-
 def document(title: str, eyebrow: str, lede: str, body: str, prefix: str = "",
-            lang: str = "en", untranslated_body: bool = False) -> str:
-    """Every page's shell. `lang` sets the document language and the visible chrome text.
+            lang: str = "en", untranslated_body: bool = False,
+            html_language: str | None = None) -> str:
+    """Every page's shell.
 
-    `untranslated_body` marks a Chinese page whose dense body (tables and hand-written
-    narrative unique to its report shape) has not been translated yet, only its title,
-    question and findings. Translation proceeds one study at a time; a study that has not
-    had its turn still gets a fully bilingual shell and an honest notice, rather than a
-    silently mixed page.
-
-    The lang-switch link's real href is filled in after BOTH trees exist (see outputs()):
-    document() only ever builds one tree at a time, so it cannot yet know the path to the
-    page it should point at. It writes a stable placeholder token instead.
+    Navigation chrome remains English on the canonical tree. A migrated research report
+    can set ``html_language='zh-Hant'`` while keeping its English title and navigation.
+    There is deliberately no language or layout switch: one URL is the source of truth.
     """
-    html_lang = "zh-Hant" if lang == "zh" else "en"
-    # site/ and v1/ exist only under the true repository root, never under zh/, so a
-    # Chinese page needs one more ../ than its same-tree nav prefix to reach them.
+    html_lang = html_language or ("zh-Hant" if lang == "zh" else "en")
     asset_prefix = prefix if lang == "en" else prefix + "../"
-    switch_html = version_switch(asset_prefix).replace("{SWITCH_LABEL}", html.escape(t("lang_switch_label", lang)))
     notice = (
         f'<div class="callout">{html.escape(t("untranslated_notice", lang))}</div>'
         if untranslated_body and lang == "zh" else ""
@@ -393,7 +365,6 @@ def document(title: str, eyebrow: str, lede: str, body: str, prefix: str = "",
 </head>
 <body>
   <header class="shell">
-    {switch_html}
     <div class="eyebrow">{html.escape(eyebrow)}</div>
     <h1>{html.escape(title)}</h1>
     <p class="lede">{html.escape(lede)}</p>
@@ -518,17 +489,7 @@ THEME_ORDER = ["strategy_diagnostics", "improvement_attempts", "market_structure
 
 
 def study_table_html(study_list, prefix="../"):
-    """The same studies as a sortable table.
-
-    Cards are readable and do not scale: at 28 studies a grid is a page of scrolling, and
-    comparing two studies means holding one in your head while you find the other. A table
-    puts theme, market, status and the headline metric in fixed columns so the eye can run
-    down one of them, and sorting turns "which studies are confirmed" into one click.
-
-    Both layouts are generated and CSS hides one. That costs a few KB of HTML and avoids
-    re-rendering in JavaScript, which would mean the table only existed for readers with
-    scripting enabled.
-    """
+    """Render the canonical, table-first study sheet."""
     rows = []
     for study in study_list:
         headline = study.get("headline") or {}
@@ -552,15 +513,14 @@ def study_table_html(study_list, prefix="../"):
             "</tr>"
         )
     return (
-        '<div data-view-table hidden><div class="table-wrap"><table data-sortable>'
+        '<div class="table-wrap research-table"><table data-sortable data-study-table>'
         "<thead><tr>"
         '<th data-sort>Study</th><th data-sort>Theme</th><th data-sort>Market</th>'
         '<th data-sort>Status</th><th data-sort>Date</th><th data-sort>Headline</th>'
         '<th data-sort>Changes practice</th>'
         "</tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table></div>"
-        '<p class="section-note">Click a column heading to sort.</p></div>'
-        'Click a column heading to sort.</p></div>'
+        '<p class="section-note">Click a column heading to sort.</p>'
     )
 
 
@@ -1556,10 +1516,11 @@ def study_page_pullback_replay(study: dict[str, object], lang: str = "en") -> st
 
 
 def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
-    """Intraday range-accumulation shape (RS-XAUUSD-20260823-001).
+    """Canonical Chinese-body report for the intraday range study.
 
-    A price-structure study rather than a strategy report, so it shares no field names with
-    the fail-pattern/comparison/seasonality contracts and gets its own tables.
+    This is the first migrated report shape: the title and site chrome stay English, while
+    conclusions, notes and evidence read in Traditional Chinese. Long findings are rows,
+    not cards, so the reader can scan verdicts down fixed columns.
     """
     result = study["_result"]
     fam = result["families"]
@@ -1568,9 +1529,8 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
     coverage = result["coverage"]
     head = study["headline"]
 
-    finding_html = findings_html(study, lang)
-
-    def table(headers: list[str], rows: list[list[str]], caption: str, note: str = "") -> str:
+    def table(headers: list[str], rows: list[list[str]], caption: str, note: str = "",
+              table_class: str = "prose-table") -> str:
         head_html = "".join(f"<th>{html.escape(h)}</th>" for h in headers)
         body_html = "".join(
             "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>" for row in rows
@@ -1578,9 +1538,17 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
         note_html = f'<p class="section-note">{html.escape(note)}</p>' if note else ""
         return (
             f'<section class="report-section"><h2>{html.escape(caption)}</h2>{note_html}'
-            f'<div class="table-wrap"><table><thead><tr>{head_html}</tr></thead>'
+            f'<div class="table-wrap {html.escape(table_class)}"><table><thead><tr>{head_html}</tr></thead>'
             f"<tbody>{body_html}</tbody></table></div></section>"
         )
+
+    tone_labels = {"good": "成立", "warn": "限制", "bad": "否定", "info": "描述"}
+    finding_rows = [
+        [tone_labels.get(str(item.get("tone", "info")), "描述"),
+         f'<strong>{html.escape(zh(item, "title", "zh"))}</strong>',
+         html.escape(zh(item, "detail", "zh"))]
+        for item in study.get("findings", []) if isinstance(item, dict)
+    ]
 
     marks = ["07:30", "09:00", "09:30", "11:00", "12:30", "15:30", "18:00",
              "20:30", "21:30", "22:30", "23:30", "01:30", "02:30", "04:30"]
@@ -1599,7 +1567,7 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
     )
     consistent_rows = [
         [f'<strong>{row["slot"]}</strong>',
-         "more than chance" if "more" in row["direction"] else "less than chance",
+         "高於隨機" if "more" in row["direction"] else "低於隨機",
          " / ".join(f"{value:+}" for value in row["excess_pct"]),
          f'{row["min_abs_z"]}']
         for row in consistent
@@ -1607,13 +1575,13 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
 
     clock = fam["us_clock_alignment"]["et_0830_release_slot"]
     clock_rows = [
-        ["08:30 ET, US summer time", "20:30 Taipei",
+        ["08:30 ET，美國夏令時間", "台北 20:30",
          f'<strong>{clock["us_dst_on"]["mean_share_pct"]}%</strong>'],
-        ["08:30 ET, US winter time", "21:30 Taipei",
+        ["08:30 ET，美國冬令時間", "台北 21:30",
          f'<strong>{clock["us_dst_off"]["mean_share_pct"]}%</strong>'],
-        ["same Taipei slot, winter", "20:30 Taipei",
+        ["相同台北時段，冬令時間", "台北 20:30",
          f'{clock["same_slot_in_the_other_regime"]["20:30_when_dst_off"]}%'],
-        ["same Taipei slot, summer", "21:30 Taipei",
+        ["相同台北時段，夏令時間", "台北 21:30",
          f'{clock["same_slot_in_the_other_regime"]["21:30_when_dst_on"]}%'],
     ]
 
@@ -1628,7 +1596,7 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
 
     morning = fam["morning_conditioning"]
     morning_rows = [
-        [f"<strong>{label.replace('_', ' ')}</strong>",
+        [f"<strong>{ {'quiet_morning': '安靜早盤', 'middle': '中段', 'busy_morning': '忙碌早盤'}[label] }</strong>",
          f'{morning[label]["median_morning_ratio"]}',
          f'{morning[label]["median_day_ratio"]}',
          f'<strong>{morning[label]["median_rest_of_day_ratio"]}</strong>']
@@ -1637,68 +1605,59 @@ def study_page_range_profile(study: dict[str, object], lang: str = "en") -> str:
 
     body = (
         '<main class="shell report">'
-        '<div class="metric-grid">'
-        + metric("Sessions", coverage["sessions_used"],
-                 f'{coverage["first_session"]} → {coverage["last_session"]}')
-        + metric("Family permutation p", head["family_permutation_p_holdout"],
-                 "all three periods; 200-shuffle resolution floor")
-        + metric("Half hours beating chance",
-                 f'{head["slots_consistent_and_abs_z_over_2_in_all_periods"]} of 48',
-                 "sign-consistent and |z|>2 in every period")
-        + "</div>"
-        + '<section class="report-section"><h2>Key findings</h2>'
-        f'<div class="insight-grid">{finding_html}</div></section>'
-        + impact_section_html(study)
-        + table(["Taipei", "train", "valid", "holdout", "holdout vs null"], profile_rows,
-                "How the day fills",
-                "Percent of the session's final range already traversed. The null shuffles "
-                "each session's own bar-to-bar changes and rebuilds the path, so it keeps "
-                "that day's volatility and the arcsine geometry of a random walk and "
-                "destroys only when the large moves happened. All 48 slots are in "
-                "results.json.")
-        + table(["Taipei", "direction", "excess % (train / valid / holdout)", "min |z|"],
+        + table(["樣本", "虛無檢定", "跨期一致時段"], [[
+                    f'<strong>{coverage["sessions_used"]}</strong><br>{coverage["first_session"]} → {coverage["last_session"]}',
+                    f'<strong>p = {head["family_permutation_p_holdout"]}</strong><br>三段資料皆達 200 次洗牌的解析下限',
+                    f'<strong>{head["slots_consistent_and_abs_z_over_2_in_all_periods"]} / 48</strong><br>方向一致且每段 |z| &gt; 2',
+                ]], "先看結論",
+                "這是一份日內區間結構研究，不預測方向，也不改變 S1／S2 的進場規則。")
+        + table(["判讀", "結論", "證據與限制"], finding_rows, "重點發現",
+                "先讀結論欄，再用證據與限制欄判斷它能不能進入實務。",
+                "prose-table findings-table")
+        + '<section class="report-section"><h2>實務影響</h2>'
+          '<p class="callout">不修改正式策略。可把時段輪廓當成風險背景，但不能當成方向訊號或固定門檻。</p></section>'
+        + table(["台北時間", "訓練期", "驗證期", "留出期", "留出期相對虛無值"], profile_rows,
+                "一天的區間如何填滿",
+                "數字是當日最終區間已經走完的百分比。虛無模型會洗牌同一天的報酬並重建路徑，保留當日波動與棒數，只破壞大波動發生的時間。完整 48 格在 results.json。")
+        + table(["台北時間", "方向", "超額百分點（訓練／驗證／留出）", "最小 |z|"],
                 consistent_rows,
-                "Half hours that beat chance in every period",
-                "32 of 48 slots are sign-consistent across all three periods against 12 "
-                "expected by chance; these also clear |z| > 2 in each period.")
-        + table(["release window", "clock slot", "share of the day's range"], clock_rows,
-                "The busiest US half hour moves twice a year",
-                "Taipei keeps no summer time and New York does. The peak of the US block is "
-                "the 08:30 ET release window, so on a fixed Taipei clock it shifts by an "
-                "hour — and the same Taipei slot carries five times less range in the other "
-                "half of the year.")
-        + table(["after", "mean residual", "median residual", "new daily extreme still arrives"],
+                "每一段都超越隨機的半小時",
+                "48 格中有 32 格在三段資料方向一致，隨機預期只有 12 格；下表列出三段資料都達 |z| > 2 的 10 格。")
+        + table(["公布時段", "時鐘位置", "占當日區間"], clock_rows,
+                "美國最忙的半小時每年移動兩次",
+                "台北沒有夏令時間，紐約有。美國 08:30 ET 的數據公布窗會在台北 20:30 與 21:30 之間切換；固定使用台北時鐘會混合兩個市場狀態。")
+        + table(["此時之後", "平均剩餘區間", "中位剩餘區間", "仍出現新極值的交易日"],
                 residual_rows,
-                "What is left (holdout)",
-                "Median residual reaches zero at 23:30: on more than half of sessions no new "
-                "extreme arrives after that. It stays a probability, not a curfew.")
-        + table(["morning tercile", "morning range", "full day", "rest of day"], morning_rows,
-                "A busy morning says nothing about what is left",
-                "Ratios against each session's trailing 20-session median range. Morning "
-                "correlates with the full day at Spearman "
-                f'{morning["spearman_morning_vs_full_day"]} and with the rest of the day at '
-                f'{morning["spearman_morning_vs_rest_of_day"]} — it predicts the day only '
-                "because it is part of it.")
-        + '<section class="report-section"><h2>Limitations</h2>'
-        + text_list(result["limitations"]) + "</section>"
-        + '<section class="report-section"><h2>Method and evidence boundary</h2>'
-        f'<p>{html.escape(zh(study, "hypothesis", lang))}</p>'
-        "<p>Descriptive and never directional: the profile says how much range has "
-        "accumulated, not which way price moved. Raw CSV and private decision records remain "
-        "in trading-private. This public page carries reviewed aggregate results and the "
-        "reproducible method only — the published script reads its bars from a "
-        "<code>local-inputs/</code> folder you supply.</p>"
-        + file_actions_html(study, lang)
+                "還剩多少區間（留出期）",
+                "23:30 之後的中位剩餘區間為零，表示過半交易日不再創新極值；這是機率敘述，不是宵禁。")
+        + table(["早盤分組", "早盤區間比", "全日區間比", "其餘時段區間比"], morning_rows,
+                "早盤很忙，不代表後面還會更忙",
+                "各比值相對於該交易日前 20 日中位區間。早盤對全日 Spearman 為 "
+                f'{morning["spearman_morning_vs_full_day"]}，對其餘時段只有 '
+                f'{morning["spearman_morning_vs_rest_of_day"]}；它之所以能預示全日，只因為早盤本來就是全日的一部分。')
+        + '<section class="report-section"><h2>限制</h2><ul class="impact-list">'
+          '<li>這是描述性研究，不是預測研究，也沒有方向性。</li>'
+          '<li>輪廓水位並不平穩；亞洲時段占比在樣本內持續上升，不能把合併樣本的固定門檻直接拿來使用。</li>'
+          '<li>固定台北時間會因美國夏令時間而模糊美盤高峰，因此美國時段必須按紐約時鐘讀。</li>'
+          '<li>交易日邊界定為台北 07:00；更換邊界會重新分配原始輪廓。</li>'
+          '<li>成交量是 TradingView 現貨 tick volume，不是交易所成交量，只適合輪廓檢查。</li>'
+          '<li>僅涵蓋一個商品、652 個交易日，且樣本處於強勁上升趨勢。</li>'
+          '<li>任何結果都不修改正式 S1／S2 邏輯、即時風控或進場清單。</li>'
+          '</ul></section>'
+        + '<section class="report-section"><h2>方法與證據邊界</h2>'
+        f'<p>{html.escape(zh(study, "hypothesis", "zh"))}</p>'
+        '<p>這個輪廓只說明日內區間累積了多少，不說明價格往哪裡走。公開頁只包含已審閱的彙總結果與可重跑方法；原始資料與私人決策紀錄不在 Public。</p>'
+        + file_actions_html(study, "en")
         + "</section></main>"
     )
     return document(
-        zh(study, "title", lang),
+        str(study["title"]),
         f'{study["market"]} research · {study["status"]} · {study["id"]}',
-        zh(study, "question", lang),
+        zh(study, "question", "zh"),
         body,
         "../../../",
-        lang=lang,
-        untranslated_body=not study.get("body_translated_zh"),
+        lang="en",
+        html_language="zh-Hant",
     )
 
 
@@ -2894,8 +2853,6 @@ def xauusd_page(study_list: list[dict[str, object]], weekly: list[dict[str, obje
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
         f'placeholder="{html.escape(t("xauusd.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
-        + view_toggle_html()
-        + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
         + "</main>"
     )
@@ -2924,8 +2881,6 @@ def section_page(
         f'<span class="sheet-count">({len(selected)})</span></h2>'
         + '<div class="toolbar"><div class="shell"><input data-search type="search" '
         f'placeholder="{html.escape(t("section.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
-        + view_toggle_html()
-        + theme_sheets_html(selected, "../")
         + study_table_html(selected, "../")
         + "</main>"
     )
@@ -2939,19 +2894,17 @@ def lessons_page(registry, study_list, lang: str = "en") -> str:
     on the same page made each harder to find.
     """
     methodology = [x for x in study_list if x.get("theme") == "methodology"]
-    cards = "".join(study_card(x, "../") for x in methodology)
     totals = (registry or {}).get("totals", {})
     banner = ""
     if totals:
         banner = (
-            '<a class="card" data-card href="../research/null-results/">'
-            f'<div class="type">{t("lessons.registry_type", lang)}</div>'
-            f'<h2>{t("lessons.registry_title", lang)}</h2>'
-            f'<p>{t("lessons.registry_desc", lang)}</p>'
-            '<div class="mini-metrics">'
+            '<a class="registry-strip" href="../research/null-results/">'
+            f'<span><strong>{t("lessons.registry_title", lang)}</strong> — '
+            f'{t("lessons.registry_desc", lang)}</span>'
+            '<span class="registry-metrics">'
             f'<span><strong>{totals.get("hypotheses", 0)}</strong> {t("lessons.hypotheses_unit", lang)}</span>'
             f'<span><strong>{totals.get("by_verdict", {}).get("survives_screens", 0)}</strong> {t("lessons.survivors_unit", lang)}</span>'
-            "</div></a>"
+            "</span></a>"
         )
     body = (
         '<main class="shell">'
@@ -2959,11 +2912,11 @@ def lessons_page(registry, study_list, lang: str = "en") -> str:
         f'<p>{t("lessons.why_p1", lang)}</p>'
         f'<p>{t("lessons.why_p2", lang)}</p>'
         "</section>"
-        + (f'<div class="grid">{banner}</div>' if banner else "")
+        + (banner if banner else "")
         + (f'<h2 class="section-title">{t("lessons.methodology", lang)} '
            f'<span class="sheet-count">({len(methodology)})</span></h2>'
            f'<p class="section-note">{t("lessons.methodology_note", lang)}</p>'
-           f'<div class="grid study-grid">{cards}</div>' if methodology else "")
+           f'{study_table_html(methodology, "../")}' if methodology else "")
         + "</main>"
     )
     return document(
@@ -2986,24 +2939,21 @@ def research_page(data: dict[str, object], study_list: list[dict[str, object]],
         # were tried; the registry is the only place that says how hard, and it is the
         # first thing worth knowing before asking a question of this data again.
         banner = (
-            '<a class="card" data-card href="null-results/">'
-            f'<div class="type">{t("lessons.registry_type", lang)}</div>'
-            f'<h2>{t("research.registry_title", lang)}</h2>'
-            f'<p>{t("research.registry_desc", lang)}</p>'
-            '<div class="mini-metrics">'
+            '<a class="registry-strip" href="null-results/">'
+            f'<span><strong>{t("research.registry_title", lang)}</strong> — '
+            f'{t("research.registry_desc", lang)}</span>'
+            '<span class="registry-metrics">'
             f'<span><strong>{totals["hypotheses"]}</strong> {t("lessons.hypotheses_unit", lang)}</span>'
             f'<span><strong>{totals["by_verdict"].get("survives_screens", 0)}</strong> {t("lessons.survivors_unit", lang)}</span>'
             f'<span><strong>{totals["studies"]}</strong> {t("research.studies_unit", lang)}</span>'
-            "</div></a>"
+            "</span></a>"
         )
     body = (
         '<div class="toolbar"><div class="shell"><input data-search type="search" '
         f'placeholder="{html.escape(t("section.filter_placeholder", lang))}" aria-label="Filter"></div></div>'
         f'<main class="shell">'
-        + (f'<h2 class="section-title">{t("research.start_here", lang)}</h2><div class="grid">{banner}</div>'
+        + (f'<h2 class="section-title">{t("research.start_here", lang)}</h2>{banner}'
            if banner else "")
-        + view_toggle_html()
-        + theme_sheets_html(study_list)
         + study_table_html(study_list)
         + "</main>"
     )
@@ -3101,23 +3051,14 @@ def overview(
 
 
 
-def outputs(data: dict[str, object], lang: str = "en") -> dict[Path, str]:
-    """Build one full tree — English at ROOT, Chinese at ROOT/"zh" — from the same data.
+def outputs(data: dict[str, object]) -> dict[Path, str]:
+    """Build the single canonical tree.
 
-    The two trees are structurally identical: every relative path and every `prefix`
-    argument below is exactly what it would be for a single-language site, computed as if
-    ROOT were wherever this tree happens to be rooted. That is what makes generating both
-    trees from one function safe: nothing here needs to know which tree it is building.
-
-    Three things are NOT mirrored into the Chinese tree by design:
-    - `site/catalog.json`, an internal data dump with no reader-facing text.
-    - `xauusd/weekly/*`, a separate pipeline (docs/WEEKLY_REPORT_WORKFLOW.md) not
-      translated in this pass; Chinese pages reach it via en_link() instead.
-    `jargon/` IS mirrored, unlike weekly: its content is already bilingual (see
-    glossary.json), so serving the identical page from both trees costs nothing and needs
-    no translation.
+    Home and sheet/index chrome stay English. Research reports are migrated in place to
+    English titles with Chinese bodies; no URL carries a language or layout version.
     """
-    root = ROOT if lang == "en" else ROOT / "zh"
+    lang = "en"
+    root = ROOT
     study_list = studies()
     weekly = weekly_summaries()
     generated: dict[Path, str] = {
@@ -3125,21 +3066,20 @@ def outputs(data: dict[str, object], lang: str = "en") -> dict[Path, str]:
         root / "xauusd/index.html": xauusd_page(study_list, weekly, lang),
         root / "tx/index.html": section_page(
             study_list, "tx", "TX Taiwan Index Futures",
-            "Studies on Taiwan index futures." if lang == "en" else "台指期研究。", lang),
+            "Studies on Taiwan index futures.", lang),
         root / "research/index.html": research_page(data, study_list, lang),
         root / "lessons/index.html": lessons_page(null_registry(), study_list, lang),
     }
-    if lang == "en":
-        generated[root / "site/catalog.json"] = (
-            json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
-        )
+    generated[root / "site/catalog.json"] = (
+        json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    )
     registry = null_registry()
     if registry:
         generated[root / "research/null-results/index.html"] = null_results_page(registry, lang)
     terms = glossary()
     if terms:
         generated[root / "jargon/index.html"] = glossary_page(terms, lang)
-    if lang == "en" and weekly:
+    if weekly:
         generated[root / "xauusd/weekly/index.html"] = weekly_summary_page(
             weekly[0], weekly, prefix="../../", source_href=f'{weekly[0]["forecast_week"]}/summary.json', latest=True,
         )
@@ -3149,39 +3089,55 @@ def outputs(data: dict[str, object], lang: str = "en") -> dict[Path, str]:
             )
     for study in study_list:
         generated[root / study["_relative"] / "index.html"] = study_page(study, lang)
+
+    # Old bilingual and layout-version URLs remain as tiny compatibility redirects. They
+    # are not archives and are never linked from canonical pages; Git history is the
+    # archive. Keeping redirects avoids broken bookmarks without maintaining two sites.
+    canonical_html = [path for path in generated if path.suffix == ".html"]
+    for target in canonical_html:
+        relative = target.relative_to(ROOT)
+        if relative.parts[:2] == ("xauusd", "weekly"):
+            continue
+        legacy = ROOT / "zh" / relative
+        generated[legacy] = redirect_document(relative_href(legacy, target))
+
+    v1_targets = {
+        "index.html": ROOT / "index.html",
+        "xauusd/index.html": ROOT / "xauusd/index.html",
+        "xauusd/weekly/index.html": ROOT / "xauusd/weekly/index.html",
+        "xauusd/weekly/2026-W34/index.html": ROOT / "xauusd/weekly/2026-W34/index.html",
+        "xauusd/weekly/2026-W35/index.html": ROOT / "xauusd/weekly/2026-W35/index.html",
+        "tx/index.html": ROOT / "tx/index.html",
+        "research/index.html": ROOT / "research/index.html",
+        "glossary/index.html": ROOT / "jargon/index.html",
+    }
+    for relative, target in v1_targets.items():
+        legacy = ROOT / "v1" / relative
+        if target in generated or target.is_file():
+            generated[legacy] = redirect_document(relative_href(legacy, target))
     return generated
 
 
 def relative_href(from_path: Path, to_path: Path) -> str:
-    """A relative link from one generated page's directory to another's."""
+    """A relative directory URL from one generated page to another."""
     rel = os.path.relpath(to_path.parent, start=from_path.parent)
     return "./" if rel == "." else rel.replace(os.sep, "/") + "/"
 
 
-def apply_lang_switches(en_pages: dict[Path, str], zh_pages: dict[Path, str]) -> None:
-    """Fill in the LANG_SWITCH_TOKEN placeholder now that both trees exist.
-
-    document() cannot compute this link itself: at the moment an English page is rendered,
-    the Chinese tree may not exist yet (and vice versa), so the placeholder is filled in
-    here, once both dicts are complete. A page present in only one tree — nothing, today,
-    since outputs() mirrors every path except catalog.json and weekly, neither of which
-    calls document() — keeps its placeholder link removed rather than pointing at a 404.
-    """
-    zh_root = ROOT / "zh"
-    for en_path, en_html in list(en_pages.items()):
-        zh_path = zh_root / en_path.relative_to(ROOT)
-        if zh_path in zh_pages:
-            href = relative_href(en_path, zh_path)
-            en_pages[en_path] = en_html.replace(LANG_SWITCH_TOKEN, html.escape(href))
-        else:
-            en_pages[en_path] = en_html.replace(LANG_SWITCH_TOKEN, "#")
-    for zh_path, zh_html in list(zh_pages.items()):
-        en_path = ROOT / zh_path.relative_to(zh_root)
-        if en_path in en_pages:
-            href = relative_href(zh_path, en_path)
-            zh_pages[zh_path] = zh_html.replace(LANG_SWITCH_TOKEN, html.escape(href))
-        else:
-            zh_pages[zh_path] = zh_html.replace(LANG_SWITCH_TOKEN, "#")
+def redirect_document(target_href: str) -> str:
+    target = html.escape(target_href, quote=True)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="refresh" content="0;url={target}">
+  <link rel="canonical" href="{target}">
+  <title>Moved · Trading Research</title>
+</head>
+<body><p>This page moved to <a href="{target}">the canonical site</a>.</p></body>
+</html>
+"""
 
 
 def main() -> int:
@@ -3189,10 +3145,7 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     data = catalog()
-    en_pages = outputs(data, "en")
-    zh_pages = outputs(data, "zh")
-    apply_lang_switches(en_pages, zh_pages)
-    generated: dict[Path, str] = {**en_pages, **zh_pages}
+    generated = outputs(data)
     failures: list[str] = []
     for path, expected in generated.items():
         if args.check:

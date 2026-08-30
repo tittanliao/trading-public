@@ -13,41 +13,9 @@ if (search) {
     }
     // The table carries the same studies, so a filter that only moved the cards would
     // silently stop working the moment someone switched view.
-    for (const row of document.querySelectorAll('[data-view-table] tbody tr')) {
+    for (const row of document.querySelectorAll('[data-study-table] tbody tr')) {
       row.hidden = query && !row.textContent.toLocaleLowerCase().includes(query);
     }
-  });
-}
-
-/* ---------------------------------------------------------------- view switch */
-
-const VIEW_KEY = 'trading-public:view';
-const toggle = document.querySelector('[data-view-toggle]');
-const cardsView = document.querySelector('[data-view-cards]');
-const tableView = document.querySelector('[data-view-table]');
-
-function applyView(view) {
-  if (!cardsView || !tableView) return;
-  const table = view === 'table';
-  cardsView.hidden = table;
-  tableView.hidden = !table;
-  for (const button of toggle ? toggle.querySelectorAll('button') : []) {
-    button.setAttribute('aria-pressed', String(button.dataset.view === view));
-  }
-}
-
-if (toggle && cardsView && tableView) {
-  // Reading storage can throw outright in a private window or with site data blocked, so
-  // the preference is best-effort and the page must render correctly without it.
-  let saved = null;
-  try { saved = localStorage.getItem(VIEW_KEY); } catch (error) { saved = null; }
-  applyView(saved === 'table' ? 'table' : 'cards');
-
-  toggle.addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-view]');
-    if (!button) return;
-    applyView(button.dataset.view);
-    try { localStorage.setItem(VIEW_KEY, button.dataset.view); } catch (error) { /* ignore */ }
   });
 }
 

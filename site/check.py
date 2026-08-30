@@ -34,18 +34,11 @@ def _english_pages() -> list[Path]:
     ] + ([ROOT / "xauusd/weekly/index.html"] if WEEKLY_SOURCES else [])
 
 
-# The bilingual mirror at zh/ is structurally identical to the English tree (see
-# apply_lang_switches in site/build.py), except it omits xauusd/weekly/* — a separate,
-# untranslated pipeline — and includes jargon/ as an identical, already-bilingual copy.
-# Every check below runs over both trees, because a leak or a broken link is exactly as
-# real on a Chinese page as on an English one.
 GENERATED_PAGES = _english_pages()
-GENERATED_PAGES += [
-    ROOT / "zh" / page.relative_to(ROOT)
-    for page in GENERATED_PAGES
-    if not str(page.relative_to(ROOT)).startswith("xauusd/weekly")
-    and (ROOT / "zh" / page.relative_to(ROOT)).is_file()
-]
+# /zh/ and /v1/ are compatibility redirects, not alternate sites. They still receive the
+# same privacy and link checks so an old bookmark cannot land on stale or unsafe content.
+GENERATED_PAGES += sorted((ROOT / "zh").glob("**/index.html"))
+GENERATED_PAGES += sorted((ROOT / "v1").glob("**/index.html"))
 PROHIBITED_SUFFIXES = {".csv", ".doc", ".docx", ".xls", ".xlsx"}
 PROHIBITED_EXACT = {"data/logs.json", "xauusd/signal_status.json"}
 WEEKLY_KEYS = {
@@ -83,6 +76,27 @@ def git_files() -> list[str]:
 
 def main() -> int:
     failures: list[str] = []
+
+    canonical = [page for page in _english_pages() if page.is_file()]
+    for page in canonical:
+        page_text = page.read_text(encoding="utf-8")
+        if "v1.0 layout" in page_text or "lang-switch" in page_text:
+            failures.append(f"canonical page exposes a version/language split: {page.relative_to(ROOT)}")
+
+    research_index = ROOT / "research/index.html"
+    if research_index.is_file():
+        index_text = research_index.read_text(encoding="utf-8")
+        if "data-study-table" not in index_text or "data-view-toggle" in index_text:
+            failures.append("research index is not table-first")
+
+    migrated = ROOT / "research/studies/RS-XAUUSD-20260823-001/index.html"
+    if migrated.is_file():
+        migrated_text = migrated.read_text(encoding="utf-8")
+        for token in ('<html lang="zh-Hant">', "重點發現", "prose-table"):
+            if token not in migrated_text:
+                failures.append(f"migrated Chinese report missing {token!r}")
+        if "insight-grid" in migrated_text or "metric-grid" in migrated_text:
+            failures.append("migrated Chinese report still uses card grids")
     catalog = json.loads((ROOT / "site/catalog.json").read_text(encoding="utf-8"))
     for item in catalog["items"]:
         if not (ROOT / item["path"]).is_file():
