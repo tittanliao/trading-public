@@ -772,10 +772,12 @@ def study_page(study_id: str) -> str:
     blocks = "".join(render_block(b, study, results) for b in study["presentation"])
     question = study.get("question_zh") or study.get("question", "")
     body = f"""
+<article class="study-report">
 <p class="eyebrow">{esc(study_id)} · {esc(study.get("market", ""))} · {esc(study.get("created_on", ""))}</p>
 <h1>{esc(study.get("title", study_id))}</h1>
 <p class="lede research-question">{esc(question)}</p>
 {blocks}
+</article>
 """
     return document(study.get("title", study_id), question[:150], 3, body, wide=True)
 
@@ -841,6 +843,7 @@ a{color:var(--cyan);}
 
 .block-section{margin:1.4em 0;}
 .data-block{margin:1.8em 0;}
+.study-report > .data-block{max-width:980px;margin-left:auto;margin-right:auto;}
 .reading-rail{max-width:800px;margin-left:auto;margin-right:auto;}
 .weekly-intro{margin-bottom:2.2rem;}
 .metrics-strip{display:flex;flex-wrap:wrap;gap:14px;}

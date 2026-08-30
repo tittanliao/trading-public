@@ -77,50 +77,63 @@
   "presentation": [
     {
       "type": "metrics",
-      "source": "headline"
+      "source": "headline",
+      "keys": ["v34_win_rate_pct", "v34_profit_factor", "v39_win_rate_pct", "v39_profit_factor"]
     },
     {
       "type": "findings",
       "source": "findings"
     },
     {
-      "type": "charts",
-      "source": "charts"
-    },
-    {
       "type": "comparison_table",
       "title": "Baseline: V3.4 vs V3.9",
-      "source": "baseline_diff"
+      "source": "baseline_diff",
+      "columns": ["n", "win_rate_pct", "profit_factor", "net_pnl_usd", "avg_return_pct"]
     },
     {
-      "type": "table",
-      "title": "30-Minute Entry Slot Delta",
-      "source": "by_entry_30m_diff"
+      "type": "evidence_pair",
+      "title": "30-Minute Entry Slots 時槽差異",
+      "takeaway_zh": "逐時槽的差異多屬低樣本；圖與表用來描述兩版差異，不能直接推導新的時機規則。",
+      "chart_file": "entry_slot_30m_diff.png",
+      "table_source": "by_entry_30m_diff",
+      "table_title": "30-Minute Entry Slot Delta",
+      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
     },
     {
-      "type": "table",
-      "title": "Fail-Type Share Delta",
-      "source": "fail_type_share_diff"
+      "type": "evidence_pair",
+      "title": "Fail-Type Share 失敗型態占比",
+      "takeaway_zh": "V3.9 的立即虧損占比下降，但正常停損仍是主要型態；這是版本比較的描述，不是因果分解。",
+      "chart_file": "fail_type_share_comparison.png",
+      "table_source": "fail_type_share_diff",
+      "table_title": "Fail-Type Share Delta",
+      "columns": ["v34_pct", "v39_pct", "diff"]
     },
     {
-      "type": "table",
-      "title": "Bollinger Band Zone Delta",
-      "source": "bb_zone_diff"
+      "type": "evidence_pair",
+      "title": "Bollinger Band Zone 布林區位差異",
+      "takeaway_zh": "兩版在布林區位上的勝率差異必須連同不同出場結構一起讀，不能視為純粹的策略升級效果。",
+      "chart_file": "bb_zone_comparison.png",
+      "table_source": "bb_zone_diff",
+      "table_title": "Bollinger Band Zone Delta",
+      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
     },
     {
-      "type": "table",
-      "title": "DXY Bucket Delta",
-      "source": "dxy_bucket_diff"
+      "type": "evidence_pair",
+      "title": "DXY Bucket 美元指數區間差異",
+      "takeaway_zh": "DXY 分桶呈現的是版本間的脈絡變化，不足以分離市場狀態與規則改動的影響。",
+      "chart_file": "dxy_bucket_comparison.png",
+      "table_source": "dxy_bucket_diff",
+      "table_title": "DXY Bucket Delta",
+      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
     },
     {
-      "type": "table",
-      "title": "4H Trend State Delta",
-      "source": "mtf_4h_state_diff"
-    },
-    {
-      "type": "table",
-      "title": "MTF Conflict Delta",
-      "source": "mtf_conflict_diff"
+      "type": "evidence_pair",
+      "title": "4H Trend State 四小時趨勢差異",
+      "takeaway_zh": "逆勢（4H 空頭）懲罰在 V3.9 沒有縮小，反而更明顯；這是本篇最需要保留的弱點。",
+      "chart_file": "mtf_4h_state_comparison.png",
+      "table_source": "mtf_4h_state_diff",
+      "table_title": "4H Trend State Delta",
+      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
     },
     {
       "type": "interpretation",

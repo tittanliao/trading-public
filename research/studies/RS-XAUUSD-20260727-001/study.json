@@ -92,65 +92,84 @@
   "presentation": [
     {
       "type": "metrics",
-      "source": "headline"
+      "source": "headline",
+      "keys": ["trades", "win_rate_pct", "profit_factor", "macro_coverage_pct"]
     },
     {
       "type": "findings",
       "source": "findings"
     },
     {
-      "type": "charts",
-      "source": "charts"
+      "type": "evidence_pair",
+      "title": "Failure Types 失敗型態",
+      "takeaway_zh": "虧損以正常停損為主，立即虧損不是主要失敗型態；這是描述性脈絡，不是新的即時規則。",
+      "chart_file": "fail_type_breakdown.png",
+      "table_source": "fail_pattern.by_type",
+      "table_title": "Fail Type Breakdown",
+      "columns": ["n", "pct"]
     },
     {
-      "type": "table",
-      "title": "Session Summary",
-      "source": "by_session"
+      "type": "evidence_pair",
+      "title": "30-Minute Entry Slots 進場時槽",
+      "takeaway_zh": "時槽只應查當下的個別分數；多數格子的樣本有限，不能把差異擴張成一條新的入場規則。",
+      "chart_file": "entry_slot_30m_winrate.png",
+      "table_source": "by_entry_30m",
+      "table_title": "30-Minute Entry Slot (48 slots)",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "30-Minute Entry Slot (48 slots)",
-      "source": "by_entry_30m"
+      "type": "evidence_pair",
+      "title": "Bollinger Band Zone 布林區位",
+      "takeaway_zh": "這是完整診斷的一部分；結果提供脈絡，不單獨構成進場篩選條件。",
+      "chart_file": "bb_zone_winrate.png",
+      "table_source": "bb_zone",
+      "table_title": "Bollinger Band Zone",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "Fail Type Breakdown",
-      "source": "fail_pattern.by_type"
+      "type": "evidence_pair",
+      "title": "DXY Context 美元指數脈絡",
+      "takeaway_zh": "DXY 狀態的拆解用來檢查脈絡；不能取代已被撤銷的 Macro 綜合調整。",
+      "chart_file": "dxy_winrate.png",
+      "table_source": "dxy.regime.by_bucket",
+      "table_title": "DXY Regime Bucket",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "Bollinger Band Zone",
-      "source": "bb_zone"
+      "type": "evidence_pair",
+      "title": "Multi-Timeframe Alignment 多時間框對齊",
+      "takeaway_zh": "多時間框對齊能描述表現落差，但目前不直接改變即時分數。",
+      "chart_file": "htf_alignment.png",
+      "table_source": "mtf.by_alignment",
+      "table_title": "Multi-Timeframe Alignment",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "DXY Regime Bucket",
-      "source": "dxy.regime.by_bucket"
+      "type": "evidence_pair",
+      "title": "4H Trend State 四小時趨勢",
+      "takeaway_zh": "4H 空頭時的逆勢進場較弱；它是待持續觀察的脈絡，而非這次新增的執行條件。",
+      "chart_file": "htf_4h_state.png",
+      "table_source": "mtf.by_4h_state",
+      "table_title": "4H Trend State",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "Multi-Timeframe Alignment",
-      "source": "mtf.by_alignment"
+      "type": "evidence_pair",
+      "title": "Macro Verdict 綜合判定",
+      "takeaway_zh": "WAIT 仍然賺錢、NEUTRAL 才較弱；原本把 Macro 判定放進 S1 分數的做法沒有撐住。",
+      "chart_file": "macro_verdict_winrate.png",
+      "table_source": "by_macro_verdict",
+      "table_title": "Macro Verdict",
+      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
     },
     {
-      "type": "table",
-      "title": "4H Trend State",
-      "source": "mtf.by_4h_state"
-    },
-    {
-      "type": "table",
-      "title": "Macro Verdict",
-      "source": "by_macro_verdict"
-    },
-    {
-      "type": "table",
-      "title": "Macro Score",
-      "source": "by_macro_score"
-    },
-    {
-      "type": "table",
-      "title": "Chronological Holdout by Quarter",
-      "source": "temporal_stability.by_period"
+      "type": "evidence_pair",
+      "title": "Chronological Holdout 時間保留集",
+      "takeaway_zh": "保留集表現仍在樣本內範圍，固定規則判定為穩定；這不是重新最佳化的 walk-forward 證明。",
+      "chart_file": "quarterly_stability.png",
+      "table_source": "temporal_stability.by_period",
+      "table_title": "Chronological Holdout by Quarter",
+      "columns": ["n", "win_rate_pct", "profit_factor"]
     },
     {
       "type": "interpretation",

@@ -50,6 +50,7 @@ a{color:var(--cyan);}
 
 .block-section{margin:1.4em 0;}
 .data-block{margin:1.8em 0;}
+.study-report > .data-block{max-width:980px;margin-left:auto;margin-right:auto;}
 .reading-rail{max-width:800px;margin-left:auto;margin-right:auto;}
 .weekly-intro{margin-bottom:2.2rem;}
 .metrics-strip{display:flex;flex-wrap:wrap;gap:14px;}
