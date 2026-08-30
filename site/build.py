@@ -82,8 +82,8 @@ CHROME = {
         "home.no_weekly": "no weekly published yet",
         "home.card_reference": "Reference",
         "xauusd.eyebrow": "Gold",
-        "xauusd.lede": "What to check when a signal fires, this week's outlook, and "
-                      "every gold study.",
+        "xauusd.lede": "Signal context, this week's outlook, and every gold study "
+                      "in one English sheet with Chinese reports.",
         "xauusd.this_week": "This week",
         "xauusd.studies_heading": "XAUUSD studies",
         "xauusd.filter_placeholder": "Filter XAUUSD studies",
@@ -122,9 +122,8 @@ CHROME = {
                      "carrying the smallest effect its sample could have resolved.",
         "research.title": "Research studies",
         "research.eyebrow": "Evidence → decision → workflow",
-        "research.lede": "Reviewed studies preserve the question, reproducible method, "
-                         "aggregate result, and operational impact without publishing "
-                         "raw CSV or private conversation.",
+        "research.lede": "One English sheet for every reviewed study. Titles stay "
+                         "English; open any row for the Traditional-Chinese report.",
         "research.start_here": "Start here",
         "research.registry_title": "What did not work",
         "research.registry_desc": "Every question asked of this data and answered with "
@@ -260,6 +259,7 @@ def findings_html(study: dict[str, object], lang: str = "en") -> str:
 EXCLUDED_PARTS = {".git", ".github", "_retire", "site", "__pycache__", "v1", "zh"}
 STUDY_ROOT = ROOT / "research/studies"
 WEEKLY_ROOT = ROOT / "xauusd/weekly"
+STUDY_COPY_ZH = ROOT / "site/study_copy_zh.json"
 
 
 def title_for(path: Path) -> str:
@@ -333,7 +333,8 @@ def nav(prefix: str, lang: str = "en") -> str:
         f'<a href="{prefix}index.html">{t("nav.home", lang)}</a>'
         f'<a href="{prefix}xauusd/">{t("nav.xauusd", lang)}</a>'
         f'<a href="{prefix}tx/">{t("nav.tx", lang)}</a>'
-        f'<a href="{prefix}lessons/">{t("nav.lessons", lang)}</a>'
+        f'<a href="{prefix}research/">Research</a>'
+        f'<a href="{prefix}xauusd/weekly/">Weekly</a>'
         f'<a href="{prefix}jargon/">{t("nav.jargon", lang)}</a>'
         '</nav>'
     )
@@ -509,6 +510,7 @@ def study_table_html(study_list, prefix="../"):
             f'<td>{html.escape(str(study.get("status", "")))}</td>'
             f'<td>{html.escape(str(study.get("created_on", "")))}</td>'
             f'<td class="num">{html.escape(metric_text)}</td>'
+            '<td lang="zh-Hant">中文</td>'
             f'<td>{impact}</td>'
             "</tr>"
         )
@@ -517,7 +519,7 @@ def study_table_html(study_list, prefix="../"):
         "<thead><tr>"
         '<th data-sort>Study</th><th data-sort>Theme</th><th data-sort>Market</th>'
         '<th data-sort>Status</th><th data-sort>Date</th><th data-sort>Headline</th>'
-        '<th data-sort>Changes practice</th>'
+        '<th data-sort>Report</th><th data-sort>Changes practice</th>'
         "</tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table></div>"
         '<p class="section-note">Click a column heading to sort.</p>'
@@ -2507,34 +2509,135 @@ def study_page_generic(study: dict[str, object], lang: str = "en") -> str:
     )
 
 
+def study_copy_catalog_zh() -> dict[str, dict[str, str]]:
+    if not STUDY_COPY_ZH.is_file():
+        return {}
+    data = json.loads(STUDY_COPY_ZH.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("site/study_copy_zh.json must be an object keyed by study id")
+    return data
+
+
+def resolved_study_copy_zh(study: dict[str, object]) -> dict[str, str]:
+    editorial = study_copy_catalog_zh().get(str(study["id"]), {})
+    question = str(study.get("question_zh") or editorial.get("question") or "").strip()
+    summary = str(study.get("card_summary_zh") or editorial.get("summary") or "").strip()
+    caveat = str(editorial.get("caveat") or "").strip()
+    if not question or not summary:
+        raise ValueError(f'study missing canonical Chinese copy: {study["id"]}')
+    return {"question": question, "summary": summary, "caveat": caveat}
+
+
+STATUS_ZH = {
+    "confirmed": "已確認",
+    "progress": "研究進行中",
+    "pending": "待處理",
+}
+THEME_ZH = {
+    "strategy_diagnostics": "策略診斷",
+    "improvement_attempts": "改進嘗試",
+    "market_structure": "市場結構",
+    "methodology": "研究方法",
+}
+TONE_ZH = {"good": "成立", "warn": "限制", "bad": "否定", "info": "描述"}
+
+
 def study_page(study: dict[str, object], lang: str = "en") -> str:
-    result = study["_result"]
-    if "versions" in result:
-        return study_page_comparison(study, lang)
-    if "baseline_diff" in result:
-        return study_page_gap(study, lang)
-    if "fail_pattern" in result:
-        return study_page_fail_pattern_solo(study, lang)
-    if "by_month" in result:
-        return study_page_seasonality(study, lang)
-    if "by_level" in result:
-        return study_page_fib_pullback(study, lang)
-    if "policies" in result and "emulator_validation" in result:
-        return study_page_pullback_replay(study, lang)
-    if "strategies" in result:
-        return study_page_context_program(study, lang)
-    if isinstance(result.get("families"), dict) and "observed_profile" in result["families"]:
-        return study_page_range_profile(study, lang)
-    if "hypotheses" in result and "consensus_analysis" in result:
-        return study_page_hypothesis_sweep(study, lang)
-    if "primary" in result and "secondary" in result:
-        return study_page_preregistered(study, lang)
-    if "variants" in result and "zone_agreement" in result:
-        return study_page_robustness(study, lang)
-    # No bespoke renderer: fall back rather than refuse. Raising here meant a study could
-    # not be published until someone wrote a page for its shape, and ten confirmed studies
-    # accumulated behind that — one of them the study the signal playbook cites.
-    return study_page_generic(study, lang)
+    """One scalable reading page for every result shape.
+
+    Report shape no longer controls information architecture. Every study gets the same
+    Chinese reading order; detailed structured results and the reproducible method stay as
+    linked evidence. Studies with reviewed Chinese findings show the full finding table,
+    while older studies use the reviewed Chinese summary and caveat until their narrative
+    copy is expanded. No second URL or layout version is created.
+    """
+    copy = resolved_study_copy_zh(study)
+    headline = study.get("headline") or {}
+    metric_keys = [key for key in (study.get("card_metrics") or list(headline)[:4]) if key in headline]
+    metric_rows = "".join(
+        "<tr>"
+        f'<td><code>{html.escape(headline_label(str(key)))}</code></td>'
+        f'<td class="num"><strong>{html.escape(headline_display(str(key), headline[key]))}</strong></td>'
+        "</tr>"
+        for key in metric_keys
+    ) or '<tr><td colspan="2">沒有獨立 headline 指標，請直接查閱結構化結果。</td></tr>'
+
+    findings = study.get("findings") or []
+    translated_findings = [
+        item for item in findings
+        if isinstance(item, dict) and item.get("title_zh") and item.get("detail_zh")
+    ]
+    if translated_findings and len(translated_findings) == len(findings):
+        finding_rows = "".join(
+            "<tr>"
+            f'<td>{html.escape(TONE_ZH.get(str(item.get("tone", "info")), "描述"))}</td>'
+            f'<td><strong>{html.escape(str(item["title_zh"]))}</strong></td>'
+            f'<td>{html.escape(str(item["detail_zh"]))}</td>'
+            "</tr>"
+            for item in translated_findings
+        )
+    else:
+        caveat = copy["caveat"] or "此頁先提供中文主結論；完整數值與方法以頁尾的公開研究檔案為準。"
+        finding_rows = (
+            f'<tr><td>結論</td><td><strong>{html.escape(copy["summary"])}</strong></td>'
+            '<td>研究的主要回答。</td></tr>'
+            f'<tr><td>限制</td><td><strong>{html.escape(caveat)}</strong></td>'
+            '<td>避免把描述性結果誤讀成可直接執行的規則。</td></tr>'
+        )
+
+    status = str(study.get("status", ""))
+    impact_file = ROOT / str(study["_relative"]) / "impact.md"
+    impact_text = (
+        "這篇研究已影響公開工作流程；實際生效內容以 impact.md 為準。"
+        if study.get("policy_impacts") else
+        "這篇研究不直接修改正式策略、即時風控或進場規則。"
+    )
+    impact_link = '<a href="impact.md">Impact record</a>' if impact_file.is_file() else ""
+    actions = (
+        '<div class="file-actions">'
+        '<a href="results.json">完整結果 JSON</a>'
+        '<a href="analysis.py">可重跑方法</a>'
+        '<a href="study.json">研究資料</a>'
+        f'{impact_link}'
+        '</div>'
+    )
+    identity_rows = (
+        f'<tr><td>研究編號</td><td><code>{html.escape(str(study["id"]))}</code></td></tr>'
+        f'<tr><td>市場</td><td>{html.escape(str(study.get("market", "")))}</td></tr>'
+        f'<tr><td>主題</td><td>{html.escape(THEME_ZH.get(str(study.get("theme")), str(study.get("theme", ""))))}</td></tr>'
+        f'<tr><td>狀態</td><td>{html.escape(STATUS_ZH.get(status, status))}</td></tr>'
+        f'<tr><td>日期</td><td>{html.escape(str(study.get("created_on", "")))}</td></tr>'
+    )
+    body = (
+        '<main class="shell report reader-report">'
+        '<section class="reader-summary"><div class="eyebrow">研究摘要</div>'
+        f'<p>{html.escape(copy["summary"])}</p></section>'
+        '<section class="report-section"><h2>研究問題</h2>'
+        f'<p>{html.escape(copy["question"])}</p></section>'
+        '<section class="report-section"><h2>結論與界限</h2>'
+        '<div class="table-wrap prose-table findings-table"><table><thead><tr>'
+        '<th>判讀</th><th>結論</th><th>如何閱讀</th></tr></thead>'
+        f'<tbody>{finding_rows}</tbody></table></div></section>'
+        '<section class="report-section"><h2>核心數據</h2>'
+        '<div class="table-wrap compact-table"><table><thead><tr><th>指標</th><th>數值</th></tr></thead>'
+        f'<tbody>{metric_rows}</tbody></table></div></section>'
+        '<section class="report-section"><h2>研究識別</h2>'
+        '<div class="table-wrap compact-table"><table><tbody>'
+        f'{identity_rows}</tbody></table></div></section>'
+        '<section class="report-section"><h2>實務與證據邊界</h2>'
+        f'<p class="callout">{html.escape(impact_text)}</p>'
+        '<p>Public 只保留已審閱的彙總結果與可重跑方法；原始資料、私人紀錄與決策對話不在這裡。</p>'
+        f'{actions}</section></main>'
+    )
+    return document(
+        str(study["title"]),
+        f'{study.get("market", "")} research · {status} · {study["id"]}',
+        copy["summary"],
+        body,
+        "../../../",
+        lang="en",
+        html_language="zh-Hant",
+    )
 
 
 STATUS_SHEET_ORDER = ["confirmed", "progress", "pending"]
@@ -2972,20 +3075,7 @@ def overview(
     weekly: list[dict[str, object]],
     lang: str = "en",
 ) -> str:
-    """The front door, organised by what the reader came to do.
-
-    The previous homepage offered "XAUUSD" and "Research" as sibling entries, and a study
-    about gold lived under the second one — so there were two plausible doors to the same
-    thing and no way to tell which, which is exactly what the reader reported.
-
-    The fix is that instruments are the top level and everything about an instrument lives
-    inside it. What stays at this level is the one thing that spans both — what has been
-    ruled out — and the vocabulary needed to read any of it.
-
-    The ordering is the owner's actual journey, not the archive's structure: a signal
-    arrives, and the first question is whether anything known makes this trade better or
-    worse. That gets the largest card.
-    """
+    """A small English directory. Detail belongs in sheets and reports, not cards."""
     registry = null_registry()
     totals = (registry or {}).get("totals", {})
     counts = {}
@@ -2997,54 +3087,38 @@ def overview(
         t("home.weekly_published_tpl", lang).format(week=weekly[0]["forecast_week"])
         if weekly else t("home.no_weekly", lang)
     )
-    primary = (
-        '<a class="card card-wide" data-card href="xauusd/">'
-        f'<div class="type">{t("home.signal_fired", lang)}</div>'
-        f'<h2>{t("home.xauusd_title", lang)}</h2>'
-        f'<p>{t("home.xauusd_desc", lang)}</p>'
-        '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("XAUUSD", 0)}</strong> {t("home.studies_unit", lang)}</span>'
-        f'<span><strong>{html.escape(weekly_line)}</strong></span>'
-        "</div></a>"
-        '<a class="card card-wide" data-card href="tx/">'
-        f'<div class="type">{t("home.second_instrument", lang)}</div>'
-        f'<h2>{t("home.tx_title", lang)}</h2>'
-        f'<p>{t("home.tx_desc", lang)}</p>'
-        '<div class="mini-metrics">'
-        f'<span><strong>{counts.get("TX", 0)}</strong> {t("home.studies_unit", lang)}</span>'
-        "</div></a>"
-    )
-
-    secondary = [
-        ("lessons/", t("nav.lessons", lang),
-         t("home.lessons_desc_tpl", lang).format(
-             n=totals.get("hypotheses", 0),
-             survived=totals.get("by_verdict", {}).get("survives_screens", 0))),
-        ("jargon/", t("nav.jargon", lang), t("home.jargon_desc", lang)),
-        (en_link("", lang, "xauusd/weekly/"), t("home.weekly_title", lang), t("home.weekly_desc", lang)),
+    rows = [
+        ("XAUUSD", "xauusd/", "Signal context, latest weekly outlook, and the gold study sheet.",
+         f'{counts.get("XAUUSD", 0)} studies · {weekly_line}'),
+        ("TX", "tx/", "Taiwan index futures study sheet.", f'{counts.get("TX", 0)} studies'),
+        ("Research", "research/", "All studies in one searchable table; English titles, Chinese reports.",
+         f'{len(study_list)} studies'),
+        ("Weekly", "xauusd/weekly/", "XAUUSD scenarios, levels, plans and event risk.", weekly_line),
+        ("What Didn’t Work", "lessons/", "Negative results and research-method lessons.",
+         f'{totals.get("hypotheses", 0)} hypotheses · {totals.get("by_verdict", {}).get("survives_screens", 0)} survivors'),
+        ("Jargon", "jargon/", "Shared English–Chinese definitions for recurring research terms.", "reference"),
     ]
-    minor = '<div class="grid">' + "".join(
-        f'<a class="card" data-card href="{href}"><div class="type">{t("home.card_reference", lang)}</div>'
-        f'<h2>{title}</h2><p>{description}</p></a>'
-        for href, title, description in secondary
-    ) + "</div>"
-
+    row_html = "".join(
+        "<tr>"
+        f'<td><a href="{html.escape(href)}"><strong>{html.escape(label)}</strong></a></td>'
+        f'<td>{html.escape(description)}</td><td>{html.escape(coverage)}</td>'
+        "</tr>"
+        for label, href, description, coverage in rows
+    )
     body = (
-        '<main class="shell">'
-        f'<h2 class="section-title">{t("home.what_you_trade", lang)}</h2>'
-        f'<div class="grid">{primary}</div>'
-        f'<h2 class="section-title">{t("home.reference", lang)}</h2>'
-        f"{minor}"
-        f'<section class="report-section"><h2>{t("home.what_this_site_is", lang)}</h2>'
-        f'<p>{t("home.what_this_site_p1", lang)}</p>'
-        f'<p>{t("home.what_this_site_p2", lang)}</p>'
-        "</section>"
-        "</main>"
+        '<main class="shell"><section class="report-section"><h2>Directory</h2>'
+        '<div class="table-wrap directory-table"><table><thead><tr>'
+        '<th>Open</th><th>What is here</th><th>Coverage</th></tr></thead>'
+        f'<tbody>{row_html}</tbody></table></div></section>'
+        '<section class="report-section"><h2>Reading convention</h2>'
+        '<p>Home, navigation, sheets and research titles stay in English. Open a study to read its question, conclusion, limits and evidence guide in Traditional Chinese.</p>'
+        '<p>One study, one canonical URL. No layout versions and no separate language site.</p>'
+        '</section></main>'
     )
     return document(
-        t("home.title", lang),
-        t("home.eyebrow", lang),
-        t("home.lede", lang),
+        "Trading Research",
+        "Public research directory",
+        "English sheets. English research titles. Traditional-Chinese research reports.",
         body,
         lang=lang,
     )

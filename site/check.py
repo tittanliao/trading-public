@@ -89,14 +89,38 @@ def main() -> int:
         if "data-study-table" not in index_text or "data-view-toggle" in index_text:
             failures.append("research index is not table-first")
 
-    migrated = ROOT / "research/studies/RS-XAUUSD-20260823-001/index.html"
-    if migrated.is_file():
-        migrated_text = migrated.read_text(encoding="utf-8")
-        for token in ('<html lang="zh-Hant">', "重點發現", "prose-table"):
-            if token not in migrated_text:
-                failures.append(f"migrated Chinese report missing {token!r}")
-        if "insight-grid" in migrated_text or "metric-grid" in migrated_text:
-            failures.append("migrated Chinese report still uses card grids")
+    home = ROOT / "index.html"
+    if home.is_file():
+        home_text = home.read_text(encoding="utf-8")
+        for token in ("Directory", "Reading convention", "Traditional-Chinese research reports"):
+            if token not in home_text:
+                failures.append(f"home does not expose the new architecture: missing {token!r}")
+
+    study_sources = sorted((ROOT / "research/studies").glob("*/study.json"))
+    editorial = json.loads((ROOT / "site/study_copy_zh.json").read_text(encoding="utf-8"))
+    source_ids = {path.parent.name for path in study_sources}
+    editorial_ids = set(editorial)
+    if editorial_ids - source_ids:
+        failures.append(f"orphan Chinese study copy: {sorted(editorial_ids - source_ids)}")
+    for source in study_sources:
+        study = json.loads(source.read_text(encoding="utf-8"))
+        copy = editorial.get(source.parent.name, {})
+        if not (study.get("question_zh") or copy.get("question")):
+            failures.append(f"study lacks Chinese question: {source.parent.name}")
+        if not (study.get("card_summary_zh") or copy.get("summary")):
+            failures.append(f"study lacks Chinese summary: {source.parent.name}")
+
+        page = source.parent / "index.html"
+        if not page.is_file():
+            continue
+        page_text = page.read_text(encoding="utf-8")
+        for token in ('<html lang="zh-Hant">', "研究摘要", "研究問題", "結論與界限",
+                      "核心數據", "研究識別", "實務與證據邊界"):
+            if token not in page_text:
+                failures.append(f"Chinese reader page missing {token!r}: {source.parent.name}")
+        if any(token in page_text for token in ("insight-grid", "metric-grid", "study-card",
+                                                 "data-view-toggle")):
+            failures.append(f"Chinese reader page contains legacy card layout: {source.parent.name}")
     catalog = json.loads((ROOT / "site/catalog.json").read_text(encoding="utf-8"))
     for item in catalog["items"]:
         if not (ROOT / item["path"]).is_file():

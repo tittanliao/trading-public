@@ -77,6 +77,18 @@ tbody tr:last-child td { border-bottom: 0; }
 .registry-strip { display: flex; justify-content: space-between; gap: 18px; align-items: center; margin: 18px 0 30px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-decoration: none; }
 .registry-strip:hover { border-color: var(--cyan); }
 .registry-metrics { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); white-space: nowrap; }
+.directory-table td { white-space: normal; vertical-align: top; }
+.directory-table td:first-child { min-width: 150px; }
+.directory-table td:nth-child(2) { min-width: 340px; color: var(--muted); }
+.directory-table td:last-child { min-width: 180px; }
+.directory-table a { text-decoration: none; color: var(--text); }
+.directory-table a:hover { color: var(--cyan); }
+.reader-summary { margin: 8px 0 34px; padding: 20px 22px; border-top: 2px solid var(--cyan); border-bottom: 1px solid var(--line); background: rgba(72, 215, 208, .055); }
+.reader-summary p { max-width: 900px; margin: 9px 0 0; font-size: 1.08rem; line-height: 1.7; }
+.compact-table { max-width: 760px; }
+.compact-table td { white-space: normal; }
+.compact-table td:first-child { width: 42%; color: var(--muted); }
+.compact-table code { color: var(--cyan); }
 .tall-table { max-height: 620px; overflow: auto; }
 .tall-table thead { position: sticky; top: 0; z-index: 1; background: var(--panel-2); }
 .section-note { max-width: 820px; color: var(--muted); font-size: .9rem; }
