@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260818-001",
     "RS-XAUUSD-20260823-001",
     "RS-XAUUSD-20260823-002",
+    "RS-XAUUSD-20260825-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -69,7 +71,7 @@ def routes() -> list[str]:
 # route that does not exist yet. All three phases are listed: reporting only 2A and 2B
 # under-counted the queue by 13 studies in the first cutover.
 PHASE_2A = [
-    "RS-XAUUSD-20260825-001", "RS-XAUUSD-20260827-001",
+    "RS-XAUUSD-20260827-001",
 ]
 PHASE_2B = [
     "RS-TX-20260728-001", "RS-TX-20260728-002", "RS-XAUUSD-20260727-003",
@@ -217,13 +219,19 @@ def label_col(key: str) -> str:
 
 
 def render_table(headers: list[str], rows: list[list[tuple[str, str, bool]]],
-                 caption: str = "") -> str:
+                 caption: str = "", sorted_column: int | None = None,
+                 sorted_direction: str = "descending") -> str:
     """One table renderer for the whole site. `rows` is a list of rows; each cell is
-    (display_html, sort_value, numeric). Every table is sortable and width-adaptive."""
+    (display_html, sort_value, numeric). Every table is sortable and width-adaptive.
+
+    `sorted_column` marks the column the rows already arrive sorted by, so the header shows
+    which order the reader is looking at instead of leaving the arrows blank until a click.
+    """
     head = "".join(
-        f'<th scope="col" data-type="{"number" if numeric else "text"}">'
+        f'<th scope="col" data-type="{"number" if numeric else "text"}"'
+        f'{f" aria-sort=\"{sorted_direction}\"" if index == sorted_column else ""}>'
         f'<button type="button" class="sort-btn">{label}<span class="sort-ind"></span></button></th>'
-        for label, numeric in headers
+        for index, (label, numeric) in enumerate(headers)
     )
     body = []
     for row in rows:
@@ -684,7 +692,15 @@ def research_index_page() -> str:
             "charts": n,
             "evidence": f"{n} charts" if n else "tables",
         })
-    records.sort(key=lambda r: r["published"], reverse=True)   # newest first
+    # Sort by study id, newest first. Not a plain string sort: an id is
+    # RS-<MARKET>-<YYYYMMDD>-<NNN>, so sorting the raw string groups by market before date
+    # and would put every XAUUSD study above every TX one regardless of when it was run.
+    # Sorting on the date and sequence the id encodes is what actually puts newest on top.
+    def id_order(study_id: str) -> tuple[str, str]:
+        match = re.search(r"-(\d{8})-(\d+)$", study_id)
+        return (match.group(1), match.group(2)) if match else ("", "")
+
+    records.sort(key=lambda r: id_order(r["id"]), reverse=True)
 
     # Study ID rather than a publication date: the id is the stable identifier used
     # everywhere else (handoffs, receipts, the null registry), and it already encodes the
@@ -696,11 +712,12 @@ def research_index_page() -> str:
         rows.append([
             ("th", f'<a href="studies/{r["id"]}/">{esc(r["title"])}</a>', r["title"].lower(), False),
             ("td", f'<span class="tag">{esc(r["market"])}</span>', r["market"].lower(), False),
-            ("td", f'<code class="study-id">{esc(r["id"])}</code>', r["id"].lower(), False),
+            ("td", f'<code class="study-id">{esc(r["id"])}</code>',
+             "".join(id_order(r["id"])), False),
             ("td", esc(r["theme"]), r["theme"].lower(), False),
             ("td", esc(r["evidence"]), sort_key(r["charts"]), True),
         ])
-    table = render_table(headers, rows)
+    table = render_table(headers, rows, sorted_column=2)
     # data-market on the row is what the filter reads; render_table does not know about
     # filtering, so the attribute is injected here rather than complicating that renderer.
     for r in records:

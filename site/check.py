@@ -145,6 +145,31 @@ def check_tables(errors: list[str]) -> None:
             errors.append(f"{page.relative_to(ROOT)}: a table is not inside a width-adaptive wrapper")
 
 
+def check_presentation_blocks(errors: list[str]) -> None:
+    """Every declared presentation block must actually render.
+
+    render_block returns "" when a block's source is absent, so a study whose evidence
+    field was not whitelisted for Public export loses that whole section with no error
+    anywhere — the page just quietly says less than it claims to. This happened to
+    RS-XAUUSD-20260825-001, whose core evidence table vanished because the field existed
+    in the Private results.json the blueprint was written against but not in the exported
+    Public one. Validating against the Public data the page is actually built from is the
+    only check that would have caught it.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import build as gen
+    for sid in POC_STUDIES:
+        study, results = gen.load_study(sid)
+        for index, block in enumerate(study.get("presentation", []), start=1):
+            rendered = gen.render_block(block, study, results)
+            if not rendered.strip():
+                label = block.get("title") or block.get("source") or block["type"]
+                errors.append(
+                    f"{sid}: presentation block {index} ({block['type']}: {label}) renders "
+                    f"nothing — its source is missing from the published data"
+                )
+
+
 def check_study_order(errors: list[str]) -> None:
     """Interpretation and limitations belong before the evidence links, not after."""
     for sid in POC_STUDIES:
@@ -168,7 +193,8 @@ def check_study_order(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
-               check_privacy, check_null_results, check_tables, check_study_order):
+               check_privacy, check_null_results, check_tables, check_presentation_blocks,
+               check_study_order):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),
