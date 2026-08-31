@@ -1,40 +1,4 @@
 {
-  "schema_version": "1.0",
-  "study_id": "RS-XAUUSD-20260824-006",
-  "generated_at": "2026-08-24T22:33:45+08:00",
-  "method": {
-    "bb": "close-based, sample stdev, std_mult 2.0, study convention",
-    "join": "merge_asof backward from entry time to the last completed bar",
-    "resample": "30-minute to hourly with label='left', matching TradingView's open-time stamp; the default would shift every bar forward an hour",
-    "screens": [
-      "resolution bound on the win-rate gap",
-      "label permutation, 4000 draws",
-      "moving-block bootstrap 90% interval, 4000 draws, block 10"
-    ],
-    "seed": 20260826
-  },
-  "limitations": [
-    "The common trade set is smaller than the original study's 472, so a variant failing here is not by itself proof the original was wrong — variant A is re-measured on the same subset precisely so the comparison is like for like.",
-    "MGC is a futures contract with its own roll and session; it is not spot gold quoted differently. That is the point of the test, and also its limit.",
-    "%B is computed on close with a sample standard deviation, the study convention. V3.9's Pine uses ohlc4 and a population stdev, so all four variants differ slightly from the strategy's own bands in the same way."
-  ],
-  "coverage": {
-    "trades_total": 472,
-    "trades_in_common_set": 422,
-    "why_restricted": "MGC hourly data begins 2024-05-06 while the trades begin 2024-01-03",
-    "spot_30m_bars": 30959,
-    "spot_1h_bars": 15488,
-    "mgc_1h_bars": 12972
-  },
-  "prior": {
-    "study": "RS-XAUUSD-20260823-002",
-    "n_above": 82,
-    "win_rate": 73.17,
-    "baseline": 55.93,
-    "gap": 20.86,
-    "resolvable_gap": 16.9,
-    "permutation_p": 0.003
-  },
   "variants": {
     "A": {
       "variant": "A",
@@ -132,6 +96,42 @@
       "verdict": "survives_screens",
       "reason": "clears resolution, permutation and bootstrap"
     }
+  },
+  "schema_version": "1.0",
+  "study_id": "RS-XAUUSD-20260824-006",
+  "generated_at": "2026-08-24T22:33:45+08:00",
+  "method": {
+    "bb": "close-based, sample stdev, std_mult 2.0, study convention",
+    "join": "merge_asof backward from entry time to the last completed bar",
+    "resample": "30-minute to hourly with label='left', matching TradingView's open-time stamp; the default would shift every bar forward an hour",
+    "screens": [
+      "resolution bound on the win-rate gap",
+      "label permutation, 4000 draws",
+      "moving-block bootstrap 90% interval, 4000 draws, block 10"
+    ],
+    "seed": 20260826
+  },
+  "limitations": [
+    "The common trade set is smaller than the original study's 472, so a variant failing here is not by itself proof the original was wrong — variant A is re-measured on the same subset precisely so the comparison is like for like.",
+    "MGC is a futures contract with its own roll and session; it is not spot gold quoted differently. That is the point of the test, and also its limit.",
+    "%B is computed on close with a sample standard deviation, the study convention. V3.9's Pine uses ohlc4 and a population stdev, so all four variants differ slightly from the strategy's own bands in the same way."
+  ],
+  "coverage": {
+    "trades_total": 472,
+    "trades_in_common_set": 422,
+    "why_restricted": "MGC hourly data begins 2024-05-06 while the trades begin 2024-01-03",
+    "spot_30m_bars": 30959,
+    "spot_1h_bars": 15488,
+    "mgc_1h_bars": 12972
+  },
+  "prior": {
+    "study": "RS-XAUUSD-20260823-002",
+    "n_above": 82,
+    "win_rate": 73.17,
+    "baseline": 55.93,
+    "gap": 20.86,
+    "resolvable_gap": 16.9,
+    "permutation_p": 0.003
   },
   "zone_agreement": {
     "A_vs_B": {

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-30T21:31:48+08:00",
+  "generated_at": "2026-09-01T00:20:42+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 33,
+    "studies": 39,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -428,7 +428,7 @@
       "claim": "S1 V3.9 Bollinger %B at entry — the strongest effect in the programme, and why it is not a filter",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": "None. Entries above the upper band win 73.17% on n=82 against a 55.93% baseline, clearing family permutation (p=0.003), a moving-block bootstrap (90% CI 10.96-29.64, above zero in every resample), out-of-sample (65.12/81.25/82.61 while the baseline decayed 56.76/57.63/51.58), a continuous dose-response (Spearman 0.839, still rising inside the bucket) and a momentum ablation (positive in all three terciles). It is the only claim in the programme to clear all of them. Filtering on it nevertheless loses money: %B>1.0 keeps 17.4% of entries and 44% of total return, and best win rate never coincides with best return. Its place is as decision-time information, not a gate.",
+      "reason": "None. Entries above the upper band win 73.17% on n=82 against a 55.93% baseline, clearing family permutation (p=0.003), a moving-block bootstrap (90% CI 10.96-29.64, above zero in every resample), out-of-sample (65.12/81.25/82.61 while the baseline decayed 56.76/57.63/51.58), a continuous dose-response (Spearman 0.839, still rising inside the bucket) and a momentum ablation (positive in all three terciles). It is the only claim in the programme to clear all of them. Filtering on it nevertheless loses money: %B>1.0 keeps 17.4% of entries and 44% of total return, and best win rate never coincides with best return. Its place is as decision-time information, not a gate. CORRECTED 2026-09-01 by RS-XAUUSD-20260901-001: the %B label was read from the entry bar, which closes thirty minutes after the intrabar fill. Re-run on the last completed bar the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. This search space no longer has a survivor — it is open with a wide bound, not refuted, and the programme now has no surviving positive finding.",
       "status": "confirmed",
       "created_on": "2026-08-23"
     },
@@ -1959,7 +1959,7 @@
       "claim": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": " CORRECTED 2026-09-01 by RS-XAUUSD-20260901-001: the %B label was read from the entry bar, which closes thirty minutes after the intrabar fill. Re-run on the last completed bar the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. This search space no longer has a survivor — it is open with a wide bound, not refuted, and the programme now has no surviving positive finding.",
       "status": "confirmed",
       "created_on": "2026-08-24"
     },
@@ -1988,6 +1988,84 @@
       "reason": null,
       "status": "progress",
       "created_on": "2026-08-27"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260831-001",
+      "study_id": "RS-XAUUSD-20260831-001",
+      "kind": "study",
+      "family": "S2-Hammer V3.2",
+      "origin": "programme",
+      "claim": "S2 V3.2 — the Asia session is a third of the trades and a tenth of the return, and removing it costs money",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Removing the Asia session raises every per-trade measure and lowers total return by 10.43 points; corrected for having searched four sessions the gain is p=0.0549, inside what dropping the worst of four arbitrary groups produces. Recorded as a candidate for prospective testing because the gap is stable across both chronological periods.",
+      "status": "progress",
+      "created_on": "2026-08-31"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260831-002",
+      "study_id": "RS-XAUUSD-20260831-002",
+      "kind": "study",
+      "family": "S2-Hammer V3.2",
+      "origin": "programme",
+      "claim": "S2 V3.2 — the decline is in every session, not in Asia, and S1 did not share it",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. The S2 decline is entirely within-session (101.6% of the change) and Asia's fall is the third largest of four, so there is no Asia phenomenon. S1 over the identical window did not decline, so it is not market-wide either. Attribution to the regime change is the best available reading, not established: p=0.0619 on the decline itself.",
+      "status": "progress",
+      "created_on": "2026-08-31"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260831-003",
+      "study_id": "RS-XAUUSD-20260831-003",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9 / S2 Hammer V3.2",
+      "origin": "programme",
+      "claim": "Pullback versus chase — tested directly, it fails, and it was never a shared pattern",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Family p=0.3588 against a frozen 0.05. The effect is S2-only — S1's largest correlation across five horizons is 0.0403 with two positive — so the shared-direction reading that made it the top candidate does not survive direct measurement. S2's consistency (5/5 negative, 5/5 holding out of sample) is noted for a prospective registration.",
+      "status": "progress",
+      "created_on": "2026-08-31"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260831-004",
+      "study_id": "RS-XAUUSD-20260831-004",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "S1 V3.9 — the first bar predicts the outcome, and acting on it destroys value",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. The first bar's mark clears its own resolution bound (22.47 points against 13.13) and strengthens out of sample, and all eight cut-or-halve rules built on it lose return, the best by 12.70 points. The flagged group is weaker but still profitable, so acting on the flag discards about 94 eventual winners.",
+      "status": "progress",
+      "created_on": "2026-08-31"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260831-005",
+      "study_id": "RS-XAUUSD-20260831-005",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "S1 V3.9 — sizing up on %B does not help, and the signal may be measured on a bar that has not closed",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None yet, and one open verification. Sizing up on %B does not help: best gain 0.78 points at equal volatility, family p=0.2823, and every raw gain reverses under risk adjustment. Separately, the published %B win-rate gap appears to be labelled on the entry bar, which closes after the intrabar fill; measured on the last completed bar it is 6.01 points rather than 17.79. RS-XAUUSD-20260823-002 and -20260824-006 need re-running with entry_index - 1.",
+      "status": "progress",
+      "created_on": "2026-08-31"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-001",
+      "study_id": "RS-XAUUSD-20260901-001",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "The surviving %B finding was measured on a bar that had not closed — re-run, it fails every screen",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None of its own. Consequential for RS-XAUUSD-20260823-002 and -20260824-006: with the %B label on the last completed bar rather than the bar the fill happened inside, the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. The unmodified path reproduces the published numbers exactly. Amending those two records changes a conclusion and awaits a decision.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
     }
   ],
   "generated_by": "trading-private research pipeline"
