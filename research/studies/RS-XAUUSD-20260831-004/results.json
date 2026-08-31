@@ -1,0 +1,184 @@
+{
+  "association": {
+    "first_bar_in_profit": {
+      "n": 238,
+      "win_rate_pct": 66.81,
+      "mean_return_pct": 0.3301,
+      "total_return_pct": 78.57
+    },
+    "first_bar_not_in_profit": {
+      "n": 212,
+      "win_rate_pct": 44.34,
+      "mean_return_pct": 0.0345,
+      "total_return_pct": 7.32
+    },
+    "win_rate_gap_pct_points": 22.47,
+    "mean_return_gap_pct": 0.2956,
+    "min_detectable_win_rate_gap_pct_points": 13.13
+  },
+  "actions": {
+    "exit_at_bar_1": {
+      "action": "exit",
+      "bar": 1,
+      "trades_affected": 212,
+      "n": 450,
+      "win_rate_pct": 35.33,
+      "mean_return_pct": 0.1271,
+      "total_return_pct": 57.21,
+      "total_return_change_pct": -28.68,
+      "win_rate_change_pct_points": -20.89
+    },
+    "halve_at_bar_1": {
+      "action": "halve",
+      "bar": 1,
+      "trades_affected": 212,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1543,
+      "total_return_pct": 69.43,
+      "total_return_change_pct": -16.46,
+      "win_rate_change_pct_points": 0.0
+    },
+    "exit_at_bar_2": {
+      "action": "exit",
+      "bar": 2,
+      "trades_affected": 190,
+      "n": 450,
+      "win_rate_pct": 38.44,
+      "mean_return_pct": 0.1323,
+      "total_return_pct": 59.53,
+      "total_return_change_pct": -26.36,
+      "win_rate_change_pct_points": -17.78
+    },
+    "halve_at_bar_2": {
+      "action": "halve",
+      "bar": 2,
+      "trades_affected": 190,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1574,
+      "total_return_pct": 70.81,
+      "total_return_change_pct": -15.08,
+      "win_rate_change_pct_points": 0.0
+    },
+    "exit_at_bar_3": {
+      "action": "exit",
+      "bar": 3,
+      "trades_affected": 177,
+      "n": 450,
+      "win_rate_pct": 39.11,
+      "mean_return_pct": 0.1263,
+      "total_return_pct": 56.86,
+      "total_return_change_pct": -29.03,
+      "win_rate_change_pct_points": -17.11
+    },
+    "halve_at_bar_3": {
+      "action": "halve",
+      "bar": 3,
+      "trades_affected": 177,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1547,
+      "total_return_pct": 69.6,
+      "total_return_change_pct": -16.29,
+      "win_rate_change_pct_points": 0.0
+    },
+    "exit_at_bar_4": {
+      "action": "exit",
+      "bar": 4,
+      "trades_affected": 168,
+      "n": 450,
+      "win_rate_pct": 40.89,
+      "mean_return_pct": 0.1419,
+      "total_return_pct": 63.86,
+      "total_return_change_pct": -22.03,
+      "win_rate_change_pct_points": -15.33
+    },
+    "halve_at_bar_4": {
+      "action": "halve",
+      "bar": 4,
+      "trades_affected": 168,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1627,
+      "total_return_pct": 73.19,
+      "total_return_change_pct": -12.7,
+      "win_rate_change_pct_points": 0.0
+    }
+  },
+  "verdict": {
+    "best_action": "halve_at_bar_4",
+    "best_total_return_change_pct": -12.7,
+    "family_null_median_best_gain_pct": -15.39,
+    "family_null_95th_best_gain_pct": -9.82,
+    "family_p": 0.2093,
+    "any_action_beats_baseline": false,
+    "passes_frozen_criteria": false
+  },
+  "chronological": {
+    "early_70pct": {
+      "from": "2024-01-05",
+      "to": "2025-11-18",
+      "first_bar_in_profit": {
+        "n": 161,
+        "win_rate_pct": 65.84,
+        "mean_return_pct": 0.301,
+        "total_return_pct": 48.46
+      },
+      "first_bar_not_in_profit": {
+        "n": 154,
+        "win_rate_pct": 48.05,
+        "mean_return_pct": 0.0732,
+        "total_return_pct": 11.28
+      },
+      "win_rate_gap_pct_points": 17.79
+    },
+    "recent_30pct": {
+      "from": "2025-11-20",
+      "to": "2026-07-10",
+      "first_bar_in_profit": {
+        "n": 77,
+        "win_rate_pct": 68.83,
+        "mean_return_pct": 0.391,
+        "total_return_pct": 30.11
+      },
+      "first_bar_not_in_profit": {
+        "n": 58,
+        "win_rate_pct": 34.48,
+        "mean_return_pct": -0.0683,
+        "total_return_pct": -3.96
+      },
+      "win_rate_gap_pct_points": 34.35
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260831-004",
+  "generated_at": "2026-08-31T15:42:14Z",
+  "strategy": "S1 AweWithBB V3.9",
+  "method": {
+    "trades_total": 450,
+    "trades_with_marks": 450,
+    "condition": "close of the trade's own entry bar against its fill price",
+    "why_not_lookahead": "the fill is intrabar, so the entry bar's close is the first observable mark after entry",
+    "bars_tested": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "actions": "exit the position, or halve it, when not in profit at bar k",
+    "partial_exit_cost_pct": 0.01,
+    "family_tests": 9,
+    "null": "the in-profit flag shuffled across trades; best total-return gain kept",
+    "permutation_trials": 20000,
+    "random_seed": 20260831,
+    "chronological_split": 0.7,
+    "distinct_from": "RS-XAUUSD-20260815-001 tested whether the first bar held the signal-bar low, a different condition"
+  },
+  "baseline": {
+    "n": 450,
+    "win_rate_pct": 56.22,
+    "mean_return_pct": 0.1909,
+    "total_return_pct": 85.89
+  }
+}
