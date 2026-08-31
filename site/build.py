@@ -47,6 +47,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260727-006",
     "RS-XAUUSD-20260727-008",
     "RS-XAUUSD-20260815-001",
+    "RS-XAUUSD-20260815-002",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -83,7 +84,7 @@ def routes() -> list[str]:
 # up 2B.
 PHASE_2A: list[str] = []
 PHASE_2B = [
-    "RS-XAUUSD-20260815-002", "RS-XAUUSD-20260815-003", "RS-XAUUSD-20260817-001",
+    "RS-XAUUSD-20260815-003", "RS-XAUUSD-20260817-001",
 ]
 PHASE_2C = [
     "RS-XAUUSD-20260727-002", "RS-XAUUSD-20260815-004", "RS-XAUUSD-20260818-002",
@@ -550,7 +551,7 @@ def home_page() -> str:
         n = len(results.get("charts", []))
         cards.append(
             f'<a class="card" href="research/studies/{sid}/">'
-            f'<div class="type">{esc(study.get("market", ""))} · {n} charts</div>'
+            f'<div class="type">{esc(study.get("market", ""))} · {n} chart{"" if n == 1 else "s"}</div>'
             f'<h3>{esc(study.get("title", sid))}</h3></a>'
         )
     markets = sorted({load_study(s)[0].get("market", "") for s in POC_STUDIES + QUEUED_STUDIES})
@@ -735,7 +736,7 @@ def research_index_page() -> str:
             "theme": study.get("theme", "—"),
             "published": study.get("created_on", ""),
             "charts": n,
-            "evidence": f"{n} charts" if n else "tables",
+            "evidence": f"{n} chart{'' if n == 1 else 's'}" if n else "tables",
         })
     # Sort by study id, newest first. Not a plain string sort: an id is
     # RS-<MARKET>-<YYYYMMDD>-<NNN>, so sorting the raw string groups by market before date
