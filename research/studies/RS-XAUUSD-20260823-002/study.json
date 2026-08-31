@@ -110,6 +110,95 @@
   "question_zh": "S1 V3.9 進場時的布林 %B 呈現單調的勝率梯度，收在上軌之外的進場勝率達 73.17%，基準是 55.93%。它撐得過這個計畫裡讓其他每個候選都現出原形的那幾道篩子嗎？如果撐得過，扣掉機會成本之後，拿它當過濾器還有沒有價值？",
   "hypothesis_zh": "這個梯度是真的——它有機制可循，不像那些失敗的候選——但拿它當過濾器仍然會摧毀報酬，因為這個計畫已經證明勝率是可以買到的。",
   "card_summary_zh": "進場時的布林 %B 是這個計畫裡唯一通過所有篩子的候選——但拿它當過濾器仍然會虧錢。",
+  "limitations_zh": [
+    "單一策略、單一商品、472 筆交易，且涵蓋期間是一段強勢多頭。換市場、換策略或換市場狀態都需要重新檢定。",
+    "本研究的 %B 是用收盤價計算的布林通道，不是 V3.9 實際使用的 ohlc4 通道。落在分區邊界上的交易可能被歸到另一邊，因此個別分區的邊緣樣本要保守解讀。",
+    "門檻掃描是套用在「策略實際做過的交易」上，它無法回答『改了過濾條件後策略會改為進場哪些單』。因此 return_retained_pct 那一欄是效益的上界，不是一次真正的回測。",
+    "動能消融檢定用的動能代理是從同一條價格序列算出來的，所以它只能把混淆效果框住，不能完全排除。",
+    "任何結果都不會在沒有另外的採用決策下改變 S1 的正式邏輯、即時風險或進場檢核表。"
+  ],
+  "interpretation_zh": "這是整個研究計畫裡第一個通過全部篩子的效應，而且結論剛好是「它很真，但不該拿來當過濾器」——這兩件事並不衝突，值得分開講。\n\n先說它為什麼是真的。S1 V3.9 進場時若價格收在布林上軌之外，82 筆交易的勝率是 73.17%，基準 55.93%，差距 20.86 個百分點——而這組樣本能解析的最小差距是 16.9 個百分點，所以差距落在可解析範圍內，不是雜訊。族群置換 p=0.003；七個分區的勝率呈單調梯度（Spearman 0.849）；改用十分位做連續檢驗仍然單調（0.839），代表不是分桶切法造成的假象；而且在動能高、中、低三個分層裡差距都是正的，所以它不只是動能的代理指標。最有說服力的一點是：它在保留期反而更強（82.61% 對基準 51.58%），而同期策略本身是在退化的。\n\n接著是為什麼不該當過濾器。門檻掃描把兩個目標拆開來看，結果它們指向不同的地方：總報酬最大化在 %B ≥ 0.4，勝率最大化卻在 %B ≥ 1.1。如果照勝率去設門檻、只留 %B ≥ 1.0 的交易，帳面勝率會很漂亮，但只留下 17.4% 的交易量，總報酬只剩 44.0%——**濾掉的獲利比省下的虧損還多**。這正是 RS-XAUUSD-20260818-001 已經付過學費的同一個教訓：勝率是可以用錢買的，而要花的錢就是報酬。\n\n所以它的正確用法是**決策當下的資訊，不是一道關卡**。看到訊號時知道「這筆落在 %B 分布的哪裡」是有價值的脈絡；把低 %B 的訊號直接丟掉則會讓整體績效變差。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "trades",
+        "above_upper_win_rate_pct",
+        "family_permutation_p",
+        "return_retained_at_pct_b_1_0"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "title": "%B Zone Gradient 分區梯度",
+      "takeaway_zh": "七個分區呈單調梯度（Spearman 0.849）。above_upper 勝率 73.17% 對基準 55.93%，差距 20.86 個百分點——這組樣本能解析的最小差距是 16.9 個百分點，所以差距在可解析範圍內。兩端分區樣本很小（n=3），不要單獨解讀那兩格。",
+      "source": "families.zone_table.zones",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor",
+        "win_rate_excess_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Dose Response by %B Decile 連續劑量反應",
+      "takeaway_zh": "改用十分位做連續檢驗，單調性仍在（Spearman 0.839）。這排除了「梯度只是分桶切法造成的假象」這個解釋。",
+      "source": "families.dose_response.by_pct_b_decile",
+      "columns": [
+        "decile",
+        "pct_b_range",
+        "n",
+        "win_rate_pct",
+        "avg_return_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Out-of-Sample Stability 樣本外穩定性",
+      "takeaway_zh": "效應在保留期變得更強：above_upper 勝率 82.61%，而同期基準只有 51.58%——策略本身在退化，這個梯度卻沒有。這是它與其他候選最不一樣的地方。",
+      "source": "families.by_period",
+      "columns": [
+        "n",
+        "baseline_win_rate_pct",
+        "above_upper.n",
+        "above_upper.win_rate_pct",
+        "above_upper.profit_factor",
+        "above_upper.win_rate_excess_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Threshold Sweep 門檻掃描",
+      "takeaway_zh": "這是「不該當過濾器」的直接證據。總報酬最大化在 %B ≥ 0.4，勝率最大化卻在 %B ≥ 1.1，兩個目標不一致。設在 %B ≥ 1.0 只留下 17.4% 的交易、總報酬只剩 44.0%——濾掉的獲利比省下的虧損還多。已扣除 0.02% 的來回成本。",
+      "source": "families.threshold_sweep.sweep",
+      "columns": [
+        "bb_pct_b_min",
+        "trades_kept",
+        "trades_kept_pct",
+        "win_rate_pct",
+        "total_return_pct_after_cost",
+        "return_retained_pct"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

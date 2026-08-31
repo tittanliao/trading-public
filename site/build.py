@@ -36,6 +36,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260727-007",
     "RS-XAUUSD-20260818-001",
     "RS-XAUUSD-20260823-001",
+    "RS-XAUUSD-20260823-002",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -68,7 +69,6 @@ def routes() -> list[str]:
 # route that does not exist yet. All three phases are listed: reporting only 2A and 2B
 # under-counted the queue by 13 studies in the first cutover.
 PHASE_2A = [
-    "RS-XAUUSD-20260823-002",
     "RS-XAUUSD-20260825-001", "RS-XAUUSD-20260827-001",
 ]
 PHASE_2B = [
@@ -253,6 +253,16 @@ def render_records_table(records: dict[str, dict] | list[dict], row_label: str =
         return '<p class="empty-note">No rows.</p>'
     available_columns = ordered_columns([r for _, r in raw])
     columns = [column for column in columns if column in available_columns] if columns else available_columns
+    # A dict source labels each row with its own key. A list source has no such key, so the
+    # position index was being used — which renders a meaningless 0,1,2… column beside data
+    # that already identifies itself (a slot, a decile, a threshold). When a list source
+    # names its columns, promote the first one to the row label instead.
+    if not isinstance(records, dict) and columns:
+        label_column = columns[0]
+        raw = [(fmt_cell(record.get(label_column)), record) for _, record in raw]
+        columns = columns[1:]
+        if not row_label:
+            row_label = label_column.replace("_pct", " %").replace("_", " ")
     numeric_col = {
         c: any(is_numeric(record.get(c)) for _, record in raw) for c in columns
     }
