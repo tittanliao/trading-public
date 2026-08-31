@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260817-001",
-  "revision": 1,
+  "revision": 2,
   "title": "S1 V3.9 / S2 V3.2 — Macro factor attribution, composite redundancy, and GVZ as a continuum",
   "market": "XAUUSD",
   "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2",
@@ -66,8 +66,8 @@
     },
     {
       "tone": "info",
-      "title": "DXY points the opposite way to the panel, in both strategies",
-      "detail": "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one.",
+      "title": "DXY is the only factor pointing consistently against the panel",
+      "detail": "Two factors point the same way in both strategies: DXY and VIX. VIX agrees with the panel — the state it calls gold-bullish has the higher win rate in both (S1 59.34% vs 58.26%, S2 50.0% vs 45.45%). DXY is the only one that points against it: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Neither gap is near its resolution limit, so this changes nothing about the conclusion; it is recorded because a consistent wrong-way sign is more interesting than a random one.",
       "title_zh": "DXY 的方向與面板的預期相反，而且兩個策略一致",
       "detail_zh": "面板認為對黃金偏多的狀態（美元低於均線），在兩個策略上的勝率反而比較低（S1 55.88% 對 61.73%，S2 44.29% 對 50.72%）。這個結果並不顯著；記錄下來是因為「方向一致地相反」比「隨機」更值得注意。"
     }
@@ -82,10 +82,9 @@
     "GVZ 掃描完整報告所有門檻。挑出差距最大的門檻等於對這個樣本過度配適，其差距必須先超過可分辨門檻才有意義。",
     "S2 的 GVZ 十分位每格僅約 14 筆，波動極大，不足以佐證任何梯度。",
     "綜合分數的六分之三由同一條利率序列驅動，因此其有效因子數少於表面上的五個。",
-    "第六項發現稱 DXY 為唯一方向一致的因子，實際上 VIX 亦然；詳見詮釋段的更正。",
     "本研究不改變任何正式策略邏輯或參數；GVZ 對 S2 僅列為需要前瞻驗證的候選。"
   ],
-  "interpretation_zh": "這份研究的結論是預期中的否定，但它把「否定」講得比一般的否定更有用，因為它每一項比較都同時報告了「這個樣本本來就分辨得出多大的差距」。沒有這個對照，讀者會把 5.85 個百分點的 DXY 差距當成發現；有了對照才看得出來，那個樣本連 13.3 個百分點的差距都還分辨不出來，5.85 根本不構成證據。\n\n綜合分數的問題不只是弱，而是不單調。S1 依分數分組的勝率是 0 分 60.0%、1 分 65.38%、2 分 54.55%、3 分 58.33%、4 分 57.69%、5 分 61.64%、6 分 52.83%——最看多的 6 分表現最差，1 分反而最好。12.55 個百分點的全距在 19.6 的可分辨門檻之下（雜訊 p=0.873），所以正確的讀法不是「反著做」，而是「這個排序裡沒有資訊」。再加上六分之三的分數由同一條利率序列驅動——實質利率轉空時 US10Y 100% 也同時轉空——這個分數的有效維度比表面上少。\n\nGVZ 對 S2 是唯一值得保留的線索，而它值得保留的理由比單一門檻更強：整段掃描是一致的。從門檻 16 到 30，十五個切點全部指向同一個方向（低 GVZ 較好），差距介於 12.64 到 25.39 個百分點之間。這不是在一堆雜訊裡挑出一個幸運的切點。即使如此，把結果隨機打散後仍有 10.7% 的機率產生同樣大的最佳差距，所以它只能是「下一步要用未來資料前瞻驗證的候選」，不能直接變成規則。另外要提醒：同樣是 S2，用十分位來看是很跳動的（d1 78.57%、d3 28.57%、d4 71.43%、d8 21.43%），每格只有 14 筆，那個視角本身就是雜訊，不要拿它來佐證梯度。\n\n最後更正一處研究本身的措辭。第六項發現說 DXY 是「唯一在兩個策略上方向一致」的因子，但實際上 VIX 也是——兩個策略都是面板偏多的那一側勝率較高（S1 59.34% 對 58.26%，S2 50.0% 對 45.45%）。真正只有 DXY 成立的是更精確的那句話：它是唯一一個方向一致、而且一致地與面板預期相反的因子。VIX 的方向與面板一致，所以不具備同樣的意義。這兩個差距都遠在可分辨門檻之下，任一種讀法都不改變「沒有因子能分開結果」的結論。",
+  "interpretation_zh": "這份研究的結論是預期中的否定，但它把「否定」講得比一般的否定更有用，因為它每一項比較都同時報告了「這個樣本本來就分辨得出多大的差距」。沒有這個對照，讀者會把 5.85 個百分點的 DXY 差距當成發現；有了對照才看得出來，那個樣本連 13.3 個百分點的差距都還分辨不出來，5.85 根本不構成證據。\n\n綜合分數的問題不只是弱，而是不單調。S1 依分數分組的勝率是 0 分 60.0%、1 分 65.38%、2 分 54.55%、3 分 58.33%、4 分 57.69%、5 分 61.64%、6 分 52.83%——最看多的 6 分表現最差，1 分反而最好。12.55 個百分點的全距在 19.6 的可分辨門檻之下（雜訊 p=0.873），所以正確的讀法不是「反著做」，而是「這個排序裡沒有資訊」。再加上六分之三的分數由同一條利率序列驅動——實質利率轉空時 US10Y 100% 也同時轉空——這個分數的有效維度比表面上少。\n\nGVZ 對 S2 是唯一值得保留的線索，而它值得保留的理由比單一門檻更強：整段掃描是一致的。從門檻 16 到 30，十五個切點全部指向同一個方向（低 GVZ 較好），差距介於 12.64 到 25.39 個百分點之間。這不是在一堆雜訊裡挑出一個幸運的切點。即使如此，把結果隨機打散後仍有 10.7% 的機率產生同樣大的最佳差距，所以它只能是「下一步要用未來資料前瞻驗證的候選」，不能直接變成規則。另外要提醒：同樣是 S2，用十分位來看是很跳動的（d1 78.57%、d3 28.57%、d4 71.43%、d8 21.43%），每格只有 14 筆，那個視角本身就是雜訊，不要拿它來佐證梯度。\n\n最後一點關於第六項發現。方向一致的因子其實有兩個：DXY 與 VIX。VIX 與面板一致——面板認為偏多的那一側在兩個策略上勝率都較高（S1 59.34% 對 58.26%，S2 50.0% 對 45.45%）。只有 DXY 是方向一致、卻與面板預期相反的那一個。該項發現原本寫成「DXY 是唯一方向一致的因子」，已於 revision 2 更正為這個更精確的說法。兩者的差距都遠在可分辨門檻之下，因此不影響「沒有因子能分開結果」的結論。",
   "presentation": [
     {
       "type": "metrics",

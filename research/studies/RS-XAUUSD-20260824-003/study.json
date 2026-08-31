@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260824-003",
-  "revision": 1,
+  "revision": 2,
   "title": "Three stated claims tested on 274 weeks — one is circular, one measures the period, one buys win rate with return",
   "market": "XAUUSD",
   "strategy": "none — selection methodology tested on CFTC positioning",
@@ -42,22 +42,22 @@
     },
     {
       "tone": "warn",
-      "title": "The Monday sweep gap is 29.8 points and it is circular",
-      "detail": "Weeks where Monday broke Friday's low finished Mon+Tue positive 33.6% of the time against 63.6% otherwise. But whether Monday broke the low is not knowable until Monday has closed, and the measured return includes Monday. Evaluating the condition at Monday's close and measuring Tuesday alone leaves a gap of 1.35 points. The 30-point version asks whether a down Monday was down.",
+      "title": "The Monday sweep gap is 30.1 points and it is circular",
+      "detail": "Weeks where Monday broke Friday's low finished Mon+Tue positive 34.13% of the time against 64.19% otherwise. But whether Monday broke the low is not knowable until Monday has closed, and the measured return includes Monday. Evaluating the condition at Monday's close and measuring Tuesday alone leaves a gap of 1.35 points. The 30-point version asks whether a down Monday was down.",
       "title_zh": "週一掃低的差距有 30 個百分點，而且它是循環論證",
       "detail_zh": "在「週一跌破上週五低點」的那些週，週一加週二收正的比例是 34.13%，其餘週是 64.19%。但「週一有沒有跌破低點」要等週一收完才知道，而被量測的報酬又包含了週一。改成在週一收盤時判定條件、只量測週二，差距只剩 1.35 個百分點。那個 30 點的版本問的是「一個下跌的週一是不是下跌了」。"
     },
     {
       "tone": "warn",
       "title": "A 50% threshold measures the period, not the condition",
-      "detail": "The Mon+Tue baseline win rate is 45.6% in the first half of the sample and 54.3% in the second — an 8.75-point shift as gold moved from range to trend. The same 50% line therefore means 'beats the market' in one period and 'loses to it' in the other. Of 182 comparable conditions, one cleared 50% in the first half while 80% of all conditions cleared it in the second, and the win rate of a condition in one half correlates with its win rate in the other at -0.077.",
+      "detail": "The Mon+Tue baseline win rate is 45.99% in the first half of the sample and 54.74% in the second — an 8.75-point shift as gold moved from range to trend. The same 50% line therefore means 'beats the market' in one period and 'loses to it' in the other. Of 182 comparable conditions, two cleared 50% in the first half while 80% of all conditions cleared it in the second, and the win rate of a condition in one half correlates with its win rate in the other at -0.077.",
       "title_zh": "50% 這條線量的是這段期間，不是這個條件",
       "detail_zh": "週一加週二的基準勝率，在樣本前半是 45.99%、後半是 54.74%——8.75 個百分點的位移，對應黃金從盤整轉為趨勢。因此同樣一條 50% 的線，在一段期間代表「贏過市場」，在另一段代表「輸給市場」。在 182 個可比較的條件中，前半只有 2 個超過 50%，而後半有 79.7% 的條件都超過；一個條件在前半的勝率與它在後半的勝率，相關係數是 −0.077。"
     },
     {
       "tone": "good",
       "title": "Consensus does what the claim said it would, and it costs money",
-      "detail": "Five of six positioning votes agreeing gives a 62.5% win rate against 48.8% — a genuine 13.7-point gap, and it survives a walk-forward reconstruction with every median computed from prior weeks only. It also earns -0.046% per week against +0.084%. It wins more often and smaller: +0.83% per win against +1.27%, -1.45% per loss against -1.05%, a payoff ratio of 0.55 against 1.22. Taking 11.7% of the opportunities captures -7.8% of the total return.",
+      "detail": "Five of six positioning votes agreeing gives a 62.5% win rate against 48.8% — a genuine 13.7-point gap, and it survives a walk-forward reconstruction with every median computed from prior weeks only. It also earns -0.046% per week against +0.084%. It wins more often and smaller: +0.83% per win against +1.27%, -1.51% per loss against -1.04%, a payoff ratio of 0.55 against 1.22. Taking 11.7% of the opportunities captures -7.8% of the total return.",
       "title_zh": "共識確實做到了它宣稱的事，而且它要花錢買",
       "detail_zh": "六個部位投票中有五個同時成立時，勝率是 62.5%，對照 48.76%——確實是 13.74 個百分點的真實差距，而且在「每個中位數都只用先前資料計算」的前推重建下仍然存在。但它同時是每週 −0.046% 對 +0.084%。它贏得比較頻繁，卻贏得比較小：平均每次獲利 +0.83% 對 +1.27%，平均每次虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。承接其中 11.7% 的機會，拿到的是總報酬的 −7.8%。"
     },
@@ -91,10 +91,10 @@
     "可用週數為 274，限制來自價格歷史自 2021-05 起，而非部位資料（後者有 503 週）。",
     "週序列由 CFTC 官方歷史與 31 張截圖交叉驗證，279 個欄位值全部相符；重疊區間之外沒有第二來源。",
     "共識規則的前推版本僅有 19 週，其置換檢定 p 值為 0.24（勝率差）與 0.68（報酬差），無法與全樣本版本區分。",
-    "本研究發現敘述中的數個數字與 results.json 的計算欄位略有出入（見詮釋段末），本頁表格以計算欄位為準。",
-    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。",
+    "results.json 的 `claim_1_monday_sweep.reading` 敘述欄寫 29.8 點與 1.7 點，與同一物件的計算欄位（30.06 與 1.35）不符。該欄為分析程式產生，未重跑分析故未修改；本頁以計算欄位為準。"
   ],
-  "interpretation_zh": "這份研究是對一個具體提案的正面回應：「勝率超過 50% 就是 alpha，多個條件同時成立也是 alpha」。兩個部分都被實際檢定了，而兩個都失敗——但失敗的方式不一樣，值得分開記住。\n\n第一部分之所以失敗，是因為 50% 這個門檻並不是一個固定的參照點。同一批資料的前半基準勝率是 45.99%、後半是 54.74%。在前半，超過 50% 的條件只有 2 個（182 個裡）；在後半，79.7% 的條件都超過 50%。換句話說，這條線在後半幾乎篩不掉任何東西，而在前半幾乎篩掉所有東西——它量的是那段期間黃金漲不漲，不是那個條件好不好。決定性的數字是 −0.077：一個條件在前半的勝率，對它在後半的勝率完全沒有預測力。\n\n第二部分則是以另一種方式失敗——它其實成立了，然後代價出現在別的地方。五個投票同時成立確實帶來 13.74 個百分點的勝率提升，而且撐過了前推重建。但同一批交易的平均週報酬是 −0.046%，對照其餘的 +0.084%。原因在賠率：平均獲利 0.83% 對 1.27%，平均虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。它贏得更常，但每次贏得更少、輸得更多。這是本計畫第三次以完全不同的機制得到同一個結論：勝率可以用報酬買到，而買的人通常沒有意識到自己在付錢。\n\n第二項發現的循環論證則是另一種完全不同的錯誤，值得單獨看：用「週一是否跌破低點」當條件、卻量測「包含週一在內」的報酬，差距是 30 個百分點；把條件移到週一收盤、只量週二，差距剩 1.35 個百分點。同一個想法、同一批資料，差別只在條件有沒有嚴格地早於它所預測的視窗。第七項發現則記錄了一個更難防的錯誤：numpy 布林的 + 是邏輯 OR，使六個投票的加總塌縮成 0 或 1。它之所以被抓到，只是因為結果荒謬到不可能忽視。\n\n最後提醒一件對照上的事：本研究的發現敘述中有幾個數字與 results.json 的計算欄位略有出入（例如循環版本敘述為 33.6% 對 63.6%、差距 29.8 點，計算欄位為 34.13% 對 64.19%、差距 30.06 點；基準勝率敘述為 45.6%／54.3%，計算欄位為 45.99%／54.74%；前半超過 50% 的條件敘述為 1 個，計算欄位為 2 個）。這些差異都不改變任何結論，本頁表格一律採用 results.json 的計算欄位。",
+  "interpretation_zh": "這份研究是對一個具體提案的正面回應：「勝率超過 50% 就是 alpha，多個條件同時成立也是 alpha」。兩個部分都被實際檢定了，而兩個都失敗——但失敗的方式不一樣，值得分開記住。\n\n第一部分之所以失敗，是因為 50% 這個門檻並不是一個固定的參照點。同一批資料的前半基準勝率是 45.99%、後半是 54.74%。在前半，超過 50% 的條件只有 2 個（182 個裡）；在後半，79.7% 的條件都超過 50%。換句話說，這條線在後半幾乎篩不掉任何東西，而在前半幾乎篩掉所有東西——它量的是那段期間黃金漲不漲，不是那個條件好不好。決定性的數字是 −0.077：一個條件在前半的勝率，對它在後半的勝率完全沒有預測力。\n\n第二部分則是以另一種方式失敗——它其實成立了，然後代價出現在別的地方。五個投票同時成立確實帶來 13.74 個百分點的勝率提升，而且撐過了前推重建。但同一批交易的平均週報酬是 −0.046%，對照其餘的 +0.084%。原因在賠率：平均獲利 0.83% 對 1.27%，平均虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。它贏得更常，但每次贏得更少、輸得更多。這是本計畫第三次以完全不同的機制得到同一個結論：勝率可以用報酬買到，而買的人通常沒有意識到自己在付錢。\n\n第二項發現的循環論證則是另一種完全不同的錯誤，值得單獨看：用「週一是否跌破低點」當條件、卻量測「包含週一在內」的報酬，差距是 30 個百分點；把條件移到週一收盤、只量週二，差距剩 1.35 個百分點。同一個想法、同一批資料，差別只在條件有沒有嚴格地早於它所預測的視窗。第七項發現則記錄了一個更難防的錯誤：numpy 布林的 + 是邏輯 OR，使六個投票的加總塌縮成 0 或 1。它之所以被抓到，只是因為結果荒謬到不可能忽視。\n\n（附記：本研究的發現敘述原本有數個數字與 results.json 的計算欄位不符——循環版本寫 33.6%／63.6%、差距 29.8 點，基準勝率寫 45.6%／54.3%，前半超過 50% 的條件寫 1 個，平均虧損寫 −1.45%／−1.05%——已於 revision 2 全部更正為計算欄位的值：34.13%／64.19%、30.06 點、45.99%／54.74%、2 個、−1.51%／−1.04%。所有結論不變。另外 results.json 的 `reading` 敘述欄仍寫著 29.8 點與 1.7 點，該欄由分析程式產生，未重跑不予手動修改；本頁一律以計算欄位為準。）",
   "presentation": [
     {
       "type": "metrics",
