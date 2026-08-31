@@ -58,6 +58,10 @@ POC_STUDIES = [
     "RS-XAUUSD-20260819-001",
     "RS-XAUUSD-20260824-001",
     "RS-XAUUSD-20260824-002",
+    "RS-XAUUSD-20260824-003",
+    "RS-XAUUSD-20260824-004",
+    "RS-XAUUSD-20260824-005",
+    "RS-XAUUSD-20260824-006",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -101,10 +105,7 @@ PHASE_2B: list[str] = []
 # promising a page that will never arrive.
 SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
 
-PHASE_2C = [
-    "RS-XAUUSD-20260824-003", "RS-XAUUSD-20260824-004", "RS-XAUUSD-20260824-005",
-    "RS-XAUUSD-20260824-006",
-]
+PHASE_2C: list[str] = []
 QUEUED_STUDIES = PHASE_2A + PHASE_2B + PHASE_2C
 
 
@@ -813,6 +814,12 @@ def research_index_page() -> str:
         f'<button type="button" data-filter="{attr(m)}">{esc(m)}</button>' for m in all_markets
     )
     queued_line = "、".join(f"{esc(m)} {n} 篇" for m, n in sorted(queued_markets.items()))
+    queued_note = ""
+    if QUEUED_STUDIES:
+        queued_note = (
+            f'<p class="empty-note">另有 {len(QUEUED_STUDIES)} 篇研究（{queued_line}）'
+            "已完成並保留完整證據，但詳細頁面排在後續遷移階段，本版尚未上線，因此不提供連結。</p>"
+        )
     superseded_line = ""
     if SUPERSEDED_STUDIES:
         superseded_line = (
@@ -829,9 +836,7 @@ def research_index_page() -> str:
 </div>
 <p class="more"><a href="null-results/">Null Results / 沒有效果的研究 →</a></p>
 <div id="research-table">{table}</div>
-<p class="empty-note">另有 {len(QUEUED_STUDIES)} 篇研究（{queued_line}）已完成並保留完整證據，
-但詳細頁面排在後續遷移階段，本版尚未上線，因此不提供連結。</p>
-{superseded_line}
+{queued_note}{superseded_line}
 <script>
 (function () {{
   var scope = document.getElementById("research-table");

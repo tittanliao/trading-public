@@ -37,22 +37,30 @@
     {
       "tone": "good",
       "title": "The effect survives all four measurements",
-      "detail": "30-minute spot, hourly spot at matched bars, hourly spot at a matched clock window, and hourly COMEX futures — every variant clears its resolution bound, its label permutation and its bootstrap interval, on the same 422 trades. The effect is not an artefact of a bar size and not an artefact of one price feed. That is worth something: the same test destroyed a 71% win rate two studies ago."
+      "detail": "30-minute spot, hourly spot at matched bars, hourly spot at a matched clock window, and hourly COMEX futures — every variant clears its resolution bound, its label permutation and its bootstrap interval, on the same 422 trades. The effect is not an artefact of a bar size and not an artefact of one price feed. That is worth something: the same test destroyed a 71% win rate two studies ago.",
+      "title_zh": "這個效果在四種量測方式下全部存活",
+      "detail_zh": "30 分鐘現貨、對齊 K 棒的小時現貨、對齊時鐘視窗的小時現貨、以及小時 COMEX 期貨——在同樣的 422 筆交易上，每一個變體都跨過自己的可分辨門檻、通過標籤置換檢定與自助抽樣區間。這個效果不是某個 K 棒尺度的產物，也不是某一個報價源的產物。這件事是有份量的：同樣的檢定在兩份研究之前摧毀了一個 71% 的勝率。"
     },
     {
       "tone": "warn",
       "title": "The instrument test was weak, and the number says how weak",
-      "detail": "MGC and spot gold correlate 0.9998 on levels. The dollar test that inverted a finding swapped two indices correlated 0.8379. Passing an instrument test between two quotes of the same metal is a much weaker statement than failing one between two genuinely different constructions, and this study does not claim otherwise. A real instrument test for gold would need something that is not gold."
+      "detail": "MGC and spot gold correlate 0.9998 on levels. The dollar test that inverted a finding swapped two indices correlated 0.8379. Passing an instrument test between two quotes of the same metal is a much weaker statement than failing one between two genuinely different constructions, and this study does not claim otherwise. A real instrument test for gold would need something that is not gold.",
+      "title_zh": "但這個「換工具」檢定其實很弱，而數字說明了有多弱",
+      "detail_zh": "MGC 與現貨黃金在水準上的相關係數是 0.9998。而那個把一項發現反轉掉的美元檢定，換的是兩個相關 0.8379 的指數。在「同一種金屬的兩個報價」之間通過檢定，是比在「兩種真正不同的建構方式」之間失敗弱得多的陳述，而本研究並不宣稱相反。對黃金而言，一個真正的換工具檢定需要的是「不是黃金的東西」。"
     },
     {
       "tone": "warn",
       "title": "The effect is robust; the label a person acts on is not",
-      "detail": "30-minute and hourly spot — same instrument, same formula — assign the same %B zone to only 32.23% of trades. The 30-minute chart calls 71 entries above the upper band, the hourly chart calls 28, and they agree on 22 (Jaccard 0.2857). Even the two near-identical instruments at the same bar size share 23 of the 28 each selects. “Above the upper band” is not a property of the trade; it is a property of the chart that is open. This is invisible in a table of win rates, which is why per-trade agreement was measured instead of inferred from the headlines matching."
+      "detail": "30-minute and hourly spot — same instrument, same formula — assign the same %B zone to only 32.23% of trades. The 30-minute chart calls 71 entries above the upper band, the hourly chart calls 28, and they agree on 22 (Jaccard 0.2857). Even the two near-identical instruments at the same bar size share 23 of the 28 each selects. “Above the upper band” is not a property of the trade; it is a property of the chart that is open. This is invisible in a table of win rates, which is why per-trade agreement was measured instead of inferred from the headlines matching.",
+      "title_zh": "效果是穩健的；但人實際據以行動的那個標籤不是",
+      "detail_zh": "30 分鐘與小時現貨——同一個商品、同一條公式——對同一筆交易給出相同 %B 分區的比例只有 32.23%。30 分鐘圖認定 71 筆進場在上軌之上，小時圖認定 28 筆，兩者交集只有 22 筆（Jaccard 0.2857）。即使是兩個幾乎相同的商品在同一個 K 棒尺度上，各自選出的 28 筆也只共用 23 筆。「在上軌之上」不是這筆交易的性質，而是「你打開的是哪張圖」的性質。這件事在勝率表上完全看不出來，所以本研究才逐筆量測一致率，而不是從彙總數字相近去推論。"
     },
     {
       "tone": "info",
       "title": "Selecting harder raised the win rate and gave up half the return",
-      "detail": "Variant B posts the best win rate in the study, 89.29%. It keeps 6.64% of trades and captures 27.6% of the return. Variant A wins 73.24% and captures 43.32%. Tightening the selection bought win-rate points and sold return. Fifth independent instance in this programme, and it turned up as a side effect of a test about something else."
+      "detail": "Variant B posts the best win rate in the study, 89.29%. It keeps 6.64% of trades and captures 27.6% of the return. Variant A wins 73.24% and captures 43.32%. Tightening the selection bought win-rate points and sold return. Fifth independent instance in this programme, and it turned up as a side effect of a test about something else.",
+      "title_zh": "篩得更嚴拉高了勝率，也交出了一半的報酬",
+      "detail_zh": "變體 B 是全研究最高的勝率 89.29%。它只保留 6.64% 的交易，捕捉到 27.6% 的報酬。變體 A 勝率 73.24%，捕捉 43.32%。把篩選收緊，買到的是勝率點數，賣掉的是報酬。這是本計畫第五次獨立出現同一件事，而且它是在一個原本要檢定別的東西的研究裡順帶冒出來的。"
     }
   ],
   "policy_impacts": [
@@ -69,6 +77,96 @@
   ],
   "theme": "methodology",
   "card_summary": "The one finding that survives, measured four ways. The effect holds every time; which trades it selects does not — two charts of the same instrument agree on a third of them.",
+  "question_zh": "這個計畫唯一存活下來的發現——S1 在 %B 高於上軌時進場，勝率 73.17% 對基準 55.93%——一直以來都只在單一報價源的 30 分鐘 K 棒上被量測過。而 RS-XAUUSD-20260824-005 剛剛示範了一個 71% 的勝率會在換掉量測工具時反轉。這一個撐得住同樣的處理嗎？",
+  "limitations_zh": [
+    "四個變體共用同一批 422 筆交易（MGC 小時資料自 2024-05-06 才開始，而交易自 2024-01-03 起），因此這不是四個獨立樣本，而是同一批交易的四種量測方式。",
+    "換工具檢定很弱：MGC 與現貨黃金水準相關 0.9998，遠高於推翻美元結果那次的 0.8379。通過這個檢定的證明力相應地低。",
+    "效果穩健不代表標籤穩健：30 分鐘與小時現貨對同一筆交易的 %B 分區僅 32.23% 一致，因此任何落地規則都必須把 K 棒尺度與報價源寫死為規則的一部分。",
+    "變體 B 僅保留 6.64% 的交易，其 89.29% 勝率建立在極小的子集上。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這是整個研究計畫唯一存活的發現，而這份研究的工作是拿前一份剛剛驗證過威力的武器來對付它。結果是：效果本身撐住了。四種量測方式——兩個 K 棒尺度、兩個商品——全部跨過門檻、通過置換與自助抽樣。在這個站上，這是少數幾個「經得起被認真攻擊」的結果之一。\n\n但這份研究最值得記住的不是它存活，而是第二與第三項發現的自我節制。第二項主動指出這個檢定其實很弱：MGC 與現貨黃金相關 0.9998，而那個推翻美元結果的檢定換的是相關 0.8379 的兩個指數。在幾乎相同的兩個報價之間通過檢定，證明力遠低於在真正不同的建構之間失敗。作者寫下「對黃金而言，真正的換工具檢定需要的是不是黃金的東西」——這句話等於預先寫好了下一次該怎麼攻擊自己。\n\n第三項發現則是一個實務上比結論更重要的區別：**效果穩健，不代表標籤穩健。**30 分鐘圖與小時圖對同一筆交易給出相同 %B 分區的比例只有 32.23%；30 分鐘圖說有 71 筆在上軌之上、小時圖說 28 筆，交集只有 22 筆。也就是說，統計上「%B 高於上軌的交易勝率較高」是成立的，但如果一個人要照這條規則行動，他選出來的那批交易會嚴重取決於他打開的是哪張圖。這一點在任何勝率彙總表上都看不出來——兩張圖的勝率可以都很漂亮，卻指向幾乎不同的兩批交易。所以本研究逐筆量測一致率，而不是從彙總數字相近去推論一致。任何要把這個發現落地成規則的人，必須先把 K 棒尺度與報價源當成規則的一部分寫死。\n\n最後，第四項發現又一次、也是這個計畫的第五次，把勝率和期望值分開：變體 B 的 89.29% 勝率只保留 6.64% 的交易、捕捉 27.6% 的報酬；變體 A 的 73.24% 保留 16.82%、捕捉 43.32%。而它是在一個完全不是為此設計的研究裡順帶出現的。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "variants_tested",
+        "survivors",
+        "zone_agreement_30m_vs_1h_pct",
+        "jaccard_30m_vs_1h"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "prior",
+      "title": "The Finding Under Test 被檢定的那個發現（RS-XAUUSD-20260823-002）",
+      "keys": [
+        "n_above",
+        "win_rate",
+        "baseline",
+        "gap",
+        "resolvable_gap",
+        "permutation_p"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "variants",
+      "title": "Four Measurements of the Same Effect 同一個效果的四種量測方式（同樣 422 筆交易）",
+      "takeaway_zh": "四個變體全部跨過自己的可分辨門檻、通過置換檢定與自助抽樣區間。但請一併看最後兩欄的取捨：變體 B 勝率最高（89.29%），卻只保留 6.64% 的交易、捕捉 27.6% 的報酬；變體 A 勝率 73.24%，捕捉 43.32%。",
+      "columns": [
+        "n_above_upper",
+        "win_rate_above_pct",
+        "win_rate_rest_pct",
+        "gap_pct_points",
+        "smallest_resolvable_gap_pct_points",
+        "permutation_p",
+        "share_of_trades_kept_pct",
+        "share_of_total_return_captured_pct",
+        "verdict"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "zone_agreement",
+      "title": "Per-Trade Zone Agreement 逐筆分區一致率（本篇最重要的一張表）",
+      "takeaway_zh": "效果穩健，標籤不穩健。A 對 B（30 分鐘 vs 小時，同一商品同一公式）只有 32.23% 的交易被歸到同一分區；各自認定「在上軌之上」的 71 筆與 28 筆，只共用 22 筆。「在上軌之上」不是交易的性質，是你打開哪張圖的性質——這在勝率表上完全看不出來。",
+      "columns": [
+        "same_zone_pct",
+        "above_upper_in_first",
+        "above_upper_in_second",
+        "above_upper_in_both",
+        "jaccard"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "instrument_similarity",
+      "title": "How Weak the Instrument Test Was 這個換工具檢定有多弱",
+      "keys": [
+        "overlap_bars",
+        "level_correlation",
+        "return_correlation",
+        "median_price_gap"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

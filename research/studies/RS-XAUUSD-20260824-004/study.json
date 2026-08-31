@@ -39,32 +39,145 @@
     {
       "tone": "info",
       "title": "Seven times the data did not turn any null into a finding",
-      "detail": "Twenty hypotheses on 4851 sessions, zero survivors, family permutation p=0.788. What changed is the bounds: the calendar claims that were arguably untested on 672 sessions now have resolution bounds around 0.11%, so 'Monday is worst' is closed rather than open. More data narrowed the question; it did not answer it differently."
+      "detail": "Twenty hypotheses on 4851 sessions, zero survivors, family permutation p=0.788. What changed is the bounds: the calendar claims that were arguably untested on 672 sessions now have resolution bounds around 0.11%, so 'Monday is worst' is closed rather than open. More data narrowed the question; it did not answer it differently.",
+      "title_zh": "七倍的資料量並沒有把任何一個否定結果變成發現",
+      "detail_zh": "20 個假設、4851 個交易日、零個存活，家族置換檢定 p=0.788。改變的是「門檻」：那些在 672 個交易日上還可以說是「未經檢定」的日曆類說法，現在的可分辨門檻約為 0.11%，因此「週一最差」是被關閉了，而不是仍然開啟。更多資料讓問題變窄，並沒有讓答案變得不同。"
     },
     {
       "tone": "good",
       "title": "A 71.5% win rate, and the 5.4-point reason it is not an edge",
-      "detail": "h18 fires 228 times and wins 71.49%. The days it is compared against win 59.94%, because the dollar series only covers 2021-2026 and gold rose through most of it. The first version of this study scored h18 against all 4851 sessions, produced a 54.56% baseline and a p of 0.032, and would have been published as a survivor. Restricting the comparison group to the condition's own era moved the baseline 5.38 points and the p-value to 0.351. This is the cleanest available demonstration that a win rate is a statement about the comparison group, not about the condition."
+      "detail": "h18 fires 228 times and wins 71.49%. The days it is compared against win 59.94%, because the dollar series only covers 2021-2026 and gold rose through most of it. The first version of this study scored h18 against all 4851 sessions, produced a 54.56% baseline and a p of 0.032, and would have been published as a survivor. Restricting the comparison group to the condition's own era moved the baseline 5.38 points and the p-value to 0.351. This is the cleanest available demonstration that a win rate is a statement about the comparison group, not about the condition.",
+      "title_zh": "71.5% 的勝率，以及它不是優勢的那 5.4 個百分點的理由",
+      "detail_zh": "h18 觸發 228 次，勝率 71.49%。而被拿來對照的那些日子勝率是 59.94%，因為美元序列只涵蓋 2021–2026，而黃金在其中大部分時間都在上漲。這份研究的第一個版本是拿 h18 去對照全部 4851 個交易日，得到 54.56% 的基準與 p=0.032，而那會被當成存活者發表出去。把對照組限制在這個條件自己所處的年代之後，基準移動了 5.38 個百分點，p 值變成 0.351。這是目前最乾淨的一個示範：勝率是關於「對照組」的陳述，不是關於「這個條件」的陳述。"
     },
     {
       "tone": "info",
       "title": "The real yield is the one macro channel worth more data",
-      "detail": "h17 — falling 10-year real yields precede a stronger month for gold — is the only macro condition whose sign holds in all three chronological windows. Its effect is +0.4808% against a resolution bound of 0.5277%: it misses by 0.048 percentage points. That is a specific instruction rather than a shrug. It is also the textbook mechanism, which makes it the one hypothesis here where a prior belief and the data point the same way."
+      "detail": "h17 — falling 10-year real yields precede a stronger month for gold — is the only macro condition whose sign holds in all three chronological windows. Its effect is +0.4808% against a resolution bound of 0.5277%: it misses by 0.048 percentage points. That is a specific instruction rather than a shrug. It is also the textbook mechanism, which makes it the one hypothesis here where a prior belief and the data point the same way.",
+      "title_zh": "實質殖利率是唯一值得再投入資料的總經通道",
+      "detail_zh": "h17——十年期實質殖利率下降之後，黃金的下一個月較強——是唯一在三段時序視窗中正負號都維持的總經條件。它的效果是 +0.4808%，可分辨門檻是 0.5277%：差 0.047 個百分點沒有跨過。這是一個具體的指示，而不是一句聳肩。它同時也是教科書上的機制，使它成為本輪唯一一個「先驗信念」與「資料」指向同一方向的假設。"
     },
     {
       "tone": "warn",
       "title": "The consensus rule fails both halves of its own test",
-      "detail": "Zero of eleven conditions stay above a 50% win rate in all five chronological blocks — every one has a losing period hidden inside a winning average. And win rate is not monotone in how many conditions agree. At five agreeing conditions the win rate is the highest in the table (59.78%) while the mean return is the only negative one (-0.38%). The 92 sessions behind that row make the exact figure unstable, but the direction is the opposite of what the rule predicts, and it is the fourth independent time this programme has separated win rate from expectancy."
+      "detail": "Zero of eleven conditions stay above a 50% win rate in all five chronological blocks — every one has a losing period hidden inside a winning average. And win rate is not monotone in how many conditions agree. At five agreeing conditions the win rate is the highest in the table (59.78%) while the mean return is the only negative one (-0.38%). The 92 sessions behind that row make the exact figure unstable, but the direction is the opposite of what the rule predicts, and it is the fourth independent time this programme has separated win rate from expectancy.",
+      "title_zh": "共識規則在自己的兩半檢定上都失敗",
+      "detail_zh": "11 個條件中，在全部五個時序區塊都保持勝率高於 50% 的有零個——每一個都在漂亮的平均值底下藏著一段虧損期。而且勝率並不隨「同時成立的條件數」單調上升：在五個條件同時成立時，勝率是全表最高的 59.78%，而平均報酬卻是全表唯一為負的 −0.38%。那一列背後只有 92 個交易日，所以確切數字不穩定，但方向與這條規則的預測完全相反；而這已經是本計畫第四次獨立地把勝率與期望值分開。"
     },
     {
       "tone": "warn",
       "title": "Two design defects were found by inspecting a good-looking result",
-      "detail": "The first run rejected h18 for 'the sign does not hold across all three periods' when it had fired zero times in two of them — the split was taken over gold's 4851 sessions while the condition only existed for 1174. The same run compared macro conditions against years in which the macro series did not exist. Both were found by asking why a rejected hypothesis had a 71% win rate, not by a test failing. A screen that rejects for the wrong reason is more dangerous than one that does not fire."
+      "detail": "The first run rejected h18 for 'the sign does not hold across all three periods' when it had fired zero times in two of them — the split was taken over gold's 4851 sessions while the condition only existed for 1174. The same run compared macro conditions against years in which the macro series did not exist. Both were found by asking why a rejected hypothesis had a 71% win rate, not by a test failing. A screen that rejects for the wrong reason is more dangerous than one that does not fire.",
+      "title_zh": "兩個設計缺陷是靠檢查一個「看起來很好的結果」才發現的",
+      "detail_zh": "第一次執行時，h18 因為「正負號未能在三段期間都維持」而被拒絕——但它在其中兩段根本觸發了零次，因為切分是按黃金的 4851 個交易日做的，而那個條件只存在於 1174 個交易日之中。同一次執行還把總經條件拿去和「總經序列尚不存在的年份」做比較。兩個缺陷都不是靠檢定失敗發現的，而是靠追問「為什麼一個被拒絕的假設會有 71% 的勝率」。一個因為錯誤理由而拒絕的篩子，比一個根本不會觸發的篩子更危險。"
     }
   ],
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Twenty hypotheses on 18 years of daily gold — 7x the prior sweep — plus the macro family never opened. Zero survivors, and a 71% win rate that dissolves when the comparison group is matched to its own era.",
+  "question_zh": "把整個計畫的假設掃描重跑一次，但這次用 4851 個日線交易日、而不是 672 個，好讓「沒有證據」能夠與「資料不夠」分開；並且打開一直有資料、卻從來沒有任何研究用過的總經家族——VIX、GVZ、名目與實質殖利率。",
+  "limitations_zh": [
+    "總經序列（VIX、GVZ、名目與實質殖利率）僅涵蓋 3430 個交易日、至 2026-06-18，短於黃金的 4851 個交易日；所有總經條件都必須與自身年代的對照組比較，不可與全樣本比較。",
+    "h18 的條件僅存在於 1174 個交易日之中，時序切分必須在該子集內進行，否則會出現「在條件不存在的期間判定正負號不一致」的錯誤拒絕。",
+    "共識分析的最高投票列僅有 92 個交易日，確切數值不穩定；可用的是方向，不是水準。",
+    "h17（實質殖利率）效果 +0.4808% 未跨過 0.5277% 的門檻，屬於「需要更多資料」而非「已證實」或「已駁斥」。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究的價值在於它把兩件常被混為一談的事分開了：「我們找不到效果」和「我們的樣本看不見效果」。把交易日從 672 增加到 4851（檢定力 7.2 倍）之後，結果仍然是零個存活、家族 p=0.788；但日曆類說法的可分辨門檻降到約 0.11%，於是「週一最差」從『未檢定』變成『已關閉』。這才是更多資料真正買到的東西——不是新的發現，而是把先前寬鬆的上界收緊到可以下結論的程度。\n\n第二項發現是本站目前對「勝率」這個概念最有力的一次拆解，值得完整記住：同一個條件 h18，勝率 71.49% 完全沒有變，但它是不是優勢，取決於你拿什麼跟它比。對照全部 4851 個交易日時，基準是 54.56%、p=0.032——會被當成發現發表。把對照組限制在這個條件實際存在的那段年代（美元序列只有 2021–2026，而那段黃金大多在漲），基準變成 59.94%、p=0.351。差別 5.38 個百分點，全部來自對照組的選擇。所以「71% 的勝率」本身不含任何資訊；它必須連同「對照誰」一起陳述才有意義。\n\n第三項發現是全篇唯一帶著具體指示的結果。h17（實質殖利率下降 → 黃金次月較強）是唯一正負號在三段視窗都維持的總經條件，效果 +0.4808% 對門檻 0.5277%——差 0.047 個百分點。這個「差一點」比任何一個 p 值都有用，因為它告訴你需要多少額外資料才能定案，而且它剛好是教科書機制，是本輪唯一先驗與資料同向的一項。\n\n最後，第五項發現描述的錯誤類型最值得警惕：兩個設計缺陷都不是被檢定抓到的，而是有人追問「為什麼一個被拒絕的假設會有 71% 的勝率」才被發現。其中一個是「因為錯誤的理由而拒絕」——h18 被判定正負號不一致，但它在兩段期間裡根本沒有觸發過。一個會因為錯誤理由拒絕東西的篩子，比一個完全不會觸發的篩子更危險，因為它會安靜地製造出「我們檢查過了」的錯覺。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "sessions",
+        "power_multiple_vs_prior_sweep",
+        "survivors",
+        "family_permutation_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "coverage",
+      "title": "Coverage 資料涵蓋範圍（對照前一輪的 672 個交易日）",
+      "keys": [
+        "sessions",
+        "from",
+        "to",
+        "macro_sessions",
+        "macro_to",
+        "prior_sweep_sessions",
+        "power_multiple"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "family_permutation",
+      "title": "Family Permutation 家族層級校正",
+      "keys": [
+        "tested",
+        "best_p_in_family",
+        "family_p"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "hypotheses",
+      "title": "All Twenty Hypotheses 全部二十個假設（4851 個交易日）",
+      "takeaway_zh": "注意 win rate % 與 baseline win rate % 這兩欄必須成對閱讀——h18 的 71.49% 之所以不是優勢，正是因為它的對照組本身就有 59.94%。而 effect 與 smallest resolvable effect 的比較仍然是判決依據。",
+      "columns": [
+        "id",
+        "family",
+        "n_condition",
+        "win_rate_pct",
+        "baseline_win_rate_pct",
+        "effect",
+        "smallest_resolvable_effect",
+        "bootstrap_p_two_sided",
+        "sign_consistent_all_periods",
+        "verdict"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "consensus_analysis.per_condition",
+      "title": "Stability by Block 十一個條件在五個時序區塊的勝率",
+      "takeaway_zh": "blocks above 50 這一欄沒有任何一列是 5——沒有任何條件在全部五個區塊都維持在 50% 之上。每一個漂亮的彙總勝率底下都藏著一段虧損期。",
+      "columns": [
+        "id",
+        "pooled_win_rate_pct",
+        "win_rate_by_block_pct",
+        "blocks_above_50",
+        "blocks_measured"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "consensus_analysis.by_vote_count",
+      "title": "By Number of Conditions Agreeing 依同時成立的條件數",
+      "takeaway_zh": "勝率不隨投票數單調上升（54.39／55.60／54.31／55.36／51.75／59.78）。而勝率最高的 5 票那一列（59.78%），正好是平均報酬唯一為負的一列（−0.3816%）。6 票與 7 票只有 13 筆與 1 筆，未計算。這是本計畫第四次得到同一個結論。",
+      "columns": [
+        "votes",
+        "n",
+        "win_rate_pct",
+        "mean_return_pct"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
