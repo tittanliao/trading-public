@@ -16,20 +16,20 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。未回答 8。</p>
+<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。已回答 1　未回答 7。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
-<div class="backlog-list"><article class="backlog-item" data-status="open"
+<div class="backlog-list"><article class="backlog-item" data-status="answered"
  data-priority="1">
 <header><span class="backlog-id">BL-001</span>
 <span class="tag prio-1">優先 高</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>S2 的盤別集中度：亞盤該不該跳過</h3>
 <p class="backlog-question">S2 V3.2 在亞盤佔了 33.8% 的交易，卻只貢獻 12.0% 的報酬（勝率 35.85%、PF 1.31）；半夜時段只佔 15.3% 的交易，卻貢獻 29.0% 的報酬（勝率 58.33%、PF 3.49）。跳過亞盤是否真的改善結果，還是又一次「用報酬換勝率」？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>這是少數「勝率低、報酬佔比也低」同時成立的切法。本計畫先前每一個提高勝率的規則都是靠犧牲報酬換來的；亞盤看起來兩邊都差，因此它是唯一可能真的該被移除、而不只是被挑剩的候選。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260727-007/">RS-XAUUSD-20260727-007</a>｜已發布 S2 V3.2 的 by_session 表（n、勝率、PF、淨損益），但沒有報告交易佔比與報酬佔比的對照，也沒有做時序驗證或成本檢定。</li><li><a href="../studies/RS-XAUUSD-20260824-006/">RS-XAUUSD-20260824-006</a>｜示範了收緊篩選會拉高勝率並交出報酬——本題必須用同一把尺檢查，否則會重複同一個錯誤。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>以「移除亞盤」為單一假設，報告可分辨門檻、時序驗證、以及扣成本後的淨效果；半夜時段 n=24 太小，只能作為觀察，不可單獨成為規則。</p>
-
+<p class="backlog-next"><strong>下一步：</strong>已回答：不要移除。每筆指標都變好，但總報酬少 10.43 個百分點，而且家族校正 p=0.0549——落在「隨手丟掉四組裡最差的一組」的範圍內。唯一值得續追的是亞盤在最新 30% 已轉為虧損（14 筆），這與 BL-005 的 S2 近期轉弱是同一個問題，應合併處理。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-001/">RS-XAUUSD-20260831-001</a> 回答。</p>
 </article><article class="backlog-item" data-status="open"
  data-priority="1">
 <header><span class="backlog-id">BL-002</span>
