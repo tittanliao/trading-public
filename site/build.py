@@ -556,6 +556,21 @@ def weekly_index_page() -> str:
 def weekly_report_page(week: str) -> str:
     s = load_json(ROOT / "xauusd/weekly" / week / "summary.json")
 
+    # CFTC positioning evidence, when the edition published one. The image lets a reader
+    # verify the figures quoted in the market summary rather than trust the transcription.
+    cftc = ""
+    if s.get("cftc_evidence"):
+        ev = s["cftc_evidence"]
+        cftc = (
+            '<section class="block-section"><h2>CFTC 部位原始依據</h2>'
+            f'<p class="evidence-takeaway">{esc(ev["note"])}</p>'
+            '<figure class="chart-figure evidence-figure">'
+            f'<img src="{attr(ev["file"])}" alt="CFTC positioning report {attr(ev["report_date"])}" loading="lazy">'
+            f'<figcaption>CFTC Commitments of Traders · report date {esc(ev["report_date"])} '
+            f'<a class="chart-full" href="{attr(ev["file"])}">開啟原圖 ↗</a>'
+            '</figcaption></figure></section>'
+        )
+
     four_week = ""
     if s.get("four_week_overview"):
         headers = [("Week", False), ("Open", True), ("High", True), ("Low", True),
@@ -626,6 +641,7 @@ def weekly_report_page(week: str) -> str:
 <section class="block-section"><h2>市場摘要</h2><p class="prose">{esc(s['market_summary'])}</p>
 <p class="data-cutoff">資料截止：{esc(s['data_cutoff'])}</p></section>
 </div>
+{cftc}
 {four_week}
 <section class="block-section"><h2>三劇本與機率</h2>{render_table(sc_headers, sc_rows)}</section>
 <section class="block-section"><h2>關鍵價位</h2>{render_table(lv_headers, lv_rows)}</section>
@@ -660,15 +676,18 @@ def research_index_page() -> str:
         })
     records.sort(key=lambda r: r["published"], reverse=True)   # newest first
 
-    headers = [("Title", False), ("Market", False), ("Theme", False),
-               ("Published", False), ("Evidence", True)]
+    # Study ID rather than a publication date: the id is the stable identifier used
+    # everywhere else (handoffs, receipts, the null registry), and it already encodes the
+    # date. A separate Published column repeated that date without adding anything.
+    headers = [("Title", False), ("Market", False), ("Study ID", False),
+               ("Theme", False), ("Evidence", True)]
     rows = []
     for r in records:
         rows.append([
             ("th", f'<a href="studies/{r["id"]}/">{esc(r["title"])}</a>', r["title"].lower(), False),
             ("td", f'<span class="tag">{esc(r["market"])}</span>', r["market"].lower(), False),
+            ("td", f'<code class="study-id">{esc(r["id"])}</code>', r["id"].lower(), False),
             ("td", esc(r["theme"]), r["theme"].lower(), False),
-            ("td", esc(r["published"]), r["published"], False),
             ("td", esc(r["evidence"]), sort_key(r["charts"]), True),
         ])
     table = render_table(headers, rows)
@@ -898,6 +917,7 @@ th[aria-sort] .sort-btn{color:var(--cyan);}
 tbody th{font-weight:500;color:var(--text);}
 tbody tr:hover{background:var(--panel);}
 tbody tr[hidden]{display:none;}
+.study-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:var(--muted);white-space:nowrap;}
 .tag{display:inline-block;padding:1px 9px;border-radius:20px;background:var(--panel2);border:1px solid var(--line2);font-size:.76rem;}
 .verdict{font-size:.78rem;padding:1px 8px;border-radius:20px;}
 .v-no_evidence{background:rgba(154,163,178,.14);color:var(--muted);}
