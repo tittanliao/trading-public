@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260831-005",
+  "revision": 1,
+  "title": "S1 V3.9 — sizing up on %B does not help, and the signal may be measured on a bar that has not closed",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.9"
+  },
+  "status": "progress",
+  "created_on": "2026-08-31",
+  "question": "Should S1 take a larger position on entries above the upper Bollinger band? And, measured strictly on information available at the fill, how large is that signal?",
+  "hypothesis": "Sizing up should be neutral at best: a fixed-percentage stop with fixed-fractional risk already normalises returns by volatility.",
+  "headline": {
+    "trades": 450,
+    "gap_labelled_on_last_completed_bar_pct_points": 6.01,
+    "gap_labelled_on_entry_bar_pct_points": 17.79,
+    "gap_lost_to_lookahead_pct_points": 11.78,
+    "best_sizing_gain_at_equal_volatility_pct": 0.78,
+    "sizing_family_p": 0.2823,
+    "best_raw_gain_before_risk_adjustment_pct": 30.26,
+    "worst_equal_volatility_change_pct": -6.38,
+    "label_agreement_across_band_conventions_pct": 93.78
+  },
+  "card_metrics": [
+    "gap_labelled_on_last_completed_bar_pct_points",
+    "gap_labelled_on_entry_bar_pct_points",
+    "best_sizing_gain_at_equal_volatility_pct",
+    "sizing_family_p"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The signal may be measured on a bar that has not closed at the fill",
+      "detail": "Labelled on the last completed bar before the fill, the win-rate gap is 6.01 points. Labelled on the entry bar itself, it is 17.79. The published studies join with merge_asof(direction='backward') on entry_time, and entry_time equals a bar's own timestamp exactly, so the match lands on the bar the fill happened inside — a bar that closes thirty minutes later. RS-XAUUSD-20260818-002 established fills are intrabar at a median 0.443 of that bar's range and used entry_index - 1 for exactly this reason.",
+      "title_zh": "這個訊號可能是用「成交當下還沒收盤的那根 K 棒」量出來的",
+      "detail_zh": "用成交前最後一根**已收盤**的 K 棒標記，勝率差距是 6.01 個百分點；用**進場那根 K 棒本身**標記，是 17.79 個百分點。已發布的研究以 merge_asof(direction='backward') 對 entry_time 做接合，而 entry_time 恰好等於某根 K 棒自己的時間戳，因此接到的正是「成交發生在其中」的那根——而那根要再過三十分鐘才收盤。RS-XAUUSD-20260818-002 已經確認成交是盤中的（中位數落在該 K 棒區間的 0.443），並正是為此採用 entry_index − 1。兩種慣例從未被對齊過。"
+    },
+    {
+      "tone": "info",
+      "title": "The reproduction points the same way but is not a re-run",
+      "detail": "On this trade export the entry-bar figures are n=79 at 70.89% and the no-lookahead figures n=52 at 61.54%. The published studies report n=71 to 82 at 73.17% to 73.24% on a different export. The entry-bar version is close to theirs and the no-lookahead version is not, which is what the code path predicts — but this is inference from their published join, not their code re-executed.",
+      "title_zh": "這個重現指向同一件事，但它不是把對方的程式重跑一次",
+      "detail_zh": "在本研究使用的交易匯出檔上，進場 K 棒版本是 n=79、勝率 70.89%；無前視版本是 n=52、勝率 61.54%。已發布研究在另一份匯出檔上報告 n=71～82、勝率 73.17%～73.24%。進場 K 棒版本接近他們的數字，無前視版本不接近——這正是那條程式路徑會預測的結果。但這是從他們已發布的接合方式推論出來的，不是重新執行他們的程式。"
+    },
+    {
+      "tone": "warn",
+      "title": "Sizing up does not help, and the raw numbers say it does",
+      "detail": "Four of eight variants beat baseline at equal volatility and the best gains 0.78 points, against a null median of 0.23 and a 95th percentile of 2.72; family p=0.2823. Before the risk adjustment the same variants look excellent — three times size on the strategy's own bands gains 30.26 points — and that same variant loses 6.38 points once the book is scaled to equal volatility.",
+      "title_zh": "加大部位沒有幫助，而原始數字會說它有",
+      "detail_zh": "八個變體中有四個在相同波動度下勝過基準，最好的增益是 0.78 個百分點；虛無分布的中位數是 0.23、第 95 百分位是 2.72，家族 p=0.2823。在做風險調整之前，同樣這些變體看起來非常好——用策略自己的通道、三倍部位，總報酬增加 30.26 個百分點——而同一個變體在把整本帳調整到相同波動度之後，是少賺 6.38 個百分點。"
+    },
+    {
+      "tone": "info",
+      "title": "Bigger multipliers are monotonically worse",
+      "detail": "At equal volatility the ordering is 1.5x, 1.25x, 2.0x, 3.0x from best to worst under both conventions, and only the two smallest multipliers are positive at all. There is no size at which this becomes a good idea; the curve points down.",
+      "title_zh": "倍數越大越差，而且是單調的",
+      "detail_zh": "在相同波動度下，兩種通道慣例的排序都是 1.5 倍、1.25 倍、2.0 倍、3.0 倍由好到壞，而且只有最小的兩個倍數是正的。不存在某個「加到這裡就會變好」的部位大小；這條曲線是往下的。"
+    },
+    {
+      "tone": "good",
+      "title": "The label is stable across definitions, so the earlier instability is about timeframe",
+      "detail": "The study convention and the strategy's own Pine bands agree on 93.78% of trades. RS-XAUUSD-20260824-006 measured 32.23% agreement between 30-minute and hourly labels. Same instrument, same period, same multiplier — so what makes the label move is the timeframe, not how %B is computed.",
+      "title_zh": "標籤在不同定義之間是穩定的，所以先前的不穩定是「時間框架」造成的",
+      "detail_zh": "研究慣例與策略自己的 Pine 通道，在 93.78% 的交易上給出相同標籤。而 RS-XAUUSD-20260824-006 量到 30 分鐘與小時圖之間只有 32.23% 一致。同一個商品、同樣的週期與倍數——所以讓標籤跳動的是時間框架，不是 %B 的計算方式。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "The sizing answer is no. The measurement question underneath it is larger.",
+  "question_zh": "S1 在「%B 高於上軌」的訊號上是否應該加大部位？以及——如果只用成交當下真正可得的資訊來量測，這個訊號到底有多大？",
+  "limitations_zh": [
+    "關於前視的判斷是從已發布研究的 analysis.py 接合方式推論而來，並在不同的交易匯出檔（2026-07-11，對方為 2026-08-15）上重現，不是重新執行對方的程式；兩者的樣本數與日期範圍皆不同，因此不可宣稱完全等同。",
+    "本研究的無前視標籤採 entry_index − 1，與 RS-XAUUSD-20260818-002 的慣例一致；若正確慣例另有定義，本研究的 6.01 個百分點也會隨之改變。",
+    "加碼變體以每筆報酬乘上倍數模擬，未模擬保證金、流動性或實際下單的滑價；真實加碼的成本只會更高，因此負面結論的偏誤方向對結論有利。",
+    "相同波動度的比較以整本帳的每筆報酬標準差對齊，是單一的風險測度；換用其他風險定義可能得到略為不同的排序。",
+    "S1 全樣本 450 筆，其中上軌外僅 52 筆（無前視）或 79 筆（進場 K 棒），子集樣本偏小。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究要回答的是「%B 上軌外要不要加碼」，答案是不要。但在做這件事的過程中出現了一個更重要的問題，而它不在原本的題目裡。\n\n**先說加碼。** 最好的變體在相同波動度下只多賺 0.78 個百分點，而虛無分布光靠打散標籤就有 0.23 的中位數、2.72 的第 95 百分位，家族 p=0.2823。更值得看的是原始數字與風險調整後的落差：三倍部位在策略自己的通道上，**原始總報酬增加 30.26 個百分點，調整到相同波動度之後卻是少賺 6.38 個百分點。**而且倍數越大越差，是單調的。這與 RS-XAUUSD-20260818-004 的結論一致——固定百分比停損搭配固定比例風險，本身就已經把報酬對波動度正規化過，部位調整沒有剩下什麼可以改善。\n\n**然後是那個更大的問題。** 這個訊號的大小，取決於你用哪一根 K 棒來標記它。用成交前最後一根已收盤的 K 棒：差距 6.01 個百分點。用進場那根 K 棒本身：17.79 個百分點。差別是 11.78 個百分點——也就是這個訊號超過三分之二的強度，來自一根在成交當下還沒收盤的 K 棒。\n\n為什麼會這樣？已發布的研究用 `merge_asof(direction='backward')` 對 `entry_time` 接合，而 `entry_time` 恰好等於某根 K 棒的時間戳，所以接到的是「成交發生在其中」的那一根。那根 K 棒要再過三十分鐘才收盤，它的收盤價在下單當下並不存在。而本站自己的 RS-XAUUSD-20260818-002 早就確認過成交是盤中發生的（成交價中位數落在該 K 棒區間的 0.443），並且正是為了這個理由採用 `entry_index − 1`。**同一個計畫裡有兩種慣例，而產出「唯一存活發現」的那一份用的是有前視的那一種。**\n\n必須把話說清楚：這是從他們**已發布的接合程式碼**推論出來的，並在**另一份交易匯出檔**上重現，不是把他們的程式重跑一次。數字對得上（進場 K 棒版 n=79／70.89% 接近他們的 n=71～82／73.17%～73.24%，無前視版 n=52／61.54% 不接近），但匯出檔不同、日期範圍不同，不能宣稱完全等同。**正確的下一步是用 `entry_index − 1` 重跑 RS-XAUUSD-20260823-002 與 -20260824-006，看看還剩下什麼。**\n\n最後一件被順帶解決的事：標籤在兩種通道定義之間有 93.78% 一致，而 RS-XAUUSD-20260824-006 量到跨時間框架只有 32.23% 一致。所以那份研究發現的「標籤不穩定」是**時間框架**的問題，不是 %B 定義的問題——這縮小了問題的範圍，也讓「把 K 棒尺度寫死為規則的一部分」這個建議更明確。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "gap_labelled_on_last_completed_bar_pct_points",
+        "gap_labelled_on_entry_bar_pct_points",
+        "best_sizing_gain_at_equal_volatility_pct",
+        "sizing_family_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "bar_choice",
+      "title": "Which Bar Carries the Label 標籤掛在哪一根 K 棒上（本篇最重要的一張表）",
+      "takeaway_zh": "同一批交易、同一條 %B 公式，只換標記的 K 棒：用成交前最後一根已收盤的 K 棒是 6.01 個百分點，用進場那根 K 棒本身是 17.79。observable at fill 欄說明了差別——後者要再過三十分鐘才收盤。",
+      "record_keys": [
+        "last_completed_bar_before_fill",
+        "entry_bar_itself"
+      ],
+      "columns": [
+        "above_upper_n",
+        "above_upper_win_rate_pct",
+        "rest_n",
+        "rest_win_rate_pct",
+        "win_rate_gap_pct_points",
+        "observable_at_fill"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "variants",
+      "title": "Eight Sizing Variants 八個加碼變體",
+      "takeaway_zh": "請橫向比較 raw total change 與 gain at equal volatility 兩欄。原始數字全部是正的、而且倍數越大越漂亮（三倍最高 +30.26）；調整到相同波動度之後，倍數越大越差，三倍變成 −6.38。最好的只有 +0.78，而虛無分布的中位數就有 0.23。",
+      "columns": [
+        "convention",
+        "multiplier",
+        "raw_total_change_pct",
+        "gain_at_equal_volatility_pct",
+        "share_of_baseline_at_equal_volatility_pct",
+        "sd_return_pct",
+        "max_drawdown_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "by_label",
+      "title": "The Two Band Conventions 兩種通道定義（皆為無前視標記）",
+      "takeaway_zh": "兩種定義都給出遠小於已發布數字的差距：61.54% 對 55.53%，以及 60.0% 對 55.41%。",
+      "columns": [
+        "above_upper.n",
+        "above_upper.win_rate_pct",
+        "above_upper.mean_return_pct",
+        "rest.n",
+        "rest.win_rate_pct",
+        "rest.mean_return_pct",
+        "share_of_trades_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "label_agreement",
+      "title": "Label Agreement Across Definitions 兩種定義之間的標籤一致率",
+      "keys": [
+        "trades_compared",
+        "same_label_pct",
+        "above_in_study_convention",
+        "above_in_strategy_bands",
+        "above_in_both",
+        "jaccard"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "verdict",
+      "title": "Verdict Against the Frozen Criteria 對照執行前寫死的通過標準",
+      "keys": [
+        "best_variant",
+        "best_gain_at_equal_volatility_pct",
+        "variants_beating_baseline",
+        "variants_tested",
+        "family_null_median_gain_pct",
+        "family_null_95th_gain_pct",
+        "family_p",
+        "passes_frozen_criteria"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

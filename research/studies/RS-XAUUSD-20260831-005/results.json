@@ -1,0 +1,301 @@
+{
+  "bar_choice": {
+    "last_completed_bar_before_fill": {
+      "above_upper_n": 52,
+      "above_upper_win_rate_pct": 61.54,
+      "rest_n": 398,
+      "rest_win_rate_pct": 55.53,
+      "win_rate_gap_pct_points": 6.01,
+      "observable_at_fill": true
+    },
+    "entry_bar_itself": {
+      "above_upper_n": 79,
+      "above_upper_win_rate_pct": 70.89,
+      "rest_n": 371,
+      "rest_win_rate_pct": 53.1,
+      "win_rate_gap_pct_points": 17.79,
+      "observable_at_fill": false
+    },
+    "gap_lost_to_lookahead_pct_points": 11.78,
+    "published_comparison": {
+      "RS-XAUUSD-20260823-002": {
+        "above_upper_n": 82,
+        "above_upper_win_rate_pct": 73.17,
+        "baseline_win_rate_pct": 55.93,
+        "gap_pct_points": 20.86
+      },
+      "RS-XAUUSD-20260824-006_variant_A": {
+        "above_upper_n": 71,
+        "above_upper_win_rate_pct": 73.24,
+        "rest_win_rate_pct": 51.57,
+        "gap_pct_points": 21.67
+      },
+      "note": "Both used a different trade export, so an exact match is not expected. The entry-bar figures here are close to theirs and the no-lookahead figures are not, which is what the code path predicts."
+    }
+  },
+  "by_label": {
+    "study_convention": {
+      "above_upper": {
+        "n": 52,
+        "win_rate_pct": 61.54,
+        "mean_return_pct": 0.2202,
+        "total_return_pct": 11.45,
+        "sd_return_pct": 0.6556,
+        "max_drawdown_pct": -1.5
+      },
+      "rest": {
+        "n": 398,
+        "win_rate_pct": 55.53,
+        "mean_return_pct": 0.187,
+        "total_return_pct": 74.44,
+        "sd_return_pct": 0.7433,
+        "max_drawdown_pct": -3.83
+      },
+      "share_of_trades_pct": 11.56
+    },
+    "strategy_pine_bands": {
+      "above_upper": {
+        "n": 80,
+        "win_rate_pct": 60.0,
+        "mean_return_pct": 0.1891,
+        "total_return_pct": 15.13,
+        "sd_return_pct": 0.6468,
+        "max_drawdown_pct": -2.0
+      },
+      "rest": {
+        "n": 370,
+        "win_rate_pct": 55.41,
+        "mean_return_pct": 0.1912,
+        "total_return_pct": 70.76,
+        "sd_return_pct": 0.7513,
+        "max_drawdown_pct": -3.83
+      },
+      "share_of_trades_pct": 17.78
+    }
+  },
+  "label_agreement": {
+    "trades_compared": 450,
+    "same_label_pct": 93.78,
+    "above_in_study_convention": 52,
+    "above_in_strategy_bands": 80,
+    "above_in_both": 52,
+    "jaccard": 0.65,
+    "note": "Same instrument, same timeframe, same period and multiplier — only the price input and the stdev denominator differ. RS-XAUUSD-20260824-006 measured the same instability across timeframes at 32.23%."
+  },
+  "variants": {
+    "study_convention_x1.25": {
+      "convention": "study_convention",
+      "multiplier": 1.25,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1972,
+      "total_return_pct": 88.75,
+      "sd_return_pct": 0.7521,
+      "max_drawdown_pct": -3.83,
+      "total_return_at_equal_volatility_pct": 86.52,
+      "gain_at_equal_volatility_pct": 0.63,
+      "raw_total_change_pct": 2.86,
+      "share_of_baseline_at_equal_volatility_pct": 100.73
+    },
+    "study_convention_x1.5": {
+      "convention": "study_convention",
+      "multiplier": 1.5,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2036,
+      "total_return_pct": 91.61,
+      "sd_return_pct": 0.7749,
+      "max_drawdown_pct": -3.83,
+      "total_return_at_equal_volatility_pct": 86.67,
+      "gain_at_equal_volatility_pct": 0.78,
+      "raw_total_change_pct": 5.72,
+      "share_of_baseline_at_equal_volatility_pct": 100.91
+    },
+    "study_convention_x2.0": {
+      "convention": "study_convention",
+      "multiplier": 2.0,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2163,
+      "total_return_pct": 97.34,
+      "sd_return_pct": 0.8309,
+      "max_drawdown_pct": -3.83,
+      "total_return_at_equal_volatility_pct": 85.88,
+      "gain_at_equal_volatility_pct": -0.01,
+      "raw_total_change_pct": 11.45,
+      "share_of_baseline_at_equal_volatility_pct": 99.99
+    },
+    "study_convention_x3.0": {
+      "convention": "study_convention",
+      "multiplier": 3.0,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2418,
+      "total_return_pct": 108.79,
+      "sd_return_pct": 0.9751,
+      "max_drawdown_pct": -4.0,
+      "total_return_at_equal_volatility_pct": 81.79,
+      "gain_at_equal_volatility_pct": -4.1,
+      "raw_total_change_pct": 22.9,
+      "share_of_baseline_at_equal_volatility_pct": 95.22
+    },
+    "strategy_pine_bands_x1.25": {
+      "convention": "strategy_pine_bands",
+      "multiplier": 1.25,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1993,
+      "total_return_pct": 89.67,
+      "sd_return_pct": 0.761,
+      "max_drawdown_pct": -3.83,
+      "total_return_at_equal_volatility_pct": 86.38,
+      "gain_at_equal_volatility_pct": 0.49,
+      "raw_total_change_pct": 3.78,
+      "share_of_baseline_at_equal_volatility_pct": 100.57
+    },
+    "strategy_pine_bands_x1.5": {
+      "convention": "strategy_pine_bands",
+      "multiplier": 1.5,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2077,
+      "total_return_pct": 93.45,
+      "sd_return_pct": 0.7942,
+      "max_drawdown_pct": -3.83,
+      "total_return_at_equal_volatility_pct": 86.27,
+      "gain_at_equal_volatility_pct": 0.38,
+      "raw_total_change_pct": 7.56,
+      "share_of_baseline_at_equal_volatility_pct": 100.44
+    },
+    "strategy_pine_bands_x2.0": {
+      "convention": "strategy_pine_bands",
+      "multiplier": 2.0,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2245,
+      "total_return_pct": 101.02,
+      "sd_return_pct": 0.8737,
+      "max_drawdown_pct": -4.0,
+      "total_return_at_equal_volatility_pct": 84.76,
+      "gain_at_equal_volatility_pct": -1.13,
+      "raw_total_change_pct": 15.13,
+      "share_of_baseline_at_equal_volatility_pct": 98.69
+    },
+    "strategy_pine_bands_x3.0": {
+      "convention": "strategy_pine_bands",
+      "multiplier": 3.0,
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.2581,
+      "total_return_pct": 116.15,
+      "sd_return_pct": 1.071,
+      "max_drawdown_pct": -4.74,
+      "total_return_at_equal_volatility_pct": 79.51,
+      "gain_at_equal_volatility_pct": -6.38,
+      "raw_total_change_pct": 30.26,
+      "share_of_baseline_at_equal_volatility_pct": 92.57
+    }
+  },
+  "verdict": {
+    "best_variant": "study_convention_x1.5",
+    "best_gain_at_equal_volatility_pct": 0.78,
+    "variants_beating_baseline": 4,
+    "variants_tested": 8,
+    "family_null_median_gain_pct": 0.23,
+    "family_null_95th_gain_pct": 2.72,
+    "family_p": 0.2823,
+    "passes_frozen_criteria": false
+  },
+  "chronological": {
+    "early_70pct": {
+      "from": "2024-01-05",
+      "to": "2025-11-18",
+      "study_convention": {
+        "n": 315,
+        "win_rate_pct": 57.14,
+        "mean_return_pct": 0.2196,
+        "total_return_pct": 69.16,
+        "sd_return_pct": 0.8188,
+        "max_drawdown_pct": -3.83,
+        "total_return_at_equal_volatility_pct": 59.58,
+        "gain_at_equal_volatility_pct": -0.16,
+        "raw_total_change_pct": 9.42,
+        "share_of_baseline_at_equal_volatility_pct": 99.73
+      },
+      "strategy_pine_bands": {
+        "n": 315,
+        "win_rate_pct": 57.14,
+        "mean_return_pct": 0.2249,
+        "total_return_pct": 70.83,
+        "sd_return_pct": 0.8709,
+        "max_drawdown_pct": -4.0,
+        "total_return_at_equal_volatility_pct": 57.37,
+        "gain_at_equal_volatility_pct": -2.37,
+        "raw_total_change_pct": 11.09,
+        "share_of_baseline_at_equal_volatility_pct": 96.03
+      }
+    },
+    "recent_30pct": {
+      "from": "2025-11-20",
+      "to": "2026-07-10",
+      "study_convention": {
+        "n": 135,
+        "win_rate_pct": 54.07,
+        "mean_return_pct": 0.2087,
+        "total_return_pct": 28.18,
+        "sd_return_pct": 0.8614,
+        "max_drawdown_pct": -2.5,
+        "total_return_at_equal_volatility_pct": 26.07,
+        "gain_at_equal_volatility_pct": -0.08,
+        "raw_total_change_pct": 2.03,
+        "share_of_baseline_at_equal_volatility_pct": 99.68
+      },
+      "strategy_pine_bands": {
+        "n": 135,
+        "win_rate_pct": 54.07,
+        "mean_return_pct": 0.2236,
+        "total_return_pct": 30.19,
+        "sd_return_pct": 0.8835,
+        "max_drawdown_pct": -3.0,
+        "total_return_at_equal_volatility_pct": 27.23,
+        "gain_at_equal_volatility_pct": 1.08,
+        "raw_total_change_pct": 4.04,
+        "share_of_baseline_at_equal_volatility_pct": 104.12
+      }
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260831-005",
+  "generated_at": "2026-08-31T15:55:12Z",
+  "strategy": "S1 AweWithBB V3.9",
+  "method": {
+    "trades_total": 450,
+    "trades_labelled": 450,
+    "label": "%B above 1.0 on the last completed bar before the fill",
+    "conventions": {
+      "study_convention": "period 20, 2.0 sd, close, sample stdev — the convention RS-XAUUSD-20260823-002 published",
+      "strategy_pine_bands": "the Upper/Lower the strategy itself carries in the export"
+    },
+    "multipliers": [
+      1.25,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "measure": "total return scaled so the book's per-trade volatility matches baseline; raising size raises return and risk together and a raw total makes any increase look good",
+    "family_tests": 8,
+    "null": "the above-upper label shuffled; best equal-volatility gain kept",
+    "permutation_trials": 20000,
+    "random_seed": 20260831,
+    "chronological_split": 0.7,
+    "mirror_of": "RS-XAUUSD-20260831-004, which tested reducing on the weak side"
+  },
+  "baseline": {
+    "n": 450,
+    "win_rate_pct": 56.22,
+    "mean_return_pct": 0.1909,
+    "total_return_pct": 85.89,
+    "sd_return_pct": 0.7331,
+    "max_drawdown_pct": -3.83
+  }
+}
