@@ -30,32 +30,178 @@
     {
       "tone": "good",
       "title": "V3.2 outperforms V1.9 on every headline metric",
-      "detail": "WR +6.06pp (47.13% vs 41.07%), PF +0.512 (2.047 vs 1.535), on 67 fewer trades — fewer, higher-quality signals."
+      "detail": "WR +6.06pp (47.13% vs 41.07%), PF +0.512 (2.047 vs 1.535), on 67 fewer trades — fewer, higher-quality signals.",
+      "title_zh": "V3.2 在每一項標頭指標上都優於 V1.9",
+      "detail_zh": "勝率 +6.06 個百分點（47.13% 對 41.07%），獲利因子 +0.512（2.047 對 1.535），而且是在少做 67 筆交易的情況下達成——訊號更少但品質更好。"
     },
     {
       "tone": "good",
       "title": "MTF counter-trend penalty shrank sharply",
-      "detail": "The 4H-bearish win-rate gap narrowed from 4.76pp (V1.9) to 1.47pp (V3.2) — the Hammer-candle entry is less exposed to counter-trend risk than the Pullback entry was."
+      "detail": "The 4H-bearish win-rate gap narrowed from 4.76pp (V1.9) to 1.47pp (V3.2) — the Hammer-candle entry is less exposed to counter-trend risk than the Pullback entry was.",
+      "title_zh": "多時間框逆勢懲罰大幅縮小",
+      "detail_zh": "4H 空頭與順勢之間的勝率差距，從 V1.9 的 4.76 個百分點縮小到 V3.2 的 1.47 個百分點——Hammer K 棒進場比原本的 Pullback 進場更不受逆勢風險影響。"
     },
     {
       "tone": "warn",
       "title": "time_bleed share grew, not shrank",
-      "detail": "time_bleed rose from 53.8% to 57.8% of losses — V3.2 did not fix the strategy's core failure mode (dragging losers), it just has fewer losses overall."
+      "detail": "time_bleed rose from 53.8% to 57.8% of losses — V3.2 did not fix the strategy's core failure mode (dragging losers), it just has fewer losses overall.",
+      "title_zh": "時間耗損的占比上升了，不是下降",
+      "detail_zh": "時間耗損佔虧損的比例從 53.8% 升到 57.8%——V3.2 並沒有修好這個策略的核心失敗模式（把賠錢單拖著），只是整體虧損筆數變少了。"
     },
     {
       "tone": "warn",
       "title": "Both versions are low-n; V3.2 more so",
-      "detail": "V1.9 n=224, V3.2 n=157. Most 30-minute-slot and subgroup cells are single-digit-to-teens for V3.2; S2 V3.2 OOS confidence is limited. Treat every delta here as descriptive."
+      "detail": "V1.9 n=224, V3.2 n=157. Most 30-minute-slot and subgroup cells are single-digit-to-teens for V3.2; S2 V3.2 OOS confidence is limited. Treat every delta here as descriptive.",
+      "title_zh": "兩個版本樣本都小，V3.2 更小",
+      "detail_zh": "V1.9 n=224，V3.2 n=157。V3.2 在多數 30 分鐘時槽與子分組裡只有個位數到十幾筆交易；策略文件已標註 V3.2 的樣本外信心有限。本報告的每一項差異都只能當描述看。"
     },
     {
       "tone": "warn",
       "title": "Different entry rules confound every delta",
-      "detail": "V1.9 (Pullback) and V3.2 (Hammer-candle) are different signal implementations, not the same rule at two parameter settings — see the .pine source files for exact differences. Deltas may reflect the rule change, not a timing/regime effect."
+      "detail": "V1.9 (Pullback) and V3.2 (Hammer-candle) are different signal implementations, not the same rule at two parameter settings — see the .pine source files for exact differences. Deltas may reflect the rule change, not a timing/regime effect.",
+      "title_zh": "不同的進場規則混雜了每一項差異",
+      "detail_zh": "V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的訊號實作，不是同一條規則的兩組參數設定。差異可能來自規則改變，也可能來自市場狀態改變，兩者無法分離。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "What changed between S2 V1.9 and V3.2, and what did not.",
+  "question_zh": "對照 S2-Hammer V1.9 與 V3.2 兩份失敗型態報告，這兩個版本在整體績效、30 分鐘進場時槽、失敗型態占比、布林區位、DXY 狀態與多時間框對齊上，實際差在哪裡？",
+  "limitations_zh": [
+    "V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的進場實作，不是同一條規則的兩組參數設定。本報告的每一項差異都同時混雜了規則改變與市場狀態改變，無法分離歸因。",
+    "兩個版本樣本都小，V3.2 更小（224 對 157 筆）。切到 30 分鐘時槽與子分組後，V3.2 多數格子只有個位數到十幾筆交易；策略文件已標註 V3.2 的樣本外信心有限。",
+    "本報告只讀兩份既有 fail-pattern 報告的 results.json，不重新計算失敗型態分類，也沒有為任何差異計算可解析下限或置換檢定。所有差異都只能當描述看。",
+    "布林區位等分組在 V3.2 側有樣本數為個位數甚至 1 的格子（例如 below_lower），那幾格的勝率差異不具意義。",
+    "V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本；本報告為歷史／對照脈絡。"
+  ],
+  "interpretation_zh": "V3.2 在每一項標頭指標上都優於 V1.9：勝率 +6.06 個百分點（47.13% 對 41.07%）、獲利因子 +0.512（2.047 對 1.535），而且是在**少做 67 筆交易**（157 對 224）的情況下做到的。訊號變少但品質變好，這是版本升級最乾淨的一種樣貌。\n\n最明顯的結構性改善在逆勢暴露。V1.9 的 4H 空頭與順勢之間差 4.76 個百分點，V3.2 只差 **1.47 個百分點**——Hammer K 棒進場比原本的 Pullback 進場更不受逆勢環境影響。\n\n⚠️ 但有一項沒有被修好，而且方向相反：**時間耗損佔虧損的比例從 53.8% 上升到 57.8%**。V3.2 並沒有解決 S2 的核心失敗模式（把賠錢單拖著），它只是整體虧損筆數變少了。換句話說分子分母一起縮小，但那個病灶還在。這一點在只看標頭指標時完全看不出來。\n\n兩個必須一起讀的限制。第一，**樣本都小，V3.2 更小**：V1.9 有 224 筆、V3.2 只有 157 筆，切到 30 分鐘時槽與各子分組後，V3.2 多數格子只剩個位數到十幾筆；策略文件本身也已標註 V3.2 的樣本外信心有限。第二，也是更根本的一點：**V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的進場實作，不是同一條規則的兩組參數**。所以這裡每一項差異都同時混雜了「規則改變」與「市場狀態改變」，無法單獨歸因給任何一方。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff",
+        "profit_factor_diff"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "comparison_table",
+      "title": "Baseline: V1.9 vs V3.2 整體對照",
+      "takeaway_zh": "V3.2 在每一項上都較好，而且是在少做 67 筆交易的情況下達成的。注意兩者的 win_rate_ci95_pct 有重疊，樣本量不足以把差距與雜訊分開。",
+      "source": "baseline_diff",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor",
+        "avg_pnl_usd"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Fail-Type Share 失敗型態占比",
+      "takeaway_zh": "本報告最重要的一項：時間耗損從 53.8% 升到 57.8%，立即虧損則從 15.9% 降到 10.8%。V3.2 減少了「一開始就錯」，但把賠錢單拖著這個核心問題沒有改善，反而佔比更高。",
+      "chart_file": "fail_type_share_comparison.png",
+      "table_source": "fail_type_share_diff",
+      "table_title": "Fail-Type Share Delta",
+      "columns": [
+        "v1_pct",
+        "v2_pct",
+        "diff"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "4H Trend State 4H 趨勢狀態",
+      "takeaway_zh": "V3.2 在三種 4H 狀態下的勝率都比 V1.9 高，其中空頭狀態改善最多（38.2% → 46.15%）。這是逆勢懲罰縮小的直接來源。",
+      "chart_file": "mtf_4h_state_comparison.png",
+      "table_source": "mtf_4h_state_diff",
+      "table_title": "By 4H RSI State",
+      "columns": [
+        "v1_n",
+        "v2_n",
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff_v2_minus_v1"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Counter-Trend Gap 逆勢差距",
+      "takeaway_zh": "把順勢與逆勢並排看：V1.9 兩者相差 4.76 個百分點（42.96% 對 38.20%），V3.2 只差 1.47 個百分點（47.62% 對 46.15%）。逆勢暴露確實下降了。",
+      "source": "mtf_conflict_diff",
+      "columns": [
+        "v1_n",
+        "v2_n",
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff_v2_minus_v1"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "30-Minute Entry Slots 進場時槽",
+      "takeaway_zh": "48 個時槽的逐格差異。V3.2 那一側多數格子只有個位數交易，因此這張表只能看整體形狀，不能挑單一格子當結論。",
+      "chart_file": "entry_slot_30m_diff.png",
+      "table_source": "by_entry_30m_diff",
+      "table_title": "By 30-Minute Slot",
+      "columns": [
+        "v1_n",
+        "v2_n",
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff_v2_minus_v1"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "DXY Regime DXY 狀態",
+      "takeaway_zh": "依 DXY 的 RSI 區間分組的版本差異，為描述性脈絡。",
+      "chart_file": "dxy_bucket_comparison.png",
+      "table_source": "dxy_bucket_diff",
+      "table_title": "By DXY Bucket",
+      "columns": [
+        "v1_n",
+        "v2_n",
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff_v2_minus_v1"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Bollinger Band Zone 布林區位",
+      "takeaway_zh": "⚠️ 這張表要特別小心：V3.2 在部分分區只有 1 筆交易（例如 below_lower），那幾格的勝率差異純粹是樣本量造成的，不具意義。",
+      "chart_file": "bb_zone_comparison.png",
+      "table_source": "bb_zone_diff",
+      "table_title": "By BB Zone",
+      "columns": [
+        "v1_n",
+        "v2_n",
+        "v1_win_rate_pct",
+        "v2_win_rate_pct",
+        "win_rate_pct_diff_v2_minus_v1"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
