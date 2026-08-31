@@ -16,7 +16,7 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">9 個已提出但尚未回答的問題，依優先序排列。已回答 6　未回答 3。</p>
+<p class="lede">9 個已提出但尚未回答的問題，依優先序排列。已回答 9。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
 <div class="backlog-list"><article class="backlog-item" data-status="answered"
@@ -63,17 +63,17 @@
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260815-001/">RS-XAUUSD-20260815-001</a>｜T+1 守住訊號低點把 S1 全樣本勝率從 55.15% 拉到 60.83%，並在驗證區維持（48.0%→57.14%）——但那是不同的條件。</li><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜固定百分比停損搭配固定比例風險，已經把報酬對波動度正規化；任何新的出場規則都必須在相同波動度下比較，否則會誤判。</li></ul></div>
 <p class="backlog-next"><strong>下一步：</strong>已回答：訊號有效，行動無效。第一根 K 棒的浮盈與否把勝率分成 66.81% 對 44.34%，22.47 個百分點的差距跨過 13.13 的可分辨門檻，而且在驗證區從 17.79 擴大到 34.35。但八條減碼／出場規則全部虧錢，最好的仍少賺 12.70 個百分點，完全出場還把勝率打掉 15–21 個百分點。原因：被標記的 212 筆仍有 44.34% 會獲利、整組仍貢獻 +7.32 個百分點，砍掉會一併丟掉約 94 筆贏家。未測的相反方向是「對有浮盈的一側加碼」，那是不同的問題。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-004/">RS-XAUUSD-20260831-004</a> 回答。</p>
-</article><article class="backlog-item" data-status="open"
+</article><article class="backlog-item" data-status="answered"
  data-priority="2">
 <header><span class="backlog-id">BL-004</span>
 <span class="tag prio-2">優先 中</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>週報的命中率回顧</h3>
 <p class="backlog-question">已發布的週報劇本、機率與關鍵價位，事後對照實際走勢的命中率是多少？哪一類判斷（方向、區間、事件風險）比較可靠？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>週報是這個站的主要產品，但它自己從來沒有被回測過。樣本目前很小（三期），所以第一版的產出應該是「方法與記分規則」加上一個誠實的可分辨門檻，而不是一個命中率數字。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><p class="empty-note">尚無已發布研究涉及此題。</p></div>
-<p class="backlog-next"><strong>下一步：</strong>先定義記分規則並凍結，再逐期評分；三期無法支撐任何結論，重點是建立一個之後每週自動累積的評分表。</p>
-
+<p class="backlog-next"><strong>下一步：</strong>已回答（部分）：評分規則已凍結並套用。兩期可評分、W36 的預測週尚未走完。方向命中率不可用——唯一那次命中取決於 W34「偏多 38%／盤整 38%」的平手怎麼拆（2 中 1 或 2 中 0）；而兩期能分辨的最小偏離是 99.07 個百分點，大於理論最大值 50。可累積的度量是 Brier：兩期平均 0.7157，優於任何固定答案（最好 1.0）。每完成一期就重跑一次即可累積。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260901-002/">RS-XAUUSD-20260901-002</a> 回答。</p>
 </article><article class="backlog-item" data-status="answered"
  data-priority="2">
 <header><span class="backlog-id">BL-005</span>
@@ -85,28 +85,28 @@
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260815-001/">RS-XAUUSD-20260815-001</a>｜全樣本 43.08%→46.00%（n=50），驗證區 20.00%→20.00%（n=15），延兩根 15.38%。驗證區基準本身只有 20.0%（n=20）。</li><li><a href="../studies/RS-XAUUSD-20260815-002/">RS-XAUUSD-20260815-002</a>｜S2 驗證區整體基準掉到 33.33%。</li><li><a href="../studies/RS-XAUUSD-20260818-005/">RS-XAUUSD-20260818-005</a>｜S2 在 2026 年的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 單獨的年度。</li></ul></div>
 <p class="backlog-next"><strong>下一步：</strong>已回答：衰退 101.6% 來自盤別內部，四個盤別全部下跌，亞盤跌幅是第三大——沒有亞盤現象。S1 在完全相同期間沒有衰退，因此也不是市場現象。最合理的讀法是純多方均值回歸失去了它依賴的上升趨勢（黃金 +98.7% → −0.82%，波動度 +77%），但那是一次前後比較，且衰退本身 p=0.0619。留下的前瞻預測不需要新資料、只需要時間：若解釋正確，S2 應在黃金重新進入持續趨勢時回復。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-002/">RS-XAUUSD-20260831-002</a> 回答。</p>
-</article><article class="backlog-item" data-status="open"
+</article><article class="backlog-item" data-status="answered"
  data-priority="3">
 <header><span class="backlog-id">BL-006</span>
 <span class="tag prio-3">優先 低</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>黃金日內波動的邊界結構</h3>
 <p class="backlog-question">日內波動是否存在可用的上下邊界（例如當日已實現振幅相對預測振幅的比例），而該比例能否用於出場或等待更好價格？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>波動度是這批資料裡唯一被證明可預測的量（HOLDOUT Spearman 0.571），而已知的失敗是「拿它去調整停損或部位大小沒有幫助」。尚未測過的是把它用在「今天還剩多少空間」這個方向上。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜方向不可預測（最大 |IC| 0.0399），波動度可預測（HOLDOUT 0.571）；但波動度調整停損最好只有基準的 91.3%，部位調整 100.3%——都沒有勝過不做。</li><li><a href="../studies/RS-XAUUSD-20260819-001/">RS-XAUUSD-20260819-001</a>｜每日極值在台北時間 9、21、22、23 時集中、4 時稀少，且該結構是非方向性的——這是目前唯一存活的時間結構。</li><li><a href="../studies/RS-XAUUSD-20260823-001/">RS-XAUUSD-20260823-001</a>｜已量化日內區間累積的形狀。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>接續 20260823-001 的區間累積曲線，測「已實現／預測振幅」比例對後續延伸幅度的關係。</p>
-
-</article><article class="backlog-item" data-status="open"
+<p class="backlog-next"><strong>下一步：</strong>已回答：邊界是算術，不是結構。「已實現 x% 之後還會延伸多少」在每個十分位都等於 1−x，誤差一個百分點內。但時間結構是真的：對照每日自身變動打散，區間在前三分之二比隨機慢、0.667 之後比隨機快（最大領先 +0.043），而 0.667 以 07:00 為日界正是 23:00——與 RS-XAUUSD-20260819-001 用打散極值時點找到的 21:00–23:00 一致。這是對既有發現的獨立確認，不是新發現。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260901-003/">RS-XAUUSD-20260901-003</a> 回答。</p>
+</article><article class="backlog-item" data-status="answered"
  data-priority="3">
 <header><span class="backlog-id">BL-007</span>
 <span class="tag prio-3">優先 低</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>Hurst 指數：波動可預測而方向不可預測，是否有更一般的描述</h3>
 <p class="backlog-question">XAUUSD 30 分鐘序列的 Hurst 指數是多少、是否隨時間穩定，以及它能否解釋「方向不可預測但波動可預測」這個已觀察到的結構？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>「不能預測方向、但能預測波動」已經被量化過，但沒有被放進任何一般化的框架。Hurst 指數是最直接的候選，而本站尚未做過。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜這正是該研究的核心結論；Hurst 是它沒有做的一般化。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>先確認估計方法對樣本長度與雜訊的敏感度，再談解釋；Hurst 極易在短序列上給出假結構。</p>
-
+<p class="backlog-next"><strong>下一步：</strong>已回答：沒有東西。Hurst 0.5502，而同一估計式在打散後的報酬上是 0.5491——差距 0.0011，小於三個時序區段之間的離散度 0.0158，且落在對照組 5–95 百分位帶內。0.55 這個數字照慣例會被讀成持續性序列，但那完全是重標度全距在有限樣本上的偏誤。長記憶不解釋「方向不可預測、波動可預測」的不對稱——那個不對稱仍未被解釋。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260901-003/">RS-XAUUSD-20260901-003</a> 回答。</p>
 </article><article class="backlog-item" data-status="answered"
  data-priority="3">
 <header><span class="backlog-id">BL-008</span>

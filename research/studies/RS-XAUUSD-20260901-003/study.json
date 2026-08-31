@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-003",
+  "revision": 1,
+  "title": "Hurst is the estimator, the range boundary is arithmetic, and the range timing was already known",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "none",
+    "version": "market structure"
+  },
+  "status": "progress",
+  "created_on": "2026-09-01",
+  "question": "Direction is not forecastable on this series and volatility is. Does a Hurst exponent explain that asymmetry, and does the intraday range have a boundary worth acting on?",
+  "hypothesis": "Hurst will be near 0.5 once its own bias is controlled for, and the range extension will be arithmetic. The timing may not be.",
+  "headline": {
+    "bars": 30959,
+    "trading_days": 672,
+    "hurst_series": 0.5502,
+    "hurst_shuffled_control": 0.5491,
+    "hurst_separation": 0.0011,
+    "hurst_spread_across_thirds": 0.0158,
+    "largest_range_excess_over_null": 0.0433,
+    "turn_point_taipei_hour": 23
+  },
+  "card_metrics": [
+    "hurst_series",
+    "hurst_shuffled_control",
+    "hurst_separation",
+    "largest_range_excess_over_null"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The Hurst persistence is entirely the estimator's own bias",
+      "detail": "Rescaled range returns 0.5502 on the series and 0.5491 on the same returns shuffled. The separation is 0.0011, against a spread of 0.0158 across the three chronological thirds, and the estimate sits inside the control's 5th-to-95th band. A reading of 0.55 is conventionally reported as a persistent series; here there is no persistence to report.",
+      "title_zh": "Hurst 顯示的持續性完全來自估計式自身的偏誤",
+      "detail_zh": "重標度全距在序列上給出 0.5502，在同一批報酬打散後給出 0.5491。差距 0.0011，而三個時序區段之間的離散度就有 0.0158，且估計值落在對照組的 5–95 百分位帶內。0.55 這個數字照慣例會被報告成「持續性序列」；在這裡沒有任何持續性可以報告。"
+    },
+    {
+      "tone": "info",
+      "title": "So Hurst does not explain the direction-versus-volatility asymmetry",
+      "detail": "RS-XAUUSD-20260818-004 found direction unforecastable at a largest |IC| of 0.0399 while volatility forecasts at Spearman 0.571 out of sample. Long memory in returns was the obvious candidate explanation and it is not there. The asymmetry stands unexplained rather than explained.",
+      "title_zh": "因此 Hurst 沒有解釋「方向不可預測、波動可預測」這個不對稱",
+      "detail_zh": "RS-XAUUSD-20260818-004 量到方向最大 |IC| 只有 0.0399，而波動度在 HOLDOUT 上有 Spearman 0.571。報酬的長記憶是最明顯的候選解釋，而它不存在。這個不對稱仍然沒有被解釋，而不是被解釋了。"
+    },
+    {
+      "tone": "warn",
+      "title": "The range boundary is arithmetic and carries no information",
+      "detail": "Given x% of a day's range already realised, the mean further extension is 1 - x to within a percentage point in every decile: 0.9288 at the 0-10% bucket, 0.5507 at 40-50%, 0.0112 at 90-100%. The definition forces this. There is no boundary here to act on.",
+      "title_zh": "區間邊界是算術，不含任何資訊",
+      "detail_zh": "在每個十分位上，「後續還會延伸多少」都等於 1 減去已實現比例，誤差在一個百分點內：0–10% 格是 0.9288、40–50% 格是 0.5507、90–100% 格是 0.0112。這是定義強制的結果，沒有可以據以行動的邊界。"
+    },
+    {
+      "tone": "good",
+      "title": "The range timing is real, and it lands on hours already found by another method",
+      "detail": "Against a shuffle of each day's own moves, the range fills slower than chance through the first two thirds — deficit peaking at -0.059 — then faster, peaking at +0.043 after 0.667 of the day. For a day starting 07:00 Taipei that turn is 23:00, inside the 21:00-23:00 window RS-XAUUSD-20260819-001 found by shuffling extreme timing. Two unrelated methods, the same hours.",
+      "title_zh": "但區間的「時間結構」是真的，而且落在另一個方法早就找到的時段上",
+      "detail_zh": "以每日自身變動打散為對照，真實區間在前三分之二比隨機更慢填滿（最大落後 −0.059），0.667 之後更快（最大領先 +0.043）。以台北時間 07:00 為日界，那個轉折就是 23:00——落在 RS-XAUUSD-20260819-001 以打散極值時點找到的 21:00–23:00 窗口內。兩個不相關的方法、同樣的時段。"
+    },
+    {
+      "tone": "info",
+      "title": "A first draft of that comparison pointed the opposite way",
+      "detail": "The real curve was built from bar highs and lows and the null from a close path, which credits the real series with a first bar that already has a range. That version showed a +0.109 excess early, the reverse of the corrected -0.011. Build the null on the same basis as the thing it is a null for.",
+      "title_zh": "這個比較的第一版方向完全相反",
+      "detail_zh": "第一版用最高最低價算真實曲線、用收盤價路徑算虛無曲線，等於讓真實序列在第一根就已經有區間、而虛無從零開始。那一版在開盤處顯示 +0.109 的領先，與修正後的 −0.011 方向相反。虛無對照必須和它所對照的東西建立在同一個基礎上。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Two backlog items, closed — and one of them only because the control was run.",
+  "question_zh": "這個序列的方向不可預測、波動度可預測。Hurst 指數能解釋這個不對稱嗎？以及，日內區間有沒有一個值得據以行動的邊界？",
+  "limitations_zh": [
+    "Hurst 僅使用重標度全距（R/S）一種估計式。其他估計式（如 DFA）的偏誤結構不同，本研究不排除它們會給出不同的數值——但任何估計式都必須附上自己的打散對照組才有意義。",
+    "打散對照組 200 次；估計式本身在小樣本上的偏誤是本研究的主要發現，而非被消除的干擾。",
+    "區間填充曲線以「日內逐根變動打散」為虛無對照，保留每日自身的變動分布、只破壞順序；它不控制跨日的波動度聚集。",
+    "日界固定為台北時間 07:00（沿用 RS-XAUUSD-20260819-001）；換一個日界會改變曲線的形狀與轉折位置。",
+    "區間延伸的「1 減已實現」關係是定義強制的恆等式，本研究將其記錄為零資訊，而非測量結果。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "兩個 backlog 題目一起關掉，而其中一個之所以能關掉，完全是因為跑了對照組。\n\n**Hurst 的部分。** 重標度全距在這個序列上給出 0.5502。如果就這樣報告，它會被讀成「這是一個持續性序列」（H>0.5）——這是最常見的讀法。但把同一批報酬隨機打散、用同一個估計式再算一次，得到的是 **0.5491**。差距 0.0011，而三個時序區段之間的離散度就有 0.0158。換句話說，**那個「持續性」完全是估計式自己在有限樣本上的偏誤**，不是市場的記憶。這是本計畫中最乾淨的一次「對照組改變答案、而不只是替答案加註」。\n\n因此 Hurst 也沒有解釋那個不對稱。RS-XAUUSD-20260818-004 量到方向的最大 |IC| 只有 0.0399，而波動度在 HOLDOUT 上有 0.571。報酬序列的長記憶是最明顯的候選解釋，而它不在那裡。這個不對稱仍然沒有被解釋。\n\n**區間邊界的部分要分成兩半看。**\n\n「已經走了多少、還剩多少」這個問題是**算術**，不是結構：在每一個十分位上，「後續還會延伸多少」都等於 1 減去「已實現比例」，誤差在一個百分點之內。這是定義本身強制的結果，不含任何關於市場的資訊。所以沒有可以拿來行動的邊界。\n\n但「什麼時候走完」是真的。把每一天自己的逐根變動打散、只破壞順序之後，真實的區間在前三分之二**比隨機更慢**填滿（最大落後 −0.059），在 0.667 之後**比隨機更快**（最大領先 +0.043）。以台北時間 07:00 為日界，0.667 正好是 **23:00**——而那落在 RS-XAUUSD-20260819-001 用完全不同的方法（打散極值時點）找到的 21:00–23:00 集中窗口裡。兩個不相關的方法指向同樣的時段。這不是新發現，是對既有發現的獨立確認。\n\n最後記一個方法上的教訓。這個比較的第一版把「用最高最低價算的真實曲線」拿去對「用收盤價路徑建構的虛無曲線」比——等於讓真實序列在第一根就已經有區間，而虛無路徑從零開始。那一版在開盤處顯示 +0.109 的領先，方向與修正後的 −0.011 完全相反。**虛無對照必須和它所對照的東西建立在同一個基礎上**，否則它會製造出結論。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "hurst_series",
+        "hurst_shuffled_control",
+        "hurst_separation",
+        "largest_range_excess_over_null"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "hurst.estimates",
+      "title": "Hurst Estimates 各期估計值",
+      "keys": [
+        "whole_series",
+        "first_third",
+        "second_third",
+        "final_third"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "hurst.shuffled_control",
+      "title": "The Shuffled Control 打散對照組（同一個估計式，沒有記憶的序列）",
+      "keys": [
+        "trials",
+        "median",
+        "p05",
+        "p95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "intraday_range.fill_curve",
+      "title": "How the Day's Range Fills 日內區間的填充曲線（對照打散虛無）",
+      "takeaway_zh": "看最後一欄。前三分之二真實序列比隨機**更慢**填滿（最大落後 −0.059），0.667 之後轉為**更快**（最大領先 +0.043）。以 07:00 為日界，0.667 就是 23:00——與 RS-XAUUSD-20260819-001 用完全不同方法找到的21:00–23:00 極值集中窗口一致。mean close basis 與 mean under shuffled null 兩欄是同基礎比較；mean share of range realised 是用最高最低價算的描述性曲線，不可與虛無直接相減。",
+      "columns": [
+        "share_of_day_elapsed",
+        "n",
+        "mean_share_of_range_realised",
+        "mean_close_basis",
+        "mean_under_shuffled_null",
+        "excess_over_null"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "intraday_range.extension_by_realised_decile",
+      "title": "Further Extension by Realised Decile 依已實現比例分組的後續延伸",
+      "takeaway_zh": "每一列的「後續延伸」都等於 1 減去該格的中點，誤差在一個百分點內。這是定義強制的恆等式——這張表沒有任何關於市場的資訊，放在這裡是為了說明「已經走了多少」不能拿來預測「還會走多少」。",
+      "columns": [
+        "range_realised_decile",
+        "n",
+        "mean_further_extension_share"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

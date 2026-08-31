@@ -1,0 +1,219 @@
+{
+  "editions": [
+    {
+      "week": "2026-W34",
+      "from": "2026-08-17",
+      "to": "2026-08-23",
+      "prior_close": 4370.92,
+      "close": 4624.27,
+      "high": 4631.91,
+      "low": 4325.97,
+      "move_pct": 5.796,
+      "actual_direction": "bullish",
+      "forecast_top_direction": "bullish",
+      "forecast_top_probability": 38,
+      "direction_hit": true,
+      "top_was_a_tie": true,
+      "tied_directions": [
+        "bullish",
+        "range"
+      ],
+      "hit_under_any_tie_break": true,
+      "hit_under_every_tie_break": false,
+      "probability_vector": {
+        "bullish": 0.38,
+        "range": 0.38,
+        "bearish": 0.24
+      },
+      "brier_score": 0.5864,
+      "key_levels_total": 6,
+      "key_levels_touched": 4,
+      "key_levels": [
+        {
+          "label": "weekend close",
+          "values": [
+            4376.16
+          ],
+          "touched": true
+        },
+        {
+          "label": "bullish trigger",
+          "values": [
+            4397.78,
+            4405.77
+          ],
+          "touched": true
+        },
+        {
+          "label": "near support",
+          "values": [
+            4356.88,
+            4374.4
+          ],
+          "touched": true
+        },
+        {
+          "label": "bearish confirmation",
+          "values": [
+            4311.01
+          ],
+          "touched": false
+        },
+        {
+          "label": "upper objective",
+          "values": [
+            4432.32,
+            4449.73
+          ],
+          "touched": true
+        },
+        {
+          "label": "lower extension",
+          "values": [
+            4283.45
+          ],
+          "touched": false
+        }
+      ],
+      "first_target": 4405.77,
+      "first_target_reached": true
+    },
+    {
+      "week": "2026-W35",
+      "from": "2026-08-24",
+      "to": "2026-08-30",
+      "prior_close": 4624.27,
+      "close": 4458.73,
+      "high": 4695.94,
+      "low": 4444.64,
+      "move_pct": -3.58,
+      "actual_direction": "bearish",
+      "forecast_top_direction": "range",
+      "forecast_top_probability": 40,
+      "direction_hit": false,
+      "top_was_a_tie": false,
+      "tied_directions": [
+        "range"
+      ],
+      "hit_under_any_tie_break": false,
+      "hit_under_every_tie_break": false,
+      "probability_vector": {
+        "range": 0.4,
+        "bullish": 0.35,
+        "bearish": 0.25
+      },
+      "brier_score": 0.845,
+      "key_levels_total": 8,
+      "key_levels_touched": 8,
+      "key_levels": [
+        {
+          "label": "Breakout trigger",
+          "values": [
+            4659.03
+          ],
+          "touched": true
+        },
+        {
+          "label": "Buy-side liquidity / cap",
+          "values": [
+            4632.22,
+            4636.92
+          ],
+          "touched": true
+        },
+        {
+          "label": "Pivot",
+          "values": [
+            4601.4,
+            4605.87
+          ],
+          "touched": true
+        },
+        {
+          "label": "First support",
+          "values": [
+            4574.82,
+            4581.43
+          ],
+          "touched": true
+        },
+        {
+          "label": "Second support",
+          "values": [
+            4543.87,
+            4563.26
+          ],
+          "touched": true
+        },
+        {
+          "label": "Reversal watch zone",
+          "values": [
+            4495.02,
+            4519.81
+          ],
+          "touched": true
+        },
+        {
+          "label": "Structure defense",
+          "values": [
+            4450.39,
+            4484.79
+          ],
+          "touched": true
+        },
+        {
+          "label": "First upside target",
+          "values": [
+            4691.14,
+            4723.09
+          ],
+          "touched": true
+        }
+      ],
+      "first_target": 4543.87,
+      "first_target_reached": true
+    }
+  ],
+  "not_scored": [
+    {
+      "week": "2026-W36",
+      "reason": "price data does not cover the full week",
+      "bars_available": 0
+    }
+  ],
+  "totals": {
+    "editions_scored": 2,
+    "direction_hits": 1,
+    "direction_hits_if_ties_break_favourably": 1,
+    "direction_hits_if_ties_break_unfavourably": 0,
+    "editions_with_a_tied_top_scenario": 1,
+    "direction_hit_rate_pct": 50.0,
+    "smallest_resolvable_deviation_from_coin_flip_pct_points": 99.07,
+    "mean_brier_score": 0.7157,
+    "brier_of_always_saying_range": 2.0,
+    "key_levels_total": 14,
+    "key_levels_touched": 12,
+    "key_level_touch_rate_pct": 85.71,
+    "first_targets_reached": 2,
+    "brier_of_always_saying_bullish": 1.0,
+    "brier_of_always_saying_bearish": 1.0,
+    "modal_actual_direction": "bullish"
+  },
+  "verdict": {
+    "resolvable": false,
+    "why": "Two editions cannot separate any hit rate from a coin flip: the bound is 99.07 percentage points against a maximum possible deviation of 50. The scorecard is the deliverable; the rate is not."
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-002",
+  "generated_at": "2026-08-31T16:23:17Z",
+  "method": {
+    "editions_found": 3,
+    "editions_scored": 2,
+    "direction_band_pct": 1.0,
+    "direction_rule": "close versus the prior weekly close; inside +/-1.0% is range",
+    "brier": "squared error over the full three-way probability vector, so hedging is not rewarded",
+    "level_rule": "a numeric key level is in play if the week's range touched it",
+    "bound": "the smallest deviation from a coin flip these many editions could separate, at alpha 0.05 and power 0.80",
+    "frozen_before_outcomes_were_read": true
+  }
+}

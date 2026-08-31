@@ -1,0 +1,214 @@
+{
+  "hurst": {
+    "estimates": {
+      "whole_series": 0.5502,
+      "first_third": 0.5406,
+      "second_third": 0.5564,
+      "final_third": 0.5521
+    },
+    "shuffled_control": {
+      "trials": 200,
+      "median": 0.5491,
+      "p05": 0.5389,
+      "p95": 0.564,
+      "note": "A shuffle destroys memory, so this is what the estimator returns on a series with none. It is the reference point, not 0.5 in theory."
+    },
+    "period_spread": 0.0158,
+    "separation_from_control": 0.0011,
+    "exceeds_period_spread": false
+  },
+  "intraday_range": {
+    "fill_curve": [
+      {
+        "share_of_day_elapsed": 0.0,
+        "n": 1344,
+        "mean_share_of_range_realised": 0.1497,
+        "mean_close_basis": 0.0299,
+        "mean_under_shuffled_null": 0.0412,
+        "excess_over_null": -0.0113
+      },
+      {
+        "share_of_day_elapsed": 0.083,
+        "n": 2686,
+        "mean_share_of_range_realised": 0.2929,
+        "mean_close_basis": 0.2002,
+        "mean_under_shuffled_null": 0.2132,
+        "excess_over_null": -0.013
+      },
+      {
+        "share_of_day_elapsed": 0.167,
+        "n": 2670,
+        "mean_share_of_range_realised": 0.4231,
+        "mean_close_basis": 0.3527,
+        "mean_under_shuffled_null": 0.3631,
+        "excess_over_null": -0.0104
+      },
+      {
+        "share_of_day_elapsed": 0.25,
+        "n": 2582,
+        "mean_share_of_range_realised": 0.4776,
+        "mean_close_basis": 0.4223,
+        "mean_under_shuffled_null": 0.4714,
+        "excess_over_null": -0.0492
+      },
+      {
+        "share_of_day_elapsed": 0.333,
+        "n": 2685,
+        "mean_share_of_range_realised": 0.5539,
+        "mean_close_basis": 0.5106,
+        "mean_under_shuffled_null": 0.5609,
+        "excess_over_null": -0.0503
+      },
+      {
+        "share_of_day_elapsed": 0.417,
+        "n": 2670,
+        "mean_share_of_range_realised": 0.6215,
+        "mean_close_basis": 0.5881,
+        "mean_under_shuffled_null": 0.639,
+        "excess_over_null": -0.0509
+      },
+      {
+        "share_of_day_elapsed": 0.5,
+        "n": 2033,
+        "mean_share_of_range_realised": 0.6682,
+        "mean_close_basis": 0.6446,
+        "mean_under_shuffled_null": 0.7002,
+        "excess_over_null": -0.0556
+      },
+      {
+        "share_of_day_elapsed": 0.583,
+        "n": 2670,
+        "mean_share_of_range_realised": 0.717,
+        "mean_close_basis": 0.6957,
+        "mean_under_shuffled_null": 0.7547,
+        "excess_over_null": -0.059
+      },
+      {
+        "share_of_day_elapsed": 0.667,
+        "n": 2685,
+        "mean_share_of_range_realised": 0.8469,
+        "mean_close_basis": 0.8199,
+        "mean_under_shuffled_null": 0.8147,
+        "excess_over_null": 0.0052
+      },
+      {
+        "share_of_day_elapsed": 0.75,
+        "n": 2582,
+        "mean_share_of_range_realised": 0.9301,
+        "mean_close_basis": 0.912,
+        "mean_under_shuffled_null": 0.8687,
+        "excess_over_null": 0.0433
+      },
+      {
+        "share_of_day_elapsed": 0.833,
+        "n": 2670,
+        "mean_share_of_range_realised": 0.9625,
+        "mean_close_basis": 0.953,
+        "mean_under_shuffled_null": 0.919,
+        "excess_over_null": 0.034
+      },
+      {
+        "share_of_day_elapsed": 0.917,
+        "n": 2686,
+        "mean_share_of_range_realised": 0.9875,
+        "mean_close_basis": 0.9843,
+        "mean_under_shuffled_null": 0.9696,
+        "excess_over_null": 0.0147
+      },
+      {
+        "share_of_day_elapsed": 1.0,
+        "n": 672,
+        "mean_share_of_range_realised": 1.0,
+        "mean_close_basis": 1.0,
+        "mean_under_shuffled_null": 1.0,
+        "excess_over_null": 0.0
+      }
+    ],
+    "extension_by_realised_decile": [
+      {
+        "range_realised_decile": "0-10%",
+        "n": 784,
+        "mean_further_extension_share": 0.9288
+      },
+      {
+        "range_realised_decile": "10-20%",
+        "n": 1785,
+        "mean_further_extension_share": 0.8485
+      },
+      {
+        "range_realised_decile": "20-30%",
+        "n": 2376,
+        "mean_further_extension_share": 0.7476
+      },
+      {
+        "range_realised_decile": "30-40%",
+        "n": 2548,
+        "mean_further_extension_share": 0.6481
+      },
+      {
+        "range_realised_decile": "40-50%",
+        "n": 2774,
+        "mean_further_extension_share": 0.5507
+      },
+      {
+        "range_realised_decile": "50-60%",
+        "n": 2628,
+        "mean_further_extension_share": 0.45
+      },
+      {
+        "range_realised_decile": "60-70%",
+        "n": 2534,
+        "mean_further_extension_share": 0.3506
+      },
+      {
+        "range_realised_decile": "70-80%",
+        "n": 2366,
+        "mean_further_extension_share": 0.2455
+      },
+      {
+        "range_realised_decile": "80-90%",
+        "n": 2210,
+        "mean_further_extension_share": 0.1508
+      },
+      {
+        "range_realised_decile": "90-100%",
+        "n": 9958,
+        "mean_further_extension_share": 0.0112
+      }
+    ],
+    "extension_is_arithmetic": "each bucket's mean further extension is 1 minus its own midpoint to within a percentage point, which is what the definition forces; it carries no information about the market",
+    "largest_excess_over_null": 0.0433
+  },
+  "verdict": {
+    "hurst_distinguishable_from_no_memory": false,
+    "hurst_stable_across_thirds": true,
+    "note": "The extension curve falls by construction — the more of a day's range is already realised, the less can remain — so its shape is not evidence on its own. What matters is whether it falls faster than arithmetic requires, and this study reports the curve rather than claiming that."
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-003",
+  "generated_at": "2026-08-31T16:26:57Z",
+  "strategy": "none — market structure",
+  "method": {
+    "bars": 30959,
+    "returns": 30958,
+    "trading_days": 672,
+    "day_boundary_hour_taipei": 7,
+    "hurst_estimator": "rescaled range, slope of log(R/S) against log(window)",
+    "hurst_windows": [
+      16,
+      32,
+      64,
+      128,
+      256,
+      512
+    ],
+    "hurst_control": "the same estimator on shuffled returns",
+    "shuffle_trials": 200,
+    "random_seed": 20260901,
+    "answers": [
+      "BL-007 (Hurst)",
+      "BL-006 (intraday range boundary)"
+    ],
+    "prior": "RS-XAUUSD-20260818-004 established direction is not forecastable (largest |IC| 0.0399) while volatility is (holdout Spearman 0.571)"
+  }
+}

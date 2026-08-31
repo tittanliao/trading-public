@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-002",
+  "revision": 1,
+  "title": "Scoring the weekly report — the rubric, and why two editions cannot produce a hit rate",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "weekly-report",
+    "version": "n/a"
+  },
+  "status": "progress",
+  "created_on": "2026-09-01",
+  "question": "The weekly report is this programme's main product and has never been scored against what happened. What is a fair scoring rule, and what do the completed editions say under it?",
+  "hypothesis": "Nothing will be resolvable. The value is a frozen rubric that accumulates, and a bound that says how long before it means anything.",
+  "headline": {
+    "editions_published": 3,
+    "editions_scored": 2,
+    "direction_hits_favourable_tie_break": 1,
+    "direction_hits_unfavourable_tie_break": 0,
+    "mean_brier_score": 0.7157,
+    "best_constant_baseline_brier": 1.0,
+    "resolution_bound_pct_points": 99.07,
+    "key_levels_touched": 12,
+    "key_levels_total": 14
+  },
+  "card_metrics": [
+    "editions_scored",
+    "mean_brier_score",
+    "best_constant_baseline_brier",
+    "resolution_bound_pct_points"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Two editions cannot separate any hit rate from a coin flip",
+      "detail": "The smallest deviation from 50% that two observations could resolve is 99.07 percentage points. The maximum possible deviation is 50. So no direction rate computed here is evidence of anything, and the rubric rather than the rate is the deliverable.",
+      "title_zh": "兩期無法把任何命中率與丟銅板分辨開來",
+      "detail_zh": "兩個觀察值能夠分辨的最小偏離是 99.07 個百分點，而理論上最大可能的偏離只有 50。所以這裡算出的任何方向比率都不是證據——規則本身才是這份研究的產出。"
+    },
+    {
+      "tone": "warn",
+      "title": "The one direction hit depends on how a tie is broken",
+      "detail": "W34's adopted scenarios put bullish and range both at 38%, so 'the highest-probability scenario' is not well defined. Breaking the tie toward bullish gives 1 hit of 2; breaking it toward range gives 0 of 2. The scorecard records both and resolves neither.",
+      "title_zh": "唯一一次方向命中，取決於平手怎麼拆",
+      "detail_zh": "W34 的劇本把「偏多」與「盤整」都放在 38%，因此「機率最高的劇本」沒有定義。往偏多拆是 2 中 1，往盤整拆是 2 中 0。計分表兩個都記錄，不替它做決定。"
+    },
+    {
+      "tone": "good",
+      "title": "The Brier score does not depend on the tie, and beats every constant baseline",
+      "detail": "Mean Brier over the full three-way probability vector is 0.7157, against 1.0 for always naming bullish or bearish with certainty and 2.0 for always naming range. Using the whole vector means a report cannot score well by hedging. On two editions this is not evidence, but it is the measure worth accumulating.",
+      "title_zh": "Brier 分數不受平手影響，而且優於所有固定基準",
+      "detail_zh": "以完整三向機率向量計算的平均 Brier 是 0.7157，而「每週篤定說偏多」或「篤定說偏空」是 1.0、「篤定說盤整」是 2.0。用完整向量計分，代表報告無法靠分散押注取得好分數。兩期樣本上這不是證據，但它是值得累積的度量。"
+    },
+    {
+      "tone": "info",
+      "title": "Key levels and targets are descriptive, not skill",
+      "detail": "12 of 14 numeric key levels were touched and both top-scenario first targets were reached. A level nominated because price is near it will usually be touched, so these are reported as rates and are deliberately not scored as forecasts.",
+      "title_zh": "關鍵價位與目標是描述性統計，不是技能評分",
+      "detail_zh": "14 個數值型關鍵價位中有 12 個被觸及，兩期的第一目標都達到。但一個因為價格就在附近而被提名的價位本來就大概率會被觸及，所以這兩項刻意只以比率呈現，不計入預測技能。"
+    },
+    {
+      "tone": "info",
+      "title": "Both scored weeks moved far outside the range band, and range was the top or joint-top call",
+      "detail": "W34 moved +5.80% and W35 -3.58%, against a band of ±1.0%. Range was joint-top in W34 and top in W35. If that persists it would suggest the reports under-forecast weekly volatility — but two weeks cannot establish it, and it is recorded as the thing to watch rather than a finding.",
+      "title_zh": "兩期的實際變動都遠超出盤整帶，而「盤整」都是第一或並列第一",
+      "detail_zh": "W34 走 +5.80%、W35 走 −3.58%，而盤整帶是 ±1.0%。盤整在 W34 並列第一、在 W35 是第一。若此型態持續，代表週報可能低估週波動——但兩期無法確立，因此記錄為「要盯的東西」而非發現。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "A scorecard for the weekly report, and an honest bound on what it can say.",
+  "question_zh": "週報是這個計畫的主要產品，卻從來沒有被對照實際走勢評分過。什麼是公平的評分規則？在這套規則下，已完成的期別說了什麼？",
+  "limitations_zh": [
+    "僅兩期可評分（W36 的預測週在價格序列結束時尚未走完），任何比率都無法與丟銅板分辨；可分辨門檻 99.07 個百分點大於理論最大偏離 50。",
+    "W34 的最高機率劇本是平手（偏多 38%、盤整 38%），因此方向命中率在 2 中 1 與 2 中 0 之間，取決於平手如何拆解；本研究不替它做決定。",
+    "方向以「週收盤對前一週收盤、±1.0% 為盤整帶」定義；換一個帶寬會改變分類，該帶寬在看任何結果之前就已凍結。",
+    "關鍵價位觸及率與目標達成率為描述性統計，非技能評分：因價格接近而被提名的價位本來就容易被觸及。",
+    "劇本的 invalidation 條件為文字敘述，本研究未自動判定，因此「劇本是否被證偽」未納入計分。",
+    "本研究不改變週報的產製流程或任何策略規則。"
+  ],
+  "interpretation_zh": "這份研究的產出是**規則**，不是命中率——而這在開始之前就寫下來了。\n\n兩期能夠分辨的最小偏離是 99.07 個百分點，而理論上最大可能的偏離只有 50。所以這裡算出來的任何方向命中率都不構成證據。這不是遺憾，是這個題目現在該有的答案。\n\n而且方向這一項還有一個更根本的問題：**唯一那次命中取決於平手怎麼拆。**W34 的劇本把「偏多」與「盤整」都放在 38%，所以「機率最高的劇本」根本沒有定義。往偏多拆是 2 中 1，往盤整拆是 2 中 0。計分表把兩個都記下來，不替它做決定。\n\n真正值得累積的是 Brier 分數，因為它不受平手影響、也不能靠分散押注來取巧：它用的是完整的三向機率向量。兩期的平均是 0.7157，而「每週都篤定說偏多」或「篤定說偏空」是 1.0、「篤定說盤整」是 2.0。也就是說，報告的機率分配優於任何一種固定答案。在兩期樣本上這不是證據，但它是對的度量。\n\n關鍵價位 14 個中有 12 個被觸及、兩期的第一目標都達到——我刻意把這兩項標為描述性而非技能評分。一個因為「價格就在附近」而被提名的價位，本來就大概率會被觸及；把它算成預測命中會讓分數虛高。\n\n最後一件值得盯的事：兩期的實際變動分別是 +5.80% 與 −3.58%，都遠超出 ±1.0% 的盤整帶；而「盤整」在 W34 是並列第一、在 W35 是第一。如果這個型態持續下去，代表週報可能系統性低估了週波動。但兩期說明不了任何事，所以它被記錄成「要盯的東西」，不是發現。\n\n這份研究真正的價值在於它現在可以每週重跑一次。規則已經凍結，之後每完成一期就多一個資料點——而 Brier 對固定基準的差距，是第一個會變得有意義的數字。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "editions_scored",
+        "mean_brier_score",
+        "best_constant_baseline_brier",
+        "resolution_bound_pct_points"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "editions",
+      "title": "The Two Scored Editions 兩期評分結果",
+      "takeaway_zh": "W34 實際 +5.80%（偏多），最高機率劇本是偏多——但那是與盤整 38% 並列的平手。W35 實際 −3.58%（偏空），最高機率劇本是盤整，未命中。兩期的實際變動都遠超出 ±1.0% 的盤整帶。",
+      "columns": [
+        "week",
+        "prior_close",
+        "close",
+        "move_pct",
+        "actual_direction",
+        "forecast_top_direction",
+        "forecast_top_probability",
+        "top_was_a_tie",
+        "direction_hit",
+        "brier_score",
+        "key_levels_touched",
+        "key_levels_total",
+        "first_target_reached"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "totals",
+      "title": "Totals and the Bound 彙總與可分辨門檻",
+      "keys": [
+        "editions_scored",
+        "direction_hits_if_ties_break_favourably",
+        "direction_hits_if_ties_break_unfavourably",
+        "editions_with_a_tied_top_scenario",
+        "smallest_resolvable_deviation_from_coin_flip_pct_points",
+        "mean_brier_score",
+        "brier_of_always_saying_bullish",
+        "brier_of_always_saying_range",
+        "brier_of_always_saying_bearish",
+        "key_level_touch_rate_pct",
+        "first_targets_reached"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "not_scored",
+      "title": "Not Scored 未評分的期別",
+      "takeaway_zh": "W36 的預測週在價格序列結束時尚未走完，因此不計分——而不是計為未命中。",
+      "columns": [
+        "week",
+        "reason",
+        "bars_available"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
