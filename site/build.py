@@ -897,7 +897,11 @@ def backlog_page() -> str:
     answered already, and a backlog that does not say so invites re-running finished work.
     """
     backlog = load_json(ROOT / "research/backlog/backlog.json")
-    items = sorted(backlog["items"], key=lambda i: (i["priority"], i["id"]))
+    # Open work first: a backlog whose answered items sort above its live ones reads as an
+    # archive. Within a status, priority then id.
+    status_rank = {"running": 0, "open": 1, "answered": 2, "closed": 3}
+    items = sorted(backlog["items"],
+                   key=lambda i: (status_rank.get(i["status"], 9), i["priority"], i["id"]))
     live = set(PUBLISHED_STUDIES)
 
     cards = []
@@ -941,11 +945,21 @@ def backlog_page() -> str:
         counts[item["status"]] = counts.get(item["status"], 0) + 1
     summary = "　".join(f"{STATUS_LABELS[k]} {v}" for k, v in sorted(counts.items()))
 
+    # Where the programme stands, above the list. A backlog read without it invites the
+    # assumption that the open items are refinements of something that works.
+    state = ""
+    if backlog.get("programme_state_zh"):
+        paragraphs = "".join(
+            f"<p>{esc(chunk)}</p>"
+            for chunk in backlog["programme_state_zh"].split("\n\n") if chunk.strip())
+        state = f'<section class="programme-state"><h2>目前狀態</h2>{paragraphs}</section>'
+
     body = f"""
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">{len(items)} 個已提出但尚未回答的問題，依優先序排列。{summary}。</p>
+<p class="lede">{len(items)} 個題目，依優先序排列。{summary}。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
+{state}
 <div class="backlog-list">{"".join(cards)}</div>
 <p class="more"><a href="../">← 回到 Research</a>　<a href="backlog.json">backlog.json</a></p>
 """
@@ -1120,6 +1134,10 @@ tbody tr[hidden]{display:none;}
 
 /* Research backlog. Reading rail, not a data rail: each card is prose, so it keeps the
    same measure as the study narrative rather than stretching to the table width. */
+.programme-state{max-width:860px;margin:22px 0 30px;padding:18px 22px;border:1px solid var(--line2);
+  border-left:3px solid var(--warn);border-radius:0 10px 10px 0;background:var(--panel);}
+.programme-state h2{margin:0 0 10px;font-size:1rem;}
+.programme-state p{margin:10px 0;line-height:1.85;color:var(--muted);font-size:.95rem;}
 .backlog-list{display:flex;flex-direction:column;gap:20px;max-width:860px;}
 .backlog-item{border:1px solid var(--line2);border-radius:10px;padding:20px 22px;background:var(--panel);}
 .backlog-item header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}

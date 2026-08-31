@@ -16,10 +16,33 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">9 個已提出但尚未回答的問題，依優先序排列。已回答 9。</p>
+<p class="lede">11 個題目，依優先序排列。已回答 9　未回答 2。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
-<div class="backlog-list"><article class="backlog-item" data-status="answered"
+<section class="programme-state"><h2>目前狀態</h2><p>目前這個研究計畫沒有任何存活的正面發現。原本佔據這個位置的 %B 結果已於 2026-09-01 更正——它的標籤取自成交當下尚未收盤的那根 K 棒，改用最後一根已收盤的 K 棒之後，可分辨門檻、置換檢定與劑量反應三道篩子全部沒過（見 RS-XAUUSD-20260901-001）。該搜尋空間現在的狀態是「開啟中、門檻很寬」，不是「已駁斥」。</p><p>其餘的一切要嘛是附帶門檻的否定結果，要嘛是需要前瞻資料才能定案的候選。這是一個誠實的狀態，不是失敗的狀態——research/null_results.json 本身就是這個計畫的資產。</p><p>現在能改變局面的是新資料，不是新分析。 這批交易能問的問題已經問完了；下面兩個項目因此不是回溯研究，而是對未來週別的預先登記。</p></section>
+<div class="backlog-list"><article class="backlog-item" data-status="open"
+ data-priority="1">
+<header><span class="backlog-id">BL-010</span>
+<span class="tag prio-1">優先 高</span>
+<span class="tag status-open">未回答</span></header>
+<h3>S2 回檔一致性——對未來資料的預先登記</h3>
+<p class="backlog-question">S2 在「進場前報酬」上的負向關係，五個時間視野全部為負、全部在驗證區維持同號、三分位在平均報酬與勝率上雙重單調。這個一致性在尚未存在的資料上還會維持嗎？</p>
+<p class="backlog-why"><strong>為什麼值得做：</strong>這是本計畫少數「形狀像真的、但幅度落在雜訊裡」的候選，而這兩件事在 157 筆上無法用更聰明的統計分開——只能用更多資料。回溯性檢定已經做過且未通過家族校正（p=0.3588），所以下一步只有一種正確形式：在資料出現之前把規則寫死。research/prereg/ 正是為此存在的，而這個假設現在已經完全被這批資料挖過，再做一次回溯只會是自我確認。</p>
+<div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260831-003/">RS-XAUUSD-20260831-003</a>｜直接檢定未通過：家族 p=0.3588。但 S2 單獨看五個視野全負、全部維持同號、三分位雙重單調；S1 幾乎沒有這個效果（最大 |rho| 0.0403，兩個為正）。</li><li><a href="../studies/RS-XAUUSD-20260818-002/">RS-XAUUSD-20260818-002</a>｜「進場前兩小時報酬」是二十組比較中唯二同時單調且同向的特徵之一，但差距遠低於可分辨門檻。</li><li><a href="../studies/RS-XAUUSD-20260815-002/">RS-XAUUSD-20260815-002</a>｜同方向的另一個切面：前一天收黑之後較好，而優勢幾乎全部來自「紅→黑」。</li></ul></div>
+<p class="backlog-next"><strong>下一步：</strong>在 research/prereg/ 開一份登記：凍結變數定義（進場前 N 根 30 分鐘 K 棒的報酬）、視野、統計量、方向預測、樣本量門檻與判定規則，並指定評估腳本。登記之後不得修改；達到預定樣本量之前不得宣告結果。</p>
+
+</article><article class="backlog-item" data-status="open"
+ data-priority="1">
+<header><span class="backlog-id">BL-011</span>
+<span class="tag prio-1">優先 高</span>
+<span class="tag status-open">未回答</span></header>
+<h3>S2 亞盤惡化是否持續——對未來資料的預先登記</h3>
+<p class="backlog-question">S2 的整體衰退最合理的讀法是「純多方均值回歸失去了它依賴的上升趨勢」。如果這個讀法正確，S2 應該在黃金重新進入持續趨勢時回復，並在趨勢停滯期間持續疲弱。這個預測成立嗎？</p>
+<p class="backlog-why"><strong>為什麼值得做：</strong>這是本計畫目前唯一一個不需要蒐集新資料、只需要時間的前瞻預測。衰退的歸因已經做到回溯資料能做的極限：分解顯示 101.6% 來自盤別內部、S1 在相同期間沒有衰退、而市場環境確實改變（趨勢停止、波動度 +77%）。但那是一次前後比較加一個對照組，且衰退本身 p=0.0619。要把「最合理的讀法」變成「已確立的原因」，只能靠它對未來做出的預測是否兌現。</p>
+<div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260831-002/">RS-XAUUSD-20260831-002</a>｜衰退 101.6% 來自盤別內部、亞盤跌幅是四個裡第三大（沒有亞盤現象）；S1 在相同日曆期間反而上升；黃金從 +98.7% 變 −0.82%、日波動度 +77%。衰退本身 p=0.0619。</li><li><a href="../studies/RS-XAUUSD-20260831-001/">RS-XAUUSD-20260831-001</a>｜亞盤在最新 30% 已轉為虧損（勝率 21.43%、平均 −0.2143%、獲利因子 0.732，14 筆），但移除亞盤的增益在四選一家族校正下 p=0.0549。</li><li><a href="../studies/RS-XAUUSD-20260818-005/">RS-XAUUSD-20260818-005</a>｜S2 在 2026 年的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 單獨的年度。</li></ul></div>
+<p class="backlog-next"><strong>下一步：</strong>在 research/prereg/ 開一份登記，把「趨勢狀態」的判定寫死（例如以日線相對某均線的位置與持續期間），並預先指定：在趨勢恢復的期間，S2 的每筆平均報酬應回到什麼區間才算兌現。不得在觀察到結果之後調整門檻。</p>
+
+</article><article class="backlog-item" data-status="answered"
  data-priority="1">
 <header><span class="backlog-id">BL-001</span>
 <span class="tag prio-1">優先 高</span>
@@ -50,7 +73,7 @@
 <p class="backlog-question">RS-XAUUSD-20260823-002 與 -20260824-006 以 merge_asof(direction='backward') 對 entry_time 接合，接到的是成交發生在其中的那根 K 棒，而它在成交後三十分鐘才收盤。改用成交前最後一根已收盤的 K 棒重跑，這個發現還剩下多少？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>這是本計畫唯一存活的發現，也是唯一被討論過要據以調整部位的東西。RS-XAUUSD-20260831-005 在另一份匯出檔上量到差距從 17.79 掉到 6.01 個百分點，但那是推論加重現，不是重跑對方的程式。這件事必須用對方的程式與匯出檔確認。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260831-005/">RS-XAUUSD-20260831-005</a>｜進場 K 棒標記 n=79／70.89%，無前視標記 n=52／61.54%，差距相差 11.78 個百分點；並確認標籤在兩種通道定義間有 93.78% 一致，因此問題不在 %B 的定義。</li><li><a href="../studies/RS-XAUUSD-20260818-002/">RS-XAUUSD-20260818-002</a>｜確認成交是盤中的（中位數落在進場 K 棒區間的 0.443），並因此採用 entry_index − 1。</li><li><a href="../studies/RS-XAUUSD-20260824-006/">RS-XAUUSD-20260824-006</a>｜該發現在四種量測下都存活，但 30 分鐘與小時圖的標籤只有 32.23% 一致。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>已回答：不成立。用原研究自己的 runner、工具、匯出檔與慣例重跑，不改動時完全重現已發布數字（n=82、73.17%、差距 20.86、門檻 16.9、p=0.0003）；把標籤移到最後一根已收盤的 K 棒之後，差距 9.26 對門檻 20.28（跨不過）、p=0.0748、劑量反應不再單調——三道篩子全部沒過。上軌外樣本從 82 筆縮到 53 筆。**待決定：是否修訂 RS-XAUUSD-20260823-002 與 -20260824-006 的記錄，以及 null 登記中「一個存活者」的狀態。**注意這不是否定 %B，而是把它退回「開啟中、門檻很寬」。</p>
+<p class="backlog-next"><strong>下一步：</strong>已回答：不成立。用原研究自己的 runner、工具、匯出檔與慣例重跑，不改動時完全重現已發布數字（n=82、73.17%、差距 20.86、門檻 16.9、p=0.0003）；把標籤移到最後一根已收盤的 K 棒之後，差距 9.26 對門檻 20.28（跨不過）、p=0.0748、劑量反應不再單調——三道篩子全部沒過。上軌外樣本從 82 筆縮到 53 筆。待決定：是否修訂 RS-XAUUSD-20260823-002 與 -20260824-006 的記錄，以及 null 登記中「一個存活者」的狀態。注意這不是否定 %B，而是把它退回「開啟中、門檻很寬」。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260901-001/">RS-XAUUSD-20260901-001</a> 回答。</p>
 </article><article class="backlog-item" data-status="answered"
  data-priority="2">
@@ -116,7 +139,7 @@
 <p class="backlog-question">上軌外的 S1 訊號勝率 73.24%，是否應該給予較大的部位？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>這是本計畫唯一存活的發現，也是唯一有資格討論加碼的候選。但它有兩個已知的強力反證，任何加碼提案都必須先回答它們，因此優先序低而非高。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260824-006/">RS-XAUUSD-20260824-006</a>｜效果在四種量測下都存活；但 30 分鐘圖與小時圖對「是否在上軌外」只有 32.23% 一致，各自選出的 71 筆與 28 筆只共用 22 筆——你據以行動的標籤取決於你開哪張圖。且篩得更嚴（89.29% 勝率）只保留 6.64% 交易、只拿到 27.6% 報酬。</li><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜固定百分比停損加固定比例風險已把報酬對波動度正規化，因此部位大小的調整在本資料上一再無效。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>已回答：不要加碼。相同波動度下最好只多賺 0.78 個百分點，家族 p=0.2823，而且倍數越大越差（三倍原始 +30.26，風險調整後 −6.38）。但更重要的是一個附帶發現：已發布的 %B 訊號似乎是用「進場那根 K 棒」標記的，而該 K 棒在成交後三十分鐘才收盤。改用成交前最後一根已收盤 K 棒，差距從 17.79 掉到 6.01 個百分點。**待驗證：用 entry_index − 1 重跑 RS-XAUUSD-20260823-002 與 -20260824-006。** 後續：RS-XAUUSD-20260901-001 已用原研究的程式確認此事。</p>
+<p class="backlog-next"><strong>下一步：</strong>已回答：不要加碼。相同波動度下最好只多賺 0.78 個百分點，家族 p=0.2823，而且倍數越大越差（三倍原始 +30.26，風險調整後 −6.38）。但更重要的是一個附帶發現：已發布的 %B 訊號似乎是用「進場那根 K 棒」標記的，而該 K 棒在成交後三十分鐘才收盤。改用成交前最後一根已收盤 K 棒，差距從 17.79 掉到 6.01 個百分點。待驗證：用 entry_index − 1 重跑 RS-XAUUSD-20260823-002 與 -20260824-006。 後續：RS-XAUUSD-20260901-001 已用原研究的程式確認此事。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-005/">RS-XAUUSD-20260831-005</a> 回答。</p>
 </article></div>
 <p class="more"><a href="../">← 回到 Research</a>　<a href="backlog.json">backlog.json</a></p>
