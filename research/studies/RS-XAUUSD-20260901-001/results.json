@@ -1,0 +1,114 @@
+{
+  "as_published_entry_bar": {
+    "trades_joined": 472,
+    "above_upper_n": 82,
+    "above_upper_win_rate_pct": 73.17,
+    "rest_n": 390,
+    "rest_win_rate_pct": 52.31,
+    "baseline_win_rate_pct": 55.93,
+    "win_rate_gap_pct_points": 20.86,
+    "smallest_resolvable_gap_pct_points": 16.9,
+    "clears_resolution_bound": true,
+    "permutation_p": 0.0003,
+    "mean_return_above_pct": 0.4759,
+    "mean_return_rest_pct": 0.1272,
+    "share_of_trades_kept_pct": 17.37,
+    "dose_response": [
+      {
+        "zone": "below_lower",
+        "n": 3,
+        "win_rate_pct": 33.33
+      },
+      {
+        "zone": "near_lower",
+        "n": 3,
+        "win_rate_pct": 0.0
+      },
+      {
+        "zone": "lower_mid",
+        "n": 18,
+        "win_rate_pct": 33.33
+      },
+      {
+        "zone": "near_middle",
+        "n": 81,
+        "win_rate_pct": 40.74
+      },
+      {
+        "zone": "upper_mid",
+        "n": 165,
+        "win_rate_pct": 55.76
+      },
+      {
+        "zone": "near_upper",
+        "n": 120,
+        "win_rate_pct": 60.0
+      },
+      {
+        "zone": "above_upper",
+        "n": 82,
+        "win_rate_pct": 73.17
+      }
+    ]
+  },
+  "corrected_last_completed_bar": {
+    "trades_joined": 472,
+    "above_upper_n": 53,
+    "above_upper_win_rate_pct": 64.15,
+    "rest_n": 419,
+    "rest_win_rate_pct": 54.89,
+    "baseline_win_rate_pct": 55.93,
+    "win_rate_gap_pct_points": 9.26,
+    "smallest_resolvable_gap_pct_points": 20.28,
+    "clears_resolution_bound": false,
+    "permutation_p": 0.0748,
+    "mean_return_above_pct": 0.2443,
+    "mean_return_rest_pct": 0.1806,
+    "share_of_trades_kept_pct": 11.23,
+    "dose_response": [
+      {
+        "zone": "near_middle",
+        "n": 76,
+        "win_rate_pct": 52.63
+      },
+      {
+        "zone": "upper_mid",
+        "n": 221,
+        "win_rate_pct": 57.92
+      },
+      {
+        "zone": "near_upper",
+        "n": 122,
+        "win_rate_pct": 50.82
+      },
+      {
+        "zone": "above_upper",
+        "n": 53,
+        "win_rate_pct": 64.15
+      }
+    ]
+  },
+  "change": {
+    "win_rate_gap_pct_points": -11.6,
+    "above_upper_n": -29,
+    "above_upper_win_rate_pct": -9.02,
+    "still_clears_bound": false,
+    "permutation_p_published": 0.0003,
+    "permutation_p_corrected": 0.0748
+  },
+  "entry_times_on_a_bar_timestamp": 472,
+  "entry_times_total": 472,
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-001",
+  "strategy": "S1 AweWithBB V3.9",
+  "method": {
+    "verifies": [
+      "RS-XAUUSD-20260823-002",
+      "RS-XAUUSD-20260824-006"
+    ],
+    "change": "one line in the join: the bb lookup's timestamps are shifted forward one bar, so a backward asof at entry_time sees the last bar that had actually closed",
+    "everything_else": "same runner, same shared toolkit, same inputs, same screens",
+    "permutation_trials": 20000,
+    "random_seed": 20260901
+  }
+}

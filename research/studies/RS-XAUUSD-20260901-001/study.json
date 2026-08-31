@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-001",
+  "revision": 1,
+  "title": "The surviving %B finding was measured on a bar that had not closed — re-run, it fails every screen",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.9"
+  },
+  "status": "confirmed",
+  "created_on": "2026-09-01",
+  "question": "RS-XAUUSD-20260823-002 and -20260824-006 join %B to each trade with a backward asof on entry_time. Every entry timestamp coincides with a bar timestamp, so that match lands on the bar the fill happened inside. Re-run with the label on the last completed bar: what survives?",
+  "hypothesis": "If the finding is about market context it should survive the shift; if it is partly measuring the bar that triggered the entry, it should not.",
+  "headline": {
+    "entry_times_on_a_bar_timestamp": 472,
+    "entry_times_total": 472,
+    "published_gap_pct_points": 20.86,
+    "published_bound_pct_points": 16.9,
+    "published_p": 0.0003,
+    "corrected_gap_pct_points": 9.26,
+    "corrected_bound_pct_points": 20.28,
+    "corrected_p": 0.0748,
+    "above_upper_published": 82,
+    "above_upper_corrected": 53,
+    "screens_failed_after_correction": 3
+  },
+  "card_metrics": [
+    "published_gap_pct_points",
+    "corrected_gap_pct_points",
+    "published_p",
+    "corrected_p"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "The harness reproduces the published study exactly",
+      "detail": "Left unmodified, the re-run returns n=82 above the upper band at 73.17% against a 55.93% baseline, a 20.86-point gap against a 16.9-point resolvable bound, permutation p=0.0003. Those are the published numbers to the decimal, so any difference that follows comes from the one changed line.",
+      "title_zh": "這個重跑完全重現了已發布的數字",
+      "detail_zh": "不做任何修改時，重跑得到上軌外 n=82、勝率 73.17%，對照基準 55.93%，差距 20.86 個百分點、可分辨門檻 16.9，置換檢定 p=0.0003。這些與已發布數字完全一致到小數位，因此接下來的任何差異都只可能來自那一行改動。"
+    },
+    {
+      "tone": "warn",
+      "title": "Every one of the 472 entry timestamps sits exactly on a bar timestamp",
+      "detail": "That is what makes the backward asof land on the bar the fill happened inside rather than the one before it. The join is documented in the runner as reaching 'the last completed bar', which is what it would do if entry times fell between bars. They never do.",
+      "title_zh": "472 個進場時間戳，每一個都恰好落在 K 棒的時間戳上",
+      "detail_zh": "這正是 backward asof 會接到「成交發生在其中」那根、而不是前一根的原因。runner 裡把這個接合註記為接到「最後一根已收盤的 K 棒」——如果進場時間落在兩根 K 棒之間，那個說法會是對的。但它從來沒有落在中間過。"
+    },
+    {
+      "tone": "warn",
+      "title": "Moved to the last completed bar, the finding fails all three screens",
+      "detail": "The gap falls from 20.86 to 9.26 points while the resolvable bound rises from 16.9 to 20.28, so it no longer clears its own bound. Permutation p goes from 0.0003 to 0.0748. And the dose response, which the original study required to rise continuously rather than jump at one edge, is no longer monotone: 52.63, 57.92, 50.82, 64.15.",
+      "title_zh": "把標籤移到最後一根已收盤的 K 棒，三道篩子全部沒過",
+      "detail_zh": "差距從 20.86 掉到 9.26 個百分點，而可分辨門檻從 16.9 升到 20.28——它不再跨過自己的門檻。置換檢定 p 從 0.0003 變成 0.0748。而原研究明確要求的「劑量反應必須連續上升、不能只在某一格跳一下」也不再單調：52.63、57.92、50.82、64.15。"
+    },
+    {
+      "tone": "info",
+      "title": "The above-upper group shrinks from 82 trades to 53",
+      "detail": "The whole %B distribution concentrates into the middle-upper zones once the label moves back one bar. That is what would happen if the entry bar were, by construction, the bar on which a Bollinger-based strategy fired — using its close to compute %B measures the trigger as much as the context. The study records the pattern; it does not claim the mechanism as demonstrated.",
+      "title_zh": "上軌外的樣本從 82 筆縮到 53 筆",
+      "detail_zh": "把標籤往回移一根之後，整個 %B 分布集中到中上區間。如果進場那根 K 棒本來就是「布林通道策略觸發訊號的那一根」，這正是會發生的事——用它的收盤價計算 %B，量到的有一部分是觸發條件本身，而不只是市場環境。本研究記錄這個型態，但不宣稱這個機制已被證明。"
+    },
+    {
+      "tone": "info",
+      "title": "This does not refute %B, it unresolves it",
+      "detail": "A 9.26-point gap on 53 trades against a 20.28-point bound is a question this sample cannot answer, not an answer of no. What does not survive is the evidence that made this the programme's one surviving finding; the honest status is open with a wide bound.",
+      "title_zh": "這不是否定 %B，而是把它退回「未解決」",
+      "detail_zh": "9.26 個百分點的差距、53 筆樣本、20.28 的門檻——這是一個「這個樣本回答不了」的問題，不是一個「答案是否」的結論。沒有存活的是「讓它成為本計畫唯一存活發現」的那些證據；誠實的狀態是「開啟中，門檻很寬」。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "The one thing that survived, re-run with the label on a bar that had closed.",
+  "question_zh": "RS-XAUUSD-20260823-002 與 -20260824-006 用 backward asof 對 entry_time 把 %B 接到每一筆交易上。而每一個進場時間戳都恰好落在某根 K 棒的時間戳上，因此接到的是「成交發生在其中」的那一根。改用成交前最後一根**已收盤**的 K 棒重跑：還剩下什麼？",
+  "limitations_zh": [
+    "本研究只改變標籤讀取的 K 棒，未重新檢視原研究的其他任何設定；若原研究另有問題，本研究不會發現。",
+    "「進場 K 棒本身就是訊號觸發的 K 棒，因此其收盤價部分反映觸發條件」是對觀察到的分布集中現象最合理的解釋，但本研究未設計檢定來證明這個機制。",
+    "修正後的 9.26 個百分點差距未跨過 20.28 的可分辨門檻，因此本研究不主張 %B 無效，只主張支持它的證據不成立。",
+    "本研究使用與原研究相同的 2026-08-15 交易匯出檔與 30 分鐘 K 棒；結論僅適用於這組資料與這個接合方式。",
+    "本研究本身不修改 RS-XAUUSD-20260823-002 與 -20260824-006 的記錄；那需要另外的決定。"
+  ],
+  "interpretation_zh": "這份研究只做一件事：用原研究自己的 runner、自己的共用工具、自己的交易匯出檔與通道慣例，**只改一行**——把標籤讀取的 K 棒往回移一根，然後看還剩下什麼。\n\n第一步是確認重跑是忠實的。不改動時，它回傳 n=82、73.17%、差距 20.86、門檻 16.9、p=0.0003，與已發布數字完全一致。所以後面的差異只可能來自那一行。\n\n改了之後，這個發現在它原本通過的每一道篩子上都失敗：\n\n差距 20.86 → 9.26，而門檻 16.9 → 20.28——**從跨過門檻變成跨不過**。置換檢定 p 0.0003 → 0.0748。而原研究特別強調的劑量反應（「%B 必須連續地預測，不能只在某一格邊緣跳一下」）也不再單調。三道篩子，三道都沒過。\n\n為什麼會這樣？線索在樣本數：上軌外從 82 筆縮到 53 筆，而整個分布集中到中上區間。S1 是「AweWithBB」——它本來就是依布林通道條件進場的。進場那根 K 棒，正是訊號觸發的那根；用它的收盤價去算 %B，量到的有一部分是**觸發條件本身**，而不只是進場當下的市場環境。本研究記錄這個型態，但沒有把這個機制當成已證明——那需要另外設計的檢定。\n\n必須把界線劃清楚：**這不是說 %B 沒用。**9.26 個百分點、53 筆樣本、20.28 的可分辨門檻——這是「這個樣本回答不了」，不是「答案是否」。沒有存活的是「讓它成為本計畫唯一存活發現」的那組證據。誠實的狀態是「開啟中，門檻很寬」。\n\n最後一點，關於這件事是怎麼被發現的：它不是靠審查抓到的，而是在 RS-XAUUSD-20260831-005 測「要不要加碼」時，順手比較了兩種標記方式才浮現的。而更早之前，RS-XAUUSD-20260818-002 已經確認過成交是盤中發生的（中位數落在該 K 棒區間的 0.443），並正因如此採用了 entry_index − 1。**同一個計畫裡兩種慣例並存了十天，而沒有任何一道檢查會發現它們不一致**——因為每一份研究單獨看都是自洽的。這是這次真正該記住的地方。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "published_gap_pct_points",
+        "corrected_gap_pct_points",
+        "published_p",
+        "corrected_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "as_published_entry_bar.dose_response",
+      "title": "Dose Response as Published 已發布版本的劑量反應（標籤在進場 K 棒上）",
+      "takeaway_zh": "原研究要求 %B 必須連續地預測，而不是只在某一格跳一下。這一欄確實乾淨地一路上升到 73.17%。",
+      "columns": [
+        "zone",
+        "n",
+        "win_rate_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "corrected_last_completed_bar.dose_response",
+      "title": "Dose Response Corrected 修正後的劑量反應（標籤在最後一根已收盤 K 棒上）",
+      "takeaway_zh": "52.63、57.92、50.82、64.15——不再單調（near_upper 的 50.82 低於 upper_mid 的 57.92）。原研究最看重的那道篩子，修正後沒有通過。",
+      "columns": [
+        "zone",
+        "n",
+        "win_rate_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "as_published_entry_bar",
+      "title": "As Published 已發布版本（重現，與原數字完全一致）",
+      "keys": [
+        "trades_joined",
+        "above_upper_n",
+        "above_upper_win_rate_pct",
+        "rest_n",
+        "rest_win_rate_pct",
+        "baseline_win_rate_pct",
+        "win_rate_gap_pct_points",
+        "smallest_resolvable_gap_pct_points",
+        "clears_resolution_bound",
+        "permutation_p",
+        "share_of_trades_kept_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "corrected_last_completed_bar",
+      "title": "Corrected 修正版本（標籤在最後一根已收盤的 K 棒）",
+      "keys": [
+        "trades_joined",
+        "above_upper_n",
+        "above_upper_win_rate_pct",
+        "rest_n",
+        "rest_win_rate_pct",
+        "baseline_win_rate_pct",
+        "win_rate_gap_pct_points",
+        "smallest_resolvable_gap_pct_points",
+        "clears_resolution_bound",
+        "permutation_p",
+        "share_of_trades_kept_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "change",
+      "title": "The Change 差異",
+      "keys": [
+        "win_rate_gap_pct_points",
+        "above_upper_n",
+        "above_upper_win_rate_pct",
+        "still_clears_bound",
+        "permutation_p_published",
+        "permutation_p_corrected"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

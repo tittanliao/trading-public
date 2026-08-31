@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-08-31",
+  "updated_on": "2026-09-01",
   "note": "Questions raised but not yet answered, with what the published corpus already says about each. An item is only 'open' when no published study answers it; where evidence exists it is linked, because half the value of a backlog is not re-running work.",
   "statuses": {
     "open": "no published study answers this yet",
@@ -174,14 +174,14 @@
           "says_zh": "固定百分比停損加固定比例風險已把報酬對波動度正規化，因此部位大小的調整在本資料上一再無效。"
         }
       ],
-      "next_step_zh": "已回答：不要加碼。相同波動度下最好只多賺 0.78 個百分點，家族 p=0.2823，而且倍數越大越差（三倍原始 +30.26，風險調整後 −6.38）。但更重要的是一個附帶發現：已發布的 %B 訊號似乎是用「進場那根 K 棒」標記的，而該 K 棒在成交後三十分鐘才收盤。改用成交前最後一根已收盤 K 棒，差距從 17.79 掉到 6.01 個百分點。**待驗證：用 entry_index − 1 重跑 RS-XAUUSD-20260823-002 與 -20260824-006。**",
+      "next_step_zh": "已回答：不要加碼。相同波動度下最好只多賺 0.78 個百分點，家族 p=0.2823，而且倍數越大越差（三倍原始 +30.26，風險調整後 −6.38）。但更重要的是一個附帶發現：已發布的 %B 訊號似乎是用「進場那根 K 棒」標記的，而該 K 棒在成交後三十分鐘才收盤。改用成交前最後一根已收盤 K 棒，差距從 17.79 掉到 6.01 個百分點。**待驗證：用 entry_index − 1 重跑 RS-XAUUSD-20260823-002 與 -20260824-006。** 後續：RS-XAUUSD-20260901-001 已用原研究的程式確認此事。",
       "answered_by": "RS-XAUUSD-20260831-005"
     },
     {
       "id": "BL-009",
       "title_zh": "用無前視的標記重跑 %B 兩篇研究，確認唯一存活的發現還剩下什麼",
       "priority": 1,
-      "status": "open",
+      "status": "answered",
       "raised_on": "2026-08-31",
       "question_zh": "RS-XAUUSD-20260823-002 與 -20260824-006 以 merge_asof(direction='backward') 對 entry_time 接合，接到的是成交發生在其中的那根 K 棒，而它在成交後三十分鐘才收盤。改用成交前最後一根已收盤的 K 棒重跑，這個發現還剩下多少？",
       "rationale_zh": "這是本計畫唯一存活的發現，也是唯一被討論過要據以調整部位的東西。RS-XAUUSD-20260831-005 在另一份匯出檔上量到差距從 17.79 掉到 6.01 個百分點，但那是推論加重現，不是重跑對方的程式。這件事必須用對方的程式與匯出檔確認。",
@@ -199,7 +199,8 @@
           "says_zh": "該發現在四種量測下都存活，但 30 分鐘與小時圖的標籤只有 32.23% 一致。"
         }
       ],
-      "next_step_zh": "直接以 entry_index − 1 重跑兩份 runner，比較每一項篩子（可分辨門檻、置換、自助抽樣、劑量反應）的結果；若差距確實掉到 6 個百分點附近，需更新兩份研究的記錄與 null 登記。"
+      "next_step_zh": "已回答：不成立。用原研究自己的 runner、工具、匯出檔與慣例重跑，不改動時完全重現已發布數字（n=82、73.17%、差距 20.86、門檻 16.9、p=0.0003）；把標籤移到最後一根已收盤的 K 棒之後，差距 9.26 對門檻 20.28（跨不過）、p=0.0748、劑量反應不再單調——三道篩子全部沒過。上軌外樣本從 82 筆縮到 53 筆。**待決定：是否修訂 RS-XAUUSD-20260823-002 與 -20260824-006 的記錄，以及 null 登記中「一個存活者」的狀態。**注意這不是否定 %B，而是把它退回「開啟中、門檻很寬」。",
+      "answered_by": "RS-XAUUSD-20260901-001"
     }
   ]
 }
