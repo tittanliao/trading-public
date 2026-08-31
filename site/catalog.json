@@ -16,7 +16,8 @@
     "/research/studies/RS-XAUUSD-20260823-001/",
     "/research/studies/RS-XAUUSD-20260823-002/",
     "/research/studies/RS-XAUUSD-20260825-001/",
-    "/research/studies/RS-XAUUSD-20260827-001/"
+    "/research/studies/RS-XAUUSD-20260827-001/",
+    "/research/studies/RS-TX-20260728-001/"
   ],
   "weekly_editions": [
     "2026-W36",
@@ -31,7 +32,8 @@
     "RS-XAUUSD-20260823-001",
     "RS-XAUUSD-20260823-002",
     "RS-XAUUSD-20260825-001",
-    "RS-XAUUSD-20260827-001"
+    "RS-XAUUSD-20260827-001",
+    "RS-TX-20260728-001"
   ],
   "migration_tracker": {
     "phase_1_published": [
@@ -42,11 +44,11 @@
       "RS-XAUUSD-20260823-001",
       "RS-XAUUSD-20260823-002",
       "RS-XAUUSD-20260825-001",
-      "RS-XAUUSD-20260827-001"
+      "RS-XAUUSD-20260827-001",
+      "RS-TX-20260728-001"
     ],
     "phase_2a_queued": [],
     "phase_2b_queued": [
-      "RS-TX-20260728-001",
       "RS-TX-20260728-002",
       "RS-XAUUSD-20260727-003",
       "RS-XAUUSD-20260727-004",
