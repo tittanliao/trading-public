@@ -41,6 +41,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260825-001",
     "RS-XAUUSD-20260827-001",
     "RS-TX-20260728-001",
+    "RS-TX-20260728-002",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -77,7 +78,7 @@ def routes() -> list[str]:
 # up 2B.
 PHASE_2A: list[str] = []
 PHASE_2B = [
-    "RS-TX-20260728-002", "RS-XAUUSD-20260727-003",
+    "RS-XAUUSD-20260727-003",
     "RS-XAUUSD-20260727-004", "RS-XAUUSD-20260727-006", "RS-XAUUSD-20260727-008",
     "RS-XAUUSD-20260815-001", "RS-XAUUSD-20260815-002", "RS-XAUUSD-20260815-003",
     "RS-XAUUSD-20260817-001",
@@ -217,6 +218,16 @@ def ordered_columns(records: list[dict]) -> list[str]:
     return columns
 
 
+# Integer columns that identify something rather than count it. A year is not a quantity,
+# so "2,013" is simply wrong; the same applies to a month or decile index. These still sort
+# numerically — only the display grouping is suppressed.
+IDENTIFIER_COLUMNS = {"year", "month", "decile", "cycle"}
+
+
+def is_identifier_column(key: str) -> bool:
+    return key in IDENTIFIER_COLUMNS or key.endswith("_year")
+
+
 def label_col(key: str) -> str:
     return esc(key.replace("_pct", " %").replace("_", " "))
 
@@ -270,7 +281,12 @@ def render_records_table(records: dict[str, dict] | list[dict], row_label: str =
     # names its columns, promote the first one to the row label instead.
     if not isinstance(records, dict) and columns:
         label_column = columns[0]
-        raw = [(fmt_cell(record.get(label_column)), record) for _, record in raw]
+        raw = [
+            (esc(record.get(label_column))
+             if is_identifier_column(label_column) and isinstance(record.get(label_column), int)
+             else fmt_cell(record.get(label_column)), record)
+            for _, record in raw
+        ]
         columns = columns[1:]
         if not row_label:
             row_label = label_column.replace("_pct", " %").replace("_", " ")
@@ -283,7 +299,8 @@ def render_records_table(records: dict[str, dict] | list[dict], row_label: str =
         cells = [("th", esc(key).replace("_", " "), key.lower(), False)]
         for c in columns:
             v = record.get(c)
-            cells.append(("td", fmt_cell(v), sort_key(v), numeric_col[c]))
+            display = esc(v) if is_identifier_column(c) and isinstance(v, int) else fmt_cell(v)
+            cells.append(("td", display, sort_key(v), numeric_col[c]))
         rows.append(cells)
     return render_table(headers, rows)
 
