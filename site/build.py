@@ -54,6 +54,8 @@ POC_STUDIES = [
     "RS-XAUUSD-20260818-002",
     "RS-XAUUSD-20260818-003",
     "RS-XAUUSD-20260818-004",
+    "RS-XAUUSD-20260818-005",
+    "RS-XAUUSD-20260819-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -98,8 +100,7 @@ PHASE_2B: list[str] = []
 SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
 
 PHASE_2C = [
-    "RS-XAUUSD-20260818-005",
-    "RS-XAUUSD-20260819-001", "RS-XAUUSD-20260824-001", "RS-XAUUSD-20260824-002",
+    "RS-XAUUSD-20260824-001", "RS-XAUUSD-20260824-002",
     "RS-XAUUSD-20260824-003", "RS-XAUUSD-20260824-004", "RS-XAUUSD-20260824-005",
     "RS-XAUUSD-20260824-006",
 ]
@@ -181,10 +182,16 @@ def fmt_cell(value: Any) -> str:
         return text if text and text != "-" else "0"
     if isinstance(value, int):
         return f"{value:,}"
-    if isinstance(value, list) and len(value) == 2 and all(isinstance(v, (int, float)) for v in value):
-        return f"[{fmt_cell(value[0])}, {fmt_cell(value[1])}]"
     if isinstance(value, list):
-        return ", ".join(fmt_cell(v) for v in value)
+        # Thousands grouping inside a list collides with the list separator: a [n, pct]
+        # pair rendered "[1,783, 0.0076]" reads as three values. Integers inside a list
+        # are printed ungrouped; floats (confidence bounds) are unaffected.
+        def item(v: Any) -> str:
+            return str(v) if isinstance(v, int) and not isinstance(v, bool) else fmt_cell(v)
+        body = ", ".join(item(v) for v in value)
+        if len(value) == 2 and all(isinstance(v, (int, float)) for v in value):
+            return f"[{body}]"
+        return body
     return esc(value)
 
 
