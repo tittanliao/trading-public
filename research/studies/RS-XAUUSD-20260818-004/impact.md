@@ -4,7 +4,7 @@
 
 **None.** No score, threshold, gate, or output block changes.
 
-## What the owner asked and what the answer is
+## What was asked and what the answer is
 
 "Setting S1 and S2 aside, can Python find better alpha in the 30-minute data?"
 

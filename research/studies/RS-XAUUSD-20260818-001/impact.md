@@ -11,12 +11,12 @@ worse than never having tested it:
 
 - significant in sample (p = 0.0023) but not in the held-out period on its own (p = 0.139
   on 25 confirmed trades);
-- it reduces total return, so adopting it is a trade the owner has to want, not a strict
+- it reduces total return, so adopting it is a trade-off that has to be wanted deliberately, not a strict
   improvement;
 - both strategies are long-only across a strongly rising XAUUSD, and a filter that selects
   continuation may be reading that trend rather than the signal.
 
-## What the owner can use today
+## What can be used today
 
 The study answers a question that gets asked directly — "can the win rate go higher?" —
 and the answer is on the record with a price attached:
@@ -26,7 +26,7 @@ and the answer is on the record with a price attached:
 > +36%. A take-profit cannot turn a winner into a loser, so win rate can only go up; that
 > is what makes it a bad measure of an exit change on its own.
 
-If the owner discretionarily wants the S2 confirmation behaviour before it is confirmed,
+If the S2 confirmation behaviour is wanted discretionarily before it is confirmed,
 the honest framing is: fewer trades, better each, and whether that is *more overall* depends
 entirely on how you hold risk equal.
 

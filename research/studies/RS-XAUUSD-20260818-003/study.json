@@ -31,32 +31,144 @@
     {
       "tone": "warn",
       "title": "Raw basis is a calendar, and splitting on it produces a convincing false result",
-      "detail": "Median basis by month spans 39.71 USD because a freshly rolled contract carries more time value and decays toward expiry. Splitting S1 trades by raw basis gives a 10.83pp win-rate spread — and the terciles hold 1.3%, 82.8% and 73.2% even-month trades. The split is a calendar split wearing a basis label. Measured against its own trailing median instead, the cross-month spread collapses to 0.43 USD."
+      "detail": "Median basis by month spans 39.71 USD because a freshly rolled contract carries more time value and decays toward expiry. Splitting S1 trades by raw basis gives a 10.83pp win-rate spread — and the terciles hold 1.3%, 82.8% and 73.2% even-month trades. The split is a calendar split wearing a basis label. Measured against its own trailing median instead, the cross-month spread collapses to 0.43 USD.",
+      "title_zh": "原始價差其實是一份日曆，用它來切會產生一個很有說服力的假結果",
+      "detail_zh": "各月份的價差中位數相差達 39.71 美元，因為剛換月的合約帶有較多時間價值，並隨到期日衰減。直接用原始價差把 S1 交易切成三組，會得到 10.83 個百分點的勝率差距——但三組的「偶數月交易佔比」分別是 1.3%、82.8%、73.2%。這根本是一個披著價差外衣的日曆切法。改成與自身近期中位數比較之後，跨月份的差距塌縮到 0.43 美元。"
     },
     {
       "tone": "info",
       "title": "Detrended basis separates nothing in either strategy",
-      "detail": "Basis deviation, its standardised form, and its two-hour change all sit inside their resolution limits. Across all 7 futures features the largest spread is 11.14pp for S1 and 14.52pp for S2, with family permutation p of 0.5733 and 0.8638. Whatever dislocation the basis records is not something these entries are exposed to."
+      "detail": "Basis deviation, its standardised form, and its two-hour change all sit inside their resolution limits. Across all 7 futures features the largest spread is 11.14pp for S1 and 14.52pp for S2, with family permutation p of 0.5733 and 0.8638. Whatever dislocation the basis records is not something these entries are exposed to.",
+      "title_zh": "去趨勢後的價差在兩個策略上都分不開任何結果",
+      "detail_zh": "價差偏離、其標準化形式、以及兩小時的價差變化，全部落在可分辨門檻之內。七項期貨特徵中最大的差距 S1 是 11.14、S2 是 14.52 個百分點，家族置換檢定 p 值分別為 0.5733 與 0.8638。價差所記錄的任何錯價，都不是這些進場所暴露到的東西。"
     },
     {
       "tone": "good",
       "title": "The earlier study's volume limitation turns out to be immaterial",
-      "detail": "RS-XAUUSD-20260818-002 noted spot tick volume is broker activity, not exchange volume, and left open whether a real measure would do better. Across 30,814 aligned bars the two rank-correlate at 0.873 (Pearson 0.785). Real COMEX contract volume is close to the same measurement, and it separates nothing here either. The limitation can be closed rather than carried."
+      "detail": "RS-XAUUSD-20260818-002 noted spot tick volume is broker activity, not exchange volume, and left open whether a real measure would do better. Across 30,814 aligned bars the two rank-correlate at 0.873 (Pearson 0.785). Real COMEX contract volume is close to the same measurement, and it separates nothing here either. The limitation can be closed rather than carried.",
+      "title_zh": "前一篇研究的成交量限制可以直接關掉，不必再帶著",
+      "detail_zh": "RS-XAUUSD-20260818-002 指出現貨跳動量是報價商活動而非交易所成交量，並保留了「換成真實測度會不會更好」的疑問。在三萬多根對齊的 K 棒上，兩者的等級相關達 0.873（Pearson 0.785）。真實的 COMEX 合約成交量幾乎是同一個測量，而且在這裡同樣分不開任何結果。這個限制可以結案。"
     },
     {
       "tone": "info",
       "title": "The one direction that repeats is not evidence, because the measures are not independent",
-      "detail": "S1's lowest MGC-volume tercile wins 62.84% against 51.7% for the highest, and it is monotonic where the spot-volume version in the earlier study was not. It would be tempting to call that two measurements agreeing. At Spearman 0.873 they are one measurement made twice, and it is 11.14pp against a 15.7pp resolution limit."
+      "detail": "S1's lowest MGC-volume tercile wins 62.84% against 51.7% for the highest, and it is monotonic where the spot-volume version in the earlier study was not. It would be tempting to call that two measurements agreeing. At Spearman 0.873 they are one measurement made twice, and it is 11.14pp against a 15.7pp resolution limit.",
+      "title_zh": "唯一重複出現的方向不算證據，因為兩個測度並不獨立",
+      "detail_zh": "S1 的 MGC 成交量最低三分之一勝率 62.84%，最高組是 51.7%，而且是單調的——前一篇用現貨成交量做的版本並不單調。這很容易被說成「兩個測量互相印證」。但在等級相關 0.873 之下，它們是同一個測量做了兩次；而且 11.14 個百分點仍低於 15.7 的可分辨門檻。"
     },
     {
       "tone": "info",
       "title": "Roll contamination is dropped, not measured through",
-      "detail": "41 bars move the basis more than 8.0 USD in a single step. A trade whose 96-bar window contains one is dropped: 29 S1 and 11 S2 trades. Measuring a deviation across a contract discontinuity would have produced numbers with no meaning attached to them."
+      "detail": "41 bars move the basis more than 8.0 USD in a single step. A trade whose 96-bar window contains one is dropped: 29 S1 and 11 S2 trades. Measuring a deviation across a contract discontinuity would have produced numbers with no meaning attached to them.",
+      "title_zh": "換月污染是被丟掉，不是被硬算過去",
+      "detail_zh": "有 41 根 K 棒的價差在單一步驟內跳動超過 8 美元。只要某筆交易的 96 根觀察窗內含有這種 K 棒就整筆丟棄，共丟掉 29 筆 S1 與 11 筆 S2。跨越合約斷點去量測「偏離」，只會得到一堆沒有意義可以附著的數字。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Real COMEX volume and the futures basis, closing the question the tick-volume proxy left open.",
+  "question_zh": "MGC 微型黃金期貨資料自 2024 年起就一直放在現貨資料旁邊沒有被用過。期現價差（basis）在進場當下有沒有帶著任何資訊？以及——現貨的跳動量分不開結果，換成真實的 COMEX 合約成交量會不會不一樣？",
+  "limitations_zh": [
+    "MGC1! 是連續近月序列。去趨勢移除了價格水準中的換月週期，但接近換月的交易仍身處兩個合約競爭流動性的市場；本研究是把該筆丟棄，而不是量測它。",
+    "價差是用兩個交易場所的 30 分鐘收盤價計算的，而兩者的交易時段與結算慣例並不相同；遠低於 1 美元的偏離已在這個比較本身的雜訊之內。",
+    "三分位是很粗的切法，若效果只集中在很窄的尾端會被稀釋。",
+    "兩個策略都只做多，且樣本期間為明顯的上升行情。",
+    "現貨與交易所成交量對齊的 K 棒數，本研究與 RS-XAUUSD-20260818-002 的敘述略有出入（30,814 對 30,734，方法段記錄為 30,934 根對齊 K 棒）；此差異不影響 0.873 的等級相關結論。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究最值得學起來的不是結論，而是第一張表。原始價差的三分組給出 10.83 個百分點的勝率差距，低組 57.59%、中組 49.68%、高組 60.51%——如果只看這三個數字，很容易寫成「價差極端時表現較好」。但把「偶數月交易佔比」這一欄放進同一張表，故事就結束了：三組分別是 1.3%、82.8%、73.2%。這個切法切的是合約週期，不是市場狀態。差距是真的，意義是假的。\n\n這就是為什麼「找到一個有差距的切法」和「找到一個有意義的切法」必須分開檢查。本研究處理的方式是對的：改用與自身近期中位數的偏離來測量，跨月份的系統性差異就從 39.71 美元降到 0.43 美元，日曆效應被移除之後，剩下的東西什麼都分不開。\n\n第三項發現同時關掉了一個之前留著的疑問。上一篇研究誠實地標註了「現貨跳動量不是真實成交量」這個限制，並把它留成待解問題。這一篇用真實的 COMEX 合約量去對照，發現兩者等級相關 0.873——所以那個限制不需要再帶著。這比「用更好的資料重做一次」更有價值的地方在於，它證明了原本的代理指標已經足夠，而不是換一個測度再得到一次沒有結果。（附帶一提：兩篇研究引用的對齊 K 棒數略有出入，前一篇寫 30,734、這一篇寫 30,814，與方法段記錄的 30,934 根對齊 K 棒也不同；這不影響 0.873 這個結論，但引用時應以本研究的資料為準。）\n\n最後提醒一個看表時容易誤會的地方：在 S2 的七項特徵表中，`spot_fut_vol_mix` 與 `mgc_range_atr` 兩列的差距、門檻、單調性完全相同，看起來像是重複或程式錯誤。實際上不是——兩者的獲利因子與平均報酬不同，代表它們把交易分到不同的組別，只是恰好每一組的筆數（53／52／51）與獲勝筆數（27／21／28）都一樣。在 156 筆、三個分組的規模下，這種巧合是會發生的。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "features_tested",
+        "features_separating_outcomes",
+        "raw_basis_trap_spread_pp",
+        "spot_vs_exchange_volume_spearman"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.raw_basis_control.terciles",
+      "title": "S1 — The Raw-Basis Trap 原始價差的陷阱（本篇最重要的一張表）",
+      "takeaway_zh": "只看前四欄，這是一個 10.83 個百分點的漂亮差距。看最後一欄就知道它是什麼：三組的偶數月交易佔比是 1.3%、82.8%、73.2%——這切的是合約換月週期，不是市場狀態。差距是真的，意義是假的。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor",
+        "even_month_share_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.raw_basis_control.terciles",
+      "title": "S2 — The Raw-Basis Trap 原始價差的陷阱",
+      "takeaway_zh": "S2 上是同一個結構：偶數月佔比 0.0%、70.9%、72.7%，差距 12.73 個百分點同樣不可採用。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor",
+        "even_month_share_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_futures_feature.features",
+      "title": "S1 — Seven Futures Features 七項期貨特徵（443 筆，基準 55.53%）",
+      "takeaway_zh": "去趨勢之後，七項全部不可分辨（門檻約 15.7 個百分點）。最大的 11.14 來自 MGC 成交量，而它與前一篇的現貨成交量等級相關 0.873——是同一個測量，不是兩個獨立證據。",
+      "columns": [
+        "win_rate_spread_pp",
+        "min_detectable_pp",
+        "monotonic",
+        "separable"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.by_futures_feature.features",
+      "title": "S2 — Seven Futures Features 七項期貨特徵（156 筆，基準 48.72%）",
+      "takeaway_zh": "S2 的門檻高達 26.6 個百分點，七項全部遠遠不及。注意 spot_fut_vol_mix 與 mgc_range_atr 兩列數字相同，這是巧合而非重複——兩者的分組不同，只是每組筆數與獲勝數恰好一致，獲利因子其實有差異。",
+      "columns": [
+        "win_rate_spread_pp",
+        "min_detectable_pp",
+        "monotonic",
+        "separable"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_futures_feature.features.mgc_vol_20.terciles",
+      "title": "S1 — MGC Volume Terciles MGC 成交量三分組（唯一單調且方向重複的一項）",
+      "takeaway_zh": "62.84%／52.03%／51.7%，單調遞減：交易所成交量越低，表現越好。方向與前一篇的現貨成交量一致，但那兩個測度相關 0.873，不能當成互相印證；而且 11.14 個百分點仍在 15.7 的門檻之下。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

@@ -32,7 +32,7 @@ RETIRED_PAGES = [
 PRIVATE_TOKENS = (
     "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
     "journal_locator", "input_set_id", "ledger_run_id", ".docx", ".gdoc",
-    "private_provenance", "the owner", "owner-directed", "owner-confirmed",
+    "private_provenance", "owner",
 )
 
 EXPECTED_CHARTS = {
@@ -137,9 +137,13 @@ def check_account_figures(errors: list[str]) -> None:
 def check_privacy(errors: list[str]) -> None:
     scanned = list(GENERATED_PAGES)
     scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
-    for sid in POC_STUDIES:
-        d = ROOT / "research/studies" / sid
-        scanned += [d / "study.json", d / "results.json", d / "analysis.py"]
+    # Pages serves the whole repository, so a queued or superseded study's evidence package
+    # is as public as a published one — scan every package present, not just POC_STUDIES.
+    # impact.md was missing from this list entirely, which is how "the owner" reached five
+    # published packages: it is the one exported text that skipped the rewrite pass.
+    for d in sorted((ROOT / "research/studies").iterdir()):
+        if d.is_dir():
+            scanned += [d / "study.json", d / "results.json", d / "analysis.py", d / "impact.md"]
     for path in scanned:
         if not path.is_file():
             continue

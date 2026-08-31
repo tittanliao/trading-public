@@ -31,32 +31,192 @@
     {
       "tone": "info",
       "title": "Volatility does not separate outcomes, and the proxy was not the problem",
-      "detail": "The largest spread from any of 10 features is 11.29pp for S1 and 19.73pp for S2, both from ATR percentile — and both below their own resolution limits. Shuffling outcomes reproduces a largest spread this big 0.6297 of the time for S1 and 0.6034 for S2. The earlier GVZ and VIX result was not a measurement failure; volatility regime does not separate these strategies from the price side either."
+      "detail": "The largest spread from any of 10 features is 11.29pp for S1 and 19.73pp for S2, both from ATR percentile — and both below their own resolution limits. Shuffling outcomes reproduces a largest spread this big 0.6297 of the time for S1 and 0.6034 for S2. The earlier GVZ and VIX result was not a measurement failure; volatility regime does not separate these strategies from the price side either.",
+      "title_zh": "波動度分不開結果，而且問題不在代理指標",
+      "detail_zh": "十項特徵中最大的差距，S1 是 11.29 個百分點、S2 是 19.73 個百分點，兩者都來自 ATR 百分位，而且都低於各自的可分辨門檻。把結果隨機打散，出現同樣大的最大差距的機率 S1 是 62.97%、S2 是 60.34%。先前 GVZ 與 VIX 的結果不是量測失敗——從價格端直接算波動度，同樣分不開這兩個策略。"
     },
     {
       "tone": "warn",
       "title": "The best-looking feature is non-monotonic in both strategies",
-      "detail": "ATR percentile gives S1 55.62% / 50.65% / 61.94% across terciles and S2 41.38% / 61.11% / 42.59%. Neither is ordered, and a middle tercile that beats both neighbours has no mechanism behind it. A monotonic gradient at the same p-value would have been worth a prospective test; this is not."
+      "detail": "ATR percentile gives S1 55.62% / 50.65% / 61.94% across terciles and S2 41.38% / 61.11% / 42.59%. Neither is ordered, and a middle tercile that beats both neighbours has no mechanism behind it. A monotonic gradient at the same p-value would have been worth a prospective test; this is not.",
+      "title_zh": "表現最好看的那個特徵在兩個策略上都不單調",
+      "detail_zh": "ATR 百分位在 S1 的低／中／高三組是 55.62%／50.65%／61.94%，S2 是 41.38%／61.11%／42.59%。兩組都沒有排序，而「中間組比兩邊都好」背後沒有任何機制可言。同樣的 p 值如果來自一個單調的梯度，還值得做前瞻測試；這個不值得。"
     },
     {
       "tone": "info",
       "title": "Volume carries nothing, at any horizon or as a trend",
-      "detail": "Bar volume against its 20-bar and 96-bar medians, and the last four bars' volume against the prior twenty, all sit inside their resolution limits in both strategies. This is the first study to use the Volume column at all, and it closes it."
+      "detail": "Bar volume against its 20-bar and 96-bar medians, and the last four bars' volume against the prior twenty, all sit inside their resolution limits in both strategies. This is the first study to use the Volume column at all, and it closes it.",
+      "title_zh": "成交量什麼都沒帶來，任何時間尺度、當成趨勢看也一樣",
+      "detail_zh": "K 棒成交量對 20 根與 96 根中位數的比值，以及最近四根對前二十根的量能趨勢，在兩個策略上全部落在可分辨門檻之內。這是第一份真正使用 Volume 欄位的研究，也就此把這個方向關掉。"
     },
     {
       "tone": "info",
       "title": "Nothing in what the other strategy is doing separates either",
-      "detail": "Whether the other strategy is in position, how its last closed trade resolved, and whether it fired within 48 hours — six splits across both strategies, none separable. The largest is S2 after a losing S1 at 55.7% against 43.4%, which needs about 24pp to resolve on 61 trades and shows 12."
+      "detail": "Whether the other strategy is in position, how its last closed trade resolved, and whether it fired within 48 hours — six splits across both strategies, none separable. The largest is S2 after a losing S1 at 55.7% against 43.4%, which needs about 24pp to resolve on 61 trades and shows 12.",
+      "title_zh": "另一個策略在做什麼，同樣分不開任何一邊",
+      "detail_zh": "另一策略是否持倉中、上一筆平倉是賺是賠、48 小時內有沒有出過訊號——兩個策略共六種切法，沒有一種可分辨。最大的一組是「S1 上一筆虧損之後的 S2」55.74% 對「S1 上一筆獲利之後」43.4%，但那 61 筆需要約 24 個百分點才能分辨，實際只有 12。"
     },
     {
       "tone": "good",
       "title": "The look-ahead trap here was one line wide",
-      "detail": "Entry fills are intrabar: the fill sits inside the entry bar's range at a median position of 0.443 for S1 and 0.501 for S2, matching neither open nor close. Using the entry bar's own OHLC would have been the easiest way to manufacture an edge in this study. Every feature uses the last fully completed bar before the fill."
+      "detail": "Entry fills are intrabar: the fill sits inside the entry bar's range at a median position of 0.443 for S1 and 0.501 for S2, matching neither open nor close. Using the entry bar's own OHLC would have been the easiest way to manufacture an edge in this study. Every feature uses the last fully completed bar before the fill.",
+      "title_zh": "這裡的前視陷阱只有一行寬",
+      "detail_zh": "成交是發生在 K 棒之內的：S1 的成交價位於進場 K 棒區間的中位數位置 0.443、S2 是 0.501，既不是開盤也不是收盤。用進場那根 K 棒自己的 OHLC 來算特徵，會是這份研究裡最容易製造出假優勢的做法。因此所有特徵一律使用成交前最後一根「已經完全收完」的 K 棒。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Volume, realised volatility and bar anatomy at entry — the entry-side context sweep.",
+  "question_zh": "前一篇研究發現 GVZ 與 VIX 分不開任何結果。問題出在外部代理指標本身，還是波動度這個概念根本無效？以及——進場前那幾根 K 棒的成交量、波動度與形狀，或是另一個策略當下在做什麼，有沒有任何一項能分開 S1 或 S2 的結果？",
+  "limitations_zh": [
+    "三分位是很粗的切法。如果某個特徵的效果只存在於很窄的尾端，在這裡會被稀釋；不過沒有任何特徵呈現足以暗示這種情況的單調梯度。",
+    "現貨 FX／CFD 報價源的成交量是報價商的跳動次數，不是交易所成交量，其絕對水準不可跨平台比較；本研究只使用它與自身近期歷史的比值。此限制已由 RS-XAUUSD-20260818-003 解決：真實 COMEX 合約成交量與本測度在 30,734 根對齊 K 棒上的等級相關達 0.873，且同樣分不開任何結果。",
+    "跨策略檢定把 S1 與 S2 當成獨立序列，但兩者持倉期間會重疊、面對同一段行情，因此這些分組並非獨立樣本。",
+    "兩個策略都只做多，而樣本期間是明顯的上升行情，任何與趨勢相關的特徵能發揮的區辨空間有限。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究的價值在於它把一整類假設一次關掉，而且關得夠乾淨：十項進場端特徵、兩個策略、二十組比較，沒有任何一組跨過自己的可分辨門檻，家族層級的置換檢定也分別是 0.6297 與 0.6034——換句話說，這樣的最大差距在完全沒有效果的資料上有超過六成的機率會出現。\n\n光看差距大小會挑錯方向。ATR 百分位的差距最大（S1 11.29、S2 19.73 個百分點），但它在兩個策略上都不單調，中間組比兩邊都好，這種形狀沒有任何機制可以解釋，通常就是雜訊的樣子。二十組比較裡只有五組是單調的，而且全都是差距較小的那些——這本身就說明「差距大」與「有結構」在這批資料裡是分開的兩件事。\n\n不過在那五組單調的比較裡，有兩項特徵是在兩個策略上同時單調、而且方向相同的，值得記下來當作線索。一是「進場前兩小時報酬」：S1 由低到高是 57.96%／57.69%／52.56%，S2 是 53.57%／49.09%／41.82%，兩者都是進場前漲得越多、後續表現越差。二是「下影線佔 K 棒區間比例」，兩個策略也都是越大越差。兩項的差距（S1 5.4 與 2.83、S2 11.75 與 6.34 個百分點）都遠低於可分辨門檻，所以這不是發現，只是方向。但它與前面「前一天收黑之後表現較好」的研究指向同一個機制：在漲勢中回檔進場，優於追著漲勢進場。兩份研究用完全不同的資料與切法得到同向的結果，這比任何單一的大差距都更值得放進下一輪的前瞻測試清單。\n\n最後值得指出方法上的一個細節：這份研究把「成交發生在 K 棒之內」寫成明確的檢查，而不是當成理所當然。S1 有 471 筆、S2 有 166 筆成交價落在進場 K 棒的區間內，中位數位置分別是 0.443 與 0.501，既不貼近開盤也不貼近收盤。如果特徵誤用了進場那根 K 棒自己的最高、最低或收盤價，就等於偷看了成交當下還不存在的資訊，而且很容易做出漂亮的假結果。這一步做對了，上面所有的「沒有效果」才算數。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "features_tested",
+        "features_separating_outcomes",
+        "s1_largest_spread_pp",
+        "s1_family_permutation_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_entry_feature.features",
+      "title": "S1 — Ten Entry Features 十項進場端特徵（469 筆，基準 56.08%）",
+      "takeaway_zh": "每一列的差距都小於同一列的可分辨門檻（約 15.2 個百分點），所以 separable 全部為 no。請一併看 monotonic 欄：差距最大的 ATR 百分位並不單調，而單調的兩項差距都很小。",
+      "columns": [
+        "win_rate_spread_pp",
+        "min_detectable_pp",
+        "monotonic",
+        "separable"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.by_entry_feature.features",
+      "title": "S2 — Ten Entry Features 十項進場端特徵（166 筆，基準 48.19%）",
+      "takeaway_zh": "S2 樣本較小，可分辨門檻高達約 25.8 個百分點，因此連 19.73 的最大差距也遠遠不夠。",
+      "columns": [
+        "win_rate_spread_pp",
+        "min_detectable_pp",
+        "monotonic",
+        "separable"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_entry_feature.features.atr_percentile_240.terciles",
+      "title": "S1 — ATR Percentile Terciles ATR 百分位三分組（差距最大的特徵）",
+      "takeaway_zh": "低 55.62%、中 50.65%、高 61.94%——中間組比兩邊都低。這種形狀沒有機制可解釋，是典型的雜訊樣貌。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.by_entry_feature.features.atr_percentile_240.terciles",
+      "title": "S2 — ATR Percentile Terciles ATR 百分位三分組",
+      "takeaway_zh": "S2 剛好相反：中間組 61.11% 比兩邊都高。兩個策略的最大差距來自同一個特徵，形狀卻互相矛盾。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_entry_feature.features.ret_4bar_pct.terciles",
+      "title": "S1 — Two-Hour Return Into the Signal 進場前兩小時報酬三分組",
+      "takeaway_zh": "57.96%／57.69%／52.56%——單調遞減：進場前漲得越多，後續表現越差。差距 5.4 個百分點遠低於門檻，不構成發現，但方向值得記下。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.by_entry_feature.features.ret_4bar_pct.terciles",
+      "title": "S2 — Two-Hour Return Into the Signal 進場前兩小時報酬三分組",
+      "takeaway_zh": "53.57%／49.09%／41.82%——同樣單調遞減，方向與 S1 一致。這是二十組比較中，唯二在兩個策略上同時單調且同向的特徵之一。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2.cross_strategy.by_last_other_outcome",
+      "title": "S2 by S1's Last Outcome 依 S1 上一筆結果分組（跨策略最大的一組差距）",
+      "takeaway_zh": "S1 上一筆虧損之後的 S2 是 55.74%（61 筆），獲利之後是 43.4%（106 筆），差距 12.34 個百分點。但這 61 筆需要約 24.6 個百分點才能分辨，因此不可分辨。另外要注意兩個策略的持倉期間會重疊，這些分組並非獨立樣本。",
+      "record_keys": [
+        "after_other_win",
+        "after_other_loss"
+      ],
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor",
+        "min_detectable_pp"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "strategies.S1.fill_convention",
+      "title": "S1 Fill Convention 成交位置檢查（前視偏誤的防線）",
+      "keys": [
+        "fills_inside_entry_bar_range",
+        "fills_outside",
+        "median_position_in_bar"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "strategies.S2.fill_convention",
+      "title": "S2 Fill Convention 成交位置檢查",
+      "keys": [
+        "fills_inside_entry_bar_range",
+        "fills_outside",
+        "median_position_in_bar"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

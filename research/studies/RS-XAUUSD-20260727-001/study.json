@@ -93,7 +93,12 @@
     {
       "type": "metrics",
       "source": "headline",
-      "keys": ["trades", "win_rate_pct", "profit_factor", "macro_coverage_pct"]
+      "keys": [
+        "trades",
+        "win_rate_pct",
+        "profit_factor",
+        "macro_coverage_pct"
+      ]
     },
     {
       "type": "findings",
@@ -106,7 +111,10 @@
       "chart_file": "fail_type_breakdown.png",
       "table_source": "fail_pattern.by_type",
       "table_title": "Fail Type Breakdown",
-      "columns": ["n", "pct"]
+      "columns": [
+        "n",
+        "pct"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -115,7 +123,12 @@
       "chart_file": "entry_slot_30m_winrate.png",
       "table_source": "by_entry_30m",
       "table_title": "30-Minute Entry Slot (48 slots)",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -124,7 +137,12 @@
       "chart_file": "bb_zone_winrate.png",
       "table_source": "bb_zone",
       "table_title": "Bollinger Band Zone",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -133,7 +151,12 @@
       "chart_file": "dxy_winrate.png",
       "table_source": "dxy.regime.by_bucket",
       "table_title": "DXY Regime Bucket",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -142,7 +165,12 @@
       "chart_file": "htf_alignment.png",
       "table_source": "mtf.by_alignment",
       "table_title": "Multi-Timeframe Alignment",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -151,7 +179,12 @@
       "chart_file": "htf_4h_state.png",
       "table_source": "mtf.by_4h_state",
       "table_title": "4H Trend State",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -160,7 +193,12 @@
       "chart_file": "macro_verdict_winrate.png",
       "table_source": "by_macro_verdict",
       "table_title": "Macro Verdict",
-      "columns": ["n", "win_rate_pct", "profit_factor", "rank_score"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "rank_score"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -169,7 +207,11 @@
       "chart_file": "quarterly_stability.png",
       "table_source": "temporal_stability.by_period",
       "table_title": "Chronological Holdout by Quarter",
-      "columns": ["n", "win_rate_pct", "profit_factor"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ]
     },
     {
       "type": "interpretation",

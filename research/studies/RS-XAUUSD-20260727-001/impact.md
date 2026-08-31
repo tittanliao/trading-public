@@ -6,7 +6,7 @@ today; the history lives in the private decision record.
 ## No live impact
 
 This study has **no** live effect on `請分析`. Both adjustments it previously supplied
-were revoked on 2026-08-17 by owner decision, which is the revocation condition the
+were revoked on 2026-08-17 by an explicit decision, which is the revocation condition the
 revision-3 version of this file already recorded.
 
 The report itself is not retracted. Its method and numbers stand, and its fail-pattern,

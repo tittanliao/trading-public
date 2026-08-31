@@ -34,7 +34,7 @@ between allocations of the same backtest.
 
 ## Revision 2 — the search for an uncorrelated third strategy
 
-The owner asked for an uncorrelated strategy type, explicitly allowing long/short. Two
+The brief asked for an uncorrelated strategy type, explicitly allowing long/short. Two
 candidates were built and both fail, but the exercise produced the most reusable output in
 this line of work.
 

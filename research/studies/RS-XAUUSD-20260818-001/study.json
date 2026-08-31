@@ -136,19 +136,37 @@
       "type": "metric_table",
       "title": "Sample & Coverage 樣本與覆蓋範圍",
       "source": "headline",
-      "keys": ["s1_trades", "s2_trades", "exit_side_families_tested", "risk_alignments_compared"]
+      "keys": [
+        "s1_trades",
+        "s2_trades",
+        "exit_side_families_tested",
+        "risk_alignments_compared"
+      ]
     },
     {
       "type": "metric_table",
       "title": "Confirmation Entry 確認進場",
       "source": "headline",
-      "keys": ["largest_predictive_split_pp", "s2_confirmed_win_rate_pct", "s2_confirmed_avg_r_improvement_pct", "s1_confirmed_avg_r_improvement_pct", "s2_chase_share_of_winner_move_pct", "s1_chase_share_of_winner_move_pct"]
+      "keys": [
+        "largest_predictive_split_pp",
+        "s2_confirmed_win_rate_pct",
+        "s2_confirmed_avg_r_improvement_pct",
+        "s1_confirmed_avg_r_improvement_pct",
+        "s2_chase_share_of_winner_move_pct",
+        "s1_chase_share_of_winner_move_pct"
+      ]
     },
     {
       "type": "metric_table",
       "title": "Risk-normalized Comparison 風險調整比較",
       "source": "headline",
-      "keys": ["s2_share_of_baseline_at_equal_volatility_pct", "s1_share_of_baseline_at_equal_volatility_pct", "s2_trade_count_share_pct", "s2_total_r_share_pct", "scale_in_variants_improving"]
+      "keys": [
+        "s2_share_of_baseline_at_equal_volatility_pct",
+        "s1_share_of_baseline_at_equal_volatility_pct",
+        "s2_trade_count_share_pct",
+        "s2_total_r_share_pct",
+        "scale_in_variants_improving"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -157,7 +175,13 @@
       "chart_file": "s1_take_profit_tradeoff.png",
       "table_source": "strategies.S1.take_profit_overlay.levels",
       "table_title": "S1 Take-Profit Overlay",
-      "columns": ["win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct", "total_return_delta_pct"]
+      "columns": [
+        "win_rate_pct",
+        "profit_factor",
+        "avg_return_pct",
+        "total_return_pct",
+        "total_return_delta_pct"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -166,7 +190,12 @@
       "chart_file": "s1_underwater_split.png",
       "table_source": "strategies.S1.underwater_time_exit.predictive_split.bar_1",
       "table_title": "S1 Underwater-State Predictive Split (Bar 1)",
-      "columns": ["n", "wins", "win_rate_pct", "profit_factor"]
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "profit_factor"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -175,8 +204,18 @@
       "chart_file": "s1_confirmation_gradient.png",
       "table_source": "strategies.S1.confirmation_entry.by_bar.bar_1",
       "table_title": "S1 One-Bar Confirmation Entry",
-      "record_keys": ["delay_only", "confirmed"],
-      "columns": ["n", "wins", "win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct"]
+      "record_keys": [
+        "delay_only",
+        "confirmed"
+      ],
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "profit_factor",
+        "avg_return_pct",
+        "total_return_pct"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -185,7 +224,13 @@
       "chart_file": "s2_take_profit_tradeoff.png",
       "table_source": "strategies.S2.take_profit_overlay.levels",
       "table_title": "S2 Take-Profit Overlay",
-      "columns": ["win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct", "total_return_delta_pct"]
+      "columns": [
+        "win_rate_pct",
+        "profit_factor",
+        "avg_return_pct",
+        "total_return_pct",
+        "total_return_delta_pct"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -194,7 +239,12 @@
       "chart_file": "s2_underwater_split.png",
       "table_source": "strategies.S2.underwater_time_exit.predictive_split.bar_1",
       "table_title": "S2 Underwater-State Predictive Split (Bar 1)",
-      "columns": ["n", "wins", "win_rate_pct", "profit_factor"]
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "profit_factor"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -203,8 +253,18 @@
       "chart_file": "s2_confirmation_gradient.png",
       "table_source": "strategies.S2.confirmation_entry.by_bar.bar_1",
       "table_title": "S2 One-Bar Confirmation Entry",
-      "record_keys": ["delay_only", "confirmed"],
-      "columns": ["n", "wins", "win_rate_pct", "profit_factor", "avg_return_pct", "total_return_pct"]
+      "record_keys": [
+        "delay_only",
+        "confirmed"
+      ],
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "profit_factor",
+        "avg_return_pct",
+        "total_return_pct"
+      ]
     },
     {
       "type": "interpretation",

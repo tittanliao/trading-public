@@ -4,7 +4,7 @@
 
 **None.** No score, threshold, gate, or output block changes.
 
-## What the owner asked and what came back
+## What was asked and what came back
 
 "Find repeatable regularities in the 30-minute data; overfitting is acceptable."
 

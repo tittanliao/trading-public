@@ -37,42 +37,231 @@
     {
       "tone": "info",
       "title": "No directional feature survives validation",
-      "detail": "26 features across 6 horizons were scanned on TRAIN only; the largest |IC| anywhere is 0.0399. The five-feature shortlist fixed on TRAIN produced 2 sign flips in VALID, and the block-bootstrap p-values for the rest run 0.14 to 0.90. Nothing survives. Once the overlap in a 48-bar forward return is respected, the validation period holds roughly 160 independent windows, not 7,740."
+      "detail": "26 features across 6 horizons were scanned on TRAIN only; the largest |IC| anywhere is 0.0399. The five-feature shortlist fixed on TRAIN produced 2 sign flips in VALID, and the block-bootstrap p-values for the rest run 0.14 to 0.90. Nothing survives. Once the overlap in a 48-bar forward return is respected, the validation period holds roughly 160 independent windows, not 7,740.",
+      "title_zh": "沒有任何方向性特徵通過驗證",
+      "detail_zh": "26 項特徵乘以 6 個時間視野，只在 TRAIN 上掃描，最大的 |IC| 是 0.0399。在 TRAIN 上固定下來的五項候選名單，到 VALID 有 2 項正負號翻轉，其餘的區塊自助抽樣 p 值介於 0.14 到 0.90。沒有任何一項存活。而且一旦把 48 根前瞻報酬的重疊納入考慮，驗證期實際上只有約 160 個獨立視窗，不是 7,740 個。"
     },
     {
       "tone": "warn",
       "title": "Costs remove the short-horizon effects before statistics gets a turn",
-      "detail": "Short-horizon reversal is the most visible pattern in the scan — one- and two-bar returns, distance from the 8 and 24-bar means, body ratio and streak all carry the same negative sign at h=1 and h=2. Its quintile spread is 0.004% to 0.007% against round-trip costs of 0.010% to 0.040%. The pattern is real and worth less than the spread, which is the ordinary reason such patterns persist."
+      "detail": "Short-horizon reversal is the most visible pattern in the scan — one- and two-bar returns, distance from the 8 and 24-bar means, body ratio and streak all carry the same negative sign at h=1 and h=2. Its quintile spread is 0.004% to 0.007% against round-trip costs of 0.010% to 0.040%. The pattern is real and worth less than the spread, which is the ordinary reason such patterns persist.",
+      "title_zh": "交易成本在統計輪到之前就先把短視野效應吃掉了",
+      "detail_zh": "短視野的反轉是整份掃描裡最明顯的樣式——一根與兩根 K 棒的報酬、距 8 與 24 根均線的距離、實體比例與連續同向，在 h=1 與 h=2 上都帶著相同的負號。但它的五分位差距是 0.004% 到 0.007%，而來回交易成本是 0.010% 到 0.040%。這個樣式是真的，只是價值低於價差——這正是它能一直存在的普通理由。"
     },
     {
       "tone": "good",
       "title": "Volatility forecasts an order of magnitude better than direction",
-      "detail": "ATR(14) scaled by an hour-of-day factor reaches Spearman 0.684 on TRAIN, 0.684 on VALID and 0.571 on HOLDOUT, against 0.409 for ATR alone. The hour factor spans 3.28x trough to peak and its shape rank-correlates 0.924 between TRAIN and VALID and 0.863 between TRAIN and HOLDOUT. Same bars, same method, same splits as the directional scan: what fails for direction is stable for magnitude."
+      "detail": "ATR(14) scaled by an hour-of-day factor reaches Spearman 0.684 on TRAIN, 0.684 on VALID and 0.571 on HOLDOUT, against 0.409 for ATR alone. The hour factor spans 3.28x trough to peak and its shape rank-correlates 0.924 between TRAIN and VALID and 0.863 between TRAIN and HOLDOUT. Same bars, same method, same splits as the directional scan: what fails for direction is stable for magnitude.",
+      "title_zh": "波動度的可預測性比方向高一個數量級",
+      "detail_zh": "ATR(14) 乘上「小時因子」在 TRAIN 達到 Spearman 0.684、VALID 0.684、HOLDOUT 0.571，而單用 ATR 在 HOLDOUT 只有 0.409。小時因子的最高與最低相差 3.28 倍，其形狀在 TRAIN 與 VALID 之間的等級相關是 0.924、與 HOLDOUT 是 0.863。同一批 K 棒、同一套方法、同樣的切分：方向做不到的事，量級做得到而且穩定。"
     },
     {
       "tone": "warn",
       "title": "A fixed percentage stop delivers wildly inconsistent risk geometry",
-      "detail": "Measured in forecast-volatility units, S1's 0.5% stop ranges over a factor of 15.2 across its trades (median 2.38x, from 0.47x to 7.17x) and S2's 1.0% stop over a factor of 18.3. The same percentage is sometimes half an expected bar range and sometimes seven of them."
+      "detail": "Measured in forecast-volatility units, S1's 0.5% stop ranges over a factor of 15.2 across its trades (median 2.38x, from 0.47x to 7.17x) and S2's 1.0% stop over a factor of 18.3. The same percentage is sometimes half an expected bar range and sometimes seven of them.",
+      "title_zh": "固定百分比停損帶來極不一致的風險幾何",
+      "detail_zh": "換算成「預測波動度單位」之後，S1 的 0.5% 停損在各筆交易之間相差 15.2 倍（中位數 2.38 倍，最小 0.47、最大 7.17），S2 的 1.0% 停損相差 18.3 倍。同樣一個百分比，有時候只有預期 K 棒振幅的一半，有時候是七根。"
     },
     {
       "tone": "info",
       "title": "And fixing it does not help, which is the most useful result here",
-      "detail": "Volatility-scaled stops reach at best 91.3% of baseline for S1 and 92.6% for S2 once returns are compared at equal volatility over the period. Volatility-targeted sizing reaches 100.3% and 101.4%. Neither beats doing nothing."
+      "detail": "Volatility-scaled stops reach at best 91.3% of baseline for S1 and 92.6% for S2 once returns are compared at equal volatility over the period. Volatility-targeted sizing reaches 100.3% and 101.4%. Neither beats doing nothing.",
+      "title_zh": "而且修正它並沒有幫助，這是本篇最有用的結果",
+      "detail_zh": "在把整段期間的報酬調整到相同波動度之後比較：波動度調整停損最好只達到基準的 91.3%（S1）與 92.6%（S2），波動度目標化部位大小則是 100.3% 與 101.4%。兩者都沒有勝過「什麼都不做」。"
     },
     {
       "tone": "good",
       "title": "One mechanism explains three separate negative results",
-      "detail": "R per trade by forecast-volatility tercile has an almost flat dispersion: S1 1.477 / 1.285 / 1.598, S2 1.664 / 1.779 / 1.645. A fixed-percentage stop with fixed-fractional risk already normalises returns by volatility, so a volatility forecast has nothing left to correct. That single fact explains this study's sizing result, its stop result, and RS-XAUUSD-20260818-002's finding that ATR at entry separates nothing."
+      "detail": "R per trade by forecast-volatility tercile has an almost flat dispersion: S1 1.477 / 1.285 / 1.598, S2 1.664 / 1.779 / 1.645. A fixed-percentage stop with fixed-fractional risk already normalises returns by volatility, so a volatility forecast has nothing left to correct. That single fact explains this study's sizing result, its stop result, and RS-XAUUSD-20260818-002's finding that ATR at entry separates nothing.",
+      "title_zh": "一個機制同時解釋了三個各自獨立的負面結果",
+      "detail_zh": "依預測波動度三分組看每筆交易的 R，離散程度幾乎是平的：S1 是 1.477／1.285／1.598，S2 是 1.664／1.779／1.645。固定百分比停損搭配固定比例風險，本身就已經把報酬對波動度做了正規化，所以波動度預測沒有剩下什麼可以修正的。這一個事實同時解釋了本研究的部位大小結果、停損結果，以及 RS-XAUUSD-20260818-002 中「進場當下的 ATR 分不開任何結果」這項發現。"
     },
     {
       "tone": "warn",
       "title": "Session direction looked consistent for two periods out of three",
-      "detail": "Overnight bars led London bars in forward return on both TRAIN and VALID, which reads as replication. On HOLDOUT the sign reverses and the Welch t is -0.13. Two agreeing periods out of three is what a coin does. Session volatility, by contrast, is stable to two decimal places across all three."
+      "detail": "Overnight bars led London bars in forward return on both TRAIN and VALID, which reads as replication. On HOLDOUT the sign reverses and the Welch t is -0.13. Two agreeing periods out of three is what a coin does. Session volatility, by contrast, is stable to two decimal places across all three.",
+      "title_zh": "盤別方向在三段期間中有兩段看起來一致",
+      "detail_zh": "在 TRAIN 與 VALID 上，亞洲盤 K 棒的前瞻報酬都領先倫敦盤，這讀起來像是成功複製。但在 HOLDOUT 上正負號反轉，Welch t 值是 −0.13。三段裡有兩段一致，正是丟銅板會出現的樣子。相對地，盤別的波動度在三段期間穩定到小數點後兩位。"
     }
   ],
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "Direction is not forecastable on this data and volatility is — an order of magnitude apart.",
+  "question_zh": "先把 S1 與 S2 放在一邊：30 分鐘 K 棒序列本身到底有沒有方向性的優勢？如果可預測的其實是別的量，那個量值不值錢？",
+  "limitations_zh": [
+    "特徵集合是線性且單變量的。只在組合中才出現的交互作用不會被找到；而在這個樣本上搜尋組合，產生偽陽性的速度會快過產生發現。",
+    "三分位與五分位都是粗切法，只集中在窄尾端的效果會被稀釋。",
+    "成本以固定的來回百分比建模。真實滑價恰好在波動度上升時變大，這會讓短視野訊號比模型顯示的更不划算——這個誤差的方向對本研究的結論有利。",
+    "HOLDOUT 是為了波動度預測與盤別比較才開啟的。它對這兩個問題已經用掉，不得再拿來搶救任何方向性特徵。",
+    "樣本是單一商品、32 個月、且處於強勢上升行情。",
+    "第二項與第七項發現引用的數字（短視野五分位差距、盤別方向的 Welch 檢定）不在本研究發布的 results.json 之中，讀者無法從本頁表格核對這兩項。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究把一個常見的錯誤結論擋了下來：「找不到方向性優勢」不等於「這段資料沒有可預測的東西」。同一批 K 棒、同一套方法、同樣的 TRAIN／VALID／HOLDOUT 切分，方向的最大 |IC| 只有 0.0399，而波動度的預測準確度在 HOLDOUT 仍有 Spearman 0.571。差距大約是一個數量級。把兩者放在同一個實驗設計裡比較，是這份研究最有價值的設計決定——否則「方向不可預測」很容易被誤讀成方法不夠好。\n\n但真正有用的是接下來那一步：可預測不代表值錢。波動度預測得很好，拿去調整停損最好只有基準的 91.3%，拿去調整部位大小是 100.3%——都沒有勝過什麼都不做。原因在第六項發現裡，而且可以直接從表上看出來：依預測波動度分成三組之後，每筆交易 R 的標準差幾乎不變（S1 1.477／1.285／1.598）。固定百分比停損配上固定比例風險，等於已經先用波動度把報酬正規化過一次了，所以再拿一個波動度預測去修正它，沒有東西可以修。這一個機制同時解釋了三個看起來各自獨立的負面結果，也解釋了前一篇研究裡 ATR 分不開結果的原因。\n\n有一點研究本身沒有特別指出：S2 依預測波動度分組時，平均 R 是單調下降的（0.723／0.571／0.381），也就是波動度越高、每筆的平均報酬越低——雖然離散程度仍然是平的。S1 沒有這個形狀（0.44／0.232／0.454）。S2 的三組各只有 56／56／55 筆，不足以支撐任何結論，但如果之後要再看波動度，這是唯一還留著方向的地方。\n\n最後兩點關於本頁證據範圍的說明，讀者應該知道。第二項發現（成本吃掉短視野效應，五分位差距 0.004%–0.007%）與第七項發現（盤別方向在 HOLDOUT 反轉、Welch t = −0.13）所引用的數字，並不在本研究發布的 results.json 之內，因此下方表格無法讓你自行核對這兩項；其餘五項發現的數字都可以在本頁表格中逐一對上。另外，第一項發現對「獨立視窗數」的修正值得記住：驗證期表面上有 7,740 個樣本點，但 48 根 K 棒的前瞻報酬彼此重疊，實際只有約 160 個獨立視窗——區塊自助抽樣就是為了處理這件事，而這也是為什麼那些 p 值那麼大。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "combinations_scanned",
+        "largest_directional_ic",
+        "shortlist_survivors",
+        "volatility_forecast_ic_holdout"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "matrix_table",
+      "source": "directional_scan_train_only.ic_by_feature",
+      "title": "Directional Scan 方向性掃描：26 項特徵 × 6 個視野的 IC（僅 TRAIN）",
+      "takeaway_zh": "整張表的絕對值最大只有 0.0399。作為對照，下面波動度預測的 Spearman 是 0.571——差了一個數量級。注意左側幾欄（h=1、h=2）普遍為負，那是短視野反轉，但它的規模小於交易成本。",
+      "columns": [
+        "1",
+        "2",
+        "4",
+        "8",
+        "16",
+        "48"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "shortlist_validation",
+      "title": "Shortlist Validation 候選名單驗證（TRAIN 固定，VALID 檢驗）",
+      "takeaway_zh": "五項候選中有兩項在 VALID 正負號翻轉（sign held = no），其餘三項的區塊自助抽樣 p 值是 0.1353、0.476、0.8293。存活數為 0。p 值之所以這麼大，是因為 48 根前瞻報酬彼此重疊，7,740 個樣本點實際上只相當於約 160 個獨立視窗。",
+      "columns": [
+        "train_ic",
+        "valid_ic",
+        "sign_held",
+        "valid_block_bootstrap.p_value",
+        "valid_block_bootstrap.block_length"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "volatility_forecast.forecast_accuracy_spearman",
+      "title": "Direction vs Magnitude 波動度預測準確度（Spearman）",
+      "takeaway_zh": "同樣的 K 棒、同樣的切分。加上小時因子之後，三段期間分別是 0.684／0.684／0.571，而方向性掃描的最大 |IC| 只有 0.0399。這就是「方向不可預測、量級可預測」的完整對照。",
+      "columns": [
+        "train",
+        "valid",
+        "holdout"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "volatility_forecast.hour_factor_train",
+      "title": "Hour-of-Day Volatility Factor 小時波動度因子（TRAIN，1.0 為平均）",
+      "keys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "volatility_applications.S1.stop_in_forecast_vol_units",
+      "title": "S1 — Fixed 0.5% Stop in Volatility Units 固定停損換算成波動度單位",
+      "keys": [
+        "median",
+        "min",
+        "max",
+        "spread_factor"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "volatility_applications.S2.stop_in_forecast_vol_units",
+      "title": "S2 — Fixed 1.0% Stop in Volatility Units 固定停損換算成波動度單位",
+      "keys": [
+        "median",
+        "min",
+        "max",
+        "spread_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "volatility_applications.S1.r_by_forecast_vol_tercile",
+      "title": "S1 — R by Forecast-Volatility Tercile 依預測波動度分組的每筆 R",
+      "takeaway_zh": "看 sd r 這一欄：1.477／1.285／1.598，幾乎是平的。這代表固定百分比停損加固定比例風險，已經把報酬對波動度正規化過了——這就是為什麼再加一個波動度預測沒有東西可以修正。",
+      "columns": [
+        "n",
+        "mean_r",
+        "sd_r"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "volatility_applications.S2.r_by_forecast_vol_tercile",
+      "title": "S2 — R by Forecast-Volatility Tercile 依預測波動度分組的每筆 R",
+      "takeaway_zh": "S2 的離散程度同樣是平的（1.664／1.779／1.645），但平均 R 是單調下降的（0.723／0.571／0.381）——研究本身沒有特別指出這點。每組只有約 56 筆，不足以下結論。",
+      "columns": [
+        "n",
+        "mean_r",
+        "sd_r"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "volatility_applications.S1.volatility_scaled_stop",
+      "title": "S1 — Volatility-Scaled Stops 波動度調整停損（k 為倍數）",
+      "takeaway_zh": "最後一欄是在相同波動度下與基準比較的結果。最好的 k=3.0 只有 91.3%，全部低於 100%。注意 total r 欄看起來 k=1.0 的 234.64 遠高於基準 177.24——但它的 sd 是 2.824、最大回檔 21.2，那不是更好，只是承擔了更多風險。這正是為什麼要在相同波動度下比較。",
+      "columns": [
+        "total_r",
+        "mean_r",
+        "sd_r",
+        "max_drawdown_r",
+        "share_of_baseline_at_equal_volatility_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "volatility_applications.S1.volatility_targeted_sizing",
+      "title": "S1 — Volatility-Targeted Sizing 波動度目標化部位大小（p 為強度）",
+      "takeaway_zh": "最高只到 100.3%（p=0.25），與什麼都不做（p=0.0 的 100.0%）沒有實質差別。",
+      "columns": [
+        "total_r",
+        "sd_r",
+        "share_of_baseline_at_equal_volatility_pct"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
