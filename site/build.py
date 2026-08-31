@@ -89,6 +89,7 @@ def routes() -> list[str]:
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         "research",
         "research/null-results",
+        "research/backlog",
         *(f"research/studies/{sid}" for sid in PUBLISHED_STUDIES),
     ]
 
@@ -833,7 +834,7 @@ def research_index_page() -> str:
   {buttons}
   <input type="search" id="research-search" placeholder="搜尋標題、主題…" aria-label="Search research">
 </div>
-<p class="more"><a href="null-results/">Null Results / 沒有效果的研究 →</a></p>
+<p class="more"><a href="null-results/">Null Results / 沒有效果的研究 →</a>　<a href="backlog/">Backlog / 待研究題目 →</a></p>
 <div id="research-table">{table}</div>
 {queued_note}{superseded_line}
 <script>
@@ -871,6 +872,77 @@ def research_index_page() -> str:
 # ---------------------------------------------------------------------------
 # Null results
 # ---------------------------------------------------------------------------
+
+PRIORITY_LABELS = {1: "高", 2: "中", 3: "低"}
+STATUS_LABELS = {
+    "open": "未回答",
+    "running": "進行中",
+    "answered": "已回答",
+    "closed": "已撤回",
+}
+
+
+def backlog_page() -> str:
+    """Questions raised but not yet answered, with what is already known about each.
+
+    The point of the page is the `prior_evidence` block: most new questions are partly
+    answered already, and a backlog that does not say so invites re-running finished work.
+    """
+    backlog = load_json(ROOT / "research/backlog/backlog.json")
+    items = sorted(backlog["items"], key=lambda i: (i["priority"], i["id"]))
+    live = set(PUBLISHED_STUDIES)
+
+    cards = []
+    for item in items:
+        evidence = ""
+        if item["prior_evidence"]:
+            rows = []
+            for reference in item["prior_evidence"]:
+                sid = reference["study_id"]
+                label = (f'<a href="../studies/{sid}/">{esc(sid)}</a>'
+                         if sid in live else esc(sid))
+                rows.append(f"<li>{label}｜{esc(reference['says_zh'])}</li>")
+            evidence = ('<div class="backlog-evidence"><h4>目前已知</h4>'
+                        f'<ul>{"".join(rows)}</ul></div>')
+        else:
+            evidence = ('<div class="backlog-evidence"><h4>目前已知</h4>'
+                        "<p class=\"empty-note\">尚無已發布研究涉及此題。</p></div>")
+
+        answered = ""
+        if item.get("answered_by"):
+            sid = item["answered_by"]
+            link = (f'<a href="../studies/{sid}/">{esc(sid)}</a>'
+                    if sid in live else esc(sid))
+            answered = f'<p class="backlog-answered">已由 {link} 回答。</p>'
+
+        cards.append(f"""<article class="backlog-item" data-status="{attr(item['status'])}"
+ data-priority="{attr(str(item['priority']))}">
+<header><span class="backlog-id">{esc(item['id'])}</span>
+<span class="tag prio-{attr(str(item['priority']))}">優先 {esc(PRIORITY_LABELS[item['priority']])}</span>
+<span class="tag status-{attr(item['status'])}">{esc(STATUS_LABELS[item['status']])}</span></header>
+<h3>{esc(item['title_zh'])}</h3>
+<p class="backlog-question">{esc(item['question_zh'])}</p>
+<p class="backlog-why"><strong>為什麼值得做：</strong>{esc(item['rationale_zh'])}</p>
+{evidence}
+<p class="backlog-next"><strong>下一步：</strong>{esc(item['next_step_zh'])}</p>
+{answered}
+</article>""")
+
+    counts: dict[str, int] = {}
+    for item in items:
+        counts[item["status"]] = counts.get(item["status"], 0) + 1
+    summary = "　".join(f"{STATUS_LABELS[k]} {v}" for k, v in sorted(counts.items()))
+
+    body = f"""
+<h1>Research Backlog / 待研究題目</h1>
+<p class="lede">{len(items)} 個已提出但尚未回答的問題，依優先序排列。{summary}。</p>
+<p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
+不寫出來就會重複做已經做過的事。</p>
+<div class="backlog-list">{"".join(cards)}</div>
+<p class="more"><a href="../">← 回到 Research</a>　<a href="backlog.json">backlog.json</a></p>
+"""
+    return document("Research Backlog", "待研究題目與目前已知的證據", 2, body, wide=True)
+
 
 def null_results_page() -> str:
     registry = load_json(ROOT / "research/null-results/null_results.json")
@@ -1038,6 +1110,28 @@ tbody tr[hidden]{display:none;}
 .v-underpowered{background:rgba(242,201,76,.16);color:var(--warn);}
 .v-below_cost{background:rgba(235,87,87,.16);color:var(--bad);}
 
+/* Research backlog. Reading rail, not a data rail: each card is prose, so it keeps the
+   same measure as the study narrative rather than stretching to the table width. */
+.backlog-list{display:flex;flex-direction:column;gap:20px;max-width:860px;}
+.backlog-item{border:1px solid var(--line2);border-radius:10px;padding:20px 22px;background:var(--panel);}
+.backlog-item header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.backlog-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:var(--muted);}
+.backlog-item h3{margin:0 0 10px;font-size:1.06rem;line-height:1.5;}
+.backlog-question{margin:0 0 12px;line-height:1.85;}
+.backlog-why,.backlog-next{color:var(--muted);font-size:.93rem;line-height:1.8;margin:10px 0;}
+.backlog-evidence{margin:14px 0;padding:12px 16px;border-left:3px solid var(--line2);background:var(--panel2);border-radius:0 6px 6px 0;}
+.backlog-evidence h4{margin:0 0 8px;font-size:.86rem;color:var(--muted);font-weight:600;}
+.backlog-evidence ul{margin:0;padding-left:1.2em;font-size:.9rem;line-height:1.8;}
+.backlog-evidence li{margin:.45em 0;}
+.backlog-answered{font-size:.9rem;color:var(--good);margin:10px 0 0;}
+.prio-1{background:rgba(235,87,87,.16);color:var(--bad);border-color:transparent;}
+.prio-2{background:rgba(242,201,76,.16);color:var(--warn);border-color:transparent;}
+.prio-3{background:rgba(154,163,178,.14);color:var(--muted);border-color:transparent;}
+.status-open{background:rgba(154,163,178,.14);color:var(--muted);border-color:transparent;}
+.status-running{background:rgba(94,200,216,.16);color:var(--cyan);border-color:transparent;}
+.status-answered{background:rgba(39,174,96,.16);color:var(--good);border-color:transparent;}
+.status-closed{background:rgba(154,163,178,.10);color:var(--muted);border-color:transparent;}
+
 .limitations-list{color:var(--muted);font-size:.93rem;padding-left:1.25em;max-width:82ch;}
 .limitations-list li{margin:.5em 0;}
 .evidence-links{list-style:none;padding:0;display:flex;gap:18px;flex-wrap:wrap;}
@@ -1137,6 +1231,7 @@ def generated_pages() -> dict[str, str]:
         "xauusd/weekly/index.html": weekly_index_page(),
         "research/index.html": research_index_page(),
         "research/null-results/index.html": null_results_page(),
+        "research/backlog/index.html": backlog_page(),
     }
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)

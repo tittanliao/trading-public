@@ -78,6 +78,40 @@ def check_links_and_images(errors: list[str]) -> None:
                 errors.append(f"broken link in {page.relative_to(ROOT)}: {link}")
 
 
+def check_backlog(errors: list[str]) -> None:
+    """The backlog is only useful while its cross-references hold.
+
+    Its whole value is the "already known" block on each item, so a reference that no longer
+    resolves is worse than no reference: it tells a reader evidence exists where it does not.
+    An item marked answered must name the study that answered it, for the same reason.
+    """
+    path = ROOT / "research/backlog/backlog.json"
+    if not path.is_file():
+        errors.append("research/backlog/backlog.json is missing")
+        return
+    backlog = json.loads(path.read_text(encoding="utf-8"))
+    valid = {"open", "running", "answered", "closed"}
+    live = set(PUBLISHED_STUDIES)
+    seen: set[str] = set()
+    for item in backlog.get("items", []):
+        bid = item.get("id", "?")
+        if bid in seen:
+            errors.append(f"backlog {bid}: duplicate id")
+        seen.add(bid)
+        if item.get("status") not in valid:
+            errors.append(f"backlog {bid}: unknown status {item.get('status')!r}")
+        if item.get("status") == "answered" and not item.get("answered_by"):
+            errors.append(f"backlog {bid}: answered but names no study")
+        references = [r["study_id"] for r in item.get("prior_evidence", [])]
+        if item.get("answered_by"):
+            references.append(item["answered_by"])
+        for sid in references:
+            if sid not in live:
+                errors.append(
+                    f"backlog {bid}: cites {sid}, which has no published page to link to"
+                )
+
+
 def check_charts(errors: list[str]) -> None:
     """The chart contract, per the owner decision of 2026-08-31.
 
@@ -276,12 +310,15 @@ def check_study_order(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
-               check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
+               check_backlog, check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
                check_table_columns, check_study_order):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),
         "weekly editions": len(weekly_weeks()),
+        "backlog items": len(
+            json.loads((ROOT / "research/backlog/backlog.json").read_text(encoding="utf-8"))["items"]
+        ),
         "charts shown": sum(
             1 for sid in PUBLISHED_STUDIES
             for b in json.loads((ROOT / "research/studies" / sid / "study.json")
