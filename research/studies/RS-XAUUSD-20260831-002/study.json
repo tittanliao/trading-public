@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260831-002",
+  "revision": 1,
+  "title": "S2 V3.2 — the decline is in every session, not in Asia, and S1 did not share it",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S2-Hammer",
+    "version": "V3.2"
+  },
+  "status": "progress",
+  "created_on": "2026-08-31",
+  "question": "Four studies have seen S2 V3.2 weaken and a fifth saw its Asia session turn negative. What is the decline actually made of — the sessions themselves, the mix between them, or the market?",
+  "hypothesis": "If Asia were deteriorating specifically, its fall would be the largest and the mix shift would matter. If the strategy is deteriorating, every session falls together and the mix contributes nothing.",
+  "headline": {
+    "s2_trades": 157,
+    "s1_control_trades": 450,
+    "mean_return_change_pct": -0.463,
+    "within_session_share_of_change_pct": 101.6,
+    "between_session_mix_share_pct": -8.8,
+    "asia_rank_among_declines": 3,
+    "sessions_that_declined": 4,
+    "s1_mean_return_change_pct": 0.0232,
+    "gold_move_early_pct": 98.7,
+    "gold_move_recent_pct": -0.82,
+    "gold_volatility_early_pct": 1.1047,
+    "gold_volatility_recent_pct": 1.9516,
+    "permutation_p_decline": 0.0619
+  },
+  "card_metrics": [
+    "within_session_share_of_change_pct",
+    "asia_rank_among_declines",
+    "s1_mean_return_change_pct",
+    "permutation_p_decline"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Every session declined, and Asia's fall was the third largest of four",
+      "detail": "Win rate fell 25.00 points in the US session, 21.85 overnight, 19.60 in Asia and 18.81 in Europe. Asia looks like the problem session because it started lowest, not because it fell hardest. The framing this study was built to test — that Asia is deteriorating specifically — does not survive its own table.",
+      "title_zh": "每一個盤別都衰退，而亞盤的跌幅是四個裡的第三大",
+      "detail_zh": "勝率下跌幅度：美盤 25.00 個百分點、半夜 21.85、亞盤 19.60、歐盤 18.81。亞盤看起來像問題盤別，是因為它**起點最低**，不是因為它跌最多。這份研究原本要檢驗的框架——「亞盤正在特別惡化」——在它自己的表上就不成立。"
+    },
+    {
+      "tone": "good",
+      "title": "The decomposition puts the whole decline inside the sessions",
+      "detail": "Shift-share splits the -0.463 point change in mean return into -0.4706 from what happened within sessions and +0.0407 from the mix between them: 101.6% within, -8.8% between. The mix actually moved away from Asia, from 35.8% of trades to 29.2%, and therefore helped slightly. There is no composition story here to tell.",
+      "title_zh": "分解結果把整個衰退都放在盤別內部",
+      "detail_zh": "Shift-share 把 −0.463 個百分點的平均報酬變化拆成：盤別內部 −0.4706、盤別之間的組合變化 +0.0407，也就是 101.6% 來自內部、−8.8% 來自組合。而且組合其實是往「離開亞盤」的方向移動的（佔比從 35.78% 降到 29.17%），因此稍微幫了忙。這裡沒有任何「組合結構」的故事可以講。"
+    },
+    {
+      "tone": "warn",
+      "title": "S1 did not decline over the identical window",
+      "detail": "Cut by the same calendar boundary, S1's mean return per trade went from 0.1841% to 0.2073% and its profit factor from 1.852 to 1.908, on 319 and 131 trades. Whatever happened, it happened to S2. A market-wide explanation has to explain why the other strategy on the same instrument was unaffected, and none does.",
+      "title_zh": "S1 在完全相同的期間並沒有衰退",
+      "detail_zh": "用同一個日曆分界切開，S1 每筆平均報酬從 0.1841% 上升到 0.2073%，獲利因子從 1.852 上升到 1.908，樣本分別是 319 筆與 131 筆。不論發生了什麼，它發生在 S2 身上。任何「市場整體變差」的解釋，都必須解釋為什麼同一個商品上的另一個策略完全沒有受影響——而目前沒有這樣的解釋。"
+    },
+    {
+      "tone": "info",
+      "title": "The market changed sharply, and in the way that would hurt this pattern",
+      "detail": "Gold moved +98.7% across the early window and -0.82% across the recent one, while daily volatility rose from 1.1047% to 1.9516% and the average daily range from 1.5673% to 2.7963%. A long-only mean-reversion entry is the kind of pattern that depends on an uptrend to bail out entries that went wrong, and the uptrend stopped. This is the best available reading; it is one before-and-after comparison and it is not a demonstrated cause.",
+      "title_zh": "市場確實劇烈改變了，而且改變的方向正好會傷害這種型態",
+      "detail_zh": "黃金在前段區間上漲 98.7%，在近段區間是 −0.82%（幾乎持平）；同時日波動度從 1.1047% 升到 1.9516%，平均日振幅從 1.5673% 升到 2.7963%。純多方的均值回歸型進場，正是那種「靠上升趨勢把做錯的單子救回來」的型態，而那個上升趨勢停了。這是目前最合理的讀法；但它只是一次前後比較，不是已經證明的因果。"
+    },
+    {
+      "tone": "warn",
+      "title": "The decline itself is not significant at the conventional line",
+      "detail": "Shuffling the period labels across the 157 trades reproduces a drop this large 6.19% of the time. So this study decomposes a change that a sample this size cannot firmly establish. The decomposition is still the right answer to the question asked — it says what the drop is made of, whatever the drop turns out to be worth.",
+      "title_zh": "衰退本身在傳統顯著水準下並不顯著",
+      "detail_zh": "把期間標籤在 157 筆交易上隨機打散，出現這麼大跌幅的機率是 6.19%。所以這份研究分解的是一個「樣本量還無法穩固確立」的變化。但分解仍然正確回答了被問的問題——它說明那個跌幅是由什麼構成的，無論那個跌幅最終值多少。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "strategy_diagnostics",
+  "card_summary": "S2 got worse everywhere at once — and S1, over the same window, did not.",
+  "question_zh": "已經有四份研究以不同方法看到 S2 V3.2 轉弱，第五份看到它的亞盤轉為虧損。這個衰退到底是由什麼構成的——是各盤別自己變差、是交易組合往差的盤別偏移，還是市場本身變了？",
+  "limitations_zh": [
+    "這是一次前後比較加一個對照策略，不是因果檢定。市場環境的三項變化（趨勢停止、波動度上升 77%、日振幅上升 78%）與 S2 的衰退同時發生，但同時發生不等於造成。",
+    "衰退本身的置換檢定 p 值為 0.0619，在 157 筆交易上尚未跨過傳統顯著線；本研究分解的是一個尚未被穩固確立的變化。",
+    "近段各盤別樣本極小（半夜 7 筆、歐盤 11 筆、亞盤 14 筆、美盤 16 筆），個別盤別的跌幅數字不可單獨引用。",
+    "S1 作為對照是以相同日曆分界切分，而非相同比例；S1 的交易頻率約為 S2 的三倍，因此兩者的樣本數不對等。",
+    "盤別定義沿用 RS-XAUUSD-20260727-007，未重新檢視；不同的時段分界會得到不同的分組。",
+    "S2 在近段仍為正報酬（每筆平均 0.2335%、獲利因子 1.352）；本研究的結論是「衰退」，不是「失效」。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究把兩個原本分開的問題合併之後，得到的第一個結果就是「其中一個問題不存在」。\n\n前一份研究看到亞盤在近期轉為虧損，很自然會讀成「亞盤正在惡化」。但把四個盤別的跌幅排出來就會發現，亞盤跌 19.60 個百分點，是四個裡的**第三大**——美盤跌 25.00、半夜跌 21.85 都比它更多。亞盤之所以在近期看起來最糟，是因為它在前段就已經是最低的（41.03% 對其餘三個 55–65%），跌幅一致的情況下，起點最低的自然先跌破水面。Shift-share 把這件事量化到沒有模糊空間：101.6% 的變化來自盤別內部，只有 −8.8% 來自組合，而且組合是往離開亞盤的方向移動的。**沒有亞盤現象，只有 S2 現象。**\n\n第二個結果比較有意思：這個 S2 現象也不是市場現象。用完全相同的日曆分界切 S1，它的每筆平均報酬不但沒降，還從 0.1841% 微幅上升到 0.2073%，獲利因子從 1.852 升到 1.908。同一個商品、同一段時間、同樣的資料來源。所以「這段期間行情不好做」這種解釋不成立——它必須同時解釋為什麼 S1 沒事。\n\n那麼是什麼？市場在這段期間確實劇烈改變：黃金從 +98.7% 變成 −0.82%，日波動度上升 77%（1.1047% → 1.9516%），平均日振幅上升 78%。把這三件事放在一起，最合理的讀法是：S2 是純多方的均值回歸型進場，它在一段強勢上漲中特別有效，因為即使進場時機不佳，趨勢也會把單子救回來；當趨勢停止而波動放大，這個「救援機制」就消失了。而 S1 是布林通道型的進場，不依賴同一個機制。\n\n但必須把話說清楚：這是**一次前後比較加一個對照組**，不是因果證明。而且衰退本身的置換檢定 p 值是 0.0619——在 157 筆交易上，這個跌幅還沒有跨過傳統的顯著線。所以嚴格說，這份研究分解的是一個尚未被穩固確立的變化。分解仍然有價值，因為它回答的是「這個跌幅由什麼構成」，而那個答案不取決於跌幅本身有多顯著；但任何「S2 已經失效」的結論，這份資料都撐不起來——它的近段每筆平均報酬仍是正的 0.2335%，獲利因子 1.352。\n\n這個讀法留下一個不需要蒐集新資料、只需要時間的前瞻預測：**如果解釋正確，S2 應該在黃金重新進入持續趨勢時回復，並在趨勢停滯期間持續疲弱。**這是目前把它列為觀察而非結論的原因，也是下一次該檢查的東西。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "within_session_share_of_change_pct",
+        "asia_rank_among_declines",
+        "s1_mean_return_change_pct",
+        "permutation_p_decline"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "by_session",
+      "title": "Every Session Fell 四個盤別的前後對照（本篇最重要的一張表）",
+      "takeaway_zh": "看 win rate change 這一欄：美盤 −25.00、半夜 −21.85、亞盤 −19.60、歐盤 −18.81。亞盤是四個裡跌幅第三大的。它在近期看起來最糟，是因為它前段就最低（41.03%），不是因為它跌最多。「亞盤正在惡化」這個框架在這張表上就結束了。",
+      "columns": [
+        "early.n",
+        "recent.n",
+        "early.win_rate_pct",
+        "recent.win_rate_pct",
+        "win_rate_change_pct_points",
+        "early.mean_return_pct",
+        "recent.mean_return_pct",
+        "mean_change_pct",
+        "weight_early_pct",
+        "weight_recent_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "decomposition",
+      "title": "Shift-Share Decomposition 變化的來源分解",
+      "keys": [
+        "total_mean_change_pct",
+        "within_session_pct",
+        "between_session_mix_pct",
+        "interaction_pct",
+        "within_share_of_change_pct",
+        "between_share_of_change_pct",
+        "permutation_p_decline_at_least_observed"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "s2_periods",
+      "title": "S2 V3.2 — Two Periods 前後兩段",
+      "takeaway_zh": "每筆平均報酬 0.6965% → 0.2335%，勝率 53.21% → 33.33%。但請注意近段仍是正的，獲利因子 1.352——這是衰退，不是失效。",
+      "record_keys": [
+        "early",
+        "recent"
+      ],
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "mean_return_pct",
+        "total_return_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "s1_control",
+      "title": "S1 V3.9 Control — Same Calendar Window 對照組：完全相同的日曆期間",
+      "takeaway_zh": "同一個商品、同一段時間。S1 每筆平均報酬從 0.1841% 微幅上升到 0.2073%，獲利因子 1.852 → 1.908。任何「這段行情不好做」的解釋，都必須先解釋這一列。",
+      "record_keys": [
+        "early",
+        "recent"
+      ],
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "mean_return_pct",
+        "total_return_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "gold_context",
+      "title": "What the Market Did 兩段期間黃金本身的表現",
+      "takeaway_zh": "趨勢停了（+98.7% → −0.82%），波動度上升 77%，日振幅上升 78%。純多方均值回歸最依賴的就是「趨勢會把做錯的單子救回來」，而那個機制消失了。但這是一次前後比較，不是因果。",
+      "record_keys": [
+        "early",
+        "recent"
+      ],
+      "columns": [
+        "sessions",
+        "total_move_pct",
+        "mean_daily_return_pct",
+        "daily_volatility_pct",
+        "mean_daily_range_pct",
+        "up_day_share_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "by_year",
+      "title": "S2 by Year 逐年",
+      "takeaway_zh": "逐年看同一件事：2026 年是明顯的轉折。",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "mean_return_pct",
+        "total_return_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "s1_by_year",
+      "title": "S1 by Year 逐年（對照）",
+      "takeaway_zh": "S1 在 2026 年沒有出現同樣的轉折。",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "mean_return_pct",
+        "total_return_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

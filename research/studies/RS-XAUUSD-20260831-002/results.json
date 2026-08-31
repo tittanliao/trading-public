@@ -1,0 +1,213 @@
+{
+  "s2_periods": {
+    "early": {
+      "from": "2024-01-04",
+      "to": "2025-11-17",
+      "n": 109,
+      "win_rate_pct": 53.21,
+      "mean_return_pct": 0.6965,
+      "total_return_pct": 75.92,
+      "profit_factor": 2.486
+    },
+    "recent": {
+      "from": "2025-11-22",
+      "to": "2026-07-07",
+      "n": 48,
+      "win_rate_pct": 33.33,
+      "mean_return_pct": 0.2335,
+      "total_return_pct": 11.21,
+      "profit_factor": 1.352
+    }
+  },
+  "s1_control": {
+    "early": {
+      "from": "2024-01-05",
+      "to": "2025-11-21",
+      "n": 319,
+      "win_rate_pct": 56.74,
+      "mean_return_pct": 0.1841,
+      "total_return_pct": 58.74,
+      "profit_factor": 1.852
+    },
+    "recent": {
+      "from": "2025-11-24",
+      "to": "2026-07-10",
+      "n": 131,
+      "win_rate_pct": 54.96,
+      "mean_return_pct": 0.2073,
+      "total_return_pct": 27.15,
+      "profit_factor": 1.908
+    }
+  },
+  "decomposition": {
+    "total_mean_change_pct": -0.463,
+    "within_session_pct": -0.4706,
+    "between_session_mix_pct": 0.0407,
+    "interaction_pct": -0.0331,
+    "within_share_of_change_pct": 101.6,
+    "between_share_of_change_pct": -8.8,
+    "permutation_p_decline_at_least_observed": 0.0619
+  },
+  "gold_context": {
+    "early": {
+      "sessions": 474,
+      "total_move_pct": 98.7,
+      "mean_daily_return_pct": 0.1514,
+      "daily_volatility_pct": 1.1047,
+      "mean_daily_range_pct": 1.5673,
+      "up_day_share_pct": 55.81
+    },
+    "recent": {
+      "sessions": 153,
+      "total_move_pct": -0.82,
+      "mean_daily_return_pct": 0.0137,
+      "daily_volatility_pct": 1.9516,
+      "mean_daily_range_pct": 2.7963,
+      "up_day_share_pct": 52.63
+    }
+  },
+  "by_year": {
+    "2024": {
+      "n": 46,
+      "win_rate_pct": 56.52,
+      "mean_return_pct": 0.752,
+      "total_return_pct": 34.59,
+      "profit_factor": 2.738
+    },
+    "2025": {
+      "n": 67,
+      "win_rate_pct": 52.24,
+      "mean_return_pct": 0.7213,
+      "total_return_pct": 48.33,
+      "profit_factor": 2.502
+    },
+    "2026": {
+      "n": 44,
+      "win_rate_pct": 29.55,
+      "mean_return_pct": 0.0957,
+      "total_return_pct": 4.21,
+      "profit_factor": 1.14
+    }
+  },
+  "s1_by_year": {
+    "2024": {
+      "n": 157,
+      "win_rate_pct": 56.69,
+      "mean_return_pct": 0.1523,
+      "total_return_pct": 23.91,
+      "profit_factor": 1.702
+    },
+    "2025": {
+      "n": 184,
+      "win_rate_pct": 56.52,
+      "mean_return_pct": 0.2015,
+      "total_return_pct": 37.08,
+      "profit_factor": 1.932
+    },
+    "2026": {
+      "n": 109,
+      "win_rate_pct": 55.05,
+      "mean_return_pct": 0.2284,
+      "total_return_pct": 24.9,
+      "profit_factor": 1.998
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260831-002",
+  "generated_at": "2026-08-31T15:22:15Z",
+  "strategy": "S2-Hammer V3.2, with S1 AweWithBB V3.9 as control",
+  "method": {
+    "s2_trades": 157,
+    "s1_trades": 450,
+    "chronological_split": 0.7,
+    "split_boundary": "2025-11-22",
+    "control": "S1 cut by the same calendar boundary, not the same ratio, so it answers what happened in this window",
+    "decomposition": "shift-share: within-session change, between-session mix change, and their interaction, summing to the total change",
+    "null": "period labels shuffled across trades, preserving group sizes",
+    "permutation_trials": 20000,
+    "random_seed": 20260901,
+    "session_definition_source": "RS-XAUUSD-20260727-007, reused verbatim"
+  },
+  "by_session": {
+    "overnight": {
+      "early": {
+        "n": 17,
+        "win_rate_pct": 64.71,
+        "mean_return_pct": 1.2529,
+        "total_return_pct": 21.3,
+        "profit_factor": 4.426
+      },
+      "recent": {
+        "n": 7,
+        "win_rate_pct": 42.86,
+        "mean_return_pct": 0.5714,
+        "total_return_pct": 4.0,
+        "profit_factor": 2.03
+      },
+      "weight_early_pct": 15.6,
+      "weight_recent_pct": 14.58,
+      "mean_change_pct": -0.6815,
+      "win_rate_change_pct_points": -21.85
+    },
+    "asia": {
+      "early": {
+        "n": 39,
+        "win_rate_pct": 41.03,
+        "mean_return_pct": 0.3444,
+        "total_return_pct": 13.43,
+        "profit_factor": 1.581
+      },
+      "recent": {
+        "n": 14,
+        "win_rate_pct": 21.43,
+        "mean_return_pct": -0.2143,
+        "total_return_pct": -3.0,
+        "profit_factor": 0.732
+      },
+      "weight_early_pct": 35.78,
+      "weight_recent_pct": 29.17,
+      "mean_change_pct": -0.5586,
+      "win_rate_change_pct_points": -19.6
+    },
+    "europe": {
+      "early": {
+        "n": 29,
+        "win_rate_pct": 55.17,
+        "mean_return_pct": 0.68,
+        "total_return_pct": 19.72,
+        "profit_factor": 2.529
+      },
+      "recent": {
+        "n": 11,
+        "win_rate_pct": 36.36,
+        "mean_return_pct": 0.6364,
+        "total_return_pct": 7.0,
+        "profit_factor": 2.012
+      },
+      "weight_early_pct": 26.61,
+      "weight_recent_pct": 22.92,
+      "mean_change_pct": -0.0436,
+      "win_rate_change_pct_points": -18.81
+    },
+    "us": {
+      "early": {
+        "n": 24,
+        "win_rate_pct": 62.5,
+        "mean_return_pct": 0.8946,
+        "total_return_pct": 21.47,
+        "profit_factor": 3.4
+      },
+      "recent": {
+        "n": 16,
+        "win_rate_pct": 37.5,
+        "mean_return_pct": 0.2006,
+        "total_return_pct": 3.21,
+        "profit_factor": 1.301
+      },
+      "weight_early_pct": 22.02,
+      "weight_recent_pct": 33.33,
+      "mean_change_pct": -0.694,
+      "win_rate_change_pct_points": -25.0
+    }
+  }
+}

@@ -16,7 +16,7 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。已回答 1　未回答 7。</p>
+<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。已回答 2　未回答 6。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
 <div class="backlog-list"><article class="backlog-item" data-status="answered"
@@ -28,7 +28,7 @@
 <p class="backlog-question">S2 V3.2 在亞盤佔了 33.8% 的交易，卻只貢獻 12.0% 的報酬（勝率 35.85%、PF 1.31）；半夜時段只佔 15.3% 的交易，卻貢獻 29.0% 的報酬（勝率 58.33%、PF 3.49）。跳過亞盤是否真的改善結果，還是又一次「用報酬換勝率」？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>這是少數「勝率低、報酬佔比也低」同時成立的切法。本計畫先前每一個提高勝率的規則都是靠犧牲報酬換來的；亞盤看起來兩邊都差，因此它是唯一可能真的該被移除、而不只是被挑剩的候選。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260727-007/">RS-XAUUSD-20260727-007</a>｜已發布 S2 V3.2 的 by_session 表（n、勝率、PF、淨損益），但沒有報告交易佔比與報酬佔比的對照，也沒有做時序驗證或成本檢定。</li><li><a href="../studies/RS-XAUUSD-20260824-006/">RS-XAUUSD-20260824-006</a>｜示範了收緊篩選會拉高勝率並交出報酬——本題必須用同一把尺檢查，否則會重複同一個錯誤。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>已回答：不要移除。每筆指標都變好，但總報酬少 10.43 個百分點，而且家族校正 p=0.0549——落在「隨手丟掉四組裡最差的一組」的範圍內。唯一值得續追的是亞盤在最新 30% 已轉為虧損（14 筆），這與 BL-005 的 S2 近期轉弱是同一個問題，應合併處理。</p>
+<p class="backlog-next"><strong>下一步：</strong>已回答：不要移除。每筆指標都變好，但總報酬少 10.43 個百分點，而且家族校正 p=0.0549——落在「隨手丟掉四組裡最差的一組」的範圍內。唯一值得續追的是亞盤在最新 30% 已轉為虧損（14 筆），這與 BL-005 的 S2 近期轉弱是同一個問題，應合併處理。 後續：RS-XAUUSD-20260831-002 已證實亞盤惡化不是獨立現象，而是 S2 整體衰退在起點最低的盤別上的投影。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-001/">RS-XAUUSD-20260831-001</a> 回答。</p>
 </article><article class="backlog-item" data-status="open"
  data-priority="1">
@@ -63,17 +63,17 @@
 <div class="backlog-evidence"><h4>目前已知</h4><p class="empty-note">尚無已發布研究涉及此題。</p></div>
 <p class="backlog-next"><strong>下一步：</strong>先定義記分規則並凍結，再逐期評分；三期無法支撐任何結論，重點是建立一個之後每週自動累積的評分表。</p>
 
-</article><article class="backlog-item" data-status="open"
+</article><article class="backlog-item" data-status="answered"
  data-priority="2">
 <header><span class="backlog-id">BL-005</span>
 <span class="tag prio-2">優先 中</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>S2 延一根：為什麼全樣本有效、驗證區完全無效</h3>
 <p class="backlog-question">S2 延一根在全樣本把勝率從 43.08% 拉到 46.00%，但在最新 30% 驗證區是 20.00% → 20.00%（零改善），延兩根反而降到 15.38%。這個落差是樣本量、環境轉變，還是規則本身無效？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>原始問題是「S2 延一根是不是比較好」，但那個問題已經有答案且是否定的。真正沒有答案的是這個落差本身——而 S2 在近期環境轉弱，是三份研究以不同方法各自看到的現象。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260815-001/">RS-XAUUSD-20260815-001</a>｜全樣本 43.08%→46.00%（n=50），驗證區 20.00%→20.00%（n=15），延兩根 15.38%。驗證區基準本身只有 20.0%（n=20）。</li><li><a href="../studies/RS-XAUUSD-20260815-002/">RS-XAUUSD-20260815-002</a>｜S2 驗證區整體基準掉到 33.33%。</li><li><a href="../studies/RS-XAUUSD-20260818-005/">RS-XAUUSD-20260818-005</a>｜S2 在 2026 年的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 單獨的年度。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>把題目改成「S2 近期轉弱是否可歸因於某個可觀測的環境變數」，而不是重測延一根。</p>
-
+<p class="backlog-next"><strong>下一步：</strong>已回答：衰退 101.6% 來自盤別內部，四個盤別全部下跌，亞盤跌幅是第三大——沒有亞盤現象。S1 在完全相同期間沒有衰退，因此也不是市場現象。最合理的讀法是純多方均值回歸失去了它依賴的上升趨勢（黃金 +98.7% → −0.82%，波動度 +77%），但那是一次前後比較，且衰退本身 p=0.0619。留下的前瞻預測不需要新資料、只需要時間：若解釋正確，S2 應在黃金重新進入持續趨勢時回復。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-002/">RS-XAUUSD-20260831-002</a> 回答。</p>
 </article><article class="backlog-item" data-status="open"
  data-priority="3">
 <header><span class="backlog-id">BL-006</span>
