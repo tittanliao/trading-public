@@ -49,6 +49,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260815-001",
     "RS-XAUUSD-20260815-002",
     "RS-XAUUSD-20260815-003",
+    "RS-XAUUSD-20260817-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -84,9 +85,7 @@ def routes() -> list[str]:
 # published. Kept as an empty list so the phase structure survives for whoever picks
 # up 2B.
 PHASE_2A: list[str] = []
-PHASE_2B = [
-    "RS-XAUUSD-20260817-001",
-]
+PHASE_2B: list[str] = []
 PHASE_2C = [
     "RS-XAUUSD-20260727-002", "RS-XAUUSD-20260815-004", "RS-XAUUSD-20260818-002",
     "RS-XAUUSD-20260818-003", "RS-XAUUSD-20260818-004", "RS-XAUUSD-20260818-005",

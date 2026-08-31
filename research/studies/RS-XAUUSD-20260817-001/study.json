@@ -32,37 +32,222 @@
     {
       "tone": "warn",
       "title": "No single Macro factor separates outcomes",
-      "detail": "No individual Macro factor separates outcomes in either strategy. Every observed gap (S1 1.08-5.85pp, S2 0.54-6.43pp) is far below what its own sample can resolve (S1 ~13.3-15.2pp, S2 ~23.2-26.4pp), and no noise test comes near significance."
+      "detail": "No individual Macro factor separates outcomes in either strategy. Every observed gap (S1 1.08-5.85pp, S2 0.54-6.43pp) is far below what its own sample can resolve (S1 ~13.3-15.2pp, S2 ~23.2-26.4pp), and no noise test comes near significance.",
+      "title_zh": "沒有任何單一 Macro 因子能分開結果",
+      "detail_zh": "兩個策略都一樣。所有觀察到的差距（S1 1.08～5.85 個百分點，S2 0.54～6.43 個百分點）都遠低於各自樣本能夠分辨的最小差距（S1 約 13.3～15.2、S2 約 23.2～26.4 個百分點），而且沒有任何一個雜訊檢定接近顯著（最低的 p 值是 0.234）。"
     },
     {
       "tone": "warn",
       "title": "The composite is half one input",
-      "detail": "The composite is half one input. US10Y and Real Rate agree 89.2% of the time in the S1 window and Real Rate is US10Y minus T10YIE by construction, so 3 of 6 points move together. It behaves closer to a four-factor score with one input at half weight."
+      "detail": "The composite is half one input. US10Y and Real Rate agree 89.2% of the time in the S1 window and Real Rate is US10Y minus T10YIE by construction, so 3 of 6 points move together. It behaves closer to a four-factor score with one input at half weight.",
+      "title_zh": "綜合分數有一半是同一個輸入",
+      "detail_zh": "US10Y 與實質利率在 S1 的期間有 89.2% 的時間給出相同判讀，而實質利率本來就是 US10Y 減去 T10YIE，兩者在定義上共用輸入。六分之三的分數會一起移動，所以它實際上比較像是「四因子、其中一個半權重」的分數。"
     },
     {
       "tone": "info",
       "title": "The composite separates less than first reported",
-      "detail": "The replicated composite separates less than the original study reported: a 1.49pp verdict spread against 14.9pp resolvable (noise p=0.973), versus 3.98pp before. The difference is the stricter previous-day assignment used here."
+      "detail": "The replicated composite separates less than the original study reported: a 1.49pp verdict spread against 14.9pp resolvable (noise p=0.973), versus 3.98pp before. The difference is the stricter previous-day assignment used here.",
+      "title_zh": "綜合分數的鑑別力比原先報告的還低",
+      "detail_zh": "重跑後的綜合分數差距只有 1.49 個百分點，而可分辨門檻是 14.9 個百分點（雜訊檢定 p=0.973）；先前報告的數字是 3.98 個百分點。差異來自本研究採用更嚴格的「前一日」指派方式。"
     },
     {
       "tone": "info",
       "title": "S2 and GVZ is the only near-miss",
-      "detail": "S2 and GVZ is the only near-miss and the only result worth carrying forward. Below GVZ 22 S2 wins 59.72% (n=72, PF 3.421); above it 34.33% (n=67, PF 1.2), a 25.39pp gap that does exceed the 23.2pp resolution limit. It does NOT survive correction for having searched 15 thresholds: shuffling outcomes reproduces a best gap this large 10.7% of the time."
+      "detail": "S2 and GVZ is the only near-miss and the only result worth carrying forward. Below GVZ 22 S2 wins 59.72% (n=72, PF 3.421); above it 34.33% (n=67, PF 1.2), a 25.39pp gap that does exceed the 23.2pp resolution limit. It does NOT survive correction for having searched 15 thresholds: shuffling outcomes reproduces a best gap this large 10.7% of the time.",
+      "title_zh": "S2 對 GVZ 是唯一一個差一點的結果",
+      "detail_zh": "這是唯一值得往下追的線索。GVZ 低於 22 時 S2 勝率 59.72%（n=72、獲利因子 3.421），高於 22 時只有 34.33%（n=67、獲利因子 1.2），差距 25.39 個百分點，確實超過 23.2 的可分辨門檻。但它通不過「搜尋了 15 個門檻」的多重比較校正：把結果隨機打散，仍有 10.7% 的機率出現同樣大的最佳差距。"
     },
     {
       "tone": "warn",
       "title": "The rule threshold of 20 is not where any S1 signal is",
-      "detail": "The current rule threshold of 20 is not where any S1 signal is. At 20 the S1 gap is 1.94pp; what little gradient S1 shows sits at the low end, below 15-17, in the opposite direction to the rule that was removed."
+      "detail": "The current rule threshold of 20 is not where any S1 signal is. At 20 the S1 gap is 1.94pp; what little gradient S1 shows sits at the low end, below 15-17, in the opposite direction to the rule that was removed.",
+      "title_zh": "規則使用的門檻 20 並不是 S1 訊號所在的位置",
+      "detail_zh": "在門檻 20 的位置，S1 的差距只有 1.94 個百分點。S1 少數的梯度出現在低端——15 到 17 以下——而且方向與被移除的那條規則相反。"
     },
     {
       "tone": "info",
       "title": "DXY points the opposite way to the panel, in both strategies",
-      "detail": "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one."
+      "detail": "DXY is the only factor pointing the same way in both strategies, and it points against the panel: the state the panel calls gold-bullish (dollar below its average) has the LOWER win rate in both (S1 55.88% vs 61.73%, S2 44.29% vs 50.72%). Not significant; recorded because a consistent wrong-way sign is more interesting than a random one.",
+      "title_zh": "DXY 的方向與面板的預期相反，而且兩個策略一致",
+      "detail_zh": "面板認為對黃金偏多的狀態（美元低於均線），在兩個策略上的勝率反而比較低（S1 55.88% 對 61.73%，S2 44.29% 對 50.72%）。這個結果並不顯著；記錄下來是因為「方向一致地相反」比「隨機」更值得注意。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Macro factors and GVZ thresholds, tested one at a time; nothing separates outcomes.",
+  "question_zh": "Macro 綜合分數因為缺乏鑑別力已經從分析評分中撤除。那麼：單一的 Macro 因子有沒有任何一個能分開 S1 或 S2 的結果？這個綜合分數裡有多少比重其實是同一個輸入被算了兩次？以及 GVZ 到底有沒有任何一個轉折點——而不是沿用先前假定的 13／20？",
+  "limitations_zh": [
+    "Macro 狀態一律使用前一日的數值，只回看、絕不使用當日資料；代價是 S1 有 84.75%、S2 有 83.23% 的交易能對應到 Macro 狀態，其餘交易不在樣本內。",
+    "每一項比較都以「兩個最大分組在 alpha 0.05、檢定力 0.80 之下能分辨的最小勝率差距」為對照；本研究的樣本規模使這個門檻相當高。",
+    "GVZ 掃描完整報告所有門檻。挑出差距最大的門檻等於對這個樣本過度配適，其差距必須先超過可分辨門檻才有意義。",
+    "S2 的 GVZ 十分位每格僅約 14 筆，波動極大，不足以佐證任何梯度。",
+    "綜合分數的六分之三由同一條利率序列驅動，因此其有效因子數少於表面上的五個。",
+    "第六項發現稱 DXY 為唯一方向一致的因子，實際上 VIX 亦然；詳見詮釋段的更正。",
+    "本研究不改變任何正式策略邏輯或參數；GVZ 對 S2 僅列為需要前瞻驗證的候選。"
+  ],
+  "interpretation_zh": "這份研究的結論是預期中的否定，但它把「否定」講得比一般的否定更有用，因為它每一項比較都同時報告了「這個樣本本來就分辨得出多大的差距」。沒有這個對照，讀者會把 5.85 個百分點的 DXY 差距當成發現；有了對照才看得出來，那個樣本連 13.3 個百分點的差距都還分辨不出來，5.85 根本不構成證據。\n\n綜合分數的問題不只是弱，而是不單調。S1 依分數分組的勝率是 0 分 60.0%、1 分 65.38%、2 分 54.55%、3 分 58.33%、4 分 57.69%、5 分 61.64%、6 分 52.83%——最看多的 6 分表現最差，1 分反而最好。12.55 個百分點的全距在 19.6 的可分辨門檻之下（雜訊 p=0.873），所以正確的讀法不是「反著做」，而是「這個排序裡沒有資訊」。再加上六分之三的分數由同一條利率序列驅動——實質利率轉空時 US10Y 100% 也同時轉空——這個分數的有效維度比表面上少。\n\nGVZ 對 S2 是唯一值得保留的線索，而它值得保留的理由比單一門檻更強：整段掃描是一致的。從門檻 16 到 30，十五個切點全部指向同一個方向（低 GVZ 較好），差距介於 12.64 到 25.39 個百分點之間。這不是在一堆雜訊裡挑出一個幸運的切點。即使如此，把結果隨機打散後仍有 10.7% 的機率產生同樣大的最佳差距，所以它只能是「下一步要用未來資料前瞻驗證的候選」，不能直接變成規則。另外要提醒：同樣是 S2，用十分位來看是很跳動的（d1 78.57%、d3 28.57%、d4 71.43%、d8 21.43%），每格只有 14 筆，那個視角本身就是雜訊，不要拿它來佐證梯度。\n\n最後更正一處研究本身的措辭。第六項發現說 DXY 是「唯一在兩個策略上方向一致」的因子，但實際上 VIX 也是——兩個策略都是面板偏多的那一側勝率較高（S1 59.34% 對 58.26%，S2 50.0% 對 45.45%）。真正只有 DXY 成立的是更精確的那句話：它是唯一一個方向一致、而且一致地與面板預期相反的因子。VIX 的方向與面板一致，所以不具備同樣的意義。這兩個差距都遠在可分辨門檻之下，任一種讀法都不改變「沒有因子能分開結果」的結論。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "factors_separating_outcomes",
+        "s1_largest_factor_gap_pp",
+        "s1_smallest_resolvable_pp",
+        "s2_gvz_permutation_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S1 — Factor Gaps vs Detection Limit 單因子差距與可分辨門檻",
+      "takeaway_zh": "紅線是這個樣本能分辨的最小差距，藍柱是實際觀察到的差距。五根柱子全部在紅線之下，而且差得很遠——最大的 DXY 5.85 個百分點，還不到門檻 13.3 的一半。這張圖就是「沒有任何因子能分開結果」的完整證據。",
+      "chart_file": "s1_factor_gaps.png",
+      "table_source": "strategies.S1.by_factor",
+      "table_title": "S1 — Per-Factor Power Check 各因子鑑別力檢查（400 筆，基準 58.75%）",
+      "columns": [
+        "observed_spread_pp",
+        "min_detectable_pp_two_largest_groups",
+        "noise_test.p_spread_at_least_observed"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S2 — Factor Gaps vs Detection Limit 單因子差距與可分辨門檻",
+      "takeaway_zh": "S2 的樣本只有 139 筆，可分辨門檻因此高到 23.2～26.4 個百分點。觀察到的最大差距是 DXY 的 6.43，同樣連門檻的三分之一都不到。",
+      "chart_file": "s2_factor_gaps.png",
+      "table_source": "strategies.S2.by_factor",
+      "table_title": "S2 — Per-Factor Power Check 各因子鑑別力檢查（139 筆，基準 47.48%）",
+      "columns": [
+        "observed_spread_pp",
+        "min_detectable_pp_two_largest_groups",
+        "noise_test.p_spread_at_least_observed"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "strategies.S1.redundancy.pairwise_agreement_pct",
+      "title": "Pairwise Factor Agreement 因子兩兩判讀一致率（%，S1 期間）",
+      "keys": [
+        "real_rate|us10y",
+        "real_rate|dxy",
+        "real_rate|vix",
+        "real_rate|gold_trend",
+        "us10y|dxy",
+        "us10y|vix",
+        "us10y|gold_trend",
+        "dxy|vix",
+        "dxy|gold_trend",
+        "vix|gold_trend"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_verdict.groups",
+      "title": "S1 — by Composite Verdict 依綜合分數判讀（基準 58.75%）",
+      "takeaway_zh": "三個判讀之間的差距只有 1.49 個百分點，可分辨門檻是 14.9，雜訊檢定 p=0.973——換句話說，這個分佈與「完全沒有作用」幾乎無法區分。注意 WAIT 組的勝率其實最高。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1.by_score.groups",
+      "title": "S1 — by Composite Score 依綜合分數 0–6（基準 58.75%）",
+      "takeaway_zh": "分數與勝率之間沒有單調關係：最看多的 6 分是全表最差的 52.83%，1 分反而是最好的 65.38%。12.55 個百分點的全距仍低於 19.6 的可分辨門檻（p=0.873），所以正確的結論是「這個排序沒有資訊」，而不是「應該反著做」。",
+      "columns": [
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S2 — GVZ Threshold Sweep GVZ 門檻全掃描",
+      "takeaway_zh": "本篇唯一差一點的結果。藍線是每個切點的勝率差距，灰點線是把結果隨機打散後最佳差距的中位數，紅虛線是打散後的第 95 百分位。門檻 22 的 25.39 個百分點是最高點，但仍未穿過紅線——p=0.107，通不過多重比較校正。值得注意的是整段掃描方向一致：16 到 30 全部是低 GVZ 較好。",
+      "chart_file": "s2_gvz_sweep.png",
+      "table_source": "strategies.S2.gvz.threshold_sweep",
+      "table_title": "S2 — GVZ Sweep, All Thresholds 全部門檻（完整報告，未挑選）",
+      "columns": [
+        "threshold",
+        "below.n",
+        "below.win_rate_pct",
+        "above.n",
+        "above.win_rate_pct",
+        "win_rate_gap_pp",
+        "min_detectable_pp"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S2 — GVZ Deciles GVZ 十分位",
+      "takeaway_zh": "同一批交易改用十分位來看就非常跳動：d1 78.57%、d3 28.57%、d4 71.43%、d8 21.43%。每一格只有 14 筆，這個視角本身就是雜訊，不能拿來佐證上面的梯度。兩種切法放在一起，正好說明為什麼分組結果一定要看樣本數。",
+      "chart_file": "s2_gvz_deciles.png",
+      "table_source": "strategies.S2.gvz.deciles",
+      "table_title": "S2 — Win Rate by GVZ Decile 依 GVZ 十分位（每格約 14 筆）",
+      "columns": [
+        "gvz_range",
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S1 — GVZ Threshold Sweep GVZ 門檻全掃描",
+      "takeaway_zh": "S1 沒有同樣的結構。規則使用的門檻 20 在這裡的差距只有 1.94 個百分點；少數的梯度落在低端（15 的位置差距 16.74，但該處只有 31 筆、可分辨門檻高達 23.6）。permutation p=0.293，完全沒有通過。",
+      "chart_file": "s1_gvz_sweep.png",
+      "table_source": "strategies.S1.gvz.threshold_sweep",
+      "table_title": "S1 — GVZ Sweep, All Thresholds 全部門檻（完整報告，未挑選）",
+      "columns": [
+        "threshold",
+        "below.n",
+        "below.win_rate_pct",
+        "above.n",
+        "above.win_rate_pct",
+        "win_rate_gap_pp",
+        "min_detectable_pp"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "S1 — GVZ Deciles GVZ 十分位",
+      "takeaway_zh": "S1 每格 40 筆，比 S2 穩定得多，但也因此看得出來沒有梯度：GVZ 最低的 d1 是 72.5%、GVZ 最高的 d10 是 62.5%，中間各格上上下下，沒有形成任何可用的方向。",
+      "chart_file": "s1_gvz_deciles.png",
+      "table_source": "strategies.S1.gvz.deciles",
+      "table_title": "S1 — Win Rate by GVZ Decile 依 GVZ 十分位（每格約 40 筆）",
+      "columns": [
+        "gvz_range",
+        "n",
+        "wins",
+        "win_rate_pct",
+        "win_rate_ci95_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
