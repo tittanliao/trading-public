@@ -39,6 +39,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260823-001",
     "RS-XAUUSD-20260823-002",
     "RS-XAUUSD-20260825-001",
+    "RS-XAUUSD-20260827-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -70,9 +71,10 @@ def routes() -> list[str]:
 # Named here only so the Research index can report the queue honestly without linking to a
 # route that does not exist yet. All three phases are listed: reporting only 2A and 2B
 # under-counted the queue by 13 studies in the first cutover.
-PHASE_2A = [
-    "RS-XAUUSD-20260827-001",
-]
+# Phase 2A is complete — all five studies that already had reviewed Chinese copy are
+# published. Kept as an empty list so the phase structure survives for whoever picks
+# up 2B.
+PHASE_2A: list[str] = []
 PHASE_2B = [
     "RS-TX-20260728-001", "RS-TX-20260728-002", "RS-XAUUSD-20260727-003",
     "RS-XAUUSD-20260727-004", "RS-XAUUSD-20260727-006", "RS-XAUUSD-20260727-008",

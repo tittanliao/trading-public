@@ -69,6 +69,97 @@
   "question_zh": "從九月起每月買一次黃金期貨，共四次，持有到隔年三月：哪個槓桿撐得住，而且是歷史回測的答案，還是算術推導的答案該當數？",
   "hypothesis_zh": "回測會讓每一個測試過的部位規模都通過，因為九月開始的視窗從來沒遇過大跌，而這是十八個樣本的性質，不是日曆的性質。",
   "card_summary_zh": "每月買一次黃金期貨，共四次，持有到三月。回測讓每一個測試過的規模都通過，因為十八個九月週期從來沒遇過大跌；算術推導出來的答案小得多。",
+  "limitations_zh": [
+    "⚠️ 轉倉成本依指示設為零。每個週期有兩到三次轉倉，而黃金帶正價差，因此本研究的每一個淨值數字都偏樂觀。這是本研究最大的缺口，不是四捨五入等級的誤差。",
+    "只有十八個週期。其中最差的一次相對成本是 -14.18%，但同一批資料裡有 6.5% 的七個月窗口跌破 -19%——樣本沒有考到真正的難題。",
+    "1OZ 合約 2025 年才掛牌，本研究用 XAUUSD 現貨代替。遠月合約的流動性比現貨薄，所以假設的成交價比實際拿得到的好。",
+    "保證金水準假設固定不變。CME 恰好會在那些會觸發追繳的情況下調高保證金，所以真實的違約點會比模型算出來的更早到。",
+    "沒有計入手續費、融資成本與匯率成本。",
+    "月度季節性每月只有 47 個觀測值，對上約 21 個百分點的可解析門檻。沒有任何一個月分離得出來，無論正向或負向。"
+  ],
+  "interpretation_zh": "這份研究真正的結果不是「該用幾倍槓桿」，而是**兩種方法給出不同答案，而且該聽算術的那一個**。回測說 4.34 倍撐得住，算術說 2.48 倍——差距接近一倍。\n\n差在哪裡？十八個九月建倉週期裡，最深的一次相對平均成本只有 -14.18%，從來沒有超過 -15%。所以只要用回測去問「哪個倉位撐得過這十八次」，**每一個測過的倉位都會過關**——這不是因為它們安全，是因為這十八次沒有考過難題。算術問的是另一個問題：哪個倉位撐得過一次像 2026 年 1 月到 6 月那樣 -29.44% 的下跌？那次下跌**發生在建倉窗口之外**，所以回測根本看不到它，也因此不能拿回測來排除它。\n\n把同一批資料攤開成所有七個月的滾動窗口就更清楚：4,704 個窗口裡，中位數回檔 -5.19%，但有 **6.46% 的窗口跌破 -19%**，最差 -30.97%。一個「撐過每一次九月週期」的倉位，並沒有被證明撐得過黃金，只是被證明撐得過九月。\n\n另外兩件實務上會踩到的事。第一，**回檔有兩種**，不要搞混：相對成本的回檔（保證金是用這個測的，因為維持保證金比較的是權益對要求）和權益曲線的峰谷回檔（數字更大，而且在賺錢的週期裡也可能很大——2025/09 那次以 3,900 建倉、看著黃金漲到 5,597、最後在 4,683 出場賺 20%，中間仍然吐回將近一萬美元）。第二，**月份季節性完全不成立**：十二個月沒有任何一個月分離得出來，每月 47 個觀測值對上大約 21 個百分點的可解析門檻，偏離最大的一個月也只差 11.82 個百分點（二月，方向為負）。所謂「幾月比較好」在這個樣本量下講不出來。\n\n⚠️ 最後，這份研究**沒有計入轉倉成本**（依指示排除）。每個週期含兩到三次轉倉，而黃金多數時間處於正價差，所以上面每一個淨值數字都偏樂觀。這不是小數點後的修正——它會系統性地讓所有結果比真實情況好看，任何實際採用前都必須先把它加回去。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "cycles",
+        "leverage_backtest_permits",
+        "leverage_arithmetic_permits",
+        "share_of_all_windows_past_minus_19_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "title": "Sizing by Arithmetic 依算術推導的倉位",
+      "takeaway_zh": "每 10,000 單位資金每月買進的盎司數，對應的槓桿、初始保證金佔比，以及要跌多少才會觸發追繳與破產。這是算術的答案，不依賴任何一次歷史沒有發生的事——2.48 倍就是從這張表推出來的。",
+      "source": "sizing_by_arithmetic",
+      "columns": [
+        "oz_per_month_per_10k",
+        "total_oz_per_10k",
+        "leverage",
+        "initial_margin_pct_of_capital",
+        "drop_to_margin_call_pct",
+        "drop_to_ruin_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Historical Cycles at 2.5x 十八個週期（2.5 倍槓桿）",
+      "takeaway_zh": "十八個九月建倉週期的實際結果。最差的一次相對平均成本只有 -14.18%，從未超過 -15%——這正是為什麼回測會放行到 4.34 倍：它從來沒被考過難題。注意「相對成本回檔」與「權益回檔」是兩個不同的數字。",
+      "source": "cycles_at_2_5x_leverage",
+      "columns": [
+        "cycle",
+        "avg_cost",
+        "exit_price",
+        "exit_vs_cost_pct",
+        "trough_vs_cost_pct",
+        "return_on_capital_pct",
+        "max_equity_drawdown_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "title": "All Rolling Windows 所有滾動窗口",
+      "source": "rolling_window_drawdowns",
+      "keys": [
+        "windows",
+        "median_pct",
+        "p05_pct",
+        "worst_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Monthly Seasonality 月度季節性",
+      "takeaway_zh": "十二個月沒有任何一個分離得出來。每月 47 個觀測值對上約 21 個百分點的可解析門檻，偏離最大的一個月也只差 11.82 個百分點（二月）——「幾月比較好」在這個樣本量下講不出來。separates 欄全部是 no。",
+      "source": "seasonality.by_month",
+      "columns": [
+        "month",
+        "n",
+        "win_rate_pct",
+        "rest_win_rate_pct",
+        "gap_pct_points",
+        "smallest_resolvable_gap_pct_points",
+        "separates"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

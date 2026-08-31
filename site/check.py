@@ -106,6 +106,29 @@ def check_weekly_sections(errors: list[str]) -> None:
             errors.append(f"{week} has four_week_overview data but the page does not render it")
 
 
+# The owner's account size. It reached the live site inside a published analysis.py even
+# though that study's whole public form is normalised per unit of capital precisely so the
+# account would not travel — the export rule only appended a comment beside the figure
+# instead of replacing it. A scan is cheaper than remembering.
+ACCOUNT_FIGURES = ("30,000", "30_000", "$30000")
+
+
+def check_account_figures(errors: list[str]) -> None:
+    for study_dir in (ROOT / "research/studies").iterdir():
+        if not study_dir.is_dir():
+            continue
+        for path in study_dir.glob("*"):
+            if path.suffix not in {".py", ".json", ".md", ".html"}:
+                continue
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            for token in ACCOUNT_FIGURES:
+                if token in text:
+                    errors.append(
+                        f"account size '{token}' present in {path.relative_to(ROOT)}; "
+                        f"published research must state capital per unit, not the real account"
+                    )
+
+
 def check_privacy(errors: list[str]) -> None:
     scanned = list(GENERATED_PAGES)
     scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
@@ -193,7 +216,7 @@ def check_study_order(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
-               check_privacy, check_null_results, check_tables, check_presentation_blocks,
+               check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
                check_study_order):
         fn(errors)
     print(json.dumps({

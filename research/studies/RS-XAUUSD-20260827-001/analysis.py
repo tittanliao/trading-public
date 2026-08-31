@@ -72,7 +72,7 @@ WEEKLY = Path("local-inputs/gold_weekly.csv")
 MULTIPLIER = 1.0
 INITIAL_MARGIN = 206.0
 MAINTENANCE_MARGIN = 190.0
-CAPITAL = 30_000.0  # set to your own account size
+CAPITAL = 10_000.0  # per-unit basis; set to your own account size
 ROLL_COST_PER_OZ = 0.0          # excluded on instruction; see the module docstring
 BUILD_MONTHS = (9, 10, 11, 12)
 SIZES = (2, 3, 4, 5, 6, 7)
@@ -109,7 +109,8 @@ def simulate(daily: pd.DataFrame, buys: list[dict], oz_per_month: int,
     """Day-by-day equity from the first buy to the exit, with both margin tests.
 
     Adapted from build_tx_fib_three_wave.simulate_account, with one deliberate change: TX
-    tops the account up to a buffer as each leg fills. Here capital is fixed at $30,000 and
+    tops the account up to a buffer as each leg fills. Here capital is fixed at the
+    CAPITAL constant above and
     never added to, because the question is whether a given size survives the money that
     exists — a simulation that funds its own rescue cannot answer that.
 
@@ -631,7 +632,7 @@ def main() -> int:
         strategy="none — 1OZ futures accumulation and position sizing",
         title=payload["title"],
         question=("Four monthly buys of 1OZ gold futures from September, held to the "
-                  "following March on $30,000: what size survives, and does the "
+                  "following March on a fixed capital base: what size survives, and does the "
                   "historical answer or the arithmetic one govern?"),
         hypothesis=("The backtest will clear every tested size because the September "
                     "window has never contained a large drawdown, and that is a fact "
