@@ -23,27 +23,135 @@
     {
       "tone": "warn",
       "title": "time_bleed, not immediate_loss, dominates S2 losses",
-      "detail": "71 of 132 losses (53.8%) are time_bleed (held ≥24 bars / 12h before stopping out) — the opposite pattern from S1, where entries fail fast or work. S2 is a mean-reversion strategy: it drags losers rather than failing instantly (only 15.9% immediate_loss)."
+      "detail": "71 of 132 losses (53.8%) are time_bleed (held ≥24 bars / 12h before stopping out) — the opposite pattern from S1, where entries fail fast or work. S2 is a mean-reversion strategy: it drags losers rather than failing instantly (only 15.9% immediate_loss).",
+      "title_zh": "主導 S2 虧損的是時間耗損，不是立即虧損",
+      "detail_zh": "132 筆虧損中有 71 筆（53.8%）是時間耗損（持有 ≥24 根 K 棒／12 小時後才停損）——與 S1 完全相反的型態，S1 的進場是要嘛很快就錯、要嘛就對。S2 是均值回歸策略：它會把賠錢單拖著，而不是立刻判斷錯誤。"
     },
     {
       "tone": "info",
       "title": "Low win rate is expected for this strategy shape",
-      "detail": "WR 41.07% with PF 1.535 — a left-side reversal strategy compensates for a sub-50% win rate with a larger average win than average loss (avg PnL $31.75/trade)."
+      "detail": "WR 41.07% with PF 1.535 — a left-side reversal strategy compensates for a sub-50% win rate with a larger average win than average loss (avg PnL $31.75/trade).",
+      "title_zh": "這種策略形狀的低勝率屬於預期之內",
+      "detail_zh": "勝率 41.07%、獲利因子 1.535——左側反轉策略是用「贏的時候平均賺得比輸的時候多」來補償低於五成的勝率（每筆平均 +31.75 美元）。"
     },
     {
       "tone": "good",
       "title": "MTF counter-trend penalty is much smaller than S1's",
-      "detail": "4H-bearish counter-trend WR 38.2% vs 42.96% aligned (4.76pp gap) — far narrower than S1 V3.4's 9.6pp gap, consistent with S2 being designed to fade the trend rather than follow it."
+      "detail": "4H-bearish counter-trend WR 38.2% vs 42.96% aligned (4.76pp gap) — far narrower than S1 V3.4's 9.6pp gap, consistent with S2 being designed to fade the trend rather than follow it.",
+      "title_zh": "多時間框逆勢懲罰遠小於 S1",
+      "detail_zh": "4H 空頭逆勢勝率 38.2%，順勢 42.96%，差距只有 4.76 個百分點——遠小於 S1 V3.4 的 9.6 個百分點，符合 S2 本來就是設計來對抗趨勢而非跟隨趨勢。"
     },
     {
       "tone": "info",
       "title": "Superseded strategy version",
-      "detail": "V1.9 failed OOS validation and is not the active formal S2 version (V3.2 is, confirmed 2026-07-27). This report is historical/comparison context; see RS-XAUUSD-20260727-007 for the current version and RS-XAUUSD-20260727-008 for the version gap."
+      "detail": "V1.9 failed OOS validation and is not the active formal S2 version (V3.2 is, confirmed 2026-07-27). This report is historical/comparison context; see RS-XAUUSD-20260727-007 for the current version and RS-XAUUSD-20260727-008 for the version gap.",
+      "title_zh": "已被取代的策略版本",
+      "detail_zh": "V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本（V3.2 是，2026-07-27 確認）。本報告僅作歷史／對照脈絡；現行版本見 RS-XAUUSD-20260727-007。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "How S2 V1.9 loses, on the version that failed out-of-sample validation.",
+  "question_zh": "依 30 分鐘粒度的標準失敗型態規範，S2-Hammer V1.9 的 224 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？",
+  "limitations_zh": [
+    "V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本（V3.2 才是）。本報告僅作歷史／對照脈絡。",
+    "224 筆交易、132 筆虧損。切到各分組後每格樣本都不大，逐格比較要連同 n 一起看。",
+    "立即虧損的 K 棒覆蓋率為 52.4%（21 筆中 11 筆）。雖然比兩份 S1 報告高，仍非全樣本。",
+    "本報告是描述性診斷，各項差異都沒有配上可解析下限或置換檢定，不足以直接轉成規則。",
+    "勝率 41.07% 必須與獲利因子和平均損益一起讀；單看勝率會誤判這種左側反轉策略。"
+  ],
+  "interpretation_zh": "這份報告最有價值的地方，是它顯示 **S2 的失敗方式與 S1 根本不同**，而這個差異完全符合兩者的策略設計。\n\nS2 的虧損裡有 **53.8%（132 筆中 71 筆）是時間耗損**——持有超過 24 根 K 棒（12 小時）才停損出場；立即虧損只佔 15.9%。S1 剛好相反：進場要嘛很快就錯、要嘛就對。S2 是均值回歸策略，它的失敗模式是**把賠錢單拖著**，不是立刻判斷錯誤。\n\n勝率 41.07% 看起來很低，但這對這種策略形狀是**預期之內**的：獲利因子 1.535、每筆平均 +31.75 美元，代表它用「贏的時候賺比較多」來補償低於五成的勝率。用勝率單獨評價左側反轉策略會得到錯誤結論。\n\n另一個與 S1 對照鮮明的地方：**逆勢懲罰小得多**。4H 空頭下勝率 38.20%，順勢 42.96%，差距只有 4.76 個百分點——遠小於 S1 V3.4 的 9.6 個百分點。這同樣符合設計：S2 本來就是要去對抗趨勢，不是跟隨趨勢。\n\n⚠️ 但必須講清楚：V1.9 **沒有通過樣本外驗證**，也不是現行的正式 S2 版本（V3.2 才是）。上面每一項都只是歷史對照脈絡，不能拿來調整現行規則。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "trades",
+        "win_rate_pct",
+        "profit_factor",
+        "time_bleed_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Failure Types 失敗型態",
+      "chart_file": "fail_type_breakdown.png",
+      "table_source": "fail_pattern.by_type",
+      "table_title": "Fail Type Breakdown",
+      "columns": [
+        "count",
+        "pct"
+      ],
+      "takeaway_zh": "132 筆虧損的組成：時間耗損 53.8%、正常停損 30.3%、立即虧損 15.9%。這與 S1 的分布剛好相反，是兩種策略設計差異最直接的證據。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "4H Trend Alignment 多時間框對齊",
+      "chart_file": "htf_4h_state.png",
+      "table_source": "mtf.by_4h_state",
+      "table_title": "By 4H RSI State",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "4H 空頭下勝率 38.20%，順勢 42.96%，差距僅 4.76 個百分點——遠小於 S1 V3.4 的 9.6，符合 S2 是設計來對抗趨勢的。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "30-Minute Entry Slots 進場時槽",
+      "chart_file": "entry_slot_30m_winrate.png",
+      "table_source": "by_entry_30m",
+      "table_title": "By 30-Minute Entry Slot",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "48 個時槽的分布。樣本切細後每格都很小，只能當描述看。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Bollinger Band Zone 布林區位",
+      "chart_file": "bb_zone_winrate.png",
+      "table_source": "bb_zone",
+      "table_title": "By BB Zone",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "進場當下價格落在布林通道哪一區。兩端分區樣本很小。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "DXY Regime DXY 狀態",
+      "chart_file": "dxy_winrate.png",
+      "table_source": "dxy.regime.by_bucket",
+      "table_title": "By DXY Bucket",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "依 DXY 的 RSI 區間分組，為描述性脈絡，不是進場條件。"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

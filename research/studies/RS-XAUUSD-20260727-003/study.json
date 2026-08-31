@@ -23,27 +23,135 @@
     {
       "tone": "warn",
       "title": "immediate_loss is the largest fail type",
-      "detail": "73 of 197 losses (30.9%) are immediate_loss (MFE never exceeded 10%) — entry direction was wrong from the start more often than it stopped out normally (48.3%) or bled out over time (20.8%)."
+      "detail": "73 of 197 losses (30.9%) are immediate_loss (MFE never exceeded 10%) — entry direction was wrong from the start more often than it stopped out normally (48.3%) or bled out over time (20.8%).",
+      "title_zh": "立即虧損是最大宗的失敗型態",
+      "detail_zh": "236 筆虧損中有 73 筆（30.9%）屬於立即虧損（MFE 從未超過 10%）——進場方向從一開始就錯的比例，高於時間耗損（20.8%），僅次於正常停損（48.3%）。（原始英文紀錄此處的分母 197 有誤，應為 236；百分比不受影響。）"
     },
     {
       "tone": "warn",
       "title": "Counter-trend (4H bearish) entries underperform",
-      "detail": "216 trades against a bearish 4H RSI state: WR 47.69% vs 57.29% for the 288 aligned trades (9.6pp gap), PF 1.263 vs 1.769."
+      "detail": "216 trades against a bearish 4H RSI state: WR 47.69% vs 57.29% for the 288 aligned trades (9.6pp gap), PF 1.263 vs 1.769.",
+      "title_zh": "逆勢（4H 空頭）進場表現較差",
+      "detail_zh": "在 4H RSI 空頭狀態下的 216 筆交易：勝率 47.69%，對比順勢對齊 288 筆的 57.29%（差距 9.6 個百分點）；獲利因子 1.263 對 1.769。"
     },
     {
       "tone": "info",
       "title": "K-bar coverage is limited",
-      "detail": "Only 17/73 (23.3%) immediate_loss trades have overlapping 30m OHLCV+RSI price history; the RSI-at-entry chart is a partial-coverage view, not a full-sample result."
+      "detail": "Only 17/73 (23.3%) immediate_loss trades have overlapping 30m OHLCV+RSI price history; the RSI-at-entry chart is a partial-coverage view, not a full-sample result.",
+      "title_zh": "K 棒覆蓋率有限",
+      "detail_zh": "73 筆立即虧損中只有 17 筆（23.3%）具備重疊的 30 分鐘 OHLCV 與 RSI 價格歷史；進場當下 RSI 的圖是部分覆蓋的視圖，不是全樣本結果。"
     },
     {
       "tone": "info",
       "title": "Superseded strategy version",
-      "detail": "V3.4 is not the active formal S1 version (V3.9 is, confirmed 2026-07-27). This report is historical/comparison context only; see RS-XAUUSD-20260727-004 for the current version and RS-XAUUSD-20260727-005 for the version gap."
+      "detail": "V3.4 is not the active formal S1 version (V3.9 is, confirmed 2026-07-27). This report is historical/comparison context only; see RS-XAUUSD-20260727-004 for the current version and RS-XAUUSD-20260727-005 for the version gap.",
+      "title_zh": "已被取代的策略版本",
+      "detail_zh": "V3.4 不是現行的正式 S1 版本（V3.9 是，2026-07-27 確認）。本報告僅作歷史／對照脈絡；現行版本見 RS-XAUUSD-20260727-004，兩版差異見 RS-XAUUSD-20260727-005。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
   "card_summary": "How S1 V3.4 loses: the four failure shapes and where they cluster.",
+  "question_zh": "依 30 分鐘粒度的標準失敗型態規範，S1 AweWithBB V3.4 的 504 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？",
+  "limitations_zh": [
+    "V3.4 不是現行的正式 S1 版本（V3.9 才是）。本報告只作為歷史／對照脈絡，不應據以調整任何現行規則。",
+    "立即虧損的 K 棒覆蓋率只有 23.3%（73 筆中 17 筆），是三份 fail-pattern 報告中最低的。進場當下 RSI 的那張圖是部分覆蓋的視圖，不是全樣本結果。",
+    "原始英文發現將立即虧損寫成「73 of 197 losses」，其中 197 是 V3.9 的虧損筆數；V3.4 實際為 236 筆。百分比 30.9% 正確，分母有誤。",
+    "本報告是描述性診斷，各項分組差異都沒有配上可解析下限或置換檢定，不足以直接轉成規則。",
+    "各 30 分鐘時槽樣本量差異大，逐格比較要連同 n 一起看。"
+  ],
+  "interpretation_zh": "V3.4 已經不是 S1 的正式版本（現行是 V3.9），這份報告的用途是**歷史對照基準**：它讓 V3.9 的改進有東西可以比。\n\nV3.4 最明顯的問題是**立即虧損佔比最高**：236 筆虧損中有 73 筆（30.9%）進場方向從一開始就錯，比正常停損（48.3%）以外的任何單一型態都值得注意。對照 V3.9 的 25.9%，這正是版本升級真正改善的地方。\n\n逆勢弱點在 V3.4 就已經存在：4H 空頭狀態下 216 筆勝率 47.69%、獲利因子 1.263，順勢對齊的 288 筆則是 57.29%、1.769，差距 9.6 個百分點。**值得注意的是這個差距在 V3.9 反而擴大到 12.25 個百分點**——換版本沒有修好它。\n\n⚠️ 一處記錄與資料不符：本頁「重點發現」第一條寫「236 筆虧損中的 73 筆」時，原始英文紀錄寫的是「73 of 197 losses」。**197 是 V3.9 的虧損筆數，不是 V3.4 的**；V3.4 的總虧損筆數是 236。百分比 30.9% 本身是對的（73÷236），只有分母抄錯了，結論不受影響。\n\nK 棒覆蓋率只有 23.3%（73 筆立即虧損中 17 筆有可對照的 30 分鐘價格歷史），是三份fail-pattern 報告裡最低的，所以關於「立即虧損當下發生什麼」的任何觀察在這一版上特別薄弱。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "trades",
+        "win_rate_pct",
+        "profit_factor",
+        "immediate_loss_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Failure Types 失敗型態",
+      "chart_file": "fail_type_breakdown.png",
+      "table_source": "fail_pattern.by_type",
+      "table_title": "Fail Type Breakdown",
+      "columns": [
+        "count",
+        "pct"
+      ],
+      "takeaway_zh": "236 筆虧損的組成：正常停損 48.3%、立即虧損 30.9%、時間耗損 20.8%。立即虧損佔比是 V3.9（25.9%）的明顯對照組——這是版本升級真正改善的一項。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "4H Trend Alignment 多時間框對齊",
+      "chart_file": "htf_4h_state.png",
+      "table_source": "mtf.by_4h_state",
+      "table_title": "By 4H RSI State",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "4H 空頭下 216 筆勝率 47.69%、獲利因子 1.263；順勢 288 筆為 57.29%、1.769，差距 9.6 個百分點。這個弱點在 V3.9 擴大到 12.25 個百分點，換版本並沒有修好。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "30-Minute Entry Slots 進場時槽",
+      "chart_file": "entry_slot_30m_winrate.png",
+      "table_source": "by_entry_30m",
+      "table_title": "By 30-Minute Entry Slot",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "48 個時槽的分布。多數格子樣本很小，且本報告沒有計算可解析下限，只能當描述看。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Bollinger Band Zone 布林區位",
+      "chart_file": "bb_zone_winrate.png",
+      "table_source": "bb_zone",
+      "table_title": "By BB Zone",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "進場當下價格落在布林通道哪一區。兩端分區樣本很小。"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "DXY Regime DXY 狀態",
+      "chart_file": "dxy_winrate.png",
+      "table_source": "dxy.regime.by_bucket",
+      "table_title": "By DXY Bucket",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ],
+      "takeaway_zh": "依 DXY 的 RSI 區間分組，為描述性脈絡，不是進場條件。"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
