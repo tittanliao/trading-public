@@ -32,47 +32,138 @@
     {
       "tone": "good",
       "title": "Twenty hypotheses, no survivors, and the family test says that is exactly right",
-      "detail": "Eighteen return no evidence, one is untestable on this data and one is real but smaller than the round trip. Across the whole family the largest observed effect is 2.02 units of its own resolution against a null median of 2.10, p=0.928. Running twenty tests and reporting the best is how noise gets published; corrected across the set, this set contains nothing."
+      "detail": "Eighteen return no evidence, one is untestable on this data and one is real but smaller than the round trip. Across the whole family the largest observed effect is 2.02 units of its own resolution against a null median of 2.10, p=0.928. Running twenty tests and reporting the best is how noise gets published; corrected across the set, this set contains nothing.",
+      "title_zh": "二十個假設、零個存活，而家族檢定說這正是應該的結果",
+      "detail_zh": "十八個沒有證據、一個在這批資料上無法檢定、一個是真的但小於來回成本。就整個家族來看，最大的觀察效果是自身可分辨門檻的 1.51 倍，而虛無分布的中位數是 2.10 倍，p=0.928。跑二十個檢定然後只報告最好的那個，正是雜訊被發表出來的方式；在整組上做校正之後，這一組裡什麼都沒有。"
     },
     {
       "tone": "warn",
       "title": "One lookahead bug produced the strongest result in the study, and it was circular",
-      "detail": "The opening-range hypothesis first compared the session's HIGH to its opening-range high and predicted that same session's return — asking whether a session that went up went up. It scored +1.5704% against a 0.5271% bound with a bootstrap p of 0.000, and lifted the family p to 0.0675. Rebuilt so the break is judged by 10:00 and the return measured from 10:00 onward, the effect is -0.0132% and the family p is 0.928. The single most convincing number in the run was an artefact of the condition being observable after the thing it predicted."
+      "detail": "The opening-range hypothesis first compared the session's HIGH to its opening-range high and predicted that same session's return — asking whether a session that went up went up. It scored +1.5704% against a 0.5271% bound with a bootstrap p of 0.000, and lifted the family p to 0.0675. Rebuilt so the break is judged by 10:00 and the return measured from 10:00 onward, the effect is -0.0132% and the family p is 0.928. The single most convincing number in the run was an artefact of the condition being observable after the thing it predicted.",
+      "title_zh": "一個前視偏誤的錯誤產生了全研究最強的結果，而且它是循環論證",
+      "detail_zh": "開盤區間假設一開始是拿「該時段的最高價」和「該時段的開盤區間高點」比較，再去預測「同一個時段的報酬」——等於在問「一個上漲的時段是不是上漲了」。它得到 +1.5704% 對 0.5271% 的門檻、自助抽樣 p=0.000，並把家族 p 值拉到 0.0675。改成用 10:00 之前判定突破、報酬從 10:00 之後才起算，效果變成 −0.0132%，家族 p 回到 0.928。整輪跑下來最有說服力的那個數字，是「條件在它所預測的事情發生之後才可觀察」造成的假象。"
     },
     {
       "tone": "warn",
       "title": "The cost screen has to compare the NET effect to the resolution bound, not the gross effect to cost",
-      "detail": "The 03:00-06:00 dead zone drifts +0.0222% over the following hour, clears its 0.0147% bound and has a bootstrap p of 0.004. Against a 0.02% round trip the gross effect still looks larger than cost — but net it is +0.0022%, an order of magnitude inside its own noise floor. Comparing gross effect to cost passes it as a survivor; comparing the net effect to the bound classifies it correctly as below_cost."
+      "detail": "The 03:00-06:00 dead zone drifts +0.0222% over the following hour, clears its 0.0147% bound and has a bootstrap p of 0.004. Against a 0.02% round trip the gross effect still looks larger than cost — but net it is +0.0022%, an order of magnitude inside its own noise floor. Comparing gross effect to cost passes it as a survivor; comparing the net effect to the bound classifies it correctly as below_cost.",
+      "title_zh": "成本篩子必須拿「淨效果」和門檻比，不是拿「毛效果」和成本比",
+      "detail_zh": "03:00–06:00 的死區在接下來一小時漂移 +0.0222%，超過它 0.0147% 的門檻，自助抽樣 p=0.004。對照 0.02% 的來回成本，毛效果看起來仍然大於成本——但淨額只有 +0.0022%，比它自己的雜訊底線小一個數量級。拿毛效果和成本比，它會被判為存活者；拿淨效果和門檻比，才會被正確歸類為 below_cost。"
     },
     {
       "tone": "info",
       "title": "The published claims about gold do not reproduce here",
-      "detail": "Monday-weak returns -0.0220% against a 0.3637% bound and Friday-strong +0.0232% against 0.3689% — both an order of magnitude inside what 130-odd observations can separate. Asian buying fading into the European session gives +0.0129% with a bootstrap p of 0.675. Turn-of-month is +0.0744% against a 0.3231% bound. None of these are refutations; they are bounds, and the bounds are wide."
+      "detail": "Monday-weak returns -0.0220% against a 0.3637% bound and Friday-strong +0.0232% against 0.3689% — both an order of magnitude inside what 130-odd observations can separate. Asian buying fading into the European session gives +0.0129% with a bootstrap p of 0.675. Turn-of-month is +0.0744% against a 0.3231% bound. None of these are refutations; they are bounds, and the bounds are wide.",
+      "title_zh": "那些公開發表過的黃金說法在這裡都無法重現",
+      "detail_zh": "「週一偏弱」是 −0.0220%，門檻 0.3637%；「週五偏強」是 +0.0232%，門檻 0.3689%——兩者都比 130 多筆觀察能分辨的幅度小一個數量級。「亞洲買盤在歐洲盤消退」是 +0.0129%，自助抽樣 p=0.675。「月底效應」是 +0.0744%，門檻 0.3231%。這些都不是駁斥，它們是「上界」，而這些上界都很寬。"
     },
     {
       "tone": "warn",
       "title": "September could not be tested and neither can any month-of-year claim",
-      "detail": "The external claim is that September is gold's worst month. On 43 sessions the effect is +0.2945% — the opposite sign — with a bound of 0.5953%, so the sample cannot separate it either way. Thirty-two months of data contains at most three of any given month. Month-of-year seasonality is not open or closed here; it is untestable, and that is the entry that belongs in the registry."
+      "detail": "The external claim is that September is gold's worst month. On 43 sessions the effect is +0.2945% — the opposite sign — with a bound of 0.5953%, so the sample cannot separate it either way. Thirty-two months of data contains at most three of any given month. Month-of-year seasonality is not open or closed here; it is untestable, and that is the entry that belongs in the registry.",
+      "title_zh": "九月無法被檢定，任何「月份效應」的說法也一樣",
+      "detail_zh": "外部說法是九月是黃金最差的月份。在 43 個交易時段上，效果是 +0.2945%——方向相反——門檻是 0.5953%，所以這個樣本兩個方向都分辨不出來。32 個月的資料，任何特定月份最多只包含三次。月份季節性在這裡既沒有被開啟也沒有被關閉；它是「不可檢定」，而這正是應該進入登記表的那一種條目。"
     },
     {
       "tone": "warn",
       "title": "Positioning is the cheapest closed door to open, and the blocker is archiving not analysis",
-      "detail": "The CFTC hypothesis fires twice. The repository holds twelve weekly rows because the weekly fetcher keeps a rolling window rather than a history, so the whole positioning family is currently untestable. CFTC publishes the full Commitments of Traders series free. Archiving it is a data task, not a research one, and it opens a family this dataset cannot currently touch."
+      "detail": "The CFTC hypothesis fires twice. The repository holds twelve weekly rows because the weekly fetcher keeps a rolling window rather than a history, so the whole positioning family is currently untestable. CFTC publishes the full Commitments of Traders series free. Archiving it is a data task, not a research one, and it opens a family this dataset cannot currently touch.",
+      "title_zh": "部位資料是最便宜的一扇門，而卡住的是封存不是分析",
+      "detail_zh": "CFTC 假設觸發了兩次。版本庫裡只有十二週的資料，因為每週抓取程式保留的是滾動視窗而不是歷史，所以整個部位家族目前無法檢定。CFTC 免費公布完整的持倉報告序列。把它封存起來是一件資料工作，不是研究工作，而它能打開一整個這批資料目前完全碰不到的家族。"
     },
     {
       "tone": "good",
       "title": "The failures are now queryable instead of narrative",
-      "detail": "Every result carries its claim, its null, its sample, its effect and the smallest effect that sample could have resolved, and all of it lands in research/null_results.json alongside every prior study. A null with a bound attached is reusable evidence — it says not here, and how small an effect we could have seen. A null in prose is a shrug. This is the first study whose primary output is the shape of its own failures."
+      "detail": "Every result carries its claim, its null, its sample, its effect and the smallest effect that sample could have resolved, and all of it lands in research/null_results.json alongside every prior study. A null with a bound attached is reusable evidence — it says not here, and how small an effect we could have seen. A null in prose is a shrug. This is the first study whose primary output is the shape of its own failures.",
+      "title_zh": "這些失敗現在是可以查詢的，而不是敘述性的",
+      "detail_zh": "每一個結果都帶著它的主張、它的虛無假設、樣本數、效果，以及「這個樣本本來能分辨的最小效果」，並且全部落進 research/null_results.json，和先前每一份研究並排。一個帶著門檻的否定結果是可以重複使用的證據——它說的是「不在這裡」，以及「我們本來能看到多小的效果」。而寫在文章裡的否定結果只是一個聳肩。這是第一份以「自己的失敗形狀」作為主要產出的研究。"
     },
     {
       "tone": "info",
       "title": "Range hypotheses are the widest bounds in the set and are effectively untested",
-      "detail": "NR4 gives -1.86 USD of next-session range against a bound of 15.44, and the inside-day version -3.65 against 18.55. The bounds are eight to ten times the effects, so these are not evidence of absence in any useful sense. They are recorded as open with wide bounds rather than as closed, which is the distinction the registry exists to preserve."
+      "detail": "NR4 gives -1.86 USD of next-session range against a bound of 15.44, and the inside-day version -3.65 against 18.55. The bounds are eight to ten times the effects, so these are not evidence of absence in any useful sense. They are recorded as open with wide bounds rather than as closed, which is the distinction the registry exists to preserve.",
+      "title_zh": "區間類假設是全組中門檻最寬的，實際上等於沒有被檢定",
+      "detail_zh": "NR4 對下一個時段區間的效果是 −1.86 美元，門檻是 15.44 美元；內包日版本是 −3.65 對 18.55。門檻是效果的八到十倍，所以這些在任何有用的意義上都不構成「不存在的證據」。它們被記錄為「開啟中、門檻很寬」，而不是「已關閉」——這正是這個登記表存在的意義。"
     }
   ],
   "policy_impacts": [],
   "theme": "methodology",
   "card_summary": "Twenty hypotheses through one harness, zero survivors, and a registry so the next twenty are not repeats.",
+  "question_zh": "把二十個假設——來自公開發表過的黃金說法，以及明顯該試的結構性想法——放進同一套流程、用同一組篩子跑一遍，並且把每一個結果都記錄下來，包含所有的否定結果，而且記錄成「下一個工作階段可以直接查詢」的形式，以免在同一片地上重複花力氣。",
+  "limitations_zh": [
+    "所有結果都建立在單一商品、32 個月、一段強勢上升行情之上；門檻寬度直接反映這個樣本規模。",
+    "月份效應在這份資料上不可檢定：32 個月中任何特定月份最多出現三次。",
+    "部位（CFTC）家族目前完全無法檢定，因為版本庫只有十二週的滾動視窗資料，而非歷史序列。",
+    "區間類假設（NR4、內包日）的可分辨門檻是觀察效果的八到十倍，應視為「未檢定」而非「無效果」。",
+    "第一項發現引用的「2.02 個門檻單位」與 results.json 記錄的 1.51 不符（虛無中位數 2.102、p=0.928 兩者一致）；請以本頁表格為準。此更正不改變結論。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究的產出不是任何一個假設的結果，而是一套判決規則，其中最重要的一條是：**先看效果有沒有大過這個樣本能分辨的最小幅度，再看 p 值**。表中有三個假設可以直接示範這條規則：九月（p=0.001）、外側日方向（p=0.014）、死區漂移（p=0.004）——三個 p 值都很小，卻沒有一個被判為存活。原因是它們的效果分別是 0.2945、0.4028、0.0222，而各自的門檻是 0.5953、0.4896、0.0147。前兩個的效果根本沒有跨過門檻；第三個跨過了，但扣掉來回成本之後只剩 0.0022%，比雜訊底線小一個數量級。如果按照一般做法只看 p 值，這一輪會產出三個「發現」。\n\n第二項發現值得單獨記住，因為它是這輪裡最強的數字，而它完全是假的。原本的寫法拿「整個時段的最高價」去判定突破，再預測「同一個時段的報酬」——條件在結果發生之後才可觀察，所以問題等於「一個上漲的時段是不是上漲了」。修正之後，效果從 +1.5704% 變成 −0.0132%，家族 p 從 0.0675 回到 0.928。一個前視偏誤就足以把整組結果的family p 值從「接近顯著」推到「什麼都沒有」的反面，這也說明了為什麼家族層級的校正必須在修正之後才有意義。\n\n第五與第八項發現示範了另一個常被混淆的區別：「沒有證據」和「不可檢定」不是同一件事。九月只有 43 個時段、任何月份在 32 個月裡最多出現三次；NR4 的門檻是效果的八倍。把這些記成「已駁斥」會讓後來的人以為這片地已經找過了，記成「開啟中、門檻多寬」才會讓後來的人知道要帶多少資料回來。\n\n最後更正一處數字。第一項發現寫「最大的觀察效果是 2.02 個門檻單位」，但 results.json 與本研究自己的關鍵數字都記錄為 1.51（虛無中位數 2.102、p=0.928）。更正後結論只會更強——1.51 比 2.02 距離虛無中位數更遠——但引用時應以表格為準。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "hypotheses_tested",
+        "survivors",
+        "family_permutation_p",
+        "family_largest_effect_in_units_of_resolution"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "verdict_counts",
+      "title": "Verdict Counts 判決分布（20 個假設）",
+      "keys": [
+        "no_evidence",
+        "underpowered",
+        "below_cost"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "family_permutation",
+      "title": "Family Permutation 家族層級校正（修正前視偏誤之後）",
+      "keys": [
+        "tested",
+        "largest_observed_units_of_resolution",
+        "null_median",
+        "p_value"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "hypotheses",
+      "title": "All Twenty Hypotheses 全部二十個假設（完整報告，未挑選）",
+      "takeaway_zh": "請把 effect 與 smallest resolvable effect 兩欄並排看，那是本研究的判決依據。注意 h05（p=0.001）、h10（p=0.014）、h20（p=0.004）三個 p 值都很小，卻沒有一個被判為存活——因為它們的效果沒有跨過自己的門檻，或跨過了但扣掉成本後不剩什麼。只看 p 值，這一輪會產出三個假發現。",
+      "columns": [
+        "id",
+        "family",
+        "n_condition",
+        "effect",
+        "smallest_resolvable_effect",
+        "bootstrap_p_two_sided",
+        "effect_net_of_cost",
+        "sign_consistent_all_periods",
+        "verdict"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,

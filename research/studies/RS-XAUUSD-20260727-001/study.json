@@ -112,7 +112,7 @@
       "table_source": "fail_pattern.by_type",
       "table_title": "Fail Type Breakdown",
       "columns": [
-        "n",
+        "count",
         "pct"
       ]
     },
@@ -140,8 +140,7 @@
       "columns": [
         "n",
         "win_rate_pct",
-        "profit_factor",
-        "rank_score"
+        "profit_factor"
       ]
     },
     {
@@ -154,8 +153,7 @@
       "columns": [
         "n",
         "win_rate_pct",
-        "profit_factor",
-        "rank_score"
+        "profit_factor"
       ]
     },
     {
@@ -168,8 +166,7 @@
       "columns": [
         "n",
         "win_rate_pct",
-        "profit_factor",
-        "rank_score"
+        "profit_factor"
       ]
     },
     {
@@ -182,8 +179,7 @@
       "columns": [
         "n",
         "win_rate_pct",
-        "profit_factor",
-        "rank_score"
+        "profit_factor"
       ]
     },
     {

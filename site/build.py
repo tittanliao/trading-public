@@ -56,6 +56,8 @@ POC_STUDIES = [
     "RS-XAUUSD-20260818-004",
     "RS-XAUUSD-20260818-005",
     "RS-XAUUSD-20260819-001",
+    "RS-XAUUSD-20260824-001",
+    "RS-XAUUSD-20260824-002",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -100,7 +102,6 @@ PHASE_2B: list[str] = []
 SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
 
 PHASE_2C = [
-    "RS-XAUUSD-20260824-001", "RS-XAUUSD-20260824-002",
     "RS-XAUUSD-20260824-003", "RS-XAUUSD-20260824-004", "RS-XAUUSD-20260824-005",
     "RS-XAUUSD-20260824-006",
 ]
@@ -231,17 +232,23 @@ PREFERRED_COLUMNS = [
 DROPPED_COLUMNS = {"low_sample", "rank_excluded_reason"}
 
 
-def flatten_record(record: dict) -> dict:
+def flatten_record(record: dict, prefix: str = "", depth: int = 0) -> dict:
+    """Flatten nested dicts into dotted column keys.
+
+    This used to stop after one level, so a column two levels down was simply absent from
+    the available set and render_records_table dropped it from `columns` without a word —
+    the table rendered, minus its evidence. Nesting three deep is normal in these results
+    (hypothesis -> window -> metric), so flattening follows the whole way down.
+    """
     out: dict[str, Any] = {}
     for key, value in record.items():
         if key in DROPPED_COLUMNS:
             continue
-        if isinstance(value, dict):
-            for sub_key, sub_value in value.items():
-                if sub_key not in DROPPED_COLUMNS:
-                    out[f"{key}.{sub_key}"] = sub_value
+        name = f"{prefix}{key}"
+        if isinstance(value, dict) and depth < 4:
+            out.update(flatten_record(value, f"{name}.", depth + 1))
         else:
-            out[key] = value
+            out[name] = value
     return out
 
 

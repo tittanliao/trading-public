@@ -202,6 +202,34 @@ def check_presentation_blocks(errors: list[str]) -> None:
                 )
 
 
+def check_table_columns(errors: list[str]) -> None:
+    """A column a blueprint asks for but the data does not have is dropped silently, so the
+    table still renders and every other check passes — minus the evidence it was built to
+    show. Every named column must resolve against the records it is applied to."""
+    import build as gen
+    for sid in POC_STUDIES:
+        study, results = gen.load_study(sid)
+        for index, block in enumerate(study.get("presentation", []), start=1):
+            columns = block.get("columns")
+            source = block.get("table_source") if block["type"] == "evidence_pair" else block.get("source")
+            if not columns or not source:
+                continue
+            value = gen.resolve_source(study, results, source)
+            if not isinstance(value, (dict, list)):
+                continue
+            records = value.values() if isinstance(value, dict) else value
+            available: set[str] = set()
+            for record in records:
+                if isinstance(record, dict):
+                    available |= set(gen.flatten_record(record))
+            missing = [c for c in columns if c not in available]
+            if missing:
+                errors.append(
+                    f"{sid}: presentation block {index} ({source}) names columns absent "
+                    f"from the data: {', '.join(missing)}"
+                )
+
+
 def check_study_order(errors: list[str]) -> None:
     """Interpretation and limitations belong before the evidence links, not after."""
     for sid in POC_STUDIES:
@@ -226,7 +254,7 @@ def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
                check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
-               check_study_order):
+               check_table_columns, check_study_order):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),

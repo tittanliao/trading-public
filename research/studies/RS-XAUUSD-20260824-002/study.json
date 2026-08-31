@@ -35,47 +35,114 @@
     {
       "tone": "good",
       "title": "The publication lag turns the report's own timing into a placebo window",
-      "detail": "A COT report is dated Tuesday and published Friday afternoon US time. Wednesday, Thursday and Friday have already traded when it lands, so nothing in the report can have caused them. Splitting the response into fwd_wed_fri (already history) and fwd_mon_tue (the only window a reader could act on) gives every hypothesis a built-in control. Almost no positioning research has one, because almost all of it reports a single Tuesday-to-Tuesday return that blends the two. This was spotted unprompted and it is the most valuable thing in the study."
+      "detail": "A COT report is dated Tuesday and published Friday afternoon US time. Wednesday, Thursday and Friday have already traded when it lands, so nothing in the report can have caused them. Splitting the response into fwd_wed_fri (already history) and fwd_mon_tue (the only window a reader could act on) gives every hypothesis a built-in control. Almost no positioning research has one, because almost all of it reports a single Tuesday-to-Tuesday return that blends the two. This was spotted unprompted and it is the most valuable thing in the study.",
+      "title_zh": "公布時間差把報告自己的時程變成了一個對照組",
+      "detail_zh": "一份 COT 報告的資料日期是星期二，但要到星期五美國時間下午才公布。星期三、四、五在報告落地之前就已經交易完了，所以報告裡的任何東西都不可能造成那三天的走勢。把反應拆成 fwd_wed_fri（已成歷史）與 fwd_mon_tue（讀者唯一能行動的視窗），等於替每一個假設內建了一個對照組。幾乎沒有部位研究有這種對照，因為幾乎所有研究都只報告一個「星期二到星期二」的報酬，把兩者混在一起。"
     },
     {
       "tone": "warn",
       "title": "Where relationships appear at all, they do not survive publication",
-      "detail": "Across fourteen testable hypotheses the effect in the already-happened window correlates with the effect in the actionable window at 0.091, and the signs agree in 7 of 14 — a coin flip. Among the five largest historical effects, two flip sign after publication and the rest shrink toward zero. If positioning genuinely carried information forward, those two windows would move together. They do not."
+      "detail": "Across fourteen testable hypotheses the effect in the already-happened window correlates with the effect in the actionable window at 0.091, and the signs agree in 7 of 14 — a coin flip. Among the five largest historical effects, two flip sign after publication and the rest shrink toward zero. If positioning genuinely carried information forward, those two windows would move together. They do not.",
+      "title_zh": "凡是有關係出現的地方，它都撐不過公布這個時點",
+      "detail_zh": "在十四個可檢定的假設上，「已發生視窗」的效果與「可行動視窗」的效果之間的相關係數是 0.091，正負號一致的只有 14 個裡的 7 個——就是丟銅板。在歷史效果最大的五個假設裡，有兩個在公布之後正負號翻轉，其餘的都向零收縮。如果部位資訊真的能往前傳遞，那兩個視窗應該要同向移動。它們沒有。"
     },
     {
       "tone": "warn",
       "title": "Thirty-one weeks resolves nothing, and that is the honest headline",
-      "detail": "Weekly gold returns carry a standard deviation of 3.99% over this sample. Split into two groups of roughly fifteen, the smallest weekly difference separable from noise is about 3.99 percentage points. Every effect measured here is under 2.2 points. Zero of fifteen hypotheses are resolvable in the actionable window — not because they were refuted, but because the sample cannot see an effect of any plausible size."
+      "detail": "Weekly gold returns carry a standard deviation of 3.99% over this sample. Split into two groups of roughly fifteen, the smallest weekly difference separable from noise is about 3.99 percentage points. Every effect measured here is under 2.2 points. Zero of fifteen hypotheses are resolvable in the actionable window — not because they were refuted, but because the sample cannot see an effect of any plausible size.",
+      "title_zh": "三十一週什麼都分辨不出來，而這才是誠實的標題",
+      "detail_zh": "這段樣本的每週黃金報酬標準差是 3.99%。切成兩組各約十五週之後，能與雜訊分辨開來的最小每週差距大約是 3.99 個百分點。而這裡量到的每一個效果都小於 2.2 個百分點。十五個假設中，在可行動視窗裡可分辨的有零個——不是因為它們被駁斥，而是因為這個樣本看不見任何合理大小的效果。"
     },
     {
       "tone": "warn",
       "title": "The producer/merchant result has no supported mechanism, and the decomposition is inside its own error bars",
-      "detail": "Weeks when producer/merchant shorts fell were followed by -0.94% against +1.23% when they rose — the opposite sign to the hypothesis, and far inside the noise floor, so not a refutation. A hedging mechanism was asserted for this and then withdrawn: the correlation between the weekly change in those shorts and the price move of the week it was built during is 0.062, indistinguishable from zero, so the book is not visibly responding to price either. The grouped means and the correlation point opposite ways, which means the grouping rests on a few weeks. And the decomposition itself does not survive its error bars: the already-happened window difference is -1.672 +/- 0.980 and the actionable one -0.514 +/- 0.735, both intervals containing zero. On 31 weeks nothing here is resolvable, including which window the apparent effect lives in."
+      "detail": "Weeks when producer/merchant shorts fell were followed by -0.94% against +1.23% when they rose — the opposite sign to the hypothesis, and far inside the noise floor, so not a refutation. A hedging mechanism was asserted for this and then withdrawn: the correlation between the weekly change in those shorts and the price move of the week it was built during is 0.062, indistinguishable from zero, so the book is not visibly responding to price either. The grouped means and the correlation point opposite ways, which means the grouping rests on a few weeks. And the decomposition itself does not survive its error bars: the already-happened window difference is -1.672 +/- 0.980 and the actionable one -0.514 +/- 0.735, both intervals containing zero. On 31 weeks nothing here is resolvable, including which window the apparent effect lives in.",
+      "title_zh": "生產商／貿易商那個結果沒有機制支撐，而拆解本身也在自己的誤差範圍內",
+      "detail_zh": "生產商／貿易商空單減少的那些週，之後是 −0.94%；空單增加的那些週是 +1.23%——與假設的方向相反，而且遠在雜訊底線之內，所以不構成駁斥。曾經有人替它提出避險機制，之後又收回：那些空單的週變化量，與它建立當週的價格變動之間相關係數只有 0.062，與零無法區分，所以那本帳並沒有明顯地在回應價格。分組平均與相關係數指向相反，代表這個分組是靠少數幾週撐起來的。而拆解本身也撐不過誤差：已發生視窗的差是 −1.672 ± 0.980、可行動視窗是 −0.514 ± 0.735，兩個區間都包含零。在 31 週上，這裡沒有任何東西是可分辨的，包括「表面上的效果究竟住在哪一個視窗」。"
     },
     {
       "tone": "info",
       "title": "The retail-long-with-funds-short combination fires twice in 31 weeks",
-      "detail": "The stated combination — retail adding length while managed money cuts it — occurs on two of thirty-one weeks. That is not a weak result, it is no result: two observations cannot support any statement. It is recorded as untestable and reformulated continuously as the retail-versus-managed-money divergence, which fires on eight weeks and is still inside its own noise floor."
+      "detail": "The stated combination — retail adding length while managed money cuts it — occurs on two of thirty-one weeks. That is not a weak result, it is no result: two observations cannot support any statement. It is recorded as untestable and reformulated continuously as the retail-versus-managed-money divergence, which fires on eight weeks and is still inside its own noise floor.",
+      "title_zh": "散戶做多搭配基金做空的組合，在 31 週裡只出現兩次",
+      "detail_zh": "原本陳述的組合——散戶增加多單、同時管理基金減碼——在三十一週裡出現兩週。那不是一個弱結果，而是沒有結果：兩筆觀察無法支撐任何陳述。它被記錄為不可檢定，並改寫成連續形式的「散戶對管理基金的背離」，後者出現八週，但仍然在自己的雜訊底線之內。"
     },
     {
       "tone": "good",
       "title": "The screenshots were a better dataset than the fetched feed, and are now verified",
-      "detail": "The repository held 31 weekly screenshots going back to 2026-01-06 while the fetched CSV kept only a 12-week rolling window and omits Nonreportable (retail) positions entirely — the exact field both hypotheses need. All 31 are now transcribed into a 58-column weekly series, and all 132 field-values across the 12 overlapping weeks matched the official CSV exactly. That check re-runs on every build and fails the build rather than warning."
+      "detail": "The repository held 31 weekly screenshots going back to 2026-01-06 while the fetched CSV kept only a 12-week rolling window and omits Nonreportable (retail) positions entirely — the exact field both hypotheses need. All 31 are now transcribed into a 58-column weekly series, and all 132 field-values across the 12 overlapping weeks matched the official CSV exactly. That check re-runs on every build and fails the build rather than warning.",
+      "title_zh": "截圖比抓取回來的資料更好用，而且現在通過了驗證",
+      "detail_zh": "版本庫裡存有 31 張回溯到 2026-01-06 的每週截圖，而抓取的 CSV 只保留十二週的滾動視窗，並且完全沒有 Nonreportable（散戶）部位——那正是兩個假設都需要的欄位。31 張現在全部轉錄成一個 58 欄的週序列，而在十二週重疊的區間裡，全部 132 個欄位值與官方 CSV 完全一致。這項檢查會在每次建置時重跑，而且是讓建置失敗，不是發出警告。"
     },
     {
       "tone": "warn",
       "title": "The unlock is archiving, not analysis",
-      "detail": "CFTC publishes the complete disaggregated futures-only history back to September 2009 as annual archives — roughly 880 weeks against the 31 here, a 28-fold increase that would take the resolution bound from about 4 percentage points to well under 1. Every hypothesis in this study would become answerable. It is a download and a parser, not a research problem, and it needs an approval decision rather than more thinking."
+      "detail": "CFTC publishes the complete disaggregated futures-only history back to September 2009 as annual archives — roughly 880 weeks against the 31 here, a 28-fold increase that would take the resolution bound from about 4 percentage points to well under 1. Every hypothesis in this study would become answerable. It is a download and a parser, not a research problem, and it needs an approval decision rather than more thinking.",
+      "title_zh": "要解鎖的是封存，不是分析",
+      "detail_zh": "CFTC 免費公布完整的分類期貨歷史，一路回到 2009 年 9 月，以年度封存檔提供——大約 880 週，相對這裡的 31 週是 28 倍，會把可分辨門檻從約 4 個百分點降到遠低於 1 個百分點。這份研究裡的每一個假設都會變成可回答的。這是一次下載加一支解析程式，不是一個研究問題；它需要的是一個核准決定，而不是更多思考。"
     },
     {
       "tone": "info",
       "title": "Level versus change is a question this data will eventually settle",
-      "detail": "Most COT commentary reads the level of managed-money net length; h09 and h15 test the change and the level of the same quantity against the same windows. Here they disagree in the actionable window (-0.30% for the change, -1.43% for the level) and both are far inside the bound, so nothing follows yet. With the full history the pair becomes a direct test of which of the two the commentary should be reading."
+      "detail": "Most COT commentary reads the level of managed-money net length; h09 and h15 test the change and the level of the same quantity against the same windows. Here they disagree in the actionable window (-0.30% for the change, -1.43% for the level) and both are far inside the bound, so nothing follows yet. With the full history the pair becomes a direct test of which of the two the commentary should be reading.",
+      "title_zh": "「水位」還是「變化量」，是這批資料未來能夠解決的問題",
+      "detail_zh": "多數 COT 評論讀的是管理基金淨多單的「水位」；h09 與 h15 用同樣的視窗分別檢定同一個量的「變化量」與「水位」。在這裡兩者在可行動視窗上結論相反（變化量 −0.30%、水位 −1.43%），而且都遠在門檻之內，所以目前什麼都推不出來。有了完整歷史之後，這一對就會變成「評論到底該讀哪一個」的直接檢定。"
     }
   ],
   "policy_impacts": [],
   "theme": "market_structure",
   "card_summary": "CFTC positioning, with the report's own publication lag used as a placebo control.",
+  "question_zh": "兩個關於 CFTC 部位的假設，加上一個關於「報告公布時間差」的觀察。這些假設站得住嗎？以及——這個時間差讓我們能檢定什麼，是一般部位研究做不到的？",
+  "limitations_zh": [
+    "31 週是極小的樣本。每週報酬標準差 3.99%，使可分辨門檻約為 3.99 個百分點，而本研究所有效果都小於 2.2 個百分點；因此所有結論都是「看不見」，不是「不存在」。",
+    "十五個假設中有一個因為條件僅觸發兩週而完全不可檢定，其餘十四個在可行動視窗上皆不可分辨。",
+    "生產商／貿易商結果的分組平均與相關係數指向相反方向，代表該分組由少數幾週主導；其視窗拆解的兩個區間都包含零。",
+    "週序列來自 31 張人工截圖的轉錄。在與官方 CSV 重疊的十二週上，132 個欄位值全部相符；重疊區間之外沒有第二來源可交叉驗證。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究最好的部分是一個設計，而不是一個結果。COT 報告的資料日期是星期二、公布卻在星期五下午，因此星期三到星期五的走勢在報告存在之前就已經發生。把反應拆成「已成歷史」與「唯一能行動」兩個視窗之後，每一個假設都自動獲得一個安慰劑對照組：任何在已發生視窗出現、卻在可行動視窗消失的關係，本來就不可能是報告造成的。絕大多數部位研究只報告一個星期二到星期二的報酬，把兩者混在一起——而那正是最容易產生假結論的做法。\n\n拆開之後的答案很乾脆：兩個視窗的效果相關係數 0.091，正負號一致 14 個裡 7 個。這個數字本身就是結論——如果部位資訊真的往前傳遞，兩個視窗必須同向。\n\n但這份研究最誠實的地方是第三項發現，而且它適用於上面所有的話：每週報酬標準差 3.99%，切成兩組之後可分辨門檻約 3.99 個百分點，而所有量到的效果都小於 2.2 個百分點。所以嚴格說，連「兩個視窗不相關」這件事本身也是在一個看不見任何東西的樣本上量到的。研究把這點寫成標題而不是註腳，是對的。\n\n第六項發現值得特別指出，因為它與一般直覺相反：手動保存的截圖比自動抓取的資料源更有價值。抓取的 CSV 只保留十二週滾動視窗，而且完全沒有散戶部位欄位——那正是兩個假設都需要的。31 張截圖轉錄後，在十二週重疊區間裡 132 個欄位值與官方資料完全一致，而且這項比對是讓建置失敗、不是發出警告。先證明資料正確，再用它下結論，順序是對的。\n\n最後，這份研究把自己的結論導向一個行動而不是一個看法：真正的瓶頸是封存，不是分析。CFTC 免費提供回到 2009 年的完整歷史，約 880 週對現在的 31 週，足以把門檻從約 4 個百分點壓到 1 個百分點以下。這裡每一個「不可檢定」都會因此變成可檢定。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "weeks",
+        "hypotheses_tested",
+        "resolvable_in_actionable_window",
+        "window_correlation"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "hypotheses",
+      "title": "All Fifteen Hypotheses, Both Windows 全部十五個假設 × 兩個視窗",
+      "takeaway_zh": "本表的讀法是橫向比較兩個效果欄。fwd_wed_fri 是報告公布前就已經走完的行情，報告不可能造成它；fwd_mon_tue 是讀者唯一能行動的視窗。兩欄的相關係數只有 0.091、正負號一致 14 個裡 7 個。再對照可分辨門檻欄——每一個效果都遠小於它，所以判決全部是「看不見」，不是「不存在」。",
+      "columns": [
+        "id",
+        "condition_weeks",
+        "windows.fwd_wed_fri_pct.effect_pct",
+        "windows.fwd_mon_tue_pct.effect_pct",
+        "windows.fwd_mon_tue_pct.smallest_resolvable_pct",
+        "windows.fwd_mon_tue_pct.bootstrap_p_two_sided",
+        "windows.fwd_mon_tue_pct.verdict"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
