@@ -17,7 +17,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import POC_STUDIES, QUEUED_STUDIES, routes, weekly_weeks  # noqa: E402
+from build import POC_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -62,11 +62,16 @@ def check_retired(errors: list[str]) -> None:
         page = ROOT / "research/studies" / sid / "index.html"
         if page.is_file():
             errors.append(f"queued study must stay unlinked/404 this phase: {sid}")
-    for sid in QUEUED_STUDIES:
-        # Evidence must survive even while the page does not.
+    for sid in QUEUED_STUDIES + SUPERSEDED_STUDIES:
+        # Evidence must survive even while the page does not. A superseded study is never
+        # getting a page, which makes its evidence package the only remaining record.
         for required in ("study.json", "results.json"):
             if not (ROOT / "research/studies" / sid / required).is_file():
-                errors.append(f"queued study lost its evidence package: {sid}/{required}")
+                errors.append(f"unpublished study lost its evidence package: {sid}/{required}")
+    for sid in SUPERSEDED_STUDIES:
+        page = ROOT / "research/studies" / sid / "index.html"
+        if page.is_file():
+            errors.append(f"superseded study must not have a page: {sid}")
 
 
 def check_links_and_images(errors: list[str]) -> None:
@@ -224,6 +229,7 @@ def main() -> int:
         "weekly editions": len(weekly_weeks()),
         "poc chart total": sum(EXPECTED_CHARTS.values()),
         "queued studies": len(QUEUED_STUDIES),
+        "superseded studies": len(SUPERSEDED_STUDIES),
         "failures": len(errors),
         "errors": errors,
     }, ensure_ascii=False, indent=2))

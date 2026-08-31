@@ -50,6 +50,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260815-002",
     "RS-XAUUSD-20260815-003",
     "RS-XAUUSD-20260817-001",
+    "RS-XAUUSD-20260815-004",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -86,8 +87,15 @@ def routes() -> list[str]:
 # up 2B.
 PHASE_2A: list[str] = []
 PHASE_2B: list[str] = []
+# Parked, not queued: RESEARCH_DEVELOPMENT_SPEC section 13.6 item 0 puts `status: pending`
+# studies out of scope for migration and names this one specifically — it was superseded by
+# the -003/-004/-005 trio, all three of which are published. Its evidence package stays in
+# the repository; only the detail page is withheld, and the index says so rather than
+# promising a page that will never arrive.
+SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
+
 PHASE_2C = [
-    "RS-XAUUSD-20260727-002", "RS-XAUUSD-20260815-004", "RS-XAUUSD-20260818-002",
+    "RS-XAUUSD-20260818-002",
     "RS-XAUUSD-20260818-003", "RS-XAUUSD-20260818-004", "RS-XAUUSD-20260818-005",
     "RS-XAUUSD-20260819-001", "RS-XAUUSD-20260824-001", "RS-XAUUSD-20260824-002",
     "RS-XAUUSD-20260824-003", "RS-XAUUSD-20260824-004", "RS-XAUUSD-20260824-005",
@@ -161,6 +169,12 @@ def fmt_cell(value: Any) -> str:
     if isinstance(value, bool):
         return "yes" if value else "no"
     if isinstance(value, float):
+        # Fixed 4-decimal rounding destroys small magnitudes that carry the whole meaning:
+        # a p-value of 6.6e-05 became "0.0001", indistinguishable from a result 15x weaker,
+        # and a 0.000472 price match became "0.0005". Below 0.001, keep two significant
+        # digits instead, in scientific notation once a decimal rendering would be unreadable.
+        if value != 0 and abs(value) < 0.001:
+            return f"{value:.2g}"
         text = f"{value:,.4f}".rstrip("0").rstrip(".")
         return text if text and text != "-" else "0"
     if isinstance(value, int):
@@ -783,6 +797,12 @@ def research_index_page() -> str:
         f'<button type="button" data-filter="{attr(m)}">{esc(m)}</button>' for m in all_markets
     )
     queued_line = "、".join(f"{esc(m)} {n} 篇" for m, n in sorted(queued_markets.items()))
+    superseded_line = ""
+    if SUPERSEDED_STUDIES:
+        superseded_line = (
+            f'<p class="empty-note">另有 {len(SUPERSEDED_STUDIES)} 篇研究已被後續研究取代，'
+            "依研究規範不再遷移，因此不會有詳細頁面；其證據套件仍完整保留在版本庫中。</p>"
+        )
     body = f"""
 <h1>Research</h1>
 <p class="lede">研究證據庫，涵蓋所有市場，最新的在最上面。點欄位標題可重新排序。</p>
@@ -795,6 +815,7 @@ def research_index_page() -> str:
 <div id="research-table">{table}</div>
 <p class="empty-note">另有 {len(QUEUED_STUDIES)} 篇研究（{queued_line}）已完成並保留完整證據，
 但詳細頁面排在後續遷移階段，本版尚未上線，因此不提供連結。</p>
+{superseded_line}
 <script>
 (function () {{
   var scope = document.getElementById("research-table");

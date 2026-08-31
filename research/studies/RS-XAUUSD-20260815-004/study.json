@@ -39,17 +39,115 @@
     {
       "tone": "warn",
       "title": "Waiting one bar is not sufficient; delayed market entry loses edge",
-      "detail": "The candle-level exit emulator matched all 472 OFF TradingView exit timestamps and IDs. After T1 preserved the signal low, market entry produced 336 trades at 54.46% WR, PF 1.588, and USD 13.17 average PnL, below the exact same-source OFF entries at 61.31% WR, PF 2.308, and USD 24.84 average PnL."
+      "detail": "The candle-level exit emulator matched all 472 OFF TradingView exit timestamps and IDs. After T1 preserved the signal low, market entry produced 336 trades at 54.46% WR, PF 1.588, and USD 13.17 average PnL, below the exact same-source OFF entries at 61.31% WR, PF 2.308, and USD 24.84 average PnL.",
+      "title_zh": "等一根再用市價進場，會明確地把優勢做掉",
+      "detail_zh": "先確認重播工具可信：出場模擬器對 472 筆 OFF 交易的出場時間與訊號 ID 全部吻合（100%）。在此基礎上，T1 守住訊號低點後改用市價進場共 336 筆，勝率 54.46%、獲利因子 1.588、平均每筆 13.17 美元；而完全同一批訊號在 OFF 原始進場下是 61.31%、2.308、24.84 美元。等待本身沒有創造優勢，反而拿走了。"
     },
     {
       "tone": "warn",
       "title": "0.15% pullback is a low-coverage shadow candidate, not an adopted rule",
-      "detail": "The frozen 0.10% primary pullback weakened to 46.67% WR in the recent cohort and is rejected. The post-output 0.15% sensitivity filled 77/336 T1-held opportunities (22.92%) at 59.74% WR, PF 2.106, and USD 21.79 average PnL; recent n=39 remained positive at 53.85% WR and PF 1.836. Its 95% WR interval is wide (48.58–69.98%) and the paired outcome test versus same-source OFF is non-significant (p=1.0), so it is shadow-only."
+      "detail": "The frozen 0.10% primary pullback weakened to 46.67% WR in the recent cohort and is rejected. The post-output 0.15% sensitivity filled 77/336 T1-held opportunities (22.92%) at 59.74% WR, PF 2.106, and USD 21.79 average PnL; recent n=39 remained positive at 53.85% WR and PF 1.836. Its 95% WR interval is wide (48.58–69.98%) and the paired outcome test versus same-source OFF is non-significant (p=1.0), so it is shadow-only.",
+      "title_zh": "0.15% 回撤只是低覆蓋率的觀察候選，不是已採用的規則",
+      "detail_zh": "原本凍結的 0.10% 主要參數在近期樣本掉到 46.67% 勝率，已被否決。事後檢視敏感度才選出的 0.15% 只成交 336 個機會中的 77 筆（22.92%），勝率 59.74%、獲利因子 2.106、平均 21.79 美元；近期 39 筆仍為正的 53.85%、1.836。但它的 95% 勝率區間很寬（48.58%–69.98%），且與同源 OFF 的配對檢定不顯著（p=1.0），因此只能列為觀察名單。"
     }
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
   "card_summary": "Capping the chase after a signal, and replaying pullback entries that never filled.",
+  "question_zh": "S1 出訊號、等第一根 30 分鐘 K 棒（T1）收完之後，用「追價上限」或「等回撤到指定幅度才掛限價」進場，能不能改善實際的進場品質？",
+  "limitations_zh": [
+    "訊號母體凍結為 472 筆 OFF 已成交的機會，無法補回「策略當時因為已有持倉而未成交」的合格訊號。",
+    "0.15% 回撤是在檢視敏感度輸出之後才選出的，僅成交 77 筆，必須經過前瞻的觀察期驗證。",
+    "0.15% 的勝率信賴區間很寬（48.58%–69.98%），且與同源 OFF 的配對結果檢定不顯著（p=1.0）。",
+    "各種進場方式成交到的訊號子集合不同，因此彼此的絕對勝率不可直接互比；本頁一律附上各自的同源 OFF 對照。",
+    "本研究不改變任何正式 S1 邏輯、實際風險設定或現行進場檢查表（formal_change = false）。"
+  ],
+  "interpretation_zh": "這份研究最重要的一個閱讀原則，是每一種進場方式都必須跟「它自己成交到的那一批訊號」在 OFF 原始進場下的表現相比，而不是跟全體 472 筆的 55.93% 基準相比，也不能彼此互比。原因很簡單：回撤限價只會成交在「後來真的回檔」的訊號上，那是一個被挑選過的子集合，本來就可能比較好做。\n\n套用這個原則，表面上最漂亮的數字會塌掉。0.05% 回撤的勝率是 59.47%，遠高於 55.93% 的全體基準，看起來像是有效的改善；但同一批 190 筆訊號在 OFF 原始進場下是 61.58%，所以這個策略其實比不做還差 2.11 個百分點。它的高勝率完全來自選到比較好的訊號，不是來自更好的進場。八種進場方式裡有六種相對自己的同源 OFF 是負的或幾乎持平，只有 0.00% 追價上限（+3.60 個百分點）與 0.15% 回撤（+1.30 個百分點）為正，而兩者都不顯著。\n\n全篇唯一有統計意義的結果是負面的：T1 之後改用市價進場，相對同源 OFF 少了 6.85 個百分點，配對檢定 p=6.6e-05。換句話說，這份研究確定的事情是「等一根再追進去會變差」，而不是「哪一種等法會變好」。\n\n還有一個必須誠實指出的地方：被選為觀察候選的是 0.15% 回撤，但如果改用「相對自己同源 OFF 的增益」這個標準，0.00% 追價上限反而更好——增益 +3.60 個百分點、樣本 111 筆、配對 p=0.125，三項都優於 0.15% 的 +1.30、77 筆、p=1.0。0.15% 之所以雀屏中選，是因為它的絕對勝率與獲利因子（59.74%、2.106）最好看。兩種標準指向不同的候選，而且沒有任何一個達到顯著——這正是它只能是觀察名單、不能是規則的原因。\n\n最後看 0.15% 逐年的表現：2024 年 66.67%（18 筆）、2025 年 61.90%（21 筆）、2026 年 55.26%（38 筆），逐年下滑。每一格都太小，不足以宣稱趨勢，但方向與「近期樣本較弱」一致，前瞻驗證時應該優先盯這一點。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "s1_t1_market_n",
+        "s1_t1_market_win_rate_pct",
+        "s1_pullback_shadow_win_rate_pct",
+        "s1_pullback_shadow_fill_rate_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "emulator_validation",
+      "title": "Emulator Validation 重播工具驗證（先確認可信，再看結論）",
+      "keys": [
+        "n",
+        "exit_time_and_signal_match_n",
+        "exit_time_and_signal_match_pct",
+        "mean_abs_exit_price_difference",
+        "max_abs_exit_price_difference",
+        "mean_abs_pnl_difference_usd",
+        "mismatch_n"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "off_baseline_metrics",
+      "title": "OFF Baseline 原始進場全體基準（472 筆）",
+      "keys": [
+        "n",
+        "wins",
+        "losses",
+        "win_rate_pct",
+        "win_rate_wilson_95ci_pct",
+        "profit_factor",
+        "net_pnl_usd",
+        "average_pnl_usd"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "policies",
+      "title": "All Eight Entry Policies 八種進場方式（每種都附自己的同源 OFF 對照）",
+      "takeaway_zh": "請橫向比較同一列的「政策勝率」與「同源 OFF 勝率」，不要縱向比較不同政策的絕對勝率——每個政策成交到的訊號子集合不同。以此標準，只有 0.00% 追價上限（+3.60 個百分點）與 0.15% 回撤（+1.30 個百分點）為正，兩者皆不顯著；而 T1 市價進場是 −6.85 個百分點且高度顯著（p=6.6e-05）。",
+      "columns": [
+        "independent_signal_metrics.n",
+        "independent_signal_metrics.win_rate_pct",
+        "same_source_off_metrics.win_rate_pct",
+        "independent_signal_metrics.profit_factor",
+        "fill_rate_of_t1_held_pct",
+        "paired_outcome_exact_p_value"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "policies.T1_pullback_0.15pct_cap_0.10pct.chronological_stability.by_signal_year",
+      "title": "Shadow Candidate by Year 觀察候選 0.15% 逐年表現",
+      "takeaway_zh": "逐年下滑：2024 年 66.67%、2025 年 61.90%、2026 年 55.26%。每一格都太小，不足以宣稱趨勢，但方向與近期較弱一致，是前瞻驗證時最該盯的一點。",
+      "columns": [
+        "n",
+        "wins",
+        "losses",
+        "win_rate_pct",
+        "win_rate_wilson_95ci_pct",
+        "profit_factor",
+        "average_pnl_usd"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
   "public_release": {
     "status": "reviewed",
     "raw_csv_included": false,
