@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260831-003",
+  "revision": 1,
+  "title": "Pullback versus chase — tested directly, it fails, and it was never a shared pattern",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB / S2-Hammer",
+    "version": "V3.9 / V3.2"
+  },
+  "status": "progress",
+  "created_on": "2026-08-31",
+  "question": "Four studies saw that the more price had run up before entry, the worse the trade did. Measured directly as a continuous variable across five horizons: is the relationship there, is it monotone, does it hold out of sample, and does it survive having looked at ten correlations?",
+  "hypothesis": "Negative Spearman correlation in both strategies. Frozen before running.",
+  "headline": {
+    "s1_trades": 450,
+    "s2_trades": 157,
+    "coverage_pct": 100.0,
+    "horizons_tested": 5,
+    "family_tests": 10,
+    "s1_largest_abs_spearman": 0.0403,
+    "s2_largest_abs_spearman": 0.1361,
+    "family_null_median": 0.1207,
+    "family_p": 0.3588,
+    "horizons_negative_in_both": 3,
+    "passes_frozen_criteria": false
+  },
+  "card_metrics": [
+    "s1_largest_abs_spearman",
+    "s2_largest_abs_spearman",
+    "family_null_median",
+    "family_p"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "It fails the criteria that were frozen before it ran",
+      "detail": "Family p is 0.3588 against a required 0.05. The largest correlation anywhere is S2's -0.1361 at sixteen bars; shuffling the outcomes produces a best-of-ten correlation of 0.1207 at the median and 0.2054 at the 95th percentile. The observed maximum is barely above the median of what noise gives.",
+      "title_zh": "它沒有通過執行前就寫死的判準",
+      "detail_zh": "家族 p 值是 0.3588，而要求是 0.05。全部十個檢定中最大的相關係數是 S2 在 16 根 K 棒的 −0.1361；把結果隨機打散之後，「十個裡最大的那個」相關係數中位數就有 0.1207、第 95 百分位是 0.2054。觀察到的最大值只比雜訊的中位數高一點點。"
+    },
+    {
+      "tone": "warn",
+      "title": "It was never a shared pattern — S1 has essentially none of it",
+      "detail": "S1's five correlations are 0.0029, 0.0067, -0.0403, -0.0021 and -0.0296: two positive, none reaching 0.05 in absolute value. S2's are -0.015, -0.1284, -0.1069, -0.1226 and -0.1361. The effect is three times larger in S2 and absent in S1, which is the opposite of what made this the strongest remaining candidate.",
+      "title_zh": "它從來就不是兩個策略共有的模式——S1 幾乎完全沒有",
+      "detail_zh": "S1 五個視野的相關係數是 0.0029、0.0067、−0.0403、−0.0021、−0.0296：兩個是正的，而且沒有任何一個的絕對值達到 0.05。S2 則是 −0.015、−0.1284、−0.1069、−0.1226、−0.1361。效果在 S2 上大了三倍，在 S1 上不存在——這恰好與「它是最強候選」的理由相反。"
+    },
+    {
+      "tone": "info",
+      "title": "The shared reading came from a gradient of 0.062 percentage points",
+      "detail": "RS-XAUUSD-20260818-002 reported the two-hour pre-entry return as monotone in both strategies. That is true for S1 by mean return — 0.2121, 0.2103, 0.1501 across terciles — and the total spread is 0.062 points, while its win rate is not monotone at all (57.33, 59.33, 52.00). Monotone and meaningful are different properties, and only the first was ever claimed.",
+      "title_zh": "「兩個策略同向」這個說法，來自一個 0.062 個百分點的梯度",
+      "detail_zh": "RS-XAUUSD-20260818-002 報告「進場前兩小時報酬」在兩個策略上都單調。以平均報酬看，S1 確實單調：三分位是 0.2121、0.2103、0.1501——但總落差只有 0.062 個百分點，而且它的勝率根本不單調（57.33%、59.33%、52.00%）。「單調」和「有意義」是兩件不同的事，而當初被宣稱的只有前者。"
+    },
+    {
+      "tone": "good",
+      "title": "In S2 alone the pattern is unusually consistent",
+      "detail": "All five horizons are negative, all five hold their sign in the held-out 30%, and the terciles are monotone in both mean return and win rate: 0.784%, 0.596% and 0.290% mean, 51.92%, 48.08% and 41.51% win rate at four bars. Consistency of that kind is what a shuffled variable does not produce, and it is why this is recorded as a candidate rather than closed.",
+      "title_zh": "但單看 S2，這個模式異常地一致",
+      "detail_zh": "五個視野全部為負、五個全部在最新 30% 維持同號，而且三分位在平均報酬與勝率上都單調：四根 K 棒時是 0.784%、0.596%、0.290%，勝率 51.92%、48.08%、41.51%。這種一致性是隨機變數不會產生的，也是為什麼這件事被記錄為候選而不是關閉。"
+    },
+    {
+      "tone": "warn",
+      "title": "But 157 trades cannot tell 0.13 from nothing",
+      "detail": "S2's sample is what makes its larger correlations unremarkable: the null's best-of-ten median is 0.1207, and four of S2's five horizons sit between 0.10 and 0.14. The consistency is real and the magnitude is inside the noise, which is a combination only more data can separate.",
+      "title_zh": "可是 157 筆分辨不出 0.13 與零的差別",
+      "detail_zh": "S2 的樣本量正是它較大的相關係數顯得不特別的原因：虛無分布「十個裡最大」的中位數就是 0.1207，而 S2 五個視野中有四個落在 0.10 到 0.14 之間。一致性是真的、幅度落在雜訊裡——這個組合只有更多資料能分開。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "The strongest remaining candidate, measured directly for the first time.",
+  "question_zh": "已經有四份研究看到「進場前漲得越多、後續表現越差」，但都是副產品，沒有人正面量測過。把它當成連續變數、在五個時間視野上直接測：這個關係存在嗎？單調嗎？在時序驗證區維持嗎？以及——在看過十個相關係數之後，它撐得住嗎？",
+  "limitations_zh": [
+    "這是回溯性檢定。假設本身是由四份先前研究從同一批交易中產生的，因此這不是樣本外測試；家族校正與時序驗證是僅有的真實控制。",
+    "S2 僅 157 筆。在這個樣本量下，「十個相關係數中最大者」的雜訊中位數就有 0.1207，而 S2 的觀察值介於 0.10 到 0.14。",
+    "本研究測的是線性單調關係（Spearman）。若真實關係只存在於某個窄區間（例如僅在極端漲幅之後），這個統計量會將其稀釋。",
+    "五個視野全部取自 30 分鐘 K 棒（0.5 至 8 小時）。更長的視野未測試。",
+    "兩個策略都只做多，且樣本期間包含一段大幅上漲；任何與趨勢相關的變數在此都難以展現區辨力。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究的價值在於它把一個「看起來最強的候選」拆開，然後發現讓它看起來強的那個理由不成立。\n\n它會排在 backlog 第一順位，是因為四份研究在**兩個策略**上都看到同一個方向。但直接量測之後，S1 五個視野的相關係數最大只有 0.0403，而且有兩個是正的——S1 根本沒有這個效果。當初「兩個策略同向」的依據，是前一份研究報告的三分位單調性；那句話技術上正確，但 S1 的三分位總落差只有 0.062 個百分點，勝率甚至不單調。**「單調」與「有意義」是兩件事**，而四份研究累積出來的說服力，有很大一部分來自把前者讀成了後者。\n\n剩下的是一個純粹的 S2 現象，而它有一個真實的性質：一致性。五個視野全部為負、全部在驗證區維持同號、三分位在平均報酬與勝率上都單調遞減。隨機變數不會這樣。如果只看這一點，會覺得它應該是真的。\n\n但幅度救不了它。S2 只有 157 筆，而在這個樣本量下，「十個相關係數裡最大的那一個」光靠雜訊就有 0.1207 的中位數——而 S2 五個視野中有四個落在 0.10 到 0.14 之間。家族 p 值 0.3588 不是勉強沒過，是差得很遠。換句話說：這個模式的**形狀**看起來像真的，**大小**卻完全在雜訊範圍內，而在 157 筆上，這兩件事無法用更聰明的統計分開，只能用更多資料。\n\n最後說明一件關於方法標籤的事。這份研究**不是**預先登記，也沒有被這樣標示。`research/prereg/` 存在的意義，是為「資料還不存在」的假設固定規則；而這個假設正是從這批交易裡被四份研究挖出來的，現在再寫一份登記只是形式。被凍結的是分析計畫——變數定義、五個視野、統計量、方向預測、家族校正、驗證切分與通過標準，全部在執行前寫進 decision log。真正承擔重量的是家族校正與時序驗證，不是「登記」這個名詞。S2 的一致性若要被真正解決，正確的工具就是一份對**未來資料**的預先登記——因為這批資料上能問的都已經問完了。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "s1_largest_abs_spearman",
+        "s2_largest_abs_spearman",
+        "family_null_median",
+        "family_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "verdict",
+      "title": "Verdict Against the Frozen Criteria 對照執行前寫死的通過標準",
+      "keys": [
+        "largest_abs_spearman",
+        "family_null_median_max_abs_spearman",
+        "family_null_95th_max_abs_spearman",
+        "family_p",
+        "passes_frozen_criteria"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1 V3.9.by_horizon",
+      "title": "S1 V3.9 — Five Horizons 五個時間視野（450 筆，100% 覆蓋）",
+      "takeaway_zh": "S1 幾乎沒有這個效果：最大絕對值只有 0.0403，而且 1 根與 2 根的相關係數是正的。「兩個策略同向」這個讓本題排第一的理由，在這張表上就不成立。",
+      "columns": [
+        "hours",
+        "spearman",
+        "spearman_early",
+        "spearman_recent",
+        "sign_negative",
+        "sign_held_out_of_sample"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2 V3.2.by_horizon",
+      "title": "S2 V3.2 — Five Horizons 五個時間視野（157 筆，100% 覆蓋）",
+      "takeaway_zh": "S2 則異常一致：五個視野全部為負、全部在驗證區維持同號。形狀像真的——但請對照上方的虛無中位數 0.1207，四個視野都落在 0.10 到 0.14 之間。",
+      "columns": [
+        "hours",
+        "spearman",
+        "spearman_early",
+        "spearman_recent",
+        "sign_negative",
+        "sign_held_out_of_sample"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S2 V3.2.by_horizon.4.terciles",
+      "title": "S2 — Two-Hour Pre-Entry Return, Terciles 進場前兩小時報酬三分組",
+      "takeaway_zh": "平均報酬 0.784% → 0.596% → 0.290%，勝率 51.92% → 48.08% → 41.51%，兩者都單調遞減。這是本研究裡最像真實效果的一張表。",
+      "columns": [
+        "n",
+        "mean_return_pct",
+        "win_rate_pct",
+        "pre_entry_return_range_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "strategies.S1 V3.9.by_horizon.4.terciles",
+      "title": "S1 — Same Terciles, for Contrast 同樣的三分組，作為對照",
+      "takeaway_zh": "平均報酬 0.2121% → 0.2103% → 0.1501%，總落差只有 0.062 個百分點；勝率 57.33% → 59.33% → 52.00% 根本不單調。先前研究說「兩個策略都單調」，指的就是這張表的平均報酬欄——技術上正確，實質上可忽略。",
+      "columns": [
+        "n",
+        "mean_return_pct",
+        "win_rate_pct",
+        "pre_entry_return_range_pct"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

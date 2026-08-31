@@ -16,7 +16,7 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。已回答 2　未回答 6。</p>
+<p class="lede">8 個已提出但尚未回答的問題，依優先序排列。已回答 3　未回答 5。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
 <div class="backlog-list"><article class="backlog-item" data-status="answered"
@@ -30,17 +30,17 @@
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260727-007/">RS-XAUUSD-20260727-007</a>｜已發布 S2 V3.2 的 by_session 表（n、勝率、PF、淨損益），但沒有報告交易佔比與報酬佔比的對照，也沒有做時序驗證或成本檢定。</li><li><a href="../studies/RS-XAUUSD-20260824-006/">RS-XAUUSD-20260824-006</a>｜示範了收緊篩選會拉高勝率並交出報酬——本題必須用同一把尺檢查，否則會重複同一個錯誤。</li></ul></div>
 <p class="backlog-next"><strong>下一步：</strong>已回答：不要移除。每筆指標都變好，但總報酬少 10.43 個百分點，而且家族校正 p=0.0549——落在「隨手丟掉四組裡最差的一組」的範圍內。唯一值得續追的是亞盤在最新 30% 已轉為虧損（14 筆），這與 BL-005 的 S2 近期轉弱是同一個問題，應合併處理。 後續：RS-XAUUSD-20260831-002 已證實亞盤惡化不是獨立現象，而是 S2 整體衰退在起點最低的盤別上的投影。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-001/">RS-XAUUSD-20260831-001</a> 回答。</p>
-</article><article class="backlog-item" data-status="open"
+</article><article class="backlog-item" data-status="answered"
  data-priority="1">
 <header><span class="backlog-id">BL-002</span>
 <span class="tag prio-1">優先 高</span>
-<span class="tag status-open">未回答</span></header>
+<span class="tag status-answered">已回答</span></header>
 <h3>回檔進場優於追勢進場——四份研究同向，但從未被正面檢定</h3>
 <p class="backlog-question">把「進場前 N 根 K 棒的報酬」當成連續變數，它與後續結果的關係是否單調、在 S1 與 S2 上是否同號，並且在時序驗證區維持？</p>
 <p class="backlog-why"><strong>為什麼值得做：</strong>這個方向在四份研究裡以四種不同的量測方式各自出現過一次，但每一次都是副產品，從來沒有被當成主假設檢定。它有機制、可以事前寫下可證偽的預測，因此不同於那些只有「三段期間同號」的候選。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260815-002/">RS-XAUUSD-20260815-002</a>｜前一天收黑後較好，而優勢幾乎全部來自「紅→黑」（63.64%，n=132）；連續兩天下跌反而低於基準。</li><li><a href="../studies/RS-XAUUSD-20260818-002/">RS-XAUUSD-20260818-002</a>｜「進場前兩小時報酬」在 S1 與 S2 上都單調遞減，是二十組比較中唯二同時單調且同向的特徵之一。</li><li><a href="../studies/RS-XAUUSD-20260815-004/">RS-XAUUSD-20260815-004</a>｜等一根再用市價追進去，相對同源基準少 6.85 個百分點，p=6.6e-05——該研究唯一顯著的結果，且為負向。</li><li><a href="../studies/RS-XAUUSD-20260824-004/">RS-XAUUSD-20260824-004</a>｜h17 的方向與此一致，但效果 +0.4808% 未跨過 0.5277% 的門檻。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>先寫 prereg 固定變數定義與視野，再跑；效果必須跨過門檻並在兩個策略上同號才算通過。</p>
-
+<p class="backlog-next"><strong>下一步：</strong>已回答：未通過。家族 p=0.3588（門檻 0.05）。更重要的是「兩個策略同向」這個讓它排第一的前提不成立——S1 五個視野最大相關係數只有 0.0403 且兩個為正，效果只存在於 S2。S2 單獨看異常一致（五個視野全負、全部維持同號、三分位雙重單調），但 157 筆之下「十選一」的雜訊中位數就有 0.1207。若要解決，正確工具是對未來資料的預先登記，因為這批資料已經被挖完。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-003/">RS-XAUUSD-20260831-003</a> 回答。</p>
 </article><article class="backlog-item" data-status="open"
  data-priority="2">
 <header><span class="backlog-id">BL-003</span>
