@@ -22,6 +22,12 @@ history; model-specific memory is not a fact source.
   `xauusd/weekly/<forecast-week>/summary.json`; it may not contain the underlying model
   report artifacts, private provenance, input-set IDs, internal paths, journals/state,
   raw data, or screenshots.
+- The one screenshot exception, owner-approved 2026-08-31, is a CFTC positioning image
+  published beside the weekly summary it was read from, declared through the summary's
+  `cftc_evidence` key. The executor must open and inspect the image first for account
+  identifiers, usernames, watermarks, holdings or any other personal data, and the private
+  source path lives in `private_provenance.cftc_evidence_source`, never in the public
+  summary. TradingView captures, broker screens and platform UI remain unpublishable.
 - Do not change formal strategy logic, parameters, performance values, or research
   conclusions without explicit owner scope.
 - Generated landing pages are rebuilt with `python3 site/build.py`; do not hand-edit them.

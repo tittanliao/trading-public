@@ -21,7 +21,7 @@ route allow-list below — nothing else:
 /xauusd/weekly/<forecast-week>/     (one page per published edition; W34, W35, W36)
 /research/
 /research/null-results/
-/research/studies/<study-id>/       (only the 3 Phase 1 studies exist in this phase)
+/research/studies/<study-id>/       (one per published study; 30 at present)
 ```
 
 Every published Weekly edition keeps a dated archive page. That is a contract, not a
@@ -35,7 +35,10 @@ python3 site/build.py --check    # fails on any generated drift
 python3 site/check.py            # route allow-list, dead links, images, privacy
 ```
 
-Edit `research/studies/<id>/study.json` (narrative, presentation blueprint) or
+The narrative and blueprint are authored in **sibling `trading-private`** and carried here
+by `scripts/research/export_public_results.py`; editing the copy in this repository works
+until the next export silently reverts it. Edit
+`../trading-private/research/studies/<id>/study.json` (narrative, presentation blueprint) or
 `xauusd/weekly/<week>/summary.json` (published verbatim by
 `../trading-private/scripts/xauusd_weekly/publish_public_summary.py`), then regenerate.
 Do not hand-edit any generated `index.html`, `site/style.css`, or `site/catalog.json` —
@@ -48,19 +51,27 @@ scrolling sideways only when the viewport is genuinely too narrow. Charts render
 width and legible inline; opening the original PNG is a convenience, never a requirement.
 
 A research report is composed from a small named vocabulary of presentation blocks
-(`metrics`, `findings`, `table`, `comparison_table`, `matrix_table`, `charts`,
-`limitations`, `evidence_links`) driven by an ordered `presentation` list inside the
-study's own `study.json`. There is one page renderer for every result shape, not one
+(`metrics`, `findings`, `table`, `comparison_table`, `matrix_table`, `metric_table`,
+`evidence_pair`, `interpretation`, `limitations`, `evidence_links`) driven by an ordered
+`presentation` list inside the study's own `study.json`. There is one page renderer for every result shape, not one
 renderer per shape — a new shape is handled by writing a new block list, never a new
 Python function. Chinese narrative fields (`question_zh`, `findings[].detail_zh`,
 `limitations_zh`, `interpretation_zh`, …) sit beside their English source fields in the
 same `study.json`; there is no separate language tree.
 
-Reviewed research studies live under `research/studies/<study-id>/`. Every study's
-evidence package (`study.json`, `results.json`, `analysis.py`, `charts/`) is retained in
-this repository even while its detail page is not yet migrated — see the phase table in
-`PUBLIC_SITE_REBUILD_SPEC.md` section 10. An unmigrated study's page returns 404 by
-design; its evidence is not deleted, and the Research index does not link to it.
+Reviewed research studies live under `research/studies/<study-id>/`. The 2026-08-30
+rebuild and its migration are complete: 30 studies have a reader page and nothing is
+queued. One study (`RS-XAUUSD-20260727-002`) keeps its **evidence package published and
+its reader page withheld** — `study.json`, `results.json` and `analysis.py` are served
+from this repository exactly like any other study, but it has no page and the Research
+index says so, because it is `status: pending` and superseded by the -003/-004/-005 trio.
+That is a withheld page, not an unpublished study.
+
+A reader page shows a **selected** set of charts, each immediately followed by the table it
+explains. A study may declare charts in `results.json` that no page shows; those PNGs stay
+in the evidence package and are reachable through the Evidence section. `site/check.py`
+enforces the contract in that direction: every chart a page shows must be declared, every
+declared chart must have its PNG, and no page may show the same chart twice.
 
 Reviewed XAUUSD weekly aggregates live under `xauusd/weekly/<forecast-week>/`. The
 stable latest URL is `/xauusd/weekly/`; this address and its dated archive are the two

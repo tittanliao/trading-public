@@ -17,7 +17,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import POC_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks  # noqa: E402
+from build import PUBLISHED_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,13 +34,6 @@ PRIVATE_TOKENS = (
     "journal_locator", "input_set_id", "ledger_run_id", ".docx", ".gdoc",
     "private_provenance", "owner",
 )
-
-EXPECTED_CHARTS = {
-    "RS-XAUUSD-20260727-001": 20,
-    "RS-XAUUSD-20260727-005": 5,
-    "RS-XAUUSD-20260818-001": 6,
-}
-
 
 def check_routes(errors: list[str]) -> None:
     for page in GENERATED_PAGES:
@@ -83,14 +76,44 @@ def check_links_and_images(errors: list[str]) -> None:
             target = (page.parent / unquote(urlsplit(link).path)).resolve()
             if not target.exists():
                 errors.append(f"broken link in {page.relative_to(ROOT)}: {link}")
-    for sid, expected in EXPECTED_CHARTS.items():
-        results = json.loads((ROOT / "research/studies" / sid / "results.json").read_text(encoding="utf-8"))
-        charts = results.get("charts", [])
-        if len(charts) != expected:
-            errors.append(f"{sid}: expected {expected} charts, results.json declares {len(charts)}")
-        for chart in charts:
-            if not (ROOT / "research/studies" / sid / "charts" / chart["file"]).is_file():
-                errors.append(f"missing chart image {sid}/{chart['file']}")
+
+
+def check_charts(errors: list[str]) -> None:
+    """The chart contract, per the owner decision of 2026-08-31.
+
+    A reader page shows a selected set of charts, each immediately followed by the table it
+    explains — not every chart a study generated. So the rule is no longer "every declared
+    chart must render". What must hold instead:
+
+    - every chart a page shows is declared in that study's results.json;
+    - the PNG behind every declared chart exists, whether or not the page shows it, because
+      the evidence package is public and linked from the Evidence section;
+    - no page shows the same chart twice, which is a blueprint copy-paste slip that renders
+      cleanly and silently pads the page.
+    """
+    for sid in PUBLISHED_STUDIES:
+        package = ROOT / "research/studies" / sid
+        results = json.loads((package / "results.json").read_text(encoding="utf-8"))
+        study = json.loads((package / "study.json").read_text(encoding="utf-8"))
+        declared = {chart["file"] for chart in results.get("charts", [])}
+
+        for chart in results.get("charts", []):
+            if not (package / "charts" / chart["file"]).is_file():
+                errors.append(f"{sid}: declared chart has no image: charts/{chart['file']}")
+
+        shown: list[str] = []
+        for index, block in enumerate(study.get("presentation", []), start=1):
+            if block.get("type") != "evidence_pair":
+                continue
+            name = block.get("chart_file", "")
+            if name not in declared:
+                errors.append(
+                    f"{sid}: presentation block {index} shows '{name}', which results.json "
+                    "does not declare"
+                )
+            elif name in shown:
+                errors.append(f"{sid}: presentation block {index} shows '{name}' twice")
+            shown.append(name)
 
 
 def check_weekly_sections(errors: list[str]) -> None:
@@ -138,7 +161,7 @@ def check_privacy(errors: list[str]) -> None:
     scanned = list(GENERATED_PAGES)
     scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
     # Pages serves the whole repository, so a queued or superseded study's evidence package
-    # is as public as a published one — scan every package present, not just POC_STUDIES.
+    # is as public as a published one — scan every package present, not just PUBLISHED_STUDIES.
     # impact.md was missing from this list entirely, which is how "the owner" reached five
     # published packages: it is the one exported text that skipped the rewrite pass.
     for d in sorted((ROOT / "research/studies").iterdir()):
@@ -190,7 +213,7 @@ def check_presentation_blocks(errors: list[str]) -> None:
     """
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import build as gen
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         study, results = gen.load_study(sid)
         for index, block in enumerate(study.get("presentation", []), start=1):
             rendered = gen.render_block(block, study, results)
@@ -207,7 +230,7 @@ def check_table_columns(errors: list[str]) -> None:
     table still renders and every other check passes — minus the evidence it was built to
     show. Every named column must resolve against the records it is applied to."""
     import build as gen
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         study, results = gen.load_study(sid)
         for index, block in enumerate(study.get("presentation", []), start=1):
             columns = block.get("columns")
@@ -232,7 +255,7 @@ def check_table_columns(errors: list[str]) -> None:
 
 def check_study_order(errors: list[str]) -> None:
     """Interpretation and limitations belong before the evidence links, not after."""
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         text = (ROOT / "research/studies" / sid / "index.html").read_text(encoding="utf-8")
         ev = text.find("Evidence 原始證據")
         interp = text.find("詮釋與實務意義")
@@ -253,13 +276,18 @@ def check_study_order(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
-               check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
+               check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
                check_table_columns, check_study_order):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),
         "weekly editions": len(weekly_weeks()),
-        "poc chart total": sum(EXPECTED_CHARTS.values()),
+        "charts shown": sum(
+            1 for sid in PUBLISHED_STUDIES
+            for b in json.loads((ROOT / "research/studies" / sid / "study.json")
+                                .read_text(encoding="utf-8")).get("presentation", [])
+            if b.get("type") == "evidence_pair"
+        ),
         "queued studies": len(QUEUED_STUDIES),
         "superseded studies": len(SUPERSEDED_STUDIES),
         "failures": len(errors),

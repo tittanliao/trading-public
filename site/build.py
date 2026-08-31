@@ -31,7 +31,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 
-POC_STUDIES = [
+# Every study with a reader page, newest last. A study joins this list only after its
+# Private study.json carries a reviewed Chinese narrative and a presentation blueprint
+# and has been exported. The migration that created it is finished; this is now simply
+# the published set.
+PUBLISHED_STUDIES = [
     "RS-XAUUSD-20260727-001",
     "RS-XAUUSD-20260727-005",
     "RS-XAUUSD-20260727-007",
@@ -85,28 +89,23 @@ def routes() -> list[str]:
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         "research",
         "research/null-results",
-        *(f"research/studies/{sid}" for sid in POC_STUDIES),
+        *(f"research/studies/{sid}" for sid in PUBLISHED_STUDIES),
     ]
 
 
-# Studies queued for a later migration phase (docs/PUBLIC_SITE_REBUILD_SPEC.md section 10).
-# Named here only so the Research index can report the queue honestly without linking to a
-# route that does not exist yet. All three phases are listed: reporting only 2A and 2B
-# under-counted the queue by 13 studies in the first cutover.
-# Phase 2A is complete — all five studies that already had reviewed Chinese copy are
-# published. Kept as an empty list so the phase structure survives for whoever picks
-# up 2B.
-PHASE_2A: list[str] = []
-PHASE_2B: list[str] = []
-# Parked, not queued: RESEARCH_DEVELOPMENT_SPEC section 13.6 item 0 puts `status: pending`
-# studies out of scope for migration and names this one specifically — it was superseded by
-# the -003/-004/-005 trio, all three of which are published. Its evidence package stays in
-# the repository; only the detail page is withheld, and the index says so rather than
-# promising a page that will never arrive.
-SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
+# A study whose evidence package is in this repository but which has no reader page yet —
+# normally because its Chinese narrative and presentation blueprint are still being written.
+# Named here so the Research index can report the gap honestly instead of linking to a route
+# that does not exist. The 2026-08-30 migration that populated this list is finished; it is
+# empty now and stays empty unless new work is genuinely mid-flight.
+QUEUED_STUDIES: list[str] = []
 
-PHASE_2C: list[str] = []
-QUEUED_STUDIES = PHASE_2A + PHASE_2B + PHASE_2C
+# Evidence package retained, reader page deliberately withheld — which is not the same as
+# unpublished: study.json, results.json and analysis.py are all served from this repository.
+# RESEARCH_DEVELOPMENT_SPEC section 13.6 item 0 puts `status: pending` studies out of scope
+# for a reader page and names this one, superseded by the -003/-004/-005 trio, all three of
+# which are published.
+SUPERSEDED_STUDIES = ["RS-XAUUSD-20260727-002"]
 
 
 # ---------------------------------------------------------------------------
@@ -577,7 +576,7 @@ def home_page() -> str:
     )
     key_zone = s["key_levels"][0]
     cards = []
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         study, results = load_study(sid)
         n = len(results.get("charts", []))
         cards.append(
@@ -585,7 +584,7 @@ def home_page() -> str:
             f'<div class="type">{esc(study.get("market", ""))} · {n} chart{"" if n == 1 else "s"}</div>'
             f'<h3>{esc(study.get("title", sid))}</h3></a>'
         )
-    markets = sorted({load_study(s)[0].get("market", "") for s in POC_STUDIES + QUEUED_STUDIES})
+    markets = sorted({load_study(s)[0].get("market", "") for s in PUBLISHED_STUDIES + QUEUED_STUDIES})
     body = f"""
 <section class="hero">
   <p class="eyebrow">{SITE_NAME}</p>
@@ -757,7 +756,7 @@ def weekly_report_page(week: str) -> str:
 
 def research_index_page() -> str:
     records = []
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         study, results = load_study(sid)
         n = len(results.get("charts", []))
         records.append({
@@ -879,7 +878,7 @@ def null_results_page() -> str:
     totals = registry["totals"]
     hypotheses = [e for e in entries if e.get("kind") == "hypothesis"]
     study_level = [e for e in entries if e.get("kind") != "hypothesis"]
-    live = set(POC_STUDIES)
+    live = set(PUBLISHED_STUDIES)
 
     headers = [("Family", False), ("Claim", False), ("Verdict", False), ("Reason", False)]
     rows = []
@@ -1121,13 +1120,10 @@ def build_catalog() -> dict:
         "generated_by": "site/build.py",
         "routes": [f"/{r}/" if r else "/" for r in routes()],
         "weekly_editions": sorted(weekly_weeks(), reverse=True),
-        "published_studies": POC_STUDIES,
-        "migration_tracker": {
-            "phase_1_published": POC_STUDIES,
-            "phase_2a_queued": PHASE_2A,
-            "phase_2b_queued": PHASE_2B,
-            "phase_2c_queued": PHASE_2C,
-        },
+        "published_studies": PUBLISHED_STUDIES,
+        # Studies whose evidence package is retained in this repository but whose reader
+        # page is deliberately withheld. Not "unpublished": the package is public.
+        "evidence_only_studies": SUPERSEDED_STUDIES,
     }
 
 
@@ -1144,7 +1140,7 @@ def generated_pages() -> dict[str, str]:
     }
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
-    for sid in POC_STUDIES:
+    for sid in PUBLISHED_STUDIES:
         pages[f"research/studies/{sid}/index.html"] = study_page(sid)
     return pages
 
