@@ -46,6 +46,7 @@ POC_STUDIES = [
     "RS-XAUUSD-20260727-003",
     "RS-XAUUSD-20260727-006",
     "RS-XAUUSD-20260727-008",
+    "RS-XAUUSD-20260815-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -82,8 +83,7 @@ def routes() -> list[str]:
 # up 2B.
 PHASE_2A: list[str] = []
 PHASE_2B = [
-    "RS-XAUUSD-20260815-001", "RS-XAUUSD-20260815-002", "RS-XAUUSD-20260815-003",
-    "RS-XAUUSD-20260817-001",
+    "RS-XAUUSD-20260815-002", "RS-XAUUSD-20260815-003", "RS-XAUUSD-20260817-001",
 ]
 PHASE_2C = [
     "RS-XAUUSD-20260727-002", "RS-XAUUSD-20260815-004", "RS-XAUUSD-20260818-002",
@@ -113,13 +113,24 @@ def load_study(study_id: str) -> tuple[dict, dict]:
 
 
 def resolve_path(obj: Any, dotted: str) -> Any:
-    cur = obj
-    for part in dotted.split("."):
-        if isinstance(cur, dict) and part in cur:
-            cur = cur[part]
-        else:
+    """Walk a dotted source path. Keys may themselves contain dots (strategy names like
+    "S1 V3.9"), so each level takes the longest key that matches, and backtracks to a
+    shorter one if the rest of the path does not resolve under it."""
+
+    def walk(cur: Any, parts: list[str]) -> Any:
+        if not parts:
+            return cur
+        if not isinstance(cur, dict):
             return None
-    return cur
+        for take in range(len(parts), 0, -1):
+            key = ".".join(parts[:take])
+            if key in cur:
+                found = walk(cur[key], parts[take:])
+                if found is not None:
+                    return found
+        return None
+
+    return walk(obj, dotted.split("."))
 
 
 def resolve_source(study: dict, results: dict, source: str) -> Any:
@@ -295,7 +306,19 @@ def render_records_table(records: dict[str, dict] | list[dict], row_label: str =
     numeric_col = {
         c: any(is_numeric(record.get(c)) for _, record in raw) for c in columns
     }
-    headers = [(esc(row_label), False)] + [(label_col(c), numeric_col[c]) for c in columns]
+    # A flattened column arrives as "container.field" ("selected.win_rate_pct"). The
+    # container is context the table title already carries, so show the field alone —
+    # unless two columns would then collide, in which case both keep the full path.
+    # flatten_record nests exactly one level, so the container is the FIRST segment and
+    # the field is everything after it — splitting on the last dot would turn a
+    # Fibonacci column ("level_prices.0.382") into "382".
+    short = {c: c.split(".", 1)[-1] for c in columns}
+    seen: dict[str, int] = {}
+    for value in short.values():
+        seen[value] = seen.get(value, 0) + 1
+    headers = [(esc(row_label), False)] + [
+        (label_col(short[c] if seen[short[c]] == 1 else c), numeric_col[c]) for c in columns
+    ]
     rows = []
     for key, record in raw:
         cells = [("th", esc(key).replace("_", " "), key.lower(), False)]
