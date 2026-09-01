@@ -1,0 +1,250 @@
+{
+  "by_window": {
+    "6": {
+      "window_hours": 6,
+      "stops_with_a_following_s2": 6,
+      "leg1_after_stop": {
+        "n": 6,
+        "win_rate_pct": 66.67,
+        "mean_return_pct": 1.3333,
+        "total_return_pct": 8.0
+      },
+      "leg1_control": {
+        "n": 151,
+        "win_rate_pct": 46.36,
+        "mean_return_pct": 0.524,
+        "total_return_pct": 79.13
+      },
+      "leg1_win_rate_gap_pct_points": 20.31,
+      "leg1_min_detectable_pct_points": 58.22,
+      "leg2_next_s1": {
+        "n": 6,
+        "win_rate_pct": 50.0,
+        "mean_return_pct": 0.0,
+        "total_return_pct": 0.0
+      },
+      "leg2_control": {
+        "n": 444,
+        "win_rate_pct": 56.31,
+        "mean_return_pct": 0.1934,
+        "total_return_pct": 85.89
+      },
+      "leg2_win_rate_gap_pct_points": -6.31,
+      "leg2_min_detectable_pct_points": 57.13,
+      "skip_both_total_return_pct": 165.02,
+      "take_everything_total_return_pct": 173.02,
+      "skipping_costs_pct_points": -8.0,
+      "trades_skipped": 12
+    },
+    "12": {
+      "window_hours": 12,
+      "stops_with_a_following_s2": 15,
+      "leg1_after_stop": {
+        "n": 15,
+        "win_rate_pct": 46.67,
+        "mean_return_pct": 0.578,
+        "total_return_pct": 8.67
+      },
+      "leg1_control": {
+        "n": 143,
+        "win_rate_pct": 46.85,
+        "mean_return_pct": 0.5417,
+        "total_return_pct": 77.46
+      },
+      "leg1_win_rate_gap_pct_points": -0.18,
+      "leg1_min_detectable_pct_points": 37.96,
+      "leg2_next_s1": {
+        "n": 15,
+        "win_rate_pct": 53.33,
+        "mean_return_pct": 0.05,
+        "total_return_pct": 0.75
+      },
+      "leg2_control": {
+        "n": 436,
+        "win_rate_pct": 56.19,
+        "mean_return_pct": 0.1941,
+        "total_return_pct": 84.64
+      },
+      "leg2_win_rate_gap_pct_points": -2.86,
+      "leg2_min_detectable_pct_points": 36.5,
+      "skip_both_total_return_pct": 162.1,
+      "take_everything_total_return_pct": 173.02,
+      "skipping_costs_pct_points": -10.92,
+      "trades_skipped": 30
+    },
+    "24": {
+      "window_hours": 24,
+      "stops_with_a_following_s2": 37,
+      "leg1_after_stop": {
+        "n": 37,
+        "win_rate_pct": 54.05,
+        "mean_return_pct": 0.8197,
+        "total_return_pct": 30.33
+      },
+      "leg1_control": {
+        "n": 124,
+        "win_rate_pct": 45.97,
+        "mean_return_pct": 0.5145,
+        "total_return_pct": 63.8
+      },
+      "leg1_win_rate_gap_pct_points": 8.08,
+      "leg1_min_detectable_pct_points": 26.2,
+      "leg2_next_s1": {
+        "n": 37,
+        "win_rate_pct": 56.76,
+        "mean_return_pct": 0.2159,
+        "total_return_pct": 7.99
+      },
+      "leg2_control": {
+        "n": 417,
+        "win_rate_pct": 56.12,
+        "mean_return_pct": 0.1868,
+        "total_return_pct": 77.9
+      },
+      "leg2_win_rate_gap_pct_points": 0.64,
+      "leg2_min_detectable_pct_points": 23.85,
+      "skip_both_total_return_pct": 141.7,
+      "take_everything_total_return_pct": 173.02,
+      "skipping_costs_pct_points": -31.32,
+      "trades_skipped": 74
+    },
+    "48": {
+      "window_hours": 48,
+      "stops_with_a_following_s2": 71,
+      "leg1_after_stop": {
+        "n": 71,
+        "win_rate_pct": 60.56,
+        "mean_return_pct": 1.008,
+        "total_return_pct": 71.57
+      },
+      "leg1_control": {
+        "n": 101,
+        "win_rate_pct": 42.57,
+        "mean_return_pct": 0.3818,
+        "total_return_pct": 38.56
+      },
+      "leg1_win_rate_gap_pct_points": 17.99,
+      "leg1_min_detectable_pct_points": 21.66,
+      "leg2_next_s1": {
+        "n": 71,
+        "win_rate_pct": 60.56,
+        "mean_return_pct": 0.2434,
+        "total_return_pct": 17.28
+      },
+      "leg2_control": {
+        "n": 394,
+        "win_rate_pct": 56.09,
+        "mean_return_pct": 0.1894,
+        "total_return_pct": 74.61
+      },
+      "leg2_win_rate_gap_pct_points": 4.47,
+      "leg2_min_detectable_pct_points": 17.92,
+      "skip_both_total_return_pct": 113.17,
+      "take_everything_total_return_pct": 173.02,
+      "skipping_costs_pct_points": -59.85,
+      "trades_skipped": 142
+    }
+  },
+  "single_window_test_48h": {
+    "window_hours": 48,
+    "marked_trades": 71,
+    "observed_gap_pct_points": 17.99,
+    "permutation_p_one_sided": 0.012,
+    "min_detectable_pct_points": 21.66,
+    "clears_bound": false,
+    "note": "Not the frozen primary test. The frozen one is uninformative because the six-hour window marks six trades and dominates the maximum."
+  },
+  "chronological_48h": {
+    "early_70pct": {
+      "from": "2024-01-04",
+      "to": "2025-11-22",
+      "after_stop": {
+        "n": 49,
+        "win_rate_pct": 65.31,
+        "mean_return_pct": 1.032,
+        "total_return_pct": 50.57
+      },
+      "control": {
+        "n": 70,
+        "win_rate_pct": 48.57,
+        "mean_return_pct": 0.5621,
+        "total_return_pct": 39.35
+      },
+      "win_rate_gap_pct_points": 16.74
+    },
+    "recent_30pct": {
+      "from": "2025-11-22",
+      "to": "2026-07-08",
+      "after_stop": {
+        "n": 22,
+        "win_rate_pct": 50.0,
+        "mean_return_pct": 0.9545,
+        "total_return_pct": 21.0
+      },
+      "control": {
+        "n": 31,
+        "win_rate_pct": 29.03,
+        "mean_return_pct": -0.0255,
+        "total_return_pct": -0.79
+      },
+      "win_rate_gap_pct_points": 20.97
+    }
+  },
+  "signal_coverage_48h": {
+    "stops_followed_by_a_signal_flag": 78,
+    "stops_followed_by_a_filtered_flag": 69,
+    "stops_followed_by_a_in_position_flag": 82,
+    "stops_total": 197
+  },
+  "verdict": {
+    "best_window_for_skipping": "6",
+    "best_skipping_effect_pct_points": -8.0,
+    "any_skip_improves_total_return": false,
+    "largest_leg1_gap_pct_points": 20.31,
+    "family_null_median_gap_pct_points": 20.31,
+    "family_null_95th_gap_pct_points": 37.64,
+    "family_p": 0.371,
+    "passes_frozen_criteria": false
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-004",
+  "generated_at": "2026-09-01T05:47:46Z",
+  "strategy": "S1 AweWithBB V3.9 and S2 Hammer V3.2",
+  "method": {
+    "s1_trades": 450,
+    "s2_trades": 157,
+    "s1_stop_losses": 197,
+    "unit": "the S1 stop-loss event (exit signal S1BB_SL)",
+    "windows_hours": [
+      6,
+      12,
+      24,
+      48
+    ],
+    "link": "the first qualifying trade in the window",
+    "control": "every other trade of the same strategy",
+    "decision_measure": "total return with both legs skipped, against taking everything",
+    "family_tests": 8,
+    "null": "which trades the condition marks, shuffled at the same group size",
+    "permutation_trials": 20000,
+    "random_seed": 20260901,
+    "chronological_split": 0.7,
+    "distinct_from": "RS-XAUUSD-20260818-002 conditioned on the other strategy's last trade losing, not on a stop-loss, and did not follow the ordered chain",
+    "outcomes_exist_only_for_filled_trades": true
+  },
+  "baseline": {
+    "s1": {
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1909,
+      "total_return_pct": 85.89
+    },
+    "s2": {
+      "n": 157,
+      "win_rate_pct": 47.13,
+      "mean_return_pct": 0.555,
+      "total_return_pct": 87.13
+    },
+    "combined_total_return_pct": 173.02
+  }
+}
