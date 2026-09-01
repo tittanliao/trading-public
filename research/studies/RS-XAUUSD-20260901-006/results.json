@@ -1,0 +1,111 @@
+{
+  "unstratified": {
+    "near_an_s1_exit": {
+      "n": 114,
+      "win_rate_pct": 51.75,
+      "mean_return_pct": 0.7463
+    },
+    "no_s1_exit_nearby": {
+      "n": 42,
+      "win_rate_pct": 35.71,
+      "mean_return_pct": 0.0726
+    },
+    "win_rate_gap_pct_points": 16.04,
+    "min_detectable_pct_points": 25.26
+  },
+  "by_volatility_tercile": {
+    "low_volatility": {
+      "atr_percentile_range": [
+        0.004,
+        0.382
+      ],
+      "near_an_s1_exit": {
+        "n": 43,
+        "win_rate_pct": 39.53,
+        "mean_return_pct": 0.2602
+      },
+      "no_s1_exit_nearby": {
+        "n": 9,
+        "win_rate_pct": 33.33,
+        "mean_return_pct": 0.0
+      },
+      "win_rate_gap_pct_points": 6.2,
+      "share_near_pct": 82.69,
+      "min_detectable_pct_points": 49.97
+    },
+    "mid_volatility": {
+      "atr_percentile_range": [
+        0.382,
+        0.722
+      ],
+      "near_an_s1_exit": {
+        "n": 39,
+        "win_rate_pct": 56.41,
+        "mean_return_pct": 1.0033
+      },
+      "no_s1_exit_nearby": {
+        "n": 13,
+        "win_rate_pct": 76.92,
+        "mean_return_pct": 1.3115
+      },
+      "win_rate_gap_pct_points": -20.51,
+      "share_near_pct": 75.0,
+      "min_detectable_pct_points": 43.66
+    },
+    "high_volatility": {
+      "atr_percentile_range": [
+        0.726,
+        1.0
+      ],
+      "near_an_s1_exit": {
+        "n": 32,
+        "win_rate_pct": 62.5,
+        "mean_return_pct": 1.0862
+      },
+      "no_s1_exit_nearby": {
+        "n": 20,
+        "win_rate_pct": 10.0,
+        "mean_return_pct": -0.7
+      },
+      "win_rate_gap_pct_points": 52.5,
+      "share_near_pct": 61.54,
+      "min_detectable_pct_points": 39.46
+    }
+  },
+  "confound_share_near_an_exit_by_tercile": {
+    "low_volatility": 82.69,
+    "mid_volatility": 75.0,
+    "high_volatility": 61.54,
+    "spread_pct_points": 21.15
+  },
+  "stratified": {
+    "weighted_within_stratum_gap_pct_points": 12.73,
+    "unstratified_gap_pct_points": 16.04,
+    "share_of_gap_surviving_pct": 79.4,
+    "permutation_p": 0.0862,
+    "null_median_gap_pct_points": -0.1,
+    "null_95th_gap_pct_points": 15.21
+  },
+  "verdict": {
+    "gap_survives_stratification": true,
+    "explained_by_volatility": false,
+    "passes_frozen_criteria": false
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-006",
+  "generated_at": "2026-09-01T07:14:26Z",
+  "strategy": "S2 Hammer V3.2, conditioned on S1 AweWithBB V3.9 exits",
+  "method": {
+    "s2_trades_labelled": 156,
+    "window_hours": 48,
+    "volatility": "ATR(14) percentile over the trailing 240 bars",
+    "read_at": "the last completed bar before the fill",
+    "definition_source": "RS-XAUUSD-20260818-002's atr_percentile_240",
+    "strata": "terciles of that percentile",
+    "primary": "the size-weighted within-stratum gap against the unstratified gap",
+    "null": "the near/not label shuffled within each stratum",
+    "permutation_trials": 20000,
+    "random_seed": 20260901,
+    "tests": "RS-XAUUSD-20260901-005's residual finding"
+  }
+}

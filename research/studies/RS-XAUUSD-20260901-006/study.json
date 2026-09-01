@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-006",
+  "revision": 1,
+  "title": "Volatility does not explain the exit-proximity effect, and neither does anything else — it is one cell",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S2-Hammer",
+    "version": "V3.2"
+  },
+  "status": "confirmed",
+  "created_on": "2026-09-01",
+  "question": "S2 trades near an S1 exit win far more than those without. Is that a mechanism, or are both strategies simply more active when the market moves?",
+  "hypothesis": "Volatility is the natural confounder and should absorb the effect if the clustering explanation is right.",
+  "headline": {
+    "s2_trades": 156,
+    "unstratified_gap_pct_points": 16.04,
+    "stratified_gap_pct_points": 12.73,
+    "share_of_gap_surviving_pct": 79.4,
+    "permutation_p": 0.0862,
+    "gap_low_tercile_pct_points": 6.2,
+    "gap_mid_tercile_pct_points": -20.51,
+    "gap_high_tercile_pct_points": 52.5,
+    "high_tercile_far_cell_n": 20,
+    "high_tercile_far_cell_win_rate_pct": 10.0,
+    "share_near_low_volatility_pct": 82.69,
+    "share_near_high_volatility_pct": 61.54
+  },
+  "card_metrics": [
+    "share_of_gap_surviving_pct",
+    "gap_mid_tercile_pct_points",
+    "gap_high_tercile_pct_points",
+    "high_tercile_far_cell_win_rate_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Volatility does not explain the effect",
+      "detail": "Stratified by ATR percentile tercile, the size-weighted within-stratum gap is 12.73 points against an unstratified 16.04 — 79.4% survives. By the criterion frozen before running, the clustering explanation is rejected.",
+      "title_zh": "波動度不能解釋這個效果",
+      "detail_zh": "依 ATR 百分位分成三層、在層內比較再依層大小加權，分層後差距 12.73 個百分點，未分層 16.04——79.4% 存活。按照執行前寫死的判準，波動度聚集這個解釋被否決。"
+    },
+    {
+      "tone": "warn",
+      "title": "But the tercile pattern reverses in the middle",
+      "detail": "The gaps are +6.20 in the low tercile, -20.51 in the middle and +52.50 in the high one. In the middle tercile the S2 trades with no S1 exit nearby win 76.92% against 56.41% for those with one. RS-XAUUSD-20260818-002 rejected an ATR result on exactly this shape; the same objection applies here with the sign flipped.",
+      "title_zh": "但三層的形狀在中間反轉",
+      "detail_zh": "差距分別是 +6.20、−20.51、+52.50。中間那層裡，附近沒有 S1 出場的 S2 勝率 76.92%，反而高於有的 56.41%。RS-XAUUSD-20260818-002 正是用「中間組比兩邊都好的形狀背後沒有機制」否決過一個 ATR 結果；這裡只是正負號相反，問題一樣。"
+    },
+    {
+      "tone": "warn",
+      "title": "And the high tercile is one twenty-trade cell",
+      "detail": "Its 52.50-point gap comes from twenty S2 trades with no S1 exit nearby winning 10.0% — two wins in twenty. That single cell carries the weighted aggregate. The permutation gives p=0.0862, which does not clear 0.05 even before the pattern is inspected.",
+      "title_zh": "而且高波動那一層是一個 20 筆的格子",
+      "detail_zh": "它 52.50 個百分點的差距，來自「附近沒有 S1 出場」的 20 筆只贏了 2 筆（10.0%）。加權後的 12.73 幾乎全部由這一格貢獻。置換檢定 p=0.0862，在檢視形狀之前就已經沒過。"
+    },
+    {
+      "tone": "info",
+      "title": "The confound is real but runs the other way",
+      "detail": "The share of S2 trades sitting near an S1 exit is 82.69% in the low-volatility tercile and 61.54% in the high one — a 21.15-point spread in the opposite direction to the clustering story that motivated this study. Co-activity falls as volatility rises, not the reverse.",
+      "title_zh": "混淆變數是真的，但方向與假設相反",
+      "detail_zh": "S2 交易「靠近 S1 出場」的比例，在低波動層是 82.69%、高波動層是 61.54%——21.15 個百分點的落差，方向與「兩個策略在波動期一起活躍」的假設相反。共同活躍度是隨波動度下降的。"
+    },
+    {
+      "tone": "info",
+      "title": "Three studies moved the explanation and none confirmed it",
+      "detail": "RS-XAUUSD-20260901-004 found the effect and read a mechanism into it; -005's placebo removed the mechanism; this control shows the residual is one cell. What survived all three is -004's decision conclusion — skipping those trades costs 59.85 points — because it never depended on any of them.",
+      "title_zh": "三份研究都在移動解釋，沒有一份確認它",
+      "detail_zh": "RS-XAUUSD-20260901-004 找到效果並讀出機制；-005 的安慰劑拿掉機制；本研究的控制顯示剩下的是一個格子。從頭到尾存活的是 -004 的決策結論——跳過那些交易會少賺 59.85 個百分點——因為它從來不依賴上面任何一個解釋。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "The control clears volatility — and then the pattern fails inspection anyway.",
+  "question_zh": "靠近 S1 出場的 S2 勝率明顯較高。這是一個機制，還是只是「兩個策略都在市場動起來的時候比較活躍」？",
+  "limitations_zh": [
+    "三個層的樣本都很小（每層約 52 筆，其中「附近沒有 S1 出場」的分別只有 9、13、20 筆）；逐層的差距數字不可單獨引用。",
+    "高波動層 52.50 個百分點的差距來自 20 筆中只贏 2 筆的單一格子；加權後的 12.73 幾乎全部由它貢獻。",
+    "置換檢定 p=0.0862 未跨過 0.05；且未分層的 16.04 也未跨過它自己 25.26 的可分辨門檻。",
+    "波動度以 ATR(14) 在 240 根上的百分位衡量，讀取自成交前最後一根已收盤 K 棒；換一個波動度定義或分層數可能得到不同的分配。",
+    "本研究只控制波動度一個混淆變數；時段、趨勢狀態等其他變數未納入。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究做了它該做的控制，而結果是：**波動度不能解釋這個效果——但這個效果也站不住。**\n\n**先說控制的結果。** 依進場前的 ATR 百分位切成三等分，在每一層內部重做「附近有無 S1 出場」的比較，再依層大小加權：分層後的差距是 12.73 個百分點，未分層是 16.04——**79.4% 存活下來**。按照執行前寫死的判準，波動度聚集這個解釋被否決了。\n\n**但接著要看逐層的樣子，而那才是真正的答案。**三層的差距分別是 **+6.20、−20.51、+52.50**。中間那層是**反的**——在那一層裡，附近沒有 S1 出場的 S2 勝率 76.92%，反而高於有的 56.41%。\n\n本站的 RS-XAUUSD-20260818-002 就是用同樣的理由否決一個 ATR 結果的：「一個中間組比兩邊都好的形狀，背後沒有任何機制可言」。這裡只是正負號相反，但問題完全一樣。\n\n**而且高波動那一層是靠單一格子撐起來的。** 它 52.50 個百分點的差距，來自「附近沒有 S1 出場」的 20 筆交易只贏了 **2 筆**（勝率 10.0%）。整個加權後的 12.73 幾乎都是這一格。置換檢定 p=0.0862，在還沒檢視形狀之前就已經沒有跨過 0.05。\n\n**順帶得到一個與假設相反的事實。** 我做這份研究的動機是「兩個策略在波動期一起活躍」，但實際上 S2 交易「靠近 S1 出場」的比例在**低波動**層是 82.69%，在**高波動**層只有 61.54%——21.15 個百分點的落差，方向與我的假設相反。共同活躍度是隨波動度**下降**的。任何未來的跨策略條件設計都不該預設相反。\n\n**最後說這一串研究的帳。** 三份研究：`-004` 找到效果並讀出一個機制；`-005` 的安慰劑把機制拿掉；`-006` 的控制顯示剩下的東西是一個格子。每一份都在移動解釋，沒有一份確認它。而**從頭到尾存活的是 `-004` 的決策結論——跳過那些交易會少賺 59.85 個百分點**——因為它從來不依賴上面任何一個解釋。這就是這一串裡該留下的東西，也是為什麼「代價」和「理由」必須分開記錄。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "share_of_gap_surviving_pct",
+        "gap_mid_tercile_pct_points",
+        "gap_high_tercile_pct_points",
+        "high_tercile_far_cell_win_rate_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "by_volatility_tercile",
+      "title": "By Volatility Tercile 依波動度三分層（本篇最重要的一張表）",
+      "takeaway_zh": "看 win rate gap 這一欄：+6.20、−20.51、+52.50——中間那層是反的。再看高波動層的 no s1 exit nearby：20 筆只贏 2 筆（10.0%），整個加權結果幾乎都是這一格撐起來的。而 share near 這一欄顯示混淆的方向與假設相反：低波動層 82.69%、高波動層 61.54%。",
+      "columns": [
+        "atr_percentile_range",
+        "near_an_s1_exit.n",
+        "near_an_s1_exit.win_rate_pct",
+        "no_s1_exit_nearby.n",
+        "no_s1_exit_nearby.win_rate_pct",
+        "win_rate_gap_pct_points",
+        "min_detectable_pct_points",
+        "share_near_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "stratified",
+      "title": "Stratified vs Unstratified 分層前後（依層大小加權）",
+      "keys": [
+        "unstratified_gap_pct_points",
+        "weighted_within_stratum_gap_pct_points",
+        "share_of_gap_surviving_pct",
+        "permutation_p",
+        "null_median_gap_pct_points",
+        "null_95th_gap_pct_points"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "unstratified",
+      "title": "Unstratified 未分層的原始比較",
+      "keys": [
+        "near_an_s1_exit.n",
+        "near_an_s1_exit.win_rate_pct",
+        "no_s1_exit_nearby.n",
+        "no_s1_exit_nearby.win_rate_pct",
+        "win_rate_gap_pct_points",
+        "min_detectable_pct_points"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "confound_share_near_an_exit_by_tercile",
+      "title": "The Confound, Made Visible 混淆變數的實際方向",
+      "keys": [
+        "low_volatility",
+        "mid_volatility",
+        "high_volatility",
+        "spread_pct_points"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

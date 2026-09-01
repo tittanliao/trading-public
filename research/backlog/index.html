@@ -16,7 +16,7 @@
 <main class="shell wide">
 
 <h1>Research Backlog / 待研究題目</h1>
-<p class="lede">13 個題目，依優先序排列。已回答 10　未回答 3。</p>
+<p class="lede">13 個題目，依優先序排列。已回答 11　未回答 2。</p>
 <p class="lede">每一題都附上「目前已知」——大多數新問題都已經被既有研究部分回答，
 不寫出來就會重複做已經做過的事。</p>
 <section class="programme-state"><h2>目前狀態</h2><p>目前這個研究計畫沒有任何存活的正面發現。原本佔據這個位置的 %B 結果已於 2026-09-01 更正——它的標籤取自成交當下尚未收盤的那根 K 棒，改用最後一根已收盤的 K 棒之後，可分辨門檻、置換檢定與劑量反應三道篩子全部沒過（見 RS-XAUUSD-20260901-001）。該搜尋空間現在的狀態是「開啟中、門檻很寬」，不是「已駁斥」。</p><p>其餘的一切要嘛是附帶門檻的否定結果，要嘛是需要前瞻資料才能定案的候選。這是一個誠實的狀態，不是失敗的狀態——research/null_results.json 本身就是這個計畫的資產。</p><p>現在能改變局面的是新資料，不是新分析。 這批交易能問的問題已經問完了；下面兩個項目因此不是回溯研究，而是對未來週別的預先登記。</p></section>
@@ -30,17 +30,6 @@
 <p class="backlog-why"><strong>為什麼值得做：</strong>這是本計畫目前唯一一個不需要蒐集新資料、只需要時間的前瞻預測。衰退的歸因已經做到回溯資料能做的極限：分解顯示 101.6% 來自盤別內部、S1 在相同期間沒有衰退、而市場環境確實改變（趨勢停止、波動度 +77%）。但那是一次前後比較加一個對照組，且衰退本身 p=0.0619。要把「最合理的讀法」變成「已確立的原因」，只能靠它對未來做出的預測是否兌現。</p>
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260831-002/">RS-XAUUSD-20260831-002</a>｜衰退 101.6% 來自盤別內部、亞盤跌幅是四個裡第三大（沒有亞盤現象）；S1 在相同日曆期間反而上升；黃金從 +98.7% 變 −0.82%、日波動度 +77%。衰退本身 p=0.0619。</li><li><a href="../studies/RS-XAUUSD-20260831-001/">RS-XAUUSD-20260831-001</a>｜亞盤在最新 30% 已轉為虧損（勝率 21.43%、平均 −0.2143%、獲利因子 0.732，14 筆），但移除亞盤的增益在四選一家族校正下 p=0.0549。</li><li><a href="../studies/RS-XAUUSD-20260818-005/">RS-XAUUSD-20260818-005</a>｜S2 在 2026 年的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 單獨的年度。</li></ul></div>
 <p class="backlog-next"><strong>下一步：</strong>檢定力估算：單位是「月」而非「交易」，以每月平均 R 的差異 1.0R、標準差約 2.0R 計算，需要約 63 個月（5.2 年）；若真實差異達 1.5R 則約 28 個月（2.3 年）。這仍然很長，但單位是月、成本只是時間，而且評估腳本可以定期重跑。在 research/prereg/ 開登記時必須把「趨勢狀態」的判定與預期效果量一起凍結，並在檔案裡寫明預計回報的時點，不要留成開放式等待。</p>
-
-</article><article class="backlog-item" data-status="open"
- data-priority="2">
-<header><span class="backlog-id">BL-013</span>
-<span class="tag prio-2">優先 中</span>
-<span class="tag status-open">未回答</span></header>
-<h3>為什麼「靠近 S1 出場」會預測 S2？是不是只是波動度聚集</h3>
-<p class="backlog-question">附近 48 小時內有 S1 出場的 S2 勝率 51.22%，沒有的只有 36.00%。這 15.22 個百分點是機制，還是波動度聚集的副產品？加入明確的波動度控制之後，它還剩下多少？</p>
-<p class="backlog-why"><strong>為什麼值得做：</strong>這是 RS-XAUUSD-20260901-005 留下的問題，而且它比原本的停損假設更大。「靠近另一個策略的出場」本身不像一個機制——比較像是兩個策略都在波動期活躍。如果是，加一個波動度控制就會把它吸收掉；如果不是，那才是真的東西。這個檢定很便宜，而且會決定 RS-XAUUSD-20260901-004 的決策結論該怎麼解釋。</p>
-<div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260901-005/">RS-XAUUSD-20260901-005</a>｜出場類型只差 7.60 個百分點（門檻 25.32、p=0.1571），而「有無出場」差 15.22 個百分點（門檻 23.46）——兩者都未跨過門檻。</li><li><a href="../studies/RS-XAUUSD-20260901-004/">RS-XAUUSD-20260901-004</a>｜跳過停損後的 S2 與其後的 S1，在 48 小時視窗上少賺 59.85 個百分點；此結論不依賴機制。</li><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜波動度是這批資料上唯一被證明可預測的量（HOLDOUT Spearman 0.571），因此它是這裡最自然的混淆變數。</li></ul></div>
-<p class="backlog-next"><strong>下一步：</strong>以進場前的 ATR 百分位（或 RS-XAUUSD-20260818-004 的預測波動度）分層，在每一層內重做「附近有無 S1 出場」的比較。若分層後差距塌縮，這件事就是波動度聚集；若維持，才需要另找機制。</p>
 
 </article><article class="backlog-item" data-status="open"
  data-priority="3">
@@ -130,6 +119,17 @@
 <div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260815-001/">RS-XAUUSD-20260815-001</a>｜全樣本 43.08%→46.00%（n=50），驗證區 20.00%→20.00%（n=15），延兩根 15.38%。驗證區基準本身只有 20.0%（n=20）。</li><li><a href="../studies/RS-XAUUSD-20260815-002/">RS-XAUUSD-20260815-002</a>｜S2 驗證區整體基準掉到 33.33%。</li><li><a href="../studies/RS-XAUUSD-20260818-005/">RS-XAUUSD-20260818-005</a>｜S2 在 2026 年的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 單獨的年度。</li></ul></div>
 <p class="backlog-next"><strong>下一步：</strong>已回答：衰退 101.6% 來自盤別內部，四個盤別全部下跌，亞盤跌幅是第三大——沒有亞盤現象。S1 在完全相同期間沒有衰退，因此也不是市場現象。最合理的讀法是純多方均值回歸失去了它依賴的上升趨勢（黃金 +98.7% → −0.82%，波動度 +77%），但那是一次前後比較，且衰退本身 p=0.0619。留下的前瞻預測不需要新資料、只需要時間：若解釋正確，S2 應在黃金重新進入持續趨勢時回復。</p>
 <p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260831-002/">RS-XAUUSD-20260831-002</a> 回答。</p>
+</article><article class="backlog-item" data-status="answered"
+ data-priority="2">
+<header><span class="backlog-id">BL-013</span>
+<span class="tag prio-2">優先 中</span>
+<span class="tag status-answered">已回答</span></header>
+<h3>為什麼「靠近 S1 出場」會預測 S2？是不是只是波動度聚集</h3>
+<p class="backlog-question">附近 48 小時內有 S1 出場的 S2 勝率 51.22%，沒有的只有 36.00%。這 15.22 個百分點是機制，還是波動度聚集的副產品？加入明確的波動度控制之後，它還剩下多少？</p>
+<p class="backlog-why"><strong>為什麼值得做：</strong>這是 RS-XAUUSD-20260901-005 留下的問題，而且它比原本的停損假設更大。「靠近另一個策略的出場」本身不像一個機制——比較像是兩個策略都在波動期活躍。如果是，加一個波動度控制就會把它吸收掉；如果不是，那才是真的東西。這個檢定很便宜，而且會決定 RS-XAUUSD-20260901-004 的決策結論該怎麼解釋。</p>
+<div class="backlog-evidence"><h4>目前已知</h4><ul><li><a href="../studies/RS-XAUUSD-20260901-005/">RS-XAUUSD-20260901-005</a>｜出場類型只差 7.60 個百分點（門檻 25.32、p=0.1571），而「有無出場」差 15.22 個百分點（門檻 23.46）——兩者都未跨過門檻。</li><li><a href="../studies/RS-XAUUSD-20260901-004/">RS-XAUUSD-20260901-004</a>｜跳過停損後的 S2 與其後的 S1，在 48 小時視窗上少賺 59.85 個百分點；此結論不依賴機制。</li><li><a href="../studies/RS-XAUUSD-20260818-004/">RS-XAUUSD-20260818-004</a>｜波動度是這批資料上唯一被證明可預測的量（HOLDOUT Spearman 0.571），因此它是這裡最自然的混淆變數。</li></ul></div>
+<p class="backlog-next"><strong>下一步：</strong>已回答，但答案是兩面的：波動度**不能**解釋這個效果（79.4% 的差距在分層後存活），然而這個效果本身也站不住——三層的差距是 +6.20、−20.51、+52.50，中間層反轉，而高波動層 52.50 個百分點的差距來自 20 筆只贏 2 筆的單一格子；置換檢定 p=0.0862。**建議停止追這條線**：三份研究每一份都在移動解釋、沒有一份確認它。順帶得到一個與假設相反的事實：共同活躍度隨波動度**下降**（低波動 82.69%、高波動 61.54%）。</p>
+<p class="backlog-answered">已由 <a href="../studies/RS-XAUUSD-20260901-006/">RS-XAUUSD-20260901-006</a> 回答。</p>
 </article><article class="backlog-item" data-status="answered"
  data-priority="3">
 <header><span class="backlog-id">BL-006</span>
