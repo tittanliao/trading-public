@@ -1,0 +1,1340 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-007",
+  "generated_at": "2026-09-01T12:06:09Z",
+  "strategy": "seasonal accumulation, no strategy signal involved",
+  "method": {
+    "daily_from": "2008-01-14",
+    "daily_to": "2026-08-28",
+    "range_window": "January 1 to August 31 of the build year",
+    "levels": "H - f*(H-L) for f in [0.236, 0.382, 0.5, 0.618, 0.786]",
+    "fill_rule": "first daily low at or below the level, from September 1, filled at the level or at that bar's open if the bar opened below it",
+    "exit": "the last trading day of the following January, at its close",
+    "unfilled": "stays in cash and earns nothing",
+    "baseline": "four equal buys at the first trading day of Sep, Oct, Nov, Dec",
+    "baseline_source": "RS-XAUUSD-20260827-001, which measured 77.78% on 18 cycles",
+    "why_two_return_measures": "return on deployed capital flatters a rule that under-invests; return on committed capital is the comparable one",
+    "costs_excluded": "spread, carry and roll are not modelled"
+  },
+  "limitations": [
+    "18 cycles. This is a seasonal rule, so one year is one observation and the sample cannot be enlarged by using more granular data.",
+    "The resolution bound exceeds the observed difference, so no claim is made that the Fibonacci rule underperforms on return. Only the fill behaviour is established.",
+    "Spread, carry and roll are not modelled. RS-XAUUSD-20260827-001 covers the financing cost of holding this position.",
+    "The five levels and the January exit were fixed before running and not searched over. A different level set would be a different study and would need its own registration to mean anything.",
+    "The baseline buys at the first trading day's close of each month while the Fibonacci rule buys at level or open prices. The two are not filled on an identical convention."
+  ],
+  "summary": {
+    "cycles": 18,
+    "fib": {
+      "cycles": 18,
+      "win_rate_pct": 55.56,
+      "mean_pct": 2.202,
+      "median_pct": 0.671,
+      "worst_pct": -9.339,
+      "best_pct": 12.669,
+      "total_pct": 39.64
+    },
+    "fib_on_deployed_only": {
+      "cycles": 15,
+      "win_rate_pct": 66.67,
+      "mean_pct": 3.979,
+      "median_pct": 5.415,
+      "worst_pct": -9.339,
+      "best_pct": 13.782,
+      "total_pct": 59.68
+    },
+    "fib_with_december_catchup": {
+      "cycles": 18,
+      "win_rate_pct": 66.67,
+      "mean_pct": 3.298,
+      "median_pct": 4.296,
+      "worst_pct": -9.339,
+      "best_pct": 14.599,
+      "total_pct": 59.37
+    },
+    "equal_monthly": {
+      "cycles": 18,
+      "win_rate_pct": 77.78,
+      "mean_pct": 4.429,
+      "median_pct": 4.214,
+      "worst_pct": -4.772,
+      "best_pct": 26.685,
+      "total_pct": 79.72
+    },
+    "fill_rate": {
+      "mean_tranches_filled": 3.28,
+      "of_five": 5,
+      "cycles_with_zero_fills": 3,
+      "cycles_with_all_five": 9,
+      "distribution": {
+        "0": 3,
+        "1": 2,
+        "2": 2,
+        "3": 0,
+        "4": 2,
+        "5": 9
+      }
+    },
+    "by_jan_aug_direction": {
+      "up_years": {
+        "n": 12,
+        "mean_tranches_filled": 2.42,
+        "fib": {
+          "cycles": 12,
+          "win_rate_pct": 50.0,
+          "mean_pct": 1.352,
+          "median_pct": 0.671,
+          "worst_pct": -0.741,
+          "best_pct": 6.165,
+          "total_pct": 16.22
+        },
+        "equal_monthly": {
+          "cycles": 12,
+          "win_rate_pct": 75.0,
+          "mean_pct": 3.782,
+          "median_pct": 4.214,
+          "worst_pct": -4.772,
+          "best_pct": 26.685,
+          "total_pct": 45.39
+        }
+      },
+      "down_years": {
+        "n": 6,
+        "mean_tranches_filled": 5.0,
+        "fib": {
+          "cycles": 6,
+          "win_rate_pct": 66.67,
+          "mean_pct": 3.903,
+          "median_pct": 10.024,
+          "worst_pct": -9.339,
+          "best_pct": 12.669,
+          "total_pct": 23.42
+        },
+        "equal_monthly": {
+          "cycles": 6,
+          "win_rate_pct": 83.33,
+          "mean_pct": 5.722,
+          "median_pct": 8.855,
+          "worst_pct": -4.633,
+          "best_pct": 16.614,
+          "total_pct": 34.33
+        }
+      }
+    },
+    "by_august_position_in_range_note": "the driver is where the August close sits inside the January-August range, not the sign of the year's move",
+    "by_august_position_in_range": {
+      "august_in_upper_half": {
+        "n": 10,
+        "mean_tranches_filled": 1.9,
+        "fib": {
+          "cycles": 10,
+          "win_rate_pct": 40.0,
+          "mean_pct": 0.939,
+          "median_pct": 0.0,
+          "worst_pct": -0.741,
+          "best_pct": 4.332,
+          "total_pct": 9.39
+        },
+        "equal_monthly": {
+          "cycles": 10,
+          "win_rate_pct": 70.0,
+          "mean_pct": 3.59,
+          "median_pct": 2.667,
+          "worst_pct": -4.772,
+          "best_pct": 26.685,
+          "total_pct": 35.9
+        }
+      },
+      "august_in_lower_half": {
+        "n": 8,
+        "mean_tranches_filled": 5.0,
+        "fib": {
+          "cycles": 8,
+          "win_rate_pct": 75.0,
+          "mean_pct": 3.781,
+          "median_pct": 6.165,
+          "worst_pct": -9.339,
+          "best_pct": 12.669,
+          "total_pct": 30.25
+        },
+        "equal_monthly": {
+          "cycles": 8,
+          "win_rate_pct": 87.5,
+          "mean_pct": 5.477,
+          "median_pct": 5.269,
+          "worst_pct": -4.633,
+          "best_pct": 16.614,
+          "total_pct": 43.82
+        }
+      }
+    },
+    "staging_check": {
+      "all": {
+        "cycles": 18,
+        "fills": 59,
+        "marketable_at_open_pct": 54.24,
+        "cycles_fully_filled_on_one_day": 3,
+        "distinct_fill_dates_mean": 1.89
+      },
+      "up_years": {
+        "cycles": 12,
+        "fills": 29,
+        "marketable_at_open_pct": 27.59,
+        "cycles_fully_filled_on_one_day": 0,
+        "distinct_fill_dates_mean": 1.92
+      },
+      "down_years": {
+        "cycles": 6,
+        "fills": 30,
+        "marketable_at_open_pct": 80.0,
+        "cycles_fully_filled_on_one_day": 3,
+        "distinct_fill_dates_mean": 1.83
+      },
+      "august_in_upper_half": {
+        "cycles": 10,
+        "fills": 19,
+        "marketable_at_open_pct": 10.53,
+        "cycles_fully_filled_on_one_day": 0,
+        "distinct_fill_dates_mean": 1.7
+      },
+      "august_in_lower_half": {
+        "cycles": 8,
+        "fills": 40,
+        "marketable_at_open_pct": 75.0,
+        "cycles_fully_filled_on_one_day": 3,
+        "distinct_fill_dates_mean": 2.12
+      }
+    },
+    "staging_check_note": "a tranche that is marketable at the open is a market buy, not a retracement buy; a cycle whose tranches all fill on one day is a lump sum",
+    "paired_vs_baseline": {
+      "fib": {
+        "cycles": 18,
+        "mean_difference_pct_points": -2.227,
+        "sd_of_difference": 6.95,
+        "min_detectable_pct_points": 4.59,
+        "separates": false,
+        "cycles_ahead": 8,
+        "cycles_behind": 10
+      },
+      "fib_with_december_catchup": {
+        "cycles": 18,
+        "mean_difference_pct_points": -1.131,
+        "sd_of_difference": 4.357,
+        "min_detectable_pct_points": 2.877,
+        "separates": false,
+        "cycles_ahead": 8,
+        "cycles_behind": 10
+      }
+    },
+    "paired_vs_baseline_note": "alpha 0.05, power 0.80. Per RS-XAUUSD-20260824-001 the bound decides, not the p-value.",
+    "rules_compared": {
+      "fibonacci_as_specified": {
+        "cycles": 18,
+        "win_rate_pct": 55.56,
+        "mean_pct": 2.202,
+        "median_pct": 0.671,
+        "worst_pct": -9.339,
+        "best_pct": 12.669,
+        "total_pct": 39.64
+      },
+      "fibonacci_with_december_catchup": {
+        "cycles": 18,
+        "win_rate_pct": 66.67,
+        "mean_pct": 3.298,
+        "median_pct": 4.296,
+        "worst_pct": -9.339,
+        "best_pct": 14.599,
+        "total_pct": 59.37
+      },
+      "four_equal_monthly_buys": {
+        "cycles": 18,
+        "win_rate_pct": 77.78,
+        "mean_pct": 4.429,
+        "median_pct": 4.214,
+        "worst_pct": -4.772,
+        "best_pct": 26.685,
+        "total_pct": 79.72
+      }
+    },
+    "head_to_head": {
+      "cycles": 18,
+      "fib_beats_equal_monthly": 8,
+      "equal_monthly_beats_fib": 10,
+      "mean_difference_pct_points": -2.227
+    }
+  },
+  "answers": [
+    {
+      "question": "What has the win rate been?",
+      "answer": "55.56% of 18 cycles on committed capital, against 77.78% for four equal monthly buys. Counting only the 15 cycles where it invested at all, 66.67%. Adding a December catch-up for unfilled tranches lifts it to 66.67%."
+    },
+    {
+      "question": "Is it worse than buying four equal monthly tranches?",
+      "answer": "Not established. The paired difference is -2.227 percentage points against a resolution bound of 4.59 on 18 cycles, so the sample cannot separate them on return. It is ahead in 8 cycles and behind in 10. The case against it is structural, not statistical."
+    },
+    {
+      "question": "What is the structural problem?",
+      "answer": "It does not stage the entry. Fills are decided by where the August close sits inside the January-August range: with August in the lower half all five tranches filled in 8 of 8 cycles (mean 5.0 of 5), and 75.0% of those fills were marketable at the open — a market buy, not a retracement buy. With August in the upper half the mean is 1.9 of 5. So it commits everything at once when gold is weak into September and holds back when gold is strong, which is backwards for a seasonal long."
+    },
+    {
+      "question": "What does the shortfall come from?",
+      "answer": "Cash, not bad prices. 3 of 18 cycles never filled a single tranche and sat in cash through the whole window. The worst of these is 2025, where the baseline returned 26.685% — the largest single-cycle gain in the sample — and the Fibonacci rule returned nothing."
+    }
+  ],
+  "cycles": [
+    {
+      "build_year": 2008,
+      "jan_aug_high": 1031.2,
+      "jan_aug_low": 774.9,
+      "jan_aug_range_pct": 33.08,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -8.22,
+      "august_position_in_range_pct": 21.81,
+      "september_open": 818.1,
+      "exit_date": "2009-01-30",
+      "exit_price": 927.75,
+      "fib_levels": [
+        970.7132,
+        933.2934,
+        903.05,
+        872.8066,
+        829.7482
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 835.5,
+          "date": "2008-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 835.5,
+          "date": "2008-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 835.5,
+          "date": "2008-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 835.5,
+          "date": "2008-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.786,
+          "price": 829.7482,
+          "date": "2008-09-01",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 834.35,
+        "return_on_deployed_pct": 11.194,
+        "return_on_committed_pct": 11.194
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 834.35,
+        "return_on_deployed_pct": 11.194,
+        "return_on_committed_pct": 11.194
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 795.57,
+        "return_on_deployed_pct": 16.614,
+        "return_on_committed_pct": 16.614
+      }
+    },
+    {
+      "build_year": 2009,
+      "jan_aug_high": 1006.4,
+      "jan_aug_low": 802.65,
+      "jan_aug_range_pct": 25.38,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 7.82,
+      "august_position_in_range_pct": 72.88,
+      "september_open": 957.35,
+      "exit_date": "2010-01-29",
+      "exit_price": 1081.55,
+      "fib_levels": [
+        958.315,
+        928.5675,
+        904.525,
+        880.4825,
+        846.2525
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 950.55,
+          "date": "2009-09-01",
+          "marketable_at_open": true
+        }
+      ],
+      "fib": {
+        "tranches_filled": 1,
+        "avg_cost": 950.55,
+        "return_on_deployed_pct": 13.782,
+        "return_on_committed_pct": 2.756
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1067.07,
+        "return_on_deployed_pct": 1.357,
+        "return_on_committed_pct": 1.357
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1053.45,
+        "return_on_deployed_pct": 2.667,
+        "return_on_committed_pct": 2.667
+      }
+    },
+    {
+      "build_year": 2010,
+      "jan_aug_high": 1265.4,
+      "jan_aug_low": 1044.25,
+      "jan_aug_range_pct": 21.18,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 13.7,
+      "august_position_in_range_pct": 91.97,
+      "september_open": 1244.35,
+      "exit_date": "2011-01-31",
+      "exit_price": 1332.19,
+      "fib_levels": [
+        1213.2086,
+        1180.9207,
+        1154.825,
+        1128.7293,
+        1091.5761
+      ],
+      "fib_fills": [],
+      "fib": {
+        "tranches_filled": 0,
+        "avg_cost": null,
+        "return_on_deployed_pct": null,
+        "return_on_committed_pct": 0.0
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1421.45,
+        "return_on_deployed_pct": -6.28,
+        "return_on_committed_pct": -6.28
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1325.5,
+        "return_on_deployed_pct": 0.505,
+        "return_on_committed_pct": 0.505
+      }
+    },
+    {
+      "build_year": 2011,
+      "jan_aug_high": 1911.96,
+      "jan_aug_low": 1308.56,
+      "jan_aug_range_pct": 46.11,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 28.95,
+      "august_position_in_range_pct": 85.39,
+      "september_open": 1825.05,
+      "exit_date": "2012-01-31",
+      "exit_price": 1739.43,
+      "fib_levels": [
+        1769.5576,
+        1681.4612,
+        1610.26,
+        1539.0588,
+        1437.6876
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1769.5576,
+          "date": "2011-09-16",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.382,
+          "price": 1681.4612,
+          "date": "2011-09-23",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.5,
+          "price": 1610.26,
+          "date": "2011-09-26",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.618,
+          "price": 1539.0588,
+          "date": "2011-09-26",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 4,
+        "avg_cost": 1650.08,
+        "return_on_deployed_pct": 5.415,
+        "return_on_committed_pct": 4.332
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1632.93,
+        "return_on_deployed_pct": 6.522,
+        "return_on_committed_pct": 6.522
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1737.89,
+        "return_on_deployed_pct": 0.089,
+        "return_on_committed_pct": 0.089
+      }
+    },
+    {
+      "build_year": 2012,
+      "jan_aug_high": 1790.8,
+      "jan_aug_low": 1529.0,
+      "jan_aug_range_pct": 17.12,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 7.97,
+      "august_position_in_range_pct": 61.94,
+      "september_open": 1692.4,
+      "exit_date": "2013-01-31",
+      "exit_price": 1663.6,
+      "fib_levels": [
+        1729.0152,
+        1690.7924,
+        1659.9,
+        1629.0076,
+        1585.0252
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1692.1999,
+          "date": "2012-09-03",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1690.7924,
+          "date": "2012-09-03",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.5,
+          "price": 1659.9,
+          "date": "2012-12-20",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.618,
+          "price": 1629.0076,
+          "date": "2013-01-04",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 4,
+        "avg_cost": 1667.97,
+        "return_on_deployed_pct": -0.262,
+        "return_on_committed_pct": -0.21
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1669.37,
+        "return_on_deployed_pct": -0.346,
+        "return_on_committed_pct": -0.346
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1724.19,
+        "return_on_deployed_pct": -3.514,
+        "return_on_committed_pct": -3.514
+      }
+    },
+    {
+      "build_year": 2013,
+      "jan_aug_high": 1696.26,
+      "jan_aug_low": 1181.82,
+      "jan_aug_range_pct": 43.53,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -16.64,
+      "august_position_in_range_pct": 41.71,
+      "september_open": 1394.9,
+      "exit_date": "2014-01-31",
+      "exit_price": 1243.8,
+      "fib_levels": [
+        1574.8522,
+        1499.7439,
+        1439.04,
+        1378.3361,
+        1291.9101
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1396.46,
+          "date": "2013-09-02",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1396.46,
+          "date": "2013-09-02",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1396.46,
+          "date": "2013-09-02",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1378.3361,
+          "date": "2013-09-05",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.786,
+          "price": 1291.9101,
+          "date": "2013-10-01",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1371.93,
+        "return_on_deployed_pct": -9.339,
+        "return_on_committed_pct": -9.339
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1371.93,
+        "return_on_deployed_pct": -9.339,
+        "return_on_committed_pct": -9.339
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1304.23,
+        "return_on_deployed_pct": -4.633,
+        "return_on_committed_pct": -4.633
+      }
+    },
+    {
+      "build_year": 2014,
+      "jan_aug_high": 1392.37,
+      "jan_aug_low": 1199.4,
+      "jan_aug_range_pct": 16.09,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 6.77,
+      "august_position_in_range_pct": 45.69,
+      "september_open": 1287.3,
+      "exit_date": "2015-01-30",
+      "exit_price": 1283.55,
+      "fib_levels": [
+        1346.8291,
+        1318.6555,
+        1295.885,
+        1273.1146,
+        1240.6956
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1287.05,
+          "date": "2014-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1287.05,
+          "date": "2014-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1287.05,
+          "date": "2014-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1273.1146,
+          "date": "2014-09-02",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.786,
+          "price": 1240.6956,
+          "date": "2014-09-11",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1274.99,
+        "return_on_deployed_pct": 0.671,
+        "return_on_committed_pct": 0.671
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1274.99,
+        "return_on_deployed_pct": 0.671,
+        "return_on_committed_pct": 0.671
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1219.3,
+        "return_on_deployed_pct": 5.269,
+        "return_on_committed_pct": 5.269
+      }
+    },
+    {
+      "build_year": 2015,
+      "jan_aug_high": 1306.7,
+      "jan_aug_low": 1077.75,
+      "jan_aug_range_pct": 21.24,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -4.02,
+      "august_position_in_range_pct": 24.79,
+      "september_open": 1140.11,
+      "exit_date": "2016-01-29",
+      "exit_price": 1118.04,
+      "fib_levels": [
+        1252.6678,
+        1219.2411,
+        1192.225,
+        1165.2089,
+        1126.7453
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1135.01,
+          "date": "2015-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1135.01,
+          "date": "2015-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1135.01,
+          "date": "2015-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1135.01,
+          "date": "2015-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.786,
+          "price": 1126.7453,
+          "date": "2015-09-03",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1133.36,
+        "return_on_deployed_pct": -1.351,
+        "return_on_committed_pct": -1.351
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1133.36,
+        "return_on_deployed_pct": -1.351,
+        "return_on_committed_pct": -1.351
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1114.23,
+        "return_on_deployed_pct": 0.342,
+        "return_on_committed_pct": 0.342
+      }
+    },
+    {
+      "build_year": 2016,
+      "jan_aug_high": 1375.3,
+      "jan_aug_low": 1060.74,
+      "jan_aug_range_pct": 29.65,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 23.4,
+      "august_position_in_range_pct": 78.91,
+      "september_open": 1313.79,
+      "exit_date": "2017-01-31",
+      "exit_price": 1210.63,
+      "fib_levels": [
+        1301.0639,
+        1255.1381,
+        1218.02,
+        1180.9019,
+        1128.0558
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1301.0639,
+          "date": "2016-10-04",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.382,
+          "price": 1255.1381,
+          "date": "2016-10-06",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.5,
+          "price": 1218.02,
+          "date": "2016-11-14",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.618,
+          "price": 1180.9019,
+          "date": "2016-11-25",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.786,
+          "price": 1128.0558,
+          "date": "2016-12-15",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1216.64,
+        "return_on_deployed_pct": -0.494,
+        "return_on_committed_pct": -0.494
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1216.64,
+        "return_on_deployed_pct": -0.494,
+        "return_on_committed_pct": -0.494
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1271.3,
+        "return_on_deployed_pct": -4.772,
+        "return_on_committed_pct": -4.772
+      }
+    },
+    {
+      "build_year": 2017,
+      "jan_aug_high": 1326.14,
+      "jan_aug_low": 1145.77,
+      "jan_aug_range_pct": 15.74,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 14.91,
+      "august_position_in_range_pct": 97.74,
+      "september_open": 1324.97,
+      "exit_date": "2018-01-31",
+      "exit_price": 1345.1,
+      "fib_levels": [
+        1283.5727,
+        1257.2387,
+        1235.955,
+        1214.6714,
+        1184.3692
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1283.5727,
+          "date": "2017-09-27",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.382,
+          "price": 1257.2387,
+          "date": "2017-12-07",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 2,
+        "avg_cost": 1270.41,
+        "return_on_deployed_pct": 5.88,
+        "return_on_committed_pct": 2.352
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1289.69,
+        "return_on_deployed_pct": 4.296,
+        "return_on_committed_pct": 4.296
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1287.68,
+        "return_on_deployed_pct": 4.459,
+        "return_on_committed_pct": 4.459
+      }
+    },
+    {
+      "build_year": 2018,
+      "jan_aug_high": 1366.47,
+      "jan_aug_low": 1160.56,
+      "jan_aug_range_pct": 17.74,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -8.09,
+      "august_position_in_range_pct": 19.68,
+      "september_open": 1201.15,
+      "exit_date": "2019-01-31",
+      "exit_price": 1320.94,
+      "fib_levels": [
+        1317.8752,
+        1287.8124,
+        1263.515,
+        1239.2176,
+        1204.6248
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1200.59,
+          "date": "2018-09-03",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1200.59,
+          "date": "2018-09-03",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1200.59,
+          "date": "2018-09-03",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1200.59,
+          "date": "2018-09-03",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.786,
+          "price": 1200.59,
+          "date": "2018-09-03",
+          "marketable_at_open": true
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1200.59,
+        "return_on_deployed_pct": 10.024,
+        "return_on_committed_pct": 10.024
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1200.59,
+        "return_on_deployed_pct": 10.024,
+        "return_on_committed_pct": 10.024
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1213.48,
+        "return_on_deployed_pct": 8.855,
+        "return_on_committed_pct": 8.855
+      }
+    },
+    {
+      "build_year": 2019,
+      "jan_aug_high": 1554.91,
+      "jan_aug_low": 1266.1,
+      "jan_aug_range_pct": 22.81,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 18.53,
+      "august_position_in_range_pct": 88.0,
+      "september_open": 1530.59,
+      "exit_date": "2020-01-31",
+      "exit_price": 1590.2,
+      "fib_levels": [
+        1486.7509,
+        1444.5846,
+        1410.505,
+        1376.4254,
+        1327.9053
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1486.7509,
+          "date": "2019-09-10",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 1,
+        "avg_cost": 1486.75,
+        "return_on_deployed_pct": 6.958,
+        "return_on_committed_pct": 1.392
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1511.26,
+        "return_on_deployed_pct": 5.223,
+        "return_on_committed_pct": 5.223
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1496.49,
+        "return_on_deployed_pct": 6.262,
+        "return_on_committed_pct": 6.262
+      }
+    },
+    {
+      "build_year": 2020,
+      "jan_aug_high": 2072.9,
+      "jan_aug_low": 1451.68,
+      "jan_aug_range_pct": 42.79,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 29.85,
+      "august_position_in_range_pct": 83.46,
+      "september_open": 1970.49,
+      "exit_date": "2021-01-29",
+      "exit_price": 1846.09,
+      "fib_levels": [
+        1926.292,
+        1835.5939,
+        1762.29,
+        1688.986,
+        1584.6211
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1926.292,
+          "date": "2020-09-03",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.382,
+          "price": 1835.5939,
+          "date": "2020-11-23",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 2,
+        "avg_cost": 1880.94,
+        "return_on_deployed_pct": -1.853,
+        "return_on_committed_pct": -0.741
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1890.27,
+        "return_on_deployed_pct": -2.337,
+        "return_on_committed_pct": -2.337
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1896.38,
+        "return_on_deployed_pct": -2.652,
+        "return_on_committed_pct": -2.652
+      }
+    },
+    {
+      "build_year": 2021,
+      "jan_aug_high": 1959.6,
+      "jan_aug_low": 1676.7,
+      "jan_aug_range_pct": 16.87,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -4.46,
+      "august_position_in_range_pct": 48.33,
+      "september_open": 1813.66,
+      "exit_date": "2022-01-31",
+      "exit_price": 1796.47,
+      "fib_levels": [
+        1892.8406,
+        1851.5372,
+        1818.155,
+        1784.7728,
+        1737.2456
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1813.5749,
+          "date": "2021-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1813.5749,
+          "date": "2021-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1813.5749,
+          "date": "2021-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1784.7728,
+          "date": "2021-09-08",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.786,
+          "price": 1737.2456,
+          "date": "2021-09-28",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1792.55,
+        "return_on_deployed_pct": 0.219,
+        "return_on_committed_pct": 0.219
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1792.55,
+        "return_on_deployed_pct": 0.219,
+        "return_on_committed_pct": 0.219
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1787.43,
+        "return_on_deployed_pct": 0.506,
+        "return_on_committed_pct": 0.506
+      }
+    },
+    {
+      "build_year": 2022,
+      "jan_aug_high": 2070.29,
+      "jan_aug_low": 1680.78,
+      "jan_aug_range_pct": 23.18,
+      "jan_aug_direction": "down",
+      "jan_aug_move_pct": -5.01,
+      "august_position_in_range_pct": 7.68,
+      "september_open": 1696.09,
+      "exit_date": "2023-01-31",
+      "exit_price": 1927.88,
+      "fib_levels": [
+        1978.3682,
+        1921.4983,
+        1875.535,
+        1829.5716,
+        1764.1323
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1711.095,
+          "date": "2022-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1711.095,
+          "date": "2022-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1711.095,
+          "date": "2022-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1711.095,
+          "date": "2022-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.786,
+          "price": 1711.095,
+          "date": "2022-09-01",
+          "marketable_at_open": true
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1711.1,
+        "return_on_deployed_pct": 12.669,
+        "return_on_committed_pct": 12.669
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1711.1,
+        "return_on_deployed_pct": 12.669,
+        "return_on_committed_pct": 12.669
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1711.43,
+        "return_on_deployed_pct": 12.648,
+        "return_on_committed_pct": 12.648
+      }
+    },
+    {
+      "build_year": 2023,
+      "jan_aug_high": 2080.72,
+      "jan_aug_low": 1804.65,
+      "jan_aug_range_pct": 15.3,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 6.36,
+      "august_position_in_range_pct": 48.93,
+      "september_open": 1938.8,
+      "exit_date": "2024-01-31",
+      "exit_price": 2037.19,
+      "fib_levels": [
+        2015.5675,
+        1975.2612,
+        1942.685,
+        1910.1087,
+        1863.729
+      ],
+      "fib_fills": [
+        {
+          "fib": 0.236,
+          "price": 1940.195,
+          "date": "2023-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.382,
+          "price": 1940.195,
+          "date": "2023-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.5,
+          "price": 1940.195,
+          "date": "2023-09-01",
+          "marketable_at_open": true
+        },
+        {
+          "fib": 0.618,
+          "price": 1910.1087,
+          "date": "2023-09-12",
+          "marketable_at_open": false
+        },
+        {
+          "fib": 0.786,
+          "price": 1863.729,
+          "date": "2023-09-28",
+          "marketable_at_open": false
+        }
+      ],
+      "fib": {
+        "tranches_filled": 5,
+        "avg_cost": 1918.88,
+        "return_on_deployed_pct": 6.165,
+        "return_on_committed_pct": 6.165
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 1918.88,
+        "return_on_deployed_pct": 6.165,
+        "return_on_committed_pct": 6.165
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 1954.81,
+        "return_on_deployed_pct": 4.214,
+        "return_on_committed_pct": 4.214
+      }
+    },
+    {
+      "build_year": 2024,
+      "jan_aug_high": 2531.72,
+      "jan_aug_low": 1984.3,
+      "jan_aug_range_pct": 27.59,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 21.3,
+      "august_position_in_range_pct": 94.84,
+      "september_open": 2499.47,
+      "exit_date": "2025-01-31",
+      "exit_price": 2796.33,
+      "fib_levels": [
+        2402.5277,
+        2322.6036,
+        2258.0075,
+        2193.4114,
+        2101.444
+      ],
+      "fib_fills": [],
+      "fib": {
+        "tranches_filled": 0,
+        "avg_cost": null,
+        "return_on_deployed_pct": null,
+        "return_on_committed_pct": 0.0
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 2623.84,
+        "return_on_deployed_pct": 6.574,
+        "return_on_committed_pct": 6.574
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 2633.69,
+        "return_on_deployed_pct": 6.175,
+        "return_on_committed_pct": 6.175
+      }
+    },
+    {
+      "build_year": 2025,
+      "jan_aug_high": 3499.87,
+      "jan_aug_low": 2614.89,
+      "jan_aug_range_pct": 33.84,
+      "jan_aug_direction": "up",
+      "jan_aug_move_pct": 31.66,
+      "august_position_in_range_pct": 95.0,
+      "september_open": 3490.83,
+      "exit_date": "2026-01-30",
+      "exit_price": 4940.67,
+      "fib_levels": [
+        3291.0147,
+        3161.8076,
+        3057.3799,
+        2952.9523,
+        2804.2756
+      ],
+      "fib_fills": [],
+      "fib": {
+        "tranches_filled": 0,
+        "avg_cost": null,
+        "return_on_deployed_pct": null,
+        "return_on_committed_pct": 0.0
+      },
+      "fib_with_december_catchup": {
+        "tranches_filled": 5,
+        "avg_cost": 4311.27,
+        "return_on_deployed_pct": 14.599,
+        "return_on_committed_pct": 14.599
+      },
+      "equal_monthly": {
+        "tranches_filled": 4,
+        "avg_cost": 3899.98,
+        "return_on_deployed_pct": 26.685,
+        "return_on_committed_pct": 26.685
+      }
+    }
+  ],
+  "title": "Fibonacci staged entry for the September-to-January gold window"
+}

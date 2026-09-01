@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-007",
+  "revision": 1,
+  "title": "Fibonacci staged entry for the September-to-January window buys everything at once, or nothing at all",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "seasonal-accumulation",
+    "version": "n/a"
+  },
+  "status": "confirmed",
+  "created_on": "2026-09-01",
+  "question": "Instead of four equal monthly buys from September, stage the entry at Fibonacci retracement levels of the year's January-to-August move. What has the win rate been?",
+  "hypothesis": "Placing tranches at retracement levels buys the same seasonal window at better average prices than buying equal amounts each month.",
+  "headline": {
+    "cycles": 18,
+    "fibonacci_win_rate_pct": 55.56,
+    "baseline_win_rate_pct": 77.78,
+    "catchup_win_rate_pct": 66.67,
+    "paired_difference_pct_points": -2.227,
+    "min_detectable_pct_points": 4.59,
+    "cycles_never_invested": 3,
+    "mean_tranches_filled_of_five": 3.28,
+    "mean_fills_august_upper_half": 1.9,
+    "mean_fills_august_lower_half": 5.0,
+    "largest_missed_cycle_baseline_return_pct": 26.685
+  },
+  "card_metrics": [
+    "fibonacci_win_rate_pct",
+    "baseline_win_rate_pct",
+    "cycles_never_invested",
+    "min_detectable_pct_points"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "The win rate is 55.56% against the baseline's 77.78%",
+      "detail": "Over 18 cycles on committed capital, the Fibonacci rule won 10 of 18 against 14 of 18 for four equal monthly buys. Counting only the 15 cycles where it invested at all it wins 66.67%, and adding a December catch-up for unfilled tranches also gives 66.67%.",
+      "title_zh": "勝率 55.56%，基準是 77.78%",
+      "detail_zh": "18 個週期、以投入承諾資金計算，Fibonacci 分批贏 10 個，四次等額月買贏 14 個。只算「有真的買到」的 15 個週期是 66.67%；把沒觸發的部分在 12 月底補齊，也是 66.67%。"
+    },
+    {
+      "tone": "warn",
+      "title": "But 18 cycles cannot separate the two on return",
+      "detail": "The paired difference is -2.227 percentage points against a resolution bound of 4.59 at alpha 0.05 and power 0.80. The Fibonacci rule is ahead in 8 cycles and behind in 10. No claim is made that it underperforms on return; the case against it is structural.",
+      "title_zh": "但 18 個週期分辨不出報酬差異",
+      "detail_zh": "配對差是 −2.227 個百分點，可分辨門檻 4.59（alpha 0.05、power 0.80）。8 個週期領先、10 個落後。本研究**不主張**它報酬較差——反對它的理由是結構性的，不是統計上的。"
+    },
+    {
+      "tone": "warn",
+      "title": "It does not actually stage the entry",
+      "detail": "Fills are decided by where the August close sits inside the year's range. With August in the lower half, all five tranches filled in 8 of 8 cycles and 75% of those fills were marketable at the open — market buys, not retracement buys. Three of those eight filled all five on a single day. With August in the upper half the mean is 1.9 of 5.",
+      "title_zh": "它其實沒有在分批",
+      "detail_zh": "會不會成交，取決於 8 月底收盤落在當年區間的哪個位置。8 月落在區間下半部時，8 個週期**全部**五筆都成交，其中 75% 是開盤即可成交——那是市價買，不是回撤買；八個裡有三個是**同一天**把五筆全部買完。8 月落在上半部時，平均只成交 1.9 筆。"
+    },
+    {
+      "tone": "warn",
+      "title": "The shortfall is cash, not bad prices",
+      "detail": "Three of eighteen cycles never filled a single tranche and sat in cash through the entire window. The worst is 2025, where the baseline returned 26.685% — the largest single-cycle gain in the sample — and this rule returned nothing.",
+      "title_zh": "落後來自空手，不是買貴",
+      "detail_zh": "18 個週期裡有 3 個一筆都沒成交，整個季節窗口都空手。最嚴重的是 2025：基準報酬 26.685%，是全樣本最大的單週期獲利，而這個規則什麼也沒賺到。"
+    },
+    {
+      "tone": "warn",
+      "title": "The logic runs backwards for a seasonal long",
+      "detail": "The rule commits everything at once when gold is weak into September and holds back when gold is strong. Since the September-to-January window is the seasonal long the idea is built on, holding back in strong years withholds capital from exactly the cycles that pay.",
+      "title_zh": "對一個季節性作多來說，邏輯是反的",
+      "detail_zh": "黃金走弱進入 9 月時，它一次全部買進；黃金走強時，它反而按兵不動。而 9 月到隔年 1 月本來就是這個想法賴以成立的季節性作多窗口——在強勢年份縮手，等於把資金從最會賺的那些週期抽走。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "The staging is decided by where August closed, not by anything about September.",
+  "question_zh": "不要每個月等額買，改成用當年 1 月到 8 月漲跌幅的 Fibonacci 回撤位分批買進 9 月到隔年 1 月這個季節窗口。這幾年的勝率如何？",
+  "limitations_zh": [
+    "18 個週期。季節性規則一年只有一個觀測值，無法用更細的資料換到更大的樣本。",
+    "可分辨門檻（4.59）大於觀測到的差距（−2.227），因此本研究**不主張** Fibonacci 分批的報酬較差；只有成交行為是站得住的結論。",
+    "未計入點差、持有成本與換倉成本。持有這個部位的資金成本由 RS-XAUUSD-20260827-001 處理。",
+    "五個回撤位與 1 月出場都是執行前寫死、未經搜尋的。換一組位階等於換一個研究，需要自己的事前登記才有意義。",
+    "基準以每月第一個交易日的收盤價買進，Fibonacci 規則以位階價或當根開盤價成交，兩者的成交價慣例並不完全一致。",
+    "初版實作把所有成交都掛在位階價上，這在位階高於市價時高估了成本；在讀取任何結果之前已改為 min(位階, 當根開盤)，勝率由 44.44% 修正為 55.56%。修正過程記錄於 decision log。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "**先把已經有答案的部分講清楚。** 這個想法的「時間」那一半，本站的 `RS-XAUUSD-20260827-001` 已經量過了：9 月開始分四次等額買進、隔年 1 月出場，同樣 18 個週期，**勝率 77.78%**，而且在測試過的每一種槓桿下都成立。所以真正還沒被回答的，只有**進場怎麼分批**。這份研究因此把季節固定住，只換分批方式。\n\n**直接回答勝率：55.56%。** 18 個週期裡贏 10 個，基準贏 14 個。若只算「有真的買到東西」的 15 個週期是 66.67%；把沒觸發的部分在 12 月底補齊，也是 66.67%。三種算法都低於基準。\n\n**但我不會說它報酬比較差，因為 18 個週期分辨不出來。** 配對差是 −2.227 個百分點，而這個樣本的可分辨門檻是 **4.59**。差距落在門檻裡面。依照本站 `RS-XAUUSD-20260824-001` 立下的慣例，**門檻說了算**——所以「Fibonacci 分批報酬較差」這句話，這份資料撐不起來。而且它 8 個週期領先、10 個落後，這是硬幣的樣子。\n\n季節性規則沒有辦法靠更細的資料換到更多樣本：一年就是一個觀測值。想把這個報酬問題做到能分辨，需要的是幾十年，不是更好的統計方法。\n\n**真正站得住的發現，是它根本沒有在分批。** 一筆會不會成交，幾乎完全由 8 月底收盤落在當年區間的哪個位置決定，而且切得非常乾淨：\n\n- 8 月落在**區間下半部**：8 個週期**全部**五筆都成交，平均 5.0 筆。其中 75% 是開盤就可以成交的——掛在市價**上方**的買單是市價單，不是回撤買單。八個裡有三個是**同一天**把五筆全部買完。那不是分批，那是一次梭哈。\n- 8 月落在**區間上半部**：平均只成交 1.9 筆。一筆都沒成交的三個週期，正是全樣本位置最高的三個（92.0%、94.8%、95.0%）。\n\n**所以落後來自空手，不是買貴。** 三個週期整個窗口都沒買到東西。最嚴重的是 2025：基準報酬 26.685%，是全樣本最大的一次，而這個規則賺了零。\n\n**而這個行為對季節性作多來說是反的。** 黃金走弱進 9 月，它一次全買；黃金走強，它縮手。9 月到 1 月本來就是這個想法賴以成立的作多窗口，在強勢年份縮手，等於專門把資金從最會賺的週期抽走。\n\n**用 2026 當場看一次會更清楚。** 今年 1 到 8 月的區間是 3949.45 到 5597.23，8 月 28 日收在 4456.44——只在自己區間的 **30.8%** 位置，儘管年初到現在還是漲 3.27%。五個回撤位裡有**四個**（0.236、0.382、0.5、0.618）落在**現價之上**，高出 2.75% 到 16.87%；只有 0.786 那個 4302.07 需要再跌 3.46%。換句話說，這個規則今年給的指示不是「耐心分批往下接」，而是**現在就用市價買掉八成**。這跟提出這個想法時腦中的畫面，是兩回事。\n\n**最後一點方法上的事。** 「今年是漲是跌」不是驅動因素，8 月收在區間裡的位置才是。2026 是一個漲年，但行為跟樣本裡每一個跌年一樣。所以本頁用 `by_august_position_in_range` 作為主要切法，`by_jan_aug_direction` 只保留下來說明為什麼它是錯的切法。\n\n**這份研究沒有反對分批進場這件事本身**，只反對「把回撤位錨在當年高點」這一種錨法——因為那樣算出來的東西，量到的其實是 8 月收在哪裡。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "fibonacci_win_rate_pct",
+        "baseline_win_rate_pct",
+        "cycles_never_invested",
+        "min_detectable_pct_points"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "summary.rules_compared",
+      "title": "Three Rules, Same Season 三種規則、同一個季節窗口",
+      "takeaway_zh": "同樣的 18 個週期、同樣的 1 月出場，只有進場方式不同。四次等額月買勝率 77.78%、累計 79.72%；Fibonacci 分批 55.56%、39.64%。注意 worst 那一欄：基準最差的一次是 −4.77%，Fibonacci 最差是 −9.34%，它並沒有換到比較低的風險。",
+      "columns": [
+        "cycles",
+        "win_rate_pct",
+        "mean_pct",
+        "median_pct",
+        "worst_pct",
+        "best_pct",
+        "total_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "summary.by_august_position_in_range",
+      "title": "What Actually Decides the Fills 真正決定成交的是什麼",
+      "takeaway_zh": "這是本篇最重要的一張表。8 月收盤落在當年區間下半部時，五筆全部成交（平均 5.0）；落在上半部時平均只有 1.9 筆。分批與否根本不是由 9 月之後的行情決定的，而是由 8 月底就已經確定的位置決定的。",
+      "columns": [
+        "n",
+        "mean_tranches_filled",
+        "fib.win_rate_pct",
+        "fib.mean_pct",
+        "equal_monthly.win_rate_pct",
+        "equal_monthly.mean_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "summary.fill_rate",
+      "title": "Fill Rate 觸發率",
+      "keys": [
+        "mean_tranches_filled",
+        "of_five",
+        "cycles_with_zero_fills",
+        "cycles_with_all_five"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "summary.staging_check",
+      "title": "Is It Staged at All? 這算分批嗎",
+      "takeaway_zh": "marketable at open 是「掛單掛在市價上方、開盤就成交」的比例——那是市價買。8 月在下半部的那組有 75% 屬於這種，而且 8 個週期裡有 3 個是同一天把五筆全部買完。",
+      "columns": [
+        "cycles",
+        "fills",
+        "marketable_at_open_pct",
+        "cycles_fully_filled_on_one_day",
+        "distinct_fill_dates_mean"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "summary.paired_vs_baseline",
+      "title": "Against the Baseline, Paired 與基準的配對比較",
+      "takeaway_zh": "配對比較（同一個週期、兩種規則）。兩個版本的差距都落在自己的可分辨門檻**裡面**，separates 都是 false——所以報酬上的優劣，這個樣本說不出來。",
+      "columns": [
+        "cycles",
+        "mean_difference_pct_points",
+        "sd_of_difference",
+        "min_detectable_pct_points",
+        "separates",
+        "cycles_ahead",
+        "cycles_behind"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "cycles",
+      "title": "Every Cycle 逐週期明細",
+      "takeaway_zh": "fills 那一欄對照 august position in range 看：位置越高、成交越少。2010、2024、2025 是位置最高的三年，也正是一筆都沒成交的三年，而 2025 基準賺了 26.69%。",
+      "record_keys": [
+        "build_year",
+        "august_position_in_range_pct",
+        "jan_aug_move_pct",
+        "fib.tranches_filled",
+        "fib.return_on_committed_pct",
+        "fib_with_december_catchup.return_on_committed_pct",
+        "equal_monthly.return_on_committed_pct",
+        "exit_date"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

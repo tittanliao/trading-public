@@ -77,6 +77,8 @@ PUBLISHED_STUDIES = [
     "RS-XAUUSD-20260901-004",
     "RS-XAUUSD-20260901-005",
     "RS-XAUUSD-20260901-006",
+    "RS-XAUUSD-20260901-007",
+    "RS-MULTI-20260901-001",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional
@@ -389,10 +391,23 @@ def block_metrics(value: dict, keys: list[str] | None = None) -> str:
     return f'<div class="metrics-strip{klass}">{items}</div>'
 
 
+EMPHASIS_RE = re.compile(r"\*\*(.+?)\*\*", re.S)
+
+
+def emphasis(text: str) -> str:
+    """Escape, then render the **bold** marker findings are authored with.
+
+    Findings use the same emphasis convention as interpretation_zh, but nothing rendered
+    it here, so the asterisks reached four published pages as literal text. Escaping
+    happens first, so a finding cannot inject markup through this.
+    """
+    return EMPHASIS_RE.sub(r"<strong>\1</strong>", esc(text))
+
+
 def block_findings(value: list[dict]) -> str:
     cards = "".join(
-        f'<article class="finding-card"><h3>{esc(item.get("title_zh") or item.get("title", ""))}</h3>'
-        f'<p>{esc(item.get("detail_zh") or item.get("detail", ""))}</p></article>'
+        f'<article class="finding-card"><h3>{emphasis(item.get("title_zh") or item.get("title", ""))}</h3>'
+        f'<p>{emphasis(item.get("detail_zh") or item.get("detail", ""))}</p></article>'
         for item in value
     )
     return f'<div class="findings-grid">{cards}</div>'
