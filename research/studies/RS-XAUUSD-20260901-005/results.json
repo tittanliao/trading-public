@@ -1,0 +1,205 @@
+{
+  "primary_s2_after_s1_exit": {
+    "24": {
+      "window_hours": 24,
+      "stop_events": 197,
+      "target_events": 253,
+      "after_stop": {
+        "n": 33,
+        "win_rate_pct": 51.52,
+        "mean_return_pct": 0.707,
+        "total_return_pct": 23.33
+      },
+      "after_target": {
+        "n": 49,
+        "win_rate_pct": 51.02,
+        "mean_return_pct": 0.6982,
+        "total_return_pct": 34.21
+      },
+      "neither": {
+        "n": 78,
+        "win_rate_pct": 42.31,
+        "mean_return_pct": 0.3794,
+        "total_return_pct": 29.59
+      },
+      "win_rate_gap_pct_points": 0.5,
+      "mean_return_gap_pct": 0.0088,
+      "min_detectable_pct_points": 31.5,
+      "clears_bound": false
+    },
+    "48": {
+      "window_hours": 48,
+      "stop_events": 197,
+      "target_events": 253,
+      "after_stop": {
+        "n": 56,
+        "win_rate_pct": 55.36,
+        "mean_return_pct": 0.8673,
+        "total_return_pct": 48.57
+      },
+      "after_target": {
+        "n": 67,
+        "win_rate_pct": 47.76,
+        "mean_return_pct": 0.6001,
+        "total_return_pct": 40.21
+      },
+      "neither": {
+        "n": 50,
+        "win_rate_pct": 36.0,
+        "mean_return_pct": 0.147,
+        "total_return_pct": 7.35
+      },
+      "win_rate_gap_pct_points": 7.6,
+      "mean_return_gap_pct": 0.2672,
+      "min_detectable_pct_points": 25.32,
+      "clears_bound": false
+    }
+  },
+  "mirror_s1_after_s2_exit": {
+    "24": {
+      "window_hours": 24,
+      "stop_events": 83,
+      "target_events": 74,
+      "after_stop": {
+        "n": 42,
+        "win_rate_pct": 59.52,
+        "mean_return_pct": 0.2626,
+        "total_return_pct": 11.03
+      },
+      "after_target": {
+        "n": 32,
+        "win_rate_pct": 50.0,
+        "mean_return_pct": 0.0409,
+        "total_return_pct": 1.31
+      },
+      "neither": {
+        "n": 378,
+        "win_rate_pct": 56.35,
+        "mean_return_pct": 0.1946,
+        "total_return_pct": 73.55
+      },
+      "win_rate_gap_pct_points": 9.52,
+      "mean_return_gap_pct": 0.2217,
+      "min_detectable_pct_points": 32.62,
+      "clears_bound": false
+    },
+    "48": {
+      "window_hours": 48,
+      "stop_events": 83,
+      "target_events": 74,
+      "after_stop": {
+        "n": 60,
+        "win_rate_pct": 60.0,
+        "mean_return_pct": 0.2588,
+        "total_return_pct": 15.53
+      },
+      "after_target": {
+        "n": 49,
+        "win_rate_pct": 46.94,
+        "mean_return_pct": 0.0559,
+        "total_return_pct": 2.74
+      },
+      "neither": {
+        "n": 347,
+        "win_rate_pct": 56.77,
+        "mean_return_pct": 0.1985,
+        "total_return_pct": 68.87
+      },
+      "win_rate_gap_pct_points": 13.06,
+      "mean_return_gap_pct": 0.2029,
+      "min_detectable_pct_points": 26.77,
+      "clears_bound": false
+    }
+  },
+  "permutation_48h": {
+    "trials": 20000,
+    "p_one_sided": 0.1571,
+    "null_median_gap_pct_points": 0.24,
+    "null_95th_gap_pct_points": 12.18
+  },
+  "mirror_permutation_48h": {
+    "trials": 20000,
+    "p_one_sided": 0.0761,
+    "null_median_gap_pct_points": -0.1,
+    "null_95th_gap_pct_points": 15.01
+  },
+  "chronological_48h": {
+    "early_70pct": {
+      "from": "2024-01-04",
+      "to": "2025-11-22",
+      "after_stop": {
+        "n": 39,
+        "win_rate_pct": 61.54,
+        "mean_return_pct": 0.9377,
+        "total_return_pct": 36.57
+      },
+      "after_target": {
+        "n": 46,
+        "win_rate_pct": 52.17,
+        "mean_return_pct": 0.6522,
+        "total_return_pct": 30.0
+      },
+      "win_rate_gap_pct_points": 9.37
+    },
+    "recent_30pct": {
+      "from": "2025-11-22",
+      "to": "2026-07-08",
+      "after_stop": {
+        "n": 17,
+        "win_rate_pct": 41.18,
+        "mean_return_pct": 0.7059,
+        "total_return_pct": 12.0
+      },
+      "after_target": {
+        "n": 21,
+        "win_rate_pct": 38.1,
+        "mean_return_pct": 0.4862,
+        "total_return_pct": 10.21
+      },
+      "win_rate_gap_pct_points": 3.08
+    }
+  },
+  "verdict": {
+    "stop_beats_target": true,
+    "gap_pct_points": 7.6,
+    "min_detectable_pct_points": 25.32,
+    "clears_bound": false,
+    "permutation_p": 0.1571,
+    "direction_holds_both_periods": true,
+    "mirror_holds": true,
+    "passes_frozen_criteria": false
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20260901-005",
+  "generated_at": "2026-09-01T06:10:18Z",
+  "strategy": "S1 AweWithBB V3.9 and S2 Hammer V3.2",
+  "method": {
+    "tests": "RS-XAUUSD-20260901-004's stated mechanism",
+    "competing_explanation": "S1 and S2 cluster in the same volatile stretches, so any S1 exit would mark the same thing",
+    "placebo": "a take-profit is also an S1 exit and is not a drop",
+    "windows_hours": [
+      24,
+      48
+    ],
+    "primary_window_hours": 48,
+    "window_not_chosen_blind": "48 hours is the window RS-XAUUSD-20260901-004 found readable; 24 is reported as sensitivity",
+    "null": "the stop/target label shuffled across exit events, holding counts",
+    "permutation_trials": 20000,
+    "random_seed": 20260901,
+    "chronological_split": 0.7
+  },
+  "baseline": {
+    "s1": {
+      "n": 450,
+      "win_rate_pct": 56.22,
+      "mean_return_pct": 0.1909,
+      "total_return_pct": 85.89
+    },
+    "s2": {
+      "n": 157,
+      "win_rate_pct": 47.13,
+      "mean_return_pct": 0.555,
+      "total_return_pct": 87.13
+    }
+  }
+}

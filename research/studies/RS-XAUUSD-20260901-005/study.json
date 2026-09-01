@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20260901-005",
+  "revision": 1,
+  "title": "The stop-loss was standing in for the exit — a placebo test that overturns its own study's reading",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB / S2-Hammer",
+    "version": "V3.9 / V3.2"
+  },
+  "status": "confirmed",
+  "created_on": "2026-09-01",
+  "question": "RS-XAUUSD-20260901-004 read its result as a stop-loss marking a drop that a hammer entry wants. A take-profit is also an S1 exit and is not a drop. Is only the stop group elevated?",
+  "hypothesis": "If the mechanism is right, the stop group beats the take-profit group. If the two strategies simply cluster, both are elevated and the exit type adds little.",
+  "headline": {
+    "after_stop_win_rate_pct": 55.36,
+    "after_target_win_rate_pct": 47.76,
+    "no_s1_exit_nearby_win_rate_pct": 36.0,
+    "stop_vs_target_gap_pct_points": 7.6,
+    "stop_vs_target_bound_pct_points": 25.32,
+    "stop_vs_target_p": 0.1571,
+    "any_exit_vs_none_gap_pct_points": 15.22,
+    "any_exit_vs_none_bound_pct_points": 23.46,
+    "gap_at_24h_pct_points": 0.5,
+    "mirror_gap_pct_points": 13.06,
+    "mirror_p": 0.0761
+  },
+  "card_metrics": [
+    "stop_vs_target_gap_pct_points",
+    "any_exit_vs_none_gap_pct_points",
+    "stop_vs_target_p",
+    "no_s1_exit_nearby_win_rate_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The exit type barely matters",
+      "detail": "At 48 hours S2 after an S1 stop-loss wins 55.36% and after an S1 take-profit 47.76% — a 7.60-point gap against a 25.32-point bound, permutation p=0.1571. At 24 hours the gap is 0.50 points. The mechanism the previous study stated does not survive its own placebo.",
+      "title_zh": "出場的「類型」幾乎不重要",
+      "detail_zh": "48 小時內，停損後的 S2 勝率 55.36%、停利後 47.76%——差距 7.60 個百分點，而可分辨門檻是 25.32，置換檢定 p=0.1571。24 小時視窗上差距只有 0.50。前一篇陳述的機制沒有通過它自己的安慰劑檢定。"
+    },
+    {
+      "tone": "good",
+      "title": "What the exit type was standing in for is the exit itself",
+      "detail": "S2 trades with no S1 exit in the preceding 48 hours win 36.00% and return 0.147% per trade. Those near any S1 exit win 51.22%. That 15.22-point gap is twice the stop-versus-target gap and closer to clearing its own 23.46-point bound. The competing explanation this study was built to rule out is the one that survived.",
+      "title_zh": "出場類型代表的其實是「有沒有出場」",
+      "detail_zh": "前 48 小時內完全沒有 S1 出場的 S2，勝率只有 36.00%、每筆平均 0.147%；而靠近任何一種 S1 出場的是 51.22%。這 15.22 個百分點是停損對停利差距的兩倍，也更接近跨過它自己 23.46 的門檻。本研究原本要排除的對手解釋，反而是存活下來的那一個。"
+    },
+    {
+      "tone": "info",
+      "title": "The previous study's decision conclusion is unaffected",
+      "detail": "RS-XAUUSD-20260901-004 found that skipping those trades costs 59.85 percentage points of a 173.02 baseline. That holds, because it never depended on why the trades are better. What does not hold is the stated reason.",
+      "title_zh": "前一篇的「決策結論」不受影響",
+      "detail_zh": "RS-XAUUSD-20260901-004 測得跳過那些交易會少賺 59.85 個百分點（基準 173.02）。那個結論成立，因為它從來不依賴「為什麼那些交易比較好」。不成立的是它給出的理由。"
+    },
+    {
+      "tone": "good",
+      "title": "The mirror is the stronger half and points the way the mechanism claimed",
+      "detail": "S1 following an S2 stop-loss wins 60.00% against 46.94% following an S2 take-profit — 13.06 points at p=0.0761, larger than the primary and in the direction the mechanism predicted. It also fails its 26.77-point bound, so it is a lead rather than a result.",
+      "title_zh": "鏡像那一半更強，而且方向正是機制所預測的",
+      "detail_zh": "S2 停損之後的 S1 勝率 60.00%，S2 停利之後是 46.94%——差距 13.06 個百分點、p=0.0761，比主要檢定更大。但它同樣沒有跨過 26.77 的門檻，所以是線索不是結果。"
+    },
+    {
+      "tone": "warn",
+      "title": "A scratch check overstated this before the study existed",
+      "detail": "An exploratory pass that let one S2 trade count in both groups put the stop-versus-target gap near 13 points, and that number was used to argue this study was worth running. With the groups made disjoint it is 7.60. The study was worth running; the figure that motivated it was wrong, and it had already been quoted.",
+      "title_zh": "在這份研究存在之前，一次探索性檢查高估了這個效果",
+      "detail_zh": "那次檢查允許同一筆 S2 同時被算進兩組，得到接近 13 個百分點的差距，並被用來論證這份研究值得做。把兩組改成互斥之後是 7.60。研究值得做，但當初用來說服人的數字是錯的，而且已經被引用過。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "methodology",
+  "card_summary": "The placebo did its job — and the explanation it was built to rule out is the one that survived.",
+  "question_zh": "RS-XAUUSD-20260901-004 把結果讀成「停損代表價格剛跌破，而那正是錘子型態要的」。但停利也是 S1 的出場，而它不是下跌。只有停損那一組會被拉高嗎？",
+  "limitations_zh": [
+    "48 小時視窗不是盲選的：它是 RS-XAUUSD-20260901-004 找到唯一夠大可讀的視窗。24 小時視窗作為敏感度一併報告（差距 0.50 個百分點）。",
+    "停損對停利的 7.60 個百分點未跨過 25.32 的可分辨門檻，鏡像的 13.06 也未跨過 26.77；兩者都是線索而非結果。",
+    "「靠近任何 S1 出場」對「附近沒有 S1 出場」的 15.22 個百分點同樣未跨過 23.46 的門檻——本研究不主張它已確立，只主張它比出場類型的差距更大。",
+    "兩組交易互斥（同一筆 S2 只能被算進一組，先到先得）；先前一次允許重疊的探索性檢查把效果高估了約一倍。",
+    "所有比較僅涵蓋實際成交的交易；未成交的訊號沒有出場資料，無法納入。",
+    "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
+  ],
+  "interpretation_zh": "這份研究是為了驗證前一篇的機制而做的，結果**把前一篇的解讀推翻了**——而且推翻它的正是前一篇沒有排除的那個對手解釋。\n\n**安慰劑的邏輯很簡單。** 如果「停損之後的 S2 比較好」是因為停損代表價格剛跌破，那麼「停利之後的 S2」就不該有同樣的提升——停利發生在上漲時，不是下跌。\n\n結果：48 小時內，停損後的 S2 勝率 55.36%，停利後的 S2 是 47.76%。**差距只有 7.60 個百分點**，而可分辨門檻是 25.32，置換檢定 p=0.1571。在 24 小時視窗上差距更只有 0.50 個百分點。出場的「類型」幾乎不重要。\n\n**但同一張表上有一個更大的數字。** 前 48 小時內「完全沒有 S1 出場」的那些 S2，勝率只有 36.00%、每筆平均 0.147%；而「靠近任何一種 S1 出場」的那些是 51.22%。**15.22 個百分點——是停損對停利差距的兩倍**，而且離跨過它自己 23.46 的門檻更近。\n\n所以真正在起作用的不是「出場的類型」，而是「最近有沒有一個 S1 出場」。前一篇那 17.99 個百分點，主要成分是「S1 剛剛出場過」，不是「剛剛停損過」。\n\n**必須分清楚哪一部分被推翻、哪一部分沒有。**前一篇的「跳過會少賺 59.85 個百分點」**完全不受影響**——那個結論從來就不依賴機制是什麼。被推翻的是它給出的**理由**。這兩件事指向同一個行動，但一個是實測的代價、一個是解釋。\n\n**鏡像那一半反而更強，值得留著。** S2 停損之後的 S1 勝率 60.00%，S2 停利之後的 S1 是 46.94%——差距 13.06 個百分點、p=0.0761，比主要檢定更大，而且方向正是原本機制所預測的。但它同樣沒有跨過 26.77 的門檻，所以是線索不是結果。\n\n最後要記一件關於我自己的事。**在這份研究存在之前，我用一次探索性的快速檢查估過這個效果，得到接近 13 個百分點——並且用那個數字論證「這份研究值得做」。**那次檢查允許同一筆 S2 同時被算進兩組；把兩組改成互斥之後，實際是 7.60。研究確實值得做，但當初拿來說服人的那個數字是錯的，而且已經被講出去了。這件事記在這裡，是因為一個在研究之前被引用的數字，如果研究做出來不一樣，那個差異本身就該進入記錄。\n\n這也留下一個新問題：**為什麼「靠近 S1 出場」本身會預測 S2？**那看起來不像一個機制，比較像波動度聚集的副產品——如果是，加入一個明確的波動度控制就會把它吸收掉。那是下一個該做的檢定，而且很便宜。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "stop_vs_target_gap_pct_points",
+        "any_exit_vs_none_gap_pct_points",
+        "stop_vs_target_p",
+        "no_s1_exit_nearby_win_rate_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "primary_s2_after_s1_exit",
+      "title": "S2 After an S1 Exit, by Exit Type 依 S1 出場類型分組（本篇最重要的一張表）",
+      "takeaway_zh": "先比 after stop 與 after target 兩欄：48 小時只差 7.60 個百分點、24 小時只差 0.50。再看 neither 那一欄——附近完全沒有 S1 出場的 S2 只有 36.00%。真正的落差在「有沒有出場」，不在「出場是哪一種」。",
+      "columns": [
+        "window_hours",
+        "stop_events",
+        "target_events",
+        "after_stop.n",
+        "after_stop.win_rate_pct",
+        "after_stop.mean_return_pct",
+        "after_target.n",
+        "after_target.win_rate_pct",
+        "after_target.mean_return_pct",
+        "neither.n",
+        "neither.win_rate_pct",
+        "neither.mean_return_pct",
+        "win_rate_gap_pct_points",
+        "min_detectable_pct_points"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "permutation_48h",
+      "title": "Permutation 置換檢定（打散停損／停利標籤，保持「有出場」不變）",
+      "keys": [
+        "trials",
+        "p_one_sided",
+        "null_median_gap_pct_points",
+        "null_95th_gap_pct_points"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "mirror_s1_after_s2_exit",
+      "title": "The Mirror 鏡像：S2 出場之後的 S1",
+      "takeaway_zh": "S2 停損後的 S1 勝率 60.00%，停利後是 46.94%——差距 13.06 個百分點，比主要檢定更大，方向也正是原本機制預測的。但同樣沒有跨過 26.77 的門檻。",
+      "columns": [
+        "window_hours",
+        "stop_events",
+        "target_events",
+        "after_stop.n",
+        "after_stop.win_rate_pct",
+        "after_target.n",
+        "after_target.win_rate_pct",
+        "win_rate_gap_pct_points",
+        "min_detectable_pct_points"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "chronological_48h",
+      "title": "Both Periods 兩個時序區段",
+      "takeaway_zh": "差距從 9.37 縮小到 3.08 個百分點——與前一篇「停損後的 S2」在驗證區擴大的型態相反。這也支持「出場類型不是真正起作用的東西」。",
+      "record_keys": [
+        "early_70pct",
+        "recent_30pct"
+      ],
+      "columns": [
+        "from",
+        "to",
+        "after_stop.n",
+        "after_stop.win_rate_pct",
+        "after_target.n",
+        "after_target.win_rate_pct",
+        "win_rate_gap_pct_points"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "verdict",
+      "title": "Verdict Against the Frozen Criteria 對照執行前寫死的通過標準",
+      "keys": [
+        "stop_beats_target",
+        "gap_pct_points",
+        "min_detectable_pct_points",
+        "clears_bound",
+        "permutation_p",
+        "direction_holds_both_periods",
+        "mirror_holds",
+        "passes_frozen_criteria"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
