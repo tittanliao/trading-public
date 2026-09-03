@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260823-002",
-  "revision": 2,
-  "title": "S1 V3.9 Bollinger %B at entry — the strongest effect in the programme, and why it is not a filter",
+  "revision": 3,
+  "title": "[已被 RS-XAUUSD-20260901-001 推翻] S1 V3.9 Bollinger %B at entry — the strongest effect in the programme, and why it is not a filter",
   "market": "XAUUSD",
   "strategy": "S1 AweWithBB V3.9",
-  "status": "confirmed",
+  "status": "pending",
   "created_on": "2026-08-23",
   "question": "S1 V3.9's entry Bollinger %B shows a monotone win-rate gradient topping at 73.17% for entries above the upper band against a 55.93% baseline. Does it survive the screens that reduced every other candidate in this programme to an artefact, and if it does, is filtering on it worth anything after opportunity cost?",
   "hypothesis": "That the gradient is real — it has a mechanism, unlike the candidates that failed — and that filtering on it will nevertheless destroy return, because the programme has already established that win rate is purchasable.",
@@ -40,10 +40,10 @@
   ],
   "findings": [
     {
-      "tone": "good",
-      "title": "The gradient is real, and it is the first thing in this programme to clear every screen",
+      "tone": "warn",
+      "title": "[已推翻] The gradient is real, and it is the first thing in this programme to clear every screen",
       "detail": "Entries above the upper band win 73.17% on 82 trades against a 55.93% baseline — a 20.86-point gap where the smallest gap these samples could resolve is 16.9. Family permutation across all seven buckets gives p=0.003 with an observed max |t| of 3.14 against a null median of 1.37. A moving-block bootstrap puts the 90% interval at 10.96 to 29.64 points, excluding zero in every one of 4000 resamples. Nothing else in twenty-four studies has done this.",
-      "title_zh": "這個梯度是真的，而且是這個計畫裡第一個通過所有篩子的東西",
+      "title_zh": "[已推翻] 這個梯度是真的，而且是這個計畫裡第一個通過所有篩子的東西",
       "detail_zh": "收在上軌之外的進場，82 筆交易勝率 73.17%，對照基準 55.93%——差距 20.86 個百分點，而這個樣本能分辨的最小差距是 16.9。七個分桶做族群置換，p=0.003，觀察到的最大 |t| 為 3.14，對照虛無分布的中位數只有 1.37。移動區塊 bootstrap 給出 90% 區間 10.96 到 29.64 個百分點，4000 次重抽樣裡沒有一次含零。這個計畫的二十四篇研究裡，沒有第二個做到過。"
     },
     {
@@ -105,7 +105,7 @@
   ],
   "policy_impacts": [],
   "theme": "improvement_attempts",
-  "card_summary": "Bollinger %B at entry clears every screen in the programme — and filtering on it still loses money.",
+  "card_summary": "已被 RS-XAUUSD-20260901-001 推翻（進場那根 K 棒尚未收盤）。Bollinger %B at entry clears every screen in the programme — and filtering on it still loses money.",
   "title_zh": "S1 V3.9 進場時的布林 %B——這個計畫裡效果最強的一項，以及它為什麼不能當過濾器",
   "question_zh": "S1 V3.9 進場時的布林 %B 呈現單調的勝率梯度，收在上軌之外的進場勝率達 73.17%，基準是 55.93%。它撐得過這個計畫裡讓其他每個候選都現出原形的那幾道篩子嗎？如果撐得過，扣掉機會成本之後，拿它當過濾器還有沒有價值？",
   "hypothesis_zh": "這個梯度是真的——它有機制可循，不像那些失敗的候選——但拿它當過濾器仍然會摧毀報酬，因為這個計畫已經證明勝率是可以買到的。",

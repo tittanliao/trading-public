@@ -3,7 +3,7 @@
   "id": "RS-MULTI-20260901-001",
   "revision": 1,
   "title": "Buy the month open, sell the month close — one month clears its bound, and only on the short sample",
-  "market": "XAUUSD + TX",
+  "market": "XAUUSD",
   "strategy": {
     "id": "calendar-seasonality",
     "version": "n/a"
@@ -76,6 +76,7 @@
   "card_summary": "48 cells, one clears — and it stops clearing when the sample gets longer.",
   "question_zh": "每個月的第一根 K 開盤買進、最後一根 K 收盤賣出，逐年逐月排成熱力圖，黃金與台指分別長什麼樣子？有沒有哪個月份的平均，大到這個樣本分辨得出來？",
   "limitations_zh": [
+    "本研究同時涵蓋 XAUUSD 與 TX，但 Public 網站的 market 篩選目前只認單一值；study.json 的 market 記為 XAUUSD，完整商品清單在 markets 欄位。網站尚未支援同一研究出現在兩個篩選底下，那需要 section 14 的另一次核准修訂。",
     "每個月份一年只有一個觀測值：黃金日線每月 19 個、台指每月 14 個。可分辨門檻因此很大，這是季節性問題的本質，不是方法缺陷。",
     "未計入點差、手續費、持有成本與期貨換倉成本。台指 MXF1! 是連續近月合約，換月跳空直接混在月報酬裡，不是純粹的行情。",
     "沒有做多重比較校正。同時檢視 12 個月份、2 個商品、2 種算法，本來就會有幾格看起來極端；本研究以「是否超過各自門檻」取代校正，而結果是只有一格通過。",

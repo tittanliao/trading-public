@@ -205,5 +205,6 @@
     "instrument_robust": true,
     "effect_robust_label_is_not": true,
     "reading": "The effect clears every screen in all four measurements. Which trades it picks does not survive at all: 30-minute and hourly spot agree on the zone for a third of trades, and share 22 of the 71 and 28 entries they each call above the upper band."
-  }
+  },
+  "title": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?"
 }

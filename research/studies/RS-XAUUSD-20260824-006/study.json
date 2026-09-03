@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260824-006",
-  "revision": 2,
-  "title": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
+  "revision": 3,
+  "title": "[已被 RS-XAUUSD-20260901-001 推翻] The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
   "market": "XAUUSD",
   "strategy": "S1 AweWithBB V3.9",
-  "status": "confirmed",
+  "status": "pending",
   "created_on": "2026-08-24",
   "question": "The programme's only surviving finding — S1 entries with %B above the upper band win 73.17% against a 55.93% baseline — has only ever been measured on 30-minute bars of one price feed. RS-XAUUSD-20260824-005 has just shown a 71% win rate invert when its measuring instrument was swapped. Does this one survive the same treatment?",
   "hypothesis": "Either the effect is a property of gold's price at S1 entries, or it is a property of the chart it was found on.",
@@ -35,10 +35,10 @@
   ],
   "findings": [
     {
-      "tone": "good",
-      "title": "The effect survives all four measurements",
+      "tone": "warn",
+      "title": "[已推翻] The effect survives all four measurements",
       "detail": "30-minute spot, hourly spot at matched bars, hourly spot at a matched clock window, and hourly COMEX futures — every variant clears its resolution bound, its label permutation and its bootstrap interval, on the same 422 trades. The effect is not an artefact of a bar size and not an artefact of one price feed. That is worth something: the same test destroyed a 71% win rate two studies ago.",
-      "title_zh": "這個效果在四種量測方式下全部存活",
+      "title_zh": "[已推翻] 這個效果在四種量測方式下全部存活",
       "detail_zh": "30 分鐘現貨、對齊 K 棒的小時現貨、對齊時鐘視窗的小時現貨、以及小時 COMEX 期貨——在同樣的 422 筆交易上，每一個變體都跨過自己的可分辨門檻、通過標籤置換檢定與自助抽樣區間。這個效果不是某個 K 棒尺度的產物，也不是某一個報價源的產物。這件事是有份量的：同樣的檢定在兩份研究之前摧毀了一個 71% 的勝率。"
     },
     {
@@ -63,20 +63,9 @@
       "detail_zh": "變體 B 是全研究最高的勝率 89.29%。它只保留 6.64% 的交易，捕捉到 27.6% 的報酬。變體 A 勝率 73.24%，捕捉 43.32%。把篩選收緊，買到的是勝率點數，賣掉的是報酬。這是本計畫第五次獨立出現同一件事，而且它是在一個原本要檢定別的東西的研究裡順帶冒出來的。"
     }
   ],
-  "policy_impacts": [
-    {
-      "surface": "config/xauusd_decision_context.json",
-      "public_surface": "xauusd/ — the signal playbook's Bollinger %B check",
-      "type": "advisory_context",
-      "summary": "The %B reading stays and gains a required qualifier: the bar size. It survived four independent measurements, but the set of trades it selects did not — 30-minute and hourly spot assign the same zone to only 32.23% of trades.",
-      "key_expression": "zone_agreement.A_vs_B",
-      "evidence": "zone_agreement.A_vs_B in results.json; impact.md",
-      "adopted_on": "2026-08-24",
-      "adopted_note": "Adopted the same day: the signal playbook's %B check now reads 「S1、看 30 分K」 and carries the 32% cross-timeframe agreement in its caveat."
-    }
-  ],
+  "policy_impacts": [],
   "theme": "methodology",
-  "card_summary": "The one finding that survives, measured four ways. The effect holds every time; which trades it selects does not — two charts of the same instrument agree on a third of them.",
+  "card_summary": "已被 RS-XAUUSD-20260901-001 推翻（進場那根 K 棒尚未收盤）。The one finding that survives, measured four ways. The effect holds every time; which trades it selects does not — two charts of the same instrument agree on a third of them.",
   "question_zh": "這個計畫唯一存活下來的發現——S1 在 %B 高於上軌時進場，勝率 73.17% 對基準 55.93%——一直以來都只在單一報價源的 30 分鐘 K 棒上被量測過。而 RS-XAUUSD-20260824-005 剛剛示範了一個 71% 的勝率會在換掉量測工具時反轉。這一個撐得住同樣的處理嗎？",
   "limitations_zh": [
     "本研究的 %B 標籤取自進場那根 K 棒，而該 K 棒在成交後三十分鐘才收盤（成交為盤中發生，中位數落在該 K 棒區間的 0.443）。RS-XAUUSD-20260901-001 以最後一根已收盤的 K 棒重跑後，本研究的核心發現未通過可分辨門檻、置換檢定與劑量反應三道篩子。詳見該研究。",
