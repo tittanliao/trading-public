@@ -100,6 +100,7 @@
   "entry_times_total": 472,
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260901-001",
+  "generated_at": "2026-09-01T00:06:13+08:00",
   "strategy": "S1 AweWithBB V3.9",
   "method": {
     "verifies": [
