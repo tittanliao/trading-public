@@ -326,7 +326,7 @@ def render_readme(results: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("research/studies") / STUDY_ID)
+    parser.add_argument("--output-dir", type=Path, default=Path("reproduced"))
     args = parser.parse_args()
     results = build(args.output_dir.resolve())
     print(json.dumps({

@@ -53,7 +53,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 STUDY_ID = "RS-XAUUSD-20260818-004"
 OUTPUT_DIR = Path("reproduced")
-BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")TAIPEI = timezone(timedelta(hours=8))
+BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
+TAIPEI = timezone(timedelta(hours=8))
 
 TRADES = {
     "S1": (Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv"), 0.5),

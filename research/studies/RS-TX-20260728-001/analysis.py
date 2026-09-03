@@ -236,7 +236,7 @@ def main() -> None:
     parser.add_argument("--legacy-root", type=Path, default=DEFAULT_LEGACY)
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
-    output_dir = args.output_dir or Path("research/studies") / args.study_id
+    output_dir = args.output_dir or Path("reproduced")
     build(args.study_id, args.legacy_root, output_dir)
     print(f"built {args.study_id} -> {output_dir}")
 

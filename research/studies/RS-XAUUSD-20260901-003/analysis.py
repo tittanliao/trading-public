@@ -32,7 +32,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
-OUT = REPO / "research/studies/RS-XAUUSD-20260901-003"
+OUT = Path("reproduced")
 DAY_BOUNDARY_HOUR = 7          # Taipei, matching RS-XAUUSD-20260819-001
 WINDOWS = [16, 32, 64, 128, 256, 512]
 TRIALS = 200

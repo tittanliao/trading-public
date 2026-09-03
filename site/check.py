@@ -287,6 +287,52 @@ def check_table_columns(errors: list[str]) -> None:
                 )
 
 
+def check_analysis_reproducibility(errors: list[str]) -> None:
+    """Every published analysis.py must (a) parse, (b) write only to reproduced/ rather
+    than overwriting its own package's results.json, and (c) import nothing that exists
+    only in Private.
+
+    2026-09-03 governance audit: 16 of 44 published analysis.py files did not parse at
+    HEAD, because the exporter's path-rewrite regex could consume the newline after an
+    output-path assignment and splice the next Python statement onto it. Nothing here had
+    ever actually tried to parse the files this checker ships as "reproducible code" —
+    the gate only scanned them for privacy tokens. That is necessary but not sufficient:
+    a file can be free of private strings and still not be code.
+    """
+    import ast
+
+    for sid in PUBLISHED_STUDIES:
+        path = ROOT / "research/studies" / sid / "analysis.py"
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        try:
+            ast.parse(text, filename=str(path))
+        except SyntaxError as exc:
+            errors.append(f"{sid}: analysis.py does not parse ({exc.msg} at line {exc.lineno})")
+            continue  # the checks below need a file that at least parses
+        # The real invariant is narrower than "must write to reproduced/": a script that
+        # writes no file at all (several print-only analyses, e.g. RS-XAUUSD-20260825-001)
+        # carries zero overwrite risk and needs no reproduced/ path. What actually matters
+        # is that IF the script writes a file, that file is not the package's own
+        # results.json/report.html/charts — that was the real risk this check exists for.
+        writes_any_file = bool(re.search(r"""\.write_text\(|\.write_bytes\(|open\([^)]*['"]w""", text))
+        if writes_any_file and not re.search(r"""Path\(['"]reproduced""", text):
+            errors.append(
+                f"{sid}: analysis.py writes a file but not under reproduced/ — rerunning it "
+                f"risks overwriting the package's own committed results.json"
+            )
+        # A live `import`/`from` statement is the bug; a docstring usage comment like
+        # `python3.12 -m scripts.research.build_x` documenting the module's original
+        # Private name is not — most hits here turned out to be exactly that, so the
+        # check is scoped to statement position (start of line, ignoring indentation).
+        if re.search(r"^\s*(?:import|from)\s+scripts\.research", text, re.MULTILINE):
+            errors.append(
+                f"{sid}: analysis.py imports a Private-only module (scripts.research...) "
+                f"that does not exist in this repository"
+            )
+
+
 def check_study_order(errors: list[str]) -> None:
     """Interpretation and limitations belong before the evidence links, not after."""
     for sid in PUBLISHED_STUDIES:
@@ -311,7 +357,7 @@ def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
                check_backlog, check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
-               check_table_columns, check_study_order):
+               check_table_columns, check_analysis_reproducibility, check_study_order):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),

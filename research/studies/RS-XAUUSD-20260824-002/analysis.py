@@ -53,7 +53,8 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[2]
 STUDY_ID = "RS-XAUUSD-20260824-002"
 OUTPUT_DIR = Path("reproduced")
-SERIES = Path("local-inputs/cftc_weekly_series.csv")TAIPEI = timezone(timedelta(hours=8))
+SERIES = Path("local-inputs/cftc_weekly_series.csv")
+TAIPEI = timezone(timedelta(hours=8))
 
 BOOTSTRAP = 4000
 BLOCK = 4          # weeks; positioning is persistent so weekly rows are not independent

@@ -28,7 +28,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 PUBLIC = REPO.parent / "trading-public"
 BARS = Path("local-inputs/xauusd-weekly-scoring-30m.csv")
-OUT = REPO / "research/studies/RS-XAUUSD-20260901-002"
+OUT = Path("reproduced")
 BAND_PCT = 1.0
 
 

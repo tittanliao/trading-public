@@ -52,12 +52,14 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(Path("local-inputs"))
 import fail_pattern_toolkit as tk  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260824-001"
 OUTPUT_DIR = Path("reproduced")
-BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")DXY_FILE = Path("local-inputs/TVC_DXY, 60.csv")CFTC_FILE = Path("local-inputs/CFTC_GOLD.csv")TAIPEI = timezone(timedelta(hours=8))
+BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
+DXY_FILE = Path("local-inputs/TVC_DXY, 60.csv")
+CFTC_FILE = Path("local-inputs/CFTC_GOLD.csv")
+TAIPEI = timezone(timedelta(hours=8))
 
 BOOTSTRAP = 2000
 BLOCK = 12

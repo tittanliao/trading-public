@@ -22,7 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 # The immutable S2 V3.2 trade export. Its sha256 is recorded in the study's
 # source_manifest.json; a reader supplies their own copy at this path.
 TRADES = Path("local-inputs/S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-07-11.csv")
-OUT = Path("local-inputs")TRIALS = 20000
+OUT = Path("reproduced")
+TRIALS = 20000
 SEED = 20260831
 ROUND_TRIP_COST_PCT = 0.02
 EXPORT_DATE = "2026-07-11"

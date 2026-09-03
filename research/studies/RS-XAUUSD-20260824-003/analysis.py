@@ -62,12 +62,13 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(Path("local-inputs"))
 import fail_pattern_toolkit as tk  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260824-003"
 OUTPUT_DIR = Path("reproduced")
-CFTC = Path("local-inputs/cftc_gold_disagg_2017_2026.csv")DAILY = Path("local-inputs/FX_IDC_XAUUSD, 1D.csv")TAIPEI = timezone(timedelta(hours=8))
+CFTC = Path("local-inputs/cftc_gold_disagg_2017_2026.csv")
+DAILY = Path("local-inputs/FX_IDC_XAUUSD, 1D.csv")
+TAIPEI = timezone(timedelta(hours=8))
 PERMUTATIONS = 20000
 WARMUP = 30
 SEED = 20260824

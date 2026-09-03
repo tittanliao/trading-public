@@ -53,7 +53,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 STUDY_ID = "RS-XAUUSD-20260818-003"
 OUTPUT_DIR = Path("reproduced")
-MARKET_DIR = Path("local-inputs")SPOT_FILE = MARKET_DIR / "FX_IDC_XAUUSD, 30_volumn.csv"
+MARKET_DIR = Path("local-inputs")
+SPOT_FILE = MARKET_DIR / "FX_IDC_XAUUSD, 30_volumn.csv"
 FUTURES_FILE = MARKET_DIR / "COMEX_MINI_DL_MGC1!, 30_volumn.csv"
 TAIPEI = timezone(timedelta(hours=8))
 

@@ -31,7 +31,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = Path("local-inputs")# XAUUSD points at the TRACKED weekly-workflow output, not at a staged copy, so a
+OUT = Path("reproduced")
+
+# XAUUSD points at the TRACKED weekly-workflow output, not at a staged copy, so a
 # production data refresh flows into this study with no manual step. TX has no such
 # pipeline — its only source is the read-only legacy repo — so it is staged into
 # local-inputs and `stage_tx()` below says exactly how.

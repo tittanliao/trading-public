@@ -56,13 +56,13 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(Path("local-inputs"))
 import fail_pattern_toolkit as tk  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260823-002"
 OUTPUT_DIR = Path("reproduced")
 TRADES_FILE = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv")
-BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")TAIPEI = timezone(timedelta(hours=8))
+BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
+TAIPEI = timezone(timedelta(hours=8))
 
 TRAIN_END, VALID_END = 0.55, 0.80
 PERMUTATIONS = 4000

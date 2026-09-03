@@ -31,7 +31,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 TRADES = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv")
-OUT = Path("local-inputs")MULTIPLIERS = [1.25, 1.5, 2.0, 3.0]
+OUT = Path("reproduced")
+MULTIPLIERS = [1.25, 1.5, 2.0, 3.0]
 PERIOD, STD_MULT = 20, 2.0
 TRIALS = 20000
 SEED = 20260831

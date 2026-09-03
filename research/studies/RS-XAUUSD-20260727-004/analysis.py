@@ -543,7 +543,7 @@ def main() -> None:
     parser.add_argument("--legacy-root", type=Path, default=DEFAULT_LEGACY)
     parser.add_argument("--output-dir", type=Path, default=None)
     args = parser.parse_args()
-    output_dir = args.output_dir or Path("research/studies") / args.study_id
+    output_dir = args.output_dir or Path("reproduced")
     results = build(args.study_id, args.legacy_root, output_dir.resolve())
     print(json.dumps({
         "study_id": args.study_id, "output": str(output_dir),

@@ -1,4 +1,24 @@
 {
+  "by_year": {
+    "2024": {
+      "months": 12,
+      "s1_sharpe": 3.385,
+      "s2_sharpe": 3.685,
+      "blend_sharpe": 4.191
+    },
+    "2025": {
+      "months": 12,
+      "s1_sharpe": 3.546,
+      "s2_sharpe": 3.311,
+      "blend_sharpe": 4.04
+    },
+    "2026": {
+      "months": 8,
+      "s1_sharpe": 4.887,
+      "s2_sharpe": 0.429,
+      "blend_sharpe": 3.62
+    }
+  },
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260818-005",
   "generated_at": "2026-08-18T23:46:38+08:00",
@@ -197,26 +217,6 @@
       ],
       "p_positive": 0.794,
       "supported": false
-    }
-  },
-  "by_year": {
-    "2024": {
-      "months": 12,
-      "s1_sharpe": 3.385,
-      "s2_sharpe": 3.685,
-      "blend_sharpe": 4.191
-    },
-    "2025": {
-      "months": 12,
-      "s1_sharpe": 3.546,
-      "s2_sharpe": 3.311,
-      "blend_sharpe": 4.04
-    },
-    "2026": {
-      "months": 8,
-      "s1_sharpe": 4.887,
-      "s2_sharpe": 0.429,
-      "blend_sharpe": 3.62
     }
   },
   "years_blend_beat_both": "2/3",

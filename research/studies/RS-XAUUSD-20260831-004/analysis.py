@@ -31,7 +31,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 TRADES = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv")
-OUT = Path("local-inputs")KS = [1, 2, 3, 4]
+OUT = Path("reproduced")
+KS = [1, 2, 3, 4]
 TRIALS = 20000
 SEED = 20260831
 EXPORT_DATE = "2026-07-11"

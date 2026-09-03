@@ -20,11 +20,10 @@ from pathlib import Path
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO))
 
-from scripts.research.lib import fail_pattern_toolkit as tk  # noqa: E402
+import fail_pattern_toolkit as tk  # noqa: E402
 
-OUT = REPO / "research/studies/RS-XAUUSD-20260901-001"
+OUT = Path("reproduced")
 TRADES = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv")
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 

@@ -35,7 +35,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 S1_FILE = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv")
 S2_FILE = Path("local-inputs/S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-07-11.csv")
-OUT = REPO / "research/studies/RS-XAUUSD-20260901-005"
+OUT = Path("reproduced")
 WINDOWS = [24, 48]
 PRIMARY_WINDOW = 48
 TRIALS = 20000

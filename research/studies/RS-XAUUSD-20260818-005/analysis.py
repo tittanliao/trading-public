@@ -60,7 +60,8 @@ BOOTSTRAP_TRIALS = 20000
 RANDOM_SEED = 20260818
 
 
-BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")CANDIDATE_WEIGHT = 0.3
+BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
+CANDIDATE_WEIGHT = 0.3
 FADE_SHORTLIST = [(8, 4.0, 8), (2, 2.5, 8), (2, 2.5, 16), (4, 2.5, 16)]
 COST_PCT = 0.02
 

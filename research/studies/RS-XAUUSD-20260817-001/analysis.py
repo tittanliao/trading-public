@@ -42,10 +42,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from scripts.research.lib.fail_pattern_toolkit import load_trades, stats, wilson_interval
+from fail_pattern_toolkit import load_trades, stats, wilson_interval
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 STUDY_ID = "RS-XAUUSD-20260817-001"
 PACKAGE = Path("reproduced-macro-attribution")
 TAIPEI = timezone(timedelta(hours=8))

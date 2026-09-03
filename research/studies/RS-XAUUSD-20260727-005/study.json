@@ -78,7 +78,12 @@
     {
       "type": "metrics",
       "source": "headline",
-      "keys": ["v34_win_rate_pct", "v34_profit_factor", "v39_win_rate_pct", "v39_profit_factor"]
+      "keys": [
+        "v34_win_rate_pct",
+        "v34_profit_factor",
+        "v39_win_rate_pct",
+        "v39_profit_factor"
+      ]
     },
     {
       "type": "findings",
@@ -88,7 +93,13 @@
       "type": "comparison_table",
       "title": "Baseline: V3.4 vs V3.9",
       "source": "baseline_diff",
-      "columns": ["n", "win_rate_pct", "profit_factor", "net_pnl_usd", "avg_return_pct"]
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "net_pnl_usd",
+        "avg_return_pct"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -97,7 +108,13 @@
       "chart_file": "entry_slot_30m_diff.png",
       "table_source": "by_entry_30m_diff",
       "table_title": "30-Minute Entry Slot Delta",
-      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
+      "columns": [
+        "v34_n",
+        "v39_n",
+        "v34_win_rate_pct",
+        "v39_win_rate_pct",
+        "win_rate_pct_diff_v39_minus_v34"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -106,7 +123,11 @@
       "chart_file": "fail_type_share_comparison.png",
       "table_source": "fail_type_share_diff",
       "table_title": "Fail-Type Share Delta",
-      "columns": ["v34_pct", "v39_pct", "diff"]
+      "columns": [
+        "v34_pct",
+        "v39_pct",
+        "diff"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -115,7 +136,13 @@
       "chart_file": "bb_zone_comparison.png",
       "table_source": "bb_zone_diff",
       "table_title": "Bollinger Band Zone Delta",
-      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
+      "columns": [
+        "v34_n",
+        "v39_n",
+        "v34_win_rate_pct",
+        "v39_win_rate_pct",
+        "win_rate_pct_diff_v39_minus_v34"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -124,7 +151,13 @@
       "chart_file": "dxy_bucket_comparison.png",
       "table_source": "dxy_bucket_diff",
       "table_title": "DXY Bucket Delta",
-      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
+      "columns": [
+        "v34_n",
+        "v39_n",
+        "v34_win_rate_pct",
+        "v39_win_rate_pct",
+        "win_rate_pct_diff_v39_minus_v34"
+      ]
     },
     {
       "type": "evidence_pair",
@@ -133,7 +166,13 @@
       "chart_file": "mtf_4h_state_comparison.png",
       "table_source": "mtf_4h_state_diff",
       "table_title": "4H Trend State Delta",
-      "columns": ["v34_n", "v39_n", "v34_win_rate_pct", "v39_win_rate_pct", "win_rate_pct_diff_v39_minus_v34"]
+      "columns": [
+        "v34_n",
+        "v39_n",
+        "v34_win_rate_pct",
+        "v39_win_rate_pct",
+        "win_rate_pct_diff_v39_minus_v34"
+      ]
     },
     {
       "type": "interpretation",

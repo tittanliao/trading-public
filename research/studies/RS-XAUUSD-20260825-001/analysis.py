@@ -45,7 +45,6 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(Path("local-inputs"))
 import fail_pattern_toolkit as tk  # noqa: E402
 import regimes as rg  # noqa: E402
 import screen_harness as sh  # noqa: E402
@@ -57,9 +56,14 @@ SEED = 20260825
 PERMUTATIONS = 4000
 MIN_CELL = 20
 
-BARS = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")DAILY = Path("local-inputs/XAUUSD_1d.csv")FRED = Path("local-inputs")STRATEGIES = {
-    "S1": ("S1 AweWithBB V3.9", Path("local-inputs/v3.9")/ "S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv"),
-    "S2": ("S2 Hammer V3.2", Path("local-inputs/v3.2")/ "S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-08-15.csv"),
+BARS = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
+DAILY = Path("local-inputs/XAUUSD_1d.csv")
+FRED = Path("local-inputs")
+STRATEGIES = {
+    "S1": ("S1 AweWithBB V3.9", Path("local-inputs/v3.9")
+           / "S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv"),
+    "S2": ("S2 Hammer V3.2", Path("local-inputs/v3.2")
+           / "S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-08-15.csv"),
 }
 
 
