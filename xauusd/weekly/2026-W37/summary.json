@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0",
+  "market": "XAUUSD",
+  "forecast_week": "2026-W37",
+  "edition": "Sun",
+  "published_at": "2026-09-05T14:24:30Z",
+  "publication_mode": "single_source",
+  "confidence": "medium",
+  "source_count": 1,
+  "source_producers": [
+    "claude"
+  ],
+  "source_fingerprint": "5834e7e1d027d5ac420420bcfc1453c9fc49816e0ad2c4f6d97f09139d008efb",
+  "data_cutoff": "2026-09-04 market close",
+  "market_summary": "W36 先下探 4,282.72，再收復至 4,427.90。日線價格仍高於 EMA50 與 EMA200，但 30m、1h、4h 動能偏弱，W37 的基準判斷是先整理再選方向。唯一獨立來源給出區間 45%、向上突破 30%、向下跌破 25%；這些是情境權重，不是歷史頻率。",
+  "four_week_overview": [
+    {
+      "week": "2026-W33",
+      "open": 4348.55,
+      "high": 4449.73,
+      "low": 4311.01,
+      "close": 4376.16,
+      "change": "+27.61（+0.63%）",
+      "change_pct": 0.63,
+      "range_points": 138.72,
+      "note": "窄幅整理，為四週最小區間"
+    },
+    {
+      "week": "2026-W34",
+      "open": 4376.16,
+      "high": 4632.22,
+      "low": 4324.8,
+      "close": 4602.66,
+      "change": "+226.50（+5.18%）",
+      "change_pct": 5.18,
+      "range_points": 307.42,
+      "note": "強勢突破週，收在週高附近"
+    },
+    {
+      "week": "2026-W35",
+      "open": 4602.66,
+      "high": 4697.07,
+      "low": 4445.55,
+      "close": 4453.67,
+      "change": "-148.99（-3.24%）",
+      "change_pct": -3.24,
+      "range_points": 251.52,
+      "note": "衝高後急跌，收在週低附近"
+    },
+    {
+      "week": "2026-W36",
+      "open": 4457.8,
+      "high": 4510.9,
+      "low": 4282.72,
+      "close": 4427.9,
+      "change": "-29.90（-0.67%）",
+      "change_pct": -0.67,
+      "range_points": 228.18,
+      "note": "下探後 V 型收復，跌幅較前週收斂"
+    }
+  ],
+  "scenario_comparison": [
+    {
+      "producer": "claude",
+      "scenarios": [
+        {
+          "direction": "neutral",
+          "probability": 45
+        },
+        {
+          "direction": "bullish",
+          "probability": 30
+        },
+        {
+          "direction": "bearish",
+          "probability": 25
+        }
+      ]
+    }
+  ],
+  "adopted_scenarios": [
+    {
+      "direction": "range",
+      "probability": 45,
+      "conditions": "4h 收盤維持在 4,391.54–4,406.57 支撐與 4,443.66–4,459.53 阻力之間。",
+      "invalidation": "4h 收盤有效站上 4,459.53 或跌破 4,391.54。",
+      "targets": "區間內以 4,427.90–4,432.63 為均值樞紐，不追價。"
+    },
+    {
+      "direction": "bullish",
+      "probability": 30,
+      "conditions": "4h 收盤站上 4,459.53、回踩守住 4,443.66，並出現新的正式 S1 V3.9 訊號。",
+      "invalidation": "突破後 4h 收盤跌回 4,427.90–4,432.63 下方。",
+      "targets": "4,490.80–4,510.90；有效突破後再看 4,697.07。"
+    },
+    {
+      "direction": "bearish",
+      "probability": 25,
+      "conditions": "4h 收盤跌破 4,391.54，反抽無法站回 4,406.57。",
+      "invalidation": "4h 收盤重新站回 4,406.57 並守住。",
+      "targets": "4,335.82–4,340.50，主要延伸目標 4,282.72–4,285.38。"
+    }
+  ],
+  "agreements": [
+    "封存資料可直接驗證 W36 週收 4,427.90、週高 4,510.90、週低 4,282.72。",
+    "所有 Entry 與 SL 都是條件式參考，執行前必須有 live TradingView 與正式策略訊號。",
+    "2026-09-11 Friday CPI 的硬性風控期限是台北時間 2026-09-10 22:00。"
+  ],
+  "disagreements": [
+    "另有一份非獨立稿給出區間 40%、看多 35%、看空 25%；因它在完稿前已接觸同版內容，不計為第二個獨立來源，也不平均機率。",
+    "非獨立稿提供條件式 S1 示意價，獨立來源則不預設 Entry／SL；採較保守做法，等正式訊號出現後才重算。"
+  ],
+  "key_levels": [
+    {
+      "label": "開盤樞紐",
+      "value": "4,427.90–4,432.63",
+      "basis": "W36 實際週收與 30m 近 20 根收盤均值相距僅 4.73 點。"
+    },
+    {
+      "label": "第一支撐",
+      "value": "4,391.54–4,406.57",
+      "basis": "4h 未回補缺口、30m 布林下軌與 4h 布林中軌在 15.03 點內重疊。"
+    },
+    {
+      "label": "第一阻力",
+      "value": "4,443.66–4,459.53",
+      "basis": "多空 4h 缺口、4h EMA50 與 1h EMA200 集中於同一帶。"
+    },
+    {
+      "label": "第二阻力",
+      "value": "4,490.80–4,510.90",
+      "basis": "2026-09-04 實際日高與 W36 實際週高形成供給帶。"
+    },
+    {
+      "label": "深支撐與失效線",
+      "value": "4,282.72–4,285.38",
+      "basis": "W36 實際週低與 4h 布林下軌只差 2.66 點。"
+    }
+  ],
+  "strategy_plan": [
+    {
+      "strategy": "S1 V3.9",
+      "stance": "wait",
+      "entry": "先收復 4,443.66–4,459.53，再等待 30m 收盤突破當下布林上軌與新的正式訊號。",
+      "stop": "由正式訊號當下的結構與策略 box 重算，不預設。",
+      "risk": "每筆最多 0.75%；沒有 live 確認不執行。"
+    },
+    {
+      "strategy": "S2 V3.2",
+      "stance": "watch_support",
+      "entry": "只在 4,391.54–4,406.57 出現正式 Hammer 訊號後評估。",
+      "stop": "依訊號 K 低點與當下波動重算；跌破支撐後不接刀。",
+      "risk": "每筆最多 0.75%，每週最多 2 次實際進場。"
+    }
+  ],
+  "event_risk": [
+    {
+      "name": "美國 8 月 CPI",
+      "scheduled_at": "2026-09-11T20:30:00+08:00",
+      "handling": "依既定 Friday CPI 規則，所有未平倉部位須於台北時間 2026-09-10 22:00 前完成評估並平倉。"
+    }
+  ],
+  "recommendation": {
+    "stance": "wait",
+    "summary": "區間中間不進場。S1 只在收復 4,459.53 且出現正式 V3.9 訊號後評估；S2 只在 4,391.54–4,406.57 形成正式 V3.2 Hammer 後評估。",
+    "invalidation": "4h 收盤脫離 4,391.54–4,459.53 並維持帶外，才切換到突破或跌破劇本。"
+  },
+  "evidence_limits": [
+    "本次只有一份獨立來源，因此發布模式是 single_source，不能宣稱多來源相互支持。",
+    "實際部位與上一週實際交易未獲持有人確認，相關狀態為 unknown。",
+    "GVZ、實質利率與 VIX 的可用資料過舊，未用來形成 W37 方向判斷。",
+    "自動價格來源仍有多個 review 項目，且比較歷史只有 7 週，未升格為正式來源。",
+    "情境機率是判斷權重，不是相似型態的歷史發生率。"
+  ],
+  "cftc_evidence": {
+    "report_date": "2026-09-01",
+    "file": "GOLD-CFTC-20260901.png",
+    "note": "CFTC 公開市場部位截圖；發布前已確認不含帳戶、持倉、使用者名稱或個人資料。"
+  },
+  "disclaimer": "研究證據，不構成交易建議。任何執行前都必須以 live TradingView 再次確認。"
+}

@@ -152,16 +152,19 @@ def check_charts(errors: list[str]) -> None:
 
 def check_weekly_sections(errors: list[str]) -> None:
     """A Weekly report must actually contain its required reader-facing sections."""
-    required = ["市場摘要", "三劇本與機率", "關鍵價位", "事件風險", "共識", "分歧"]
+    required = ["市場摘要", "三劇本與機率", "關鍵價位", "事件風險", "分歧"]
     for week in weekly_weeks():
         page = ROOT / "xauusd/weekly" / week / "index.html"
         if not page.is_file():
             continue
         text = page.read_text(encoding="utf-8")
+        summary = json.loads((page.parent / "summary.json").read_text(encoding="utf-8"))
+        mode_heading = "共識" if summary.get("publication_mode") == "multi_source" else "可驗證事項"
         for section in required:
             if section not in text:
                 errors.append(f"{week} report is missing required section: {section}")
-        summary = json.loads((page.parent / "summary.json").read_text(encoding="utf-8"))
+        if mode_heading not in text:
+            errors.append(f"{week} report is missing required section: {mode_heading}")
         # four_week_overview became mandatory for editions published after the contract
         # change; older finalised artifacts are not retroactively invalidated.
         if summary.get("four_week_overview") and "四週回顧" not in text:

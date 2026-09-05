@@ -753,6 +753,8 @@ def weekly_report_page(week: str) -> str:
     def bullets(items: list[str]) -> str:
         return "".join(f"<li>{esc(x)}</li>" for x in items)
 
+    agreements_heading = "共識" if s["publication_mode"] == "multi_source" else "可驗證事項"
+
     body = f"""
 <div class="reading-rail weekly-intro">
 <p class="eyebrow">{esc(s['forecast_week'])} · {esc(s['edition'])} · {esc(s['publication_mode'])} · confidence {esc(s['confidence'])}</p>
@@ -769,7 +771,7 @@ def weekly_report_page(week: str) -> str:
 <section class="block-section"><h2>S1／S2 計畫</h2>{render_table(sp_headers, sp_rows)}</section>
 <section class="block-section"><h2>事件風險</h2>{render_table(ev_headers, ev_rows)}</section>
 <section class="block-section"><h2>Producer 劇本機率對照</h2>{render_table(cmp_headers, cmp_rows)}</section>
-<section class="block-section reading-rail"><h2>共識</h2><ul class="limitations-list">{bullets(s['agreements'])}</ul></section>
+<section class="block-section reading-rail"><h2>{agreements_heading}</h2><ul class="limitations-list">{bullets(s['agreements'])}</ul></section>
 <section class="block-section reading-rail"><h2>分歧</h2><ul class="limitations-list">{bullets(s['disagreements'])}</ul></section>
 <section class="block-section reading-rail"><h2>未解決問題與證據限制</h2><ul class="limitations-list">{bullets(s['evidence_limits'])}</ul></section>
 <section class="block-section reading-rail"><p class="disclaimer">{esc(s['disclaimer'])}</p></section>
