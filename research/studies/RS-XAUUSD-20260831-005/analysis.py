@@ -28,7 +28,7 @@ from bisect import bisect_left
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 TRADES = Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv")
 OUT = Path("reproduced")

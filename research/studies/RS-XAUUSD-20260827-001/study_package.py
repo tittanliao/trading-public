@@ -141,6 +141,45 @@ def write_study_json(study_id: str, *, market: str, strategy: str, title: str,
         "theme": theme,
         "card_summary": card_summary,
     }
+    # 2026-09-05 independent review: this function rebuilt the whole document and carried
+    # only five keys over from `existing`, so re-running any runner silently deleted every
+    # hand-authored field the runner does not produce -- the `presentation` blueprint, the
+    # Chinese narrative (`interpretation_zh`, `limitations_zh`, `question_zh`, the per-
+    # finding `title_zh`/`detail_zh`), and, for a runner that passes `findings=[]`, the
+    # curated findings themselves. That is exactly what happened to
+    # RS-XAUUSD-20260825-001 on 2026-09-05: its reader page lost its presentation blocks
+    # and the Public build crashed on the missing key. Restoring the artifact by hand fixed
+    # that one study and left the cause in place, so this now preserves anything curated.
+    #
+    # The rule: a key the runner did not compute is the author's, not the runner's. Never
+    # let a rerun be a deletion.
+    for key, value in existing.items():
+        if key not in document:
+            document[key] = value
+    # The same rule applied to the three fields a runner *does* supply but an author
+    # routinely enriches afterwards. A runner computes numbers; a person decides what the
+    # study says and which numbers the card shows.
+    #   headline     - merged: the runner's computed keys win, hand-added keys survive.
+    #                  RS-XAUUSD-20260825-001 carried best_candidate / worst_family_p /
+    #                  best_candidate_trades_needed here; a rerun deleted all four.
+    #   card_metrics - the curated choice of which headline keys to show wins over the
+    #                  runner's `list(headline)[:4]` default, which is a fallback, not a
+    #                  decision.
+    #   card_summary - published prose is a research conclusion; CLAUDE.md puts changing
+    #                  one behind explicit owner scope, so a rerun never rewrites it.
+    # To genuinely replace any of these, edit study.json (or drop the field) -- an explicit
+    # act by a person, which is the point.
+    if isinstance(existing.get("headline"), dict):
+        for key, value in existing["headline"].items():
+            document["headline"].setdefault(key, value)
+    if existing.get("card_metrics"):
+        document["card_metrics"] = existing["card_metrics"]
+    if existing.get("card_summary"):
+        document["card_summary"] = existing["card_summary"]
+    # `findings` is a parameter, so an empty list from a runner that does not author them
+    # would still overwrite curated ones. An empty result never replaces a non-empty record.
+    if not findings and existing.get("findings"):
+        document["findings"] = existing["findings"]
     path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n",
                     encoding="utf-8")
     return path

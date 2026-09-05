@@ -1,0 +1,12 @@
+{
+  "study_id": "RS-XAUUSD-20260901-007",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/xauusd-daily-long.csv": {
+      "original_filename": "xauusd-daily-long.csv",
+      "sha256": "a3b4b6e5a925162cabd189c46599e7eecbcf941e3e3ab9fc53a56ecd66270cdd",
+      "size_bytes": 314864,
+      "role": "price_daily"
+    }
+  }
+}

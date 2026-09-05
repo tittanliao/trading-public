@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pandas as pd
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 
 import fail_pattern_toolkit as tk  # noqa: E402
 

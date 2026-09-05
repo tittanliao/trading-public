@@ -32,7 +32,7 @@ import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 BARS = Path("local-inputs/xauusd-daily-long.csv")
 OUT = Path("reproduced")
 FIBS = [0.236, 0.382, 0.5, 0.618, 0.786]

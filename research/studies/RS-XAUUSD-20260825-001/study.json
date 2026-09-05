@@ -21,7 +21,7 @@
     "best_candidate_gap_pct_points": -15.28,
     "best_candidate_bound_pct_points": 22.73,
     "best_candidate_trades_needed": 370,
-    "worst_family_p": 0.9752
+    "worst_family_p": 0.9708
   },
   "card_metrics": [
     "state_variables",
@@ -33,9 +33,9 @@
     {
       "tone": "info",
       "title": "Nothing separates at any of the three scales",
-      "detail": "Ten state variables across intraday, swing and macro, scored on S1's 472 trades and S2's 167, each against the same strategy's unconditional baseline. Zero cells clear their resolution bound and permutation. Family p by scale runs 0.7588 to 0.9752 for S1 and 0.567 to 0.6843 for S2. The Hurst state machine that prompted this study is among them: S1 in a trending regime wins 52.00% against 58.53% in a random walk, the opposite of what a trend gate predicts, and inside its bound either way.",
+      "detail": "Ten state variables across intraday, swing and macro, scored on S1's 472 trades and S2's 167, each against the same strategy's unconditional baseline. Zero cells clear their resolution bound and permutation. Family p by scale runs 0.7493 to 0.9708 for S1 and 0.5451 to 0.7078 for S2. The Hurst state machine that prompted this study is among them: S1 in a trending regime wins 52.00% against 58.53% in a random walk, the opposite of what a trend gate predicts, and inside its bound either way.",
       "title_zh": "三個尺度上都沒有任何一個分離開來",
-      "detail_zh": "日內、波段、總經三個尺度共十個狀態變數，分別對 S1 的 472 筆與 S2 的 167 筆交易評分，每個都對照同一個策略自己不分狀態時的基準。沒有任何一格同時通過解析下限與置換檢定。S1 各尺度的族群 p 值介於 0.7588 到 0.9752，S2 介於 0.567 到 0.6843。促成這份研究的 Hurst 狀態機也在其中：S1 在趨勢盤裡勝率 52.00%，在隨機漫步盤裡反而是 58.53%——跟趨勢開關的預測方向相反，而且不管哪一種都在解析下限之內。"
+      "detail_zh": "日內、波段、總經三個尺度共十個狀態變數，分別對 S1 的 472 筆與 S2 的 167 筆交易評分，每個都對照同一個策略自己不分狀態時的基準。沒有任何一格同時通過解析下限與置換檢定。S1 各尺度的族群 p 值介於 0.7493 到 0.9708，S2 介於 0.5451 到 0.7078。促成這份研究的 Hurst 狀態機也在其中：S1 在趨勢盤裡勝率 52.00%，在隨機漫步盤裡反而是 58.53%——跟趨勢開關的預測方向相反，而且不管哪一種都在解析下限之內。"
     },
     {
       "tone": "good",
@@ -73,7 +73,7 @@
     "狀態標籤只在進場當下貼一次。交易進行中狀態改變並沒有被建模。",
     "布林通道寬度與已實現波動率實質上是同一個變數（99.70% 的 K 棒同桶），已從獨立變數計數中排除；若把兩者都算進族群校正，會低估校正後的顯著性門檻。"
   ],
-  "interpretation_zh": "這份研究的答案是「沒有」，而且是有把握的沒有：三個時間尺度、十個狀態變數，分別對 S1 的 472 筆與 S2 的 167 筆交易評分，**沒有任何一格同時通過解析下限與置換檢定**。族群 p 值全部偏高——S1 的三個尺度是 0.7588／0.9317／0.9752，S2 是 0.567／0.6613／0.6843，也就是說這種強度的結果，在「狀態完全不帶資訊」的情況下本來就很容易出現。\n\n但這次的「沒有」跟前幾份不太一樣，值得記下來。這個計畫過去每一個候選——停利階梯、%B 過濾器、共識投票——**勝率與報酬都是往相反方向走**：勝率變好，錢變少。這次第一次出現兩者同向的候選：S2 在亞盤佔了 34.73% 的交易量，卻只拿到 14.53% 的報酬，勝率比其餘時段低 15.28 個百分點，平均報酬也低 0.4986%；紐約盤剛好相反，38.32% 的交易量拿到 56.69% 的報酬。方向一致，代表它至少不是「用報酬換勝率」的那種假象。\n\n問題是它仍然在雜訊範圍內：差距 15.28 個百分點，而這 167 筆交易能解析的最小差距是 22.73 個百分點。這裡的重點不是「所以放棄」，而是**這個距離是算得出來的**——要解析出實際觀察到的這個差距大約需要 370 筆 S2 交易，以目前一年約 64 筆的頻率，還要再累積三年左右。S1 那邊更遠：最接近的一格也需要約 1,439 筆。把一個過寬的信賴區間從「聳肩」變成「還差多少、多久」，是這份研究實際交付的東西。\n\n另外有一個方法上的收穫值得單獨看：原本列了十一個狀態變數，但布林通道寬度與已實現波動率把 99.70% 的 K 棒分到同一個桶——因為通道寬度算出來是 2 倍滾動標準差乘以收盤價再除以滾動均價，而後面那個比值幾乎恆等於 1。同一個變數取兩個名字會膨脹族群校正的分母，讓巧合看起來像兩個獨立的命中。這是在算出兩者格子數字小數點後四位完全相同時才發現的。",
+  "interpretation_zh": "這份研究的答案是「沒有」，而且是有把握的沒有：三個時間尺度、十個狀態變數，分別對 S1 的 472 筆與 S2 的 167 筆交易評分，**沒有任何一格同時通過解析下限與置換檢定**。族群 p 值全部偏高——S1 的三個尺度是 0.7493／0.9325／0.9708，S2 是 0.5451／0.6413／0.7078，也就是說這種強度的結果，在「狀態完全不帶資訊」的情況下本來就很容易出現。\n\n但這次的「沒有」跟前幾份不太一樣，值得記下來。這個計畫過去每一個候選——停利階梯、%B 過濾器、共識投票——**勝率與報酬都是往相反方向走**：勝率變好，錢變少。這次第一次出現兩者同向的候選：S2 在亞盤佔了 34.73% 的交易量，卻只拿到 14.53% 的報酬，勝率比其餘時段低 15.28 個百分點，平均報酬也低 0.4986%；紐約盤剛好相反，38.32% 的交易量拿到 56.69% 的報酬。方向一致，代表它至少不是「用報酬換勝率」的那種假象。\n\n問題是它仍然在雜訊範圍內：差距 15.28 個百分點，而這 167 筆交易能解析的最小差距是 22.73 個百分點。這裡的重點不是「所以放棄」，而是**這個距離是算得出來的**——要解析出實際觀察到的這個差距大約需要 370 筆 S2 交易，以目前一年約 64 筆的頻率，還要再累積三年左右。S1 那邊更遠：最接近的一格也需要約 1,439 筆。把一個過寬的信賴區間從「聳肩」變成「還差多少、多久」，是這份研究實際交付的東西。\n\n另外有一個方法上的收穫值得單獨看：原本列了十一個狀態變數，但布林通道寬度與已實現波動率把 99.70% 的 K 棒分到同一個桶——因為通道寬度算出來是 2 倍滾動標準差乘以收盤價再除以滾動均價，而後面那個比值幾乎恆等於 1。同一個變數取兩個名字會膨脹族群校正的分母，讓巧合看起來像兩個獨立的命中。這是在算出兩者格子數字小數點後四位完全相同時才發現的。",
   "presentation": [
     {
       "type": "metrics",
@@ -110,7 +110,7 @@
     {
       "type": "table",
       "title": "S1 Family Permutation by Scale 各尺度族群置換檢定",
-      "takeaway_zh": "S1 在三個尺度的族群 p 值都很高（0.7588 / 0.9317 / 0.9752）——這種強度的結果在「狀態不帶任何資訊」時本來就容易出現。",
+      "takeaway_zh": "S1 在三個尺度的族群 p 值都很高（0.7493 / 0.9325 / 0.9708）——這種強度的結果在「狀態不帶任何資訊」時本來就容易出現。",
       "source": "strategies.S1.by_scale",
       "columns": [
         "family_permutation.state_variables",
@@ -122,7 +122,7 @@
     {
       "type": "table",
       "title": "S2 Family Permutation by Scale 各尺度族群置換檢定",
-      "takeaway_zh": "S2 的族群 p 值比 S1 低但仍未通過（0.567 / 0.6613 / 0.6843）。最好的單格是亞盤 p=0.0735，經族群校正後不成立。",
+      "takeaway_zh": "S2 的族群 p 值比 S1 低但仍未通過（0.5451 / 0.6413 / 0.7078）。最好的單格是亞盤 p=0.0702，經族群校正後不成立。",
       "source": "strategies.S2.by_scale",
       "columns": [
         "family_permutation.state_variables",

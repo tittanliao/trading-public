@@ -327,7 +327,7 @@ def build(study_id: str, legacy_root: Path, output_dir: Path) -> dict:
             "streak_lengths": streaks.tolist(),
         },
         "charts": charts_manifest,
-        "sources": [{"role": role, "path": str(path), "sha256": sha256(path)} for role, path in source_paths.items()],
+        "sources": [{"role": role, "path": path.name, "sha256": sha256(path)} for role, path in source_paths.items()],
     }
     if macro_block is not None:
         results.update(macro_block)

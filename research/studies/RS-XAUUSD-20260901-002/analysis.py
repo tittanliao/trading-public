@@ -25,7 +25,7 @@ import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 PUBLIC = REPO.parent / "trading-public"
 BARS = Path("local-inputs/xauusd-weekly-scoring-30m.csv")
 OUT = Path("reproduced")

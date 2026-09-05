@@ -1,0 +1,12 @@
+{
+  "study_id": "RS-XAUUSD-20260824-002",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/cftc_weekly_series.csv": {
+      "original_filename": "cftc_weekly_series.csv",
+      "sha256": "835b9a6c4a7a5d52656550559a5cac0c7406e367bfad67ea0fbb98e1b5b461a9",
+      "size_bytes": 16319,
+      "role": "derived_series"
+    }
+  }
+}

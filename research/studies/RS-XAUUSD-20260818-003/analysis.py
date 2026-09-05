@@ -50,7 +50,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 STUDY_ID = "RS-XAUUSD-20260818-003"
 OUTPUT_DIR = Path("reproduced")
 MARKET_DIR = Path("local-inputs")

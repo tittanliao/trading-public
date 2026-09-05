@@ -1,0 +1,24 @@
+{
+  "study_id": "RS-XAUUSD-20260824-006",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/mgc_1h.csv": {
+      "original_filename": "MGC_1h.csv",
+      "sha256": "8fdbb9949c6fb91b9472c417b40574f24f10426a1d49a69c1247cb7f9304adf3",
+      "size_bytes": 1111332,
+      "role": "market_bar_series_futures"
+    },
+    "local-inputs/s1-v3.9-trades.csv": {
+      "original_filename": "S1-Awe-V3.9_FX_IDC_XAUUSD_2026-08-15.csv",
+      "sha256": "5699b41b2d64c18ec8562931d38f50a473923352c96857b590e950d6596dc37d",
+      "size_bytes": 109654,
+      "role": "strategy_trade_export"
+    },
+    "local-inputs/spot_30m.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 30_volumn.csv",
+      "sha256": "ead71e9c8830b86ce82f599d021b4117b4817b040900aee601f6134eb9a534b6",
+      "size_bytes": 4618315,
+      "role": "market_bar_series_spot"
+    }
+  }
+}

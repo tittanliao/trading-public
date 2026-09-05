@@ -30,7 +30,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 OUT = Path("reproduced")
 
 # XAUUSD points at the TRACKED weekly-workflow output, not at a staged copy, so a

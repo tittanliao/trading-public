@@ -27,7 +27,7 @@ import pandas as pd
 
 
 DEFAULT_LEGACY = Path("../trading")
-DEFAULT_OUTPUT = Path("research/studies/RS-XAUUSD-20260727-002")
+DEFAULT_OUTPUT = Path("reproduced")
 MA_LENGTH = 50
 MAX_MACRO_AGE = pd.Timedelta(days=4)
 STUDY_ID = "RS-XAUUSD-20260727-002"
@@ -373,7 +373,7 @@ def main() -> None:
         },
         "versions": versions,
         "comparison": comparison,
-        "sources": [{"path": str(path), "sha256": sha256(path)} for path in source_paths],
+        "sources": [{"path": path.name, "sha256": sha256(path)} for path in source_paths],
     }
     output.mkdir(parents=True, exist_ok=True)
     (output / "results.json").write_text(

@@ -1,0 +1,18 @@
+{
+  "study_id": "RS-XAUUSD-20260824-003",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/FX_IDC_XAUUSD, 1D.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 1D.csv",
+      "sha256": "3669b2b4b60668348af51ff43e7a0bea66792f19d0b604bf25f8f9a8fd533470",
+      "size_bytes": 130528,
+      "role": "market_bar_series"
+    },
+    "local-inputs/cftc_gold_disagg_2017_2026.csv": {
+      "original_filename": "cftc_gold_disagg_2017_2026.csv",
+      "sha256": "50d374cf6f3508967dd38a3da29615a6f41cb587820fea85e61068db0645df9e",
+      "size_bytes": 91882,
+      "role": "positioning_history"
+    }
+  }
+}

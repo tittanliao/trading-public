@@ -1,0 +1,18 @@
+{
+  "study_id": "RS-MULTI-20260901-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/XAUUSD_1d.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "a3b4b6e5a925162cabd189c46599e7eecbcf941e3e3ab9fc53a56ecd66270cdd",
+      "size_bytes": 314864,
+      "role": "price_daily_xauusd"
+    },
+    "local-inputs/XAUUSD_1wk.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "d7c260504e74f71625e3a18e9bb9687c549e95e4de798cc50eb5ee8efc9dc62f",
+      "size_bytes": 173726,
+      "role": "price_weekly_xauusd"
+    }
+  }
+}

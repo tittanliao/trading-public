@@ -57,7 +57,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 import screen_harness as sh  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260824-005"
@@ -419,7 +419,7 @@ def main() -> int:
     for row in secondary:
         row["preregistered"] = False
 
-    family = sh.family_permutation(secondary, sh.stream_for(SEED, "family"))
+    family = sh.family_minimum_p_correction(secondary, sh.stream_for(SEED, "family"))
     replication = dollar_replication(frame)
 
     verdicts: dict[str, int] = {}

@@ -18,7 +18,7 @@ import random
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 # The immutable S2 V3.2 trade export. Its sha256 is recorded in the study's
 # source_manifest.json; a reader supplies their own copy at this path.
 TRADES = Path("local-inputs/S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-07-11.csv")

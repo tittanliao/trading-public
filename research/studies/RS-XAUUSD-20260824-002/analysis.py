@@ -50,7 +50,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 STUDY_ID = "RS-XAUUSD-20260824-002"
 OUTPUT_DIR = Path("reproduced")
 SERIES = Path("local-inputs/cftc_weekly_series.csv")

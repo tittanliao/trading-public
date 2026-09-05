@@ -35,6 +35,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import sys
@@ -44,10 +45,17 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 import fail_pattern_toolkit as tk  # noqa: E402
 import regimes as rg  # noqa: E402
-import screen_harness as sh  # noqa: E402
+# This runner deliberately does NOT use screen_harness for its cell statistics. Its
+# `permutation_p` below shuffles the actual state labels against the actual outcomes,
+# which is a real permutation test; screen_harness.family_minimum_p_correction draws
+# independent uniforms instead. Keeping the stronger local version is the right call,
+# but the module was still being imported unused (2026-09-05 audit), which is how the
+# 2026-09-05 p-value movement in this study was first misattributed to a
+# screen_harness change. The real cause was this file's own per-process `hash()`
+# seed; see `cell_seed`. Import dropped so the dependency is not implied again.
 import study_package as pkg  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260825-001"
@@ -130,6 +138,23 @@ def trades_to_resolve(gap_pct_points: float, rate: float, share: float) -> int |
     return int(math.ceil(needed))
 
 
+def cell_seed(name: str, state: str) -> int:
+    """A per-cell seed that is stable across processes.
+
+    2026-09-05 independent review: this was
+    `np.random.default_rng(abs(hash((name, state))) % (2**32))`. Python randomises
+    `hash()` for str/bytes per process (PYTHONHASHSEED), so every run drew a different
+    seed and this study could not be reproduced -- two clean reruns on identical inputs
+    produced different permutation p-values for every cell. That also means the p-value
+    movement seen when this study was rerun on 2026-09-05 came from here, NOT from the
+    screen_harness bootstrap fix committed alongside it: this runner imports
+    screen_harness but never calls it. SHA-256 is stable across processes and versions,
+    and SEED keeps the whole study reproducible from one constant.
+    """
+    digest = hashlib.sha256(f"{SEED}:{name}:{state}".encode("utf-8")).digest()
+    return int.from_bytes(digest[:8], "big") % (2 ** 32)
+
+
 def permutation_p(labels: np.ndarray, wins: np.ndarray, state: str,
                   stream: np.random.Generator) -> float | None:
     """Shuffle the state labels against outcomes; how often is the gap this large?"""
@@ -143,7 +168,11 @@ def permutation_p(labels: np.ndarray, wins: np.ndarray, state: str,
         stream.shuffle(shuffled)
         if abs(shuffled[inside].mean() - shuffled[~inside].mean()) >= observed:
             at_least += 1
-    return round(at_least / PERMUTATIONS, 4)
+    # 2026-09-05 independent audit: `at_least / PERMUTATIONS` returns exactly 0.0
+    # when no shuffle matches the observed gap. A finite permutation set cannot
+    # establish p = 0; (k+1)/(n+1) is the standard correction and bounds it at
+    # 1/(n+1). Same fix as screen_harness.block_bootstrap_effect.
+    return round((at_least + 1) / (PERMUTATIONS + 1), 4)
 
 
 def measure(name: str, scale: str, labels: pd.Series, trades: pd.DataFrame,
@@ -172,7 +201,7 @@ def measure(name: str, scale: str, labels: pd.Series, trades: pd.DataFrame,
         bound = resolvable_gap(int(inside.sum()), int(outside.sum()),
                                float(wins[usable].mean()))
         p = permutation_p(label_values[usable], wins[usable], state,
-                          np.random.default_rng(abs(hash((name, state))) % (2**32)))
+                          np.random.default_rng(cell_seed(name, state)))
         gap = rate - rest
 
         # Win rate is not the quantity that pays. Every prior candidate in this programme
@@ -237,7 +266,7 @@ def family_permutation(results: list[dict], stream: np.random.Generator,
         "cells_tested": count,
         "state_variables": len(results),
         "best_cell_p": observed,
-        "family_p": round(at_least / draws, 4),
+        "family_p": round((at_least + 1) / (draws + 1), 4),
         "reading": ("the chance that a family of this many cells produces a result this "
                     "strong when no state carries information"),
     }
@@ -378,48 +407,12 @@ def main() -> int:
         ],
     }
 
-    written = pkg.write_package(
-        STUDY_ID, payload,
-        market="XAUUSD",
-        strategy="none — regime classification over the existing S1 and S2",
-        title=payload["title"],
-        question=("Not a search for a new signal: a test of whether the two signals that "
-                  "already exist perform differently in identifiable market states, at "
-                  "three time scales, each against the strategy's own unconditional "
-                  "baseline."),
-        hypothesis=("If any scale carries a usable state, its cells separate by more than "
-                    "the resolution bound and survive a family correction."),
-        runner="scripts/research/build_xauusd_regime_sweep.py",
-        headline={
-            "state_variables": len(lookup.columns) - 1,
-            "cells_that_separate": len(separating),
-            "cells_worth_more_trades": len(near_miss),
-            "s1_trades": by_strategy["S1"]["trades"],
-            "s2_trades": by_strategy["S2"]["trades"],
-            "s1_baseline_win_rate_pct": by_strategy["S1"]["baseline_win_rate_pct"],
-            "s2_baseline_win_rate_pct": by_strategy["S2"]["baseline_win_rate_pct"],
-        },
-        findings=[],
-        card_summary=("Ten state variables at three time scales against S1 and S2, each "
-                      "compared with the strategy's own unconditional baseline."),
-        limitations=payload["limitations"],
-    )
-
-    print(json.dumps({
-        "study": STUDY_ID,
-        "written": written,
-        "state_variables": len(lookup.columns) - 1,
-        "cells_that_separate": len(separating),
-        "worth_more_trades": len(near_miss),
-        "family_p": {
-            key: {scale: block["family_permutation"].get("family_p")
-                  for scale, block in data["by_scale"].items()}
-            for key, data in by_strategy.items()
-        },
-        "top_near_misses": near_miss[:4],
-    }, ensure_ascii=False, default=str))
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+    # Rewritten for Public: the private runner writes a full study package
+    # here (results.json, study.json, and a registry row). A reader
+    # reproducing the study wants the numbers, so this writes just those.
+    OUTPUT_DIR = Path("reproduced")
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    (OUTPUT_DIR / "results.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8")
+    _written = {"results": str(OUTPUT_DIR / "results.json")}

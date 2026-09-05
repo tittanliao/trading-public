@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study_id": "RS-XAUUSD-20260824-005",
-  "generated_at": "2026-09-05T08:03:34+00:00",
+  "generated_at": "2026-09-05T14:57:19+00:00",
   "method": {
     "screens": [
       "resolution bound (smallest separable effect at ~80% power)",
@@ -51,7 +51,7 @@
     "baseline_win_rate_pct": 54.23,
     "win_rate_edge_pct": 4.13,
     "smallest_resolvable_effect": 0.5648,
-    "bootstrap_p_two_sided": 0.47,
+    "bootstrap_p_two_sided": 0.4708,
     "bootstrap_share_above_zero": 0.765,
     "effect_net_of_cost": 0.3603,
     "by_period": {
@@ -100,7 +100,7 @@
       "baseline_win_rate_pct": 56.05,
       "win_rate_edge_pct": -2.34,
       "smallest_resolvable_effect": 0.4191,
-      "bootstrap_p_two_sided": 0.475,
+      "bootstrap_p_two_sided": 0.4758,
       "bootstrap_share_above_zero": 0.2375,
       "effect_net_of_cost": 0.3607,
       "by_period": {
@@ -138,7 +138,7 @@
       "baseline_win_rate_pct": 57.41,
       "win_rate_edge_pct": -10.19,
       "smallest_resolvable_effect": 0.48,
-      "bootstrap_p_two_sided": 0.062,
+      "bootstrap_p_two_sided": 0.063,
       "bootstrap_share_above_zero": 0.031,
       "effect_net_of_cost": 1.1297,
       "by_period": {
@@ -157,7 +157,7 @@
       },
       "sign_consistent_all_periods": false,
       "verdict": "no_evidence",
-      "reason": "effect clears the resolution bound but bootstrap p=0.062",
+      "reason": "effect clears the resolution bound but bootstrap p=0.063",
       "preregistered": false
     },
     {
@@ -176,7 +176,7 @@
       "baseline_win_rate_pct": 53.37,
       "win_rate_edge_pct": 9.94,
       "smallest_resolvable_effect": 0.562,
-      "bootstrap_p_two_sided": 0.21,
+      "bootstrap_p_two_sided": 0.2109,
       "bootstrap_share_above_zero": 0.895,
       "effect_net_of_cost": 0.6526,
       "by_period": {
@@ -195,7 +195,7 @@
       },
       "sign_consistent_all_periods": true,
       "verdict": "no_evidence",
-      "reason": "effect clears the resolution bound but bootstrap p=0.21",
+      "reason": "effect clears the resolution bound but bootstrap p=0.2109",
       "preregistered": false
     },
     {
@@ -214,7 +214,7 @@
       "baseline_win_rate_pct": 55.75,
       "win_rate_edge_pct": -6.83,
       "smallest_resolvable_effect": 0.583,
-      "bootstrap_p_two_sided": 0.797,
+      "bootstrap_p_two_sided": 0.7976,
       "bootstrap_share_above_zero": 0.3985,
       "effect_net_of_cost": 0.1238,
       "by_period": {
@@ -252,7 +252,7 @@
       "baseline_win_rate_pct": 54.66,
       "win_rate_edge_pct": 0.75,
       "smallest_resolvable_effect": 0.5147,
-      "bootstrap_p_two_sided": 0.878,
+      "bootstrap_p_two_sided": 0.8786,
       "bootstrap_share_above_zero": 0.561,
       "effect_net_of_cost": 0.0451,
       "by_period": {
@@ -290,7 +290,7 @@
       "baseline_win_rate_pct": 54.42,
       "win_rate_edge_pct": 7.32,
       "smallest_resolvable_effect": 0.9002,
-      "bootstrap_p_two_sided": 0.587,
+      "bootstrap_p_two_sided": 0.5877,
       "bootstrap_share_above_zero": 0.7065,
       "effect_net_of_cost": 0.2283,
       "by_period": {
@@ -328,7 +328,7 @@
       "baseline_win_rate_pct": 54.73,
       "win_rate_edge_pct": -0.08,
       "smallest_resolvable_effect": 0.3453,
-      "bootstrap_p_two_sided": 0.568,
+      "bootstrap_p_two_sided": 0.5687,
       "bootstrap_share_above_zero": 0.716,
       "effect_net_of_cost": 0.109,
       "by_period": {
@@ -353,8 +353,8 @@
   ],
   "family_permutation_secondary_only": {
     "tested": 7,
-    "best_p_in_family": 0.062,
-    "family_p": 0.363,
+    "best_p_in_family": 0.063,
+    "family_p": 0.3663,
     "method": "monte_carlo_sidak_min_p_independent",
     "reading": "the chance that a family of this size produces a result this strong when every member is noise, ASSUMING the per-hypothesis p-values are independent -- this is not a permutation of the observed data"
   },

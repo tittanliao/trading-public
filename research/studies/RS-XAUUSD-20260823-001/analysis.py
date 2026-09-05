@@ -42,7 +42,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 STUDY_ID = "RS-XAUUSD-20260823-001"
 OUTPUT_DIR = Path("reproduced-intraday-range-profile")
 BARS_FILE = ROOT / "local-inputs/xauusd-30m.csv"

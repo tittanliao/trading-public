@@ -44,7 +44,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 import screen_harness as sh  # noqa: E402
 
 STUDY_ID = "RS-XAUUSD-20260824-004"
@@ -578,7 +578,7 @@ def main() -> int:
             block=block_for(test["horizon"]), cost_pct=COST_PCT,
         ))
 
-    family = sh.family_permutation(results, sh.stream_for(SEED, "family"))
+    family = sh.family_minimum_p_correction(results, sh.stream_for(SEED, "family"))
     verdicts: dict[str, int] = {}
     for row in results:
         verdicts[row["verdict"]] = verdicts.get(row["verdict"], 0) + 1

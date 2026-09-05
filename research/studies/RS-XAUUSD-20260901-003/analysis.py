@@ -30,7 +30,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 OUT = Path("reproduced")
 DAY_BOUNDARY_HOUR = 7          # Taipei, matching RS-XAUUSD-20260819-001

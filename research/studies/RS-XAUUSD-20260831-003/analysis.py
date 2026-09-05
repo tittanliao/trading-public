@@ -23,7 +23,7 @@ from bisect import bisect_left
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 BARS = Path("local-inputs/xauusd-30m-full.csv")
 TRADES = {"S1 V3.9": Path("local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-07-11.csv"),
           "S2 V3.2": Path("local-inputs/S2-Hammer-V3.2_FX_IDC_XAUUSD_2026-07-11.csv")}

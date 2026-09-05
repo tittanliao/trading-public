@@ -1,0 +1,18 @@
+{
+  "study_id": "RS-XAUUSD-20260827-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/gold_daily.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "aceeaa6ae9ae3d59f48bd819ba0bd11656506c445db74203444525c480eac94d",
+      "size_bytes": 314886,
+      "role": "market_bar_series_daily"
+    },
+    "local-inputs/gold_weekly.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "c28ab9479dfde2de3d0e6b17e68f26d9e35ea8ec34f57ac1da7991168d35b647",
+      "size_bytes": 173658,
+      "role": "market_bar_series_weekly"
+    }
+  }
+}

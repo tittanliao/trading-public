@@ -63,6 +63,12 @@ def block_bootstrap_effect(
 ) -> tuple[float | None, float | None]:
     """Resample contiguous blocks, returning (share above zero, two-sided p)."""
     count = forward.size
+    # 2026-09-05 independent audit: `block` was never validated. A caller passing 0 or a
+    # negative value sent `range(begin, min(begin + block, count))` empty, so the
+    # `while len(index) < count` loop spun forever on a silently wrong argument. Fail on the
+    # bad input instead of hanging on it.
+    if block <= 0:
+        raise ValueError(f"block must be a positive number of observations, got {block!r}")
     # 2026-09-05 independent audit: for block < count, a start index is valid whenever
     # begin + block <= count, i.e. begin in [0, count-block] -- that is count-block+1
     # values, not count-block. The previous `max(count - block, 1)` fed randrange one
@@ -86,7 +92,19 @@ def block_bootstrap_effect(
         return None, None
     array = np.array(collected)
     share = float((array > 0).mean())
-    return share, round(2 * min(share, 1 - share), 4)
+    # 2026-09-05 independent audit: this was `2 * min(share, 1 - share)`, which returns
+    # exactly 0.0 when every resample lands on one side. A bootstrap of n draws cannot
+    # establish p = 0; the most it can say is "smaller than roughly 2/(n+1)". Reporting 0.0
+    # invites a reader to treat a finite resample as certainty, and it is the value most
+    # likely to be quoted. Adding one to each tail count is the standard finite-resample
+    # correction (Davison & Hinkley); it bounds p below by 2/(n+1) and leaves every p in the
+    # interesting range essentially unchanged -- at the default 2000 draws it shifts a p by
+    # at most 0.001, which is inside this function's own rounding.
+    drawn = array.size
+    above = int((array > 0).sum())
+    low = (above + 1) / (drawn + 1)
+    high = (drawn - above + 1) / (drawn + 1)
+    return share, round(2 * min(low, high, 0.5), 4)
 
 
 def evaluate(
@@ -258,7 +276,10 @@ def family_minimum_p_correction(
     return {
         "tested": count,
         "best_p_in_family": observed,
-        "family_p": round(at_least / draws, 4),
+        # Same finite-resample correction as block_bootstrap_effect, and for the same
+        # reason: `at_least / draws` reports 0.0 when no draw beats the observed minimum,
+        # which claims more than 2000 draws can support.
+        "family_p": round((at_least + 1) / (draws + 1), 4),
         "method": "monte_carlo_sidak_min_p_independent",
         "reading": (
             "the chance that a family of this size produces a result this strong when "
