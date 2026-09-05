@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260824-005",
-  "revision": 1,
+  "revision": 2,
   "title": "The one hypothesis the last study left open, tested on the data it asked for",
   "market": "XAUUSD",
   "strategy": "none — pre-registered macro hypothesis on the daily price series",

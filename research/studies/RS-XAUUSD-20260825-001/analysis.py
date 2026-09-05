@@ -58,6 +58,7 @@ MIN_CELL = 20
 
 BARS = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
 DAILY = Path("local-inputs/XAUUSD_1d.csv")
+# 2026-09-05: see build_xauusd_long_history_sweep.py -- same fix, same reason.
 FRED = Path("local-inputs")
 STRATEGIES = {
     "S1": ("S1 AweWithBB V3.9", Path("local-inputs/v3.9")

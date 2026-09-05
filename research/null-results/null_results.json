@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-01T00:20:42+08:00",
+  "generated_at": "2026-09-04T00:20:44+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 39,
+    "studies": 46,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -107,45 +107,6 @@
     }
   ],
   "entries": [
-    {
-      "entry_id": "RS-TX-20260728-001",
-      "study_id": "RS-TX-20260728-001",
-      "kind": "study",
-      "family": "monthly-seasonality v1",
-      "origin": "programme",
-      "claim": "TX monthly seasonality — buy month-open, sell month-close",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research/publication only; descriptive calendar-month seasonality, no live 請分析 rule.",
-      "status": "progress",
-      "created_on": "2026-07-28"
-    },
-    {
-      "entry_id": "RS-TX-20260728-002",
-      "study_id": "RS-TX-20260728-002",
-      "kind": "study",
-      "family": "annual-fib-pullback v1",
-      "origin": "programme",
-      "claim": "TX annual Jan-open to Jul-1 rally, Fibonacci pullback re-entry",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Exploratory research only, tiny sample (7-8 trades/level); no live 請分析 rule.",
-      "status": "progress",
-      "created_on": "2026-07-28"
-    },
-    {
-      "entry_id": "RS-TX-20260815-001",
-      "study_id": "RS-TX-20260815-001",
-      "kind": "study",
-      "family": "annual-fib-three-wave research-v1",
-      "origin": "programme",
-      "claim": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Private medium/long-term research only; no live entry, sizing, stop, or margin rule is adopted.",
-      "status": "progress",
-      "created_on": "2026-08-15"
-    },
     {
       "entry_id": "RS-XAUUSD-20260727-001",
       "study_id": "RS-XAUUSD-20260727-001",
@@ -249,6 +210,45 @@
       "reason": "None. Research/publication only; reads -006/-007 results.json, recomputes nothing.",
       "status": "confirmed",
       "created_on": "2026-07-27"
+    },
+    {
+      "entry_id": "RS-TX-20260728-001",
+      "study_id": "RS-TX-20260728-001",
+      "kind": "study",
+      "family": "monthly-seasonality v1",
+      "origin": "programme",
+      "claim": "TX monthly seasonality — buy month-open, sell month-close",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research/publication only; descriptive calendar-month seasonality, no live 請分析 rule.",
+      "status": "progress",
+      "created_on": "2026-07-28"
+    },
+    {
+      "entry_id": "RS-TX-20260728-002",
+      "study_id": "RS-TX-20260728-002",
+      "kind": "study",
+      "family": "annual-fib-pullback v1",
+      "origin": "programme",
+      "claim": "TX annual Jan-open to Jul-1 rally, Fibonacci pullback re-entry",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Exploratory research only, tiny sample (7-8 trades/level); no live 請分析 rule.",
+      "status": "progress",
+      "created_on": "2026-07-28"
+    },
+    {
+      "entry_id": "RS-TX-20260815-001",
+      "study_id": "RS-TX-20260815-001",
+      "kind": "study",
+      "family": "annual-fib-three-wave research-v1",
+      "origin": "programme",
+      "claim": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Private medium/long-term research only; no live entry, sizing, stop, or margin rule is adopted.",
+      "status": "progress",
+      "created_on": "2026-08-15"
     },
     {
       "entry_id": "RS-XAUUSD-20260815-001",
@@ -429,7 +429,7 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. Entries above the upper band win 73.17% on n=82 against a 55.93% baseline, clearing family permutation (p=0.003), a moving-block bootstrap (90% CI 10.96-29.64, above zero in every resample), out-of-sample (65.12/81.25/82.61 while the baseline decayed 56.76/57.63/51.58), a continuous dose-response (Spearman 0.839, still rising inside the bucket) and a momentum ablation (positive in all three terciles). It is the only claim in the programme to clear all of them. Filtering on it nevertheless loses money: %B>1.0 keeps 17.4% of entries and 44% of total return, and best win rate never coincides with best return. Its place is as decision-time information, not a gate. CORRECTED 2026-09-01 by RS-XAUUSD-20260901-001: the %B label was read from the entry bar, which closes thirty minutes after the intrabar fill. Re-run on the last completed bar the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. This search space no longer has a survivor — it is open with a wide bound, not refuted, and the programme now has no surviving positive finding.",
-      "status": "confirmed",
+      "status": "pending",
       "created_on": "2026-08-23"
     },
     {
@@ -1959,8 +1959,8 @@
       "claim": "The one surviving finding, measured four ways — does %B mean anything outside the bars it was found on?",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": " CORRECTED 2026-09-01 by RS-XAUUSD-20260901-001: the %B label was read from the entry bar, which closes thirty minutes after the intrabar fill. Re-run on the last completed bar the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. This search space no longer has a survivor — it is open with a wide bound, not refuted, and the programme now has no surviving positive finding.",
-      "status": "confirmed",
+      "reason": "None. Revoked 2026-09-03: the finding is superseded by RS-XAUUSD-20260901-001, which showed the %B reading it measured used the entry bar instead of the last completed bar and does not clear its bound corrected.",
+      "status": "pending",
       "created_on": "2026-08-24"
     },
     {
@@ -2055,6 +2055,19 @@
       "created_on": "2026-08-31"
     },
     {
+      "entry_id": "RS-MULTI-20260901-001",
+      "study_id": "RS-MULTI-20260901-001",
+      "kind": "study",
+      "family": "calendar seasonality",
+      "origin": "programme",
+      "claim": "Buy the month open, sell the month close — one month clears its bound, and only on the short sample",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Across 48 month-by-series cells exactly one clears its own resolution bound — XAUUSD January on daily 2008+, by 0.033 percentage points — and it does not clear on the 1980+ sample. Separately: weekly-derived month boundaries disagree with daily by a mean 4.48 win-rate points for XAUUSD and 4.76 for TX, which is a caution about every seasonality result computed on weekly bars, RS-TX-20260728-001 included.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
+    },
+    {
       "entry_id": "RS-XAUUSD-20260901-001",
       "study_id": "RS-XAUUSD-20260901-001",
       "kind": "study",
@@ -2064,6 +2077,84 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None of its own. Consequential for RS-XAUUSD-20260823-002 and -20260824-006: with the %B label on the last completed bar rather than the bar the fill happened inside, the gap falls from 20.86 to 9.26 points against a bound rising from 16.9 to 20.28, permutation p from 0.0003 to 0.0748, and the dose response is no longer monotone. The unmodified path reproduces the published numbers exactly. Amending those two records changes a conclusion and awaits a decision.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-002",
+      "study_id": "RS-XAUUSD-20260901-002",
+      "kind": "study",
+      "family": "weekly report",
+      "origin": "programme",
+      "claim": "Scoring the weekly report — the rubric, and why two editions cannot produce a hit rate",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. A frozen scoring rubric for the weekly report plus the two editions whose weeks have finished. Two editions cannot separate any hit rate from a coin flip (bound 99.07 points against a maximum possible 50), and the single direction hit depends on how a 38/38 tie is broken. Mean Brier 0.7157 beats every constant baseline (best 1.0) and is the measure worth accumulating.",
+      "status": "progress",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-003",
+      "study_id": "RS-XAUUSD-20260901-003",
+      "kind": "study",
+      "family": "none — market structure",
+      "origin": "programme",
+      "claim": "Hurst is the estimator, the range boundary is arithmetic, and the range timing was already known",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Hurst is 0.5502 against a shuffled control of 0.5491, so the apparent persistence is estimator bias and long memory does not explain the direction/volatility asymmetry. The intraday range extension is arithmetic (1 minus realised in every decile). The range timing is real — back-loaded against a within-day shuffle, turning at 23:00 Taipei — and confirms RS-XAUUSD-20260819-001's independently found 21:00-23:00 cluster.",
+      "status": "progress",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-004",
+      "study_id": "RS-XAUUSD-20260901-004",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9 / S2 Hammer V3.2",
+      "origin": "programme",
+      "claim": "After an S1 stop-loss — the S2 that follows is better than average, and skipping it costs 35% of the book",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None yet. Skipping the S2 that follows an S1 stop-loss, and the S1 after it, costs total return at every window tested — 59.85 points of a 173.02 baseline at 48 hours. The S2 after a stop wins 60.56% against 42.57% and returns 1.008% against 0.3818%, holding and strengthening out of sample, but the 17.99-point gap does not clear its 21.66-point bound. The cost of skipping is established; the reason to take is not. CORRECTED 2026-09-01 by RS-XAUUSD-20260901-005: the stated mechanism does not survive a take-profit placebo; the cost of skipping is unaffected.",
+      "status": "progress",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-005",
+      "study_id": "RS-XAUUSD-20260901-005",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9 / S2 Hammer V3.2",
+      "origin": "programme",
+      "claim": "The stop-loss was standing in for the exit — a placebo test that overturns its own study's reading",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None of its own; corrects RS-XAUUSD-20260901-004's reading. S2 after an S1 stop wins 55.36% against 47.76% after an S1 take-profit — 7.60 points against a 25.32-point bound, p=0.1571 — while S2 with no S1 exit nearby wins 36.00%. Proximity to an S1 exit, not the exit type, is doing the work. The earlier study's decision conclusion is unaffected.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-006",
+      "study_id": "RS-XAUUSD-20260901-006",
+      "kind": "study",
+      "family": "S2 Hammer V3.2",
+      "origin": "programme",
+      "claim": "Volatility does not explain the exit-proximity effect, and neither does anything else — it is one cell",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Volatility does not explain the exit-proximity effect — 79.4% of the gap survives stratification — but the effect is not established either: the tercile gaps are +6.20, -20.51 and +52.50, the middle reverses, and the high tercile rests on twenty trades winning 10.0%. The confound runs opposite to the assumption: co-activity falls as volatility rises, 82.69% to 61.54%.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20260901-007",
+      "study_id": "RS-XAUUSD-20260901-007",
+      "kind": "study",
+      "family": "seasonal accumulation",
+      "origin": "programme",
+      "claim": "Fibonacci staged entry for the September-to-January window buys everything at once, or nothing at all",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. The return comparison does not resolve: the paired difference is -2.227 percentage points against a resolution bound of 4.59 on 18 cycles. What is established is that the rule does not stage the entry — fills are decided by where the August close sits inside the year's range, so it commits everything at once when gold is weak into September and holds back when gold is strong. Three of eighteen cycles never invested at all.",
       "status": "confirmed",
       "created_on": "2026-09-01"
     }

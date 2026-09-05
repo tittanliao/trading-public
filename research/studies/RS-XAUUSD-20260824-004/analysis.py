@@ -52,6 +52,10 @@ OUTPUT_DIR = Path("reproduced")
 
 GOLD = Path("local-inputs/gold_daily.csv")
 DXY = Path("local-inputs/dxy_daily.csv")
+# 2026-09-05: repointed from the tracked weekly-refresh path, which is overwritten in
+# place every week, to a permanent snapshot of the exact bytes this study was
+# originally computed against (recovered from git commit 540562d, verified by hash).
+# Without this, "rerunning" this study silently answers a different question every week.
 MANUAL = Path("local-inputs")
 
 SEED = 20260824

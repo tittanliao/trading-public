@@ -24,6 +24,12 @@
     "margin_caveat": "Spec figures. CME revises these with volatility and the sizing answer is a direct function of them; recheck before an order.",
     "proxy": "1OZ listed in 2025, so there is no history. XAUUSD spot stands in and the multiplier makes ounces and contracts interchangeable. Futures liquidity and spread are not modelled."
   },
+  "answers": {
+    "largest_size_with_no_historical_margin_breach": 7,
+    "largest_size_surviving_a_repeat_of_2026": 4,
+    "why_they_differ": "The eighteen September cycles never contained a drawdown past -15%, so every tested size clears them. The arithmetic asks a different question: which sizes survive a fall the size of the one gold delivered between January and June 2026, -29.44%. That fall happened outside the build window, which is why the backtest does not see it and why it cannot be used to rule it out."
+  },
+  "title": "Four monthly buys of 1OZ gold futures held to March — what history allows and what the arithmetic allows are different numbers",
   "normalisation": "Position size is stated per 10,000 units of account currency and everything else as a ratio, so the result is usable at any account size and carries none.",
   "sizing_by_arithmetic": [
     {
@@ -991,10 +997,5 @@
     "trough_vs_cost_pct": "The trough measured against what the ounces cost. Margin is tested on this, because maintenance compares equity to a requirement and equity is price minus cost.",
     "max_equity_drawdown_pct": "Peak to trough on the equity curve. Larger, and large even in profitable cycles: 2025/09-2026/03 built at 3,900, rode gold to 5,597 in January and exited at 4,683 for +20%, giving back 9,809 dollars from its high on the way. It is what the position felt like, not what triggers a call.",
     "why_it_matters": "A size chosen on trough-vs-cost survives margin. A size chosen on equity drawdown survives the person holding it. They are different numbers and the second is the larger one."
-  },
-  "answers": {
-    "leverage_the_backtest_permits": 4.34,
-    "leverage_the_arithmetic_permits": 2.48,
-    "why_they_differ": "The eighteen September cycles never contained a drawdown past -15%, so every tested size clears them. The arithmetic asks a different question: which sizes survive a fall the size of the one gold delivered between January and June 2026, -29.44%. That fall happened outside the build window, which is why the backtest does not see it and why it cannot be used to rule it out."
   }
 }

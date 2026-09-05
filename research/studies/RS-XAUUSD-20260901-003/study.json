@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260901-003",
-  "revision": 1,
+  "revision": 2,
   "title": "Hurst is the estimator, the range boundary is arithmetic, and the range timing was already known",
   "market": "XAUUSD",
   "strategy": {
@@ -31,9 +31,9 @@
   "findings": [
     {
       "tone": "warn",
-      "title": "The Hurst persistence is entirely the estimator's own bias",
+      "title": "The Hurst reading is indistinguishable from the estimator's own null",
       "detail": "Rescaled range returns 0.5502 on the series and 0.5491 on the same returns shuffled. The separation is 0.0011, against a spread of 0.0158 across the three chronological thirds, and the estimate sits inside the control's 5th-to-95th band. A reading of 0.55 is conventionally reported as a persistent series; here there is no persistence to report.",
-      "title_zh": "Hurst 顯示的持續性完全來自估計式自身的偏誤",
+      "title_zh": "Hurst 讀數與估計式自身的空模型無法區分",
       "detail_zh": "重標度全距在序列上給出 0.5502，在同一批報酬打散後給出 0.5491。差距 0.0011，而三個時序區段之間的離散度就有 0.0158，且估計值落在對照組的 5–95 百分位帶內。0.55 這個數字照慣例會被報告成「持續性序列」；在這裡沒有任何持續性可以報告。"
     },
     {

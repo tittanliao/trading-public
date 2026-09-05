@@ -219,6 +219,31 @@ def check_null_results(errors: list[str]) -> None:
     expected = {"no_evidence": 60, "underpowered": 2, "below_cost": 1}
     if totals.get("by_verdict") != expected:
         errors.append(f"verdict totals mismatch: expected {expected}, got {totals.get('by_verdict')}")
+    # 2026-09-05 independent audit finding 2: the two checks above are fixed constants, so
+    # they stay green even when the file is stale relative to the studies actually
+    # published here — which it was (39/102 entries here vs Private's live 46/109) for
+    # some number of days with nothing catching it. This can only be checked from inside
+    # Public, so it cross-references what Public itself already has: every published study
+    # directory must have a `kind: study` entry in the null registry, and that entry's
+    # `status` must match the study's own `study.json` — the exact drift that let two
+    # superseded studies keep reading `confirmed` here after they were downgraded.
+    by_id = {e["study_id"]: e for e in registry.get("entries", []) if e.get("kind") == "study"}
+    for study_dir in sorted((ROOT / "research/studies").iterdir()):
+        if not study_dir.is_dir():
+            continue
+        sid = study_dir.name
+        study_path = study_dir / "study.json"
+        if not study_path.is_file():
+            continue
+        entry = by_id.get(sid)
+        if entry is None:
+            errors.append(f"{sid}: published here but has no entry in null_results.json — "
+                          f"export_null_registry.py needs a rerun")
+            continue
+        live_status = json.loads(study_path.read_text(encoding="utf-8")).get("status")
+        if entry.get("status") != live_status:
+            errors.append(f"{sid}: null_results.json status {entry.get('status')!r} does "
+                          f"not match its own study.json status {live_status!r}")
 
 
 def check_tables(errors: list[str]) -> None:
@@ -287,6 +312,18 @@ def check_table_columns(errors: list[str]) -> None:
                 )
 
 
+# Every stdlib/third-party top-level module name any published analysis.py currently
+# imports. Extend this set, not the check, when a study legitimately needs a new one —
+# the check's job is to catch a LOCAL name that resolves to nothing, and a name on this
+# list is defined as never being that.
+KNOWN_STDLIB_AND_THIRD_PARTY = {
+    "__future__", "argparse", "base64", "bisect", "collections", "csv", "dataclasses",
+    "datetime", "hashlib", "itertools", "json", "math", "matplotlib", "numpy", "os",
+    "pandas", "pathlib", "random", "re", "shutil", "statistics", "sys", "typing",
+    "zoneinfo",
+}
+
+
 def check_analysis_reproducibility(errors: list[str]) -> None:
     """Every published analysis.py must (a) parse, (b) write only to reproduced/ rather
     than overwriting its own package's results.json, and (c) import nothing that exists
@@ -330,6 +367,36 @@ def check_analysis_reproducibility(errors: list[str]) -> None:
             errors.append(
                 f"{sid}: analysis.py imports a Private-only module (scripts.research...) "
                 f"that does not exist in this repository"
+            )
+        # 2026-09-05 independent audit finding 1: the dotted-import check above only
+        # catches one spelling. Ten published studies instead import a shared toolkit by
+        # its BARE name (`import fail_pattern_toolkit`, `import screen_harness`, ...) —
+        # the spelling the exporter's toolkit-inlining rewrite produces on success — but
+        # were never actually re-exported, so the .py file the bare import needs was never
+        # copied beside them. A parse-only check cannot see this: the file is syntactically
+        # fine and the import is syntactically fine, it just resolves to nothing at
+        # runtime. Walk the real AST (not a text regex — a docstring can read "from alpha
+        # discovery..." and false-match a line-anchored regex) for every top-level
+        # import/from, and require that any name which is neither a known stdlib/
+        # third-party module nor a sibling file in this exact package directory be treated
+        # as an error, not silently trusted.
+        tree = ast.parse(text, filename=str(path))
+        imported_names: set[str] = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported_names.update(alias.name.split(".")[0] for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+                imported_names.add(node.module.split(".")[0])
+        sibling_modules = {p.stem for p in path.parent.glob("*.py")}
+        unresolved = imported_names - KNOWN_STDLIB_AND_THIRD_PARTY - sibling_modules
+        # scripts.research.* itself is reported by the check above with a clearer message;
+        # do not double-report it here under a generic "unresolved import" label.
+        unresolved = {n for n in unresolved if n != "scripts"}
+        if unresolved:
+            errors.append(
+                f"{sid}: analysis.py imports {sorted(unresolved)}, which resolve to "
+                f"neither a known stdlib/third-party module nor a file in this package — "
+                f"the toolkit was renamed on import but never copied beside it"
             )
 
 

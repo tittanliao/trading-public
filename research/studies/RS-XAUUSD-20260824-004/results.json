@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study_id": "RS-XAUUSD-20260824-004",
-  "generated_at": "2026-08-24T11:43:31+00:00",
+  "generated_at": "2026-09-05T08:03:06+00:00",
   "method": {
     "bars": "XAUUSD daily close-to-close",
     "block_bootstrap_sessions": "3x the forward horizon, floored at 21",
@@ -41,7 +41,8 @@
     "tested": 20,
     "best_p_in_family": 0.072,
     "family_p": 0.788,
-    "reading": "the chance that a family of this size produces a result this strong when every member is noise"
+    "method": "monte_carlo_sidak_min_p_independent",
+    "reading": "the chance that a family of this size produces a result this strong when every member is noise, ASSUMING the per-hypothesis p-values are independent -- this is not a permutation of the observed data"
   },
   "hypotheses": [
     {
@@ -60,8 +61,8 @@
       "baseline_win_rate_pct": 52.37,
       "win_rate_edge_pct": 1.43,
       "smallest_resolvable_effect": 0.1106,
-      "bootstrap_p_two_sided": 0.568,
-      "bootstrap_share_above_zero": 0.284,
+      "bootstrap_p_two_sided": 0.565,
+      "bootstrap_share_above_zero": 0.2825,
       "effect_net_of_cost": 0.0056,
       "by_period": {
         "train": {
@@ -97,8 +98,8 @@
       "baseline_win_rate_pct": 53.18,
       "win_rate_edge_pct": -2.61,
       "smallest_resolvable_effect": 0.1108,
-      "bootstrap_p_two_sided": 0.268,
-      "bootstrap_share_above_zero": 0.134,
+      "bootstrap_p_two_sided": 0.238,
+      "bootstrap_share_above_zero": 0.119,
       "effect_net_of_cost": 0.0265,
       "by_period": {
         "train": {
@@ -134,8 +135,8 @@
       "baseline_win_rate_pct": 55.65,
       "win_rate_edge_pct": -3.45,
       "smallest_resolvable_effect": 0.7005,
-      "bootstrap_p_two_sided": 0.767,
-      "bootstrap_share_above_zero": 0.3835,
+      "bootstrap_p_two_sided": 0.791,
+      "bootstrap_share_above_zero": 0.3955,
       "effect_net_of_cost": 0.263,
       "by_period": {
         "train": {
@@ -171,8 +172,8 @@
       "baseline_win_rate_pct": 54.7,
       "win_rate_edge_pct": 0.87,
       "smallest_resolvable_effect": 0.2488,
-      "bootstrap_p_two_sided": 0.263,
-      "bootstrap_share_above_zero": 0.8685,
+      "bootstrap_p_two_sided": 0.255,
+      "bootstrap_share_above_zero": 0.8725,
       "effect_net_of_cost": 0.1305,
       "by_period": {
         "train": {
@@ -208,8 +209,8 @@
       "baseline_win_rate_pct": 53.94,
       "win_rate_edge_pct": 1.66,
       "smallest_resolvable_effect": 0.2038,
-      "bootstrap_p_two_sided": 0.499,
-      "bootstrap_share_above_zero": 0.7505,
+      "bootstrap_p_two_sided": 0.489,
+      "bootstrap_share_above_zero": 0.7555,
       "effect_net_of_cost": 0.0824,
       "by_period": {
         "train": {
@@ -245,8 +246,8 @@
       "baseline_win_rate_pct": 55.66,
       "win_rate_edge_pct": 0.42,
       "smallest_resolvable_effect": 0.5369,
-      "bootstrap_p_two_sided": 0.668,
-      "bootstrap_share_above_zero": 0.666,
+      "bootstrap_p_two_sided": 0.673,
+      "bootstrap_share_above_zero": 0.6635,
       "effect_net_of_cost": 0.362,
       "by_period": {
         "train": {
@@ -356,8 +357,8 @@
       "baseline_win_rate_pct": 52.26,
       "win_rate_edge_pct": 4.45,
       "smallest_resolvable_effect": 0.1555,
-      "bootstrap_p_two_sided": 0.142,
-      "bootstrap_share_above_zero": 0.929,
+      "bootstrap_p_two_sided": 0.153,
+      "bootstrap_share_above_zero": 0.9235,
       "effect_net_of_cost": 0.0648,
       "by_period": {
         "train": {
@@ -393,8 +394,8 @@
       "baseline_win_rate_pct": 52.84,
       "win_rate_edge_pct": -5.71,
       "smallest_resolvable_effect": 0.2502,
-      "bootstrap_p_two_sided": 0.242,
-      "bootstrap_share_above_zero": 0.121,
+      "bootstrap_p_two_sided": 0.239,
+      "bootstrap_share_above_zero": 0.1195,
       "effect_net_of_cost": 0.0767,
       "by_period": {
         "train": {
@@ -430,8 +431,8 @@
       "baseline_win_rate_pct": 55.01,
       "win_rate_edge_pct": -1.18,
       "smallest_resolvable_effect": 0.3295,
-      "bootstrap_p_two_sided": 0.879,
-      "bootstrap_share_above_zero": 0.4395,
+      "bootstrap_p_two_sided": 0.927,
+      "bootstrap_share_above_zero": 0.4635,
       "effect_net_of_cost": 0.0049,
       "by_period": {
         "train": {
@@ -467,8 +468,8 @@
       "baseline_win_rate_pct": 53.93,
       "win_rate_edge_pct": -0.97,
       "smallest_resolvable_effect": 0.2998,
-      "bootstrap_p_two_sided": 0.711,
-      "bootstrap_share_above_zero": 0.6445,
+      "bootstrap_p_two_sided": 0.735,
+      "bootstrap_share_above_zero": 0.6325,
       "effect_net_of_cost": 0.016,
       "by_period": {
         "train": {
@@ -504,8 +505,8 @@
       "baseline_win_rate_pct": 53.42,
       "win_rate_edge_pct": -1.18,
       "smallest_resolvable_effect": 0.5134,
-      "bootstrap_p_two_sided": 0.776,
-      "bootstrap_share_above_zero": 0.612,
+      "bootstrap_p_two_sided": 0.771,
+      "bootstrap_share_above_zero": 0.6145,
       "effect_net_of_cost": 0.0909,
       "by_period": {
         "train": {
@@ -541,8 +542,8 @@
       "baseline_win_rate_pct": 53.6,
       "win_rate_edge_pct": 0.57,
       "smallest_resolvable_effect": 0.236,
-      "bootstrap_p_two_sided": 0.579,
-      "bootstrap_share_above_zero": 0.7105,
+      "bootstrap_p_two_sided": 0.6,
+      "bootstrap_share_above_zero": 0.7,
       "effect_net_of_cost": 0.0801,
       "by_period": {
         "train": {
@@ -578,8 +579,8 @@
       "baseline_win_rate_pct": 52.45,
       "win_rate_edge_pct": -5.07,
       "smallest_resolvable_effect": 0.1546,
-      "bootstrap_p_two_sided": 0.386,
-      "bootstrap_share_above_zero": 0.193,
+      "bootstrap_p_two_sided": 0.36,
+      "bootstrap_share_above_zero": 0.18,
       "effect_net_of_cost": 0.0257,
       "by_period": {
         "train": {
@@ -615,8 +616,8 @@
       "baseline_win_rate_pct": 54.35,
       "win_rate_edge_pct": -6.9,
       "smallest_resolvable_effect": 0.5143,
-      "bootstrap_p_two_sided": 0.502,
-      "bootstrap_share_above_zero": 0.251,
+      "bootstrap_p_two_sided": 0.479,
+      "bootstrap_share_above_zero": 0.2395,
       "effect_net_of_cost": 0.3252,
       "by_period": {
         "train": {
@@ -652,8 +653,8 @@
       "baseline_win_rate_pct": 52.46,
       "win_rate_edge_pct": 4.44,
       "smallest_resolvable_effect": 0.5277,
-      "bootstrap_p_two_sided": 0.464,
-      "bootstrap_share_above_zero": 0.768,
+      "bootstrap_p_two_sided": 0.468,
+      "bootstrap_share_above_zero": 0.766,
       "effect_net_of_cost": 0.4608,
       "by_period": {
         "train": {
@@ -689,8 +690,8 @@
       "baseline_win_rate_pct": 59.94,
       "win_rate_edge_pct": 11.55,
       "smallest_resolvable_effect": 0.9848,
-      "bootstrap_p_two_sided": 0.351,
-      "bootstrap_share_above_zero": 0.8245,
+      "bootstrap_p_two_sided": 0.312,
+      "bootstrap_share_above_zero": 0.844,
       "effect_net_of_cost": 0.8653,
       "by_period": {
         "train": {
@@ -726,8 +727,8 @@
       "baseline_win_rate_pct": 53.01,
       "win_rate_edge_pct": 5.04,
       "smallest_resolvable_effect": 0.8165,
-      "bootstrap_p_two_sided": 0.498,
-      "bootstrap_share_above_zero": 0.751,
+      "bootstrap_p_two_sided": 0.505,
+      "bootstrap_share_above_zero": 0.7475,
       "effect_net_of_cost": 0.6929,
       "by_period": {
         "train": {
@@ -763,8 +764,8 @@
       "baseline_win_rate_pct": 53.22,
       "win_rate_edge_pct": -3.22,
       "smallest_resolvable_effect": 1.72,
-      "bootstrap_p_two_sided": 0.5817,
-      "bootstrap_share_above_zero": 0.7092,
+      "bootstrap_p_two_sided": 0.6095,
+      "bootstrap_share_above_zero": 0.6952,
       "effect_net_of_cost": 0.2227,
       "by_period": {
         "train": {
@@ -998,5 +999,6 @@
     ],
     "win_rate_monotone_in_votes": false,
     "reading": "If consensus carries information, two things must hold: a condition's win rate stays above 50% in every block rather than only on average, and the win rate rises as more conditions agree. Either one failing means the pooled number was describing the period."
-  }
+  },
+  "title": "Twenty hypotheses on 18 years of daily gold, and the macro drivers the programme had data for and never opened"
 }

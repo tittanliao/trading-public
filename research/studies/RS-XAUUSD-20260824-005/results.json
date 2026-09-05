@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study_id": "RS-XAUUSD-20260824-005",
-  "generated_at": "2026-08-24T14:19:04+00:00",
+  "generated_at": "2026-09-05T08:03:34+00:00",
   "method": {
     "screens": [
       "resolution bound (smallest separable effect at ~80% power)",
@@ -51,8 +51,8 @@
     "baseline_win_rate_pct": 54.23,
     "win_rate_edge_pct": 4.13,
     "smallest_resolvable_effect": 0.5648,
-    "bootstrap_p_two_sided": 0.48,
-    "bootstrap_share_above_zero": 0.76,
+    "bootstrap_p_two_sided": 0.47,
+    "bootstrap_share_above_zero": 0.765,
     "effect_net_of_cost": 0.3603,
     "by_period": {
       "train": {
@@ -100,8 +100,8 @@
       "baseline_win_rate_pct": 56.05,
       "win_rate_edge_pct": -2.34,
       "smallest_resolvable_effect": 0.4191,
-      "bootstrap_p_two_sided": 0.456,
-      "bootstrap_share_above_zero": 0.228,
+      "bootstrap_p_two_sided": 0.475,
+      "bootstrap_share_above_zero": 0.2375,
       "effect_net_of_cost": 0.3607,
       "by_period": {
         "train": {
@@ -138,8 +138,8 @@
       "baseline_win_rate_pct": 57.41,
       "win_rate_edge_pct": -10.19,
       "smallest_resolvable_effect": 0.48,
-      "bootstrap_p_two_sided": 0.059,
-      "bootstrap_share_above_zero": 0.0295,
+      "bootstrap_p_two_sided": 0.062,
+      "bootstrap_share_above_zero": 0.031,
       "effect_net_of_cost": 1.1297,
       "by_period": {
         "train": {
@@ -157,7 +157,7 @@
       },
       "sign_consistent_all_periods": false,
       "verdict": "no_evidence",
-      "reason": "effect clears the resolution bound but bootstrap p=0.059",
+      "reason": "effect clears the resolution bound but bootstrap p=0.062",
       "preregistered": false
     },
     {
@@ -176,8 +176,8 @@
       "baseline_win_rate_pct": 53.37,
       "win_rate_edge_pct": 9.94,
       "smallest_resolvable_effect": 0.562,
-      "bootstrap_p_two_sided": 0.212,
-      "bootstrap_share_above_zero": 0.894,
+      "bootstrap_p_two_sided": 0.21,
+      "bootstrap_share_above_zero": 0.895,
       "effect_net_of_cost": 0.6526,
       "by_period": {
         "train": {
@@ -195,7 +195,7 @@
       },
       "sign_consistent_all_periods": true,
       "verdict": "no_evidence",
-      "reason": "effect clears the resolution bound but bootstrap p=0.212",
+      "reason": "effect clears the resolution bound but bootstrap p=0.21",
       "preregistered": false
     },
     {
@@ -214,8 +214,8 @@
       "baseline_win_rate_pct": 55.75,
       "win_rate_edge_pct": -6.83,
       "smallest_resolvable_effect": 0.583,
-      "bootstrap_p_two_sided": 0.786,
-      "bootstrap_share_above_zero": 0.393,
+      "bootstrap_p_two_sided": 0.797,
+      "bootstrap_share_above_zero": 0.3985,
       "effect_net_of_cost": 0.1238,
       "by_period": {
         "train": {
@@ -252,8 +252,8 @@
       "baseline_win_rate_pct": 54.66,
       "win_rate_edge_pct": 0.75,
       "smallest_resolvable_effect": 0.5147,
-      "bootstrap_p_two_sided": 0.87,
-      "bootstrap_share_above_zero": 0.565,
+      "bootstrap_p_two_sided": 0.878,
+      "bootstrap_share_above_zero": 0.561,
       "effect_net_of_cost": 0.0451,
       "by_period": {
         "train": {
@@ -290,8 +290,8 @@
       "baseline_win_rate_pct": 54.42,
       "win_rate_edge_pct": 7.32,
       "smallest_resolvable_effect": 0.9002,
-      "bootstrap_p_two_sided": 0.608,
-      "bootstrap_share_above_zero": 0.696,
+      "bootstrap_p_two_sided": 0.587,
+      "bootstrap_share_above_zero": 0.7065,
       "effect_net_of_cost": 0.2283,
       "by_period": {
         "train": {
@@ -328,8 +328,8 @@
       "baseline_win_rate_pct": 54.73,
       "win_rate_edge_pct": -0.08,
       "smallest_resolvable_effect": 0.3453,
-      "bootstrap_p_two_sided": 0.565,
-      "bootstrap_share_above_zero": 0.7175,
+      "bootstrap_p_two_sided": 0.568,
+      "bootstrap_share_above_zero": 0.716,
       "effect_net_of_cost": 0.109,
       "by_period": {
         "train": {
@@ -353,9 +353,10 @@
   ],
   "family_permutation_secondary_only": {
     "tested": 7,
-    "best_p_in_family": 0.059,
-    "family_p": 0.352,
-    "reading": "the chance that a family of this size produces a result this strong when every member is noise"
+    "best_p_in_family": 0.062,
+    "family_p": 0.363,
+    "method": "monte_carlo_sidak_min_p_independent",
+    "reading": "the chance that a family of this size produces a result this strong when every member is noise, ASSUMING the per-hypothesis p-values are independent -- this is not a permutation of the observed data"
   },
   "dollar_replication": {
     "question": "Does the broad trade-weighted dollar index reproduce the ICE DXY result on the window where both exist? Only then may it extend the sample.",
@@ -379,5 +380,6 @@
     },
     "reproduces": false,
     "reading": "Same sign and win rates within 10 points is the bar. The two indices weight different currencies, so exact agreement is not expected and would be suspicious if it appeared."
-  }
+  },
+  "title": "The one hypothesis the last study left open, tested on the data it asked for"
 }

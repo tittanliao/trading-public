@@ -64,6 +64,7 @@ STUDY_ID = "RS-XAUUSD-20260824-005"
 OUTPUT_DIR = Path("reproduced")
 GOLD = Path("local-inputs/gold_daily.csv")
 DXY_REPO = Path("local-inputs/dxy_daily.csv")
+# 2026-09-05: see build_xauusd_long_history_sweep.py -- same fix, same reason.
 FRED = Path("local-inputs/fred")
 
 SEED = 20260825
