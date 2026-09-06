@@ -169,6 +169,8 @@ def check_weekly_sections(errors: list[str]) -> None:
         # change; older finalised artifacts are not retroactively invalidated.
         if summary.get("four_week_overview") and "四週回顧" not in text:
             errors.append(f"{week} has four_week_overview data but the page does not render it")
+        if summary.get("market_regime_panel") and "多週期市場狀態" not in text:
+            errors.append(f"{week} has market_regime_panel data but the page does not render it")
         for perspective in weekly_perspectives(week):
             producer = perspective.get("producer", "?")
             path = ROOT / "xauusd/weekly" / week / "perspectives" / f"{producer}.json"

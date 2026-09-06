@@ -722,6 +722,31 @@ def weekly_report_page(week: str) -> str:
             ])
         four_week = f'<section class="block-section"><h2>四週回顧</h2>{render_table(headers, rows)}</section>'
 
+    regime_panel = ""
+    if s.get("market_regime_panel"):
+        regime = s["market_regime_panel"]
+        regime_headers = [
+            ("週期", False), ("波動", False), ("方向", False),
+            ("Hurst／null", False), ("證據", False),
+        ]
+        regime_rows = [[
+            ("th", esc(row["timeframe"]), row["timeframe"], False),
+            ("td", esc(row["volatility_state"]), row["volatility_state"], False),
+            ("td", esc(row["direction_state"]), row["direction_state"], False),
+            ("td", esc(row["hurst_classification"]), row["hurst_classification"], False),
+            ("td", esc(row["evidence"]), row["evidence"].lower(), False),
+        ] for row in regime["timeframes"]]
+        regime_panel = (
+            '<section class="block-section"><h2>多週期市場狀態：波動 × 方向 × Hurst</h2>'
+            f'<p class="evidence-takeaway">{esc(regime["summary"])}</p>'
+            f'{render_table(regime_headers, regime_rows)}'
+            '<div class="reading-rail">'
+            f'<p><strong>歷史 Hurst：</strong>{esc(regime["historical_hurst"])}</p>'
+            f'<p><strong>本期 Hurst：</strong>{esc(regime["current_hurst"])}</p>'
+            '<p><strong>決策用途：</strong>descriptive_only；不得改變劇本機率、Entry、SL、TP、風險、口數或加碼權限。</p>'
+            '</div></section>'
+        )
+
     sc_headers = [("劇本", False), ("機率", True), ("條件", False), ("失準條件", False), ("目標", False)]
     sc_rows = [[
         ("th", f'<span class="dir dir-{esc(sc["direction"])}">{esc(sc["direction"])}</span>', sc["direction"], False),
@@ -788,12 +813,14 @@ def weekly_report_page(week: str) -> str:
             + render_table([("Producer", False), ("獨立性", False), ("定位", False), ("觀點", False)], rows)
             + '</section>'
         )
-    hurst = (
-        '<section class="block-section reading-rail"><h2>Hurst 市場結構判讀</h2>'
-        '<p class="prose">目前的 Hurst R/S 研究得到 0.5502；同一批報酬打散後為 0.5491，差距僅 0.0011，'
-        '且落在對照組範圍內。因此它不是可用的長記憶證據，也不作為 Entry、濾網、部位大小或劇本機率依據。'
-        '<a href="../../../research/studies/RS-XAUUSD-20260901-003/">閱讀完整研究 →</a></p></section>'
-    )
+    hurst = ""
+    if not regime_panel:
+        hurst = (
+            '<section class="block-section reading-rail"><h2>Hurst 市場結構判讀</h2>'
+            '<p class="prose">歷史 Hurst R/S 研究得到 0.5502；同一批報酬打散後為 0.5491，差距僅 0.0011，'
+            '且落在對照組範圍內。這是歷史研究值，不是本週讀數；它不作為 Entry、濾網、部位大小或劇本機率依據。'
+            '<a href="../../../research/studies/RS-XAUUSD-20260901-003/">閱讀完整研究 →</a></p></section>'
+        )
 
     body = f"""
 <div class="reading-rail weekly-intro">
@@ -806,6 +833,7 @@ def weekly_report_page(week: str) -> str:
 </div>
 {cftc}
 {four_week}
+{regime_panel}
 {perspective_links}
 {hurst}
 <section class="block-section"><h2>三劇本與機率</h2>{render_table(sc_headers, sc_rows)}</section>
