@@ -35,6 +35,54 @@ PRIVATE_TOKENS = (
     "private_provenance", "owner",
 )
 
+# 2026-09-06 independent review (Codex). PRIVATE_TOKENS above matches the *names* of
+# private fields, so it does not catch a private identifier or the fact of a private state
+# written out in prose -- exactly how the W37 aggregate reached this site twice:
+# scripts/xauusd_weekly/publish_public_summary.py's `--check` gate in trading-private
+# passed a sentence naming an input-set id by value, and separately passed prose stating
+# this run's actual journal/position status. Both fixes are ported here as this site's own
+# last-line check, because trading-public must stand alone (it is what a reader clones) and
+# cannot import trading-private's tooling. Keep this in sync with
+# scripts/xauusd_weekly/publish_public_summary.py's `scan_private_values` and
+# `scan_journal_state_disclosure` in trading-private if either changes.
+IDENTIFIER_PATTERNS = (
+    ("run or input-set identity", re.compile(r"\d{8}T\d{6}Z")),
+    ("hash digest", re.compile(r"[0-9a-fA-F]{32,}")),
+)
+# The one field allowed to carry a digest: it identifies a resolved multi-source selection,
+# the public schema requires it, and it names no path, report, or account.
+IDENTIFIER_ALLOWED_FIELDS = {"source_fingerprint"}
+
+STATE_MARKERS = ("journal", "日誌")
+STATE_CONTEXT = ("尚未建立", "仍為 unknown", "記為 unknown", "皆為 unknown", "為 unknown")
+STATE_DISCLAIMER_MARKERS = ("不揭露",)
+
+
+def scan_public_json_for_leaks(node: object, source: str, path: str, errors: list[str]) -> None:
+    """Walk a public JSON document (weekly summary or perspective) for an identifier
+    written out by value, or prose disclosing this run's journal/position state -- neither
+    of which the field-name scan below can see."""
+    field = path.split("[")[0].rsplit(".", 1)[-1]
+    if isinstance(node, dict):
+        for key, value in node.items():
+            scan_public_json_for_leaks(value, source, f"{path}.{key}" if path else key, errors)
+        return
+    if isinstance(node, list):
+        for index, value in enumerate(node):
+            scan_public_json_for_leaks(value, source, f"{path}[{index}]", errors)
+        return
+    if not isinstance(node, str):
+        return
+    if field not in IDENTIFIER_ALLOWED_FIELDS:
+        for label, pattern in IDENTIFIER_PATTERNS:
+            for match in pattern.findall(node):
+                errors.append(f"{source}: {path}: {label} {match!r}")
+    has_marker = any(marker in node for marker in STATE_MARKERS)
+    has_context = any(ctx in node for ctx in STATE_CONTEXT)
+    is_disclaimer = any(marker in node for marker in STATE_DISCLAIMER_MARKERS)
+    if has_marker and has_context and not is_disclaimer:
+        errors.append(f"{source}: {path}: journal/position state disclosure {node!r}")
+
 def check_routes(errors: list[str]) -> None:
     for page in GENERATED_PAGES:
         if not page.is_file():
@@ -152,7 +200,7 @@ def check_charts(errors: list[str]) -> None:
 
 def check_weekly_sections(errors: list[str]) -> None:
     """A Weekly report must actually contain its required reader-facing sections."""
-    required = ["市場摘要", "三劇本與機率", "關鍵價位", "事件風險", "分歧"]
+    required = ["市場摘要", "劇本與機率", "關鍵價位", "事件風險", "分歧"]
     for week in weekly_weeks():
         page = ROOT / "xauusd/weekly" / week / "index.html"
         if not page.is_file():
@@ -224,6 +272,17 @@ def check_privacy(errors: list[str]) -> None:
         for token in PRIVATE_TOKENS:
             if token in text:
                 errors.append(f"prohibited token '{token}' in {path.relative_to(ROOT)}")
+        # A weekly summary/perspective JSON is walked field-by-field for identifier shapes
+        # and journal/state prose; study packages are plain-text scanned above only.
+        if path.suffix == ".json" and (
+            path.name == "summary.json" or path.parent.name == "perspectives"
+            or "/perspectives/" in str(path.relative_to(ROOT))
+        ):
+            try:
+                document = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            scan_public_json_for_leaks(document, str(path.relative_to(ROOT)), "", errors)
 
 
 def check_null_results(errors: list[str]) -> None:

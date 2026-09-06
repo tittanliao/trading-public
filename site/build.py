@@ -788,6 +788,19 @@ def weekly_report_page(week: str) -> str:
         cmp_rows.append(cells)
     cmp_headers = [("Producer", False)] + [(f"劇本 {i+1}", True) for i in range(len(cmp_rows[0]) - 1)]
 
+    # 2026-09-06 independent review (Codex): a probability-bearing scenario used to be
+    # invented to make adopted_scenarios sum to 100 when the two producers disagreed on the
+    # remaining direction split. That scenario read as a fourth market outcome. The
+    # remaining probability mass a resolution could not assign a shared scenario to is now
+    # its own field, rendered as a note rather than a table row with a dir-<value> badge.
+    resolution_status_block = ""
+    if s.get("resolution_status"):
+        rs = s["resolution_status"]
+        resolution_status_block = (
+            f'<p class="evidence-takeaway">尚餘 {rs["share_pct"]}%'
+            f' 未列入上表：{esc(rs["note"])}</p>'
+        )
+
     def bullets(items: list[str]) -> str:
         return "".join(f"<li>{esc(x)}</li>" for x in items)
 
@@ -836,7 +849,7 @@ def weekly_report_page(week: str) -> str:
 {regime_panel}
 {perspective_links}
 {hurst}
-<section class="block-section"><h2>三劇本與機率</h2>{render_table(sc_headers, sc_rows)}</section>
+<section class="block-section"><h2>劇本與機率</h2>{render_table(sc_headers, sc_rows)}{resolution_status_block}</section>
 <section class="block-section"><h2>關鍵價位</h2>{render_table(lv_headers, lv_rows)}</section>
 <section class="block-section"><h2>S1／S2 計畫</h2>{render_table(sp_headers, sp_rows)}</section>
 <section class="block-section"><h2>事件風險</h2>{render_table(ev_headers, ev_rows)}</section>
