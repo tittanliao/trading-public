@@ -17,7 +17,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import PUBLISHED_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks  # noqa: E402
+from build import PUBLISHED_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks, weekly_perspectives  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -169,6 +169,15 @@ def check_weekly_sections(errors: list[str]) -> None:
         # change; older finalised artifacts are not retroactively invalidated.
         if summary.get("four_week_overview") and "四週回顧" not in text:
             errors.append(f"{week} has four_week_overview data but the page does not render it")
+        for perspective in weekly_perspectives(week):
+            producer = perspective.get("producer", "?")
+            path = ROOT / "xauusd/weekly" / week / "perspectives" / f"{producer}.json"
+            if perspective.get("independence_status") not in {"independent", "not_independent"}:
+                errors.append(f"{week}/{producer} perspective has invalid independence_status")
+            if not perspective.get("independence_disclosure"):
+                errors.append(f"{week}/{producer} perspective has no independence disclosure")
+            if not path.is_file():
+                errors.append(f"{week}/{producer} perspective has no source JSON")
 
 
 # The owner's account size. It reached the live site inside a published analysis.py even
@@ -197,6 +206,8 @@ def check_account_figures(errors: list[str]) -> None:
 def check_privacy(errors: list[str]) -> None:
     scanned = list(GENERATED_PAGES)
     scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
+    scanned += [path for week in weekly_weeks()
+                for path in (ROOT / "xauusd/weekly" / week / "perspectives").glob("*.json")]
     # Pages serves the whole repository, so a queued or superseded study's evidence package
     # is as public as a published one — scan every package present, not just PUBLISHED_STUDIES.
     # impact.md was missing from this list entirely, which is how "the owner" reached five

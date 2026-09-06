@@ -91,6 +91,17 @@ def weekly_weeks() -> list[str]:
     return weeks
 
 
+def weekly_perspectives(week: str) -> list[dict]:
+    """Load only exporter-created producer views; private reports never enter this tree."""
+    directory = ROOT / "xauusd/weekly" / week / "perspectives"
+    views = []
+    for path in sorted(directory.glob("*.json")) if directory.is_dir() else []:
+        view = load_json(path)
+        if view.get("forecast_week") == week and view.get("producer") == path.stem:
+            views.append(view)
+    return views
+
+
 def latest_week() -> str:
     return weekly_weeks()[-1]
 
@@ -100,6 +111,8 @@ def routes() -> list[str]:
         "",
         "xauusd/weekly",
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
+        *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
+          for w in weekly_weeks() for p in weekly_perspectives(w)),
         "research",
         "research/null-results",
         "research/backlog",
@@ -754,6 +767,33 @@ def weekly_report_page(week: str) -> str:
         return "".join(f"<li>{esc(x)}</li>" for x in items)
 
     agreements_heading = "共識" if s["publication_mode"] == "multi_source" else "可驗證事項"
+    perspectives = weekly_perspectives(week)
+    perspective_links = ""
+    if perspectives:
+        rows = []
+        for view in perspectives:
+            producer = view["producer"]
+            status = view.get("independence_status", "unknown")
+            label = "可參與交叉比對" if status == "independent" else "補充觀點；非獨立，不計入共識"
+            rows.append([
+                ("th", esc(view.get("producer_name", producer.capitalize())), producer, False),
+                ("td", esc(status), status, False),
+                ("td", esc(label), label, False),
+                ("td", f'<a href="perspectives/{attr(producer)}/">閱讀公開安全版 →</a>', producer, False),
+            ])
+        perspective_links = (
+            '<section class="block-section"><h2>Claude／Codex 個別週報觀點</h2>'
+            '<p class="evidence-takeaway">這些頁面是各 producer 原有判讀的公開安全版；不是私有 JSON／DOCX 的複本。'
+            '正式交易計畫仍以本頁審閱彙總為準。</p>'
+            + render_table([("Producer", False), ("獨立性", False), ("定位", False), ("觀點", False)], rows)
+            + '</section>'
+        )
+    hurst = (
+        '<section class="block-section reading-rail"><h2>Hurst 市場結構判讀</h2>'
+        '<p class="prose">目前的 Hurst R/S 研究得到 0.5502；同一批報酬打散後為 0.5491，差距僅 0.0011，'
+        '且落在對照組範圍內。因此它不是可用的長記憶證據，也不作為 Entry、濾網、部位大小或劇本機率依據。'
+        '<a href="../../../research/studies/RS-XAUUSD-20260901-003/">閱讀完整研究 →</a></p></section>'
+    )
 
     body = f"""
 <div class="reading-rail weekly-intro">
@@ -766,6 +806,8 @@ def weekly_report_page(week: str) -> str:
 </div>
 {cftc}
 {four_week}
+{perspective_links}
+{hurst}
 <section class="block-section"><h2>三劇本與機率</h2>{render_table(sc_headers, sc_rows)}</section>
 <section class="block-section"><h2>關鍵價位</h2>{render_table(lv_headers, lv_rows)}</section>
 <section class="block-section"><h2>S1／S2 計畫</h2>{render_table(sp_headers, sp_rows)}</section>
@@ -777,6 +819,55 @@ def weekly_report_page(week: str) -> str:
 <section class="block-section reading-rail"><p class="disclaimer">{esc(s['disclaimer'])}</p></section>
 """
     return document(f"{s['market']} {s['forecast_week']} 週報", s["market_summary"][:150], 3, body, wide=True)
+
+
+def weekly_perspective_page(week: str, producer: str) -> str:
+    view = next((item for item in weekly_perspectives(week) if item["producer"] == producer), None)
+    if view is None:
+        raise ValueError(f"missing weekly perspective: {week}/{producer}")
+    scenarios = [[
+        ("th", esc(item.get("name", item.get("direction", ""))), str(item.get("direction", "")), False),
+        ("td", f'{esc(item.get("probability", ""))}%', sort_key(item.get("probability")), True),
+        ("td", esc(item.get("conditions", "")), str(item.get("conditions", "")).lower(), False),
+        ("td", esc(item.get("invalidation", "")), str(item.get("invalidation", "")).lower(), False),
+        ("td", esc(item.get("targets", "")), str(item.get("targets", "")).lower(), False),
+    ] for item in view.get("scenarios", [])]
+    levels = [[
+        ("th", esc(item.get("type", "")), str(item.get("type", "")).lower(), False),
+        ("td", esc(item.get("level", "")), str(item.get("level", "")), False),
+        ("td", esc(item.get("derivation", "")), str(item.get("derivation", "")).lower(), False),
+        ("td", esc(item.get("why", "")), str(item.get("why", "")).lower(), False),
+    ] for item in view.get("key_levels", [])]
+    strategies = [[
+        ("th", esc(name.upper()), name, False),
+        ("td", esc(item.get("grade", "")), str(item.get("grade", "")), False),
+        ("td", esc(item.get("entry", "")), str(item.get("entry", "")).lower(), False),
+        ("td", esc(item.get("sl", "")), str(item.get("sl", "")).lower(), False),
+        ("td", esc(item.get("risk", "")), str(item.get("risk", "")).lower(), False),
+    ] for name, item in view.get("strategies", {}).items()]
+    events = [[
+        ("th", esc(item.get("name", "")), str(item.get("name", "")).lower(), False),
+        ("td", esc(item.get("scheduled_at", "")), str(item.get("scheduled_at", "")), False),
+        ("td", esc(item.get("position_closure_evaluation", "")), str(item.get("position_closure_evaluation", "")).lower(), False),
+    ] for item in view.get("event_risk", [])]
+    summary = "<br>".join(esc(value) for value in view.get("market_summary", {}).values())
+    status = view.get("independence_status", "unknown")
+    body = f"""
+<div class="reading-rail weekly-intro">
+<p class="eyebrow">{esc(week)} · {esc(view.get('edition', ''))} · Producer perspective</p>
+<h1>{esc(view.get('producer_name', producer.capitalize()))} 個別週報觀點</h1>
+<p class="lede">{esc(view.get('view_scope', ''))}</p>
+<p class="invalidation-note"><strong>獨立性：</strong>{esc(status)}。{esc(view.get('independence_disclosure', ''))}</p>
+<p><a href="../../">← 返回本期審閱彙總</a></p>
+</div>
+<section class="block-section"><h2>市場摘要</h2><p class="prose">{summary}</p></section>
+<section class="block-section"><h2>Producer 劇本與機率</h2>{render_table([("劇本", False), ("機率", True), ("條件", False), ("失準條件", False), ("目標", False)], scenarios)}</section>
+<section class="block-section"><h2>關鍵價位的原始推導</h2>{render_table([("區位", False), ("價位", False), ("推導", False), ("為何視為同一區", False)], levels)}</section>
+<section class="block-section"><h2>條件式策略計畫</h2>{render_table([("策略", False), ("評級", False), ("Entry", False), ("SL", False), ("Risk", False)], strategies)}</section>
+<section class="block-section"><h2>事件風險</h2>{render_table([("事件", False), ("時間", False), ("處置", False)], events)}</section>
+<section class="block-section reading-rail"><p class="disclaimer">{esc(view.get('disclaimer', ''))}</p></section>
+"""
+    return document(f"{view.get('producer_name', producer.capitalize())} {week} perspective", view.get("title", "")[:150], 5, body, wide=True)
 
 
 # ---------------------------------------------------------------------------
@@ -1281,6 +1372,9 @@ def generated_pages() -> dict[str, str]:
     }
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
+        for perspective in weekly_perspectives(week):
+            producer = perspective["producer"]
+            pages[f"xauusd/weekly/{week}/perspectives/{producer}/index.html"] = weekly_perspective_page(week, producer)
     for sid in PUBLISHED_STUDIES:
         pages[f"research/studies/{sid}/index.html"] = study_page(sid)
     return pages
