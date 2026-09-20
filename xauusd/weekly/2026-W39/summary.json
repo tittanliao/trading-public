@@ -3,7 +3,7 @@
   "market": "XAUUSD",
   "forecast_week": "2026-W39",
   "edition": "Sun",
-  "published_at": "2026-09-20T16:32:39+08:00",
+  "published_at": "2026-09-20T16:59:09+08:00",
   "publication_mode": "single_source",
   "confidence": "medium",
   "source_count": 1,
@@ -12,7 +12,7 @@
   ],
   "source_fingerprint": "370391d7403e9f210c42b47c3dcc564bdb3a4098ec97d77fe0a975dbef7a3a86",
   "data_cutoff": "2026-09-18T20:30:00+00:00",
-  "market_summary": "W38 收 4377.29，較週開 4347.30 上漲 0.69%，是三連黑後的第一根紅 K。本週最重要的結構事件是一次完整的掃蕩與收復：週內低點 4234.93 同時跌穿 W37 低點 4291.565 與 W36 低點 4282.72，隨後自該低點反彈 142.36 點、週高更達 4399.58。上一期曾把「W37 低點高於 W36」列為待驗證的結構——答案是沒有成立，更高的低點被掃掉了；但掃穿之後是強勢收復而非續跌。價格 4377.29 現已站上全部八條均線（30m／1h／4h／1d 的 EMA50 與 EMA200），上期在其中七條之下。兩項反向事實：現價距上方阻力帶下緣僅 22.29 點，而該帶只有 6.87 點寬；同期美元上漲 1.13% 並站上其日線雙均線。黃金與美元同步上漲，此處只記錄事實，不推論原因。本期僅一份合格報告（另一 producer 暫停），故為單一來源，不構成跨模型共識。",
+  "market_summary": "W38 收 4377.29，較週開 4347.30 上漲 0.69%，是三連黑後的第一根紅 K。本週最重要的結構事件是一次完整的掃蕩與收復：週內低點 4234.93 同時跌穿 W37 低點 4291.565 與 W36 低點 4282.72，隨後自該低點反彈 142.36 點、週高更達 4399.58。上一期曾把「W37 低點高於 W36」列為待驗證的結構——答案是沒有成立，更高的低點被掃掉了；但掃穿之後是強勢收復而非續跌。價格 4377.29 現已站上全部八條均線（30m／1h／4h／1d 的 EMA50 與 EMA200），上期在其中七條之下。兩項反向事實：現價距上方阻力帶下緣僅 22.29 點，而該帶只有 6.87 點寬；同期美元上漲 1.13% 並站上其日線雙均線。黃金與美元同步上漲，此處只記錄事實，不推論原因。本期僅一份合格報告，故為單一來源，不構成跨模型共識。",
   "four_week_overview": [
     {
       "week": "2026-W35",
@@ -55,28 +55,28 @@
         "volatility_state": "unknown",
         "direction_state": "unknown",
         "hurst_classification": "not_distinguishable",
-        "evidence": "樣本 2026-07-07T09:30 → 2026-09-19T04:30，2,472 根。波動：BB(20) 寬度佔基準 1.293%，第 60.8 百分位；與前 20 根中位數 1.3711% 的比值 0.9431（分類門檻尚未經審核核准，狀態記為 unknown）。 方向：close 4377.29 vs EMA50 4366.75 and EMA200 4342.9; structure over the last 40 bars is mixed (first-half high 4399.58 -> second-half high 4396.93; first-half（組合規則尚未經審核核准，狀態記為 unknown）。 Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5569，同批報酬打散 200 次的 5–95% 帶為 0.5086–0.596（中位數 0.5508），三段時序 [0.539, 0.5894, 0.5145]，穩定度 stable。"
+        "evidence": "樣本 2026-07-07T09:30 → 2026-09-19T04:30，2,472 根。波動：BB(20) 寬度佔基準 1.293%，第 60.8 百分位；與前 20 根中位數 1.3711% 的比值 0.9431（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown）：close 4377.29 vs EMA50 4366.75 and EMA200 4342.9; structure over the last 40 bars is mixed (first-half high 4399.58 -> second-half high 4396.93; first-half low 4333.50 -> second-half low 4341.90). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5569，同批報酬打散 200 次的 5–95% 帶為 0.5086–0.596（中位數 0.5508），三段時序 [0.539, 0.5894, 0.5145]，穩定度 stable。"
       },
       {
         "timeframe": "1h",
         "volatility_state": "unknown",
         "direction_state": "unknown",
         "hurst_classification": "not_distinguishable",
-        "evidence": "樣本 2026-04-22T06:00 → 2026-09-19T04:00，2,472 根。波動：BB(20) 寬度佔基準 1.4149%，第 35.7 百分位；與前 20 根中位數 1.5807% 的比值 0.8951（分類門檻尚未經審核核准，狀態記為 unknown）。 方向：close 4377.29 vs EMA50 4352.85 and EMA200 4354.23; structure over the last 40 bars is HH/HL (first-half high 4381.50 -> second-half high 4399.58; first-hal（組合規則尚未經審核核准，狀態記為 unknown）。 Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5343，同批報酬打散 200 次的 5–95% 帶為 0.4931–0.5941（中位數 0.5468），三段時序 [0.5485, 0.5522, 0.6039]，穩定度 stable。"
+        "evidence": "樣本 2026-04-22T06:00 → 2026-09-19T04:00，2,472 根。波動：BB(20) 寬度佔基準 1.4149%，第 35.7 百分位；與前 20 根中位數 1.5807% 的比值 0.8951（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown）：close 4377.29 vs EMA50 4352.85 and EMA200 4354.23; structure over the last 40 bars is HH/HL (first-half high 4381.50 -> second-half high 4399.58; first-half low 4285.10 -> second-half low 4333.50). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5343，同批報酬打散 200 次的 5–95% 帶為 0.4931–0.5941（中位數 0.5468），三段時序 [0.5485, 0.5522, 0.6039]，穩定度 stable。"
       },
       {
         "timeframe": "4h",
         "volatility_state": "unknown",
         "direction_state": "unknown",
         "hurst_classification": "not_distinguishable",
-        "evidence": "樣本 2025-02-12T11:00 → 2026-09-19T02:00，2,472 根。波動：BB(20) 寬度佔基準 3.3041%，第 50.6 百分位；與前 20 根中位數 3.1124% 的比值 1.0616（分類門檻尚未經審核核准，狀態記為 unknown）。 方向：close 4377.29 vs EMA50 4353.71 and EMA200 4362.4; structure over the last 40 bars is LH/LL (first-half high 4434.75 -> second-half high 4399.58; first-half（組合規則尚未經審核核准，狀態記為 unknown）。 Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.579，同批報酬打散 200 次的 5–95% 帶為 0.5035–0.5927（中位數 0.551），三段時序 [0.5674, 0.5631, 0.5552]，穩定度 stable。"
+        "evidence": "樣本 2025-02-12T11:00 → 2026-09-19T02:00，2,472 根。波動：BB(20) 寬度佔基準 3.3041%，第 50.6 百分位；與前 20 根中位數 3.1124% 的比值 1.0616（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown）：close 4377.29 vs EMA50 4353.71 and EMA200 4362.4; structure over the last 40 bars is LH/LL (first-half high 4434.75 -> second-half high 4399.58; first-half low 4252.70 -> second-half low 4234.68). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.579，同批報酬打散 200 次的 5–95% 帶為 0.5035–0.5927（中位數 0.551），三段時序 [0.5674, 0.5631, 0.5552]，穩定度 stable。"
       },
       {
         "timeframe": "1d",
         "volatility_state": "unknown",
         "direction_state": "unknown",
         "hurst_classification": "not_distinguishable",
-        "evidence": "樣本 2016-11-17 → 2026-09-18，2,472 根。波動：BB(20) 寬度佔基準 11.0939%，第 90.2 百分位；與前 20 根中位數 11.0918% 的比值 1.0002（分類門檻尚未經審核核准，狀態記為 unknown）。 方向：close 4377.29 vs EMA50 4344.01 and EMA200 4314.49; structure over the last 40 bars is HH/HL (first-half high 4540.95 -> second-half high 4697.07; first-hal（組合規則尚未經審核核准，狀態記為 unknown）。 Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5471，同批報酬打散 200 次的 5–95% 帶為 0.5012–0.5998（中位數 0.5488），三段時序 [0.5919, 0.5987, 0.5748]，穩定度 stable。"
+        "evidence": "樣本 2016-11-17 → 2026-09-18，2,472 根。波動：BB(20) 寬度佔基準 11.0939%，第 90.2 百分位；與前 20 根中位數 11.0918% 的比值 1.0002（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown）：close 4377.29 vs EMA50 4344.01 and EMA200 4314.49; structure over the last 40 bars is HH/HL (first-half high 4540.95 -> second-half high 4697.07; first-half low 3996.07 -> second-half low 4234.93). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,471 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5471，同批報酬打散 200 次的 5–95% 帶為 0.5012–0.5998（中位數 0.5488），三段時序 [0.5919, 0.5987, 0.5748]，穩定度 stable。"
       }
     ],
     "historical_hurst": "RS-XAUUSD-20260901-003 以 30,959 根 30m K 棒得到 H=0.5502，其同批打散對照帶為 0.5389–0.5640，結論同為無法與無記憶對照區分。這是歷史研究值，不是本週讀數，兩者不得互相改標。",
@@ -113,16 +113,16 @@
     {
       "direction": "bullish",
       "probability": 30,
-      "conditions": "4h 收盤站上 4406.451，回踩不破 4399.58；並出現正式 S1 V3.9 訊號。",
-      "invalidation": "突破後 4h 收盤跌回 4377.29 之下。",
+      "conditions": "4h 收盤站上 4406.451（三個週期布林上軌的最高者，計算值），回踩不破 4399.58（W38 週線最高價，實際成交價）；並出現正式 S1 V3.9 訊號。",
+      "invalidation": "突破後 4h 收盤跌回 4377.29（W38 週收，實際成交價）之下。",
       "targets": "4431.47（1d 布林中軌，計算值）為第一目標，其上為 4442.94（W37 週高，實際成交價）。"
     },
     {
       "direction": "bearish",
       "probability": 25,
-      "conditions": "4h 收盤跌破 4341.852，反抽無法收回 4354.23。",
+      "conditions": "4h 收盤跌破 4341.852（七值收斂帶的下緣，計算值），反抽無法收回 4354.23。",
       "invalidation": "4h 收盤重新站回 4354.23 之上。",
-      "targets": "4314.49–4335.35 缺口支撐為第一目標；跌破後續看 4263.22，主要目標 4234.93。"
+      "targets": "4314.49–4335.35 缺口支撐為第一目標；跌破後續看 4263.22（4h 布林下軌，計算值），主要目標 4234.93（W38 週線最低價，實際成交價）。"
     }
   ],
   "agreements": [
@@ -155,7 +155,7 @@
     {
       "label": "缺口支撐",
       "value": "4314.49–4335.35",
-      "basis": "1d EMA200 4314.486、4h 看跌缺口 4318.18–4323.70、4h 布林中軌 4334.838、4h 看漲缺口下緣 4335.354。此帶近期剛被雙向測試：2026-09-14／15／16 連續三根日線收盤低於當時的 1d EMA200，09-17 起收復，因此它不是一條未被觸碰的防線。"
+      "basis": "1d EMA200 4314.486、4h 看跌缺口 4318.18–4323.70、4h 布林中軌 4334.838、4h 看漲缺口下緣 4335.354，全部為計算值。此帶近期剛被雙向測試：2026-09-14／15／16 連續三根日線收盤低於當時的 1d EMA200，09-17 起收復，因此它不是一條未被觸碰的防線。"
     },
     {
       "label": "掃蕩低點",
@@ -198,12 +198,12 @@
   ],
   "recommendation": {
     "stance": "wait",
-    "summary": "觀望，等待邊界反應與正式訊號。掃蕩前低後強勢收復、價格站上全部八條均線，是四週來最明確的結構翻轉；但現價距上方僅 22.29 點而該阻力帶只有 6.87 點寬，且同期美元轉強。區間整理為最高機率劇本（45%）。S1 與 S2 皆為 wait：所有 Entry／SL 都是條件式，必須等 live TradingView 出現正式 V3.9／V3.2 訊號。本期為單一來源，沒有第二個判斷路徑可交叉檢驗。",
+    "summary": "觀望，等待邊界反應與正式訊號。可數的事實是：週內低點掃穿前兩週低點後反彈 142.36 點，而價格目前站上八條均線中的八條（上期為八分之一）。把這稱為「四週來最明確的結構翻轉」是排序判斷而非事實，本頁不作此宣稱。反向的可數事實同樣存在：現價距上方阻力帶下緣僅 22.29 點，而該帶只有 6.87 點寬，且同期美元上漲 1.13%。區間整理為最高機率劇本（45%）。S1 與 S2 皆為 wait：所有 Entry／SL 都是條件式，必須等 live TradingView 出現正式 V3.9／V3.2 訊號。本期為單一來源，沒有第二個判斷路徑可交叉檢驗。",
     "invalidation": "4h 收盤有效站上 4406.45 或跌破 4341.85——任一發生即脫離區間劇本，屆時以 live 結構重新評估。"
   },
   "evidence_limits": [
     "本期僅一份合格報告（另一 producer 自 2026-09-20 起暫停），為單一來源。這不是「兩條判斷路徑得到相同結論」，而是只有一條路徑；方向判斷沒有交叉檢驗。",
-    "本報告為 v2：一次固定提問式覆核在 v1 中找到並經複驗成立九項缺陷，其中包括一個被用作機率依據的錯誤事實宣稱（稱 1d EMA200 四週未被日線收盤跌破，實際 2026-09-14／15／16 連續三根跌破）。該宣稱與其扣分項已移除，劇本機率未因此更動。",
+    "本報告為 v2：一次固定提問式覆核在 v1 中找到十項經複驗成立的缺陷，其中九項已修正、一項待決；已修正者包括一個被用作機率依據的錯誤事實宣稱（稱 1d EMA200 四週未被日線收盤跌破，實際 2026-09-14／15／16 連續三根跌破），該宣稱與其扣分項已移除，劇本機率未因此更動。這次覆核由同一個模型在無建構記憶的情況下執行，**不是獨立檢驗**：盲點相關，且範圍僅限可比對的契約遵循，不涵蓋判斷層（機率權重是否合理不在其內）。在本頁唯一的主要警語就是缺乏交叉檢驗的情況下，這一點必須一併說明，以免讀者把它當成補上的獨立檢查。",
     "本期 CFTC 散戶部位記為 unknown：每週僅轉錄七個 managed-money 欄位，散戶欄位依契約保留在序列之外。",
     "GVZ、10 年期公債殖利率、通膨預期與波動率指標的來源資料自 2026-06-18 起未更新，完整即時 Macro 判定為 unknown，本次未據以形成任何主張。",
     "來源比較共 10 組：2 組 similar、8 組 review。成因分三類且多數與本週資料無關——四組 DXY 只因其容許值為 10 bps（XAUUSD 為 50），實際差異 14–20 bps；1d 與 1wk 的數值與上期完全相同，是同一批歷史 K 棒的既有差異。正式點位一律採人工匯出，未平均自動來源。",
