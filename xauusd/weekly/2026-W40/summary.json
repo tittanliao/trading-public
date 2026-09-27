@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0",
+  "market": "XAUUSD",
+  "forecast_week": "2026-W40",
+  "edition": "Sun",
+  "published_at": "2026-09-27T21:50:41+08:00",
+  "publication_mode": "single_source",
+  "confidence": "medium",
+  "source_count": 1,
+  "source_producers": [
+    "claude"
+  ],
+  "source_fingerprint": "4c38b515811d976fab009056ead4b9893076ee3e7ba60ceeb601322493781e9a",
+  "data_cutoff": "2026-09-25T20:30:00+00:00",
+  "market_summary": "W39 收 4284.13，週開 4379.00，開收下跌 2.17%（對 W38 週收 −2.13%）。這是一根內包週：週高 4383.343 低於 W38 週高 4399.58，週低 4244.38 高於 W38 週低 4234.93，整根 K 棒落在上週區間之內，收盤位於本週區間由下往上 28.6% 處。價格一週內由站上全部八條均線（30m／1h／4h／1d 的 EMA50 與 EMA200）翻為全部跌破；最後三個交易日收盤都低於 1d EMA200，最近 10 日中有 6 日如此。美元週收 101.034，站上其週線 EMA200 100.731，為 2026-07-20 那週以來首次；本週黃金與美元反向（−2.13% 對 +0.82%），把美元走強視為黃金逆風是判斷，不是已驗證的因果。反向事實：W38 與 W39 兩個週低相距僅 9.45 點，兩次觸及後都出現反彈。下週同時有 PCE（週三）與 NFP（週五）。本期僅一份合格報告，故為單一來源，不構成跨模型共識。",
+  "four_week_overview": [
+    {
+      "week": "2026-W36",
+      "open": 4457.8,
+      "high": 4510.9,
+      "low": 4282.72,
+      "close": 4427.9,
+      "change": "-0.67%"
+    },
+    {
+      "week": "2026-W37",
+      "open": 4409.76,
+      "high": 4442.94,
+      "low": 4291.565,
+      "close": 4347.52,
+      "change": "-1.41%"
+    },
+    {
+      "week": "2026-W38",
+      "open": 4347.3,
+      "high": 4399.58,
+      "low": 4234.93,
+      "close": 4377.29,
+      "change": "+0.69%"
+    },
+    {
+      "week": "2026-W39",
+      "open": 4379.0,
+      "high": 4383.343,
+      "low": 4244.38,
+      "close": 4284.13,
+      "change": "-2.17%"
+    }
+  ],
+  "market_regime_panel": {
+    "summary": "波動、方向、Hurst 持續性三軸分開判讀，不合併為單一指標。波動與方向的分類門檻尚未經審核核准，八個狀態欄位一律記為 unknown，但原始比值、百分位與 EMA 比較數值保留於各列證據欄。四列各 2,708 根，涵蓋的日曆長度差異極大（30m 約 2.6 個月、1d 約 10.8 年），因此四個 H 值不得並列成排名。四列 Hurst 全部為 not_distinguishable。",
+    "timeframes": [
+      {
+        "timeframe": "30m",
+        "volatility_state": "unknown",
+        "direction_state": "unknown",
+        "hurst_classification": "not_distinguishable",
+        "evidence": "樣本 2026-07-07T06:30 → 2026-09-26T04:30（台北時間），2,708 根。波動：BB(20) 寬度佔基準 0.9218%，第 33.7 百分位；與前 20 根中位數 1.2263% 的比值 0.7517（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown；40 根前後二分為工具選定的比較方式，未經核准）：close 4284.13 vs EMA50 4284.49 and EMA200 4301.15; structure over the last 40 bars is mixed (first-half high 4311.74 -> second-half high 4315.82; first-half low 4256.10 -> second-half low 4254.41). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,707 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.538，同批報酬打散 200 次的 5–95% 帶為 0.5094–0.5977（中位數 0.5506），三段時序 [0.5416, 0.5586, 0.5254]，穩定度 stable。"
+      },
+      {
+        "timeframe": "1h",
+        "volatility_state": "unknown",
+        "direction_state": "unknown",
+        "hurst_classification": "not_distinguishable",
+        "evidence": "樣本 2026-04-14T23:00 → 2026-09-26T04:00（台北時間），2,708 根。波動：BB(20) 寬度佔基準 1.1017%，第 16.4 百分位；與前 20 根中位數 1.054% 的比值 1.0453（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown；40 根前後二分為工具選定的比較方式，未經核准）：close 4284.13 vs EMA50 4288.35 and EMA200 4320.09; structure over the last 40 bars is HH/HL (first-half high 4296.38 -> second-half high 4315.82; first-half low 4243.94 -> second-half low 4254.41). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,707 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5435，同批報酬打散 200 次的 5–95% 帶為 0.5102–0.6004（中位數 0.5554），三段時序 [0.5108, 0.5736, 0.5953]，穩定度 stable。"
+      },
+      {
+        "timeframe": "4h",
+        "volatility_state": "unknown",
+        "direction_state": "unknown",
+        "hurst_classification": "not_distinguishable",
+        "evidence": "樣本 2024-12-23T23:00 → 2026-09-26T02:00（台北時間），2,708 根。波動：BB(20) 寬度佔基準 2.7075%，第 40.9 百分位；與前 20 根中位數 2.5939% 的比值 1.0438（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown；40 根前後二分為工具選定的比較方式，未經核准）：close 4284.13 vs EMA50 4316.78 and EMA200 4348.34; structure over the last 40 bars is LH/LL (first-half high 4399.58 -> second-half high 4371.26; first-half low 4290.50 -> second-half low 4243.94). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,707 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5618，同批報酬打散 200 次的 5–95% 帶為 0.5062–0.5918（中位數 0.5525），三段時序 [0.5587, 0.5924, 0.5343]，穩定度 stable。"
+      },
+      {
+        "timeframe": "1d",
+        "volatility_state": "unknown",
+        "direction_state": "unknown",
+        "hurst_classification": "not_distinguishable",
+        "evidence": "樣本 2015-12-18 → 2026-09-25（台北時間），2,708 根。波動：BB(20) 寬度佔基準 5.6195%，第 53.3 百分位；與前 20 根中位數 10.3677% 的比值 0.542（分類門檻尚未經審核核准，狀態記為 unknown）。 方向（分類規則尚未經審核核准，狀態記為 unknown；40 根前後二分為工具選定的比較方式，未經核准）：close 4284.13 vs EMA50 4337.53 and EMA200 4314.24; structure over the last 40 bars is mixed (first-half high 4697.07 -> second-half high 4631.93; first-half low 4019.16 -> second-half low 4234.93). The individual comparisons are reported without being combined: counting how many point the same way would be the composition rule this field just said does not exist. Hurst is not an input to this field. Hurst：2,707 筆對數報酬，R/S 視窗 [16, 32, 64, 128, 256, 512]，H=0.5682，同批報酬打散 200 次的 5–95% 帶為 0.5037–0.6004（中位數 0.5486），三段時序 [0.608, 0.5786, 0.5239]，穩定度 stable。"
+      }
+    ],
+    "historical_hurst": "RS-XAUUSD-20260901-003 以 30,959 根 30m K 棒得到 H=0.5502，其同批打散對照帶為 0.5389–0.5640，結論同為無法與無記憶對照區分。這是歷史研究值，不是本週讀數，兩者不得互相改標。",
+    "current_hurst": "本週 30m 當期視窗：封存 TradingView 匯出 2,708 根／2,707 筆對數報酬，R/S 視窗 16–512，H=0.538，打散對照帶 0.5094–0.5977（中位數 0.5506），三段時序 [0.5416, 0.5586, 0.5254]，穩定度 stable。估計值落在帶內，本期樣本未顯示路徑持續性與無記憶對照有可辨差異。",
+    "decision_use": "descriptive_only"
+  },
+  "scenario_comparison": [
+    {
+      "producer": "claude",
+      "scenarios": [
+        {
+          "direction": "neutral",
+          "probability": 40
+        },
+        {
+          "direction": "bearish",
+          "probability": 35
+        },
+        {
+          "direction": "bullish",
+          "probability": 25
+        }
+      ]
+    }
+  ],
+  "adopted_scenarios": [
+    {
+      "direction": "range",
+      "probability": 40,
+      "conditions": "價格在雙底支撐 4231.08–4244.38 與第二阻力 4316.78–4338.60 之間往復，任一方向皆無有效的 4h 收盤突破。",
+      "invalidation": "4h 收盤跌破 4231.08，或 4h 收盤站上 4338.60。",
+      "targets": "區間內往復，無方向性目標；下緣看 4254.62–4268.39 的反應，上緣看 4301.16–4315.82 與兩個未回補看跌缺口。"
+    },
+    {
+      "direction": "bearish",
+      "probability": 35,
+      "conditions": "4h 收盤跌破 4231.080（1d 布林下軌，計算值），反抽無法收回 4244.38（W39 週線最低價，實際成交價）。",
+      "invalidation": "跌破後 4h 收盤重新站回 4244.38 之上。",
+      "targets": "第一目標 4223.51（2026-08-06 日低，實際成交價）；其下至 4106.38 之間幾乎只有 08-05 一根日線的成交，缺乏可引用的中繼價位，本頁不在其間編造目標。"
+    },
+    {
+      "direction": "bullish",
+      "probability": 25,
+      "conditions": "4h 收盤站上 4338.60（回補兩個 4h 看跌缺口並站上 1d EMA50 4337.529，計算值），回踩不破 4314.24（1d EMA200，計算值）。",
+      "invalidation": "站上後 4h 收盤跌回 4314.24 之下。",
+      "targets": "4348.34–4359.50 為第一目標；其上為 4383.343（W39 週高）與 4399.58（W38 週高），皆為實際成交價。"
+    }
+  ],
+  "agreements": [
+    "單一來源，不構成跨模型共識。另一 producer 暫停中，本預測週只有 Claude 一份合格報告，故本次為 single_source，不得描述為一致或共識。",
+    "本報告為 v2，已修正 2026-09-27 固定提問式覆核所發現並經作者以封存資料複驗成立的十二項缺陷。劇本機率、價位帶與策略等級未因修正而改變。",
+    "W39 收 4284.13，週開 4379.00，開收 −2.17%（對 W38 週收 −2.13%）；為內包週：高 4383.343 低於 W38 高 4399.58、低 4244.38 高於 W38 低 4234.93。",
+    "價格低於全部八條均線（30m／1h／4h／1d 的 EMA50 與 EMA200），上週在全部八條之上；W39 最後三日收盤均低於 1d EMA200。",
+    "DXY 週收 101.034，高於其週線 EMA200 100.731，為 2026-07-20 那週以來首次；本週黃金 −2.13%、DXY +0.82%。",
+    "CFTC 2026-09-22：未平倉 412,800（+2,901）、Managed Money 淨多 127,389（−5,727，佔 OI 30.86%），多空雙邊連續四週同時減少。七欄經直讀轉錄並與官方 CSV 交叉核對，狀態 match。僅作背景描述。",
+    "market_regime_panel 四列 Hurst 皆 not_distinguishable 且為 descriptive_only；波動與方向兩軸因分類門檻未經核准而一律 unknown。"
+  ],
+  "disagreements": [
+    "本次無跨 producer 分歧可記錄：僅一份合格報告。此欄記為不適用，而非「無分歧」——沒有第二個判斷路徑可比對。"
+  ],
+  "key_levels": [
+    {
+      "label": "雙底支撐（結構失效線）",
+      "value": "4231.08–4244.38",
+      "basis": "W38 週低 4234.93 與 W39 週低 4244.38（實際成交價，相距 9.45 點），1d 布林下軌 4231.080 與 4h 布林下軌 4235.587（計算值）。日線收盤跌破 4231.08 將是 2026-08-04 以來首次。"
+    },
+    {
+      "label": "上方結構阻力",
+      "value": "4348.34–4359.50",
+      "basis": "4h EMA200 4348.343、4h 布林上軌 4351.840、1d 布林中軌 4353.400（計算值），上緣 4359.50 為 2026-09-22 日線收盤（實際成交價）。帶寬 11.16 點，約 4h ATR14 31.702 的三分之一。"
+    },
+    {
+      "label": "第二阻力",
+      "value": "4316.78–4338.60",
+      "basis": "4h EMA50 4316.777、1h EMA200 4320.094、1d EMA50 4337.529（計算值），以及兩個 2026-09-23 形成、之後未被觸及的 4h 看跌缺口 4319.07–4327.40 與 4337.037–4338.60（回補狀態逐根重算）。週四高點 4303.24、週五高點 4315.82 都沒有碰到缺口下緣。"
+    },
+    {
+      "label": "第一阻力（S1 觸發帶）",
+      "value": "4301.16–4315.82",
+      "basis": "30m EMA200 4301.155、30m 布林上軌 4307.913、1h 布林上軌 4309.136、1d EMA200 4314.241（計算值），上緣 4315.82 為週五日高（實際成交價）。帶寬 14.67 點，約 30m ATR14 11.880 的 1.23 倍；S1 觸發價落在帶內。"
+    },
+    {
+      "label": "樞紐",
+      "value": "4284.13–4293.71",
+      "basis": "下緣 4284.13 為 W39 週收（實際成交價），其餘為 30m／1h 布林中軌、30m／1h EMA50 與 4h 布林中軌（計算值）。帶寬 9.58 點，不到一根 30m ATR。"
+    },
+    {
+      "label": "近端支撐",
+      "value": "4254.62–4268.39",
+      "basis": "09-25 日低 4254.615（實際成交價）、1h 布林下軌 4261.921、1wk EMA50 4262.976、30m 布林下軌 4268.385（計算值）。帶寬 13.77 點；09-24、09-25 兩日盤中跌破週線 EMA50 後都以日收盤收回。"
+    }
+  ],
+  "strategy_plan": [
+    {
+      "strategy": "S1 V3.9",
+      "stance": "wait",
+      "entry": "條件式，且要求 live 正式 V3.9 訊號。30m 布林上軌觸發價 4307.913 距週收 23.78 點、約 30m ATR14 的 2.00 倍；觸發價落在第一阻力帶內，上方 6.33 點即 1d EMA200、8.86 點即第二阻力帶，且價格在全部八條均線之下。條件式預評等級為「—」（不建議）。",
+      "stop": "無預設。觸發時依當下正式規則與即時結構重算。",
+      "risk": "每筆不超過總資金 0.75%。"
+    },
+    {
+      "strategy": "S2 V3.2",
+      "stance": "wait",
+      "entry": "等待價格回測 4254.62–4268.39 並出現正式 V3.2 錘頭訊號；該區失守則次一候選為 4231.08–4244.38，但不得在 4h 收盤跌破 4231.08 後於下方接刀。條件式預評等級為 B。週四 10-01 22:00（台北）後不建議執行（由 NFP 平倉規則推論）。",
+      "stop": "無預設。依訊號 K 低點與當下波動計算。",
+      "risk": "每筆不超過總資金 0.75%，每週最多 2 次實際進場，週一重置；實際可用次數以私有紀錄為準。"
+    }
+  ],
+  "event_risk": [
+    {
+      "name": "美國 8 月 JOLTS 職缺",
+      "scheduled_at": "2026-09-29T22:00:00+08:00",
+      "handling": "非強制平倉事件；NFP 前的第一個就業數據，持有部位者宜於發布前自行評估。"
+    },
+    {
+      "name": "美國 8 月個人所得與支出（PCE）＋ 第二季 GDP 終值",
+      "scheduled_at": "2026-09-30T20:30:00+08:00",
+      "handling": "強制評估事件：任何持有部位必須在發布前評估是否平倉。"
+    },
+    {
+      "name": "美國 8 月都會區就業與失業（低影響）",
+      "scheduled_at": "2026-09-30T22:00:00+08:00",
+      "handling": "地區性資料，列出以求完整，不需特別處置。"
+    },
+    {
+      "name": "美國 9 月就業報告（NFP）",
+      "scheduled_at": "2026-10-02T20:30:00+08:00",
+      "handling": "硬規則：週五 NFP → 所有部位必須在 2026-10-01（週四）22:00 台北時間前平倉，週末不持倉。"
+    }
+  ],
+  "recommendation": {
+    "stance": "wait",
+    "summary": "觀望，只在邊界看正式訊號。可數的事實是：價格一週內跌破全部八條均線、美元週線站上 EMA200；但兩個週低相距 9.45 點、已守住兩次。區間整理為最高機率劇本（40%），跌破雙底為 35%。S1 不建議；S2 只在 4254.62–4268.39 出現正式錘頭訊號時考慮。本週有 PCE 與 NFP，所有部位須於週四 22:00（台北）前平倉，可持有窗口比一般週短。所有 Entry／SL 都是條件式，必須等 live TradingView 出現正式 V3.9／V3.2 訊號。本期為單一來源，沒有第二個判斷路徑可交叉檢驗。",
+    "invalidation": "4h 收盤跌破 4231.08 或站上 4338.60——任一發生即脫離區間劇本，屆時以 live 結構重新評估。"
+  },
+  "evidence_limits": [
+    "本期僅一份合格報告（另一 producer 暫停中），為單一來源。這不是「兩條判斷路徑得到相同結論」，而是只有一條路徑；方向判斷沒有交叉檢驗。",
+    "本報告為 v2：一次固定提問式覆核在 v1 中找到十二項經作者以封存資料複驗成立的缺陷並已修正，其中包括一個被用作劇本機率依據的錯誤事實（稱週四、週五反彈都停在 4315.82，實際週四高點為 4303.24）；劇本機率、價位帶與策略等級未因修正而改變。這次覆核由同一個模型在無建構記憶的情況下執行，不是獨立檢驗：盲點相關，且範圍僅限可比對的契約遵循，不涵蓋判斷層。",
+    "CFTC 部位僅作背景描述，不作方向訊號；每週僅轉錄七個 managed-money 欄位，散戶等其他欄位不引用。",
+    "GVZ、10 年期公債殖利率、通膨預期與波動率指標的來源資料自 2026-06-18 起未更新，完整即時 Macro 判定為 unknown，本次未據以形成任何主張。",
+    "來源比較共 10 組：3 組 similar、7 組 review。XAUUSD 30m 為端點落差；XAUUSD 1d 與 1wk 的差異數值與上期完全相同，推測為同一批歷史 K 棒的既有差異；XAUUSD 4h 為本週新的數值差異（近 20 根收盤最大差約 68 bps）；DXY 三組 review 源於其較嚴的容許值。正式點位一律採人工匯出，未平均自動來源。",
+    "market_regime_panel 的波動與方向分類門檻尚未經審核核准，八個狀態欄位一律為 unknown；Hurst 四列皆 not_distinguishable 且為 descriptive_only。",
+    "公開版本不揭露帳戶部位或交易日誌內容；任何部位相關判斷一律以帳戶擁有者的私有紀錄為準，不由訊號或價格反推持倉。"
+  ],
+  "disclaimer": "研究證據，非投資建議。所有 Entry／SL 皆為條件式，實際執行前必須以 live TradingView 重新確認訊號與價格；最終決定屬於帳戶擁有者。"
+}
