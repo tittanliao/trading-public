@@ -53,7 +53,11 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 STUDY_ID = "RS-XAUUSD-20260824-002"
 OUTPUT_DIR = Path("reproduced")
-SERIES = Path("local-inputs/cftc_weekly_series.csv")
+# Revision 3 (2026-10-09): the official CFTC archive series, 2006-2026, priced from 2012-12-11.
+# The 37-week screenshot transcription it replaces is still built and is cross-checked
+# against it (scripts/build_cftc_archive_series.py).
+SERIES = Path("local-inputs/cftc_weekly_series_archive.csv")
+FROM_DATE = "2012-12-11"
 TAIPEI = timezone(timedelta(hours=8))
 
 BOOTSTRAP = 4000
@@ -183,8 +187,10 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
         d, "h01_retail_long_mm_short_literal",
         "Retail adds length while managed money cuts it — the stated combination.",
         "stated hypothesis", combo,
-        note=f"Fires {int(combo.sum())} times in {len(d)} weeks. Kept to record that the literal form is untestable "
-             "here, not to claim a result; h02 is the same idea made continuous.",
+        note=(f"Fires {int(combo.sum())} times in {len(d)} weeks. "
+              + ("Kept to record that the literal form is untestable here, not to claim a result; "
+                 if int(combo.sum()) < MIN_GROUP else "Testable at this length; ")
+              + "h02 is the same idea made continuous."),
     ))
     out.append(hypothesis(
         d, "h02_retail_vs_mm_divergence",
@@ -331,10 +337,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--series", type=Path, default=SERIES)
     parser.add_argument("--output", type=Path, default=OUTPUT_DIR)
+    parser.add_argument("--from-date", default=FROM_DATE,
+                        help="first report date to use; quantile thresholds are cut on this span only")
     args = parser.parse_args()
 
     d = pd.read_csv(args.series)
     d["report_date"] = pd.to_datetime(d["report_date"])
+    if args.from_date:
+        d = d[d["report_date"] >= pd.Timestamp(args.from_date)].reset_index(drop=True)
     results = build_hypotheses(d)
 
     # How often does the already-happened window carry more than the actionable one?
@@ -416,10 +426,13 @@ def main() -> int:
                 "so the expected outcome of this study is bounds rather than findings."
             ),
             "unlock": (
+                "This run uses the CFTC's own disaggregated futures-only archive. The remaining "
+                "limit is the price history (FX_IDC daily from 2012-12), not the positioning data, "
+                "which goes back to 2006-06."
+                if "archive" in args.series.name else
                 "The CFTC publishes the complete disaggregated futures-only history back to "
-                f"September 2009 as annual archives — roughly 880 weeks against the {len(d)} here. "
-                "Archiving it is a data task and it is the single change that would make "
-                "these questions answerable."
+                f"2006 as annual archives against the {len(d)} weeks here. Archiving it is the "
+                "single change that would make these questions answerable."
             ),
         },
         "placebo_summary": {
@@ -439,7 +452,15 @@ def main() -> int:
         "producer_mechanism": producer_mechanism(d),
         "actionable_window_verdicts": verdicts,
         "hypotheses": results,
-        "limitations": [
+        "limitations": ([
+            f"{len(d)} weeks from the CFTC's official disaggregated futures-only archive (COMEX "
+            "gold, 088691). Every position and trader field matches the screenshot transcription "
+            "on the 37 weeks both cover, and the series build fails if that stops being true.",
+            "Prices come from the FX_IDC daily export, whose dates are the same 07:00-Taipei "
+            "sessions as the 30m series (median close difference 0.57 over 656 shared sessions).",
+            "Quantile thresholds are cut on the priced span only, so the 2006-2012 weeks without "
+            "returns do not move them.",
+        ] if "archive" in args.series.name else [
             f"{len(d)} weeks. Almost every result here is a bound, not a finding, and the "
             "bounds are wide.",
             "Transcribed from the source screenshots; all 132 field-values across the 12 "
@@ -448,6 +469,7 @@ def main() -> int:
             "Two weeks are missing from the screenshot archive (2026-04-14 and 2026-05-05), "
             "so week-over-week changes spanning those gaps are computed across a two-week "
             "interval rather than one.",
+        ]) + [
             "Returns use the 07:00-Taipei session close, so a 'Tuesday close' is the close "
             "of the session that opened Tuesday morning Taipei time.",
             "No result changes formal S1 or S2 logic, live risk, or an entry checklist.",

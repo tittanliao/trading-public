@@ -295,7 +295,8 @@ def check_null_results(errors: list[str]) -> None:
     hypotheses = [e for e in registry.get("entries", []) if e.get("kind") == "hypothesis"]
     if len(hypotheses) != 63 or totals.get("hypotheses") != 63:
         errors.append(f"expected 63 hypotheses, found {len(hypotheses)}")
-    expected = {"no_evidence": 60, "underpowered": 2, "below_cost": 1}
+    # 2026-10-09: RS-XAUUSD-20260824-002 revision 3 (721 weeks) makes its h01 testable: 60/2 -> 61/1.
+    expected = {"no_evidence": 61, "underpowered": 1, "below_cost": 1}
     if totals.get("by_verdict") != expected:
         errors.append(f"verdict totals mismatch: expected {expected}, got {totals.get('by_verdict')}")
     # 2026-09-05 independent audit finding 2: the two checks above are fixed constants, so
