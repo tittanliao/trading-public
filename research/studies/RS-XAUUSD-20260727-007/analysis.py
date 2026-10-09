@@ -176,18 +176,19 @@ def build(study_id: str, legacy_root: Path, output_dir: Path) -> dict:
 
     ctx = tk.add_trade_context(trades, classified)
     profile = tk.immediate_loss_profile(ctx)
-    kbar_enriched = tk.enrich_with_kbars(classified, price_30m)
+    # closed_bars=False: reproduces the published revisions; see research/notes/TOOLKIT_BAR_JOIN_2026-10-09.md.
+    kbar_enriched = tk.enrich_with_kbars(classified, price_30m, closed_bars=False)
     kbar_cov = tk.kbar_coverage(kbar_enriched)
 
-    bb_enriched = tk.enrich_trades_with_bb(trades, price_30m)
+    bb_enriched = tk.enrich_trades_with_bb(trades, price_30m, closed_bars=False)
     bb_stats_out = tk.bb_stats(bb_enriched)
 
-    dxy_enriched = tk.enrich_trades_with_dxy(trades, dxy_1d)
+    dxy_enriched = tk.enrich_trades_with_dxy(trades, dxy_1d, closed_bars=False)
     dxy_stats_out = tk.dxy_regime_stats(dxy_enriched)
     corr_df = tk.dxy_correlation_stats(price_1d, dxy_1d)
     avg_corr = round(float(corr_df["rolling_corr"].dropna().mean()), 3)
 
-    htf_enriched = tk.enrich_trades_with_htf(trades, price_60m, price_4h, price_1d)
+    htf_enriched = tk.enrich_trades_with_htf(trades, price_60m, price_4h, price_1d, closed_bars=False)
     htf_stats_out = tk.htf_stats(htf_enriched)
 
     streaks = tk.consecutive_losses(trades)

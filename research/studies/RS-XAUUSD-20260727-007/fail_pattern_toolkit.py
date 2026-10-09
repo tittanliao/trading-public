@@ -299,6 +299,26 @@ def immediate_loss_profile(trades_ctx: pd.DataFrame) -> dict:
     }
 
 
+
+# ---------------------------------------------------------------------------
+# Bar stamping (2026-10-09)
+# ---------------------------------------------------------------------------
+# Price exports stamp each bar at its OPEN. A join on open time hands an entry at T the bar
+# that opened at T -- or the 1h/4h/1d bar containing T -- whose close is in the future
+# (RS-XAUUSD-20260901-001). From 2026-10-09 every join below defaults to `closed_bars=True`:
+# the frame is restamped at its close first, so an entry reads the last bar that had closed.
+# `closed_bars=False` reproduces the published studies built before the fix
+# (RS-XAUUSD-20260727-001/-003/-004/-006/-007, RS-XAUUSD-20260823-002); see
+# research/notes/TOOLKIT_BAR_JOIN_2026-10-09.md for what changes when they are rerun.
+BAR_30M, BAR_1H, BAR_4H, BAR_1D = (pd.Timedelta(minutes=30), pd.Timedelta(hours=1),
+                                   pd.Timedelta(hours=4), pd.Timedelta(days=1))
+
+
+def close_stamped(price: pd.DataFrame, bar: pd.Timedelta) -> pd.DataFrame:
+    stamped = price.copy()
+    stamped["time"] = stamped["time"] + bar
+    return stamped
+
 def _kbar_features_at(price: pd.DataFrame, entry_time: pd.Timestamp, n_lookback: int = 3) -> dict | None:
     idx = price.index[price["time"] == entry_time]
     if idx.empty:
@@ -328,7 +348,10 @@ def _kbar_features_at(price: pd.DataFrame, entry_time: pd.Timestamp, n_lookback:
     return feat
 
 
-def enrich_with_kbars(classified: pd.DataFrame, price: pd.DataFrame, n_lookback: int = 3) -> pd.DataFrame:
+def enrich_with_kbars(classified: pd.DataFrame, price: pd.DataFrame, n_lookback: int = 3,
+                      closed_bars: bool = True) -> pd.DataFrame:
+    if closed_bars:
+        price = close_stamped(price, BAR_30M)
     imm = classified[classified["fail_type"] == "immediate_loss"].copy().reset_index(drop=True)
     cols = ["rsi", "rsi_vs_ma", "rsi_slope_3", "prev_1_dir", "prev_3_green", "momentum_3"]
     for col in cols:
@@ -380,8 +403,8 @@ def bb_zone(pct_b: float | None) -> str:
     return "unknown"
 
 
-def enrich_trades_with_bb(trades: pd.DataFrame, price: pd.DataFrame) -> pd.DataFrame:
-    bb_price = compute_bb(price)
+def enrich_trades_with_bb(trades: pd.DataFrame, price: pd.DataFrame, closed_bars: bool = True) -> pd.DataFrame:
+    bb_price = compute_bb(close_stamped(price, BAR_30M) if closed_bars else price)
     lookup = bb_price[["time", "bb_pct_b", "bb_width"]].sort_values("time").reset_index(drop=True)
     merged = pd.merge_asof(
         trades.sort_values("entry_time"), lookup, left_on="entry_time", right_on="time", direction="backward"
@@ -399,8 +422,8 @@ def bb_stats(enriched: pd.DataFrame) -> dict:
 # 6. DXY context (spec 5.1 item 7)
 # ---------------------------------------------------------------------------
 
-def enrich_trades_with_dxy(trades: pd.DataFrame, dxy_1d: pd.DataFrame) -> pd.DataFrame:
-    dxy = dxy_1d.copy()
+def enrich_trades_with_dxy(trades: pd.DataFrame, dxy_1d: pd.DataFrame, closed_bars: bool = True) -> pd.DataFrame:
+    dxy = close_stamped(dxy_1d, BAR_1D) if closed_bars else dxy_1d.copy()
     dxy["sma20"] = dxy["close"].rolling(20, min_periods=1).mean()
     dxy["date"] = dxy["time"].dt.normalize()
     lookup = dxy[["date", "rsi", "rsi_ma", "close", "sma20"]].sort_values("date").reset_index(drop=True)
@@ -497,10 +520,12 @@ def _enrich_one_tf(trades: pd.DataFrame, price: pd.DataFrame, prefix: str) -> pd
     return merged.drop(columns=[slope_col], errors="ignore")
 
 
-def enrich_trades_with_htf(trades: pd.DataFrame, price_60m: pd.DataFrame, price_4h: pd.DataFrame, price_1d: pd.DataFrame) -> pd.DataFrame:
+def enrich_trades_with_htf(trades: pd.DataFrame, price_60m: pd.DataFrame, price_4h: pd.DataFrame,
+                           price_1d: pd.DataFrame, closed_bars: bool = True) -> pd.DataFrame:
     result = trades.copy()
-    for prefix, price in [("htf_60m", price_60m), ("htf_4h", price_4h), ("htf_1d", price_1d)]:
-        result = _enrich_one_tf(result, price, prefix)
+    for prefix, price, bar in [("htf_60m", price_60m, BAR_1H), ("htf_4h", price_4h, BAR_4H),
+                               ("htf_1d", price_1d, BAR_1D)]:
+        result = _enrich_one_tf(result, close_stamped(price, bar) if closed_bars else price, prefix)
     state_cols = [c for c in result.columns if c.startswith("htf_") and c.endswith("_rsi_state")]
     result["htf_alignment"] = result[state_cols].apply(lambda row: int((row == "bullish").sum()), axis=1)
     n_tfs = len(state_cols)

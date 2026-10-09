@@ -363,7 +363,8 @@ def threshold_sweep(frame: pd.DataFrame) -> dict:
 def build() -> dict:
     trades = tk.load_trades(TRADES_FILE)
     price, _ = tk.load_price_csv(BARS_FILE)
-    enriched = tk.enrich_trades_with_bb(trades, price)
+    # closed_bars=False: reproduces the published revision; see research/notes/TOOLKIT_BAR_JOIN_2026-10-09.md.
+    enriched = tk.enrich_trades_with_bb(trades, price, closed_bars=False)
 
     # Momentum at entry: return over the prior MOMENTUM_BARS bars, joined the same way the
     # bands are, so the ablation and the headline share one alignment.
