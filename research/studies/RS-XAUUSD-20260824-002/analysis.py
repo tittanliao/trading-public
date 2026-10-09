@@ -175,7 +175,7 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
 
     # --- stated hypothesis 1 ---------------------------------------------------------
     # Stated as "retail long while managed money is short, then a rise followed by a fall".
-    # The literal binary version fires twice in 31 weeks, so it is reported as underpowered
+    # The literal binary version fired twice in the first 31 weeks, so it is reported as underpowered
     # AND reformulated continuously: the divergence between retail and managed-money net
     # positioning, which is the same idea on a scale the sample can actually see.
     combo = ((d["retail_net_chg"] > 0) & (d["mm_net_chg"] < 0)).to_numpy()
@@ -183,7 +183,7 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
         d, "h01_retail_long_mm_short_literal",
         "Retail adds length while managed money cuts it — the stated combination.",
         "stated hypothesis", combo,
-        note="Fires twice in 31 weeks. Kept to record that the literal form is untestable "
+        note=f"Fires {int(combo.sum())} times in {len(d)} weeks. Kept to record that the literal form is untestable "
              "here, not to claim a result; h02 is the same idea made continuous.",
     ))
     out.append(hypothesis(
@@ -297,6 +297,36 @@ def build_hypotheses(d: pd.DataFrame) -> list[dict]:
     return out
 
 
+
+def producer_mechanism(d: pd.DataFrame) -> dict:
+    """The check behind the withdrawn hedging story (decision log, 2026-08-24).
+
+    If producer/merchant shorts responded to price, their weekly change would correlate
+    with the price move of the week it was built in (`concurrent`). Revision 1 computed
+    these by hand; from revision 2 they are produced here so a rerun reproduces them.
+    """
+    ordered = d.sort_values("report_date").reset_index(drop=True)
+    concurrent = ordered["close_at_report"].pct_change() * 100
+    falls = ordered["prod_merc_short_chg"] < 0
+    out = {
+        "producer_short_chg_vs_concurrent": round(float(ordered["prod_merc_short_chg"].corr(concurrent)), 3),
+        "mm_net_chg_vs_concurrent": round(float(ordered["mm_net_chg"].corr(concurrent)), 3),
+        "mm_net_chg_vs_fwd_mon_tue": round(float(ordered["mm_net_chg"].corr(ordered["fwd_mon_tue_pct"])), 3),
+        "concurrent_move_when_shorts_rise_pct": round(float(concurrent[ordered["prod_merc_short_chg"] > 0].mean()), 2),
+        "concurrent_move_when_shorts_fall_pct": round(float(concurrent[falls].mean()), 2),
+        "falls_minus_rises": {},
+    }
+    for window in ("fwd_wed_fri_pct", "fwd_mon_tue_pct", "fwd_week_pct"):
+        a = ordered.loc[falls, window].dropna()
+        b = ordered.loc[~falls, window].dropna()
+        diff = float(a.mean() - b.mean())
+        se = math.sqrt(float(a.var(ddof=1)) / len(a) + float(b.var(ddof=1)) / len(b))
+        out["falls_minus_rises"][window] = {
+            "diff_pct": round(diff, 3), "se": round(se, 3),
+            "ci95": [round(diff - 1.96 * se, 2), round(diff + 1.96 * se, 2)],
+        }
+    return out
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--series", type=Path, default=SERIES)
@@ -312,7 +342,7 @@ def main() -> int:
     history_wins = sum(1 for p in placebos if p["history_larger_in_magnitude"])
 
     # The sharper version of the placebo reading. Counting how often one window beats the
-    # other is weak — a coin flip gives 7 of 14. The question worth asking is whether the
+    # other is weak — a coin flip gives half. The question worth asking is whether the
     # two windows AGREE: if positioning genuinely carried information forward, a condition
     # associated with a rise in the days before publication should be associated with a
     # rise after it too, and the two effects would correlate positively across hypotheses.
@@ -362,7 +392,7 @@ def main() -> int:
         "market": "XAUUSD",
         "strategy": "none — CFTC positioning structure",
         "method": {
-            "series": str(args.series.relative_to(ROOT)),
+            "series": str(args.series.resolve().relative_to(ROOT)) if args.series.resolve().is_relative_to(ROOT) else args.series.name,
             "weeks": int(len(d)),
             "from": str(d["report_date"].min().date()),
             "to": str(d["report_date"].max().date()),
@@ -381,13 +411,13 @@ def main() -> int:
                 2.8 * float(d["fwd_week_pct"].std(ddof=1)) * math.sqrt(2 / (len(d) / 2)), 3
             ),
             "reading": (
-                "With 31 weeks split in two, only differences of roughly this size per week "
+                f"With {len(d)} weeks split in two, only differences of roughly this size per week "
                 "can be separated from noise. Most real positioning effects are far smaller, "
                 "so the expected outcome of this study is bounds rather than findings."
             ),
             "unlock": (
                 "The CFTC publishes the complete disaggregated futures-only history back to "
-                "September 2009 as annual archives — roughly 880 weeks against the 31 here. "
+                f"September 2009 as annual archives — roughly 880 weeks against the {len(d)} here. "
                 "Archiving it is a data task and it is the single change that would make "
                 "these questions answerable."
             ),
@@ -406,10 +436,11 @@ def main() -> int:
                 "sign-flip column on the strongest effects are the ones to read."
             ),
         },
+        "producer_mechanism": producer_mechanism(d),
         "actionable_window_verdicts": verdicts,
         "hypotheses": results,
         "limitations": [
-            "Thirty-one weeks. Almost every result here is a bound, not a finding, and the "
+            f"{len(d)} weeks. Almost every result here is a bound, not a finding, and the "
             "bounds are wide.",
             "Transcribed from the source screenshots; all 132 field-values across the 12 "
             "weeks that overlap the official CSV matched exactly, and the series build fails "
