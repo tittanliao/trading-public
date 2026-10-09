@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261009-001",
+  "revision": 1,
+  "title": "S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it",
+  "market": "XAUUSD",
+  "strategy": {
+    "id": "S1-AweWithBB",
+    "version": "V3.9"
+  },
+  "status": "confirmed",
+  "created_on": "2026-10-09",
+  "question": "The 31 S1 V3.9 Strategy Tester trades entered since 2026-08-16 did worse than anything earlier in the 2026-10-09 export. Is that outside the strategy's own history, does gold's direction or volatility explain it, does any entry context explain it, and what changed in how trades end? Answered under the section 5 contract, with item 11 included because the question is one of degradation.",
+  "hypothesis": "If the decline were a long-only strategy meeting a falling market, the market-drift fit and the trend-regime split would account for it and the shift-share would show it as mix. The null being tested against is that it is a window the strategy's own history already contains.",
+  "headline": {
+    "live_trades": 31,
+    "live_win_rate_pct": 32.26,
+    "reference_win_rate_pct": 55.56,
+    "live_profit_factor": 0.661,
+    "reference_profit_factor": 1.92,
+    "live_total_return_pct": -3.67,
+    "reference_windows": 285,
+    "reference_windows_as_bad": 0,
+    "reference_worst_window_pct": -1.5,
+    "live_gold_drift_pct": -5.33,
+    "drift_predicted_return_pct": 4.46,
+    "permutation_p_one_sided": 0.008,
+    "degradation_flag": "degraded",
+    "trades": 346,
+    "win_rate_pct": 53.47,
+    "profit_factor": 1.757
+  },
+  "card_metrics": [
+    "live_win_rate_pct",
+    "reference_windows_as_bad",
+    "drift_predicted_return_pct",
+    "permutation_p_one_sided"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The live window is outside the strategy's own history",
+      "detail": "Win rate 32.26% (n=31) against 55.56% (n=315), PF 0.661 against 1.92. None of 285 earlier 31-trade windows was as bad; the worst returned -1.5% against -3.67%. All 10 non-overlapping earlier blocks were positive.",
+      "title_zh": "上線後這段已超出策略自己的歷史範圍",
+      "detail_zh": "勝率 32.26%（n=31），歷史 55.56%（n=315）；獲利因子 0.661 對 1.92。之前 285 個連續 31 筆窗口沒有一個這麼差，最差的是 -1.5%，這次是 -3.67%。互不重疊的 10 段全部是正報酬。"
+    },
+    {
+      "tone": "warn",
+      "title": "A falling gold price does not explain it",
+      "detail": "Gold fell 5.33% over the window; across earlier windows that drift predicts +4.46% (R² 0.283). 58 earlier windows saw gold fall as much and the worst still returned +1.95%. S1 historically did best after gold had fallen.",
+      "title_zh": "金價下跌不能解釋",
+      "detail_zh": "這段期間金價跌 5.33%。依歷史窗口的關係，這樣的跌幅應該對應 +4.46%（R² 0.283）。歷史上有 58 個窗口金價跌得一樣多，最差的仍然賺 +1.95%。S1 歷史上反而是在金價跌過之後表現最好。"
+    },
+    {
+      "tone": "info",
+      "title": "No entry context isolates it — the decline is inside every group",
+      "detail": "Shift-share over gold's 20-session trend, 4H RSI state, session, Bollinger zone and 30m ATR tercile puts the whole change inside the groups, none in the mix. Volatility rose slightly, but the highest-ATR tercile was historically S1's best. The study supports no entry filter.",
+      "title_zh": "沒有任何進場條件能把它切出來：每一組裡面都變差了",
+      "detail_zh": "把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，變化全部來自各組內部，不是組合轉向較差的組。波動略升，但歷史上 ATR 最高的一組反而是 S1 最好的。這份研究不支持任何進場過濾條件。"
+    },
+    {
+      "tone": "warn",
+      "title": "What changed is how trades end",
+      "detail": "TP1 exits fell from 146 of 315 to 9 of 31; clean stop-outs rose from 27.3% to 41.9% of trades, and more losers first went half way to TP1 (37.1% to 47.6%, n=21 live losers).",
+      "title_zh": "變的是交易怎麼結束",
+      "detail_zh": "打到 TP1 的比例從 146/315 降到 9/31；正常停損從 27.3% 升到 41.9%。虧損單裡先走到 TP1 一半（+0.25%）再回頭的比例從 37.1% 升到 47.6%（上線後只有 21 筆虧損單，僅供描述）。"
+    },
+    {
+      "tone": "info",
+      "title": "Cause not established",
+      "detail": "One window, chosen after it looked bad; permutation p 0.008 is optimistic for that reason. The data cannot separate an intraday regime change no context measure captures from an unusually bad run. The section 5.1 item 11 flag is degraded.",
+      "title_zh": "原因沒有確定",
+      "detail_zh": "這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。"
+    }
+  ],
+  "policy_impacts": [
+    {
+      "surface": "請分析 S1 recommendation rule",
+      "public_surface": "請分析 S1 recommendation rule",
+      "type": "risk_rule",
+      "summary": "S1 V3.9 is on a pre-registered forward check (PREREG-20261009-001): if its next 31 tester trades from 2026-10-09 sum to -1.50% or worse, or the running sum reaches -3.67% first, 請分析 stops recommending S1 entries until it is reviewed. -1.50% is the worst earlier 31-trade window.",
+      "key_expression": "decline.rolling_windows.reference_min_total_return_pct",
+      "adopted_on": "2026-10-09"
+    }
+  ],
+  "theme": "strategy_diagnostics",
+  "card_summary": "S1's live window is worse than every earlier one, and a falling gold price does not explain it.",
+  "title_zh": "S1 V3.9 上線推播後的表現：超出自身歷史，而且市況與進場條件都解釋不了",
+  "question_zh": "S1 V3.9 自 2026-08-16（Telegram 推播開始）以來的 31 筆回測交易，比匯出檔裡任何更早的時段都差。這是否超出策略自己的歷史範圍？金價方向或波動能否解釋？進場時的市況能否解釋？交易的結束方式變了什麼？依研究規格 §5 標準格式回答，並因為問題本身是「是否衰退」而納入 §5.1 第 11 項。",
+  "card_summary_zh": "S1 上線後這段比歷史上任何一段都差，而且不是金價下跌造成的。",
+  "limitations_zh": [
+    "這是策略回測的交易，不是帳戶實際成交",
+    "上線後只有一段窗口，而且是事後挑出來的",
+    "價格匯出只到 2026-10-03，之後 2 筆交易沒有市況資料",
+    "30 分鐘價格由兩份匯出拼接；重疊處有 49 根收盤價不同，最大差 0.396"
+  ],
+  "interpretation_zh": "S1 V3.9 從 2026-08-16 開始推播後的 31 筆回測交易，勝率 32.26%、獲利因子 0.661，合計 -3.67%。歷史上 285 個連續 31 筆窗口**沒有一個這麼差**，最差的是 -1.5%。\n\n最直覺的解釋是「只做多的策略剛好遇到跌勢」，但資料不支持：這段期間金價跌 5.33%，依歷史關係 S1 應該還能賺 4.46%；歷史上金價跌得一樣多的 58 個窗口，最差也賺 1.95%。S1 過去反而是在金價跌過之後表現最好。\n\n按金價趨勢、4H RSI、盤別、布林位置、波動度分組，**每一組裡面都一樣變差**，所以找不到任何能把爛單切掉的進場條件。真正變的是交易怎麼結束：打到 TP1 的比例下降、正常停損增加，而且有更多單先往目標走一半才回頭停損。\n\n⚠️ 這段窗口是「看起來很差」之後才挑出來分析的，統計上偏樂觀；31 筆也只是一段樣本。原因沒有確定，所以採取的做法是預先登記一個前瞻檢驗：接下來 31 筆如果又比歷史最差窗口還差，就停止建議 S1，而不是現在就改策略。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "live_win_rate_pct",
+        "reference_win_rate_pct",
+        "reference_windows_as_bad",
+        "drift_predicted_return_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Live Window vs History 上線後 vs 歷史",
+      "takeaway_zh": "每個點是一段連續 31 筆交易的合計報酬。上線前 285 段只有 8 段為負，最差 -1.5%；上線後這段 -3.67%。互不重疊的 10 段全部為正。",
+      "chart_file": "rolling_31_return.png",
+      "table_source": "decline.rolling_windows",
+      "table_title": "Rolling 31-Trade Windows",
+      "columns": []
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Gold Drift Control 金價方向對照",
+      "takeaway_zh": "橫軸是窗口期間金價漲跌，縱軸是 S1 該窗口報酬。金價漲跌只解釋 R²=0.283；這次金價跌 5.33%，依歷史關係應該 +4.46%，實際 -3.67%，殘差比歷史上所有窗口都低。",
+      "chart_file": "window_vs_gold_drift.png",
+      "table_source": "decline.market_control",
+      "table_title": "Market Control",
+      "columns": []
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Gold Trend at Entry 進場時的金價趨勢",
+      "takeaway_zh": "依進場前 20 日金價漲跌分三組。歷史上 S1 在金價跌過之後反而最好；上線後跌勢、漲勢都輸，所以不是「遇到跌勢」造成的。各組上線後樣本很小，只能看方向。",
+      "chart_file": "return_by_gold_trend.png",
+      "table_source": "decline.shift_share.gold_trend_20d.groups",
+      "table_title": "By Gold 20-Session Trend",
+      "columns": [
+        "reference.n",
+        "reference.win_rate_pct",
+        "reference.avg_return_pct",
+        "live.n",
+        "live.win_rate_pct",
+        "live.avg_return_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "decline.shift_share",
+      "title": "Shift-Share 變化來源分解",
+      "takeaway_zh": "每一列把「每筆平均報酬的變化」拆成「同一類交易變差」（within）和「交易組合轉向較差的類別」（mix）。五個維度都是 within 幾乎等於全部變化，代表沒有任何一個條件能把爛單切出來。",
+      "columns": [
+        "delta_mean_return_pct",
+        "within_pct_points",
+        "mix_pct_points",
+        "unattributed_pct_points"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "How Trades End 交易怎麼結束",
+      "takeaway_zh": "上線前勝出 55.6%、正常停損 27.3%；上線後勝出 32.3%、正常停損 41.9%。",
+      "chart_file": "fail_mix_shift.png",
+      "table_source": "decline.fail_mix",
+      "table_title": "Outcome Mix",
+      "columns": []
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Temporal Stability 時間穩定性",
+      "takeaway_zh": "前 70% 交易勝率 57.44%，後 30% 44.23%，依固定規則判定為 degraded。2026 第二季起逐季下滑。",
+      "chart_file": "quarterly_stability.png",
+      "table_source": "temporal_stability.by_period",
+      "table_title": "By Quarter",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "Failure Types 失敗型態（全期間）",
+      "takeaway_zh": "全期間虧損的組成。進場時的市況欄位都只讀「已收完」的 K 棒。",
+      "chart_file": "fail_type_breakdown.png",
+      "table_source": "fail_pattern.by_type",
+      "table_title": "Fail Type Breakdown",
+      "columns": [
+        "count",
+        "pct"
+      ]
+    },
+    {
+      "type": "evidence_pair",
+      "title": "4H Trend Alignment 多時間框對齊",
+      "takeaway_zh": "描述性脈絡，不是進場條件。",
+      "chart_file": "htf_4h_state.png",
+      "table_source": "mtf.by_4h_state",
+      "table_title": "By 4H RSI State",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "decline.monthly",
+      "title": "Monthly 逐月",
+      "takeaway_zh": "S1 回測每月表現與同月金價漲跌。2026 年 8 月金價漲 9.7%，S1 卻打平。",
+      "columns": [
+        "n",
+        "win_rate_pct",
+        "profit_factor",
+        "total_return_pct",
+        "gold_month_return_pct"
+      ]
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

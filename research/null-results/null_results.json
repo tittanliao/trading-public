@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-05T22:57:41+08:00",
+  "generated_at": "2026-10-09T13:36:03+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 46,
+    "studies": 48,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2157,6 +2157,32 @@
       "reason": "None. The return comparison does not resolve: the paired difference is -2.227 percentage points against a resolution bound of 4.59 on 18 cycles. What is established is that the rule does not stage the entry — fills are decided by where the August close sits inside the year's range, so it commits everything at once when gold is weak into September and holds back when gold is strong. Three of eighteen cycles never invested at all.",
       "status": "confirmed",
       "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261009-001",
+      "study_id": "RS-XAUUSD-20261009-001",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "S1 forward-check recommendation rule adopted 2026-10-09 (PREREG-20261009-001): S1 stops being recommended if its next 31 tester trades sum to -1.50% or worse. No S1 logic or parameter change.",
+      "status": "confirmed",
+      "created_on": "2026-10-09"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261009-002",
+      "study_id": "RS-XAUUSD-20261009-002",
+      "kind": "study",
+      "family": "account — every Notion leg, S1/S2/untagged",
+      "origin": "programme",
+      "claim": "Live account attribution — R versus position sizing",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "Private account research. Adopted 2026-10-09 as four account risk rules: fixed per-trade risk, S2 never above S1, one open position at a time, stops always placed and no weekend holds. Figures stay private.",
+      "status": "confirmed",
+      "created_on": "2026-10-09"
     }
   ],
   "generated_by": "trading-private research pipeline"

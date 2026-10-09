@@ -1,0 +1,42 @@
+{
+  "study_id": "RS-XAUUSD-20261009-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/FX_IDC_XAUUSD, 1D.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 1D.csv",
+      "sha256": "14339f91a20e7ba29ac3543b320f346290c20d2d1206222e3d128f6bf57889d5",
+      "size_bytes": 147571,
+      "role": "price_1d"
+    },
+    "local-inputs/FX_IDC_XAUUSD, 240.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 240.csv",
+      "sha256": "fae3f7a7acd35732b32745a83d9ef6b959fe8ad6de5bc7a7ba16a369b26084dc",
+      "size_bytes": 205508,
+      "role": "price_4h"
+    },
+    "local-inputs/S1-Awe-V3.9_FX_IDC_XAUUSD_2026-10-09.csv": {
+      "original_filename": "S1-Awe-V3.9_FX_IDC_XAUUSD_2026-10-09.csv",
+      "sha256": "9e460344a5c6f10f79c207646ff363d690f8cfbee7c3acf629bfd522763128f6",
+      "size_bytes": 80291,
+      "role": "trades"
+    },
+    "local-inputs/TVC_DXY, 1D.csv": {
+      "original_filename": "TVC_DXY, 1D.csv",
+      "sha256": "2776728b352e2d845305b0bdd8f2191707b9a99cfa6b42fbbb952d7d8e1435d6",
+      "size_bytes": 62196,
+      "role": "dxy_1d"
+    },
+    "local-inputs/xauusd_30m_from_2026-06-19.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 30.csv",
+      "sha256": "f602bcd1a95a30feb15688821e01f1d487e2ff1246217bb1ac9bef0d53897d72",
+      "size_bytes": 203094,
+      "role": "price_30m_recent"
+    },
+    "local-inputs/xauusd_30m_to_2026-08-15.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 30.csv",
+      "sha256": "85136e93b4e2c6eb02f26b474225cfb22e57e708eec6e17ff449f8fc6bd7b687",
+      "size_bytes": 4433593,
+      "role": "price_30m_history"
+    }
+  }
+}
