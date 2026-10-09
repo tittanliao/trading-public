@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T20:36:08+08:00",
+  "generated_at": "2026-10-09T20:36:57+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -2201,9 +2201,9 @@
       "entry_id": "RS-XAUUSD-20261009-004",
       "study_id": "RS-XAUUSD-20261009-004",
       "kind": "study",
-      "family": "owner discretion vs S1 V3.9 / S2 V3.2 — selection, execution, reversal",
+      "family": "discretionary trading vs S1 V3.9 / S2 V3.2 — selection, execution, reversal",
       "origin": "programme",
-      "claim": "The owner's discretion against the strategies — selection, execution and reversal trades",
+      "claim": "Discretion against the strategies — selection, execution and reversal trades",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "Adopted 2026-10-09 as account risk rules 6 (only trades that follow a live signal) and 7 (reversal / short limits with forward check PREREG-20261009-002). Private figures.",
