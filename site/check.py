@@ -268,7 +268,8 @@ def check_privacy(errors: list[str]) -> None:
     for d in sorted((ROOT / "research/studies").iterdir()):
         if d.is_dir():
             scanned += [path for path in sorted(d.glob("*")) if path.suffix in {".py", ".json", ".md"}]
-    scanned += [ROOT / "research/null-results/null_results.json", ROOT / "research/backlog/backlog.json"]
+    scanned += [ROOT / "research/null-results/null_results.json", ROOT / "research/backlog/backlog.json",
+                ROOT / "research/overview/overview.json"]
     for path in scanned:
         if not path.is_file():
             continue
@@ -500,11 +501,43 @@ def check_study_order(errors: list[str]) -> None:
             errors.append(f"{sid}: charts render after the detailed tables")
 
 
+def check_overview(errors: list[str]) -> None:
+    """research/overview/overview.json is generated in trading-private; this is the site's own
+    check that it is coherent before the page built from it goes live."""
+    path = ROOT / "research/overview/overview.json"
+    if not path.is_file():
+        errors.append("research/overview/overview.json missing (run build_overview.py in trading-private)")
+        return
+    o = json.loads(path.read_text(encoding="utf-8"))
+    studies = {s["id"]: s for s in o.get("studies", [])}
+    ids = set()
+    for e in o.get("entries", []):
+        where = f"overview {e.get('id')}"
+        if e.get("id") in ids:
+            errors.append(f"{where}: duplicate id")
+        ids.add(e.get("id"))
+        for field, allowed in (("kind", o["kinds"]), ("topic", o["topics"])):
+            if e.get(field) not in allowed:
+                errors.append(f"{where}: unknown {field} {e.get(field)!r}")
+        if not (e.get("statement_zh") or "").strip():
+            errors.append(f"{where}: empty statement")
+        for ev in e.get("evidence", []):
+            if ev.get("study_id") not in studies:
+                errors.append(f"{where}: cites {ev.get('study_id')}, absent from the study map")
+    for s in studies.values():
+        url = s.get("url")
+        if url and not (ROOT / url / "index.html").is_file():
+            errors.append(f"overview study {s['id']}: link {url} has no page")
+    for src in o.get("sources", []):
+        if not isinstance(src.get("stale_after_days"), int):
+            errors.append(f"overview source {src.get('id')}: stale_after_days must be an integer")
+
+
 def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
                check_backlog, check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
-               check_table_columns, check_analysis_reproducibility, check_study_order):
+               check_table_columns, check_analysis_reproducibility, check_study_order, check_overview):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),

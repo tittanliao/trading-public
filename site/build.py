@@ -114,6 +114,7 @@ def routes() -> list[str]:
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
           for w in weekly_weeks() for p in weekly_perspectives(w)),
+        "overview",
         "research",
         "research/null-results",
         "research/backlog",
@@ -569,6 +570,7 @@ def nav(depth: int) -> str:
     links = [
         ("Home", f"{prefix}index.html" if depth else "index.html"),
         ("Weekly", f"{prefix}xauusd/weekly/"),
+        ("Overview 總覽", f"{prefix}overview/"),
         ("Research", f"{prefix}research/"),
     ]
     items = "".join(f'<a href="{attr(href)}">{label}</a>' for label, href in links)
@@ -607,6 +609,26 @@ def document(title: str, description: str, depth: int, body: str, wide: bool = F
 # Home
 # ---------------------------------------------------------------------------
 
+def home_overview_card() -> str:
+    o = overview_data()
+    counts = "".join(
+        f'<li><strong>{sum(1 for e in o["entries"] if e["kind"] == k)}</strong>{esc(v["label_zh"])}</li>'
+        for k, v in _ordered(o["kinds"])
+    )
+    lasts = "".join(
+        f'<span class="k-state" hidden data-last="{attr(s.get("last_date") or "")}" data-limit="{attr(s["stale_after_days"])}"></span>'
+        for s in o["sources"]
+    )
+    return f"""<section class="feature-card">
+  <div class="type">Research Overview</div>
+  <h2><a href="overview/">研究總覽</a></h2>
+  <p>所有研究整理成規則、參考、觀察中、研究方向與已否定，並追蹤資料新鮮度。</p>
+  <ul class="k-counts">{counts}<li><strong id="home-stale">—</strong>資料過期</li></ul>{lasts}
+  <p class="more"><a href="overview/">看總覽 →</a></p>
+  <script>(function(){{var n=0,now=Date.now();document.querySelectorAll(".feature-card .k-state").forEach(function(e){{var l=e.getAttribute("data-last");if(!l||(now-Date.parse(l+"T00:00:00+08:00"))/86400000>+e.getAttribute("data-limit"))n++;}});document.getElementById("home-stale").textContent=n;}})();</script>
+</section>"""
+
+
 def home_page() -> str:
     week = latest_week()
     s = load_json(ROOT / "xauusd/weekly" / week / "summary.json")
@@ -642,6 +664,8 @@ def home_page() -> str:
   <p class="key-zone">關鍵決策帶　<strong>{esc(key_zone["value"])}</strong>　<span class="muted">{esc(key_zone["label"])}</span></p>
   <p class="more"><a href="xauusd/weekly/{week}/">閱讀完整週報 →</a></p>
 </section>
+
+{home_overview_card()}
 
 <section class="block-section">
   <h2>Featured Research</h2>
@@ -917,6 +941,9 @@ def weekly_perspective_page(week: str, producer: str) -> str:
 # ---------------------------------------------------------------------------
 
 def research_index_page() -> str:
+    # One-line Chinese conclusions come from the overview data, which carries one for every
+    # study (study.json only has card_summary_zh once a study is re-exported).
+    summaries = {s["id"]: s.get("summary_zh") or "" for s in overview_data()["studies"]}
     records = []
     for sid in PUBLISHED_STUDIES:
         study, results = load_study(sid)
@@ -929,6 +956,7 @@ def research_index_page() -> str:
             "published": study.get("created_on", ""),
             "charts": n,
             "evidence": f"{n} chart{'' if n == 1 else 's'}" if n else "tables",
+            "summary": summaries.get(sid, ""),
         })
     # Sort by study id, newest first. Not a plain string sort: an id is
     # RS-<MARKET>-<YYYYMMDD>-<NNN>, so sorting the raw string groups by market before date
@@ -943,19 +971,20 @@ def research_index_page() -> str:
     # Study ID rather than a publication date: the id is the stable identifier used
     # everywhere else (handoffs, receipts, the null registry), and it already encodes the
     # date. A separate Published column repeated that date without adding anything.
-    headers = [("Title", False), ("Market", False), ("Study ID", False),
+    headers = [("Title", False), ("結論", False), ("Market", False), ("Study ID", False),
                ("Theme", False), ("Evidence", True)]
     rows = []
     for r in records:
         rows.append([
             ("th", f'<a href="studies/{r["id"]}/">{esc(r["title"])}</a>', r["title"].lower(), False),
+            ("td", esc(r["summary"]), r["summary"], False),
             ("td", f'<span class="tag">{esc(r["market"])}</span>', r["market"].lower(), False),
             ("td", f'<code class="study-id">{esc(r["id"])}</code>',
              "".join(id_order(r["id"])), False),
             ("td", esc(r["theme"]), r["theme"].lower(), False),
             ("td", esc(r["evidence"]), sort_key(r["charts"]), True),
         ])
-    table = render_table(headers, rows, sorted_column=2)
+    table = render_table(headers, rows, sorted_column=3)
     # data-market on the row is what the filter reads; render_table does not know about
     # filtering, so the attribute is injected here rather than complicating that renderer.
     for r in records:
@@ -995,7 +1024,7 @@ def research_index_page() -> str:
   {buttons}
   <input type="search" id="research-search" placeholder="搜尋標題、主題…" aria-label="Search research">
 </div>
-<p class="more"><a href="null-results/">Null Results / 沒有效果的研究 →</a>　<a href="backlog/">Backlog / 待研究題目 →</a></p>
+<p class="more"><a href="../overview/">研究總覽：規則、參考、方向與已否定 →</a>　<a href="null-results/">Null Results / 沒有效果的研究 →</a>　<a href="backlog/">Backlog / 待研究題目 →</a></p>
 <div id="research-table">{table}</div>
 {queued_note}{superseded_line}
 <script>
@@ -1180,6 +1209,39 @@ def study_page(study_id: str) -> str:
 # still had to scroll sideways to see columns that would have fit easily. Horizontal
 # scrolling is now a genuinely-too-narrow fallback, not the normal reading mode.
 STYLE_CSS = """
+/* research overview */
+.k-strip .k-metric{text-decoration:none;color:var(--text);}
+.k-strip .k-metric:hover{border-color:var(--cyan);}
+.metric.k-alert{border-color:var(--bad);} .metric.k-alert .metric-value{color:var(--bad);}
+.k-section{margin-top:1.2em;}
+.k-topic{color:var(--muted);font-size:.9rem;text-transform:none;margin:1.6em 0 .6em;}
+.k-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;}
+.k-card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line2);border-radius:12px;padding:16px 18px;}
+.k-card h3{margin:.5em 0 .4em;font-size:1rem;line-height:1.5;}
+.k-card p{color:var(--muted);font-size:.9rem;margin:.4em 0;}
+.k-card .k-how{color:var(--text);}
+.k-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.78rem;}
+.k-kind{font-weight:650;}
+.k-strength{color:var(--muted);}
+.k-id{margin-left:auto;color:var(--muted);font-size:.72rem;}
+.k-evidence{margin:.5em 0 0;padding-left:1.1em;font-size:.86rem;color:var(--muted);}
+.k-refs{margin-top:.6em;}
+.k-rule{border-left-color:var(--cyan);} .k-rule .k-kind{color:var(--cyan);}
+.k-reference{border-left-color:var(--good);} .k-reference .k-kind{color:var(--good);}
+.k-watching{border-left-color:var(--warn);} .k-watching .k-kind{color:var(--warn);}
+.k-direction{border-left-color:#b48ead;} .k-direction .k-kind{color:#b48ead;}
+.k-refuted{border-left-color:var(--bad);} .k-refuted .k-kind{color:var(--bad);}
+.k-preregs{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin:1em 0 1.4em;}
+.k-prereg{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.9rem;}
+.k-prereg-head{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.k-bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0;}
+.k-bar span{display:block;height:100%;background:var(--warn);}
+tr.k-stale th,tr.k-stale td{color:var(--bad);}
+.k-section thead th{white-space:nowrap;}
+.k-filter select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 10px;}
+.k-counts{list-style:none;padding:0;margin:12px 0;display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.9rem;}
+.k-counts strong{color:var(--text);font-size:1.2rem;margin-right:6px;}
+@media (max-width:640px){.k-grid,.k-preregs{grid-template-columns:1fr;}}
 :root{
   --bg:#0b0d12;--panel:#12151c;--panel2:#171b24;--line:#262b36;--line2:#333a48;
   --text:#e7e9ee;--muted:#9aa3b2;--cyan:#5ec8d8;--good:#6fcf97;--warn:#f2c94c;--bad:#eb5757;
@@ -1387,6 +1449,233 @@ TABLE_JS = """
 """
 
 
+# ---------------------------------------------------------------------------
+# Research overview (2026-10-09)
+# ---------------------------------------------------------------------------
+# One page for what the research concluded. Data comes from research/overview/overview.json,
+# written by trading-private scripts/research/build_overview.py from the authored knowledge
+# layer, the source registry, the study registry and the prereg evaluators. Everything on the
+# page is driven by that file: a new claim, topic, kind, source or prereg needs no change here.
+
+OVERVIEW_JSON = ROOT / "research/overview/overview.json"
+
+
+def overview_data() -> dict:
+    return load_json(OVERVIEW_JSON)
+
+
+def _ordered(mapping: dict) -> list[tuple[str, dict]]:
+    return sorted(mapping.items(), key=lambda kv: kv[1].get("order", 99))
+
+
+def _study_link(study: dict | None, prefix: str) -> str:
+    if not study:
+        return ""
+    label = study.get("title_zh") or study.get("title") or study["id"]
+    lock = "🔒 " if study.get("visibility") == "locked" else ""
+    if study.get("url"):
+        return f'<a href="{attr(prefix + study["url"])}">{lock}{esc(label)}</a>'
+    return f'<span class="muted">{esc(label)}（未公開）</span>'
+
+
+def _claim_card(e: dict, o: dict, studies: dict, prefix: str) -> str:
+    kind = o["kinds"][e["kind"]]
+    topic = o["topics"][e["topic"]]
+    strength = o["strengths"].get(e.get("strength") or "", {})
+    strength_html = (f'<span class="k-strength">證據 {esc(strength["label_zh"])}</span>'
+                     if strength.get("label_zh") else "")
+    refs = []
+    if e.get("policy_ref"):
+        refs.append(f'<span class="tag">POLICY {esc(e["policy_ref"])}</span>')
+    if e.get("prereg_ref"):
+        refs.append(f'<span class="tag">{esc(e["prereg_ref"])}</span>')
+    if e.get("backlog_ref"):
+        refs.append(f'<a class="tag" href="{attr(prefix)}research/backlog/">{esc(e["backlog_ref"])}</a>')
+    if e.get("preliminary"):
+        refs.append('<span class="tag">初步</span>')
+    evidence = "".join(
+        f'<li>{_study_link(studies.get(ev["study_id"]), prefix)}'
+        f'{"：" + esc(ev["says_zh"]) if ev.get("says_zh") else ""}</li>'
+        for ev in e.get("evidence", [])
+    )
+    refs_html = f'<p class="k-refs">{" ".join(refs)}</p>' if refs else ""
+    how = f'<p class="k-how"><strong>怎麼用</strong>　{esc(e["how_to_use_zh"])}</p>' if e.get("how_to_use_zh") else ""
+    detail = f'<p>{esc(e["detail_zh"])}</p>' if e.get("detail_zh") else ""
+    return (
+        f'<article class="k-card k-{attr(e["kind"])}" id="{attr(e["id"])}" '
+        f'data-kind="{attr(e["kind"])}" data-topic="{attr(e["topic"])}">'
+        f'<div class="k-head"><span class="k-kind">{esc(kind["label_zh"])}</span>'
+        f'<span class="tag">{esc(topic["label_zh"])}</span>'
+        f'{strength_html}'
+        f'<code class="k-id">{esc(e["id"])}</code></div>'
+        f'<h3>{esc(e["statement_zh"])}</h3>{detail}{how}'
+        f'{f"<ul class=\"k-evidence\">{evidence}</ul>" if evidence else ""}'
+        f'{refs_html}'
+        "</article>"
+    )
+
+
+def overview_page() -> str:
+    o = overview_data()
+    prefix = "../"
+    studies = {s["id"]: s for s in o["studies"]}
+    kinds = _ordered(o["kinds"])
+    topics = _ordered(o["topics"])
+    by_kind = {k: [e for e in o["entries"] if e["kind"] == k] for k, _ in kinds}
+
+    strip = "".join(
+        f'<a class="metric k-metric k-{attr(k)}" href="#kind-{attr(k)}"><div class="metric-value">{len(by_kind[k])}</div>'
+        f'<div class="metric-label">{esc(v["label_zh"])}</div></a>'
+        for k, v in kinds
+    )
+    strip += ('<div class="metric" id="stale-metric"><div class="metric-value" id="stale-count">—</div>'
+              '<div class="metric-label">資料過期</div></div>')
+
+    sections = []
+    for k, v in kinds:
+        entries = by_kind[k]
+        if not entries:
+            continue
+        if k == "reference":
+            groups = []
+            for t, tv in topics:
+                cards = [e for e in entries if e["topic"] == t]
+                if cards:
+                    groups.append(f'<h3 class="k-topic">{esc(tv["label_zh"])}</h3><div class="k-grid">'
+                                  + "".join(_claim_card(e, o, studies, prefix) for e in cards) + "</div>")
+            inner = "".join(groups)
+        else:
+            inner = '<div class="k-grid">' + "".join(_claim_card(e, o, studies, prefix) for e in entries) + "</div>"
+        extra = ""
+        if k == "watching":
+            extra = _prereg_block(o)
+        sections.append(f'<section class="k-section" id="kind-{attr(k)}"><h2>{esc(v["label_zh"])}</h2>'
+                        f'<p class="lede">{esc(v.get("description_zh", ""))}</p>{extra}{inner}</section>')
+    if not by_kind.get("watching"):
+        sections.insert(1, f'<section class="k-section" id="kind-watching"><h2>前瞻檢驗</h2>{_prereg_block(o)}</section>')
+
+    kind_buttons = "".join(f'<button type="button" data-kind="{attr(k)}">{esc(v["label_zh"])}</button>' for k, v in kinds)
+    topic_options = "".join(f'<option value="{attr(t)}">{esc(tv["label_zh"])}</option>' for t, tv in topics)
+
+    body = f"""
+<h1>研究總覽</h1>
+<p class="lede">所有研究的結論整理成一份：哪些已經成為規則、哪些是可靠的參考、哪些還在觀察或值得繼續研究、哪些已經被否定；以及背後資料的新鮮度。每一條都連到支持它的研究。</p>
+<div class="metrics-strip k-strip">{strip}</div>
+<div class="filter-bar k-filter">
+  <button type="button" data-kind="all" class="active">全部</button>{kind_buttons}
+  <select id="k-topic" aria-label="主題"><option value="all">所有主題</option>{topic_options}</select>
+  <input type="search" id="k-search" placeholder="搜尋結論…" aria-label="搜尋結論">
+</div>
+{"".join(sections)}
+<section class="k-section" id="freshness"><h2>資料新鮮度</h2>
+<p class="lede">每個資料來源最後更新到哪一天。超過門檻的列標紅：它卡住的研究或檢驗不會前進，直到資料更新。天數以你開啟頁面的這一刻計算。</p>
+{_freshness_table(o)}
+</section>
+<section class="k-section" id="studies"><h2>研究地圖</h2>
+<p class="lede">每一份研究，以及它支持的結論。🔒 表示細節在密碼頁。</p>
+{_study_map(o, prefix)}
+</section>
+<p class="empty-note">資料產生於 {esc(o["generated_at"][:16].replace("T", " "))}（台北時間）。</p>
+<script>{OVERVIEW_JS}</script>
+"""
+    return document("研究總覽", "What the research concluded, what became a rule, and how fresh the data is.", 1, body, wide=True)
+
+
+def _prereg_block(o: dict) -> str:
+    sources = {s["id"]: s for s in o["sources"]}
+    rows = []
+    for p in o["preregs"]:
+        n, target = p.get("n") or 0, p.get("target") or 0
+        pct = min(100, round(100 * n / target)) if target else 0
+        src = sources.get(p.get("advances_with") or "", {})
+        rows.append(
+            f'<div class="k-prereg"><div class="k-prereg-head"><code>{esc(p["id"])}</code>'
+            f'<span>{esc(p["title_zh"])}</span></div>'
+            f'<div class="k-bar"><span style="width:{pct}%"></span></div>'
+            f'<div class="muted">{n} / {target}　·　{esc(p.get("state") or "")}'
+            f'{"　·　隨「" + esc(src.get("label_zh", "")) + "」更新" if src else ""}</div></div>'
+        )
+    return '<div class="k-preregs">' + "".join(rows) + "</div>"
+
+
+def _freshness_table(o: dict) -> str:
+    headers = [("資料", False), ("最後日期", False), ("距今（天）", True), ("門檻（天）", True),
+               ("狀態", False), ("過期會卡住", False), ("怎麼更新", False)]
+    rows = []
+    for s in o["sources"]:
+        last = s.get("last_date") or ""
+        rows.append([
+            ("th", esc(s["label_zh"]), s["label_zh"], False),
+            ("td", esc(last or "—"), last, False),
+            ("td", f'<span class="k-age" data-last="{attr(last)}">—</span>', "", True),
+            ("td", esc(s["stale_after_days"]), sort_key(s["stale_after_days"]), True),
+            ("td", f'<span class="k-state" data-last="{attr(last)}" data-limit="{attr(s["stale_after_days"])}">—</span>', "", False),
+            ("td", esc("、".join(s.get("blocks_zh") or [])), "", False),
+            ("td", esc(s.get("refresh_zh") or ""), "", False),
+        ])
+    return render_table(headers, rows)
+
+
+def _study_map(o: dict, prefix: str) -> str:
+    headers = [("研究", False), ("市場", False), ("狀態", False), ("一句話結論", False), ("支持的結論", False)]
+    status_zh = {"confirmed": "確認", "progress": "進行中", "pending": "待定"}
+    rows = []
+    for s in sorted(o["studies"], key=lambda r: r["id"][-12:], reverse=True):
+        claims = " ".join(f'<a href="#{attr(c)}">{esc(c)}</a>' for c in s.get("claims", [])) or '<span class="muted">—</span>'
+        label = s.get("title_zh") or s.get("title") or s["id"]
+        rows.append([
+            ("th", _study_link(s, prefix), label.lower(), False),
+            ("td", f'<span class="tag">{esc(s.get("market") or "")}</span>', s.get("market") or "", False),
+            ("td", esc(status_zh.get(s.get("status"), s.get("status") or "")), s.get("status") or "", False),
+            ("td", esc(s.get("summary_zh") or ""), "", False),
+            ("td", claims, " ".join(s.get("claims", [])), False),
+        ])
+    return render_table(headers, rows)
+
+
+OVERVIEW_JS = r"""
+(function () {
+  var DAY = 86400000, now = Date.now(), stale = 0;
+  function age(last) { return last ? Math.floor((now - Date.parse(last + "T00:00:00+08:00")) / DAY) : null; }
+  document.querySelectorAll(".k-age").forEach(function (el) {
+    var a = age(el.getAttribute("data-last")); el.textContent = a === null ? "—" : a;
+    el.parentNode.setAttribute("data-sort", a === null ? "" : a);
+  });
+  document.querySelectorAll(".k-state").forEach(function (el) {
+    var a = age(el.getAttribute("data-last")), limit = +el.getAttribute("data-limit"), row = el.closest("tr");
+    if (a === null) { el.textContent = "讀不到"; row.classList.add("k-stale"); stale++; }
+    else if (a > limit) { el.textContent = "過期 " + (a - limit) + " 天"; row.classList.add("k-stale"); stale++; }
+    else { el.textContent = "正常"; }
+  });
+  var count = document.getElementById("stale-count");
+  if (count) { count.textContent = stale; if (stale) document.getElementById("stale-metric").classList.add("k-alert"); }
+  var kind = "all", topic = document.getElementById("k-topic"), search = document.getElementById("k-search");
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".k-card"));
+  function apply() {
+    var q = (search.value || "").trim().toLowerCase(), t = topic.value;
+    cards.forEach(function (c) {
+      c.hidden = !((kind === "all" || c.dataset.kind === kind) && (t === "all" || c.dataset.topic === t)
+                  && c.textContent.toLowerCase().indexOf(q) !== -1);
+    });
+    document.querySelectorAll(".k-section[id^='kind-']").forEach(function (s) {
+      var any = s.querySelector(".k-card:not([hidden])"), pre = s.querySelector(".k-preregs");
+      s.hidden = !any && !(pre && kind === "all" && t === "all" && !q);
+    });
+    document.querySelectorAll(".k-topic").forEach(function (h) {
+      var grid = h.nextElementSibling; h.hidden = !grid.querySelector(".k-card:not([hidden])");
+    });
+  }
+  document.querySelectorAll(".k-filter button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll(".k-filter button").forEach(function (x) { x.classList.remove("active"); });
+      b.classList.add("active"); kind = b.dataset.kind; apply();
+    });
+  });
+  topic.addEventListener("change", apply); search.addEventListener("input", apply);
+})();
+"""
+
+
 def build_catalog() -> dict:
     return {
         "schema_version": 2,
@@ -1408,6 +1697,7 @@ def generated_pages() -> dict[str, str]:
     pages = {
         "index.html": home_page(),
         "xauusd/weekly/index.html": weekly_index_page(),
+        "overview/index.html": overview_page(),
         "research/index.html": research_index_page(),
         "research/null-results/index.html": null_results_page(),
         "research/backlog/index.html": backlog_page(),
