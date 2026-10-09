@@ -181,7 +181,7 @@ def evaluate(
     signs = [row["effect"] for row in by_period.values() if row["effect"] is not None]
     consistent = len(signs) == 3 and (all(s > 0 for s in signs) or all(s < 0 for s in signs))
 
-    # Win rate is reported for every hypothesis because the owner reasons in win rates, and
+    # Win rate is reported for every hypothesis because win rates are how results get read, and
     # a study that only reports mean effects cannot be checked against that intuition. It is
     # never used as a screen: a rate above 50% is compatible with losing money, which this
     # programme has now demonstrated three separate ways.

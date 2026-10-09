@@ -1,5 +1,5 @@
 """Temporal stability / chronological holdout toolkit — reference implementation of
-docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11 (owner-directed 2026-07-29).
+docs/RESEARCH_DEVELOPMENT_SPEC.md section 5.1 item 11 (added 2026-07-29).
 
 Reuses fail_pattern_toolkit's trade loader and stats() so a bucket/holdout stat is
 computed identically to every other section 5 breakdown, rather than re-deriving win

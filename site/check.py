@@ -161,7 +161,7 @@ def check_backlog(errors: list[str]) -> None:
 
 
 def check_charts(errors: list[str]) -> None:
-    """The chart contract, per the owner decision of 2026-08-31.
+    """The chart contract, as decided on 2026-08-31.
 
     A reader page shows a selected set of charts, each immediately followed by the table it
     explains — not every chart a study generated. So the rule is no longer "every declared
@@ -230,7 +230,7 @@ def check_weekly_sections(errors: list[str]) -> None:
                 errors.append(f"{week}/{producer} perspective has no source JSON")
 
 
-# The owner's account size. It reached the live site inside a published analysis.py even
+# The real account size. It reached the live site inside a published analysis.py even
 # though that study's whole public form is normalised per unit of capital precisely so the
 # account would not travel — the export rule only appended a comment beside the figure
 # instead of replacing it. A scan is cheaper than remembering.
@@ -260,11 +260,15 @@ def check_privacy(errors: list[str]) -> None:
                 for path in (ROOT / "xauusd/weekly" / week / "perspectives").glob("*.json")]
     # Pages serves the whole repository, so a queued or superseded study's evidence package
     # is as public as a published one — scan every package present, not just PUBLISHED_STUDIES.
-    # impact.md was missing from this list entirely, which is how "the owner" reached five
-    # published packages: it is the one exported text that skipped the rewrite pass.
+    # impact.md was once missing from this list, which is how a private token reached five
+    # published packages. Listing files by name kept failing the same way: helper modules
+    # copied beside analysis.py (toolkits, harnesses) were never scanned and carried private
+    # wording for weeks (found 2026-10-09). So every text file in a package is scanned, plus
+    # the null-result registry and the backlog.
     for d in sorted((ROOT / "research/studies").iterdir()):
         if d.is_dir():
-            scanned += [d / "study.json", d / "results.json", d / "analysis.py", d / "impact.md"]
+            scanned += [path for path in sorted(d.glob("*")) if path.suffix in {".py", ".json", ".md"}]
+    scanned += [ROOT / "research/null-results/null_results.json", ROOT / "research/backlog/backlog.json"]
     for path in scanned:
         if not path.is_file():
             continue

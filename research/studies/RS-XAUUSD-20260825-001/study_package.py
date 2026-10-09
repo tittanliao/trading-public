@@ -166,7 +166,7 @@ def write_study_json(study_id: str, *, market: str, strategy: str, title: str,
     #                  runner's `list(headline)[:4]` default, which is a fallback, not a
     #                  decision.
     #   card_summary - published prose is a research conclusion; CLAUDE.md puts changing
-    #                  one behind explicit owner scope, so a rerun never rewrites it.
+    #                  one behind an explicit scope decision, so a rerun never rewrites it.
     # To genuinely replace any of these, edit study.json (or drop the field) -- an explicit
     # act by a person, which is the point.
     if isinstance(existing.get("headline"), dict):
