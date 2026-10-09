@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T13:36:03+08:00",
+  "generated_at": "2026-10-09T13:41:30+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 48,
+    "studies": 49,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2181,6 +2181,19 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "Private account research. Adopted 2026-10-09 as four account risk rules: fixed per-trade risk, S2 never above S1, one open position at a time, stops always placed and no weekend holds. Figures stay private.",
+      "status": "confirmed",
+      "created_on": "2026-10-09"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261009-003",
+      "study_id": "RS-XAUUSD-20261009-003",
+      "kind": "study",
+      "family": "account execution — every Notion leg, S1/S2/untagged",
+      "origin": "programme",
+      "claim": "Avoiding bad trades — fourteen entry conditions in the account's own log, none separates",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Private account research: fourteen entry conditions screened on the account's own legs, none separates; late signal-chasing is the nearest and stays inside its bound.",
       "status": "confirmed",
       "created_on": "2026-10-09"
     }
