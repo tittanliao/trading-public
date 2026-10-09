@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T13:41:30+08:00",
+  "generated_at": "2026-10-09T20:36:08+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 49,
+    "studies": 50,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -874,8 +874,8 @@
       "claim": "Retail adds length while managed money cuts it — the stated combination.",
       "null_tested_against": null,
       "verdict": "underpowered",
-      "reason": "group sizes 2/29; need 6 each",
-      "n_condition": 2,
+      "reason": "group sizes 5/31; need 6 each",
+      "n_condition": 5,
       "effect": null,
       "unit": "% forward return, post-publication window",
       "smallest_resolvable_effect": null,
@@ -899,13 +899,13 @@
       "claim": "Top-quartile divergence between retail and managed-money net positioning (retail crowded long relative to the funds) precedes weakness.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.495% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -0.495,
+      "reason": "effect -0.489% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -0.489,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.6812,
+      "bootstrap_p_two_sided": 0.5112,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -914,8 +914,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 1.447,
-        "actionable_effect_pct": -0.495,
+        "already_history_effect_pct": 1.103,
+        "actionable_effect_pct": -0.489,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -929,13 +929,13 @@
       "claim": "Producer/merchant shorts fall — less downside hedging — so the next week rises.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.514% vs a +2.090% resolution bound",
-      "n_condition": 18,
-      "effect": -0.514,
+      "reason": "effect -0.294% vs a +1.949% resolution bound",
+      "n_condition": 21,
+      "effect": -0.294,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.09,
+      "smallest_resolvable_effect": 1.949,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.293,
+      "bootstrap_p_two_sided": 0.3615,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -944,8 +944,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -1.672,
-        "actionable_effect_pct": -0.514,
+        "already_history_effect_pct": -1.235,
+        "actionable_effect_pct": -0.294,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -959,13 +959,13 @@
       "claim": "A top-quartile *reduction* in producer/merchant shorts precedes a rise.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect +0.418% vs a +2.357% resolution bound",
+      "reason": "effect +0.999% vs a +2.312% resolution bound",
       "n_condition": 8,
-      "effect": 0.418,
+      "effect": 0.999,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.312,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.8191,
+      "bootstrap_p_two_sided": 0.3238,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -974,8 +974,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -0.373,
-        "actionable_effect_pct": 0.418,
+        "already_history_effect_pct": 0.236,
+        "actionable_effect_pct": 0.999,
         "history_larger_in_magnitude": false,
         "reading": "the actionable window carries at least as much as the historical one"
       }
@@ -989,13 +989,13 @@
       "claim": "Producer/merchant shorts rise — more hedging — so the next week falls.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect +0.514% vs a +2.090% resolution bound",
-      "n_condition": 13,
-      "effect": 0.514,
+      "reason": "effect +0.294% vs a +1.949% resolution bound",
+      "n_condition": 15,
+      "effect": 0.294,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.09,
+      "smallest_resolvable_effect": 1.949,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.2815,
+      "bootstrap_p_two_sided": 0.3685,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1004,8 +1004,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 1.672,
-        "actionable_effect_pct": 0.514,
+        "already_history_effect_pct": 1.235,
+        "actionable_effect_pct": 0.294,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1019,13 +1019,13 @@
       "claim": "Retail net length in its top quartile precedes weakness.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.409% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -0.409,
+      "reason": "effect -0.184% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -0.184,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.7226,
+      "bootstrap_p_two_sided": 0.7284,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1034,8 +1034,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -0.447,
-        "actionable_effect_pct": -0.409,
+        "already_history_effect_pct": -0.45,
+        "actionable_effect_pct": -0.184,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1049,13 +1049,13 @@
       "claim": "A bottom-quartile week for retail net positioning precedes strength.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.978% vs a +2.357% resolution bound",
+      "reason": "effect -0.279% vs a +2.312% resolution bound",
       "n_condition": 8,
-      "effect": -0.978,
+      "effect": -0.279,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.312,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.2525,
+      "bootstrap_p_two_sided": 0.7001,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1064,8 +1064,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 1.227,
-        "actionable_effect_pct": -0.978,
+        "already_history_effect_pct": 1.555,
+        "actionable_effect_pct": -0.279,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1079,13 +1079,13 @@
       "claim": "Managed-money long/short ratio in its top quartile precedes weakness.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.373% vs a +2.357% resolution bound",
+      "reason": "effect -1.078% vs a +2.312% resolution bound",
       "n_condition": 8,
-      "effect": -0.373,
+      "effect": -1.078,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.312,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.6892,
+      "bootstrap_p_two_sided": 0.347,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1094,8 +1094,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 1.226,
-        "actionable_effect_pct": -0.373,
+        "already_history_effect_pct": 1.537,
+        "actionable_effect_pct": -1.078,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1109,13 +1109,13 @@
       "claim": "A top-quartile weekly build in managed-money net length precedes weakness.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.297% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -0.297,
+      "reason": "effect -0.225% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -0.225,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.5379,
+      "bootstrap_p_two_sided": 0.4343,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1124,8 +1124,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 0.041,
-        "actionable_effect_pct": -0.297,
+        "already_history_effect_pct": -0.189,
+        "actionable_effect_pct": -0.225,
         "history_larger_in_magnitude": false,
         "reading": "the actionable window carries at least as much as the historical one"
       }
@@ -1139,13 +1139,13 @@
       "claim": "Open interest and price rising together — new money confirming the trend.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.481% vs a +2.272% resolution bound",
-      "n_condition": 9,
-      "effect": -0.481,
+      "reason": "effect -0.966% vs a +2.146% resolution bound",
+      "n_condition": 10,
+      "effect": -0.966,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.272,
+      "smallest_resolvable_effect": 2.146,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.3757,
+      "bootstrap_p_two_sided": 0.1845,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1154,10 +1154,10 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -0.021,
-        "actionable_effect_pct": -0.481,
-        "history_larger_in_magnitude": false,
-        "reading": "the actionable window carries at least as much as the historical one"
+        "already_history_effect_pct": -1.036,
+        "actionable_effect_pct": -0.966,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
     },
     {
@@ -1169,13 +1169,13 @@
       "claim": "Open interest rising while price falls — new shorts, or distribution.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect +0.025% vs a +2.206% resolution bound",
-      "n_condition": 10,
-      "effect": 0.025,
+      "reason": "effect +0.556% vs a +2.086% resolution bound",
+      "n_condition": 11,
+      "effect": 0.556,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.206,
+      "smallest_resolvable_effect": 2.086,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.8924,
+      "bootstrap_p_two_sided": 0.5473,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1184,8 +1184,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 1.409,
-        "actionable_effect_pct": 0.025,
+        "already_history_effect_pct": 1.898,
+        "actionable_effect_pct": 0.556,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1199,13 +1199,13 @@
       "claim": "Managed-money length concentrated in fewer books precedes a larger move.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.562% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -0.562,
+      "reason": "effect -0.601% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -0.601,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.5436,
+      "bootstrap_p_two_sided": 0.3212,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1214,10 +1214,10 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -0.034,
-        "actionable_effect_pct": -0.562,
-        "history_larger_in_magnitude": false,
-        "reading": "the actionable window carries at least as much as the historical one"
+        "already_history_effect_pct": -0.842,
+        "actionable_effect_pct": -0.601,
+        "history_larger_in_magnitude": true,
+        "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
     },
     {
@@ -1229,13 +1229,13 @@
       "claim": "Retail, managed money and other reportables all move the same way in one week.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.329% vs a +2.117% resolution bound",
-      "n_condition": 12,
-      "effect": -0.329,
+      "reason": "effect -0.194% vs a +2.001% resolution bound",
+      "n_condition": 13,
+      "effect": -0.194,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.117,
+      "smallest_resolvable_effect": 2.001,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.4289,
+      "bootstrap_p_two_sided": 0.3246,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1244,8 +1244,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": -0.519,
-        "actionable_effect_pct": -0.329,
+        "already_history_effect_pct": -0.504,
+        "actionable_effect_pct": -0.194,
         "history_larger_in_magnitude": true,
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
@@ -1259,13 +1259,13 @@
       "claim": "Swap dealers adding shorts — the mirror of speculative length — precedes weakness.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -0.871% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -0.871,
+      "reason": "effect -1.016% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -1.016,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.1547,
+      "bootstrap_p_two_sided": 0.0443,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1274,8 +1274,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 0.107,
-        "actionable_effect_pct": -0.871,
+        "already_history_effect_pct": -0.719,
+        "actionable_effect_pct": -1.016,
         "history_larger_in_magnitude": false,
         "reading": "the actionable window carries at least as much as the historical one"
       }
@@ -1289,13 +1289,13 @@
       "claim": "The LEVEL of managed-money net length, top quartile.",
       "null_tested_against": null,
       "verdict": "no_evidence",
-      "reason": "effect -1.425% vs a +2.357% resolution bound",
-      "n_condition": 8,
-      "effect": -1.425,
+      "reason": "effect -1.514% vs a +2.219% resolution bound",
+      "n_condition": 9,
+      "effect": -1.514,
       "unit": "% forward return, post-publication window",
-      "smallest_resolvable_effect": 2.357,
+      "smallest_resolvable_effect": 2.219,
       "effect_net_of_cost": null,
-      "bootstrap_p_two_sided": 0.0117,
+      "bootstrap_p_two_sided": 0.0261,
       "sign_consistent_all_periods": null,
       "data_gap": null,
       "windows_evaluated": [
@@ -1304,8 +1304,8 @@
         "fwd_week_pct"
       ],
       "placebo": {
-        "already_history_effect_pct": 0.588,
-        "actionable_effect_pct": -1.425,
+        "already_history_effect_pct": 0.626,
+        "actionable_effect_pct": -1.514,
         "history_larger_in_magnitude": false,
         "reading": "the actionable window carries at least as much as the historical one"
       }
@@ -2194,6 +2194,19 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. Private account research: fourteen entry conditions screened on the account's own legs, none separates; late signal-chasing is the nearest and stays inside its bound.",
+      "status": "confirmed",
+      "created_on": "2026-10-09"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261009-004",
+      "study_id": "RS-XAUUSD-20261009-004",
+      "kind": "study",
+      "family": "owner discretion vs S1 V3.9 / S2 V3.2 — selection, execution, reversal",
+      "origin": "programme",
+      "claim": "The owner's discretion against the strategies — selection, execution and reversal trades",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "Adopted 2026-10-09 as account risk rules 6 (only trades that follow a live signal) and 7 (reversal / short limits with forward check PREREG-20261009-002). Private figures.",
       "status": "confirmed",
       "created_on": "2026-10-09"
     }
