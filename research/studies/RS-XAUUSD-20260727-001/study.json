@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-001",
-  "revision": 5,
+  "revision": 6,
   "title": "S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report",
   "market": "XAUUSD",
   "strategy": {
@@ -57,10 +57,10 @@
     },
     {
       "tone": "warn",
-      "title": "Counter-trend (4H bearish) entries underperform",
-      "detail": "146 trades against a bearish 4H RSI state: WR 47.95% vs 60.2% for the 304 aligned trades. Descriptive context (section 5.1 item 8), not currently a live-impact mechanism.",
-      "title_zh": "逆勢（4H 空頭）進場表現較弱",
-      "detail_zh": "在 4H RSI 呈空頭狀態下進場的 146 筆交易，勝率 47.95%，相對於順勢對齊的 304 筆交易勝率 60.2%。這是描述性脈絡，目前不是即時分數的調整依據。"
+      "title": "Counter-trend (4H bearish) entries no longer stand out",
+      "detail": "On closed bars: 184 trades against a bearish 4H RSI state, WR 54.89% (PF 1.845) vs 57.14% (PF 1.887) for the 266 aligned trades — a 2.25pp gap. The earlier 12.25pp gap (47.95% vs 60.2%) came from reading the 4H bar that contained the entry. Descriptive context, not a live-impact mechanism.",
+      "title_zh": "逆勢（4H 空頭）進場不再明顯較差",
+      "detail_zh": "改用已收盤 K 棒後：4H RSI 空頭狀態下進場 184 筆，勝率 54.89%（獲利因子 1.845），順勢 266 筆為 57.14%（1.887），只差 2.25 個百分點。先前的 12.25 個百分點（47.95% 對 60.2%），來自讀到了包含進場時點、尚未收盤的 4H K 棒。這是描述性脈絡，不是即時分數的調整依據。"
     },
     {
       "tone": "info",
@@ -86,8 +86,8 @@
   "limitations_zh": [
     "Macro 覆蓋率為 97.11%（437／450 筆有對應的 Macro 讀值），13 筆缺值不計入 Macro 相關統計，不會用舊值或估計值填補。",
     "時間穩定性檢定是對「同一份已經定案」的 TradingView 策略測試匯出檔做時間分段／保留集切分，不是重新最佳化的 walk-forward：Pine Script 的策略邏輯全程沒有在任何子區間重新跑過或重新調參。它能看出目前記錄的勝率／獲利因子是穩定的還是集中在較早的一段；它不能證明「如果一開始只有早期資料，參數會被選成一樣的樣子」。",
-    "normal_sl 與逆勢（4H 空頭）進場的兩項發現是描述性脈絡，目前不是即時分數的調整依據——它們說明了「為什麼」，不是「該怎麼扣分」。",
-    "K 棒對齊警示（2026-10-09）：布林區位、DXY 與多時間框表格是用 K 棒「開盤時間」對齊，每筆進場讀到的是尚未收盤的 K 棒。改用已收盤 K 棒重跑後，S1 的「4H 空頭逆勢較差」差距大致消失、S2 V3.2 甚至反轉，S1 突破上軌的勝率也下降；在本研究修訂前，這些表格不可採信。"
+    "normal_sl 的發現是描述性脈絡；逆勢（4H 空頭）進場在改用已收盤 K 棒後已不明顯，目前不是即時分數的調整依據——它們說明了「為什麼」，不是「該怎麼扣分」。",
+    "本版起（2026-10-09）脈絡表一律以「已收盤的 K 棒」對齊。先前版本以 K 棒開盤時間對齊，每筆進場讀到的是尚未收盤的 K 棒；受影響的只有布林區位、DXY 與多時間框表格，其餘數字不變。"
   ],
   "interpretation_zh": "這份研究做的事情很單純：把兩條已經活在即時分數裡好幾個月的規則（Macro 綜合判定、30 分鐘時槽）攤開來，用同一批 450 筆 V3.9 交易重新檢驗一次。結果是兩條都撐不住——Macro 的 WAIT 判定其實還是賺錢的，NEUTRAL 才是三個判定裡最弱的一個，跟原本用於分數調整的排序方向相反；30 分鐘時槽則需要對照當下的時槽分數表，而不是套用一套固定印象。同一份資料另外拆出的 fail-pattern、BB、DXY、MTF、時間穩定性等面向，是把整份 V3.9 匯出資料能看到的東西盡量看完整，而不是只挑對假設有利的角度。",
   "presentation": [
@@ -173,7 +173,7 @@
     {
       "type": "evidence_pair",
       "title": "4H Trend State 四小時趨勢",
-      "takeaway_zh": "4H 空頭時的逆勢進場較弱；它是待持續觀察的脈絡，而非這次新增的執行條件。",
+      "takeaway_zh": "改用已收盤 K 棒後，4H 空頭時的逆勢進場只比順勢低約 2 個百分點，已不構成值得追蹤的弱點。",
       "chart_file": "htf_4h_state.png",
       "table_source": "mtf.by_4h_state",
       "table_title": "4H Trend State",
