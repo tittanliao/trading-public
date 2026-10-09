@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261009-005",
+  "revision": 1,
+  "title": "CFTC insight search — 28 positioning patterns × 9 outcomes on 721 weeks: no 洗盤, a few hints, nothing that survives",
+  "market": "XAUUSD",
+  "strategy": "none — CFTC positioning insight search",
+  "status": "confirmed",
+  "created_on": "2026-10-09",
+  "question": "Beyond the next Monday–Tuesday: do joint moves of managed money and retail, positioning extremes, turns after streaks, divergence from price or open-interest regimes say anything about the next one to four weeks, the path (a dip before a rise), or how much gold moves?",
+  "hypothesis": "Registered before running: 28 conditions × 9 outcomes, discovery 2012-12 → 2019, validation 2020 → 2026, labels fixed in advance, circular-shift max-|z| family test.",
+  "headline": {
+    "weeks": 721,
+    "tests": 252,
+    "usable": 0,
+    "reference": 15,
+    "family_p": 0.8557,
+    "stated_case_shakeout_effect_pct_points": 0.7
+  },
+  "card_metrics": [
+    "weeks",
+    "tests",
+    "reference"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Big and small traders buying together is not followed by a shakeout",
+      "detail": "Weeks when managed money and non-reportables both added net long (200 of 721) were followed by a dip-then-rise path 25.0% of the time, against 24.3% otherwise — a 0.7-point difference inside a 10-point bound, in both halves. The only consistent sign is four weeks later: -0.73 percentage points, a reference-level hint, not a pattern.",
+      "title_zh": "大戶散戶同時加多之後，沒有「洗散戶」",
+      "detail_zh": "大戶與散戶同時加多的 200 週（共 721 週），之後「先跌再漲」的比例 25.0%，其他週 24.3%——差 0.7 個百分點，遠在 10 個百分點的門檻內，前後兩段都一樣。唯一一致的跡象是 4 週後平均少 0.73 個百分點，只到參考級。"
+    },
+    {
+      "tone": "info",
+      "title": "Nothing survives: 0 usable, 15 reference-level, family p 0.86",
+      "detail": "Of 252 tests, none passes the pre-registered bar (effect beyond its bound in 2012–2019 and the same sign significant in 2020–2026). Fifteen keep their sign in both halves with a full-sample p below 0.05. The strongest result is weaker than what a random circular shift produces in most draws (observed max |z| 4.12 against a null median of 5.40), so the fifteen are hints to watch, not findings.",
+      "title_zh": "沒有一個通過：可用 0、參考 15、家族 p 0.86",
+      "detail_zh": "252 個檢驗沒有一個達到事先定的標準（2012–2019 超過門檻，2020–2026 同方向且顯著）。15 個在前後兩段方向一致、整體 p < 0.05。最強的結果甚至比多數隨機錯位還弱（觀察最大 |z| 4.12，對照中位數 5.40），所以這 15 個是值得觀察的跡象，不是發現。"
+    },
+    {
+      "tone": "info",
+      "title": "Long liquidation is the most consistent hint: open interest falls while gold falls",
+      "detail": "After a report week in which open interest and gold both fell (201 weeks), the next Monday–Tuesday is +0.26 points, week 1 +0.35, and week 1's deepest dip is 0.33 points shallower — same sign in both halves and in up- and down-trends, but each inside its bound.",
+      "title_zh": "最一致的跡象：未平倉量減少、金價下跌（多單了結）之後",
+      "detail_zh": "未平倉量和金價同時下跌的報告週（201 週）之後，下週一二平均 +0.26 個百分點、第 1 週 +0.35，第 1 週最大回檔淺 0.33 個百分點——前後兩段、多頭空頭都同方向，但每一項都在門檻之內。"
+    },
+    {
+      "tone": "info",
+      "title": "Producers at a three-year net-long extreme: weaker weeks after",
+      "detail": "When producer/merchant net positioning is in the top 10% of its prior three years (158 weeks — producers have covered their hedges), the next two weeks are -0.41 points and four weeks -1.41, in both regimes. The validation half carries most of it.",
+      "title_zh": "生產商淨部位在三年高點之後，金價偏弱",
+      "detail_zh": "生產商／貿易商淨部位在過去三年最高 10%（158 週，代表避險空單大量回補）時，之後 2 週 −0.41、4 週 −1.41 個百分點，多頭空頭都同方向；主要來自 2020 年後那一段。"
+    },
+    {
+      "tone": "info",
+      "title": "When managed money turns to buying after four weeks of selling, the next week is calmer",
+      "detail": "After at least four weeks of managed-money selling, the first week of buying is followed by a week-1 move 0.60 points smaller and a range 0.59 points narrower — only 30 such weeks.",
+      "title_zh": "大戶連續減多 4 週後轉為加多，下一週波動較小",
+      "detail_zh": "大戶連續減多至少 4 週後第一次轉為加多，下一週的漲跌幅小 0.60 個百分點、高低區間窄 0.59 個百分點——但只有 30 週。"
+    },
+    {
+      "tone": "info",
+      "title": "A counter-intuitive one: managed money cutting while retail buys is followed by a stronger month",
+      "detail": "Weeks with managed money reducing and retail adding (168) are followed by +0.99 points over four weeks, in both regimes. It is the opposite of the 'retail is the dumb money' reading, and inside its bound.",
+      "title_zh": "反直覺的一個：大戶減多、散戶加多之後，4 週反而偏強",
+      "detail_zh": "大戶減多、散戶加多的 168 週，之後 4 週平均 +0.99 個百分點，多頭空頭都一樣。這與「散戶是反指標」的直覺相反，而且仍在門檻之內。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "252 positioning patterns: no shakeout after big and small traders both buy, 15 consistent hints, none survives the family test.",
+  "title_zh": "CFTC 持倉洞見搜尋：28 種持倉型態 × 9 種後續走勢，721 週——沒有「洗散戶」，只有幾個參考跡象",
+  "question_zh": "除了下週一二之外：大戶與散戶的同向或背離、持倉極端、連續買賣後的轉向、持倉與價格背離、未平倉量與價格的組合，能不能說出接下來 1–4 週的方向、「先跌再漲」的走法，或金價會動多大？",
+  "hypothesis_zh": "執行前先登記：28 種條件 × 9 種結果；2012–2019 發現、2020–2026 驗證；標籤事先定好；用整段錯位的方式做家族校正。",
+  "card_summary_zh": "252 種持倉型態：大戶散戶同買後沒有「洗盤」，15 個一致的跡象，沒有一個通過家族校正。",
+  "limitations_zh": [
+    "週資料：一週之內、或只在特定市況才出現的型態，按週切分看不到。",
+    "價格從 2012-12 開始，2006–2012 的持倉只用來計算三年百分位。",
+    "252 個檢驗彼此相關；用前後兩段重現與整段錯位的家族檢定保護，而不是假設彼此獨立的校正。",
+    "本研究不改變任何正式策略邏輯、實際風險設定或請分析流程。"
+  ],
+  "interpretation_zh": "這份研究是把「看 CFTC 的直覺」整批拿去驗證：大戶散戶同買、持倉極端、連續買賣後轉向、持倉與價格背離、未平倉量與價格——共 28 種型態，看它們之後 1 到 4 週的方向、「先跌再漲」的走法，以及金價會動多大。用 2012–2019 找、2020–2026 驗證，標準事先寫死。\n\n答案很一致：沒有一個型態通過。最常被講的「大戶散戶一起買，主力會先洗散戶再拉」，在 200 次裡的「先跌再漲」比例和平常幾乎一樣。這不代表沒有人洗盤，而是從每週的持倉資料看不出來。\n\n有 15 個跡象在前後兩段方向一致，值得放進「觀察」：多單了結（未平倉量和金價一起跌）之後比較容易反彈、回檔較淺；生產商避險大量回補之後金價偏弱；大戶連續賣了一個月後開始買，下一週波動比較小。它們都沒有通過家族校正，所以只能當脈絡，不能當訊號。\n\n實務上的讀法和 RS-XAUUSD-20260824-002 一致：CFTC 適合拿來描述「上週誰在做什麼」，週報可以用上面的跡象當作有條件的參考語句，但不要把它們當成進場依據。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "weeks",
+        "tests",
+        "usable",
+        "reference",
+        "family_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "highlights",
+      "title": "Reference-level hints and the stated case 參考級跡象與原本的說法",
+      "takeaway_zh": "每一列是一個「型態 × 後續走勢」。效果是符合條件的週減去其他週（報酬與區間是百分點；比例是 0–1 的差）。發現段（2012–2019）與驗證段（2020–2026）要同方向才算參考；家族校正 p 全部遠大於 0.05。",
+      "columns": [
+        "condition_zh",
+        "outcome_zh",
+        "label",
+        "n",
+        "effect_discovery",
+        "effect_validation",
+        "effect_full",
+        "bound_full",
+        "p_full",
+        "placebo_report_week",
+        "regime_same_sign"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

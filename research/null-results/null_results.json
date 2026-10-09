@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T22:46:34+08:00",
+  "generated_at": "2026-10-09T23:38:35+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 50,
+    "studies": 51,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -1320,10 +1320,10 @@
       "kind": "study",
       "family": "none — CFTC positioning structure",
       "origin": "programme",
-      "claim": "CFTC positioning — 31 weeks cannot answer it, and the publication lag says why that matters less than it looks",
+      "claim": "CFTC positioning — 721 weeks: nothing forecasts the next week, and the positions describe the week that built them",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": "None. 31 weekly COT reports transcribed from source screenshots and verified against the official CSV (132 of 132 field-values matched). The report settles Tuesday and publishes Friday, so Wed-Fri is already history when it lands — a built-in placebo window almost no COT research has. Across 14 hypotheses the two windows correlate at 0.091 and agree in sign 7 of 14; of the five largest historical effects, two flip after publication and three shrink to zero. Nothing is resolvable: weekly return SD is 3.99% and 31 weeks resolve about 4 points, while every effect is under 2.2. The stated producer/merchant hypothesis points the other way (-0.94% vs +1.23%), far inside the noise. A hedging mechanism was asserted for the decomposition and withdrawn the same day: the correlation with the concurrent week is 0.062, and both window differences (-1.672 +/- 0.980 and -0.514 +/- 0.735) have intervals containing zero, so which window the effect lives in is itself unresolvable. CFTC publishes ~880 weeks of history free; archiving it is the unlock.",
+      "reason": "None. Revision 3 (2026-10-09): 721 priced weeks of the official CFTC archive. Bound 0.47pp; 0 of 15 hypotheses forecast the next Mon-Tue (largest 0.19pp); window correlation -0.234. Positioning moves with the price of the week it is built in (producer shorts 0.372, managed money 0.544) and says nothing about the next Mon-Tue (-0.056).",
       "status": "confirmed",
       "created_on": "2026-08-24"
     },
@@ -2211,6 +2211,19 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "Adopted 2026-10-09 as account risk rules 6 (only trades that follow a live signal) and 7 (reversal / short limits with forward check PREREG-20261009-002). Private figures.",
+      "status": "confirmed",
+      "created_on": "2026-10-09"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261009-005",
+      "study_id": "RS-XAUUSD-20261009-005",
+      "kind": "study",
+      "family": "none — CFTC positioning insight search",
+      "origin": "programme",
+      "claim": "CFTC insight search — 28 positioning patterns × 9 outcomes on 721 weeks: no 洗盤, a few hints, nothing that survives",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. 28 positioning conditions x 9 outcomes on 721 weeks, registered before running: 0 usable, 15 reference-level hints, family p 0.86. Managed money and retail buying together is not followed by a shakeout (25.0% vs 24.3%).",
       "status": "confirmed",
       "created_on": "2026-10-09"
     }

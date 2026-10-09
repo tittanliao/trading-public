@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T23:31:49+08:00",
+  "generated_at": "2026-10-09T23:39:00+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -1421,7 +1421,7 @@
       "kind": "reference",
       "strength": "strong",
       "statement_zh": "CFTC 持倉反映的是建立它的那一週，不能用來預測下一週",
-      "detail_zh": "721 週（2012–2026）：15 種持倉條件對公布後的週一、二都沒有可分辨的效果（最大 0.19 個百分點，門檻約 0.3–0.4）。生產商空單與當週金價相關 0.37、基金淨多單 0.54，但基金對下週一、二只有 −0.06。",
+      "detail_zh": "721 週（2012–2026）：15 種持倉條件對公布後的週一、二都沒有可分辨的效果（最大 0.19 個百分點，門檻約 0.3–0.4）。生產商空單與當週金價相關 0.37、基金淨多單 0.54，但基金對下週一、二只有 −0.06。 再把 28 種常見讀法（大戶散戶同向、持倉極端、連續買賣後轉向、背離、未平倉量）對 1–4 週方向、洗盤走法與波動做了 252 個檢驗，沒有一個通過。",
       "how_to_use_zh": "週報的 CFTC 段落用來描述「上週誰在做什麼」，不用來推下週方向。",
       "policy_ref": null,
       "prereg_ref": null,
@@ -1434,6 +1434,120 @@
         {
           "study_id": "RS-XAUUSD-20260824-002",
           "says_zh": "第 3 版，官方歷史檔 721 週"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "28 種持倉型態 × 9 種後續走勢，0 個通過、家族 p 0.86"
+        }
+      ]
+    },
+    {
+      "id": "K-CFTC-004",
+      "topic": "cftc",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「大戶和散戶一起買，主力會先洗散戶再往上拉」",
+      "detail_zh": "大戶與散戶同時加多的 200 週，之後「先跌再漲」的比例 25.0%，其他週 24.3%；這個樣本能看出約 10 個百分點的差異，實際只有 0.7。唯一一致的跡象是 4 週後平均少 0.73 個百分點（參考級）。",
+      "how_to_use_zh": "看到大戶散戶一起加多，不要預期先洗後拉；它沒有特別的走法。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-09",
+      "reviewed_on": "2026-10-09",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "200 週，洗盤比例 25.0% 對 24.3%"
+        }
+      ]
+    },
+    {
+      "id": "K-CFTC-005",
+      "topic": "cftc",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "多單了結（未平倉量減少、金價下跌）之後，比較容易反彈、回檔較淺",
+      "detail_zh": "201 週：之後下週一二 +0.26、第 1 週 +0.35 個百分點，第 1 週最大回檔淺 0.33 個百分點；2012–2019 與 2020–2026 同方向，多頭空頭都成立，但每一項都在門檻內、沒通過家族校正。",
+      "how_to_use_zh": "週報可寫成「上週屬多單了結型下跌，歷史上之後回檔通常較淺」，作為參考語句，不當進場依據。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-09",
+      "reviewed_on": "2026-10-09",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "所有參考級跡象中最一致"
+        }
+      ]
+    },
+    {
+      "id": "K-CFTC-006",
+      "topic": "cftc",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "生產商淨部位在三年高點（避險空單大量回補）之後，金價 2–4 週偏弱",
+      "detail_zh": "158 週：之後 2 週 −0.41、4 週 −1.41 個百分點，兩種市況同方向，主要來自 2020 年後那一段。",
+      "how_to_use_zh": "觀察；不當訊號。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-09",
+      "reviewed_on": "2026-10-09",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "生產商三年高點之後 4 週 −1.41"
+        }
+      ]
+    },
+    {
+      "id": "K-CFTC-007",
+      "topic": "cftc",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "大戶連續減多 4 週後轉為加多，下一週波動較小",
+      "detail_zh": "30 週：下一週漲跌幅小 0.60、高低區間窄 0.59 個百分點；兩種市況同方向。樣本少。",
+      "how_to_use_zh": "可作為下週波動預期的參考。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-09",
+      "reviewed_on": "2026-10-09",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "轉向後下一週區間較窄"
+        }
+      ]
+    },
+    {
+      "id": "K-CFTC-008",
+      "topic": "cftc",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "大戶減多、散戶加多之後 4 週反而偏強（和「散戶是反指標」相反）",
+      "detail_zh": "168 週：之後 4 週 +0.99 個百分點，兩種市況同方向，在門檻之內。",
+      "how_to_use_zh": "不要把「散戶在買」直接當成看空理由。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-09",
+      "reviewed_on": "2026-10-09",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261009-005",
+          "says_zh": "4 週 +0.99"
         }
       ]
     }
@@ -2430,6 +2544,27 @@
         "K-EXE-001",
         "K-EXE-002",
         "K-EXE-005"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261009-005",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "CFTC insight search — 28 positioning patterns × 9 outcomes on 721 weeks: no 洗盤, a few hints, nothing that survives",
+      "title_zh": "CFTC 持倉洞見搜尋：28 種持倉型態 × 9 種後續走勢，721 週——沒有「洗散戶」，只有幾個參考跡象",
+      "summary_zh": "252 種持倉型態：大戶散戶同買後沒有「洗盤」，15 個一致的跡象，沒有一個通過家族校正。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261009-005/",
+      "claims": [
+        "K-CFTC-001",
+        "K-CFTC-004",
+        "K-CFTC-005",
+        "K-CFTC-006",
+        "K-CFTC-007",
+        "K-CFTC-008"
       ]
     }
   ],
