@@ -1,4 +1,14 @@
 
+/* weekly reader format */
+.weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
+.levels-figure img{width:100%;max-width:1200px;border-radius:10px;border:1px solid var(--line);}
+.role{display:inline-block;padding:1px 9px;border-radius:20px;font-size:.76rem;font-weight:600;}
+.role-support{background:rgba(111,207,151,.16);color:var(--good);}
+.role-resistance{background:rgba(235,87,87,.16);color:var(--bad);}
+.role-pivot{background:rgba(154,163,178,.16);color:var(--muted);}
+.watch-list{padding-left:1.2em;max-width:78ch;} .watch-list li{margin:.35em 0;}
+.weekly-details{margin:2em 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
+.weekly-details summary{cursor:pointer;color:var(--cyan);font-weight:600;}
 /* research overview */
 .k-strip .k-metric{text-decoration:none;color:var(--text);}
 .k-strip .k-metric:hover{border-color:var(--cyan);}

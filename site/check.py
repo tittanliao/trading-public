@@ -10,6 +10,7 @@ section the spec requires. Both are now failures, not observations.
 """
 from __future__ import annotations
 
+import html
 import json
 import re
 import sys
@@ -198,6 +199,28 @@ def check_charts(errors: list[str]) -> None:
             shown.append(name)
 
 
+READER_HEADINGS = ["關鍵價位", "劇本", "本週看什麼", "S1／S2", "事件", "上週回顧"]
+READER_BODY_LIMIT = 3000
+
+
+def check_reader_edition(week: str, page: Path, text: str, summary: dict, errors: list[str]) -> None:
+    """Reader-format editions (owner decision 2026-10-10): the sections, the chart, and a body
+    short enough to read — everything outside the folded details counts toward the limit."""
+    for heading in READER_HEADINGS:
+        if f"<h2>{heading}</h2>" not in text:
+            errors.append(f"{week} reader edition is missing section: {heading}")
+    chart = page.parent / summary.get("levels_chart", {}).get("file", "levels.png")
+    if not chart.is_file():
+        errors.append(f"{week} reader edition has no key-level chart ({chart.name})")
+    if summary.get("market_regime_panel"):
+        errors.append(f"{week} reader edition must not carry market_regime_panel")
+    main = text.split('<details class="weekly-details">')[0]
+    main = re.sub(r"<details>.*?</details>|<script.*?</script>|<style.*?</style>", "", main, flags=re.S)
+    visible = re.sub(r"\s+", "", html.unescape(re.sub(r"<[^>]+>", "", main)))
+    if len(visible) > READER_BODY_LIMIT:
+        errors.append(f"{week} reader edition body is {len(visible)} characters; the limit is {READER_BODY_LIMIT}")
+
+
 def check_weekly_sections(errors: list[str]) -> None:
     """A Weekly report must actually contain its required reader-facing sections."""
     required = ["市場摘要", "劇本與機率", "關鍵價位", "事件風險", "分歧"]
@@ -207,6 +230,9 @@ def check_weekly_sections(errors: list[str]) -> None:
             continue
         text = page.read_text(encoding="utf-8")
         summary = json.loads((page.parent / "summary.json").read_text(encoding="utf-8"))
+        if summary.get("reader"):
+            check_reader_edition(week, page, text, summary, errors)
+            continue
         mode_heading = "共識" if summary.get("publication_mode") == "multi_source" else "可驗證事項"
         for section in required:
             if section not in text:

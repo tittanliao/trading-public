@@ -713,8 +713,147 @@ def weekly_index_page() -> str:
     return document("Weekly", "XAUUSD weekly outlook archive.", 2, body)
 
 
+ROLE_ZH = {"support": "支撐", "resistance": "阻力", "pivot": "樞紐"}
+DIRECTION_ZH = {"bullish": "偏多", "bearish": "偏空", "range": "整理"}
+
+
+def _price_band(low: float, high: float) -> str:
+    return f"{low:,.2f}" if abs(high - low) < 0.005 else f"{low:,.2f}–{high:,.2f}"
+
+
+def weekly_reader_page(week: str, s: dict) -> str:
+    """Reader format (owner decision 2026-10-10: 「字太多」). One page to read — conclusion, the
+    key-level chart, scenarios, what to watch, S1/S2, events, last week — and every derivation,
+    comparison and limitation one click away under 展開看細節. Editions before the format keep
+    weekly_report_page's layout unchanged."""
+    r = s["reader"]
+    single = s["publication_mode"] != "multi_source"
+    badge = '<span class="tag">單一來源</span>' if single else '<span class="tag">多來源彙整</span>'
+
+    lv_rows = [[
+        ("th", esc(_price_band(k["low"], k["high"])), sort_key(k["low"]), False),
+        ("td", f'<span class="role role-{attr(k["role"])}">{ROLE_ZH[k["role"]]}</span>', k["role"], False),
+        ("td", esc(k["label"]), k["label"], False),
+        ("td", esc(k["use_zh"]), "", False),
+    ] for k in sorted(s["key_levels"], key=lambda k: -k["high"])]
+    levels = render_table([("價位", False), ("角色", False), ("名稱", False), ("怎麼用", False)], lv_rows)
+
+    sc_rows = [[
+        ("th", f'<span class="dir dir-{attr(sc["direction"])}">{DIRECTION_ZH.get(sc["direction"], sc["direction"])}</span>', sc["direction"], False),
+        ("td", f'{sc["probability"]}%', sort_key(sc["probability"]), True),
+        ("td", esc(sc["summary_zh"]), "", False),
+        ("td", "—" if sc.get("trigger_price") is None else f'{sc["trigger_price"]:,.2f}', sort_key(sc.get("trigger_price") or 0), True),
+    ] for sc in s["adopted_scenarios"]]
+    scenarios = render_table([("劇本", False), ("機率", True), ("一句話", False), ("觸發價", True)], sc_rows)
+
+    sp_rows = [[
+        ("th", esc(p["strategy"]), p["strategy"].lower(), False),
+        ("td", esc(p["stance"]), p["stance"], False),
+        ("td", esc(p.get("summary_zh") or p["entry"]), "", False),
+    ] for p in s["strategy_plan"]]
+    ev_rows = [[
+        ("th", esc(str(e["scheduled_at"])[:16].replace("T", " ")), str(e["scheduled_at"]), False),
+        ("td", esc(e["name"]), e["name"].lower(), False),
+        ("td", esc(e["handling"]), "", False),
+    ] for e in s["event_risk"]]
+
+    def bullets(items: list[str]) -> str:
+        return "".join(f"<li>{esc(x)}</li>" for x in items)
+
+    four_week = ""
+    if s.get("four_week_overview"):
+        rows = [[
+            ("th", esc(r.get("week", "")), str(r.get("week", "")), False),
+            ("td", fmt_cell(r.get("open")), sort_key(r.get("open")), True),
+            ("td", fmt_cell(r.get("high")), sort_key(r.get("high")), True),
+            ("td", fmt_cell(r.get("low")), sort_key(r.get("low")), True),
+            ("td", fmt_cell(r.get("close")), sort_key(r.get("close")), True),
+            ("td", esc(r.get("change", "")), str(r.get("change", "")), False),
+        ] for r in s["four_week_overview"]]
+        four_week = render_table([("週", False), ("開", True), ("高", True), ("低", True), ("收", True), ("漲跌", False)], rows)
+
+    cftc = ""
+    if s.get("cftc_evidence"):
+        ev = s["cftc_evidence"]
+        cftc = (
+            '<section class="block-section reading-rail"><h2>CFTC</h2>'
+            f'<p class="prose">{esc(r.get("cftc_zh") or ev["note"])}</p>'
+            '<p class="evidence-takeaway">持倉反映的是建立它的那一週，不能預測下一週；'
+            '<a href="../../../overview/#K-CFTC-001">看研究結論 →</a></p>'
+            f'<details><summary>CFTC 原始截圖（{esc(ev["report_date"])}）</summary>'
+            f'<figure class="chart-figure evidence-figure"><img src="{attr(ev["file"])}" alt="CFTC {attr(ev["report_date"])}" loading="lazy"></figure>'
+            '</details></section>'
+        )
+
+    detail_levels = render_table(
+        [("名稱", False), ("價位", False), ("依據", False)],
+        [[("th", esc(k["label"]), k["label"], False), ("td", esc(k.get("value", _price_band(k["low"], k["high"]))), "", False),
+          ("td", esc(k.get("basis", "")), "", False)] for k in s["key_levels"]])
+    detail_scenarios = render_table(
+        [("劇本", False), ("機率", True), ("條件", False), ("失準條件", False), ("目標", False)],
+        [[("th", esc(DIRECTION_ZH.get(sc["direction"], sc["direction"])), sc["direction"], False),
+          ("td", f'{sc["probability"]}%', sort_key(sc["probability"]), True),
+          ("td", esc(sc["conditions"]), "", False), ("td", esc(sc["invalidation"]), "", False),
+          ("td", esc(sc.get("targets", "")), "", False)] for sc in s["adopted_scenarios"]])
+    detail_strategies = render_table(
+        [("策略", False), ("Entry", False), ("SL", False), ("Risk", False)],
+        [[("th", esc(p["strategy"]), p["strategy"].lower(), False), ("td", esc(p["entry"]), "", False),
+          ("td", esc(p["stop"]), "", False), ("td", esc(p["risk"]), "", False)] for p in s["strategy_plan"]])
+    detail_cftc = (f'<h3>CFTC 完整數字</h3><p class="prose">{esc(s["cftc_evidence"]["note"])}</p>'
+                   if s.get("cftc_evidence") and r.get("cftc_zh") else "")
+    comparison = ""
+    if not single:
+        cmp_rows = []
+        for c in s["scenario_comparison"]:
+            cells = [("th", esc(c["producer"].capitalize()), c["producer"], False)]
+            for sc in c["scenarios"]:
+                cells.append(("td", f'{esc(DIRECTION_ZH.get(sc["direction"], sc["direction"]))} {sc["probability"]}%', sort_key(sc["probability"]), True))
+            cmp_rows.append(cells)
+        comparison = (
+            '<h3>各 producer 的劇本機率</h3>'
+            + render_table([("Producer", False)] + [(f"劇本 {i + 1}", True) for i in range(len(cmp_rows[0]) - 1)], cmp_rows)
+            + f'<h3>共識</h3><ul class="limitations-list">{bullets(s["agreements"])}</ul>'
+            + f'<h3>分歧</h3><ul class="limitations-list">{bullets(s["disagreements"])}</ul>'
+        )
+
+    body = f"""
+<div class="reading-rail weekly-intro">
+<p class="eyebrow">{esc(s['forecast_week'])} · {esc(s['edition'])} · 信心 {esc(s['confidence'])} {badge}</p>
+<h1>{esc(s['market'])} {esc(s['forecast_week'])} 週報</h1>
+<p class="lede recommendation">{esc(r['headline_zh'])}</p>
+<p class="weekly-action"><strong>本週建議</strong>　{esc(r['action_zh'])}</p>
+<p class="data-cutoff">資料截止：{esc(s['data_cutoff'])}</p>
+</div>
+<section class="block-section"><h2>關鍵價位</h2>
+<figure class="chart-figure levels-figure"><img src="{attr(s['levels_chart']['file'])}" alt="{attr(s['forecast_week'])} 關鍵價位圖" loading="lazy">
+<figcaption>綠＝支撐　紅＝阻力　灰＝樞紐　黃虛線＝劇本觸發價 <a class="chart-full" href="{attr(s['levels_chart']['file'])}">開啟原圖 ↗</a></figcaption></figure>
+{levels}</section>
+<section class="block-section"><h2>劇本</h2>{scenarios}</section>
+<section class="block-section reading-rail"><h2>本週看什麼</h2><ul class="watch-list">{bullets(r['watch_zh'])}</ul></section>
+<section class="block-section"><h2>S1／S2</h2>{render_table([("策略", False), ("立場", False), ("條件", False)], sp_rows)}</section>
+<section class="block-section"><h2>事件</h2>{render_table([("時間", False), ("事件", False), ("處置", False)], ev_rows)}</section>
+<section class="block-section reading-rail"><h2>上週回顧</h2><ul class="watch-list">{bullets(r['last_week_zh'])}</ul></section>
+<section class="block-section">{four_week}</section>
+{cftc}
+<details class="weekly-details"><summary>展開看細節：價位依據、劇本完整條件、市場摘要、證據限制</summary>
+<h3>市場摘要</h3><p class="prose">{esc(s['market_summary'])}</p>
+<h3>價位依據</h3>{detail_levels}
+<h3>劇本完整條件</h3>{detail_scenarios}
+<h3>轉折條件</h3><p class="prose">{esc(s['recommendation'].get('invalidation', ''))}</p>
+<h3>S1／S2 完整條件</h3>{detail_strategies}
+{detail_cftc}
+{comparison}
+<h3>證據限制</h3><ul class="limitations-list">{bullets(s['evidence_limits'])}</ul>
+</details>
+<section class="block-section reading-rail"><p class="disclaimer">{esc(s['disclaimer'])}</p></section>
+"""
+    return document(f"{s['market']} {s['forecast_week']} 週報", r["headline_zh"], 3, body, wide=True)
+
+
 def weekly_report_page(week: str) -> str:
     s = load_json(ROOT / "xauusd/weekly" / week / "summary.json")
+    if s.get("reader"):
+        return weekly_reader_page(week, s)
 
     # CFTC positioning evidence, when the edition published one. The image lets a reader
     # verify the figures quoted in the market summary rather than trust the transcription.
@@ -1210,6 +1349,16 @@ def study_page(study_id: str) -> str:
 # still had to scroll sideways to see columns that would have fit easily. Horizontal
 # scrolling is now a genuinely-too-narrow fallback, not the normal reading mode.
 STYLE_CSS = """
+/* weekly reader format */
+.weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
+.levels-figure img{width:100%;max-width:1200px;border-radius:10px;border:1px solid var(--line);}
+.role{display:inline-block;padding:1px 9px;border-radius:20px;font-size:.76rem;font-weight:600;}
+.role-support{background:rgba(111,207,151,.16);color:var(--good);}
+.role-resistance{background:rgba(235,87,87,.16);color:var(--bad);}
+.role-pivot{background:rgba(154,163,178,.16);color:var(--muted);}
+.watch-list{padding-left:1.2em;max-width:78ch;} .watch-list li{margin:.35em 0;}
+.weekly-details{margin:2em 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
+.weekly-details summary{cursor:pointer;color:var(--cyan);font-weight:600;}
 /* research overview */
 .k-strip .k-metric{text-decoration:none;color:var(--text);}
 .k-strip .k-metric:hover{border-color:var(--cyan);}
