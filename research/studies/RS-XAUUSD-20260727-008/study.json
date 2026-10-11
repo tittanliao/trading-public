@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-008",
-  "revision": 1,
+  "revision": 2,
   "title": "S2-Hammer V1.9 vs V3.2 — gap report",
   "market": "XAUUSD",
   "strategy": {
@@ -36,17 +36,17 @@
     },
     {
       "tone": "good",
-      "title": "MTF counter-trend penalty shrank sharply",
-      "detail": "The 4H-bearish win-rate gap narrowed from 4.76pp (V1.9) to 1.47pp (V3.2) — the Hammer-candle entry is less exposed to counter-trend risk than the Pullback entry was.",
-      "title_zh": "多時間框逆勢懲罰大幅縮小",
-      "detail_zh": "4H 空頭與順勢之間的勝率差距，從 V1.9 的 4.76 個百分點縮小到 V3.2 的 1.47 個百分點——Hammer K 棒進場比原本的 Pullback 進場更不受逆勢風險影響。"
+      "title": "Counter-trend entries did better, in V3.2 much more so",
+      "detail": "On closed 4H bars, 4H-bearish entries beat aligned ones by 2.2pp in V1.9 (42.39% vs 40.15%) and 12.8pp in V3.2 (55.36% vs 42.57%, 56 vs 101 trades). Revision 2: revision 1 read the 4H bar still forming at entry and showed a penalty narrowing from 4.76pp to 1.47pp.",
+      "title_zh": "逆勢進場反而較好，V3.2 更明顯",
+      "detail_zh": "以已收盤的 4H K 棒來看，4H 空頭下進場的勝率比順勢高：V1.9 高 2.2 個百分點（42.39% 對 40.15%），V3.2 高 12.8 個百分點（55.36% 對 42.57%，56 筆對 101 筆）。第 2 版修正：第 1 版讀到未收盤的 4H K 棒，曾寫成逆勢懲罰從 4.76 縮小到 1.47。"
     },
     {
       "tone": "warn",
       "title": "time_bleed share grew, not shrank",
-      "detail": "time_bleed rose from 53.8% to 57.8% of losses — V3.2 did not fix the strategy's core failure mode (dragging losers), it just has fewer losses overall.",
+      "detail": "time_bleed rose from 40.2% to 43.4% of losses and false breakouts from 34.8% to 36.1% — V3.2 did not fix the strategy's core failure mode (dragging losers), it just has fewer losses overall. Revision 2: revision 1 could not see false breakouts and gave 53.8% → 57.8%.",
       "title_zh": "時間耗損的占比上升了，不是下降",
-      "detail_zh": "時間耗損佔虧損的比例從 53.8% 升到 57.8%——V3.2 並沒有修好這個策略的核心失敗模式（把賠錢單拖著），只是整體虧損筆數變少了。"
+      "detail_zh": "時間耗損佔虧損的比例從 40.2% 升到 43.4%、假突破從 34.8% 升到 36.1%——V3.2 並沒有修好這個策略的核心失敗模式（把賠錢單拖著），只是整體虧損筆數變少了。第 2 版修正：第 1 版分不出假突破，曾寫成 53.8% → 57.8%。"
     },
     {
       "tone": "warn",
@@ -67,6 +67,7 @@
   "theme": "strategy_diagnostics",
   "card_summary": "What changed between S2 V1.9 and V3.2, and what did not.",
   "question_zh": "對照 S2-Hammer V1.9 與 V3.2 兩份失敗型態報告，這兩個版本在整體績效、30 分鐘進場時槽、失敗型態占比、布林區位、DXY 狀態與多時間框對齊上，實際差在哪裡？",
+  "card_summary_zh": "S2 V1.9 到 V3.2：訊號變少、勝率與獲利因子都變好，但慢慢磨掉的虧損沒有改善。",
   "limitations_zh": [
     "V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的進場實作，不是同一條規則的兩組參數設定。本報告的每一項差異都同時混雜了規則改變與市場狀態改變，無法分離歸因。",
     "兩個版本樣本都小，V3.2 更小（224 對 157 筆）。切到 30 分鐘時槽與子分組後，V3.2 多數格子只有個位數到十幾筆交易；策略文件已標註 V3.2 的樣本外信心有限。",
@@ -74,7 +75,7 @@
     "布林區位等分組在 V3.2 側有樣本數為個位數甚至 1 的格子（例如 below_lower），那幾格的勝率差異不具意義。",
     "V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本；本報告為歷史／對照脈絡。"
   ],
-  "interpretation_zh": "V3.2 在每一項標頭指標上都優於 V1.9：勝率 +6.06 個百分點（47.13% 對 41.07%）、獲利因子 +0.512（2.047 對 1.535），而且是在**少做 67 筆交易**（157 對 224）的情況下做到的。訊號變少但品質變好，這是版本升級最乾淨的一種樣貌。\n\n最明顯的結構性改善在逆勢暴露。V1.9 的 4H 空頭與順勢之間差 4.76 個百分點，V3.2 只差 **1.47 個百分點**——Hammer K 棒進場比原本的 Pullback 進場更不受逆勢環境影響。\n\n⚠️ 但有一項沒有被修好，而且方向相反：**時間耗損佔虧損的比例從 53.8% 上升到 57.8%**。V3.2 並沒有解決 S2 的核心失敗模式（把賠錢單拖著），它只是整體虧損筆數變少了。換句話說分子分母一起縮小，但那個病灶還在。這一點在只看標頭指標時完全看不出來。\n\n兩個必須一起讀的限制。第一，**樣本都小，V3.2 更小**：V1.9 有 224 筆、V3.2 只有 157 筆，切到 30 分鐘時槽與各子分組後，V3.2 多數格子只剩個位數到十幾筆；策略文件本身也已標註 V3.2 的樣本外信心有限。第二，也是更根本的一點：**V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的進場實作，不是同一條規則的兩組參數**。所以這裡每一項差異都同時混雜了「規則改變」與「市場狀態改變」，無法單獨歸因給任何一方。",
+  "interpretation_zh": "V3.2 在每一項標頭指標上都優於 V1.9：勝率 +6.06 個百分點（47.13% 對 41.07%）、獲利因子 +0.512（2.047 對 1.535），而且是在**少做 67 筆交易**（157 對 224）的情況下做到的。訊號變少但品質變好，這是版本升級最乾淨的一種樣貌。\n\n逆勢暴露上，以已收盤的 4H K 棒來看，兩個版本在 4H 空頭下的勝率都**比順勢高**：V1.9 高 2.2 個百分點，V3.2 高 **12.8 個百分點**（56 筆對 101 筆）。S2 本來就是逆勢接刀的設計，這符合預期；但 56 筆的樣本不足以當成規則。（第 1 版讀到未收盤 K 棒，曾寫成逆勢懲罰從 4.76 縮小到 1.47。）\n\n⚠️ 但有一項沒有被修好，而且方向相反：**時間耗損佔虧損的比例從 40.2% 上升到 43.4%**（假突破 34.8% → 36.1%）。V3.2 並沒有解決 S2 的核心失敗模式（把賠錢單拖著），它只是整體虧損筆數變少了。換句話說分子分母一起縮小，但那個病灶還在。這一點在只看標頭指標時完全看不出來。\n\n兩個必須一起讀的限制。第一，**樣本都小，V3.2 更小**：V1.9 有 224 筆、V3.2 只有 157 筆，切到 30 分鐘時槽與各子分組後，V3.2 多數格子只剩個位數到十幾筆；策略文件本身也已標註 V3.2 的樣本外信心有限。第二，也是更根本的一點：**V1.9（Pullback）與 V3.2（Hammer 訊號）是兩套不同的進場實作，不是同一條規則的兩組參數**。所以這裡每一項差異都同時混雜了「規則改變」與「市場狀態改變」，無法單獨歸因給任何一方。",
   "presentation": [
     {
       "type": "metrics",
@@ -107,7 +108,7 @@
     {
       "type": "evidence_pair",
       "title": "Fail-Type Share 失敗型態占比",
-      "takeaway_zh": "本報告最重要的一項：時間耗損從 53.8% 升到 57.8%，立即虧損則從 15.9% 降到 10.8%。V3.2 減少了「一開始就錯」，但把賠錢單拖著這個核心問題沒有改善，反而佔比更高。",
+      "takeaway_zh": "本報告最重要的一項：時間耗損從 40.2% 升到 43.4%、假突破從 34.8% 升到 36.1%，立即虧損則從 15.9% 降到 10.8%。V3.2 減少了「一開始就錯」，但把賠錢單拖著這個核心問題沒有改善。",
       "chart_file": "fail_type_share_comparison.png",
       "table_source": "fail_type_share_diff",
       "table_title": "Fail-Type Share Delta",

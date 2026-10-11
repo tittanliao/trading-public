@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T23:39:00+08:00",
+  "generated_at": "2026-10-11T16:28:54+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -98,15 +98,15 @@
       "topic": "account",
       "kind": "rule",
       "strength": "strong",
-      "statement_zh": "每筆交易固定同樣的風險，不因看起來比較強、剛輸過或是 S2 就加大",
+      "statement_zh": "每筆交易固定同樣的風險（帳戶的 2%），不因看起來比較強、剛輸過或是 S2 就加大",
       "detail_zh": "二月起 248 筆以 R 計大致打平（−1.73R），金額上的虧損約 87% 來自下注大小：大倉 75 筆 −11.32R，小倉 143 筆 +11.38R。差距來自「哪些單被放大」——S2 多單、大倉的反向單、沒標籤的單——而不是同一個策略放大就變差。",
-      "how_to_use_zh": "請分析的每個建議都以固定風險計算；看到想加碼的念頭，就是這條規則要擋的情況。",
+      "how_to_use_zh": "請分析的每個建議都以帳戶 2% 的固定風險計算（2026-10-11 起）；停損距離照策略，手數由風險反推，Telegram 訊號會附上。看到想加碼的念頭，就是這條規則要擋的情況。",
       "policy_ref": "account-rule-1",
       "prereg_ref": null,
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-11",
       "preliminary": null,
       "evidence": [
         {
@@ -466,15 +466,15 @@
       "topic": "s1",
       "kind": "reference",
       "strength": "strong",
-      "statement_zh": "S1 主要輸在乾淨的正常停損，不是一進場就錯",
-      "detail_zh": "V3.9 的 197 筆虧損中 53% 是正常停損，立即虧損 26%（V3.4 是 31%）。V3.9 在勝率、獲利因子上都優於 V3.4，進場品質改善。",
+      "statement_zh": "S1 最常見的輸法是假突破：先走對一點，再反向打掉停損",
+      "detail_zh": "V3.9 的 197 筆虧損中，假突破 33%、立即虧損 26%（V3.4 是 31%）、正常停損 23%、時間耗損 18%（2026-10-11 修正：先前的工具分不出假突破，曾寫成 53% 是正常停損）。V3.9 在勝率、獲利因子上都優於 V3.4，進場品質改善。",
       "how_to_use_zh": "S1 停損是策略的正常成本；不要因為連續停損就懷疑訊號本身，除非前瞻檢驗觸發。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-11",
       "preliminary": null,
       "evidence": [
         {
@@ -644,6 +644,50 @@
         {
           "study_id": "RS-XAUUSD-20260727-003",
           "says_zh": "V3.4 差距 6.2 個百分點"
+        }
+      ]
+    },
+    {
+      "id": "K-S1-008",
+      "topic": "s1",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "停損後才走出行情是常態；停損放寬勝率變高、報酬變低",
+      "detail_zh": "S1 停損單裡，之後在 36 根 K 棒內走到 TP1 的比例：過去 25%、最近 33%（差距在雜訊內）。最近 30 分 ATR 大約大兩成，但今年 2–3 月波動更大時 S1 仍賺錢。同樣金額風險下停損放寬到 2 倍，過去勝率 57%→69%、每筆 +0.13R→+0.08R。",
+      "how_to_use_zh": "被洗掉後才走，不代表停損設錯；不要因為幾次被洗就放寬停損。要改停損，得先重跑策略並登記前瞻檢驗。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-11",
+      "reviewed_on": "2026-10-11",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261011-001",
+          "says_zh": "A1–A3：停損後到 TP1、停損與 ATR、放寬停損重播"
+        }
+      ]
+    },
+    {
+      "id": "K-S1-009",
+      "topic": "s1",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "S1 訊號前先洗流動性（破前低）並沒有比較好",
+      "detail_zh": "先破前一段低點：101 筆勝率 55%、+0.29R；沒有破：245 筆 53%、+0.38R。另外 5 種洗流動性條件也都無證據，假突破也沒有比較少。只有最近 8 週看起來符合體感（12 筆對 19 筆），2025 年與 2026 年上半年都沒有。",
+      "how_to_use_zh": "不要把「有沒有先破底」當成 S1 進場條件；最近的差異列入觀察，累積約 30 筆再看。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-11",
+      "reviewed_on": "2026-10-11",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261011-001",
+          "says_zh": "B：六種洗流動性特徵全部無證據"
         }
       ]
     },
@@ -1654,7 +1698,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-10-02"
+      "last_date": "2026-10-09"
     },
     {
       "id": "weekly_manual_set",
@@ -1664,7 +1708,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-10-04"
+      "last_date": "2026-10-10"
     },
     {
       "id": "cftc_transcription",
@@ -1674,7 +1718,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-09-29"
+      "last_date": "2026-10-06"
     },
     {
       "id": "cftc_archive",
@@ -1776,7 +1820,7 @@
       "id": "RS-XAUUSD-20260727-001",
       "market": "XAUUSD",
       "status": "pending",
-      "revision": 6,
+      "revision": 7,
       "theme": "improvement_attempts",
       "title": "S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report",
       "title_zh": null,
@@ -1813,7 +1857,7 @@
       "id": "RS-XAUUSD-20260727-003",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 2,
+      "revision": 3,
       "theme": "strategy_diagnostics",
       "title": "S1 AweWithBB V3.4 — fail-pattern report (30-minute contract)",
       "title_zh": null,
@@ -1830,11 +1874,11 @@
       "id": "RS-XAUUSD-20260727-004",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 2,
+      "revision": 3,
       "theme": "strategy_diagnostics",
       "title": "S1 AweWithBB V3.9 — fail-pattern report (30-minute contract)",
       "title_zh": null,
-      "summary_zh": "S1 V3.9 怎麼輸：53% 是乾淨的正常停損，立即虧損降到 26%；逆勢差距只有 2 個百分點。",
+      "summary_zh": "S1 V3.9 怎麼輸：三分之一是假突破，立即虧損降到 26%；逆勢差距只有 2 個百分點。",
       "superseded_by": null,
       "visibility": "public",
       "url": "research/studies/RS-XAUUSD-20260727-004/",
@@ -1847,7 +1891,7 @@
       "id": "RS-XAUUSD-20260727-005",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 1,
+      "revision": 2,
       "theme": "strategy_diagnostics",
       "title": "S1 AweWithBB V3.4 vs V3.9 — gap report",
       "title_zh": null,
@@ -1863,7 +1907,7 @@
       "id": "RS-XAUUSD-20260727-006",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 2,
+      "revision": 3,
       "theme": "strategy_diagnostics",
       "title": "S2-Hammer V1.9 — fail-pattern report (30-minute contract)",
       "title_zh": null,
@@ -1879,7 +1923,7 @@
       "id": "RS-XAUUSD-20260727-007",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 2,
+      "revision": 3,
       "theme": "strategy_diagnostics",
       "title": "S2-Hammer V3.2 — fail-pattern report (30-minute contract)",
       "title_zh": "S2-Hammer V3.2——fail-pattern 報告（30 分鐘合約）",
@@ -1897,7 +1941,7 @@
       "id": "RS-XAUUSD-20260727-008",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 1,
+      "revision": 2,
       "theme": "strategy_diagnostics",
       "title": "S2-Hammer V1.9 vs V3.2 — gap report",
       "title_zh": null,
@@ -2472,7 +2516,7 @@
       "id": "RS-XAUUSD-20261009-001",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 1,
+      "revision": 2,
       "theme": "strategy_diagnostics",
       "title": "S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it",
       "title_zh": "S1 V3.9 上線推播後的表現：超出自身歷史，而且市況與進場條件都解釋不了",
@@ -2565,6 +2609,23 @@
         "K-CFTC-006",
         "K-CFTC-007",
         "K-CFTC-008"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261011-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "strategy_diagnostics",
+      "title": "Stops, volatility and liquidity sweeps — stop-then-run is normal, a wider stop earns less, a sweep before S1 separates nothing",
+      "title_zh": "停損、波動與洗流動性：被洗掉後才走是常態、停損放寬賺得更少、S1 訊號前先破底沒有比較好",
+      "summary_zh": "S1 每四次停損約有一次之後到 TP1，一直都是；停損放寬勝率升、報酬降；六種洗流動性特徵都分不出好壞。",
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": [
+        "K-S1-008",
+        "K-S1-009"
       ]
     }
   ],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-006",
-  "revision": 2,
+  "revision": 3,
   "title": "S2-Hammer V1.9 — fail-pattern report (30-minute contract)",
   "market": "XAUUSD",
   "strategy": {
@@ -16,16 +16,16 @@
     "trades": 224,
     "win_rate_pct": 41.07,
     "profit_factor": 1.535,
-    "time_bleed_pct": 53.8,
+    "time_bleed_pct": 40.2,
     "kbar_coverage_pct": 52.4
   },
   "findings": [
     {
       "tone": "warn",
-      "title": "time_bleed, not immediate_loss, dominates S2 losses",
-      "detail": "71 of 132 losses (53.8%) are time_bleed (held ≥24 bars / 12h before stopping out) — the opposite pattern from S1, where entries fail fast or work. S2 is a mean-reversion strategy: it drags losers rather than failing instantly (only 15.9% immediate_loss).",
-      "title_zh": "主導 S2 虧損的是時間耗損，不是立即虧損",
-      "detail_zh": "132 筆虧損中有 71 筆（53.8%）是時間耗損（持有 ≥24 根 K 棒／12 小時後才停損）——與 S1 完全相反的型態，S1 的進場是要嘛很快就錯、要嘛就對。S2 是均值回歸策略：它會把賠錢單拖著，而不是立刻判斷錯誤。"
+      "title": "time_bleed and false_breakout dominate S2 losses, not immediate_loss",
+      "detail": "Of 132 losses, 53 (40.2%) are time_bleed (held ≥24 bars before stopping out) and 46 (34.8%) false breakouts; immediate_loss 21 (15.9%), clean normal_sl 12 (9.1%). Revision 3: earlier revisions showed no false breakouts (the toolkit read the export's negative MAE sign) and gave time_bleed 53.8%.",
+      "title_zh": "主導 S2 虧損的是時間耗損與假突破，不是立即虧損",
+      "detail_zh": "132 筆虧損中，時間耗損 53 筆（40.2%，持有 ≥24 根 K 棒後才停損）、假突破 46 筆（34.8%）、立即虧損 21 筆（15.9%）、正常停損 12 筆（9.1%）。第 3 版修正：之前的版本一筆假突破都分不出來（工具讀到匯出檔負號的 MAE），曾寫成時間耗損 53.8%。"
     },
     {
       "tone": "info",
@@ -53,6 +53,7 @@
   "theme": "strategy_diagnostics",
   "card_summary": "How S2 V1.9 loses, on the version that failed out-of-sample validation.",
   "question_zh": "依 30 分鐘粒度的標準失敗型態規範，S2-Hammer V1.9 的 224 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？",
+  "card_summary_zh": "S2 V1.9 怎麼輸：虧損大多是慢慢磨掉；低勝率是這種策略的正常形態。",
   "limitations_zh": [
     "V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本（V3.2 才是）。本報告僅作歷史／對照脈絡。",
     "224 筆交易、132 筆虧損。切到各分組後每格樣本都不大，逐格比較要連同 n 一起看。",
@@ -61,7 +62,7 @@
     "勝率 41.07% 必須與獲利因子和平均損益一起讀；單看勝率會誤判這種左側反轉策略。",
     "本版起（2026-10-09）脈絡表一律以「已收盤的 K 棒」對齊。先前版本以 K 棒開盤時間對齊，每筆進場讀到的是尚未收盤的 K 棒；受影響的只有布林區位、DXY 與多時間框表格，其餘數字不變。"
   ],
-  "interpretation_zh": "這份報告最有價值的地方，是它顯示 **S2 的失敗方式與 S1 根本不同**，而這個差異完全符合兩者的策略設計。\n\nS2 的虧損裡有 **53.8%（132 筆中 71 筆）是時間耗損**——持有超過 24 根 K 棒（12 小時）才停損出場；立即虧損只佔 15.9%。S1 剛好相反：進場要嘛很快就錯、要嘛就對。S2 是均值回歸策略，它的失敗模式是**把賠錢單拖著**，不是立刻判斷錯誤。\n\n勝率 41.07% 看起來很低，但這對這種策略形狀是**預期之內**的：獲利因子 1.535、每筆平均 +31.75 美元，代表它用「贏的時候賺比較多」來補償低於五成的勝率。用勝率單獨評價左側反轉策略會得到錯誤結論。\n\n另一個與 S1 對照的地方：**沒有逆勢懲罰**。改用已收盤 K 棒後，4H 空頭下勝率 42.39%，順勢 40.15%，逆勢反而略高（S1 V3.4 是逆勢低 6.2 個百分點）。這符合設計：S2 本來就是要去對抗趨勢，不是跟隨趨勢。\n\n⚠️ 但必須講清楚：V1.9 **沒有通過樣本外驗證**，也不是現行的正式 S2 版本（V3.2 才是）。上面每一項都只是歷史對照脈絡，不能拿來調整現行規則。",
+  "interpretation_zh": "這份報告最有價值的地方，是它顯示 **S2 的失敗方式與 S1 根本不同**，而這個差異完全符合兩者的策略設計。\n\nS2 的虧損裡有 **40.2%（132 筆中 53 筆）是時間耗損**——持有超過 24 根 K 棒（12 小時）才停損出場；另有 34.8%（46 筆）是假突破，立即虧損只佔 15.9%。（第 3 版修正：先前版本分不出假突破，曾寫成時間耗損 53.8%。）S1 剛好相反：進場要嘛很快就錯、要嘛就對。S2 是均值回歸策略，它的失敗模式是**把賠錢單拖著**，不是立刻判斷錯誤。\n\n勝率 41.07% 看起來很低，但這對這種策略形狀是**預期之內**的：獲利因子 1.535、每筆平均 +31.75 美元，代表它用「贏的時候賺比較多」來補償低於五成的勝率。用勝率單獨評價左側反轉策略會得到錯誤結論。\n\n另一個與 S1 對照的地方：**沒有逆勢懲罰**。改用已收盤 K 棒後，4H 空頭下勝率 42.39%，順勢 40.15%，逆勢反而略高（S1 V3.4 是逆勢低 6.2 個百分點）。這符合設計：S2 本來就是要去對抗趨勢，不是跟隨趨勢。\n\n⚠️ 但必須講清楚：V1.9 **沒有通過樣本外驗證**，也不是現行的正式 S2 版本（V3.2 才是）。上面每一項都只是歷史對照脈絡，不能拿來調整現行規則。",
   "presentation": [
     {
       "type": "metrics",
@@ -87,7 +88,7 @@
         "count",
         "pct"
       ],
-      "takeaway_zh": "132 筆虧損的組成：時間耗損 53.8%、正常停損 30.3%、立即虧損 15.9%。這與 S1 的分布剛好相反，是兩種策略設計差異最直接的證據。"
+      "takeaway_zh": "132 筆虧損的組成：時間耗損 40.2%、假突破 34.8%、立即虧損 15.9%、正常停損 9.1%。立即虧損少，是 S2 與 S1 設計差異最直接的證據。"
     },
     {
       "type": "evidence_pair",

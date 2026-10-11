@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260727-001",
-  "revision": 6,
+  "revision": 7,
   "title": "S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report",
   "market": "XAUUSD",
   "strategy": {
@@ -50,10 +50,10 @@
     },
     {
       "tone": "warn",
-      "title": "normal_sl is the dominant fail type, not immediate_loss",
-      "detail": "104 of 197 losses (52.8%) are a clean normal_sl stop-out; immediate_loss is 25.9% (51 trades). Descriptive context, not a live-impact mechanism.",
-      "title_zh": "主要失敗型態是正常停損，不是立即虧損",
-      "detail_zh": "197 筆虧損交易中，104 筆（52.8%）是乾淨的 normal_sl 停損出場；immediate_loss 只佔25.9%（51 筆）。這是描述性脈絡，不是即時分數的調整依據。"
+      "title": "false_breakout is the largest fail type, then immediate_loss",
+      "detail": "Of 197 losses, 65 (33.0%) are false breakouts (adverse excursion more than twice the favourable), 51 (25.9%) immediate_loss, 46 (23.4%) clean normal_sl, 35 (17.8%) time_bleed. Revision 7: earlier revisions showed no false breakouts because the toolkit read the export's negative MAE sign. Descriptive context, not a live-impact mechanism.",
+      "title_zh": "最大的失敗型態是假突破，其次是立即虧損",
+      "detail_zh": "197 筆虧損：假突破 33.0%（65 筆）、立即虧損 25.9%（51）、正常停損 23.4%（46）、時間耗損 17.8%（35）。第 7 版修正：之前的版本因為工具讀到匯出檔負號的 MAE，一筆假突破都分不出來，把它們算進了正常停損與時間耗損。這是描述性脈絡，不是即時分數的調整依據。"
     },
     {
       "tone": "warn",
@@ -86,7 +86,7 @@
   "limitations_zh": [
     "Macro 覆蓋率為 97.11%（437／450 筆有對應的 Macro 讀值），13 筆缺值不計入 Macro 相關統計，不會用舊值或估計值填補。",
     "時間穩定性檢定是對「同一份已經定案」的 TradingView 策略測試匯出檔做時間分段／保留集切分，不是重新最佳化的 walk-forward：Pine Script 的策略邏輯全程沒有在任何子區間重新跑過或重新調參。它能看出目前記錄的勝率／獲利因子是穩定的還是集中在較早的一段；它不能證明「如果一開始只有早期資料，參數會被選成一樣的樣子」。",
-    "normal_sl 的發現是描述性脈絡；逆勢（4H 空頭）進場在改用已收盤 K 棒後已不明顯，目前不是即時分數的調整依據——它們說明了「為什麼」，不是「該怎麼扣分」。",
+    "失敗型態的組成是描述性脈絡；逆勢（4H 空頭）進場在改用已收盤 K 棒後已不明顯，目前不是即時分數的調整依據——它們說明了「為什麼」，不是「該怎麼扣分」。",
     "本版起（2026-10-09）脈絡表一律以「已收盤的 K 棒」對齊。先前版本以 K 棒開盤時間對齊，每筆進場讀到的是尚未收盤的 K 棒；受影響的只有布林區位、DXY 與多時間框表格，其餘數字不變。"
   ],
   "interpretation_zh": "這份研究做的事情很單純：把兩條已經活在即時分數裡好幾個月的規則（Macro 綜合判定、30 分鐘時槽）攤開來，用同一批 450 筆 V3.9 交易重新檢驗一次。結果是兩條都撐不住——Macro 的 WAIT 判定其實還是賺錢的，NEUTRAL 才是三個判定裡最弱的一個，跟原本用於分數調整的排序方向相反；30 分鐘時槽則需要對照當下的時槽分數表，而不是套用一套固定印象。同一份資料另外拆出的 fail-pattern、BB、DXY、MTF、時間穩定性等面向，是把整份 V3.9 匯出資料能看到的東西盡量看完整，而不是只挑對假設有利的角度。",
@@ -108,7 +108,7 @@
     {
       "type": "evidence_pair",
       "title": "Failure Types 失敗型態",
-      "takeaway_zh": "虧損以正常停損為主，立即虧損不是主要失敗型態；這是描述性脈絡，不是新的即時規則。",
+      "takeaway_zh": "虧損以假突破最多（33.0%），其次是立即虧損（25.9%）與正常停損（23.4%）；這是描述性脈絡，不是新的即時規則。",
       "chart_file": "fail_type_breakdown.png",
       "table_source": "fail_pattern.by_type",
       "table_title": "Fail Type Breakdown",

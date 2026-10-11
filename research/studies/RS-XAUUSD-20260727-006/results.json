@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260727-006",
-  "generated_at": "2026-10-09T22:36:57+08:00",
+  "generated_at": "2026-10-11T15:59:38+08:00",
   "strategy": "S2-Hammer V1.9",
   "method": {
     "fail_pattern_thresholds": {
@@ -727,38 +727,46 @@
     "total_losses": 132,
     "by_type": {
       "time_bleed": {
-        "count": 71,
-        "pct": 53.8
+        "count": 53,
+        "pct": 40.2
       },
-      "normal_sl": {
-        "count": 40,
-        "pct": 30.3
+      "false_breakout": {
+        "count": 46,
+        "pct": 34.8
       },
       "immediate_loss": {
         "count": 21,
         "pct": 15.9
+      },
+      "normal_sl": {
+        "count": 12,
+        "pct": 9.1
       }
     },
     "by_session": {
       "asia": {
+        "false_breakout": 15,
         "immediate_loss": 11,
-        "normal_sl": 14,
-        "time_bleed": 22
+        "normal_sl": 4,
+        "time_bleed": 17
       },
       "europe": {
+        "false_breakout": 9,
         "immediate_loss": 4,
-        "normal_sl": 12,
-        "time_bleed": 14
+        "normal_sl": 5,
+        "time_bleed": 12
       },
       "overnight": {
+        "false_breakout": 6,
         "immediate_loss": 3,
-        "normal_sl": 6,
-        "time_bleed": 15
+        "normal_sl": 3,
+        "time_bleed": 12
       },
       "us": {
+        "false_breakout": 16,
         "immediate_loss": 3,
-        "normal_sl": 8,
-        "time_bleed": 20
+        "normal_sl": 0,
+        "time_bleed": 12
       }
     }
   },

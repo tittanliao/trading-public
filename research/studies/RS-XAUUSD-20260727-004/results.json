@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260727-004",
-  "generated_at": "2026-10-09T22:36:56+08:00",
+  "generated_at": "2026-10-11T15:59:37+08:00",
   "strategy": "S1-AweWithBB V3.9",
   "method": {
     "fail_pattern_thresholds": {
@@ -723,39 +723,47 @@
   "fail_pattern": {
     "total_losses": 197,
     "by_type": {
-      "normal_sl": {
-        "count": 104,
-        "pct": 52.8
+      "false_breakout": {
+        "count": 65,
+        "pct": 33.0
       },
       "immediate_loss": {
         "count": 51,
         "pct": 25.9
       },
+      "normal_sl": {
+        "count": 46,
+        "pct": 23.4
+      },
       "time_bleed": {
-        "count": 42,
-        "pct": 21.3
+        "count": 35,
+        "pct": 17.8
       }
     },
     "by_session": {
       "asia": {
+        "false_breakout": 20,
         "immediate_loss": 19,
-        "normal_sl": 33,
-        "time_bleed": 13
+        "normal_sl": 14,
+        "time_bleed": 12
       },
       "europe": {
+        "false_breakout": 15,
         "immediate_loss": 10,
-        "normal_sl": 21,
-        "time_bleed": 11
+        "normal_sl": 7,
+        "time_bleed": 10
       },
       "overnight": {
+        "false_breakout": 10,
         "immediate_loss": 8,
-        "normal_sl": 17,
-        "time_bleed": 6
+        "normal_sl": 9,
+        "time_bleed": 4
       },
       "us": {
+        "false_breakout": 20,
         "immediate_loss": 14,
-        "normal_sl": 33,
-        "time_bleed": 12
+        "normal_sl": 16,
+        "time_bleed": 9
       }
     }
   },

@@ -232,7 +232,10 @@ def consecutive_losses(trades: pd.DataFrame) -> pd.Series:
 
 def classify_fail(trades: pd.DataFrame) -> pd.DataFrame:
     losses = trades[trades["result"] == "loss"].copy()
-    mae_mfe_ratio = losses["mae_pct"] / losses["mfe_pct"].replace(0, np.nan)
+    # The ratio is of magnitudes. TradingView exports sign adverse excursion negative, and with the raw
+    # sign the ratio was never above 2, so no loss was ever labelled false_breakout (found 2026-10-11,
+    # RS-XAUUSD-20261011-001 decision_log).
+    mae_mfe_ratio = losses["mae_pct"].abs() / losses["mfe_pct"].replace(0, np.nan)
     conditions = [
         losses["mfe_pct"] < IMMEDIATE_LOSS_MFE_PCT,
         mae_mfe_ratio > FALSE_BREAKOUT_MAE_MFE_RATIO,

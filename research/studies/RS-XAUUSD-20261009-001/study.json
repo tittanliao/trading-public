@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261009-001",
-  "revision": 1,
+  "revision": 2,
   "title": "S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it",
   "market": "XAUUSD",
   "strategy": {
@@ -61,9 +61,9 @@
     {
       "tone": "warn",
       "title": "What changed is how trades end",
-      "detail": "TP1 exits fell from 146 of 315 to 9 of 31; clean stop-outs rose from 27.3% to 41.9% of trades, and more losers first went half way to TP1 (37.1% to 47.6%, n=21 live losers).",
+      "detail": "TP1 exits fell from 146 of 315 to 9 of 31; clean stop-outs rose from 13.0% to 25.8% of trades and false breakouts from 15.2% to 19.4%, and more losers first went half way to TP1 (37.1% to 47.6%, n=21 live losers). Revision 2: revision 1 could not see false breakouts and gave clean stop-outs 27.3% to 41.9%.",
       "title_zh": "變的是交易怎麼結束",
-      "detail_zh": "打到 TP1 的比例從 146/315 降到 9/31；正常停損從 27.3% 升到 41.9%。虧損單裡先走到 TP1 一半（+0.25%）再回頭的比例從 37.1% 升到 47.6%（上線後只有 21 筆虧損單，僅供描述）。"
+      "detail_zh": "打到 TP1 的比例從 146/315 降到 9/31；正常停損從 13.0% 升到 25.8%、假突破從 15.2% 升到 19.4%。虧損單裡先走到 TP1 一半（+0.25%）再回頭的比例從 37.1% 升到 47.6%（上線後只有 21 筆虧損單，僅供描述）。第 2 版修正：第 1 版分不出假突破，曾寫成正常停損 27.3% → 41.9%。"
     },
     {
       "tone": "info",
@@ -163,7 +163,7 @@
     {
       "type": "evidence_pair",
       "title": "How Trades End 交易怎麼結束",
-      "takeaway_zh": "上線前勝出 55.6%、正常停損 27.3%；上線後勝出 32.3%、正常停損 41.9%。",
+      "takeaway_zh": "上線前勝出 55.6%、正常停損 13.0%、假突破 15.2%；上線後勝出 32.3%、正常停損 25.8%、假突破 19.4%。",
       "chart_file": "fail_mix_shift.png",
       "table_source": "decline.fail_mix",
       "table_title": "Outcome Mix",
