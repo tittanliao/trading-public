@@ -780,7 +780,12 @@ def weekly_reader_page(week: str, s: dict) -> str:
             f'<p class="prose">{esc(r.get("cftc_zh") or ev["note"])}</p>'
             '<p class="evidence-takeaway">持倉反映的是建立它的那一週，不能預測下一週；'
             '<a href="../../../overview/#K-CFTC-001">看研究結論 →</a></p>'
-            f'<details><summary>CFTC 原始截圖（{esc(ev["report_date"])}）</summary>'
+            + (f'<figure class="chart-figure levels-figure"><img src="{attr(s["cftc_roles_chart"]["file"])}" '
+               f'alt="CFTC 各角色持倉 年初至 {attr(ev["report_date"])}" loading="lazy">'
+               '<figcaption>各角色年初至今的多單（藍）與空單（橙），灰底是金價 '
+               f'<a class="chart-full" href="{attr(s["cftc_roles_chart"]["file"])}">開啟原圖 ↗</a></figcaption></figure>'
+               if s.get("cftc_roles_chart") else '')
+            + f'<details><summary>CFTC 原始截圖（{esc(ev["report_date"])}）</summary>'
             f'<figure class="chart-figure evidence-figure"><img src="{attr(ev["file"])}" alt="CFTC {attr(ev["report_date"])}" loading="lazy"></figure>'
             '</details></section>'
         )

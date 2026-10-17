@@ -212,6 +212,9 @@ def check_reader_edition(week: str, page: Path, text: str, summary: dict, errors
     chart = page.parent / summary.get("levels_chart", {}).get("file", "levels.png")
     if not chart.is_file():
         errors.append(f"{week} reader edition has no key-level chart ({chart.name})")
+    roles = summary.get("cftc_roles_chart")
+    if roles and not (page.parent / roles.get("file", "cftc_roles.png")).is_file():
+        errors.append(f"{week} reader edition lists a CFTC category chart that is missing ({roles.get('file')})")
     if summary.get("market_regime_panel"):
         errors.append(f"{week} reader edition must not carry market_regime_panel")
     main = text.split('<details class="weekly-details">')[0]
