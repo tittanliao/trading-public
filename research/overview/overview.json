@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-11T16:28:54+08:00",
+  "generated_at": "2026-10-18T22:32:45+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -76,6 +76,10 @@
     "tx": {
       "label_zh": "台指",
       "order": 12
+    },
+    "equity": {
+      "label_zh": "股票配置與總統週期",
+      "order": 13
     }
   },
   "strengths": {
@@ -242,12 +246,16 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261009-004",
           "says_zh": "空單 +5.19R；%B>0.8 空單 −2.3R"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "S1／S2 停損後機械反手做空：S1 +0.02R（229 筆）、S2 −0.08R（95 筆），無證據"
         }
       ]
     },
@@ -318,6 +326,28 @@
         {
           "study_id": "RS-XAUUSD-20261009-002",
           "says_zh": "重播只擋到 10 筆，幾乎打平"
+        }
+      ]
+    },
+    {
+      "id": "K-ACCT-011",
+      "topic": "account",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "S1／S2 在 Topstep 每日平倉規則下，優勢大幅縮水",
+      "detail_zh": "S1 約一半、S2 約八成的單到每日平倉時間（台北 04:10／05:10）還沒結束；強制平倉後每筆 S1 +0.22R→+0.16R、S2 +0.28R→+0.14R（重播）。50K 考試 1 口 MGC：60 天內通過 33%、失敗 12%；2 口：通過 39%、失敗 43%。",
+      "how_to_use_zh": "在 Topstep 做 S1／S2 用 1 口 MGC、預期要兩到三個月；不要用加大口數趕進度。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-14",
+      "reviewed_on": "2026-10-14",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261014-002",
+          "says_zh": "每日平倉截斷；1 口 60 天 33%／12%"
         }
       ]
     },
@@ -543,21 +573,25 @@
       "id": "K-S1-004",
       "topic": "s1",
       "kind": "direction",
-      "strength": "weak",
+      "strength": "moderate",
       "statement_zh": "前一天收黑後的 S1 做多比較好",
-      "detail_zh": "S1 在前一天收黑後勝率 60%、收紅後 53%，最新 30% 資料仍同向；「紅→黑」兩日序列 64% 且前後段一致。屬於初步研究，交叉格子太小。",
-      "how_to_use_zh": "可當脈絡參考，不當開關。",
+      "detail_zh": "2024-01～2026-10 共 503 筆：前一天收黑後勝率 59.2%（245 筆）、收紅後 50.0%（258 筆），前後兩段同向（+4.8、+13.9 個百分點）；p 0.04，但未過可分辨門檻與多重比較校正。",
+      "how_to_use_zh": "Telegram 訊號會附上這條提醒（含樣本數與期間）；當脈絡參考，不當開關。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
-      "preliminary": true,
+      "reviewed_on": "2026-10-13",
+      "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20260815-002",
           "says_zh": "D-1 收黑 59.5% 對 53.3%"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：收黑 59.2% 對收紅 50.0%，中"
         }
       ]
     },
@@ -574,7 +608,7 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": null,
       "evidence": [
         {
@@ -592,6 +626,10 @@
         {
           "study_id": "RS-XAUUSD-20260831-005",
           "says_zh": "加碼無幫助，且量錯 K 棒"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：%B>1 勝率 63.8%（58 筆）對 53.3%，p 0.16，未過門檻"
         }
       ]
     },
@@ -634,7 +672,7 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": null,
       "evidence": [
         {
@@ -644,6 +682,10 @@
         {
           "study_id": "RS-XAUUSD-20260727-003",
           "says_zh": "V3.4 差距 6.2 個百分點"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：4H 空頭 57.2% 對 51.6%，無證據"
         }
       ]
     },
@@ -660,12 +702,16 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-11",
-      "reviewed_on": "2026-10-11",
+      "reviewed_on": "2026-10-14",
       "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261011-001",
           "says_zh": "A1–A3：停損後到 TP1、停損與 ATR、放寬停損重播"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261014-001",
+          "says_zh": "3 倍 ATR：勝率 54.1% 對 47.5%、每筆 +0.18R 對 +0.22R"
         }
       ]
     },
@@ -794,13 +840,13 @@
       "strength": "moderate",
       "statement_zh": "S1 出場後 48 小時內的 S2 比平均好，跳過它們代價很大",
       "detail_zh": "S1 停損後 48 小時內的 S2 勝率 61% 對 43%；跳過這些交易少賺約總報酬的 35%。原因不是「停損」本身（安慰劑檢驗顯示停利後也類似），而且波動控制後只剩一個小格子撐著——所以「跳過的代價」確立，「為什麼比較好」沒有。",
-      "how_to_use_zh": "S1 剛停損，不要因此猶豫下一個 S2。",
+      "how_to_use_zh": "S1 剛停損，不要因此猶豫下一個 S2。 Telegram S2 訊號會附上這條提醒。",
       "policy_ref": null,
       "prereg_ref": "PREREG-20260901-001",
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": true,
       "evidence": [
         {
@@ -814,6 +860,10 @@
         {
           "study_id": "RS-XAUUSD-20260901-006",
           "says_zh": "效果集中在一個格子"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：48 小時內 52.0%（127 筆）對 32.0%（50 筆），中"
         }
       ]
     },
@@ -821,21 +871,25 @@
       "id": "K-S2-006",
       "topic": "s2",
       "kind": "direction",
-      "strength": "weak",
+      "strength": "moderate",
       "statement_zh": "S2 在 GVZ（黃金波動率指數）低於 22 時較好",
-      "detail_zh": "GVZ < 22 時 S2 勝率 60%、> 22 時 34%，差距超過門檻，但掃了 15 個門檻後的多重比較校正沒過（隨機也有 11% 機率）。",
+      "detail_zh": "GVZ < 22 時 S2 勝率 60%、> 22 時 34%，差距超過門檻，但掃了 15 個門檻後的多重比較校正沒過（隨機也有 11% 機率）。 2026-10-13 重測（2024-01～2026-06）：GVZ<22 勝率 57.1%（91 筆）對 36.5%（63 筆），前後兩段同向，p 0.01，仍未過多重比較校正。",
       "how_to_use_zh": "值得用前瞻資料再看；目前不當條件。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20260817-001",
           "says_zh": "唯一差一點的總經結果"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：57.1% 對 36.5%，中（GVZ 資料到 2026-06）"
         }
       ]
     },
@@ -852,12 +906,16 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": true,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20260831-003",
           "says_zh": "S2 五個視野一致為負，家族 p 0.36"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：訊號前 12 小時下跌 51.1% 對 44.7%，無證據"
         }
       ]
     },
@@ -874,12 +932,60 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-13",
       "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20260727-007",
           "says_zh": "逆勢高 12.8 個百分點"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "重測：4H 空頭 48.8% 對 44.0%，前後段方向相反，無證據"
+        }
+      ]
+    },
+    {
+      "id": "K-S2-009",
+      "topic": "s2",
+      "kind": "refuted",
+      "strength": "weak",
+      "statement_zh": "「S2 在 30 分布林中軌上方進場勝率較差」",
+      "detail_zh": "來自 Notion 備註與 2026 年回測片段（中軌上方 32%、以下 59%）。完整樣本 2024-01～2026-09 共 177 筆：中軌或以下 50.0%（46 筆）、上方 45.0%（131 筆），前後兩段方向相反。",
+      "how_to_use_zh": "不要把 S2 是否在中軌上方當成略過的理由。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-13",
+      "reviewed_on": "2026-10-13",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261013-001",
+          "says_zh": "50.0% 對 45.0%，前後段相反，無證據"
+        }
+      ]
+    },
+    {
+      "id": "K-S2-010",
+      "topic": "s2",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "S2 改用約 2 倍 ATR 的較緊停損，重播結果較好",
+      "detail_zh": "2024-01～2026-10 共 177 筆重播：固定 1% 停損每筆 +0.28R；2 倍 ATR(14)（中位數約 0.53%）每筆 +0.45R，前後兩段都較好，但是二十種設定中挑出來的，未過多重比較（BH p 0.11）。重播沒有策略的移動停損。",
+      "how_to_use_zh": "不要直接改停損。要用的話，先在 TradingView 用這個停損重跑 S2，再在模擬帳戶登記前瞻檢驗。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-14",
+      "reviewed_on": "2026-10-14",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261014-001",
+          "says_zh": "+0.45R 對 +0.28R，p 0.011，BH 0.11"
         }
       ]
     },
@@ -974,12 +1080,16 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-14",
       "preliminary": null,
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20260818-004",
           "says_zh": "波動度調整停損與部位都沒勝過基準"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261014-001",
+          "says_zh": "S1 改 ATR 停損無證據；S2 約 2 倍 ATR 較緊停損重播較好但未過多重比較"
         }
       ]
     },
@@ -1594,6 +1704,216 @@
           "says_zh": "4 週 +0.99"
         }
       ]
+    },
+    {
+      "id": "K-ACC-003",
+      "topic": "accumulation",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "黃金 1–9 月振幅能預測 10 月後波動多大，不能預測漲跌",
+      "detail_zh": "46 年：與 10–3 月高低區間 ρ 0.57（p 0.0002），與 10–3 月報酬 ρ 0.06（p 0.71）。2026 年振幅位於第 85 百分位。",
+      "how_to_use_zh": "振幅大的年份把部位和預備保證金做小，不要當成方向訊號。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261018-001",
+          "says_zh": "區間 ρ 0.565；方向 ρ 0.056"
+        }
+      ]
+    },
+    {
+      "id": "K-ACC-004",
+      "topic": "accumulation",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「秋季每週分批建倉、分批止盈的計畫勝率高於單純持有」",
+      "detail_zh": "46 個週線週期勝率 54%（未扣成本 56.5%），任意 29 週持有 56.2%；平均賺 5.5%、平均賠 8.5%。1980–1999 勝率 25%，2000 年後 77%：結果取決於年代，不是季節。",
+      "how_to_use_zh": "把它當成「持有黃金」的一種方式，而不是有優勢的策略；注意單輪最大虧損。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261018-001",
+          "says_zh": "勝率 54.35%，盈虧比 0.65"
+        }
+      ]
+    },
+    {
+      "id": "K-ACC-005",
+      "topic": "accumulation",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「拿掉止盈讓獲利奔跑、加虧損上限或 40 週均線過濾，就能改善分批建倉」",
+      "detail_zh": "5 個事先固定的改法都沒有超過門檻。−10% 上限把最差一輪從 −24% 壓到 −13%，但平均報酬變差；均線過濾每輪 +1.0 個百分點（門檻 2.5），跳過 9 個賺錢年份。",
+      "how_to_use_zh": "若要限制單輪最大虧損可以設上限，但要接受平均報酬較低；不要期待它提高報酬。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": "BL-015",
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261018-002",
+          "says_zh": "無一超過門檻"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-001",
+      "topic": "equity",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "美股總統週期最強的一段：期中選舉後到選前一年年底",
+      "detail_zh": "標普 500 18 個週期全部上漲、平均 +19.3%；選後第一年年初買、期中選舉後賣，在 48 個起跑月份中排第 47。",
+      "how_to_use_zh": "只當背景；台股只有 2–7 個週期，加權與 0050 期中選舉年偏弱，台積電持平。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-MULTI-20261018-001",
+          "says_zh": "18/18，+19.31%"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-002",
+      "topic": "equity",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「台股照總統週期進出，可以勝過一直持有」",
+      "detail_zh": "加權、台積電、0050 都是一直持有的年化最高；最接近的「跳過期中選舉年」也落後，且錯過 2026 年的大漲。選前一年 3 月出場，0050 年化少約 2.3 個百分點。",
+      "how_to_use_zh": "進出只會減少持有時間；要降低風險，改用配置而不是擇時。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261018-001",
+          "says_zh": "6 種規則都輸持有"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-003",
+      "topic": "equity",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "半數正二＋半數黃金或公債、每年調回，平時回檔較小，崩盤時仍跌五到六成",
+      "detail_zh": "2014–2026：最大回檔 −34% 降到 −26–27%。1997–2026 含 2000、2008：仍 −54% 到 −60%（台股 −65%）。不調回則平時就到 −50%。",
+      "how_to_use_zh": "若採用，必須每年調回；並按「崩盤時跌一半以上」準備心理與資金。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261018-003",
+          "says_zh": "2014–2026 −26–27%"
+        },
+        {
+          "study_id": "RS-TX-20261018-004",
+          "says_zh": "1997–2026 −54–60%"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-004",
+      "topic": "equity",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "不用槓桿的 0050＋黃金各半，29 年最大回檔約 −36%",
+      "detail_zh": "1997–2026 每年調回：年化 10.2%、最大回檔 −35.6%，台股代理 8.9%、−64.6%；台股與黃金的日報酬相關約 +0.05–0.1。",
+      "how_to_use_zh": "以降低回檔為目標時的基準組合。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261018-004",
+          "says_zh": "−35.57%"
+        },
+        {
+          "study_id": "RS-TX-20261018-003",
+          "says_zh": "2014–2026 −17.40%"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-005",
+      "topic": "equity",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "組合調回比例每年一次就夠",
+      "detail_zh": "每季、偏離 ±5% 或 ±10% 才調、完全不調，都沒有在 1997–2013 與 2014–2026 兩段同時勝過每年一次；頻繁調回會在崩盤途中一直加碼正二。",
+      "how_to_use_zh": "固定在年初調回一次。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261018-004",
+          "says_zh": "無規則勝過每年一次"
+        }
+      ]
+    },
+    {
+      "id": "K-EQ-006",
+      "topic": "equity",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "只在期中選舉到大選之間加正二：報酬與回檔都介於中間，選後一次買進較好",
+      "detail_zh": "黃金一直持有＋窗口內正二：1997–2026 年化 10.8%、最大回檔 −52%。窗口內正二只有 3/7 輪勝過 1 倍。選後一次買進在 7 輪中有 5 輪勝過分批或等回檔，但無法分辨。期中選舉年初就持有正二，2014–2026 和抱 0050 差不多（22.8% 對 21.3%），回檔 −58%。",
+      "how_to_use_zh": "若要做，選後一次進場，並接受約一半的最大回檔；7 輪樣本只能當方向。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-18",
+      "reviewed_on": "2026-10-18",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261018-005",
+          "says_zh": "10.76%、−51.67%"
+        },
+        {
+          "study_id": "RS-TX-20261018-002",
+          "says_zh": "22.77% 對 21.26%，回檔 −58%"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -1675,7 +1995,7 @@
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-10-08"
+      "last_date": "2026-10-16"
     },
     {
       "id": "xau_30m_long",
@@ -1698,7 +2018,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-10-09"
+      "last_date": "2026-10-16"
     },
     {
       "id": "weekly_manual_set",
@@ -1708,7 +2028,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-10-10"
+      "last_date": "2026-10-17"
     },
     {
       "id": "cftc_transcription",
@@ -1718,7 +2038,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-10-06"
+      "last_date": "2026-10-13"
     },
     {
       "id": "cftc_archive",
@@ -1769,6 +2089,22 @@
       ]
     },
     {
+      "id": "RS-MULTI-20261018-001",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "The presidential cycle: the strong stretch is midterm to the end of the pre-election year; buying at the start of the post-election year is one of the cycle's weakest 22-month holds",
+      "title_zh": "美國總統週期：最強的一段是期中選舉後到選前一年年底；選後第一年年初買進是週期裡最弱的 22 個月持有之一",
+      "summary_zh": "標普 500 的 18 個週期中，期中選舉後到選前一年年底 18 次全部上漲、平均 +19.3%。選後第一年年初買、期中選舉後賣，是週期中最弱的 22 個月持有之一。台股只有 2–7 個週期：加權與 0050 的期中選舉年偏弱，台積電持平。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-MULTI-20261018-001/",
+      "claims": [
+        "K-EQ-001"
+      ]
+    },
+    {
       "id": "RS-TX-20260728-001",
       "market": "TX",
       "status": "progress",
@@ -1814,6 +2150,89 @@
       "url": null,
       "claims": [
         "K-TX-002"
+      ]
+    },
+    {
+      "id": "RS-TX-20261018-001",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Presidential-cycle in/out rules on TAIEX, TSMC and 0050 — none beats buy-and-hold; skipping the midterm year comes closest and missed 2026",
+      "title_zh": "台股照總統週期進出（加權、台積電、0050）：沒有一種規則贏過一直持有；跳過期中選舉年最接近，但錯過 2026",
+      "summary_zh": "算進台股交易成本後，沒有一種總統週期進出規則贏過一直持有加權、台積電或 0050。跳過期中選舉年最接近、也減少台積電的最大回檔，但錯過 2026 年的大漲。只有 6 個週期，差異無法分辨。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261018-001/",
+      "claims": [
+        "K-EQ-002"
+      ]
+    },
+    {
+      "id": "RS-TX-20261018-002",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "A 2x Taiwan 50 from the start of the midterm year to the election edged holding 0050 in 2014–2026 (22.8% vs 21.3%, 3 windows) with a −58% drawdown against −34%; from the midterm itself it trailed; half capital in 2x matches 1x",
+      "title_zh": "期中選舉年初到大選持有正二：2014–2026 年和一直抱 0050 差不多（22.8% 對 21.3%，3 輪），回檔 −58% 對 −34%；從期中選舉當天才買則落後；半數資金買正二約等於 1 倍",
+      "summary_zh": "0050 資料（2014–2026，3 輪）：期中選舉年初到大選持有正二，年化 22.8%，一直抱 0050 為 21.3%，但最大回檔 −58% 對 −34%；從期中選舉當天才買為 17.2%。半數資金買正二只是重現 1 倍曝險：槓桿省下資金，不降低風險。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261018-002/",
+      "claims": [
+        "K-EQ-006"
+      ]
+    },
+    {
+      "id": "RS-TX-20261018-003",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Half capital in a 2x Taiwan 50 with the other half in T-bills or gold, rebalanced yearly, cut 0050's worst drawdown from −34% to −26–27% in 2014–2026; without rebalancing it rose to −50%",
+      "title_zh": "半數資金正二＋半數美國公債或黃金，每年調回，2014–2026 年把 0050 的最大回檔從 −34% 降到 −26–27%；不調回則升到 −50%",
+      "summary_zh": "每年調回比例時，半數正二＋半數公債或黃金，在保留台股曝險下把最大回檔從 −34% 降到 −26–27%（2014–2026）。不調回則達 −50%。不用槓桿的 0050＋黃金回檔最小（−17%），但報酬較低。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261018-003/",
+      "claims": [
+        "K-EQ-003",
+        "K-EQ-004"
+      ]
+    },
+    {
+      "id": "RS-TX-20261018-004",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Through the 2000 and 2008 crashes the half-capital 2x barbells, rebalanced yearly, still fell 54–60% (Taiwan 50 proxy −65%); 50% Taiwan 50 + 50% gold kept it to −36%; no rebalancing rule beat annual in both halves",
+      "title_zh": "經過 2000 與 2008 崩盤，每年調回的半數正二組合仍跌 54–60%（台股 −65%）；0050＋黃金各半只跌 36%；沒有一種調回規則在兩段期間都勝過每年一次",
+      "summary_zh": "1997–2026 含 2000 與 2008 崩盤：每年調回的半數正二組合仍跌 54–60%（台股代理 −65%）。不用槓桿的 0050＋黃金各半只跌 36%。每季、偏離 ±5% 或 ±10% 才調、不調，都沒有在兩段期間同時勝過每年一次。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261018-004/",
+      "claims": [
+        "K-EQ-003",
+        "K-EQ-004",
+        "K-EQ-005"
+      ]
+    },
+    {
+      "id": "RS-TX-20261018-005",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Gold always with a 2x Taiwan 50 only from the US midterm to the election: 10.76% CAGR, −52% max drawdown over 1997–2026; buying the 2x at once beat staged or pullback entries in 5 of 7 windows",
+      "title_zh": "黃金一直持有，正二只在期中選舉到大選之間持有：1997–2026 年化 10.76%、最大回檔 −52%；選後一次買進在 7 輪中有 5 輪勝過分批或等回檔",
+      "summary_zh": "黃金一直持有、正二只在期中選舉到大選之間持有：1997–2026 年化 10.76%、最大回檔 −52%，介於 0050＋黃金（10.23%、−36%）與正二＋黃金一直持有（14.14%、−58%）之間；單抱台股 8.93%、−65%。選後一次買進正二，在 7 輪中有 5 輪勝過分 6 個月買或等回檔 10% 再買。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261018-005/",
+      "claims": [
+        "K-EQ-006"
       ]
     },
     {
@@ -2626,6 +3045,97 @@
       "claims": [
         "K-S1-008",
         "K-S1-009"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261013-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "strategy_diagnostics",
+      "title": "Entry reminders, re-tested — prior-day red (S1), an S1 exit in the last 48h and GVZ below 22 (S2) hold at moderate strength; reversing a stopped signal has no edge",
+      "title_zh": "進場提醒重測：S1 前一天收黑、S2 在 S1 出場後 48 小時內與 GVZ 低於 22 屬中等證據；訊號停損後反手沒有優勢",
+      "summary_zh": "十個進場條件中三個屬中等證據（S1 前一天收黑；S2 在 S1 出場後 48 小時內、GVZ 低於 22）；S1／S2 停損後反手做空沒有優勢。",
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": [
+        "K-ACCT-007",
+        "K-S1-004",
+        "K-S1-005",
+        "K-S1-007",
+        "K-S2-005",
+        "K-S2-006",
+        "K-S2-007",
+        "K-S2-008",
+        "K-S2-009"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261014-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "strategy_diagnostics",
+      "title": "ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment",
+      "title_zh": "ATR 動態停損與每週部位（5 萬美帳戶）：S1 改 ATR 停損沒有幫助；S2 改成約 2 倍 ATR 的較緊停損重播較好，但未過多重比較",
+      "summary_zh": "S1 改 ATR 停損沒有幫助（放寬勝率升、報酬降）；S2 改約 2 倍 ATR 的較緊停損重播 +0.45R 對 +0.28R，但未過多重比較；每週算部位沒有差別。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261014-001/",
+      "claims": [
+        "K-S1-008",
+        "K-S2-010",
+        "K-BOTH-004"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261014-002",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "strategy_diagnostics",
+      "title": "S1 / S2 under Topstep mechanics — the daily flat rule cuts S1 by about a quarter and S2 by half; small size rarely fails but needs two to three months",
+      "title_zh": "S1／S2 在 Topstep 規則下：每日強制平倉讓 S1 少約四分之一、S2 少一半；小手數很少失敗但要兩到三個月",
+      "summary_zh": "每日平倉讓 S1 每筆從 +0.22R 降到 +0.16R、S2 從 +0.28R 降到 +0.14R；1 口 MGC 時 60 天內通過 33%、失敗 12%，2 口時失敗和通過一樣多。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261014-002/",
+      "claims": [
+        "K-ACCT-011"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261018-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 2,
+      "theme": "seasonality",
+      "title": "The January–September range forecasts how far gold swings from October, not which way; a weekly-build, batch-exit 1OZ plan wins about as often as owning gold, with losses larger than wins",
+      "title_zh": "1–9 月振幅預測 10 月後波動多大、不預測方向；每週分批建倉、分批止盈的 1OZ 計畫勝率約等於單純持有，平均賠大於平均賺",
+      "summary_zh": "1–9 月振幅能預測 10–3 月的波動大小（ρ 0.57，46 年），不能預測方向。分批建倉計畫在 46 個週線週期勝率 54%，和單純持有黃金差不多，平均賠 8.5% 大於平均賺 5.5%；1980–1999 年勝率 25%，2000 年後 77%。",
+      "superseded_by": null,
+      "visibility": "locked",
+      "url": "research/locked/",
+      "claims": [
+        "K-ACC-003",
+        "K-ACC-004"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261018-002",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Neither letting winners run, a loss cap nor a 40-week trend filter resolvably improved the 1OZ plan on 46 weekly cycles; the cap halves the worst cycle but costs mean return",
+      "title_zh": "讓獲利奔跑、虧損上限、40 週均線過濾，都沒有明顯改善 1OZ 分批計畫；−10% 上限把最差一輪減半，但平均報酬變差",
+      "summary_zh": "46 個週線週期（1980–2025）中，沒有一種出場改法或趨勢過濾超過可分辨門檻。−10% 虧損上限把最差一輪從 −24% 壓到 −13%，但平均報酬變差；40 週均線過濾每輪約多 1 個百分點，在雜訊內，且跳過 9 個賺錢年份。",
+      "superseded_by": null,
+      "visibility": "locked",
+      "url": "research/locked/",
+      "claims": [
+        "K-ACC-005"
       ]
     }
   ],

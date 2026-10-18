@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261018-005",
+  "revision": 1,
+  "title": "Gold always with a 2x Taiwan 50 only from the US midterm to the election: 10.76% CAGR, −52% max drawdown over 1997–2026; buying the 2x at once beat staged or pullback entries in 5 of 7 windows",
+  "market": "TX",
+  "strategy": "gold always; 2x Taiwan 50 from the US midterm to the presidential election",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Holding gold throughout and switching the Taiwan half from 1x to 2x between the US midterm and the presidential election: what return and drawdown, and when should the 2x be bought?",
+  "hypothesis": "Leverage only in the historically strong midterm-to-election window keeps most of the 2x upside at a smaller drawdown than holding 2x all the time.",
+  "headline": {
+    "q0_cagr_pct": 8.93,
+    "q0_max_dd_pct": -64.64,
+    "q1_cagr_pct": 14.14,
+    "q1_max_dd_pct": -58.35,
+    "q2_plan_cagr_pct": 10.76,
+    "q2_plan_max_dd_pct": -51.67,
+    "q4_cagr_pct": 10.23,
+    "q4_max_dd_pct": -35.57,
+    "q2_beat_q4_windows": 3,
+    "windows": 7,
+    "e1_minus_e0_mean_pct_points": -2.29,
+    "e2_minus_e0_mean_pct_points": -2.68
+  },
+  "card_metrics": [
+    "q2_plan_cagr_pct",
+    "q2_plan_max_dd_pct",
+    "q4_max_dd_pct",
+    "q2_beat_q4_windows"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Between Taiwan 50 + gold and 2x + gold",
+      "detail": "Plan 10.76% CAGR, −51.67% max DD; 2x + gold always 14.14%, −58.35%; Taiwan 50 + gold without leverage 10.23%, −35.57%; Taiwan 50 proxy alone 8.93%, −64.64%.",
+      "title_zh": "介於 0050＋黃金與正二＋黃金之間",
+      "detail_zh": "此做法年化 10.76%、最大回檔 −51.67%；正二＋黃金一直持有 14.14%、−58.35%；0050＋黃金 10.23%、−35.57%；單抱台股 8.93%、−64.64%。"
+    },
+    {
+      "tone": "warn",
+      "title": "2x beat 1x inside the window in only 3 of 7 cycles",
+      "detail": "Against Taiwan 50 + gold, the 2x window gained in 2002, 2018 and 2022 and lost in 1998 (2000 crash), 2006 (2008 crash), 2010 and 2014. TAIEX itself rose in 4 of 7 windows.",
+      "title_zh": "窗口內正二只有 3/7 輪勝過 1 倍",
+      "detail_zh": "與 0050＋黃金相比，2002、2018、2022 勝，1998（2000 崩盤）、2006（2008 崩盤）、2010、2014 輸。加權本身在 7 個窗口中漲了 4 個。"
+    },
+    {
+      "tone": "info",
+      "title": "Buying at once beat staged or pullback entries",
+      "detail": "Six monthly steps: −2.29 points per window, beat in 2 of 7; waiting for a 10% pullback: −2.68, beat in 2 of 7. Neither difference is resolvable with 7 windows.",
+      "title_zh": "一次買進勝過分批或等回檔",
+      "detail_zh": "分 6 個月買：每個窗口 −2.29 個百分點，7 輪贏 2 輪；等回檔 10%：−2.68，7 輪贏 2 輪。7 個窗口無法分辨。"
+    },
+    {
+      "tone": "info",
+      "title": "Parking the Taiwan half in T-bills outside the window",
+      "detail": "8.32% CAGR, −48.80% max DD: less return than keeping 1x, slightly less drawdown.",
+      "title_zh": "窗口外改放公債",
+      "detail_zh": "年化 8.32%、最大回檔 −48.80%：報酬比窗口外抱 1 倍低，回檔略小。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "Gold always plus a 2x Taiwan 50 only from the US midterm to the election returned 10.76% a year with a −52% worst drawdown over 1997–2026, between Taiwan 50 + gold (10.23%, −36%) and 2x + gold always (14.14%, −58%); plain Taiwan 50 gave 8.93% at −65%. Buying the 2x at once beat staged or pullback entries in 5 of 7 windows.",
+  "title_zh": "黃金一直持有，正二只在期中選舉到大選之間持有：1997–2026 年化 10.76%、最大回檔 −52%；選後一次買進在 7 輪中有 5 輪勝過分批或等回檔",
+  "question_zh": "一半資金一直持有黃金，另一半在期中選舉到大選之間買正二、其他時間抱 0050，報酬和回檔如何？正二該什麼時候買？",
+  "hypothesis_zh": "只在歷史上較強的期中選舉到大選期間用槓桿，可以保留大部分正二的報酬，回檔比一直持有正二小。",
+  "card_summary_zh": "黃金一直持有、正二只在期中選舉到大選之間持有：1997–2026 年化 10.76%、最大回檔 −52%，介於 0050＋黃金（10.23%、−36%）與正二＋黃金一直持有（14.14%、−58%）之間；單抱台股 8.93%、−65%。選後一次買進正二，在 7 輪中有 5 輪勝過分 6 個月買或等回檔 10% 再買。",
+  "limitations_zh": [
+    "只有 7 個完整窗口，無法分辨進場規則。",
+    "資料與代理同 RS-TX-20261018-004（加權 + 3.0% 比 0050 每年少 3.6 個百分點）。",
+    "黃金為台幣計價的 XAUUSD 現貨，未計 1OZ 期貨轉倉成本；紐約收盤延後一個台股交易日對齊。",
+    "2026–2028 的窗口還沒發生。"
+  ],
+  "interpretation_zh": "黃金一直持有、正二只在期中選舉到大選之間持有，報酬和回檔都介於 0050＋黃金與正二＋黃金一直持有之間。這個窗口對台股並不穩定：7 輪中只有 3 輪用正二比 1 倍好，1998 和 2006 兩輪剛好碰上崩盤。進場時間上，選後一次買進在 7 輪中有 5 輪勝過分批或等回檔，但樣本太少無法分辨。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "q2_plan_cagr_pct",
+        "q2_plan_max_dd_pct",
+        "q4_max_dd_pct",
+        "q2_beat_q4_windows"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

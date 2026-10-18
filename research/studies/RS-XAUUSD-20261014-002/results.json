@@ -1,0 +1,665 @@
+{
+  "price_range": [
+    "2024-01-02T07:00:00",
+    "2026-10-10T04:30:00"
+  ],
+  "assumed_rules": {
+    "flat_chicago": "15:10",
+    "reopen_chicago": "17:00",
+    "target": 3000.0,
+    "mll_trailing_eod": 2000.0,
+    "consistency_best_day": 1500.0,
+    "mgc_oz": 10
+  },
+  "flat_rule_exposure": {
+    "S1": {
+      "n": 503,
+      "closed_window_pct": 1.6,
+      "truncated_by_flat_pct": 50.7
+    },
+    "S2": {
+      "n": 177,
+      "closed_window_pct": 0.6,
+      "truncated_by_flat_pct": 78.0
+    }
+  },
+  "per_trade": {
+    "base": {
+      "S1": {
+        "two_lots": {
+          "n": 503,
+          "win_rate": 47.5,
+          "mean_r": 0.217,
+          "sum_r": 109.3,
+          "profit_factor": 1.53
+        },
+        "lot_a_only": {
+          "n": 503,
+          "win_rate": 56.1,
+          "mean_r": 0.12,
+          "sum_r": 60.5,
+          "profit_factor": 1.29
+        }
+      },
+      "S2": {
+        "two_lots": {
+          "n": 177,
+          "win_rate": 57.6,
+          "mean_r": 0.279,
+          "sum_r": 49.4,
+          "profit_factor": 1.84
+        },
+        "lot_a_only": {
+          "n": 177,
+          "win_rate": 57.6,
+          "mean_r": 0.273,
+          "sum_r": 48.4,
+          "profit_factor": 1.82
+        }
+      }
+    },
+    "flat": {
+      "S1": {
+        "two_lots": {
+          "n": 495,
+          "win_rate": 50.7,
+          "mean_r": 0.159,
+          "sum_r": 78.5,
+          "profit_factor": 1.47
+        },
+        "lot_a_only": {
+          "n": 495,
+          "win_rate": 55.2,
+          "mean_r": 0.097,
+          "sum_r": 48.0,
+          "profit_factor": 1.28
+        }
+      },
+      "S2": {
+        "two_lots": {
+          "n": 176,
+          "win_rate": 54.0,
+          "mean_r": 0.141,
+          "sum_r": 24.8,
+          "profit_factor": 1.53
+        },
+        "lot_a_only": {
+          "n": 176,
+          "win_rate": 54.0,
+          "mean_r": 0.129,
+          "sum_r": 22.7,
+          "profit_factor": 1.49
+        }
+      }
+    },
+    "flat_cutoff_2": {
+      "S1": {
+        "two_lots": {
+          "n": 454,
+          "win_rate": 51.5,
+          "mean_r": 0.168,
+          "sum_r": 76.3,
+          "profit_factor": 1.46
+        },
+        "lot_a_only": {
+          "n": 454,
+          "win_rate": 56.4,
+          "mean_r": 0.101,
+          "sum_r": 45.6,
+          "profit_factor": 1.28
+        }
+      },
+      "S2": {
+        "two_lots": {
+          "n": 164,
+          "win_rate": 54.9,
+          "mean_r": 0.155,
+          "sum_r": 25.4,
+          "profit_factor": 1.56
+        },
+        "lot_a_only": {
+          "n": 164,
+          "win_rate": 54.9,
+          "mean_r": 0.143,
+          "sum_r": 23.4,
+          "profit_factor": 1.52
+        }
+      }
+    },
+    "flat_cutoff_4": {
+      "S1": {
+        "two_lots": {
+          "n": 416,
+          "win_rate": 51.2,
+          "mean_r": 0.169,
+          "sum_r": 70.5,
+          "profit_factor": 1.44
+        },
+        "lot_a_only": {
+          "n": 416,
+          "win_rate": 56.5,
+          "mean_r": 0.104,
+          "sum_r": 43.2,
+          "profit_factor": 1.27
+        }
+      },
+      "S2": {
+        "two_lots": {
+          "n": 151,
+          "win_rate": 53.6,
+          "mean_r": 0.148,
+          "sum_r": 22.3,
+          "profit_factor": 1.5
+        },
+        "lot_a_only": {
+          "n": 151,
+          "win_rate": 53.6,
+          "mean_r": 0.134,
+          "sum_r": 20.3,
+          "profit_factor": 1.45
+        }
+      }
+    },
+    "flat_cutoff_8": {
+      "S1": {
+        "two_lots": {
+          "n": 286,
+          "win_rate": 50.3,
+          "mean_r": 0.207,
+          "sum_r": 59.2,
+          "profit_factor": 1.51
+        },
+        "lot_a_only": {
+          "n": 286,
+          "win_rate": 57.3,
+          "mean_r": 0.125,
+          "sum_r": 35.8,
+          "profit_factor": 1.31
+        }
+      },
+      "S2": {
+        "two_lots": {
+          "n": 111,
+          "win_rate": 53.2,
+          "mean_r": 0.157,
+          "sum_r": 17.4,
+          "profit_factor": 1.47
+        },
+        "lot_a_only": {
+          "n": 111,
+          "win_rate": 53.2,
+          "mean_r": 0.144,
+          "sum_r": 16.0,
+          "profit_factor": 1.43
+        }
+      }
+    },
+    "s1_only_flat": {
+      "S1": {
+        "two_lots": {
+          "n": 495,
+          "win_rate": 50.7,
+          "mean_r": 0.159,
+          "sum_r": 78.5,
+          "profit_factor": 1.47
+        },
+        "lot_a_only": {
+          "n": 495,
+          "win_rate": 55.2,
+          "mean_r": 0.097,
+          "sum_r": 48.0,
+          "profit_factor": 1.28
+        }
+      }
+    }
+  },
+  "accounts": {
+    "base__s1_1mgc": {
+      "trades": 529,
+      "median_risk_usd": 335.0,
+      "total_pnl_usd": 34600.0,
+      "combine_30d": {
+        "starts": 513,
+        "pass": 18.1,
+        "fail": 16.2,
+        "unfinished": 65.7,
+        "median_days_to_pass": 17.0,
+        "passes_with_best_day_over_1500_pct": 28.0
+      },
+      "combine_60d": {
+        "starts": 495,
+        "pass": 43.0,
+        "fail": 15.6,
+        "unfinished": 41.4,
+        "median_days_to_pass": 34.0,
+        "passes_with_best_day_over_1500_pct": 19.2
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 43,
+        "pass": 25.6,
+        "fail": 58.1,
+        "unfinished": 16.3,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 25,
+        "pass": 68.0,
+        "fail": 32.0,
+        "unfinished": 0.0,
+        "median_days_to_pass": 25.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "base__s1_2mgc": {
+      "trades": 529,
+      "median_risk_usd": 551.0,
+      "total_pnl_usd": 59467.0,
+      "combine_30d": {
+        "starts": 513,
+        "pass": 36.1,
+        "fail": 38.0,
+        "unfinished": 25.9,
+        "median_days_to_pass": 12.0,
+        "passes_with_best_day_over_1500_pct": 56.2
+      },
+      "combine_60d": {
+        "starts": 495,
+        "pass": 53.1,
+        "fail": 41.0,
+        "unfinished": 5.9,
+        "median_days_to_pass": 18.0,
+        "passes_with_best_day_over_1500_pct": 41.1
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 43,
+        "pass": 34.9,
+        "fail": 65.1,
+        "unfinished": 0.0,
+        "median_days_to_pass": 8.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 25,
+        "pass": 60.0,
+        "fail": 40.0,
+        "unfinished": 0.0,
+        "median_days_to_pass": 8.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    },
+    "flat__s1_1mgc": {
+      "trades": 575,
+      "median_risk_usd": 336.0,
+      "total_pnl_usd": 24974.0,
+      "combine_30d": {
+        "starts": 559,
+        "pass": 12.0,
+        "fail": 11.4,
+        "unfinished": 76.6,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 22.4
+      },
+      "combine_60d": {
+        "starts": 539,
+        "pass": 32.7,
+        "fail": 11.9,
+        "unfinished": 55.5,
+        "median_days_to_pass": 35.5,
+        "passes_with_best_day_over_1500_pct": 18.8
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 50,
+        "pass": 24.0,
+        "fail": 34.0,
+        "unfinished": 42.0,
+        "median_days_to_pass": 26.5,
+        "passes_with_best_day_over_1500_pct": 0.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 30,
+        "pass": 50.0,
+        "fail": 50.0,
+        "unfinished": 0.0,
+        "median_days_to_pass": 28.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "flat__s1_2mgc": {
+      "trades": 575,
+      "median_risk_usd": 552.0,
+      "total_pnl_usd": 43503.0,
+      "combine_30d": {
+        "starts": 559,
+        "pass": 27.9,
+        "fail": 37.4,
+        "unfinished": 34.7,
+        "median_days_to_pass": 14.0,
+        "passes_with_best_day_over_1500_pct": 57.1
+      },
+      "combine_60d": {
+        "starts": 539,
+        "pass": 39.0,
+        "fail": 43.0,
+        "unfinished": 18.0,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 44.3
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 50,
+        "pass": 24.0,
+        "fail": 62.0,
+        "unfinished": 14.0,
+        "median_days_to_pass": 19.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 30,
+        "pass": 50.0,
+        "fail": 50.0,
+        "unfinished": 0.0,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    },
+    "flat_cutoff_2__s1_1mgc": {
+      "trades": 531,
+      "median_risk_usd": 337.0,
+      "total_pnl_usd": 25473.0,
+      "combine_30d": {
+        "starts": 515,
+        "pass": 12.2,
+        "fail": 11.7,
+        "unfinished": 76.1,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 20.6
+      },
+      "combine_60d": {
+        "starts": 496,
+        "pass": 32.3,
+        "fail": 11.3,
+        "unfinished": 56.5,
+        "median_days_to_pass": 35.0,
+        "passes_with_best_day_over_1500_pct": 16.9
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 45,
+        "pass": 28.9,
+        "fail": 35.6,
+        "unfinished": 35.6,
+        "median_days_to_pass": 26.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 26,
+        "pass": 61.5,
+        "fail": 38.5,
+        "unfinished": 0.0,
+        "median_days_to_pass": 27.5,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "flat_cutoff_2__s1_2mgc": {
+      "trades": 531,
+      "median_risk_usd": 553.0,
+      "total_pnl_usd": 44548.0,
+      "combine_30d": {
+        "starts": 515,
+        "pass": 28.5,
+        "fail": 36.1,
+        "unfinished": 35.3,
+        "median_days_to_pass": 15.0,
+        "passes_with_best_day_over_1500_pct": 59.9
+      },
+      "combine_60d": {
+        "starts": 496,
+        "pass": 40.5,
+        "fail": 41.5,
+        "unfinished": 17.9,
+        "median_days_to_pass": 21.0,
+        "passes_with_best_day_over_1500_pct": 46.3
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 45,
+        "pass": 24.4,
+        "fail": 62.2,
+        "unfinished": 13.3,
+        "median_days_to_pass": 19.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 26,
+        "pass": 53.8,
+        "fail": 46.2,
+        "unfinished": 0.0,
+        "median_days_to_pass": 20.5,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    },
+    "flat_cutoff_4__s1_1mgc": {
+      "trades": 495,
+      "median_risk_usd": 337.0,
+      "total_pnl_usd": 23972.0,
+      "combine_30d": {
+        "starts": 480,
+        "pass": 10.4,
+        "fail": 11.5,
+        "unfinished": 78.1,
+        "median_days_to_pass": 18.0,
+        "passes_with_best_day_over_1500_pct": 22.0
+      },
+      "combine_60d": {
+        "starts": 461,
+        "pass": 29.1,
+        "fail": 11.1,
+        "unfinished": 59.9,
+        "median_days_to_pass": 36.5,
+        "passes_with_best_day_over_1500_pct": 8.2
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 43,
+        "pass": 25.6,
+        "fail": 37.2,
+        "unfinished": 37.2,
+        "median_days_to_pass": 26.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 24,
+        "pass": 58.3,
+        "fail": 41.7,
+        "unfinished": 0.0,
+        "median_days_to_pass": 27.5,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "flat_cutoff_4__s1_2mgc": {
+      "trades": 495,
+      "median_risk_usd": 552.0,
+      "total_pnl_usd": 42768.0,
+      "combine_30d": {
+        "starts": 480,
+        "pass": 25.4,
+        "fail": 37.7,
+        "unfinished": 36.9,
+        "median_days_to_pass": 14.0,
+        "passes_with_best_day_over_1500_pct": 58.2
+      },
+      "combine_60d": {
+        "starts": 461,
+        "pass": 39.3,
+        "fail": 42.5,
+        "unfinished": 18.2,
+        "median_days_to_pass": 22.0,
+        "passes_with_best_day_over_1500_pct": 40.9
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 43,
+        "pass": 18.6,
+        "fail": 74.4,
+        "unfinished": 7.0,
+        "median_days_to_pass": 16.5,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 24,
+        "pass": 33.3,
+        "fail": 66.7,
+        "unfinished": 0.0,
+        "median_days_to_pass": 16.5,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    },
+    "flat_cutoff_8__s1_1mgc": {
+      "trades": 362,
+      "median_risk_usd": 338.0,
+      "total_pnl_usd": 21214.0,
+      "combine_30d": {
+        "starts": 351,
+        "pass": 9.4,
+        "fail": 10.0,
+        "unfinished": 80.6,
+        "median_days_to_pass": 20.0,
+        "passes_with_best_day_over_1500_pct": 9.1
+      },
+      "combine_60d": {
+        "starts": 337,
+        "pass": 28.2,
+        "fail": 8.9,
+        "unfinished": 62.9,
+        "median_days_to_pass": 38.0,
+        "passes_with_best_day_over_1500_pct": 3.2
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 33,
+        "pass": 30.3,
+        "fail": 39.4,
+        "unfinished": 30.3,
+        "median_days_to_pass": 24.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 19,
+        "pass": 68.4,
+        "fail": 31.6,
+        "unfinished": 0.0,
+        "median_days_to_pass": 26.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "flat_cutoff_8__s1_2mgc": {
+      "trades": 362,
+      "median_risk_usd": 550.0,
+      "total_pnl_usd": 38287.0,
+      "combine_30d": {
+        "starts": 351,
+        "pass": 22.5,
+        "fail": 33.3,
+        "unfinished": 44.2,
+        "median_days_to_pass": 14.0,
+        "passes_with_best_day_over_1500_pct": 68.4
+      },
+      "combine_60d": {
+        "starts": 337,
+        "pass": 38.6,
+        "fail": 36.5,
+        "unfinished": 24.9,
+        "median_days_to_pass": 23.5,
+        "passes_with_best_day_over_1500_pct": 46.9
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 33,
+        "pass": 30.3,
+        "fail": 69.7,
+        "unfinished": 0.0,
+        "median_days_to_pass": 15.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 19,
+        "pass": 52.6,
+        "fail": 47.4,
+        "unfinished": 0.0,
+        "median_days_to_pass": 15.0,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    },
+    "s1_only_flat__s1_1mgc": {
+      "trades": 482,
+      "median_risk_usd": 335.0,
+      "total_pnl_usd": 24328.0,
+      "combine_30d": {
+        "starts": 466,
+        "pass": 8.4,
+        "fail": 6.2,
+        "unfinished": 85.4,
+        "median_days_to_pass": 17.0,
+        "passes_with_best_day_over_1500_pct": 17.9
+      },
+      "combine_60d": {
+        "starts": 450,
+        "pass": 24.0,
+        "fail": 9.1,
+        "unfinished": 66.9,
+        "median_days_to_pass": 37.0,
+        "passes_with_best_day_over_1500_pct": 6.5
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 41,
+        "pass": 0.0,
+        "fail": 29.3,
+        "unfinished": 70.7,
+        "median_days_to_pass": null,
+        "passes_with_best_day_over_1500_pct": null
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 25,
+        "pass": 4.0,
+        "fail": 56.0,
+        "unfinished": 40.0,
+        "median_days_to_pass": 42.0,
+        "passes_with_best_day_over_1500_pct": 0.0
+      }
+    },
+    "s1_only_flat__s1_2mgc": {
+      "trades": 482,
+      "median_risk_usd": 669.0,
+      "total_pnl_usd": 48656.0,
+      "combine_30d": {
+        "starts": 466,
+        "pass": 29.6,
+        "fail": 30.0,
+        "unfinished": 40.3,
+        "median_days_to_pass": 14.0,
+        "passes_with_best_day_over_1500_pct": 58.0
+      },
+      "combine_60d": {
+        "starts": 450,
+        "pass": 44.4,
+        "fail": 33.8,
+        "unfinished": 21.8,
+        "median_days_to_pass": 21.0,
+        "passes_with_best_day_over_1500_pct": 46.5
+      },
+      "combine_30d_since_2026_07": {
+        "starts": 41,
+        "pass": 29.3,
+        "fail": 63.4,
+        "unfinished": 7.3,
+        "median_days_to_pass": 19.5,
+        "passes_with_best_day_over_1500_pct": 100.0
+      },
+      "combine_60d_since_2026_07": {
+        "starts": 25,
+        "pass": 48.0,
+        "fail": 52.0,
+        "unfinished": 0.0,
+        "median_days_to_pass": 19.5,
+        "passes_with_best_day_over_1500_pct": 100.0
+      }
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261014-002",
+  "generated_at": "2026-10-14T12:18:36+08:00"
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261018-004",
+  "revision": 1,
+  "title": "Through the 2000 and 2008 crashes the half-capital 2x barbells, rebalanced yearly, still fell 54–60% (Taiwan 50 proxy −65%); 50% Taiwan 50 + 50% gold kept it to −36%; no rebalancing rule beat annual in both halves",
+  "market": "TX",
+  "strategy": "six fixed Taiwan 50 / 2x / gold / T-bill portfolios x five rebalancing rules",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Over 1997–2026, including the 2000–2002 and 2008 crashes, do the half-capital 2x barbells keep a smaller worst drawdown than 100% Taiwan 50, and which rebalancing rule is best?",
+  "hypothesis": "The barbells' smaller drawdown in 2014–2026 survives a sample with two Taiwan crashes; more frequent rebalancing lowers drawdown further.",
+  "headline": {
+    "p0_cagr_pct": 8.93,
+    "p0_max_dd_pct": -64.64,
+    "p2_tbill_max_dd_pct": -54.46,
+    "p3_gold_cagr_pct": 14.14,
+    "p3_gold_max_dd_pct": -58.35,
+    "p4_max_dd_pct": -56.41,
+    "p5_0050_gold_cagr_pct": 10.23,
+    "p5_0050_gold_max_dd_pct": -35.57,
+    "p2_no_rebalance_max_dd_pct": -37.2,
+    "proxy_vs_0050_cagr_gap_2014_pct_points": -3.62
+  },
+  "card_metrics": [
+    "p0_max_dd_pct",
+    "p3_gold_max_dd_pct",
+    "p5_0050_gold_max_dd_pct",
+    "p3_gold_cagr_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "A 2008-type crash takes the yearly-rebalanced barbells to −54% to −60%",
+      "detail": "Annual rebalance, 1997–2026: Taiwan 50 proxy −64.64% (2000–2001); 2x + T-bills −54.46%, 2x + gold −58.35%, 2x + gold + T-bills −56.41%. Smaller than the proxy's, so they 'hold up' by the fixed reading, but about twice the −26–27% seen in 2014–2026.",
+      "title_zh": "2008 等級崩盤時，每年調回的正二組合跌 54–60%",
+      "detail_zh": "每年調回，1997–2026：台股代理 −64.64%（2000–2001）；正二＋公債 −54.46%、正二＋黃金 −58.35%、正二＋黃金＋公債 −56.41%。比台股小，但約是 2014–2026 年 −26–27% 的兩倍。"
+    },
+    {
+      "tone": "good",
+      "title": "50% Taiwan 50 + 50% gold without leverage: −36%",
+      "detail": "Annual rebalance: max drawdown −35.57% at 10.23% CAGR against the proxy's −64.64% at 8.93%; in the GFC −34.50% against −56.97%.",
+      "title_zh": "不用槓桿的 0050＋黃金各半：−36%",
+      "detail_zh": "每年調回：最大回檔 −35.57%、年化 10.23%，台股代理 −64.64%、8.93%；金融海嘯期間 −34.50% 對 −56.97%。"
+    },
+    {
+      "tone": "info",
+      "title": "2x + gold has the highest return of the annual-rebalance portfolios",
+      "detail": "14.14% CAGR against 8.93% for the proxy (band10 rebalancing: 14.44%); its crash drawdown is close to the proxy's.",
+      "title_zh": "每年調回的組合中，正二＋黃金報酬最高",
+      "detail_zh": "年化 14.14%，台股代理 8.93%（偏離 ±10% 才調為 14.44%）；崩盤回檔接近台股。"
+    },
+    {
+      "tone": "info",
+      "title": "No rebalancing rule beat annual in both halves",
+      "detail": "Quarterly and band rules buy more 2x as it falls and deepen crash drawdowns. Never rebalancing gave 2x + T-bills −37.20% over the full period (−33.38% in 1997–2013) but −37.20% in 2014–2026 against −26.14% annual. The halves are slices of one path, so 'none' in 2014–2026 carries 16 years of drift.",
+      "title_zh": "沒有一種調回規則在兩段期間都勝過每年一次",
+      "detail_zh": "每季或偏離就調，會在下跌途中一直加碼正二，加深崩盤回檔。完全不調：正二＋公債整段 −37.20%（1997–2013 −33.38%），但 2014–2026 −37.20% 對每年調回 −26.14%。兩段是同一條路徑的切片。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "Over 1997–2026 with the 2000 and 2008 crashes, half-capital 2x barbells rebalanced yearly still fell 54–60% (Taiwan 50 proxy −65%). 50% Taiwan 50 + 50% gold without leverage held it to −36%. No rebalancing rule beat annual in both halves.",
+  "title_zh": "經過 2000 與 2008 崩盤，每年調回的半數正二組合仍跌 54–60%（台股 −65%）；0050＋黃金各半只跌 36%；沒有一種調回規則在兩段期間都勝過每年一次",
+  "question_zh": "把期間拉到 1997–2026、包含 2000–2002 與 2008 崩盤，半數正二組合的最大回檔還會比全部持有台股小嗎？哪一種調回規則最好？",
+  "hypothesis_zh": "2014–2026 的降回檔效果在含崩盤的樣本中仍成立；調回越頻繁回檔越小。",
+  "card_summary_zh": "1997–2026 含 2000 與 2008 崩盤：每年調回的半數正二組合仍跌 54–60%（台股代理 −65%）。不用槓桿的 0050＋黃金各半只跌 36%。每季、偏離 ±5% 或 ±10% 才調、不調，都沒有在兩段期間同時勝過每年一次。",
+  "limitations_zh": [
+    "台股代理 = 加權 + 年 3.0%；2014–2026 年每年比真實 0050 少 3.6 個百分點，絕對報酬偏低。",
+    "合成正二 = 2 × 代理 − 年 2.0%（敏感度 4.0%）；2014 年前沒有真實正二。",
+    "2008 年 3 月前黃金為週收盤，低估日波動；紐約收盤延後一個台股交易日對齊。",
+    "單一 29 年路徑；兩次台股崩盤。",
+    "未計交易成本以外的稅。"
+  ],
+  "interpretation_zh": "把期間拉到 1997–2026 年，包含 2000 和 2008 兩次崩盤後，每年調回的正二組合最大回檔仍有 −54% 到 −60%，只比單抱台股的 −65% 好一些；平時看到的 −26% 不代表崩盤時的風險。不用槓桿的 0050＋黃金各半，29 年最大回檔約 −36%。調回頻率方面，每年一次就夠，調得越頻繁越會在下跌途中加碼正二。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "p0_max_dd_pct",
+        "p3_gold_max_dd_pct",
+        "p5_0050_gold_max_dd_pct",
+        "p3_gold_cagr_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

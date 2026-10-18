@@ -64,7 +64,15 @@
     "/research/studies/RS-XAUUSD-20260901-007/",
     "/research/studies/RS-MULTI-20260901-001/",
     "/research/studies/RS-XAUUSD-20261009-001/",
-    "/research/studies/RS-XAUUSD-20261009-005/"
+    "/research/studies/RS-XAUUSD-20261009-005/",
+    "/research/studies/RS-XAUUSD-20261014-001/",
+    "/research/studies/RS-XAUUSD-20261014-002/",
+    "/research/studies/RS-MULTI-20261018-001/",
+    "/research/studies/RS-TX-20261018-001/",
+    "/research/studies/RS-TX-20261018-002/",
+    "/research/studies/RS-TX-20261018-003/",
+    "/research/studies/RS-TX-20261018-004/",
+    "/research/studies/RS-TX-20261018-005/"
   ],
   "weekly_editions": [
     "2026-W43",
@@ -123,7 +131,15 @@
     "RS-XAUUSD-20260901-007",
     "RS-MULTI-20260901-001",
     "RS-XAUUSD-20261009-001",
-    "RS-XAUUSD-20261009-005"
+    "RS-XAUUSD-20261009-005",
+    "RS-XAUUSD-20261014-001",
+    "RS-XAUUSD-20261014-002",
+    "RS-MULTI-20261018-001",
+    "RS-TX-20261018-001",
+    "RS-TX-20261018-002",
+    "RS-TX-20261018-003",
+    "RS-TX-20261018-004",
+    "RS-TX-20261018-005"
   ],
   "evidence_only_studies": [
     "RS-XAUUSD-20260727-002"

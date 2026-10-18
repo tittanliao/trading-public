@@ -1,0 +1,369 @@
+{
+  "synthetic_2014": {
+    "period": [
+      "2014-01-03",
+      "2026-10-16"
+    ],
+    "two_x": "synthetic",
+    "correlation_daily": {
+      "etf_gold": 0.106,
+      "etf_tbill": -0.002
+    },
+    "annual_rebalance": {
+      "P0": {
+        "cagr_pct": 21.38,
+        "volatility_pct": 19.38,
+        "max_drawdown_pct": -33.83,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 499,
+        "worst_year_pct": -21.22,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.632,
+        "final_multiple": 11.897
+      },
+      "P1": {
+        "cagr_pct": 21.81,
+        "volatility_pct": 20.96,
+        "max_drawdown_pct": -30.45,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 499,
+        "worst_year_pct": -21.0,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.716,
+        "final_multiple": 12.457
+      },
+      "P2": {
+        "cagr_pct": 23.47,
+        "volatility_pct": 21.56,
+        "max_drawdown_pct": -26.28,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2024-08-05",
+        "longest_under_water_days": 336,
+        "worst_year_pct": -14.1,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.893,
+        "final_multiple": 14.809
+      },
+      "P3": {
+        "cagr_pct": 27.2,
+        "volatility_pct": 23.36,
+        "max_drawdown_pct": -27.49,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 339,
+        "worst_year_pct": -14.86,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.989,
+        "final_multiple": 21.654
+      },
+      "P4": {
+        "cagr_pct": 25.4,
+        "volatility_pct": 22.14,
+        "max_drawdown_pct": -25.91,
+        "max_drawdown_peak": "2020-01-14",
+        "max_drawdown_trough": "2020-03-19",
+        "longest_under_water_days": 335,
+        "worst_year_pct": -14.48,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.98,
+        "final_multiple": 18.053
+      },
+      "P5": {
+        "cagr_pct": 16.73,
+        "volatility_pct": 14.78,
+        "max_drawdown_pct": -17.4,
+        "max_drawdown_peak": "2020-02-25",
+        "max_drawdown_trough": "2020-03-19",
+        "longest_under_water_days": 344,
+        "worst_year_pct": -7.28,
+        "worst_year": 2015,
+        "cagr_over_max_dd": 0.961,
+        "final_multiple": 7.223
+      }
+    },
+    "no_rebalance": {
+      "P0": {
+        "cagr_pct": 21.38,
+        "volatility_pct": 19.38,
+        "max_drawdown_pct": -33.83,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 499,
+        "worst_year_pct": -21.22,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.632,
+        "final_multiple": 11.897
+      },
+      "P1": {
+        "cagr_pct": 32.0,
+        "volatility_pct": 32.33,
+        "max_drawdown_pct": -52.43,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 510,
+        "worst_year_pct": -37.33,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.61,
+        "final_multiple": 34.786
+      },
+      "P2": {
+        "cagr_pct": 32.17,
+        "volatility_pct": 32.23,
+        "max_drawdown_pct": -50.71,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 505,
+        "worst_year_pct": -35.92,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.634,
+        "final_multiple": 35.361
+      },
+      "P3": {
+        "cagr_pct": 32.44,
+        "volatility_pct": 31.17,
+        "max_drawdown_pct": -49.58,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 504,
+        "worst_year_pct": -34.01,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.654,
+        "final_multiple": 36.271
+      },
+      "P4": {
+        "cagr_pct": 32.3,
+        "volatility_pct": 31.59,
+        "max_drawdown_pct": -50.13,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 505,
+        "worst_year_pct": -34.95,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.644,
+        "final_multiple": 35.818
+      },
+      "P5": {
+        "cagr_pct": 17.44,
+        "volatility_pct": 15.46,
+        "max_drawdown_pct": -22.61,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 356,
+        "worst_year_pct": -11.52,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.772,
+        "final_multiple": 7.81
+      }
+    },
+    "lower_drawdown_than_P0": [
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ]
+  },
+  "real_00631L_2016": {
+    "period": [
+      "2016-01-05",
+      "2026-10-16"
+    ],
+    "two_x": "real 00631L",
+    "correlation_daily": {
+      "etf_gold": 0.132,
+      "etf_tbill": 0.001
+    },
+    "annual_rebalance": {
+      "P0": {
+        "cagr_pct": 24.07,
+        "volatility_pct": 20.04,
+        "max_drawdown_pct": -33.83,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 499,
+        "worst_year_pct": -21.22,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.712,
+        "final_multiple": 10.224
+      },
+      "P1": {
+        "cagr_pct": 23.2,
+        "volatility_pct": 20.68,
+        "max_drawdown_pct": -31.03,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 336,
+        "worst_year_pct": -18.24,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.748,
+        "final_multiple": 9.48
+      },
+      "P2": {
+        "cagr_pct": 24.73,
+        "volatility_pct": 20.87,
+        "max_drawdown_pct": -29.14,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 318,
+        "worst_year_pct": -11.34,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.849,
+        "final_multiple": 10.83
+      },
+      "P3": {
+        "cagr_pct": 30.31,
+        "volatility_pct": 22.98,
+        "max_drawdown_pct": -28.1,
+        "max_drawdown_peak": "2020-01-14",
+        "max_drawdown_trough": "2020-03-19",
+        "longest_under_water_days": 287,
+        "worst_year_pct": -12.1,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 1.078,
+        "final_multiple": 17.345
+      },
+      "P4": {
+        "cagr_pct": 27.59,
+        "volatility_pct": 21.58,
+        "max_drawdown_pct": -27.19,
+        "max_drawdown_peak": "2020-01-14",
+        "max_drawdown_trough": "2020-03-19",
+        "longest_under_water_days": 293,
+        "worst_year_pct": -11.72,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 1.015,
+        "final_multiple": 13.822
+      },
+      "P5": {
+        "cagr_pct": 19.44,
+        "volatility_pct": 14.69,
+        "max_drawdown_pct": -17.4,
+        "max_drawdown_peak": "2020-02-25",
+        "max_drawdown_trough": "2020-03-19",
+        "longest_under_water_days": 285,
+        "worst_year_pct": -4.48,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 1.117,
+        "final_multiple": 6.786
+      }
+    },
+    "no_rebalance": {
+      "P0": {
+        "cagr_pct": 24.07,
+        "volatility_pct": 20.04,
+        "max_drawdown_pct": -33.83,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 499,
+        "worst_year_pct": -21.22,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.712,
+        "final_multiple": 10.224
+      },
+      "P1": {
+        "cagr_pct": 34.52,
+        "volatility_pct": 32.93,
+        "max_drawdown_pct": -51.97,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 491,
+        "worst_year_pct": -32.6,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.664,
+        "final_multiple": 24.45
+      },
+      "P2": {
+        "cagr_pct": 34.6,
+        "volatility_pct": 32.92,
+        "max_drawdown_pct": -51.1,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 470,
+        "worst_year_pct": -31.58,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.677,
+        "final_multiple": 24.598
+      },
+      "P3": {
+        "cagr_pct": 35.18,
+        "volatility_pct": 31.06,
+        "max_drawdown_pct": -45.09,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 462,
+        "worst_year_pct": -29.29,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.78,
+        "final_multiple": 25.76
+      },
+      "P4": {
+        "cagr_pct": 34.89,
+        "volatility_pct": 31.85,
+        "max_drawdown_pct": -48.0,
+        "max_drawdown_peak": "2024-07-11",
+        "max_drawdown_trough": "2025-04-09",
+        "longest_under_water_days": 462,
+        "worst_year_pct": -30.4,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.727,
+        "final_multiple": 25.181
+      },
+      "P5": {
+        "cagr_pct": 19.82,
+        "volatility_pct": 15.29,
+        "max_drawdown_pct": -20.91,
+        "max_drawdown_peak": "2022-01-17",
+        "max_drawdown_trough": "2022-10-25",
+        "longest_under_water_days": 336,
+        "worst_year_pct": -10.07,
+        "worst_year": 2022,
+        "cagr_over_max_dd": 0.948,
+        "final_multiple": 7.02
+      }
+    },
+    "lower_drawdown_than_P0": [
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ]
+  },
+  "lower_drawdown_on_both": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5"
+  ],
+  "schema_version": 1,
+  "study_id": "RS-TX-20261018-003",
+  "generated_at": "2026-10-18T22:32:16+08:00",
+  "method": {
+    "design": "research/studies/RS-TX-20261018-003/decision_log.md",
+    "currency": "TWD",
+    "synthetic_2x": "2 x 0050 daily return - 2.0%/252",
+    "tbill": "^IRX/100 x days/360, times USD/TWD",
+    "gold": "XAUUSD daily x USD/TWD",
+    "rebalance_cost": 0.0025,
+    "labels": {
+      "P0": "100% 0050",
+      "P1": "50% 2x + 50% cash",
+      "P2": "50% 2x + 50% T-bills",
+      "P3": "50% 2x + 50% gold",
+      "P4": "50% 2x + 25% gold + 25% T-bills",
+      "P5": "50% 0050 + 50% gold"
+    },
+    "fx_filter": "USD/TWD outside 25-40 dropped and forward-filled"
+  },
+  "charts": [
+    {
+      "id": "barbell",
+      "file": "barbell.png",
+      "section": "seasonality",
+      "title": "0050 against half-capital 2x barbells"
+    }
+  ]
+}

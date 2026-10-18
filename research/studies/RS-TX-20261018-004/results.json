@@ -1,0 +1,1435 @@
+{
+  "correlation_daily": {
+    "etf_gold": 0.045,
+    "etf_tbill": -0.035
+  },
+  "calibration": {
+    "0050_2014_cagr_pct": 21.26,
+    "proxy_2014_cagr_pct": 17.64,
+    "00631L_2016_cagr_pct": 43.07,
+    "proxy_2x_2016_cagr_pct": 39.49,
+    "daily_corr_proxy_vs_0050": 0.951
+  },
+  "results": {
+    "period": [
+      "1997-07-03",
+      "2026-10-16"
+    ],
+    "by_rule": {
+      "none": {
+        "P0": {
+          "cagr_pct": 8.93,
+          "max_drawdown_pct": -64.64,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-04",
+          "worst_year_pct": -44.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 12.26,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.64,
+            "gfc_2007_2009": -56.97,
+            "covid_2020": -28.39,
+            "rates_2022": -30.09
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.68,
+              "max_drawdown_pct": -64.64,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-04",
+              "worst_year_pct": -44.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.042,
+              "final_multiple": 1.55
+            },
+            "2014_2026": {
+              "cagr_pct": 17.57,
+              "max_drawdown_pct": -30.09,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.584,
+              "final_multiple": 7.92
+            }
+          }
+        },
+        "P1": {
+          "cagr_pct": 8.72,
+          "max_drawdown_pct": -50.59,
+          "max_drawdown_peak": "1997-08-26",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2018-06-07",
+          "worst_year_pct": -32.06,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.172,
+          "final_multiple": 11.57,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -50.59,
+            "gfc_2007_2009": -49.25,
+            "covid_2020": -30.15,
+            "rates_2022": -41.71
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": -1.11,
+              "max_drawdown_pct": -50.59,
+              "max_drawdown_peak": "1997-08-26",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": null,
+              "worst_year_pct": -32.06,
+              "worst_year": 2000,
+              "cagr_over_max_dd": -0.022,
+              "final_multiple": 0.83
+            },
+            "2014_2026": {
+              "cagr_pct": 22.85,
+              "max_drawdown_pct": -43.77,
+              "max_drawdown_peak": "2024-07-11",
+              "max_drawdown_trough": "2025-04-09",
+              "recovered_on": "2025-09-09",
+              "worst_year_pct": -30.86,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.522,
+              "final_multiple": 13.9
+            }
+          }
+        },
+        "P2": {
+          "cagr_pct": 8.9,
+          "max_drawdown_pct": -37.2,
+          "max_drawdown_peak": "2024-07-11",
+          "max_drawdown_trough": "2025-04-09",
+          "recovered_on": "2025-09-10",
+          "worst_year_pct": -23.13,
+          "worst_year": 2022,
+          "cagr_over_max_dd": 0.239,
+          "final_multiple": 12.16,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -33.38,
+            "gfc_2007_2009": -26.92,
+            "covid_2020": -23.47,
+            "rates_2022": -31.7
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 0.68,
+              "max_drawdown_pct": -33.38,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2000-11-20",
+              "recovered_on": "2007-06-20",
+              "worst_year_pct": -20.75,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.02,
+              "final_multiple": 1.12
+            },
+            "2014_2026": {
+              "cagr_pct": 20.45,
+              "max_drawdown_pct": -37.2,
+              "max_drawdown_peak": "2024-07-11",
+              "max_drawdown_trough": "2025-04-09",
+              "recovered_on": "2025-09-10",
+              "worst_year_pct": -23.13,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.55,
+              "final_multiple": 10.8
+            }
+          }
+        },
+        "P3": {
+          "cagr_pct": 10.42,
+          "max_drawdown_pct": -49.14,
+          "max_drawdown_peak": "1997-08-26",
+          "max_drawdown_trough": "2001-09-14",
+          "recovered_on": "2006-01-09",
+          "worst_year_pct": -32.47,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.212,
+          "final_multiple": 18.21,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -49.14,
+            "gfc_2007_2009": -31.58,
+            "covid_2020": -18.12,
+            "rates_2022": -20.94
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 4.96,
+              "max_drawdown_pct": -49.14,
+              "max_drawdown_peak": "1997-08-26",
+              "max_drawdown_trough": "2001-09-14",
+              "recovered_on": "2006-01-09",
+              "worst_year_pct": -32.47,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.101,
+              "final_multiple": 2.22
+            },
+            "2014_2026": {
+              "cagr_pct": 17.75,
+              "max_drawdown_pct": -20.94,
+              "max_drawdown_peak": "2022-04-14",
+              "max_drawdown_trough": "2022-10-21",
+              "recovered_on": "2023-04-14",
+              "worst_year_pct": -9.99,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.848,
+              "final_multiple": 8.08
+            }
+          }
+        },
+        "P4": {
+          "cagr_pct": 9.73,
+          "max_drawdown_pct": -39.97,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2000-11-20",
+          "recovered_on": "2006-04-24",
+          "worst_year_pct": -26.15,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.244,
+          "final_multiple": 15.19,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -39.97,
+            "gfc_2007_2009": -26.19,
+            "covid_2020": -18.77,
+            "rates_2022": -23.29
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 3.16,
+              "max_drawdown_pct": -39.97,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2000-11-20",
+              "recovered_on": "2006-04-24",
+              "worst_year_pct": -26.15,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.079,
+              "final_multiple": 1.67
+            },
+            "2014_2026": {
+              "cagr_pct": 18.74,
+              "max_drawdown_pct": -23.29,
+              "max_drawdown_peak": "2022-02-21",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-06-07",
+              "worst_year_pct": -13.61,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.805,
+              "final_multiple": 8.99
+            }
+          }
+        },
+        "P5": {
+          "cagr_pct": 9.24,
+          "max_drawdown_pct": -33.93,
+          "max_drawdown_peak": "2000-02-11",
+          "max_drawdown_trough": "2001-09-14",
+          "recovered_on": "2003-12-02",
+          "worst_year_pct": -21.43,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.272,
+          "final_multiple": 13.3,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -33.93,
+            "gfc_2007_2009": -29.58,
+            "covid_2020": -15.67,
+            "rates_2022": -14.98
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.12,
+              "max_drawdown_pct": -33.93,
+              "max_drawdown_peak": "2000-02-11",
+              "max_drawdown_trough": "2001-09-14",
+              "recovered_on": "2003-12-02",
+              "worst_year_pct": -21.43,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.18,
+              "final_multiple": 2.67
+            },
+            "2014_2026": {
+              "cagr_pct": 13.29,
+              "max_drawdown_pct": -16.11,
+              "max_drawdown_peak": "2015-01-23",
+              "max_drawdown_trough": "2015-12-15",
+              "recovered_on": "2016-03-04",
+              "worst_year_pct": -8.11,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.825,
+              "final_multiple": 4.93
+            }
+          }
+        }
+      },
+      "annual": {
+        "P0": {
+          "cagr_pct": 8.93,
+          "max_drawdown_pct": -64.64,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-04",
+          "worst_year_pct": -44.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 12.26,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.64,
+            "gfc_2007_2009": -56.97,
+            "covid_2020": -28.39,
+            "rates_2022": -30.09
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.68,
+              "max_drawdown_pct": -64.64,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-04",
+              "worst_year_pct": -44.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.042,
+              "final_multiple": 1.55
+            },
+            "2014_2026": {
+              "cagr_pct": 17.57,
+              "max_drawdown_pct": -30.09,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.584,
+              "final_multiple": 7.92
+            }
+          }
+        },
+        "P1": {
+          "cagr_pct": 9.34,
+          "max_drawdown_pct": -60.5,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-15",
+          "worst_year_pct": -36.5,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.154,
+          "final_multiple": 13.66,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -60.5,
+            "gfc_2007_2009": -50.4,
+            "covid_2020": -25.26,
+            "rates_2022": -27.15
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 3.35,
+              "max_drawdown_pct": -60.5,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-15",
+              "worst_year_pct": -36.5,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.055,
+              "final_multiple": 1.72
+            },
+            "2014_2026": {
+              "cagr_pct": 17.58,
+              "max_drawdown_pct": -28.03,
+              "max_drawdown_peak": "2024-07-11",
+              "max_drawdown_trough": "2025-04-09",
+              "recovered_on": "2025-09-10",
+              "worst_year_pct": -19.92,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.627,
+              "final_multiple": 7.93
+            }
+          }
+        },
+        "P2": {
+          "cagr_pct": 11.06,
+          "max_drawdown_pct": -54.46,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-11-24",
+          "worst_year_pct": -35.47,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.203,
+          "final_multiple": 21.61,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -54.46,
+            "gfc_2007_2009": -48.59,
+            "covid_2020": -25.08,
+            "rates_2022": -18.53
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 5.16,
+              "max_drawdown_pct": -54.46,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-11-24",
+              "worst_year_pct": -35.47,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.095,
+              "final_multiple": 2.29
+            },
+            "2014_2026": {
+              "cagr_pct": 19.13,
+              "max_drawdown_pct": -26.14,
+              "max_drawdown_peak": "2024-07-11",
+              "max_drawdown_trough": "2025-04-09",
+              "recovered_on": "2025-09-12",
+              "worst_year_pct": -13.02,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.732,
+              "final_multiple": 9.38
+            }
+          }
+        },
+        "P3": {
+          "cagr_pct": 14.14,
+          "max_drawdown_pct": -58.35,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-01-03",
+          "worst_year_pct": -35.7,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.242,
+          "final_multiple": 48.16,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -58.35,
+            "gfc_2007_2009": -50.42,
+            "covid_2020": -26.92,
+            "rates_2022": -25.15
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 7.62,
+              "max_drawdown_pct": -58.35,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-01-03",
+              "worst_year_pct": -35.7,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.131,
+              "final_multiple": 3.36
+            },
+            "2014_2026": {
+              "cagr_pct": 23.08,
+              "max_drawdown_pct": -26.92,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-10",
+              "worst_year_pct": -13.78,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.857,
+              "final_multiple": 14.23
+            }
+          }
+        },
+        "P4": {
+          "cagr_pct": 12.68,
+          "max_drawdown_pct": -56.41,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-04-12",
+          "worst_year_pct": -34.77,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.225,
+          "final_multiple": 32.98,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -56.41,
+            "gfc_2007_2009": -48.39,
+            "covid_2020": -26.01,
+            "rates_2022": -21.18
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.47,
+              "max_drawdown_pct": -56.41,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-04-12",
+              "worst_year_pct": -34.77,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.115,
+              "final_multiple": 2.81
+            },
+            "2014_2026": {
+              "cagr_pct": 21.18,
+              "max_drawdown_pct": -26.01,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-07-06",
+              "worst_year_pct": -13.4,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.814,
+              "final_multiple": 11.66
+            }
+          }
+        },
+        "P5": {
+          "cagr_pct": 10.23,
+          "max_drawdown_pct": -35.57,
+          "max_drawdown_peak": "2000-02-11",
+          "max_drawdown_trough": "2001-09-14",
+          "recovered_on": "2003-10-20",
+          "worst_year_pct": -21.1,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.288,
+          "final_multiple": 17.33,
+          "rebalances": 29,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -35.57,
+            "gfc_2007_2009": -34.5,
+            "covid_2020": -17.64,
+            "rates_2022": -15.93
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.76,
+              "max_drawdown_pct": -35.57,
+              "max_drawdown_peak": "2000-02-11",
+              "max_drawdown_trough": "2001-09-14",
+              "recovered_on": "2003-10-20",
+              "worst_year_pct": -21.1,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.19,
+              "final_multiple": 2.94
+            },
+            "2014_2026": {
+              "cagr_pct": 14.8,
+              "max_drawdown_pct": -17.64,
+              "max_drawdown_peak": "2020-02-25",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-05-21",
+              "worst_year_pct": -8.01,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.839,
+              "final_multiple": 5.84
+            }
+          }
+        }
+      },
+      "quarterly": {
+        "P0": {
+          "cagr_pct": 8.93,
+          "max_drawdown_pct": -64.64,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-04",
+          "worst_year_pct": -44.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 12.26,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.64,
+            "gfc_2007_2009": -56.97,
+            "covid_2020": -28.39,
+            "rates_2022": -30.09
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.68,
+              "max_drawdown_pct": -64.64,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-04",
+              "worst_year_pct": -44.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.042,
+              "final_multiple": 1.55
+            },
+            "2014_2026": {
+              "cagr_pct": 17.57,
+              "max_drawdown_pct": -30.09,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.584,
+              "final_multiple": 7.92
+            }
+          }
+        },
+        "P1": {
+          "cagr_pct": 8.58,
+          "max_drawdown_pct": -62.29,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-01-02",
+          "worst_year_pct": -43.9,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 11.14,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -62.29,
+            "gfc_2007_2009": -55.01,
+            "covid_2020": -25.26,
+            "rates_2022": -30.19
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.49,
+              "max_drawdown_pct": -62.29,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-01-02",
+              "worst_year_pct": -43.9,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.04,
+              "final_multiple": 1.5
+            },
+            "2014_2026": {
+              "cagr_pct": 16.98,
+              "max_drawdown_pct": -30.19,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-26",
+              "worst_year_pct": -20.7,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.562,
+              "final_multiple": 7.42
+            }
+          }
+        },
+        "P2": {
+          "cagr_pct": 10.39,
+          "max_drawdown_pct": -57.25,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-04-14",
+          "worst_year_pct": -42.66,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.182,
+          "final_multiple": 18.1,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -57.25,
+            "gfc_2007_2009": -53.24,
+            "covid_2020": -25.08,
+            "rates_2022": -23.58
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 4.35,
+              "max_drawdown_pct": -57.25,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-04-14",
+              "worst_year_pct": -42.66,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.076,
+              "final_multiple": 2.02
+            },
+            "2014_2026": {
+              "cagr_pct": 18.66,
+              "max_drawdown_pct": -26.42,
+              "max_drawdown_peak": "2024-07-11",
+              "max_drawdown_trough": "2025-04-09",
+              "recovered_on": "2025-09-08",
+              "worst_year_pct": -14.64,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.706,
+              "final_multiple": 8.92
+            }
+          }
+        },
+        "P3": {
+          "cagr_pct": 14.03,
+          "max_drawdown_pct": -59.55,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2004-02-16",
+          "worst_year_pct": -42.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.236,
+          "final_multiple": 46.8,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -59.55,
+            "gfc_2007_2009": -56.43,
+            "covid_2020": -26.92,
+            "rates_2022": -29.01
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 7.19,
+              "max_drawdown_pct": -59.55,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2004-02-16",
+              "worst_year_pct": -42.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.121,
+              "final_multiple": 3.14
+            },
+            "2014_2026": {
+              "cagr_pct": 23.44,
+              "max_drawdown_pct": -29.01,
+              "max_drawdown_peak": "2022-03-25",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-06-02",
+              "worst_year_pct": -16.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.808,
+              "final_multiple": 14.76
+            }
+          }
+        },
+        "P4": {
+          "cagr_pct": 12.27,
+          "max_drawdown_pct": -58.4,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2004-03-01",
+          "worst_year_pct": -42.51,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.21,
+          "final_multiple": 29.64,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -58.4,
+            "gfc_2007_2009": -54.72,
+            "covid_2020": -26.01,
+            "rates_2022": -25.79
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 5.83,
+              "max_drawdown_pct": -58.4,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2004-03-01",
+              "worst_year_pct": -42.51,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.1,
+              "final_multiple": 2.55
+            },
+            "2014_2026": {
+              "cagr_pct": 21.1,
+              "max_drawdown_pct": -26.01,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-08",
+              "worst_year_pct": -15.29,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.811,
+              "final_multiple": 11.57
+            }
+          }
+        },
+        "P5": {
+          "cagr_pct": 10.34,
+          "max_drawdown_pct": -36.32,
+          "max_drawdown_peak": "2008-04-17",
+          "max_drawdown_trough": "2008-11-20",
+          "recovered_on": "2009-09-08",
+          "worst_year_pct": -22.3,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.285,
+          "final_multiple": 17.86,
+          "rebalances": 117,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -34.94,
+            "gfc_2007_2009": -36.32,
+            "covid_2020": -17.64,
+            "rates_2022": -16.87
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.79,
+              "max_drawdown_pct": -36.32,
+              "max_drawdown_peak": "2008-04-17",
+              "max_drawdown_trough": "2008-11-20",
+              "recovered_on": "2009-09-08",
+              "worst_year_pct": -22.3,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.187,
+              "final_multiple": 2.96
+            },
+            "2014_2026": {
+              "cagr_pct": 15.02,
+              "max_drawdown_pct": -17.64,
+              "max_drawdown_peak": "2020-02-25",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-05-20",
+              "worst_year_pct": -7.6,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.851,
+              "final_multiple": 5.99
+            }
+          }
+        }
+      },
+      "band10": {
+        "P0": {
+          "cagr_pct": 8.93,
+          "max_drawdown_pct": -64.64,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-04",
+          "worst_year_pct": -44.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 12.26,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.64,
+            "gfc_2007_2009": -56.97,
+            "covid_2020": -28.39,
+            "rates_2022": -30.09
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.68,
+              "max_drawdown_pct": -64.64,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-04",
+              "worst_year_pct": -44.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.042,
+              "final_multiple": 1.55
+            },
+            "2014_2026": {
+              "cagr_pct": 17.57,
+              "max_drawdown_pct": -30.09,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.584,
+              "final_multiple": 7.92
+            }
+          }
+        },
+        "P1": {
+          "cagr_pct": 9.18,
+          "max_drawdown_pct": -63.07,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-04-04",
+          "worst_year_pct": -42.92,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.146,
+          "final_multiple": 13.1,
+          "rebalances": 46,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -63.07,
+            "gfc_2007_2009": -55.91,
+            "covid_2020": -28.3,
+            "rates_2022": -30.67
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.81,
+              "max_drawdown_pct": -63.07,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-04-04",
+              "worst_year_pct": -42.92,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.045,
+              "final_multiple": 1.58
+            },
+            "2014_2026": {
+              "cagr_pct": 17.99,
+              "max_drawdown_pct": -30.67,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.87,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.587,
+              "final_multiple": 8.29
+            }
+          }
+        },
+        "P2": {
+          "cagr_pct": 10.39,
+          "max_drawdown_pct": -60.21,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-11-22",
+          "worst_year_pct": -39.64,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.173,
+          "final_multiple": 18.08,
+          "rebalances": 42,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -60.21,
+            "gfc_2007_2009": -52.96,
+            "covid_2020": -28.66,
+            "rates_2022": -22.58
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 4.28,
+              "max_drawdown_pct": -60.21,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-11-22",
+              "worst_year_pct": -39.64,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.071,
+              "final_multiple": 2.0
+            },
+            "2014_2026": {
+              "cagr_pct": 18.78,
+              "max_drawdown_pct": -28.66,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-07-21",
+              "worst_year_pct": -13.02,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.655,
+              "final_multiple": 9.03
+            }
+          }
+        },
+        "P3": {
+          "cagr_pct": 14.44,
+          "max_drawdown_pct": -61.48,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2005-11-28",
+          "worst_year_pct": -41.36,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.235,
+          "final_multiple": 51.98,
+          "rebalances": 47,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -61.48,
+            "gfc_2007_2009": -56.49,
+            "covid_2020": -28.67,
+            "rates_2022": -27.81
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 7.8,
+              "max_drawdown_pct": -61.48,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2005-11-28",
+              "worst_year_pct": -41.36,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.127,
+              "final_multiple": 3.45
+            },
+            "2014_2026": {
+              "cagr_pct": 23.55,
+              "max_drawdown_pct": -28.67,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-04",
+              "worst_year_pct": -15.6,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.822,
+              "final_multiple": 14.94
+            }
+          }
+        },
+        "P4": {
+          "cagr_pct": 12.39,
+          "max_drawdown_pct": -60.09,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-04-17",
+          "worst_year_pct": -39.85,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.206,
+          "final_multiple": 30.6,
+          "rebalances": 40,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -60.09,
+            "gfc_2007_2009": -54.11,
+            "covid_2020": -28.02,
+            "rates_2022": -26.54
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 5.61,
+              "max_drawdown_pct": -60.09,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-04-17",
+              "worst_year_pct": -39.85,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.093,
+              "final_multiple": 2.46
+            },
+            "2014_2026": {
+              "cagr_pct": 21.74,
+              "max_drawdown_pct": -28.02,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-05",
+              "worst_year_pct": -16.26,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.776,
+              "final_multiple": 12.37
+            }
+          }
+        },
+        "P5": {
+          "cagr_pct": 10.39,
+          "max_drawdown_pct": -36.34,
+          "max_drawdown_peak": "2000-02-11",
+          "max_drawdown_trough": "2001-09-14",
+          "recovered_on": "2003-09-02",
+          "worst_year_pct": -22.34,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.286,
+          "final_multiple": 18.09,
+          "rebalances": 14,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -36.34,
+            "gfc_2007_2009": -35.53,
+            "covid_2020": -18.55,
+            "rates_2022": -16.95
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.96,
+              "max_drawdown_pct": -36.34,
+              "max_drawdown_peak": "2000-02-11",
+              "max_drawdown_trough": "2001-09-14",
+              "recovered_on": "2003-09-02",
+              "worst_year_pct": -22.34,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.191,
+              "final_multiple": 3.03
+            },
+            "2014_2026": {
+              "cagr_pct": 14.91,
+              "max_drawdown_pct": -18.55,
+              "max_drawdown_peak": "2020-02-25",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-02",
+              "worst_year_pct": -8.0,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.804,
+              "final_multiple": 5.92
+            }
+          }
+        }
+      },
+      "band5": {
+        "P0": {
+          "cagr_pct": 8.93,
+          "max_drawdown_pct": -64.64,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-04",
+          "worst_year_pct": -44.4,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.138,
+          "final_multiple": 12.26,
+          "rebalances": 0,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.64,
+            "gfc_2007_2009": -56.97,
+            "covid_2020": -28.39,
+            "rates_2022": -30.09
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.68,
+              "max_drawdown_pct": -64.64,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-04",
+              "worst_year_pct": -44.4,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.042,
+              "final_multiple": 1.55
+            },
+            "2014_2026": {
+              "cagr_pct": 17.57,
+              "max_drawdown_pct": -30.09,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-14",
+              "worst_year_pct": -20.09,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.584,
+              "final_multiple": 7.92
+            }
+          }
+        },
+        "P1": {
+          "cagr_pct": 8.4,
+          "max_drawdown_pct": -64.27,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2007-06-15",
+          "worst_year_pct": -44.72,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.131,
+          "final_multiple": 10.61,
+          "rebalances": 133,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -64.27,
+            "gfc_2007_2009": -56.65,
+            "covid_2020": -28.25,
+            "rates_2022": -29.95
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 2.22,
+              "max_drawdown_pct": -64.27,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2007-06-15",
+              "worst_year_pct": -44.72,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.034,
+              "final_multiple": 1.44
+            },
+            "2014_2026": {
+              "cagr_pct": 16.93,
+              "max_drawdown_pct": -29.95,
+              "max_drawdown_peak": "2022-01-17",
+              "max_drawdown_trough": "2022-10-25",
+              "recovered_on": "2023-12-26",
+              "worst_year_pct": -20.59,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.565,
+              "final_multiple": 7.39
+            }
+          }
+        },
+        "P2": {
+          "cagr_pct": 9.92,
+          "max_drawdown_pct": -59.69,
+          "max_drawdown_peak": "2000-04-05",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-11-24",
+          "worst_year_pct": -44.35,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.166,
+          "final_multiple": 15.96,
+          "rebalances": 135,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -59.69,
+            "gfc_2007_2009": -56.4,
+            "covid_2020": -28.05,
+            "rates_2022": -24.84
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 3.62,
+              "max_drawdown_pct": -59.69,
+              "max_drawdown_peak": "2000-04-05",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-11-24",
+              "worst_year_pct": -44.35,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.061,
+              "final_multiple": 1.8
+            },
+            "2014_2026": {
+              "cagr_pct": 18.58,
+              "max_drawdown_pct": -28.05,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-07-06",
+              "worst_year_pct": -15.46,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.662,
+              "final_multiple": 8.83
+            }
+          }
+        },
+        "P3": {
+          "cagr_pct": 13.37,
+          "max_drawdown_pct": -63.3,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-01-05",
+          "worst_year_pct": -43.39,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.211,
+          "final_multiple": 39.46,
+          "rebalances": 134,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -63.3,
+            "gfc_2007_2009": -57.9,
+            "covid_2020": -29.5,
+            "rates_2022": -29.35
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.42,
+              "max_drawdown_pct": -63.3,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-01-05",
+              "worst_year_pct": -43.39,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.101,
+              "final_multiple": 2.79
+            },
+            "2014_2026": {
+              "cagr_pct": 22.95,
+              "max_drawdown_pct": -29.5,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-08",
+              "worst_year_pct": -16.11,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.778,
+              "final_multiple": 14.03
+            }
+          }
+        },
+        "P4": {
+          "cagr_pct": 11.67,
+          "max_drawdown_pct": -61.35,
+          "max_drawdown_peak": "2000-02-17",
+          "max_drawdown_trough": "2001-10-03",
+          "recovered_on": "2006-04-14",
+          "worst_year_pct": -43.35,
+          "worst_year": 2008,
+          "cagr_over_max_dd": 0.19,
+          "final_multiple": 25.34,
+          "rebalances": 129,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -61.35,
+            "gfc_2007_2009": -56.17,
+            "covid_2020": -28.41,
+            "rates_2022": -26.22
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 5.05,
+              "max_drawdown_pct": -61.35,
+              "max_drawdown_peak": "2000-02-17",
+              "max_drawdown_trough": "2001-10-03",
+              "recovered_on": "2006-04-14",
+              "worst_year_pct": -43.35,
+              "worst_year": 2008,
+              "cagr_over_max_dd": 0.082,
+              "final_multiple": 2.25
+            },
+            "2014_2026": {
+              "cagr_pct": 20.78,
+              "max_drawdown_pct": -28.41,
+              "max_drawdown_peak": "2020-01-14",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-06-10",
+              "worst_year_pct": -16.02,
+              "worst_year": 2022,
+              "cagr_over_max_dd": 0.732,
+              "final_multiple": 11.18
+            }
+          }
+        },
+        "P5": {
+          "cagr_pct": 10.3,
+          "max_drawdown_pct": -36.25,
+          "max_drawdown_peak": "2008-04-17",
+          "max_drawdown_trough": "2008-11-20",
+          "recovered_on": "2009-09-07",
+          "worst_year_pct": -22.31,
+          "worst_year": 2000,
+          "cagr_over_max_dd": 0.284,
+          "final_multiple": 17.64,
+          "rebalances": 50,
+          "crash_drawdown_pct": {
+            "dotcom_2000_2002": -36.14,
+            "gfc_2007_2009": -36.25,
+            "covid_2020": -18.01,
+            "rates_2022": -16.79
+          },
+          "halves": {
+            "1997_2013": {
+              "cagr_pct": 6.96,
+              "max_drawdown_pct": -36.25,
+              "max_drawdown_peak": "2008-04-17",
+              "max_drawdown_trough": "2008-11-20",
+              "recovered_on": "2009-09-07",
+              "worst_year_pct": -22.31,
+              "worst_year": 2000,
+              "cagr_over_max_dd": 0.192,
+              "final_multiple": 3.03
+            },
+            "2014_2026": {
+              "cagr_pct": 14.69,
+              "max_drawdown_pct": -18.01,
+              "max_drawdown_peak": "2020-02-25",
+              "max_drawdown_trough": "2020-03-19",
+              "recovered_on": "2020-05-21",
+              "worst_year_pct": -8.01,
+              "worst_year": 2015,
+              "cagr_over_max_dd": 0.816,
+              "final_multiple": 5.77
+            }
+          }
+        }
+      }
+    }
+  },
+  "readings": {
+    "stress": {
+      "P1": {
+        "max_dd_pct": -60.5,
+        "p0_max_dd_pct": -64.64,
+        "holds_up": true
+      },
+      "P2": {
+        "max_dd_pct": -54.46,
+        "p0_max_dd_pct": -64.64,
+        "holds_up": true
+      },
+      "P3": {
+        "max_dd_pct": -58.35,
+        "p0_max_dd_pct": -64.64,
+        "holds_up": true
+      },
+      "P4": {
+        "max_dd_pct": -56.41,
+        "p0_max_dd_pct": -64.64,
+        "holds_up": true
+      },
+      "P5": {
+        "max_dd_pct": -35.57,
+        "p0_max_dd_pct": -64.64,
+        "holds_up": true
+      }
+    },
+    "rules_vs_annual": {
+      "P1": {
+        "none": "no_consistent_difference",
+        "quarterly": "no_consistent_difference",
+        "band10": "no_consistent_difference",
+        "band5": "no_consistent_difference"
+      },
+      "P2": {
+        "none": "no_consistent_difference",
+        "quarterly": "no_consistent_difference",
+        "band10": "no_consistent_difference",
+        "band5": "no_consistent_difference"
+      },
+      "P3": {
+        "none": "no_consistent_difference",
+        "quarterly": "no_consistent_difference",
+        "band10": "no_consistent_difference",
+        "band5": "no_consistent_difference"
+      },
+      "P4": {
+        "none": "no_consistent_difference",
+        "quarterly": "no_consistent_difference",
+        "band10": "no_consistent_difference",
+        "band5": "no_consistent_difference"
+      },
+      "P5": {
+        "none": "no_consistent_difference",
+        "quarterly": "no_consistent_difference",
+        "band10": "no_consistent_difference",
+        "band5": "no_consistent_difference"
+      }
+    }
+  },
+  "sensitivity_drag_4pct_annual": {
+    "P0": {
+      "cagr_pct": 8.93,
+      "max_drawdown_pct": -64.64
+    },
+    "P1": {
+      "cagr_pct": 8.23,
+      "max_drawdown_pct": -60.81
+    },
+    "P2": {
+      "cagr_pct": 9.95,
+      "max_drawdown_pct": -54.8
+    },
+    "P3": {
+      "cagr_pct": 13.04,
+      "max_drawdown_pct": -58.66
+    },
+    "P4": {
+      "cagr_pct": 11.57,
+      "max_drawdown_pct": -56.73
+    },
+    "P5": {
+      "cagr_pct": 10.23,
+      "max_drawdown_pct": -35.57
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-TX-20261018-004",
+  "generated_at": "2026-10-18T22:32:20+08:00",
+  "method": {
+    "design": "research/studies/RS-TX-20261018-004/decision_log.md",
+    "currency": "TWD",
+    "etf_proxy": "TAIEX daily return + 3.0%/252",
+    "lev2": "2 x etf - 2.0%/252 (sensitivity 4.0%)",
+    "gold": "XAUUSD weekly before 2008-03-26, daily after, x USD/TWD",
+    "fx": "FRED DEXTAUS before 2007, Yahoo TWD=X after (25-40 filter)",
+    "tbill": "FRED DTB3 before 2007, ^IRX after; yield/100 x days/360 x FX",
+    "rebalance_cost": 0.0025,
+    "labels": {
+      "P0": "100% Taiwan 50",
+      "P1": "50% 2x + 50% cash",
+      "P2": "50% 2x + 50% T-bills",
+      "P3": "50% 2x + 50% gold",
+      "P4": "50% 2x + 25% gold + 25% T-bills",
+      "P5": "50% Taiwan 50 + 50% gold"
+    },
+    "crash_windows": {
+      "dotcom_2000_2002": [
+        "2000-01-01",
+        "2002-12-31"
+      ],
+      "gfc_2007_2009": [
+        "2007-07-01",
+        "2009-06-30"
+      ],
+      "covid_2020": [
+        "2020-01-01",
+        "2020-06-30"
+      ],
+      "rates_2022": [
+        "2022-01-01",
+        "2022-12-31"
+      ]
+    },
+    "halves": {
+      "1997_2013": [
+        "1997-07-01",
+        "2013-12-31"
+      ],
+      "2014_2026": [
+        "2014-01-01",
+        "2026-12-31"
+      ]
+    }
+  },
+  "charts": [
+    {
+      "id": "stress",
+      "file": "stress.png",
+      "section": "seasonality",
+      "title": "Barbells through the 2000 and 2008 crashes, annual rebalance"
+    }
+  ]
+}

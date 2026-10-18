@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261014-001",
+  "revision": 1,
+  "title": "ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment",
+  "market": "XAUUSD",
+  "strategy": "S1 V3.9 and S2 V3.2",
+  "status": "confirmed",
+  "created_on": "2026-10-14",
+  "question": "On a 50,000 USD account at 2% per trade, does an ATR-based stop with risk-constant sizing beat the fixed percentage stops of S1 / S2, and does weekly-balance sizing change the result?",
+  "hypothesis": "Registered before running (registered design, commit ce8d356): fixed vs k×ATR(14) and k×ATR(144) stops, two-lot replay with the strategies' own R targets and time exits, one position at a time, labels 可用/參考/無證據 on paired per-trade R.",
+  "headline": {
+    "variants_tested": 20,
+    "variants_usable": 2,
+    "variants_usable_after_bh": 0,
+    "s1_fixed_mean_r": 0.217,
+    "s2_fixed_mean_r": 0.279,
+    "s2_atr14_x2_mean_r": 0.445,
+    "fixed_1000_return_pct": 200.3,
+    "fixed_1000_max_drawdown_pct": 9.6
+  },
+  "card_metrics": [
+    "variants_usable",
+    "variants_usable_after_bh",
+    "s2_atr14_x2_mean_r"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "S1: an ATR stop does not help",
+      "detail": "Fixed 47.5%/0.217R; ATR14×3 54.1%/0.175R; best ATR14×1.5 +0.238R, 參考 only.",
+      "title_zh": "S1：改 ATR 停損沒有幫助",
+      "detail_zh": "固定 0.5%：勝率 47.5%、每筆 0.217R；3 倍 ATR（約 0.72%）勝率 54.1%、每筆 0.175R。放寬停損被洗掉變少，但賺得更少。"
+    },
+    {
+      "tone": "warn",
+      "title": "S2: a tighter 2×ATR stop replays better, unconfirmed",
+      "detail": "Fixed 1.0% 57.6%/0.279R; 2×ATR14 (median stop 0.53%) 50.3%/0.445R, both halves better, p 0.0114, BH p 0.114.",
+      "title_zh": "S2：約 2 倍 ATR 的較緊停損重播較好，尚未確認",
+      "detail_zh": "固定 1%：勝率 57.6%、每筆 0.279R；2 倍 ATR（中位數約 0.53%）：50.3%、0.445R，前後兩段都較好，但未過多重比較，需要 TradingView 重跑策略再前瞻檢驗。"
+    },
+    {
+      "tone": "info",
+      "title": "Weekly-balance sizing changes nothing",
+      "detail": "Compounded: 546.3% weekly vs 553.2% per trade, drawdown 20.5% both. Fixed 1,000 USD: 200.3%, drawdown 9.6%, worst week -6883.0 USD.",
+      "title_zh": "用每週餘額算部位，結果幾乎一樣",
+      "detail_zh": "複利下每週算 546.3%、每筆算 553.2%，最大回撤都是 20.5%。固定 1,000 美元：回測 200.3%、最大回撤 9.6%、最差一週 -6883 美元。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "strategy_diagnostics",
+  "card_summary": "S1 gains nothing from an ATR stop (wider wins more, earns less); S2 with a tighter 2×ATR stop replays +0.45R vs +0.28R but does not survive the family adjustment; weekly sizing changes nothing.",
+  "title_zh": "ATR 動態停損與每週部位（5 萬美帳戶）：S1 改 ATR 停損沒有幫助；S2 改成約 2 倍 ATR 的較緊停損重播較好，但未過多重比較",
+  "question_zh": "5 萬美帳戶每筆 2% 風險下，S1／S2 改用 ATR 動態停損（手數跟著調、金額風險不變）會不會比固定 % 停損好？用每週帳戶餘額算部位有沒有差？",
+  "hypothesis_zh": "執行前登記：固定 % 對 k 倍 ATR(14)／ATR(144) 停損，兩張單照策略的 R 目標與時間出場重播，一次一筆，以同筆交易的 R 差分可用／參考／無證據。",
+  "card_summary_zh": "S1 改 ATR 停損沒有幫助（放寬勝率升、報酬降）；S2 改約 2 倍 ATR 的較緊停損重播 +0.45R 對 +0.28R，但未過多重比較；每週算部位沒有差別。",
+  "limitations_zh": [
+    "重播沒有策略的移動停損與保本，每筆報酬比回測低；只能比較停損設定之間的差異。",
+    "回測報酬不等於實盤：屋主 2026 年實際交易大致打平，最近三個月 S1 固定停損每筆 −0.05R。",
+    "二十種設定中挑最好的，S2 的結果沒通過多重比較，不能直接採用。",
+    "本研究不改變策略、停損、風險規則或請分析。"
+  ],
+  "interpretation_zh": "把停損改成 ATR 倍數，S1 沒有任何版本更好：停損放寬時勝率上升但每筆 R 下降。S2 用約 2 倍 ATR(14) 的較緊停損，重播每筆 +0.45R 對固定停損 +0.28R，但 20 個版本做多重比較校正後沒有一個通過，只能當方向。以 5 萬美元模擬帳戶、每筆 2% 風險計算，每週重算部位和固定部位沒有差別。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "variants_usable",
+        "variants_usable_after_bh",
+        "s2_atr14_x2_mean_r"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

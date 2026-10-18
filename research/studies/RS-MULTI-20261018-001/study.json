@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "id": "RS-MULTI-20261018-001",
+  "revision": 1,
+  "title": "The presidential cycle: the strong stretch is midterm to the end of the pre-election year; buying at the start of the post-election year is one of the cycle's weakest 22-month holds",
+  "market": "TX",
+  "strategy": "none — calendar windows of the US presidential cycle",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Does the US presidential four-year cycle time the S&P 500, TAIEX, 0050 and TSMC — in particular buying at the start of the post-election year and selling after the midterm, and what does being out from March of the pre-election year cost?",
+  "hypothesis": "Recalled timing: buy at the start of Y1, sell after the Y2 midterm. Common version: buy after the midterm, hold through Y3.",
+  "headline": {
+    "sp500_cycles": 18,
+    "sp500_midterm_to_y3_end_win_pct": 100.0,
+    "sp500_midterm_to_y3_end_mean_pct": 19.308,
+    "sp500_midterm_vs_other_months_pct_points": 9.565,
+    "sp500_midterm_vs_other_resolvable": 7.917,
+    "sp500_recalled_timing_rank_of_48": 47,
+    "sp500_recalled_timing_mean_pct": 9.418,
+    "sp500_out_from_mar_y3_to_next_y1_mean_pct": 18.177,
+    "sp500_y3_mean_pct": 17.224,
+    "sp500_y2_mean_pct": 3.685
+  },
+  "card_metrics": [
+    "sp500_midterm_to_y3_end_mean_pct",
+    "sp500_recalled_timing_rank_of_48",
+    "sp500_out_from_mar_y3_to_next_y1_mean_pct",
+    "sp500_cycles"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Midterm to the end of the pre-election year is the strong stretch (S&P 500)",
+      "detail": "Exact post-midterm windows: 18 of 18 up, mean +19.31% (resolvable against zero 7.75). The month-start placebo (14-month holds from the 1st of each of 48 cycle months) puts the 1 November start 2nd of 48 (94.4% up, mean +20.34%, +9.57 points above the others against an optimistic bound of 7.92); the 1 October start ranks 1st. The pre-election year alone: 16 of 18 up, mean +17.22%.",
+      "title_zh": "期中選舉後到選前一年年底最強（標普 500）",
+      "detail_zh": "實際期中選舉後視窗：18 次全部上漲，平均 +19.31%。以每月 1 日起跑的對照：11 月 1 日起跑在 48 個月中排第 2（94.4% 上漲，平均 +20.34%，高出其他 9.57 個百分點，門檻 7.92），10 月 1 日排第 1。選前一年單年：16/18 上漲，平均 +17.22%。"
+    },
+    {
+      "tone": "warn",
+      "title": "The recalled timing is near the cycle's worst",
+      "detail": "First close of Y1 to after the midterm: mean +9.42%, 72.2% up (n=18), but as a 22-month hold it ranks 47th of 48 starting months; −9.18 points below the others (resolvable 16.19, so not separable).",
+      "title_zh": "「選後第一年買、期中選舉後賣」幾乎是最差時機",
+      "detail_zh": "平均 +9.42%，72.2% 上漲（n=18），但在 48 個起跑月份中排第 47；比其他低 9.18 個百分點（門檻 16.19，無法分辨）。"
+    },
+    {
+      "tone": "warn",
+      "title": "Out from March of the pre-election year has usually cost money",
+      "detail": "S&P 500 from 19 March Y3 to the next Y1: up in 15 of 18 cycles, mean +18.18%. TAIEX 3 of 7 (median −4.76%), TSMC 5 of 7 (mean +41.5%), 0050 3 of 3 since 2014.",
+      "title_zh": "選前一年 3 月出場，通常是少賺",
+      "detail_zh": "標普從選前一年 3 月 19 日到下一個選後第一年：18 次中 15 次上漲，平均 +18.18%。加權 3/7（中位數 −4.76%），台積電 5/7（平均 +41.5%），0050 自 2014 年 3/3。"
+    },
+    {
+      "tone": "info",
+      "title": "Taiwan: the midterm year is weak on TAIEX and 0050, flat on TSMC",
+      "detail": "Y2 (midterm year): TAIEX mean −5.04%, 3 of 7 up; 0050 −13.08% (n=2); TSMC mean −0.26% but median +8.79%, 4 of 6 up. Midterm → Y3 end: TAIEX 5 of 7, TSMC 6 of 6. Samples of 2–7 cycles: direction only.",
+      "title_zh": "台股：期中選舉年加權和 0050 偏弱，台積電持平",
+      "detail_zh": "期中選舉年：加權平均 −5.04%，7 次中 3 次上漲；0050 −13.08%（n=2）；台積電平均 −0.26%、中位數 +8.79%、6 次中 4 次上漲。期中選舉後到選前一年年底：加權 5/7、台積電 6/6。樣本 2–7 個，只看方向。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "On the S&P 500 (18 cycles) the strong stretch of the presidential cycle runs from the midterm election to the end of the pre-election year (18 of 18 up, +19.3% mean). Buying at the start of the post-election year and selling after the midterm is one of the weakest 22-month holds in the cycle. Taiwan has 2–7 cycles; TAIEX and 0050 are weak in the midterm year, TSMC is flat.",
+  "title_zh": "美國總統週期：最強的一段是期中選舉後到選前一年年底；選後第一年年初買進是週期裡最弱的 22 個月持有之一",
+  "question_zh": "跟著美國總統大選四年週期進出（選後第一年買、期中選舉後賣，或期中選舉後買、抱到選前一年），對美股、加權指數、0050 和台積電有沒有用？",
+  "hypothesis_zh": "選後第一年買進、期中選舉後賣出的報酬最好。",
+  "card_summary_zh": "標普 500 的 18 個週期中，期中選舉後到選前一年年底 18 次全部上漲、平均 +19.3%。選後第一年年初買、期中選舉後賣，是週期中最弱的 22 個月持有之一。台股只有 2–7 個週期：加權與 0050 的期中選舉年偏弱，台積電持平。",
+  "limitations_zh": [
+    "標普 18 個週期；加權 7、台積電 6–7、0050 2–3（Yahoo 的 0050 在 2014 年前資料有誤）。",
+    "標普與加權為價格指數，不含股息；現金報酬 0%。",
+    "48 個起跑月份的視窗互相重疊，門檻偏樂觀。",
+    "18 個觀測值的日曆規律只是 1953–2024 的描述，不是機制；台灣有自己的選舉和半導體週期。"
+  ],
+  "interpretation_zh": "美股的總統週期裡，期中選舉後到選前一年年底是最強的一段，18 個週期全部上漲；常被記成「選後第一年買、期中選舉後賣」的版本反而接近最差的起點。台股只有 2–7 個週期，加權和 0050 的期中選舉年偏弱、台積電持平，只能當背景，不能當進出訊號。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "sp500_midterm_to_y3_end_mean_pct",
+        "sp500_recalled_timing_rank_of_48",
+        "sp500_out_from_mar_y3_to_next_y1_mean_pct",
+        "sp500_cycles"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

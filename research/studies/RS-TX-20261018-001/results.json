@@ -1,0 +1,885 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-TX-20261018-001",
+  "generated_at": "2026-10-18T22:27:38+08:00",
+  "method": {
+    "design": "research/studies/RS-TX-20261018-001/decision_log.md",
+    "trades": "at the close; position held from the entry close to the exit close",
+    "costs": "round trip: securities tax 0.3% (0.1% for 0050) + commission 0.1425% each side",
+    "cash": "0%",
+    "dividends": "TAIEX price index excludes dividends (about 3-4% a year); 2330 and 0050 adjusted",
+    "per_cycle": "first close of Y1 to first close of the next Y1"
+  },
+  "charts": [
+    {
+      "id": "equity_curves",
+      "file": "equity_curves.png",
+      "section": "seasonality",
+      "title": "Presidential-cycle in/out strategies against buy-and-hold"
+    }
+  ],
+  "series": {
+    "TAIEX": {
+      "coverage": [
+        "2001-01-02",
+        "2026-10-16"
+      ],
+      "round_trip_cost": 0.00585,
+      "strategies": {
+        "buy_hold": {
+          "total_return_pct": 849.0,
+          "cagr_pct": 9.12,
+          "max_drawdown_pct": -58.31,
+          "time_invested_pct": 100.0,
+          "round_trips": 1
+        },
+        "recalled_timing": {
+          "total_return_pct": 340.69,
+          "cagr_pct": 5.92,
+          "max_drawdown_pct": -44.25,
+          "time_invested_pct": 49.8,
+          "round_trips": 7
+        },
+        "midterm_to_y3_end": {
+          "total_return_pct": 80.09,
+          "cagr_pct": 2.31,
+          "max_drawdown_pct": -39.58,
+          "time_invested_pct": 26.8,
+          "round_trips": 6
+        },
+        "midterm_to_election": {
+          "total_return_pct": 61.01,
+          "cagr_pct": 1.86,
+          "max_drawdown_pct": -63.56,
+          "time_invested_pct": 46.4,
+          "round_trips": 6
+        },
+        "skip_midterm_year": {
+          "total_return_pct": 721.56,
+          "cagr_pct": 8.51,
+          "max_drawdown_pct": -58.31,
+          "time_invested_pct": 77.2,
+          "round_trips": 7
+        },
+        "out_march_y3": {
+          "total_return_pct": 588.0,
+          "cagr_pct": 7.77,
+          "max_drawdown_pct": -56.54,
+          "time_invested_pct": 81.2,
+          "round_trips": 7
+        }
+      },
+      "vs_buy_hold_by_cycle": {
+        "recalled_timing": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 2,
+          "mean_excess_pct_points": -16.84,
+          "resolvable_pct_points": 44.83
+        },
+        "midterm_to_y3_end": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -21.59,
+          "resolvable_pct_points": 46.54
+        },
+        "midterm_to_election": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -20.41,
+          "resolvable_pct_points": 37.33
+        },
+        "skip_midterm_year": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 3,
+          "mean_excess_pct_points": 11.09,
+          "resolvable_pct_points": 25.21
+        },
+        "out_march_y3": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 2,
+          "mean_excess_pct_points": -4.39,
+          "resolvable_pct_points": 30.01
+        }
+      },
+      "cycles": {
+        "2000": {
+          "window": [
+            "2001-01-02",
+            "2005-01-03"
+          ],
+          "complete": true,
+          "buy_hold": 24.47,
+          "recalled_timing": -4.81,
+          "midterm_to_y3_end": 23.93,
+          "midterm_to_election": 23.35,
+          "skip_midterm_year": 45.37,
+          "out_march_y3": -7.52
+        },
+        "2004": {
+          "window": [
+            "2005-01-03",
+            "2009-01-05"
+          ],
+          "complete": true,
+          "buy_hold": -23.52,
+          "recalled_timing": 16.17,
+          "midterm_to_y3_end": 17.81,
+          "midterm_to_election": -31.05,
+          "skip_midterm_year": -30.64,
+          "out_march_y3": -29.32
+        },
+        "2008": {
+          "window": [
+            "2009-01-05",
+            "2013-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 65.57,
+          "recalled_timing": 75.5,
+          "midterm_to_y3_end": -15.23,
+          "midterm_to_election": -12.65,
+          "skip_midterm_year": 62.51,
+          "out_march_y3": 97.61
+        },
+        "2012": {
+          "window": [
+            "2013-01-02",
+            "2017-01-03"
+          ],
+          "complete": true,
+          "buy_hold": 19.2,
+          "recalled_timing": 14.54,
+          "midterm_to_y3_end": -7.51,
+          "midterm_to_election": -0.8,
+          "skip_midterm_year": 13.86,
+          "out_march_y3": 42.2
+        },
+        "2016": {
+          "window": [
+            "2017-01-03",
+            "2021-01-04"
+          ],
+          "complete": true,
+          "buy_hold": 60.71,
+          "recalled_timing": 6.23,
+          "midterm_to_y3_end": 20.37,
+          "midterm_to_election": 29.11,
+          "skip_midterm_year": 71.61,
+          "out_march_y3": 38.8
+        },
+        "2020": {
+          "window": [
+            "2021-01-04",
+            "2025-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 53.21,
+          "recalled_timing": -9.01,
+          "midterm_to_y3_end": 30.7,
+          "midterm_to_election": 69.23,
+          "skip_midterm_year": 103.47,
+          "out_march_y3": 31.55
+        },
+        "2024": {
+          "window": [
+            "2025-01-02",
+            "2026-10-16"
+          ],
+          "complete": false,
+          "buy_hold": 105.13,
+          "recalled_timing": 105.13,
+          "midterm_to_y3_end": 0.0,
+          "midterm_to_election": 0.0,
+          "skip_midterm_year": 26.11,
+          "out_march_y3": 105.13
+        }
+      },
+      "spans": {
+        "buy_hold": [
+          [
+            "2001-01-02",
+            "2026-10-16"
+          ]
+        ],
+        "recalled_timing": [
+          [
+            "2001-01-02",
+            "2002-11-06"
+          ],
+          [
+            "2005-01-03",
+            "2006-11-08"
+          ],
+          [
+            "2009-01-05",
+            "2010-11-03"
+          ],
+          [
+            "2013-01-02",
+            "2014-11-05"
+          ],
+          [
+            "2017-01-03",
+            "2018-11-07"
+          ],
+          [
+            "2021-01-04",
+            "2022-11-09"
+          ],
+          [
+            "2025-01-02",
+            "2026-10-16"
+          ]
+        ],
+        "midterm_to_y3_end": [
+          [
+            "2002-11-06",
+            "2003-12-31"
+          ],
+          [
+            "2006-11-08",
+            "2007-12-31"
+          ],
+          [
+            "2010-11-03",
+            "2011-12-30"
+          ],
+          [
+            "2014-11-05",
+            "2015-12-31"
+          ],
+          [
+            "2018-11-07",
+            "2019-12-31"
+          ],
+          [
+            "2022-11-09",
+            "2023-12-29"
+          ]
+        ],
+        "midterm_to_election": [
+          [
+            "2002-11-06",
+            "2004-11-03"
+          ],
+          [
+            "2006-11-08",
+            "2008-11-05"
+          ],
+          [
+            "2010-11-03",
+            "2012-11-07"
+          ],
+          [
+            "2014-11-05",
+            "2016-11-09"
+          ],
+          [
+            "2018-11-07",
+            "2020-11-04"
+          ],
+          [
+            "2022-11-09",
+            "2024-11-06"
+          ]
+        ],
+        "skip_midterm_year": [
+          [
+            "2001-01-02",
+            "2001-12-31"
+          ],
+          [
+            "2002-11-06",
+            "2005-12-30"
+          ],
+          [
+            "2006-11-08",
+            "2009-12-31"
+          ],
+          [
+            "2010-11-03",
+            "2013-12-31"
+          ],
+          [
+            "2014-11-05",
+            "2017-12-29"
+          ],
+          [
+            "2018-11-07",
+            "2021-12-30"
+          ],
+          [
+            "2022-11-09",
+            "2025-12-31"
+          ]
+        ],
+        "out_march_y3": [
+          [
+            "2001-01-02",
+            "2003-03-19"
+          ],
+          [
+            "2004-01-02",
+            "2007-03-19"
+          ],
+          [
+            "2008-01-02",
+            "2011-03-21"
+          ],
+          [
+            "2012-01-03",
+            "2015-03-19"
+          ],
+          [
+            "2016-01-04",
+            "2019-03-19"
+          ],
+          [
+            "2020-01-02",
+            "2023-03-20"
+          ],
+          [
+            "2024-01-02",
+            "2026-10-16"
+          ]
+        ]
+      }
+    },
+    "2330": {
+      "coverage": [
+        "2001-01-01",
+        "2026-10-16"
+      ],
+      "round_trip_cost": 0.00585,
+      "strategies": {
+        "buy_hold": {
+          "total_return_pct": 12559.56,
+          "cagr_pct": 20.65,
+          "max_drawdown_pct": -59.84,
+          "time_invested_pct": 100.0,
+          "round_trips": 1
+        },
+        "recalled_timing": {
+          "total_return_pct": 682.01,
+          "cagr_pct": 8.3,
+          "max_drawdown_pct": -59.84,
+          "time_invested_pct": 49.9,
+          "round_trips": 7
+        },
+        "midterm_to_y3_end": {
+          "total_return_pct": 272.79,
+          "cagr_pct": 5.23,
+          "max_drawdown_pct": -24.86,
+          "time_invested_pct": 26.7,
+          "round_trips": 6
+        },
+        "midterm_to_election": {
+          "total_return_pct": 1029.02,
+          "cagr_pct": 9.86,
+          "max_drawdown_pct": -46.76,
+          "time_invested_pct": 46.4,
+          "round_trips": 6
+        },
+        "skip_midterm_year": {
+          "total_return_pct": 11902.77,
+          "cagr_pct": 20.4,
+          "max_drawdown_pct": -46.53,
+          "time_invested_pct": 77.2,
+          "round_trips": 7
+        },
+        "out_march_y3": {
+          "total_return_pct": 5735.68,
+          "cagr_pct": 17.08,
+          "max_drawdown_pct": -60.03,
+          "time_invested_pct": 81.3,
+          "round_trips": 7
+        }
+      },
+      "vs_buy_hold_by_cycle": {
+        "recalled_timing": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -84.56,
+          "resolvable_pct_points": 94.31
+        },
+        "midterm_to_y3_end": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -84.86,
+          "resolvable_pct_points": 87.7
+        },
+        "midterm_to_election": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -50.13,
+          "resolvable_pct_points": 78.24
+        },
+        "skip_midterm_year": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 2,
+          "mean_excess_pct_points": 12.37,
+          "resolvable_pct_points": 62.13
+        },
+        "out_march_y3": {
+          "complete_cycles": 6,
+          "beat_buy_hold": 2,
+          "mean_excess_pct_points": -27.62,
+          "resolvable_pct_points": 51.42
+        }
+      },
+      "cycles": {
+        "2000": {
+          "window": [
+            "2001-01-01",
+            "2005-01-03"
+          ],
+          "complete": true,
+          "buy_hold": 14.12,
+          "recalled_timing": -1.79,
+          "midterm_to_y3_end": 23.78,
+          "midterm_to_election": 5.61,
+          "skip_midterm_year": 76.96,
+          "out_march_y3": -14.42
+        },
+        "2004": {
+          "window": [
+            "2005-01-03",
+            "2009-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 17.58,
+          "recalled_timing": 42.68,
+          "midterm_to_y3_end": 2.9,
+          "midterm_to_election": -11.95,
+          "skip_midterm_year": 12.49,
+          "out_march_y3": 26.89
+        },
+        "2008": {
+          "window": [
+            "2009-01-02",
+            "2013-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 170.96,
+          "recalled_timing": 59.77,
+          "midterm_to_y3_end": 23.02,
+          "midterm_to_election": 53.14,
+          "skip_midterm_year": 158.62,
+          "out_march_y3": 155.27
+        },
+        "2012": {
+          "window": [
+            "2013-01-02",
+            "2017-01-03"
+          ],
+          "complete": true,
+          "buy_hold": 107.09,
+          "recalled_timing": 38.49,
+          "midterm_to_y3_end": 11.12,
+          "midterm_to_election": 46.98,
+          "skip_midterm_year": 60.93,
+          "out_march_y3": 120.27
+        },
+        "2016": {
+          "window": [
+            "2017-01-03",
+            "2021-01-04"
+          ],
+          "complete": true,
+          "buy_hold": 238.3,
+          "recalled_timing": 36.15,
+          "midterm_to_y3_end": 47.47,
+          "midterm_to_election": 105.17,
+          "skip_midterm_year": 218.25,
+          "out_march_y3": 127.52
+        },
+        "2020": {
+          "window": [
+            "2021-01-04",
+            "2025-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 114.56,
+          "recalled_timing": -20.02,
+          "midterm_to_y3_end": 45.18,
+          "midterm_to_election": 162.9,
+          "skip_midterm_year": 209.57,
+          "out_march_y3": 81.35
+        },
+        "2024": {
+          "window": [
+            "2025-01-02",
+            "2026-10-16"
+          ],
+          "complete": false,
+          "buy_hold": 131.63,
+          "recalled_timing": 131.63,
+          "midterm_to_y3_end": 0.0,
+          "midterm_to_election": 0.0,
+          "skip_midterm_year": 47.05,
+          "out_march_y3": 131.63
+        }
+      },
+      "spans": {
+        "buy_hold": [
+          [
+            "2001-01-01",
+            "2026-10-16"
+          ]
+        ],
+        "recalled_timing": [
+          [
+            "2001-01-01",
+            "2002-11-06"
+          ],
+          [
+            "2005-01-03",
+            "2006-11-08"
+          ],
+          [
+            "2009-01-02",
+            "2010-11-03"
+          ],
+          [
+            "2013-01-02",
+            "2014-11-05"
+          ],
+          [
+            "2017-01-03",
+            "2018-11-07"
+          ],
+          [
+            "2021-01-04",
+            "2022-11-09"
+          ],
+          [
+            "2025-01-02",
+            "2026-10-16"
+          ]
+        ],
+        "midterm_to_y3_end": [
+          [
+            "2002-11-06",
+            "2003-12-31"
+          ],
+          [
+            "2006-11-08",
+            "2007-12-31"
+          ],
+          [
+            "2010-11-03",
+            "2011-12-30"
+          ],
+          [
+            "2014-11-05",
+            "2015-12-31"
+          ],
+          [
+            "2018-11-07",
+            "2019-12-31"
+          ],
+          [
+            "2022-11-09",
+            "2023-12-29"
+          ]
+        ],
+        "midterm_to_election": [
+          [
+            "2002-11-06",
+            "2004-11-03"
+          ],
+          [
+            "2006-11-08",
+            "2008-11-05"
+          ],
+          [
+            "2010-11-03",
+            "2012-11-07"
+          ],
+          [
+            "2014-11-05",
+            "2016-11-09"
+          ],
+          [
+            "2018-11-07",
+            "2020-11-04"
+          ],
+          [
+            "2022-11-09",
+            "2024-11-06"
+          ]
+        ],
+        "skip_midterm_year": [
+          [
+            "2001-01-01",
+            "2001-12-31"
+          ],
+          [
+            "2002-11-06",
+            "2005-12-30"
+          ],
+          [
+            "2006-11-08",
+            "2009-12-31"
+          ],
+          [
+            "2010-11-03",
+            "2013-12-31"
+          ],
+          [
+            "2014-11-05",
+            "2017-12-29"
+          ],
+          [
+            "2018-11-07",
+            "2021-12-30"
+          ],
+          [
+            "2022-11-09",
+            "2025-12-31"
+          ]
+        ],
+        "out_march_y3": [
+          [
+            "2001-01-01",
+            "2003-03-19"
+          ],
+          [
+            "2004-01-01",
+            "2007-03-19"
+          ],
+          [
+            "2008-01-02",
+            "2011-03-21"
+          ],
+          [
+            "2012-01-02",
+            "2015-03-19"
+          ],
+          [
+            "2016-01-04",
+            "2019-03-19"
+          ],
+          [
+            "2020-01-02",
+            "2023-03-20"
+          ],
+          [
+            "2024-01-02",
+            "2026-10-16"
+          ]
+        ]
+      }
+    },
+    "0050": {
+      "coverage": [
+        "2014-01-02",
+        "2026-10-16"
+      ],
+      "round_trip_cost": 0.00385,
+      "strategies": {
+        "buy_hold": {
+          "total_return_pct": 1070.96,
+          "cagr_pct": 21.22,
+          "max_drawdown_pct": -33.83,
+          "time_invested_pct": 100.0,
+          "round_trips": 1
+        },
+        "recalled_timing": {
+          "total_return_pct": 197.18,
+          "cagr_pct": 8.89,
+          "max_drawdown_pct": -45.59,
+          "time_invested_pct": 49.5,
+          "round_trips": 4
+        },
+        "midterm_to_y3_end": {
+          "total_return_pct": 63.48,
+          "cagr_pct": 3.92,
+          "max_drawdown_pct": -21.0,
+          "time_invested_pct": 27.0,
+          "round_trips": 3
+        },
+        "midterm_to_election": {
+          "total_return_pct": 221.87,
+          "cagr_pct": 9.57,
+          "max_drawdown_pct": -28.22,
+          "time_invested_pct": 46.7,
+          "round_trips": 3
+        },
+        "skip_midterm_year": {
+          "total_return_pct": 651.64,
+          "cagr_pct": 17.09,
+          "max_drawdown_pct": -28.22,
+          "time_invested_pct": 73.9,
+          "round_trips": 3
+        },
+        "out_march_y3": {
+          "total_return_pct": 814.65,
+          "cagr_pct": 18.9,
+          "max_drawdown_pct": -33.83,
+          "time_invested_pct": 81.0,
+          "round_trips": 4
+        }
+      },
+      "vs_buy_hold_by_cycle": {
+        "recalled_timing": {
+          "complete_cycles": 2,
+          "beat_buy_hold": 0,
+          "mean_excess_pct_points": -85.98,
+          "resolvable_pct_points": 6.3
+        },
+        "midterm_to_y3_end": {
+          "complete_cycles": 2,
+          "beat_buy_hold": 0,
+          "mean_excess_pct_points": -57.56,
+          "resolvable_pct_points": 39.44
+        },
+        "midterm_to_election": {
+          "complete_cycles": 2,
+          "beat_buy_hold": 1,
+          "mean_excess_pct_points": -16.39,
+          "resolvable_pct_points": 105.01
+        },
+        "skip_midterm_year": {
+          "complete_cycles": 2,
+          "beat_buy_hold": 2,
+          "mean_excess_pct_points": 30.49,
+          "resolvable_pct_points": 80.26
+        },
+        "out_march_y3": {
+          "complete_cycles": 2,
+          "beat_buy_hold": 0,
+          "mean_excess_pct_points": -33.13,
+          "resolvable_pct_points": 22.99
+        }
+      },
+      "cycles": {
+        "2016": {
+          "window": [
+            "2017-01-03",
+            "2021-01-04"
+          ],
+          "complete": true,
+          "buy_hold": 99.74,
+          "recalled_timing": 16.01,
+          "midterm_to_y3_end": 28.09,
+          "midterm_to_election": 45.85,
+          "skip_midterm_year": 101.57,
+          "out_march_y3": 58.4
+        },
+        "2020": {
+          "window": [
+            "2021-01-04",
+            "2025-01-02"
+          ],
+          "complete": true,
+          "buy_hold": 77.43,
+          "recalled_timing": -10.8,
+          "midterm_to_y3_end": 33.95,
+          "midterm_to_election": 98.55,
+          "skip_midterm_year": 136.59,
+          "out_march_y3": 52.51
+        },
+        "2024": {
+          "window": [
+            "2025-01-02",
+            "2026-10-16"
+          ],
+          "complete": false,
+          "buy_hold": 133.15,
+          "recalled_timing": 133.15,
+          "midterm_to_y3_end": 0.0,
+          "midterm_to_election": 0.0,
+          "skip_midterm_year": 37.53,
+          "out_march_y3": 133.15
+        }
+      },
+      "spans": {
+        "buy_hold": [
+          [
+            "2014-01-02",
+            "2026-10-16"
+          ]
+        ],
+        "recalled_timing": [
+          [
+            "2014-01-02",
+            "2014-11-05"
+          ],
+          [
+            "2017-01-03",
+            "2018-11-07"
+          ],
+          [
+            "2021-01-04",
+            "2022-11-09"
+          ],
+          [
+            "2025-01-02",
+            "2026-10-16"
+          ]
+        ],
+        "midterm_to_y3_end": [
+          [
+            "2014-11-05",
+            "2015-12-31"
+          ],
+          [
+            "2018-11-07",
+            "2019-12-31"
+          ],
+          [
+            "2022-11-09",
+            "2023-12-29"
+          ]
+        ],
+        "midterm_to_election": [
+          [
+            "2014-11-05",
+            "2016-11-09"
+          ],
+          [
+            "2018-11-07",
+            "2020-11-04"
+          ],
+          [
+            "2022-11-09",
+            "2024-11-06"
+          ]
+        ],
+        "skip_midterm_year": [
+          [
+            "2014-11-05",
+            "2017-12-29"
+          ],
+          [
+            "2018-11-07",
+            "2021-12-30"
+          ],
+          [
+            "2022-11-09",
+            "2025-12-31"
+          ]
+        ],
+        "out_march_y3": [
+          [
+            "2014-01-02",
+            "2015-03-19"
+          ],
+          [
+            "2016-01-04",
+            "2019-03-19"
+          ],
+          [
+            "2020-01-02",
+            "2023-03-20"
+          ],
+          [
+            "2024-01-02",
+            "2026-10-16"
+          ]
+        ]
+      }
+    }
+  }
+}

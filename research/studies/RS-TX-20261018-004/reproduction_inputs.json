@@ -1,0 +1,18 @@
+{
+  "study_id": "RS-TX-20261018-004",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/XAUUSD_1d.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "8decb0bc1c6acfb3aa33d69d2898a2b8eaef40350841b8a1f1e9d55ee1e98ab9",
+      "size_bytes": 315573,
+      "role": "price_1d_xauusd"
+    },
+    "local-inputs/XAUUSD_1wk.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "9519b5952f63469059ce69ab5004bb5b978b1fd2978bed1292afe99fac336aaa",
+      "size_bytes": 174123,
+      "role": "price_1w_xauusd_before_2008"
+    }
+  }
+}

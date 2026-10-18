@@ -1,0 +1,1632 @@
+{
+  "price_range": [
+    "2024-01-02T07:00:00",
+    "2026-10-10T04:30:00"
+  ],
+  "account": {
+    "start_balance": 50000.0,
+    "risk_pct": 2.0
+  },
+  "calibration_fixed_vs_tester": {
+    "S1": {
+      "n": 503,
+      "same_sign_pct": 88.1,
+      "corr": 0.827,
+      "replay_mean_r": 0.217,
+      "tester_mean_r": 0.338
+    },
+    "S2": {
+      "n": 177,
+      "same_sign_pct": 81.9,
+      "corr": 0.697,
+      "replay_mean_r": 0.279,
+      "tester_mean_r": 0.523
+    }
+  },
+  "baseline_both_fixed": {
+    "per_trade_sizing": {
+      "final_balance": 326606.0,
+      "return_pct": 553.2,
+      "max_drawdown_pct": 20.5,
+      "trades": 524,
+      "skipped_overlap_or_size": 156,
+      "longest_losing_streak": 7,
+      "worst_week_usd": -21918.0,
+      "median_risk_usd": 2729.0,
+      "recent_3m_pnl_usd": 1972.0
+    },
+    "weekly_sizing": {
+      "final_balance": 323146.0,
+      "return_pct": 546.3,
+      "max_drawdown_pct": 20.5,
+      "trades": 524,
+      "skipped_overlap_or_size": 156,
+      "longest_losing_streak": 7,
+      "worst_week_usd": -22312.0,
+      "median_risk_usd": 2730.0,
+      "recent_3m_pnl_usd": 2119.0
+    },
+    "fixed_1000_sizing": {
+      "final_balance": 150174.0,
+      "return_pct": 200.3,
+      "max_drawdown_pct": 9.6,
+      "trades": 524,
+      "skipped_overlap_or_size": 156,
+      "longest_losing_streak": 7,
+      "worst_week_usd": -6883.0,
+      "median_risk_usd": 981.0,
+      "recent_3m_pnl_usd": 1039.0
+    },
+    "s2_atr14_x2_fixed_1000": {
+      "final_balance": 171782.0,
+      "return_pct": 243.6,
+      "max_drawdown_pct": 8.9,
+      "trades": 536,
+      "skipped_overlap_or_size": 144,
+      "longest_losing_streak": 7,
+      "worst_week_usd": -6883.0,
+      "median_risk_usd": 983.0,
+      "recent_3m_pnl_usd": 1658.0
+    },
+    "s2_atr144_x2_fixed_1000": {
+      "final_balance": 175040.0,
+      "return_pct": 250.1,
+      "max_drawdown_pct": 8.5,
+      "trades": 542,
+      "skipped_overlap_or_size": 138,
+      "longest_losing_streak": 7,
+      "worst_week_usd": -6883.0,
+      "median_risk_usd": 984.0,
+      "recent_3m_pnl_usd": 1939.0
+    }
+  },
+  "recent_atr": {
+    "atr14": {
+      "median_last_3m": 11.88,
+      "median_2024": 4.32
+    },
+    "atr144": {
+      "median_last_3m": 12.35,
+      "median_2024": 4.54
+    }
+  },
+  "variants": {
+    "S1": {
+      "fixed": {
+        "all": {
+          "n": 503,
+          "win_rate": 47.5,
+          "mean_r": 0.217,
+          "profit_factor": 1.53,
+          "median_stop_pct": 0.5
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 52.4,
+            "mean_r": 0.245,
+            "profit_factor": 1.66,
+            "median_stop_pct": 0.5
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 42.6,
+            "mean_r": 0.19,
+            "profit_factor": 1.42,
+            "median_stop_pct": 0.5
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 37.3,
+          "mean_r": -0.045,
+          "profit_factor": 0.92,
+          "median_stop_pct": 0.5
+        },
+        "account_per_trade": {
+          "final_balance": 326606.0,
+          "return_pct": 553.2,
+          "max_drawdown_pct": 20.5,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -21918.0,
+          "median_risk_usd": 2729.0,
+          "recent_3m_pnl_usd": 1972.0
+        },
+        "account_weekly": {
+          "final_balance": 323146.0,
+          "return_pct": 546.3,
+          "max_drawdown_pct": 20.5,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -22312.0,
+          "median_risk_usd": 2730.0,
+          "recent_3m_pnl_usd": 2119.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 150174.0,
+          "return_pct": 200.3,
+          "max_drawdown_pct": 9.6,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 1039.0
+        }
+      },
+      "atr14_x1": {
+        "all": {
+          "n": 503,
+          "win_rate": 32.6,
+          "mean_r": 0.229,
+          "profit_factor": 1.54,
+          "median_stop_pct": 0.238
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 32.9,
+            "mean_r": 0.238,
+            "profit_factor": 1.59,
+            "median_stop_pct": 0.194
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 32.3,
+            "mean_r": 0.22,
+            "profit_factor": 1.49,
+            "median_stop_pct": 0.286
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 25.5,
+          "mean_r": 0.142,
+          "profit_factor": 1.33,
+          "median_stop_pct": 0.285
+        },
+        "account_per_trade": {
+          "final_balance": 382693.0,
+          "return_pct": 665.4,
+          "max_drawdown_pct": 25.3,
+          "trades": 547,
+          "skipped_overlap_or_size": 133,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -34464.0,
+          "median_risk_usd": 2986.0,
+          "recent_3m_pnl_usd": 65591.0
+        },
+        "account_weekly": {
+          "final_balance": 372759.0,
+          "return_pct": 645.5,
+          "max_drawdown_pct": 25.6,
+          "trades": 547,
+          "skipped_overlap_or_size": 133,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -35032.0,
+          "median_risk_usd": 2952.0,
+          "recent_3m_pnl_usd": 62383.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 159180.0,
+          "return_pct": 218.4,
+          "max_drawdown_pct": 11.5,
+          "trades": 547,
+          "skipped_overlap_or_size": 133,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -4752.0,
+          "median_risk_usd": 992.0,
+          "recent_3m_pnl_usd": 10139.0
+        },
+        "mean_r_diff": 0.012,
+        "p": 0.7932,
+        "better_both_halves": false,
+        "bh_p": 0.8501,
+        "label": "無證據"
+      },
+      "atr14_x1.5": {
+        "all": {
+          "n": 503,
+          "win_rate": 40.4,
+          "mean_r": 0.238,
+          "profit_factor": 1.58,
+          "median_stop_pct": 0.358
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 40.1,
+            "mean_r": 0.246,
+            "profit_factor": 1.64,
+            "median_stop_pct": 0.29
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 40.6,
+            "mean_r": 0.23,
+            "profit_factor": 1.52,
+            "median_stop_pct": 0.429
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 33.3,
+          "mean_r": -0.01,
+          "profit_factor": 0.98,
+          "median_stop_pct": 0.428
+        },
+        "account_per_trade": {
+          "final_balance": 439420.0,
+          "return_pct": 778.8,
+          "max_drawdown_pct": 23.7,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -50770.0,
+          "median_risk_usd": 3871.0,
+          "recent_3m_pnl_usd": 2302.0
+        },
+        "account_weekly": {
+          "final_balance": 429245.0,
+          "return_pct": 758.5,
+          "max_drawdown_pct": 24.0,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -51864.0,
+          "median_risk_usd": 3853.0,
+          "recent_3m_pnl_usd": 359.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 164628.0,
+          "return_pct": 229.3,
+          "max_drawdown_pct": 9.1,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -5696.0,
+          "median_risk_usd": 988.0,
+          "recent_3m_pnl_usd": 963.0
+        },
+        "mean_r_diff": 0.021,
+        "p": 0.4948,
+        "better_both_halves": true,
+        "bh_p": 0.7612,
+        "label": "參考"
+      },
+      "atr14_x2": {
+        "all": {
+          "n": 503,
+          "win_rate": 48.1,
+          "mean_r": 0.238,
+          "profit_factor": 1.58,
+          "median_stop_pct": 0.477
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 49.2,
+            "mean_r": 0.302,
+            "profit_factor": 1.82,
+            "median_stop_pct": 0.387
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 47.0,
+            "mean_r": 0.174,
+            "profit_factor": 1.38,
+            "median_stop_pct": 0.572
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 43.1,
+          "mean_r": 0.01,
+          "profit_factor": 1.02,
+          "median_stop_pct": 0.57
+        },
+        "account_per_trade": {
+          "final_balance": 344573.0,
+          "return_pct": 589.1,
+          "max_drawdown_pct": 24.8,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -36156.0,
+          "median_risk_usd": 3809.0,
+          "recent_3m_pnl_usd": 32887.0
+        },
+        "account_weekly": {
+          "final_balance": 334267.0,
+          "return_pct": 568.5,
+          "max_drawdown_pct": 25.2,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -37130.0,
+          "median_risk_usd": 3718.0,
+          "recent_3m_pnl_usd": 31379.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 151358.0,
+          "return_pct": 202.7,
+          "max_drawdown_pct": 10.1,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6903.0,
+          "median_risk_usd": 985.0,
+          "recent_3m_pnl_usd": 5461.0
+        },
+        "mean_r_diff": 0.021,
+        "p": 0.3795,
+        "better_both_halves": false,
+        "bh_p": 0.752,
+        "label": "無證據"
+      },
+      "atr14_x2.5": {
+        "all": {
+          "n": 503,
+          "win_rate": 51.9,
+          "mean_r": 0.211,
+          "profit_factor": 1.54,
+          "median_stop_pct": 0.596
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 52.4,
+            "mean_r": 0.229,
+            "profit_factor": 1.61,
+            "median_stop_pct": 0.484
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 51.4,
+            "mean_r": 0.193,
+            "profit_factor": 1.48,
+            "median_stop_pct": 0.715
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 47.1,
+          "mean_r": 0.056,
+          "profit_factor": 1.12,
+          "median_stop_pct": 0.713
+        },
+        "account_per_trade": {
+          "final_balance": 273995.0,
+          "return_pct": 448.0,
+          "max_drawdown_pct": 18.3,
+          "trades": 487,
+          "skipped_overlap_or_size": 193,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -23618.0,
+          "median_risk_usd": 2645.0,
+          "recent_3m_pnl_usd": 34390.0
+        },
+        "account_weekly": {
+          "final_balance": 272950.0,
+          "return_pct": 445.9,
+          "max_drawdown_pct": 18.4,
+          "trades": 487,
+          "skipped_overlap_or_size": 193,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -24675.0,
+          "median_risk_usd": 2672.0,
+          "recent_3m_pnl_usd": 34562.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 139429.0,
+          "return_pct": 178.9,
+          "max_drawdown_pct": 8.9,
+          "trades": 487,
+          "skipped_overlap_or_size": 193,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -4722.0,
+          "median_risk_usd": 982.0,
+          "recent_3m_pnl_usd": 6984.0
+        },
+        "mean_r_diff": -0.006,
+        "p": 0.8076,
+        "better_both_halves": false,
+        "bh_p": 0.8501,
+        "label": "無證據"
+      },
+      "atr14_x3": {
+        "all": {
+          "n": 503,
+          "win_rate": 54.1,
+          "mean_r": 0.175,
+          "profit_factor": 1.47,
+          "median_stop_pct": 0.715
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 54.8,
+            "mean_r": 0.19,
+            "profit_factor": 1.52,
+            "median_stop_pct": 0.581
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 53.4,
+            "mean_r": 0.16,
+            "profit_factor": 1.42,
+            "median_stop_pct": 0.858
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 47.1,
+          "mean_r": 0.043,
+          "profit_factor": 1.1,
+          "median_stop_pct": 0.855
+        },
+        "account_per_trade": {
+          "final_balance": 222914.0,
+          "return_pct": 345.8,
+          "max_drawdown_pct": 19.3,
+          "trades": 478,
+          "skipped_overlap_or_size": 202,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -22522.0,
+          "median_risk_usd": 2277.0,
+          "recent_3m_pnl_usd": 32882.0
+        },
+        "account_weekly": {
+          "final_balance": 220443.0,
+          "return_pct": 340.9,
+          "max_drawdown_pct": 19.5,
+          "trades": 478,
+          "skipped_overlap_or_size": 202,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -23770.0,
+          "median_risk_usd": 2276.0,
+          "recent_3m_pnl_usd": 32402.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 127858.0,
+          "return_pct": 155.7,
+          "max_drawdown_pct": 9.0,
+          "trades": 478,
+          "skipped_overlap_or_size": 202,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -5581.0,
+          "median_risk_usd": 978.0,
+          "recent_3m_pnl_usd": 8306.0
+        },
+        "mean_r_diff": -0.042,
+        "p": 0.1066,
+        "better_both_halves": false,
+        "bh_p": 0.3171,
+        "label": "無證據"
+      },
+      "atr144_x1": {
+        "all": {
+          "n": 503,
+          "win_rate": 30.8,
+          "mean_r": 0.191,
+          "profit_factor": 1.43,
+          "median_stop_pct": 0.239
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 31.0,
+            "mean_r": 0.221,
+            "profit_factor": 1.54,
+            "median_stop_pct": 0.196
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 30.7,
+            "mean_r": 0.16,
+            "profit_factor": 1.34,
+            "median_stop_pct": 0.301
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 23.5,
+          "mean_r": 0.059,
+          "profit_factor": 1.12,
+          "median_stop_pct": 0.292
+        },
+        "account_per_trade": {
+          "final_balance": 369210.0,
+          "return_pct": 638.4,
+          "max_drawdown_pct": 26.8,
+          "trades": 552,
+          "skipped_overlap_or_size": 128,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -41020.0,
+          "median_risk_usd": 3143.0,
+          "recent_3m_pnl_usd": 44539.0
+        },
+        "account_weekly": {
+          "final_balance": 358776.0,
+          "return_pct": 617.6,
+          "max_drawdown_pct": 27.1,
+          "trades": 552,
+          "skipped_overlap_or_size": 128,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -41561.0,
+          "median_risk_usd": 3087.0,
+          "recent_3m_pnl_usd": 41531.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 157884.0,
+          "return_pct": 215.8,
+          "max_drawdown_pct": 10.8,
+          "trades": 552,
+          "skipped_overlap_or_size": 128,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -4889.0,
+          "median_risk_usd": 991.0,
+          "recent_3m_pnl_usd": 7192.0
+        },
+        "mean_r_diff": -0.027,
+        "p": 0.5533,
+        "better_both_halves": false,
+        "bh_p": 0.7904,
+        "label": "無證據"
+      },
+      "atr144_x1.5": {
+        "all": {
+          "n": 503,
+          "win_rate": 41.2,
+          "mean_r": 0.23,
+          "profit_factor": 1.54,
+          "median_stop_pct": 0.359
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 40.5,
+            "mean_r": 0.244,
+            "profit_factor": 1.61,
+            "median_stop_pct": 0.294
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 41.8,
+            "mean_r": 0.215,
+            "profit_factor": 1.47,
+            "median_stop_pct": 0.452
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 33.3,
+          "mean_r": -0.006,
+          "profit_factor": 0.99,
+          "median_stop_pct": 0.439
+        },
+        "account_per_trade": {
+          "final_balance": 417598.0,
+          "return_pct": 735.2,
+          "max_drawdown_pct": 22.3,
+          "trades": 521,
+          "skipped_overlap_or_size": 159,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -48227.0,
+          "median_risk_usd": 3793.0,
+          "recent_3m_pnl_usd": 10738.0
+        },
+        "account_weekly": {
+          "final_balance": 407528.0,
+          "return_pct": 715.1,
+          "max_drawdown_pct": 22.5,
+          "trades": 521,
+          "skipped_overlap_or_size": 159,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -49243.0,
+          "median_risk_usd": 3767.0,
+          "recent_3m_pnl_usd": 8817.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 162654.0,
+          "return_pct": 225.3,
+          "max_drawdown_pct": 13.0,
+          "trades": 521,
+          "skipped_overlap_or_size": 159,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -4903.0,
+          "median_risk_usd": 988.0,
+          "recent_3m_pnl_usd": 1882.0
+        },
+        "mean_r_diff": 0.013,
+        "p": 0.6827,
+        "better_both_halves": false,
+        "bh_p": 0.8501,
+        "label": "無證據"
+      },
+      "atr144_x2": {
+        "all": {
+          "n": 503,
+          "win_rate": 49.9,
+          "mean_r": 0.254,
+          "profit_factor": 1.63,
+          "median_stop_pct": 0.478
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 50.4,
+            "mean_r": 0.279,
+            "profit_factor": 1.74,
+            "median_stop_pct": 0.392
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 49.4,
+            "mean_r": 0.229,
+            "profit_factor": 1.54,
+            "median_stop_pct": 0.602
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 45.1,
+          "mean_r": 0.07,
+          "profit_factor": 1.14,
+          "median_stop_pct": 0.585
+        },
+        "account_per_trade": {
+          "final_balance": 344446.0,
+          "return_pct": 588.9,
+          "max_drawdown_pct": 21.1,
+          "trades": 508,
+          "skipped_overlap_or_size": 172,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -28977.0,
+          "median_risk_usd": 3248.0,
+          "recent_3m_pnl_usd": 49548.0
+        },
+        "account_weekly": {
+          "final_balance": 335977.0,
+          "return_pct": 572.0,
+          "max_drawdown_pct": 21.1,
+          "trades": 508,
+          "skipped_overlap_or_size": 172,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -29578.0,
+          "median_risk_usd": 3174.0,
+          "recent_3m_pnl_usd": 48491.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 152021.0,
+          "return_pct": 204.0,
+          "max_drawdown_pct": 10.3,
+          "trades": 508,
+          "skipped_overlap_or_size": 172,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6902.0,
+          "median_risk_usd": 984.0,
+          "recent_3m_pnl_usd": 8047.0
+        },
+        "mean_r_diff": 0.037,
+        "p": 0.1314,
+        "better_both_halves": true,
+        "bh_p": 0.3171,
+        "label": "參考"
+      },
+      "atr144_x2.5": {
+        "all": {
+          "n": 503,
+          "win_rate": 53.1,
+          "mean_r": 0.219,
+          "profit_factor": 1.57,
+          "median_stop_pct": 0.598
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 54.0,
+            "mean_r": 0.245,
+            "profit_factor": 1.67,
+            "median_stop_pct": 0.49
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 52.2,
+            "mean_r": 0.194,
+            "profit_factor": 1.48,
+            "median_stop_pct": 0.753
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 49.0,
+          "mean_r": 0.062,
+          "profit_factor": 1.14,
+          "median_stop_pct": 0.731
+        },
+        "account_per_trade": {
+          "final_balance": 296172.0,
+          "return_pct": 492.3,
+          "max_drawdown_pct": 21.0,
+          "trades": 489,
+          "skipped_overlap_or_size": 191,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -25302.0,
+          "median_risk_usd": 2827.0,
+          "recent_3m_pnl_usd": 41927.0
+        },
+        "account_weekly": {
+          "final_balance": 291909.0,
+          "return_pct": 483.8,
+          "max_drawdown_pct": 21.1,
+          "trades": 489,
+          "skipped_overlap_or_size": 191,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -25952.0,
+          "median_risk_usd": 2824.0,
+          "recent_3m_pnl_usd": 41223.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 143218.0,
+          "return_pct": 186.4,
+          "max_drawdown_pct": 8.8,
+          "trades": 489,
+          "skipped_overlap_or_size": 191,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -4750.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 8048.0
+        },
+        "mean_r_diff": 0.002,
+        "p": 0.9307,
+        "better_both_halves": false,
+        "bh_p": 0.9307,
+        "label": "無證據"
+      },
+      "atr144_x3": {
+        "all": {
+          "n": 503,
+          "win_rate": 55.5,
+          "mean_r": 0.196,
+          "profit_factor": 1.55,
+          "median_stop_pct": 0.717
+        },
+        "halves": {
+          "first": {
+            "n": 252,
+            "win_rate": 56.0,
+            "mean_r": 0.215,
+            "profit_factor": 1.62,
+            "median_stop_pct": 0.588
+          },
+          "second": {
+            "n": 251,
+            "win_rate": 55.0,
+            "mean_r": 0.178,
+            "profit_factor": 1.48,
+            "median_stop_pct": 0.903
+          }
+        },
+        "recent_3m": {
+          "n": 51,
+          "win_rate": 47.1,
+          "mean_r": 0.011,
+          "profit_factor": 1.03,
+          "median_stop_pct": 0.877
+        },
+        "account_per_trade": {
+          "final_balance": 249397.0,
+          "return_pct": 398.8,
+          "max_drawdown_pct": 23.1,
+          "trades": 475,
+          "skipped_overlap_or_size": 205,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -24754.0,
+          "median_risk_usd": 2428.0,
+          "recent_3m_pnl_usd": 31751.0
+        },
+        "account_weekly": {
+          "final_balance": 248179.0,
+          "return_pct": 396.4,
+          "max_drawdown_pct": 23.3,
+          "trades": 475,
+          "skipped_overlap_or_size": 205,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -26091.0,
+          "median_risk_usd": 2430.0,
+          "recent_3m_pnl_usd": 31774.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 134177.0,
+          "return_pct": 168.4,
+          "max_drawdown_pct": 9.1,
+          "trades": 475,
+          "skipped_overlap_or_size": 205,
+          "longest_losing_streak": 6,
+          "worst_week_usd": -5585.0,
+          "median_risk_usd": 977.0,
+          "recent_3m_pnl_usd": 7042.0
+        },
+        "mean_r_diff": -0.021,
+        "p": 0.4512,
+        "better_both_halves": false,
+        "bh_p": 0.752,
+        "label": "無證據"
+      }
+    },
+    "S2": {
+      "fixed": {
+        "all": {
+          "n": 177,
+          "win_rate": 57.6,
+          "mean_r": 0.279,
+          "profit_factor": 1.84,
+          "median_stop_pct": 1.0
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 60.2,
+            "mean_r": 0.259,
+            "profit_factor": 1.93,
+            "median_stop_pct": 1.0
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 55.3,
+            "mean_r": 0.297,
+            "profit_factor": 1.78,
+            "median_stop_pct": 1.0
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.339,
+          "profit_factor": 2.0,
+          "median_stop_pct": 1.0
+        },
+        "account_per_trade": {
+          "final_balance": 326606.0,
+          "return_pct": 553.2,
+          "max_drawdown_pct": 20.5,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -21918.0,
+          "median_risk_usd": 2729.0,
+          "recent_3m_pnl_usd": 1972.0
+        },
+        "account_weekly": {
+          "final_balance": 323146.0,
+          "return_pct": 546.3,
+          "max_drawdown_pct": 20.5,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -22312.0,
+          "median_risk_usd": 2730.0,
+          "recent_3m_pnl_usd": 2119.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 150174.0,
+          "return_pct": 200.3,
+          "max_drawdown_pct": 9.6,
+          "trades": 524,
+          "skipped_overlap_or_size": 156,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 1039.0
+        }
+      },
+      "atr14_x2": {
+        "all": {
+          "n": 177,
+          "win_rate": 50.3,
+          "mean_r": 0.445,
+          "profit_factor": 1.92,
+          "median_stop_pct": 0.532
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 53.0,
+            "mean_r": 0.599,
+            "profit_factor": 2.31,
+            "median_stop_pct": 0.456
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 47.9,
+            "mean_r": 0.31,
+            "profit_factor": 1.6,
+            "median_stop_pct": 0.644
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 47.4,
+          "mean_r": 0.369,
+          "profit_factor": 1.7,
+          "median_stop_pct": 0.565
+        },
+        "account_per_trade": {
+          "final_balance": 495385.0,
+          "return_pct": 890.8,
+          "max_drawdown_pct": 21.9,
+          "trades": 536,
+          "skipped_overlap_or_size": 144,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -45021.0,
+          "median_risk_usd": 3683.0,
+          "recent_3m_pnl_usd": 7481.0
+        },
+        "account_weekly": {
+          "final_balance": 492570.0,
+          "return_pct": 885.1,
+          "max_drawdown_pct": 21.9,
+          "trades": 536,
+          "skipped_overlap_or_size": 144,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -45889.0,
+          "median_risk_usd": 3659.0,
+          "recent_3m_pnl_usd": 7433.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 171782.0,
+          "return_pct": 243.6,
+          "max_drawdown_pct": 8.9,
+          "trades": 536,
+          "skipped_overlap_or_size": 144,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 983.0,
+          "recent_3m_pnl_usd": 1658.0
+        },
+        "mean_r_diff": 0.166,
+        "p": 0.0114,
+        "better_both_halves": true,
+        "bh_p": 0.114,
+        "label": "可用"
+      },
+      "atr14_x3": {
+        "all": {
+          "n": 177,
+          "win_rate": 53.7,
+          "mean_r": 0.316,
+          "profit_factor": 1.76,
+          "median_stop_pct": 0.797
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 55.4,
+            "mean_r": 0.362,
+            "profit_factor": 1.89,
+            "median_stop_pct": 0.684
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 52.1,
+            "mean_r": 0.275,
+            "profit_factor": 1.65,
+            "median_stop_pct": 0.967
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 57.9,
+          "mean_r": 0.452,
+          "profit_factor": 2.16,
+          "median_stop_pct": 0.848
+        },
+        "account_per_trade": {
+          "final_balance": 355485.0,
+          "return_pct": 611.0,
+          "max_drawdown_pct": 22.1,
+          "trades": 528,
+          "skipped_overlap_or_size": 152,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -33338.0,
+          "median_risk_usd": 3017.0,
+          "recent_3m_pnl_usd": -1436.0
+        },
+        "account_weekly": {
+          "final_balance": 354591.0,
+          "return_pct": 609.2,
+          "max_drawdown_pct": 22.1,
+          "trades": 528,
+          "skipped_overlap_or_size": 152,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -34136.0,
+          "median_risk_usd": 3024.0,
+          "recent_3m_pnl_usd": -1206.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 154674.0,
+          "return_pct": 209.3,
+          "max_drawdown_pct": 9.6,
+          "trades": 528,
+          "skipped_overlap_or_size": 152,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 982.0,
+          "recent_3m_pnl_usd": 708.0
+        },
+        "mean_r_diff": 0.037,
+        "p": 0.4418,
+        "better_both_halves": false,
+        "bh_p": 0.752,
+        "label": "無證據"
+      },
+      "atr14_x4": {
+        "all": {
+          "n": 177,
+          "win_rate": 58.8,
+          "mean_r": 0.261,
+          "profit_factor": 1.8,
+          "median_stop_pct": 1.063
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 62.7,
+            "mean_r": 0.308,
+            "profit_factor": 2.01,
+            "median_stop_pct": 0.912
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 55.3,
+            "mean_r": 0.219,
+            "profit_factor": 1.64,
+            "median_stop_pct": 1.289
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.332,
+          "profit_factor": 2.0,
+          "median_stop_pct": 1.131
+        },
+        "account_per_trade": {
+          "final_balance": 303921.0,
+          "return_pct": 507.8,
+          "max_drawdown_pct": 20.6,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -21398.0,
+          "median_risk_usd": 2817.0,
+          "recent_3m_pnl_usd": 85.0
+        },
+        "account_weekly": {
+          "final_balance": 301921.0,
+          "return_pct": 503.8,
+          "max_drawdown_pct": 20.5,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -22956.0,
+          "median_risk_usd": 2805.0,
+          "recent_3m_pnl_usd": 31.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 146039.0,
+          "return_pct": 192.1,
+          "max_drawdown_pct": 8.4,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 982.0,
+          "recent_3m_pnl_usd": 546.0
+        },
+        "mean_r_diff": -0.018,
+        "p": 0.6387,
+        "better_both_halves": false,
+        "bh_p": 0.8501,
+        "label": "無證據"
+      },
+      "atr14_x5": {
+        "all": {
+          "n": 177,
+          "win_rate": 59.9,
+          "mean_r": 0.209,
+          "profit_factor": 1.77,
+          "median_stop_pct": 1.329
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 65.1,
+            "mean_r": 0.28,
+            "profit_factor": 2.24,
+            "median_stop_pct": 1.14
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 55.3,
+            "mean_r": 0.146,
+            "profit_factor": 1.46,
+            "median_stop_pct": 1.611
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.288,
+          "profit_factor": 1.99,
+          "median_stop_pct": 1.413
+        },
+        "account_per_trade": {
+          "final_balance": 286700.0,
+          "return_pct": 473.4,
+          "max_drawdown_pct": 19.2,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -20720.0,
+          "median_risk_usd": 2736.0,
+          "recent_3m_pnl_usd": 4888.0
+        },
+        "account_weekly": {
+          "final_balance": 284930.0,
+          "return_pct": 469.9,
+          "max_drawdown_pct": 19.1,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -22108.0,
+          "median_risk_usd": 2721.0,
+          "recent_3m_pnl_usd": 4981.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 142738.0,
+          "return_pct": 185.5,
+          "max_drawdown_pct": 8.7,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 1391.0
+        },
+        "mean_r_diff": -0.07,
+        "p": 0.0822,
+        "better_both_halves": false,
+        "bh_p": 0.3171,
+        "label": "無證據"
+      },
+      "atr14_x6": {
+        "all": {
+          "n": 177,
+          "win_rate": 59.9,
+          "mean_r": 0.151,
+          "profit_factor": 1.62,
+          "median_stop_pct": 1.595
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 65.1,
+            "mean_r": 0.201,
+            "profit_factor": 1.95,
+            "median_stop_pct": 1.368
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 55.3,
+            "mean_r": 0.107,
+            "profit_factor": 1.39,
+            "median_stop_pct": 1.933
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.241,
+          "profit_factor": 2.04,
+          "median_stop_pct": 1.696
+        },
+        "account_per_trade": {
+          "final_balance": 243783.0,
+          "return_pct": 387.6,
+          "max_drawdown_pct": 19.5,
+          "trades": 511,
+          "skipped_overlap_or_size": 169,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -19601.0,
+          "median_risk_usd": 2578.0,
+          "recent_3m_pnl_usd": -304.0
+        },
+        "account_weekly": {
+          "final_balance": 243159.0,
+          "return_pct": 386.3,
+          "max_drawdown_pct": 19.9,
+          "trades": 511,
+          "skipped_overlap_or_size": 169,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -20921.0,
+          "median_risk_usd": 2559.0,
+          "recent_3m_pnl_usd": 301.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 135494.0,
+          "return_pct": 171.0,
+          "max_drawdown_pct": 9.5,
+          "trades": 511,
+          "skipped_overlap_or_size": 169,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 744.0
+        },
+        "mean_r_diff": -0.128,
+        "p": 0.0032,
+        "better_both_halves": false,
+        "bh_p": 0.064,
+        "label": "無證據"
+      },
+      "atr144_x2": {
+        "all": {
+          "n": 177,
+          "win_rate": 48.6,
+          "mean_r": 0.424,
+          "profit_factor": 1.88,
+          "median_stop_pct": 0.555
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 50.6,
+            "mean_r": 0.543,
+            "profit_factor": 2.14,
+            "median_stop_pct": 0.42
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 46.8,
+            "mean_r": 0.32,
+            "profit_factor": 1.66,
+            "median_stop_pct": 0.613
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 47.4,
+          "mean_r": 0.427,
+          "profit_factor": 1.81,
+          "median_stop_pct": 0.577
+        },
+        "account_per_trade": {
+          "final_balance": 531077.0,
+          "return_pct": 962.2,
+          "max_drawdown_pct": 20.7,
+          "trades": 542,
+          "skipped_overlap_or_size": 138,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -36083.0,
+          "median_risk_usd": 3722.0,
+          "recent_3m_pnl_usd": 12087.0
+        },
+        "account_weekly": {
+          "final_balance": 531497.0,
+          "return_pct": 963.0,
+          "max_drawdown_pct": 20.5,
+          "trades": 542,
+          "skipped_overlap_or_size": 138,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -36341.0,
+          "median_risk_usd": 3729.0,
+          "recent_3m_pnl_usd": 14379.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 175040.0,
+          "return_pct": 250.1,
+          "max_drawdown_pct": 8.5,
+          "trades": 542,
+          "skipped_overlap_or_size": 138,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 984.0,
+          "recent_3m_pnl_usd": 1939.0
+        },
+        "mean_r_diff": 0.145,
+        "p": 0.0335,
+        "better_both_halves": true,
+        "bh_p": 0.1675,
+        "label": "可用"
+      },
+      "atr144_x3": {
+        "all": {
+          "n": 177,
+          "win_rate": 54.2,
+          "mean_r": 0.342,
+          "profit_factor": 1.85,
+          "median_stop_pct": 0.833
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 57.8,
+            "mean_r": 0.428,
+            "profit_factor": 2.12,
+            "median_stop_pct": 0.629
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 51.1,
+            "mean_r": 0.267,
+            "profit_factor": 1.63,
+            "median_stop_pct": 0.92
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 57.9,
+          "mean_r": 0.364,
+          "profit_factor": 1.86,
+          "median_stop_pct": 0.865
+        },
+        "account_per_trade": {
+          "final_balance": 326091.0,
+          "return_pct": 552.2,
+          "max_drawdown_pct": 22.1,
+          "trades": 527,
+          "skipped_overlap_or_size": 153,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -30057.0,
+          "median_risk_usd": 3036.0,
+          "recent_3m_pnl_usd": -3235.0
+        },
+        "account_weekly": {
+          "final_balance": 325675.0,
+          "return_pct": 551.4,
+          "max_drawdown_pct": 22.1,
+          "trades": 527,
+          "skipped_overlap_or_size": 153,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -30887.0,
+          "median_risk_usd": 3017.0,
+          "recent_3m_pnl_usd": -2947.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 151049.0,
+          "return_pct": 202.1,
+          "max_drawdown_pct": 9.4,
+          "trades": 527,
+          "skipped_overlap_or_size": 153,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 982.0,
+          "recent_3m_pnl_usd": 350.0
+        },
+        "mean_r_diff": 0.063,
+        "p": 0.1391,
+        "better_both_halves": false,
+        "bh_p": 0.3171,
+        "label": "無證據"
+      },
+      "atr144_x4": {
+        "all": {
+          "n": 177,
+          "win_rate": 57.6,
+          "mean_r": 0.269,
+          "profit_factor": 1.84,
+          "median_stop_pct": 1.11
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 62.7,
+            "mean_r": 0.345,
+            "profit_factor": 2.22,
+            "median_stop_pct": 0.839
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 53.2,
+            "mean_r": 0.203,
+            "profit_factor": 1.57,
+            "median_stop_pct": 1.227
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.31,
+          "profit_factor": 1.95,
+          "median_stop_pct": 1.153
+        },
+        "account_per_trade": {
+          "final_balance": 284176.0,
+          "return_pct": 468.4,
+          "max_drawdown_pct": 20.2,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -20313.0,
+          "median_risk_usd": 2682.0,
+          "recent_3m_pnl_usd": 6391.0
+        },
+        "account_weekly": {
+          "final_balance": 283655.0,
+          "return_pct": 467.3,
+          "max_drawdown_pct": 20.0,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -21633.0,
+          "median_risk_usd": 2668.0,
+          "recent_3m_pnl_usd": 6470.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 142952.0,
+          "return_pct": 185.9,
+          "max_drawdown_pct": 10.0,
+          "trades": 518,
+          "skipped_overlap_or_size": 162,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 982.0,
+          "recent_3m_pnl_usd": 1830.0
+        },
+        "mean_r_diff": -0.01,
+        "p": 0.7817,
+        "better_both_halves": false,
+        "bh_p": 0.8501,
+        "label": "無證據"
+      },
+      "atr144_x5": {
+        "all": {
+          "n": 177,
+          "win_rate": 60.5,
+          "mean_r": 0.221,
+          "profit_factor": 1.82,
+          "median_stop_pct": 1.388
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 65.1,
+            "mean_r": 0.281,
+            "profit_factor": 2.21,
+            "median_stop_pct": 1.049
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 56.4,
+            "mean_r": 0.167,
+            "profit_factor": 1.55,
+            "median_stop_pct": 1.533
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.209,
+          "profit_factor": 1.67,
+          "median_stop_pct": 1.442
+        },
+        "account_per_trade": {
+          "final_balance": 270247.0,
+          "return_pct": 440.5,
+          "max_drawdown_pct": 20.7,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -19872.0,
+          "median_risk_usd": 2608.0,
+          "recent_3m_pnl_usd": -539.0
+        },
+        "account_weekly": {
+          "final_balance": 269085.0,
+          "return_pct": 438.2,
+          "max_drawdown_pct": 20.6,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -21159.0,
+          "median_risk_usd": 2595.0,
+          "recent_3m_pnl_usd": -29.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 140310.0,
+          "return_pct": 180.6,
+          "max_drawdown_pct": 9.4,
+          "trades": 512,
+          "skipped_overlap_or_size": 168,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 565.0
+        },
+        "mean_r_diff": -0.058,
+        "p": 0.1427,
+        "better_both_halves": false,
+        "bh_p": 0.3171,
+        "label": "無證據"
+      },
+      "atr144_x6": {
+        "all": {
+          "n": 177,
+          "win_rate": 61.0,
+          "mean_r": 0.179,
+          "profit_factor": 1.79,
+          "median_stop_pct": 1.666
+        },
+        "halves": {
+          "first": {
+            "n": 83,
+            "win_rate": 66.3,
+            "mean_r": 0.215,
+            "profit_factor": 2.04,
+            "median_stop_pct": 1.259
+          },
+          "second": {
+            "n": 94,
+            "win_rate": 56.4,
+            "mean_r": 0.147,
+            "profit_factor": 1.6,
+            "median_stop_pct": 1.84
+          }
+        },
+        "recent_3m": {
+          "n": 19,
+          "win_rate": 63.2,
+          "mean_r": 0.199,
+          "profit_factor": 1.8,
+          "median_stop_pct": 1.73
+        },
+        "account_per_trade": {
+          "final_balance": 252027.0,
+          "return_pct": 404.1,
+          "max_drawdown_pct": 20.0,
+          "trades": 509,
+          "skipped_overlap_or_size": 171,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -19330.0,
+          "median_risk_usd": 2544.0,
+          "recent_3m_pnl_usd": -3107.0
+        },
+        "account_weekly": {
+          "final_balance": 250724.0,
+          "return_pct": 401.4,
+          "max_drawdown_pct": 20.7,
+          "trades": 509,
+          "skipped_overlap_or_size": 171,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -20650.0,
+          "median_risk_usd": 2512.0,
+          "recent_3m_pnl_usd": -2545.0
+        },
+        "account_fixed_1000": {
+          "final_balance": 136320.0,
+          "return_pct": 172.6,
+          "max_drawdown_pct": 10.0,
+          "trades": 509,
+          "skipped_overlap_or_size": 171,
+          "longest_losing_streak": 7,
+          "worst_week_usd": -6883.0,
+          "median_risk_usd": 981.0,
+          "recent_3m_pnl_usd": 84.0
+        },
+        "mean_r_diff": -0.1,
+        "p": 0.0213,
+        "better_both_halves": false,
+        "bh_p": 0.142,
+        "label": "無證據"
+      }
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261014-001",
+  "generated_at": "2026-10-14T11:31:04+08:00"
+}

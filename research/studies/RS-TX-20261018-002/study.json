@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261018-002",
+  "revision": 1,
+  "title": "A 2x Taiwan 50 from the start of the midterm year to the election edged holding 0050 in 2014–2026 (22.8% vs 21.3%, 3 windows) with a −58% drawdown against −34%; from the midterm itself it trailed; half capital in 2x matches 1x",
+  "market": "TX",
+  "strategy": "2x Taiwan 50 from the midterm year to the election",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Does holding a 2x Taiwan 50 product (00631L) from the midterm year to the presidential election raise capital efficiency, and at what drawdown?",
+  "hypothesis": "Concentrating exposure in the cycle's strong stretch with 2x leverage beats holding 1x all the time.",
+  "headline": {
+    "bh_0050_1x_cagr_pct": 21.26,
+    "bh_0050_1x_max_dd_pct": -33.83,
+    "lev2_y2_start_cagr_pct": 22.77,
+    "lev2_y2_start_max_dd_pct": -58.41,
+    "lev2_midterm_cagr_pct": 17.22,
+    "lev2_half_y2_start_cagr_pct": 12.35,
+    "etf1_y2_start_cagr_pct": 13.09,
+    "synthetic_vs_real_cagr_gap_pct": 1.92,
+    "lev2_y2_start_time_invested_pct": 72.7
+  },
+  "card_metrics": [
+    "bh_0050_1x_cagr_pct",
+    "lev2_y2_start_cagr_pct",
+    "lev2_y2_start_max_dd_pct",
+    "bh_0050_1x_max_dd_pct"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "About level with holding 0050, with 1.7 times the drawdown",
+      "detail": "2014–2026, 0050 base, 3 windows: 2x from the start of the midterm year to the election 22.77% CAGR, max drawdown −58.41%, invested 72.7% of the time; 2x from the midterm itself 17.22%, −49.52%; 0050 held throughout 21.26%, −33.83%. Not resolvable with 3 windows.",
+      "title_zh": "和一直抱 0050 差不多，回檔 1.7 倍",
+      "detail_zh": "2014–2026、0050、3 個窗口：期中選舉年初到大選持有正二年化 22.77%，最大回檔 −58.41%，持有 72.7% 的時間；從期中選舉當天才買 17.22%、−49.52%；一直抱 0050 21.26%、−33.83%。3 個窗口無法分辨。"
+    },
+    {
+      "tone": "info",
+      "title": "Half capital in 2x ≈ full capital in 1x",
+      "detail": "Inside the same windows: 12.35% / −34.32% against 13.09% / −33.83%. The freed half must earn more than the ~0.7-point gap for this to help.",
+      "title_zh": "半數資金買正二 ≈ 全部買 1 倍",
+      "detail_zh": "同樣窗口：12.35%／−34.32% 對 13.09%／−33.83%。省下的一半資金要賺超過約 0.7 個百分點才划算。"
+    },
+    {
+      "tone": "warn",
+      "title": "On TAIEX since 2001 the 2x lost in most windows",
+      "detail": "4 of 6 Y2-start windows negative, worst in-window drawdown −82.61% (2006–2008); pessimistic because the price index lacks dividends.",
+      "title_zh": "加權 2001 年起：多數窗口正二是虧的",
+      "detail_zh": "6 個期中選舉年初起的窗口有 4 個虧損，窗口內最深回檔 −82.61%（2006–2008）；加權不含股息，結果偏悲觀。"
+    },
+    {
+      "tone": "info",
+      "title": "The synthetic tracks the real 00631L",
+      "detail": "2016–2026 CAGR 44.99% against 43.07%, daily correlation 0.973.",
+      "title_zh": "合成正二貼近真實 00631L",
+      "detail_zh": "2016–2026 年化 44.99% 對 43.07%，日報酬相關 0.973。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "Holding a 2x Taiwan 50 from the start of the midterm year to the election earned 22.8% a year on 0050 data (2014–2026, 3 windows) against 21.3% for holding 0050 throughout, with a −58% drawdown against −34%; starting at the midterm itself gave 17.2%. Half the capital in 2x reproduces 1x exposure; leverage frees capital, it does not lower risk.",
+  "title_zh": "期中選舉年初到大選持有正二：2014–2026 年和一直抱 0050 差不多（22.8% 對 21.3%，3 輪），回檔 −58% 對 −34%；從期中選舉當天才買則落後；半數資金買正二約等於 1 倍",
+  "question_zh": "期中選舉年買正二、大選後出場，能不能提高資金效率，報酬和回檔跟一直抱 0050 比如何？",
+  "hypothesis_zh": "把槓桿集中在歷史上較強的期間，可以用較少的時間賺到更多。",
+  "card_summary_zh": "0050 資料（2014–2026，3 輪）：期中選舉年初到大選持有正二，年化 22.8%，一直抱 0050 為 21.3%，但最大回檔 −58% 對 −34%；從期中選舉當天才買為 17.2%。半數資金買正二只是重現 1 倍曝險：槓桿省下資金，不降低風險。",
+  "limitations_zh": [
+    "0050 只有 3 個完整窗口；加權 6 個，但不含股息。",
+    "合成正二 = 2 × 日報酬 − 年 2.0%，比真實 00631L 略樂觀。",
+    "現金 0%；未計稅。"
+  ],
+  "interpretation_zh": "期中選舉年初到大選持有正二，在 0050 的 3 個窗口裡和一直抱 0050 差不多，但最大回檔 −58% 對 −34%；從期中選舉當天才買則落後。用一半資金買正二只會重現 1 倍曝險：省下的資金要另有用途才有意義。3 個窗口無法分辨好壞。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "bh_0050_1x_cagr_pct",
+        "lev2_y2_start_cagr_pct",
+        "lev2_y2_start_max_dd_pct",
+        "bh_0050_1x_max_dd_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

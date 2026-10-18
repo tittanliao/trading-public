@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261018-003",
+  "revision": 1,
+  "title": "Half capital in a 2x Taiwan 50 with the other half in T-bills or gold, rebalanced yearly, cut 0050's worst drawdown from −34% to −26–27% in 2014–2026; without rebalancing it rose to −50%",
+  "market": "TX",
+  "strategy": "six fixed 0050 / 2x / gold / T-bill portfolios",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Does 50% in a 2x Taiwan 50 product plus 50% in T-bills, gold or cash lower drawdown against 100% 0050, and at what return?",
+  "hypothesis": "Keeping the Taiwan exposure through 2x on half the capital and holding an uncorrelated asset with the other half lowers drawdown.",
+  "headline": {
+    "p0_cagr_pct": 21.38,
+    "p0_max_dd_pct": -33.83,
+    "p2_tbill_max_dd_pct": -26.28,
+    "p3_gold_cagr_pct": 27.2,
+    "p3_gold_max_dd_pct": -27.49,
+    "p4_max_dd_pct": -25.91,
+    "p5_0050_gold_max_dd_pct": -17.4,
+    "no_rebalance_worst_max_dd_pct": -52.43,
+    "etf_gold_corr": 0.106
+  },
+  "card_metrics": [
+    "p0_max_dd_pct",
+    "p4_max_dd_pct",
+    "p5_0050_gold_max_dd_pct",
+    "no_rebalance_worst_max_dd_pct"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "Every barbell lowered the worst drawdown — with yearly rebalancing",
+      "detail": "2014–2026: 0050 −33.83%; 2x + T-bills −26.28%, 2x + gold −27.49%, 2x + gold + T-bills −25.91%; same ordering on the real 00631L from 2016.",
+      "title_zh": "每年調回時，每個組合都降低了最大回檔",
+      "detail_zh": "2014–2026：0050 −33.83%；正二＋公債 −26.28%、正二＋黃金 −27.49%、正二＋黃金＋公債 −25.91%；2016 年起用真實 00631L 排序相同。"
+    },
+    {
+      "tone": "warn",
+      "title": "Without rebalancing it is worse than 0050",
+      "detail": "The 2x share drifts up and max drawdown reaches −49.6% to −52.4% (synthetic 2x, 2014–) and −45.1% to −52.0% (real 00631L, 2016–).",
+      "title_zh": "不調回比單抱 0050 更糟",
+      "detail_zh": "正二比重越來越大，最大回檔 −49.6% 到 −52.4%（合成，2014 起）與 −45.1% 到 −52.0%（真實 00631L，2016 起）。"
+    },
+    {
+      "tone": "info",
+      "title": "Plain 0050 + gold lowers drawdown most",
+      "detail": "−17.40% at 16.73% CAGR against 0050's −33.83% at 21.38%: less drawdown for less return, no leverage.",
+      "title_zh": "不用槓桿的 0050＋黃金回檔最小",
+      "detail_zh": "−17.40%、年化 16.73%，對 0050 的 −33.83%、21.38%：回檔小、報酬也低。"
+    },
+    {
+      "tone": "info",
+      "title": "One favourable path",
+      "detail": "Taiwan equities and gold both rose strongly; 0050's worst fall in the sample was −34%, TAIEX's in 2008 was −58%, where a 2x falls about −85%.",
+      "title_zh": "一條有利的路徑",
+      "detail_zh": "台股和黃金都大漲；樣本中 0050 最大跌 34%，加權在 2008 年跌 58%，正二在那種情況約跌 85%。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "With yearly rebalancing, half the capital in a 2x Taiwan 50 and half in T-bills or gold cut the worst drawdown from −34% to −26–27% while keeping the Taiwan exposure (2014–2026). Without rebalancing it reached −50%. 0050 + gold without leverage cut it most, to −17%, at a lower return.",
+  "title_zh": "半數資金正二＋半數美國公債或黃金，每年調回，2014–2026 年把 0050 的最大回檔從 −34% 降到 −26–27%；不調回則升到 −50%",
+  "question_zh": "用一半資金買正二維持台股曝險，另一半放美國短期公債、黃金或現金，能不能比全部買 0050 回檔小？報酬代價多少？",
+  "hypothesis_zh": "正二保留台股曝險，另一半放低相關資產，可以降低回檔。",
+  "card_summary_zh": "每年調回比例時，半數正二＋半數公債或黃金，在保留台股曝險下把最大回檔從 −34% 降到 −26–27%（2014–2026）。不調回則達 −50%。不用槓桿的 0050＋黃金回檔最小（−17%），但報酬較低。",
+  "limitations_zh": [
+    "單一 12.8 年路徑，台股與黃金都大漲。",
+    "以 0050 合成正二（比 00631L 略樂觀）；真實 00631L 從 2016 年開始。",
+    "樣本中沒有 2008 年等級的崩盤（見 RS-TX-20261018-004）。",
+    "公債以 ^IRX 計息；黃金為 XAUUSD 現貨；匯率去除兩筆錯誤報價；紐約收盤延後一個台股交易日對齊。",
+    "未計交易成本以外的稅。"
+  ],
+  "interpretation_zh": "一半資金買正二保留台股曝險，另一半放美國公債或黃金，每年調回比例，2014–2026 年最大回檔從 −34% 降到約 −26–27%，報酬沒有變差。關鍵是每年調回：不調回時正二比重越來越大，回檔反而到 −50%。這段期間台股和黃金都大漲，沒有 2008 年等級的崩盤，見 RS-TX-20261018-004。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "p0_max_dd_pct",
+        "p4_max_dd_pct",
+        "p5_0050_gold_max_dd_pct",
+        "no_rebalance_worst_max_dd_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

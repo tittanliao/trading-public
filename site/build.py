@@ -81,6 +81,14 @@ PUBLISHED_STUDIES = [
     "RS-MULTI-20260901-001",
     "RS-XAUUSD-20261009-001",
     "RS-XAUUSD-20261009-005",
+    "RS-XAUUSD-20261014-001",
+    "RS-XAUUSD-20261014-002",
+    "RS-MULTI-20261018-001",
+    "RS-TX-20261018-001",
+    "RS-TX-20261018-002",
+    "RS-TX-20261018-003",
+    "RS-TX-20261018-004",
+    "RS-TX-20261018-005",
 ]
 
 # Every published Weekly edition keeps its dated archive page. This is not optional

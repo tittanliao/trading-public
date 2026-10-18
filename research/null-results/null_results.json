@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-09T23:38:35+08:00",
+  "generated_at": "2026-10-18T22:32:45+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 51,
+    "studies": 63,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2226,6 +2226,162 @@
       "reason": "None. 28 positioning conditions x 9 outcomes on 721 weeks, registered before running: 0 usable, 15 reference-level hints, family p 0.86. Managed money and retail buying together is not followed by a shakeout (25.0% vs 24.3%).",
       "status": "confirmed",
       "created_on": "2026-10-09"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261011-001",
+      "study_id": "RS-XAUUSD-20261011-001",
+      "kind": "study",
+      "family": "S1 V3.9 and S2 V3.2",
+      "origin": "programme",
+      "claim": "Stops, volatility and liquidity sweeps — stop-then-run is normal, a wider stop earns less, a sweep before S1 separates nothing",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. About one S1 stop in four has always reached TP1 afterwards (25.2% reference, 33.3% live); a wider stop at the same money risk wins more and earns less; six S1 liquidity-sweep features are all 無證據.",
+      "status": "confirmed",
+      "created_on": "2026-10-11"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261013-001",
+      "study_id": "RS-XAUUSD-20261013-001",
+      "kind": "study",
+      "family": "S1 V3.9 and S2 V3.2",
+      "origin": "programme",
+      "claim": "Entry reminders, re-tested — prior-day red (S1), an S1 exit in the last 48h and GVZ below 22 (S2) hold at moderate strength; reversing a stopped signal has no edge",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Three of ten signal-time conditions are moderate (S1 after a red day; S2 within 48h of an S1 exit; S2 with GVZ below 22) and become Telegram reminders; a mechanical short after an S1 / S2 stop-out has no edge.",
+      "status": "confirmed",
+      "created_on": "2026-10-13"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261014-001",
+      "study_id": "RS-XAUUSD-20261014-001",
+      "kind": "study",
+      "family": "S1 V3.9 and S2 V3.2",
+      "origin": "programme",
+      "claim": "ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. S1 gains nothing from an ATR stop; S2 with a tighter 2×ATR stop replays better but does not survive the family adjustment and would need a strategy re-run and a forward check; weekly-balance sizing changes nothing.",
+      "status": "confirmed",
+      "created_on": "2026-10-14"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261014-002",
+      "study_id": "RS-XAUUSD-20261014-002",
+      "kind": "study",
+      "family": "S1 V3.9 and S2 V3.2",
+      "origin": "programme",
+      "claim": "S1 / S2 under Topstep mechanics — the daily flat rule cuts S1 by about a quarter and S2 by half; small size rarely fails but needs two to three months",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Topstep's daily flat cuts S1 by about a quarter and S2 by half per trade; at 1 MGC the 50K Combine rarely fails but usually needs more than 60 days; at 2 MGC it fails about as often as it passes.",
+      "status": "confirmed",
+      "created_on": "2026-10-14"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261018-001",
+      "study_id": "RS-XAUUSD-20261018-001",
+      "kind": "study",
+      "family": "none — a discretionary 1OZ accumulation plan (weekly build, batch exits)",
+      "origin": "programme",
+      "claim": "The January–September range forecasts how far gold swings from October, not which way; a weekly-build, batch-exit 1OZ plan wins about as often as owning gold, with losses larger than wins",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no sheet, strategy or 請分析 change.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-MULTI-20261018-001",
+      "study_id": "RS-MULTI-20261018-001",
+      "kind": "study",
+      "family": "none — calendar windows of the US presidential cycle",
+      "origin": "programme",
+      "claim": "The presidential cycle: the strong stretch is midterm to the end of the pre-election year; buying at the start of the post-election year is one of the cycle's weakest 22-month holds",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-001",
+      "study_id": "RS-TX-20261018-001",
+      "kind": "study",
+      "family": "six fixed presidential-cycle in/out rules",
+      "origin": "programme",
+      "claim": "Presidential-cycle in/out rules on TAIEX, TSMC and 0050 — none beats buy-and-hold; skipping the midterm year comes closest and missed 2026",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-002",
+      "study_id": "RS-TX-20261018-002",
+      "kind": "study",
+      "family": "2x Taiwan 50 from the midterm year to the election",
+      "origin": "programme",
+      "claim": "A 2x Taiwan 50 from the start of the midterm year to the election edged holding 0050 in 2014–2026 (22.8% vs 21.3%, 3 windows) with a −58% drawdown against −34%; from the midterm itself it trailed; half capital in 2x matches 1x",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-003",
+      "study_id": "RS-TX-20261018-003",
+      "kind": "study",
+      "family": "six fixed 0050 / 2x / gold / T-bill portfolios",
+      "origin": "programme",
+      "claim": "Half capital in a 2x Taiwan 50 with the other half in T-bills or gold, rebalanced yearly, cut 0050's worst drawdown from −34% to −26–27% in 2014–2026; without rebalancing it rose to −50%",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-004",
+      "study_id": "RS-TX-20261018-004",
+      "kind": "study",
+      "family": "six fixed Taiwan 50 / 2x / gold / T-bill portfolios x five rebalancing rules",
+      "origin": "programme",
+      "claim": "Through the 2000 and 2008 crashes the half-capital 2x barbells, rebalanced yearly, still fell 54–60% (Taiwan 50 proxy −65%); 50% Taiwan 50 + 50% gold kept it to −36%; no rebalancing rule beat annual in both halves",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-005",
+      "study_id": "RS-TX-20261018-005",
+      "kind": "study",
+      "family": "gold always; 2x Taiwan 50 from the US midterm to the presidential election",
+      "origin": "programme",
+      "claim": "Gold always with a 2x Taiwan 50 only from the US midterm to the election: 10.76% CAGR, −52% max drawdown over 1997–2026; buying the 2x at once beat staged or pullback entries in 5 of 7 windows",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261018-002",
+      "study_id": "RS-XAUUSD-20261018-002",
+      "kind": "study",
+      "family": "none — a discretionary 1OZ accumulation plan; exit variants and a trend filter",
+      "origin": "programme",
+      "claim": "Neither letting winners run, a loss cap nor a 40-week trend filter resolvably improved the 1OZ plan on 46 weekly cycles; the cap halves the worst cycle but costs mean return",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no sheet, strategy or 請分析 change.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
     }
   ],
   "generated_by": "trading-private research pipeline"

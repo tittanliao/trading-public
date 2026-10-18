@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="5 萬美帳戶每筆 2% 風險下，S1／S2 改用 ATR 動態停損（手數跟著調、金額風險不變）會不會比固定 % 停損好？用每週帳戶餘額算部位有沒有差？">
+<title>ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment · Trading Research</title>
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../../favicon.svg">
+<link rel="stylesheet" href="../../../site/style.css">
+</head>
+<body>
+<header class="shell wide">
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a></div></nav>
+</header>
+<main class="shell wide">
+
+<article class="study-report">
+<p class="eyebrow">RS-XAUUSD-20261014-001 · XAUUSD · 2026-10-14</p>
+<h1>ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment</h1>
+<p class="lede research-question">5 萬美帳戶每筆 2% 風險下，S1／S2 改用 ATR 動態停損（手數跟著調、金額風險不變）會不會比固定 % 停損好？用每週帳戶餘額算部位有沒有差？</p>
+<section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">2</div><div class="metric-label">variants usable</div></div><div class="metric"><div class="metric-value">0</div><div class="metric-label">variants usable after bh</div></div><div class="metric"><div class="metric-value">0.445</div><div class="metric-label">s2 atr14 x2 mean r</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>S1：改 ATR 停損沒有幫助</h3><p>固定 0.5%：勝率 47.5%、每筆 0.217R；3 倍 ATR（約 0.72%）勝率 54.1%、每筆 0.175R。放寬停損被洗掉變少，但賺得更少。</p></article><article class="finding-card"><h3>S2：約 2 倍 ATR 的較緊停損重播較好，尚未確認</h3><p>固定 1%：勝率 57.6%、每筆 0.279R；2 倍 ATR（中位數約 0.53%）：50.3%、0.445R，前後兩段都較好，但未過多重比較，需要 TradingView 重跑策略再前瞻檢驗。</p></article><article class="finding-card"><h3>用每週餘額算部位，結果幾乎一樣</h3><p>複利下每週算 546.3%、每筆算 553.2%，最大回撤都是 20.5%。固定 1,000 美元：回測 200.3%、最大回撤 9.6%、最差一週 -6883 美元。</p></article></div></section><section class="block-section"><h2>詮釋與實務意義</h2><p class="prose">把停損改成 ATR 倍數，S1 沒有任何版本更好：停損放寬時勝率上升但每筆 R 下降。S2 用約 2 倍 ATR(14) 的較緊停損，重播每筆 +0.45R 對固定停損 +0.28R，但 20 個版本做多重比較校正後沒有一個通過，只能當方向。以 5 萬美元模擬帳戶、每筆 2% 風險計算，每週重算部位和固定部位沒有差別。</p></section><section class="block-section"><h2>限制與注意事項</h2><ul class="limitations-list"><li>重播沒有策略的移動停損與保本，每筆報酬比回測低；只能比較停損設定之間的差異。</li><li>回測報酬不等於實盤：屋主 2026 年實際交易大致打平，最近三個月 S1 固定停損每筆 −0.05R。</li><li>二十種設定中挑最好的，S2 的結果沒通過多重比較，不能直接採用。</li><li>本研究不改變策略、停損、風險規則或請分析。</li></ul></section><section class="block-section"><h2>Evidence 原始證據</h2><ul class="evidence-links"><li><a href="analysis.py">analysis.py — Method</a></li><li><a href="results.json">results.json — Results</a></li><li><a href="study.json">study.json — Study manifest</a></li></ul></section>
+</article>
+
+</main>
+<footer class="shell wide"><p>研究證據，不是交易建議；執行前必須以即時 TradingView 確認。Research evidence, not trading advice.</p></footer>
+<script src="../../../site/table.js" defer></script>
+</body>
+</html>

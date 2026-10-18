@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261018-001",
+  "revision": 1,
+  "title": "Presidential-cycle in/out rules on TAIEX, TSMC and 0050 — none beats buy-and-hold; skipping the midterm year comes closest and missed 2026",
+  "market": "TX",
+  "strategy": "six fixed presidential-cycle in/out rules",
+  "status": "confirmed",
+  "created_on": "2026-10-18",
+  "question": "Run as in/out strategies with costs, do presidential-cycle timing rules beat buy-and-hold on TAIEX, TSMC and 0050?",
+  "hypothesis": "Being out of Taiwan equities during the weak part of the cycle raises return or lowers drawdown against buy-and-hold.",
+  "headline": {
+    "taiex_buy_hold_cagr_pct": 9.12,
+    "taiex_skip_midterm_cagr_pct": 8.51,
+    "taiex_out_march_y3_cagr_pct": 7.77,
+    "tsmc_buy_hold_cagr_pct": 20.65,
+    "tsmc_skip_midterm_cagr_pct": 20.4,
+    "tsmc_out_march_y3_cagr_pct": 17.08,
+    "etf0050_buy_hold_cagr_pct": 21.22,
+    "etf0050_skip_midterm_cagr_pct": 17.09,
+    "complete_cycles_taiex_tsmc": 6
+  },
+  "card_metrics": [
+    "taiex_buy_hold_cagr_pct",
+    "taiex_skip_midterm_cagr_pct",
+    "tsmc_buy_hold_cagr_pct",
+    "tsmc_out_march_y3_cagr_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "Buy-and-hold wins on all three",
+      "detail": "CAGR 2001–2026: TAIEX 9.12% (price only), TSMC 20.65%; 0050 21.22% from 2014. No timing rule exceeds it.",
+      "title_zh": "三個標的都是一直持有最好",
+      "detail_zh": "年化 2001–2026：加權 9.12%（不含股息）、台積電 20.65%；0050 自 2014 年 21.22%。沒有一種進出規則超過。"
+    },
+    {
+      "tone": "info",
+      "title": "Skipping the midterm year comes closest",
+      "detail": "TAIEX 8.51%, TSMC 20.40% with max drawdown −46.5% against −59.8%; beat buy-and-hold in 3 of 6 and 2 of 6 cycles, mean excess not separable (bounds 25 and 62 points). Out through 2026, when TAIEX rose about 63%.",
+      "title_zh": "跳過期中選舉年最接近",
+      "detail_zh": "加權 8.51%、台積電 20.40%，台積電最大回檔 −46.5% 對 −59.8%；分別在 6 輪中贏 3 輪、2 輪，平均差異無法分辨。2026 年空手，期間加權漲約 63%。"
+    },
+    {
+      "tone": "warn",
+      "title": "Out from March of the pre-election year costs",
+      "detail": "TAIEX 7.77%, TSMC 17.08%, 0050 18.90% CAGR; beat buy-and-hold in 2 of 6, 2 of 6, 0 of 2 cycles.",
+      "title_zh": "選前一年 3 月出場會少賺",
+      "detail_zh": "加權 7.77%、台積電 17.08%、0050 18.90%；分別在 6、6、2 輪中只贏 2、2、0 輪。"
+    },
+    {
+      "tone": "warn",
+      "title": "Half-time windows trail by 3–17 CAGR points",
+      "detail": "Holding only 27–50% of the time loses more to the market's drift than it saves in bad years.",
+      "title_zh": "只持有一半時間的規則落後 3–17 個百分點",
+      "detail_zh": "只在 27–50% 的時間持有，少賺的上漲多於避開的下跌。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "As in/out strategies with Taiwan costs, no presidential-cycle rule beats buy-and-hold on TAIEX, TSMC or 0050. Skipping the midterm year comes closest and cuts TSMC's worst drawdown, but missed 2026's rally. 6 cycles; nothing separates.",
+  "title_zh": "台股照總統週期進出（加權、台積電、0050）：沒有一種規則贏過一直持有；跳過期中選舉年最接近，但錯過 2026",
+  "question_zh": "把總統週期做成進出場規則、算進台股交易成本後，能不能贏過一直持有加權、台積電或 0050？",
+  "hypothesis_zh": "避開週期中較弱的時段，報酬或回檔會比一直持有好。",
+  "card_summary_zh": "算進台股交易成本後，沒有一種總統週期進出規則贏過一直持有加權、台積電或 0050。跳過期中選舉年最接近、也減少台積電的最大回檔，但錯過 2026 年的大漲。只有 6 個週期，差異無法分辨。",
+  "limitations_zh": [
+    "6 個完整週期（0050 只有 2 個），差異無法分辨。",
+    "加權為價格指數（不含每年約 3–4% 股息），對持有現金的規則有利；現金 0%。",
+    "台灣大選和美國大選同年，無法分開兩種日曆。",
+    "Yahoo 資料；0050 2014 年前資料有誤而排除；台積電有成交量為 0 的元旦資料列，影響可忽略。"
+  ],
+  "interpretation_zh": "把總統週期做成台股進出規則並計入成本，沒有一種贏過一直持有。進出的代價是少了持有時間：台股長期上漲，空手錯過的漲幅多於避開的下跌。要降低風險，應該調整配置，而不是擇時進出。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "taiex_buy_hold_cagr_pct",
+        "taiex_skip_midterm_cagr_pct",
+        "tsmc_buy_hold_cagr_pct",
+        "tsmc_out_march_y3_cagr_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}
