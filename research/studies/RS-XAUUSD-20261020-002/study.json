@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261020-002",
+  "revision": 1,
+  "title": "Gold does not fall from 09:30 Taipei: the 2-hour return is +0.08 points on 675 weekdays, and Asian-morning S1 longs won more often than other S1, not less",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9 / market timing",
+  "status": "confirmed",
+  "created_on": "2026-10-20",
+  "question": "Does gold tend to fall after 09:30 Taipei, and especially after an Asian-morning S1 signal, so that reversing it pays?",
+  "hypothesis": "An Asian-session S1: the market opens at nine and starts falling by half past nine (a trader's stated reason for reversing a signal, 2026-10-20).",
+  "headline": {
+    "days": 675,
+    "ret_0930_2h_mean_pts": 0.08,
+    "ret_0930_2h_share_negative_pct": 46.67,
+    "share_bound_points": 5.39,
+    "rank_0930_of_48": 20,
+    "morning_s1_n": 51,
+    "morning_s1_win_rate_pct": 64.71,
+    "other_s1_win_rate_pct": 54.87,
+    "morning_s1_gap_bound_points": 20.61,
+    "s1_day_2h_mean_pts": -3.74,
+    "s1_day_2h_median_pts": 0.46,
+    "live_morning_s1_n": 3,
+    "live_morning_s1_stopped": 3,
+    "supported": false
+  },
+  "card_metrics": [
+    "ret_0930_2h_mean_pts",
+    "ret_0930_2h_share_negative_pct",
+    "morning_s1_win_rate_pct",
+    "other_s1_win_rate_pct"
+  ],
+  "findings": [
+    {
+      "title": "09:30 is an ordinary half-hour",
+      "tone": "warn",
+      "detail": "On 675 weekdays (2024-01 to 2026-08) the 2-hour return from the 09:30 open averaged +0.08 points (+0.005%, bound ±0.039%) and was negative on 46.7% of days — fewer than half. 09:30 ranks 20th of 48 half-hour starts. The 1-hour and 4-hour windows are also slightly positive; 09:00–09:30 is flat.",
+      "title_zh": "09:30 是很普通的半小時",
+      "detail_zh": "2024-01 到 2026-08 共 675 個交易日，從 09:30 開盤起算 2 小時平均 +0.08 點（+0.005%，門檻 ±0.039%），下跌的日子只有 46.7%，不到一半。48 個半小時起點裡，09:30 排第 20。1 小時、4 小時也是小漲；09:00–09:30 持平。"
+    },
+    {
+      "title": "Asian-morning S1 longs did better, not worse",
+      "tone": "warn",
+      "detail": "51 S1 trades entered 07:00–09:29 Taipei won 64.7% (mean +32 USD) against 54.9% (+17 USD) for the other 421 — the opposite of the claim, and inside noise (9.8 points against a 20.6 bound).",
+      "title_zh": "亞盤早上的 S1 多單反而贏得比較多",
+      "detail_zh": "07:00–09:29 進場的 S1 有 51 筆，勝率 64.7%（平均 +32 美元），其他 421 筆 54.9%（+17 美元）——方向和說法相反，而且也在雜訊內（差 9.8、門檻 20.6）。"
+    },
+    {
+      "title": "After a morning S1 the next 2 hours are a coin toss",
+      "tone": "info",
+      "detail": "On the 51 days with a morning S1, the 09:30-to-11:30 return averaged −3.7 points but the median was +0.5 and 49% of days fell; one or two large drops make the mean. A short from 09:30 would have profited on 49% of those days before costs.",
+      "title_zh": "早上有 S1 的日子，接下來 2 小時是擲銅板",
+      "detail_zh": "51 個早上有 S1 的日子，09:30 到 11:30 平均 −3.7 點，但中位數 +0.5 點，下跌的日子 49%；平均值是少數幾天大跌拉出來的。09:30 放空，未計成本只有 49% 的日子賺錢。"
+    },
+    {
+      "title": "Live: 3 morning S1, all stopped",
+      "tone": "info",
+      "detail": "Since 2026-08-17 the ledger has three S1 signals between 07:00 and 09:29 (08-25, 09-22, 10-19, all 07:00); the strategy stopped out on all three. That is probably what the saying remembers; three is not a sample.",
+      "title_zh": "實盤：早上 3 筆 S1，全部停損",
+      "detail_zh": "8/17 以來，帳本裡 07:00–09:29 的 S1 有 3 筆（8/25、9/22、10/19，都是 07:00），策略都打到停損。這可能就是「亞盤 S1 會跌」印象的來源，但 3 筆不是樣本。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "seasonality",
+  "card_summary": "On 675 weekdays gold's 2-hour return from 09:30 Taipei averaged +0.08 points and fell on 47% of days; 09:30 is an ordinary half-hour. S1 longs entered 07:00–09:29 won 65% against 55% for other S1 — the opposite of the claim, inside noise. Reversing an Asian-morning S1 has no support.",
+  "title_zh": "黃金不會在台北 09:30 之後開始跌：675 個交易日 2 小時平均 +0.08 點；亞盤早上的 S1 多單反而贏得比較多",
+  "question_zh": "黃金在台北時間 09:30 之後是否傾向下跌？亞盤早上出現 S1 之後是否更明顯，反手做空是否有利？",
+  "hypothesis_zh": "亞盤 S1：通常九點開盤，九點半就開始跌（一筆實際反手的理由，2026-10-20）。",
+  "card_summary_zh": "675 個交易日，台北 09:30 起算 2 小時平均 +0.08 點，下跌的日子 47%，09:30 是很普通的時段。07:00–09:29 進場的 S1 勝率 65%，其他 S1 55%——和說法相反，且在雜訊內。反手做空亞盤早上的 S1 沒有證據支持。",
+  "limitations_zh": [
+    "回測資料到 2026-08-15；之後 3 筆早上的實盤訊號只列出，不檢定。",
+    "報酬用 30 分 K 開盤到開盤，未計點差與成本。",
+    "時段用台北時間，沒有分開美國夏令時間的影響。"
+  ],
+  "interpretation_zh": "「九點半開始跌」在 675 天的資料裡看不到；早上的 S1 多單在回測裡反而比較好。實盤 3 筆都停損，很可能是這個印象的來源，但 3 筆不夠。不要用這個理由反手做空；亞盤早上的 S1 照一般 S1 判斷。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "days",
+        "ret_0930_2h_mean_pts",
+        "ret_0930_2h_share_negative_pct",
+        "rank_0930_of_48",
+        "morning_s1_win_rate_pct",
+        "other_s1_win_rate_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

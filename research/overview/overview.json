@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-18T22:32:45+08:00",
+  "generated_at": "2026-10-20T20:54:35+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -608,7 +608,7 @@
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-13",
+      "reviewed_on": "2026-10-20",
       "preliminary": null,
       "evidence": [
         {
@@ -630,6 +630,10 @@
         {
           "study_id": "RS-XAUUSD-20261013-001",
           "says_zh": "重測：%B>1 勝率 63.8%（58 筆）對 53.3%，p 0.16，未過門檻"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261020-001",
+          "says_zh": "只看美盤：上軌之上 20 筆勝率 70% 對 55%，差 15、門檻 32"
         }
       ]
     },
@@ -1914,6 +1918,50 @@
           "says_zh": "22.77% 對 21.26%，回檔 −58%"
         }
       ]
+    },
+    {
+      "id": "K-MKT-007",
+      "topic": "market",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「美國期中選舉後黃金會先跌，然後漲 100 美金」",
+      "detail_zh": "1974–2022 年 13 次期中選舉，選後先跌再從低點漲 10% 的比例是 54%，和非選舉年同一週完全一樣；這是黃金 11 月到隔年春天的季節性。2010 年後每次都漲超過 100 美金，是因為金價變高。",
+      "how_to_use_zh": "不要把期中選舉當成黃金的進出場依據；要看的是 11 月到春天的季節性本身。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-19",
+      "reviewed_on": "2026-10-20",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261019-001",
+          "says_zh": "54% 對其他年同一週 54%"
+        }
+      ]
+    },
+    {
+      "id": "K-S1-010",
+      "topic": "s1",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「亞盤九點開盤、九點半就開始跌」，所以早上的 S1 可以反手做空",
+      "detail_zh": "675 個交易日，台北 09:30 起算 2 小時平均 +0.08 點，下跌的日子 47%，是很普通的時段。07:00–09:29 進場的 S1 多單勝率 65%，其他 S1 55%，方向相反且在雜訊內。",
+      "how_to_use_zh": "不要用這個理由反手做空；亞盤早上的 S1 照一般 S1 判斷。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-20",
+      "reviewed_on": "2026-10-20",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261020-002",
+          "says_zh": "+0.08 點、47% 下跌；早上 S1 勝率 65% 對 55%"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -1995,7 +2043,7 @@
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-10-16"
+      "last_date": "2026-10-20"
     },
     {
       "id": "xau_30m_long",
@@ -3136,6 +3184,54 @@
       "url": "research/locked/",
       "claims": [
         "K-ACC-005"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261019-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "After 13 US midterms gold dipped and then rose 10% from the low in 7 — exactly as often as from the same November week in other years; the saying is gold's November-to-spring seasonality, not the election",
+      "title_zh": "美國期中選舉後黃金「先跌再漲」：13 次裡 7 次，和其他年的 11 月一樣多；這是黃金 11 月到隔年春天的季節性，不是選舉效應",
+      "summary_zh": "1974–2022 年 13 次期中選舉，選後先跌再從低點漲 10% 的比例是 54%，和 26 個非選舉年同一週完全一樣，和隨便哪一週比也在雜訊內。2010 年後每次都漲超過 100 美金，是因為金價變高，100 美金變得很小。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261019-001/",
+      "claims": [
+        "K-MKT-007"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261020-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "entry_context",
+      "title": "US-session S1 above the upper band won 70% of 20 trades against 55% for the rest — a 15-point gap inside a 32-point bound; not a resolved edge",
+      "title_zh": "美盤 S1 而且在上軌之上：20 筆贏 70%，其他 55%；差 15 個百分點，但要差 32 才分得出來，「歷史勝率高」不成立",
+      "summary_zh": "472 筆 S1 裡，美盤且在上軌之上的有 20 筆，勝率 70%，其他 55%。差 15 個百分點，在 20 筆能分辨的 32 個百分點以內（隨機打散 p＝0.14），所以「歷史勝率高」沒有被證實。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-S1-005"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261020-002",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "seasonality",
+      "title": "Gold does not fall from 09:30 Taipei: the 2-hour return is +0.08 points on 675 weekdays, and Asian-morning S1 longs won more often than other S1, not less",
+      "title_zh": "黃金不會在台北 09:30 之後開始跌：675 個交易日 2 小時平均 +0.08 點；亞盤早上的 S1 多單反而贏得比較多",
+      "summary_zh": "675 個交易日，台北 09:30 起算 2 小時平均 +0.08 點，下跌的日子 47%，09:30 是很普通的時段。07:00–09:29 進場的 S1 勝率 65%，其他 S1 55%——和說法相反，且在雜訊內。反手做空亞盤早上的 S1 沒有證據支持。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-S1-010"
       ]
     }
   ],

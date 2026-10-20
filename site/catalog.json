@@ -72,7 +72,10 @@
     "/research/studies/RS-TX-20261018-002/",
     "/research/studies/RS-TX-20261018-003/",
     "/research/studies/RS-TX-20261018-004/",
-    "/research/studies/RS-TX-20261018-005/"
+    "/research/studies/RS-TX-20261018-005/",
+    "/research/studies/RS-XAUUSD-20261019-001/",
+    "/research/studies/RS-XAUUSD-20261020-001/",
+    "/research/studies/RS-XAUUSD-20261020-002/"
   ],
   "weekly_editions": [
     "2026-W43",
@@ -139,7 +142,10 @@
     "RS-TX-20261018-002",
     "RS-TX-20261018-003",
     "RS-TX-20261018-004",
-    "RS-TX-20261018-005"
+    "RS-TX-20261018-005",
+    "RS-XAUUSD-20261019-001",
+    "RS-XAUUSD-20261020-001",
+    "RS-XAUUSD-20261020-002"
   ],
   "evidence_only_studies": [
     "RS-XAUUSD-20260727-002"

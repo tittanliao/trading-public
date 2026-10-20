@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261020-001",
+  "revision": 1,
+  "title": "US-session S1 above the upper band won 70% of 20 trades against 55% for the rest — a 15-point gap inside a 32-point bound; not a resolved edge",
+  "market": "XAUUSD",
+  "strategy": "S1 AweWithBB V3.9",
+  "status": "confirmed",
+  "created_on": "2026-10-20",
+  "question": "Do S1 V3.9 trades entered in the US session with the last closed 30m bar above the upper Bollinger band win more often than other S1 trades?",
+  "hypothesis": "A US-session S1 above the upper band has a historically high win rate (a trader's stated entry reason, 2026-10-20).",
+  "headline": {
+    "us_above_n": 20,
+    "us_above_win_rate_pct": 70.0,
+    "rest_win_rate_pct": 55.31,
+    "gap_pct_points": 14.69,
+    "bound_pct_points": 31.76,
+    "permutation_p": 0.1424,
+    "baseline_n": 472,
+    "baseline_win_rate_pct": 55.93,
+    "live_us_above_n": 2,
+    "live_us_above_losses": 2,
+    "supported": false
+  },
+  "card_metrics": [
+    "us_above_win_rate_pct",
+    "rest_win_rate_pct",
+    "gap_pct_points",
+    "bound_pct_points"
+  ],
+  "findings": [
+    {
+      "title": "70% on 20 trades, inside noise",
+      "tone": "warn",
+      "detail": "20 of 472 S1 trades (2024-01 to 2026-08) were US-session entries above the upper band; 14 won (70%) against 55.3% for the other 452. The gap is 14.7 points; 20 trades need 31.8 to resolve it. One-sided permutation p = 0.14.",
+      "title_zh": "20 筆裡贏 14 筆（70%），但在雜訊內",
+      "detail_zh": "2024-01 到 2026-08 共 472 筆 S1，其中 20 筆是美盤、而且前一根收盤在上軌之上。贏 14 筆（70%），其他 452 筆是 55.3%。差 14.7 個百分點，但 20 筆的樣本要差 31.8 個百分點才分得出來；隨機打散 2 萬次，有 14% 的機會打出一樣大的差距。"
+    },
+    {
+      "title": "The same story as every session's above-band split",
+      "tone": "info",
+      "detail": "Above the band in any session: 64.2% of 53 against 54.9%, 9.3 points against a 20.3 bound — RS-XAUUSD-20260901-001's figure, reproduced. Inside the US session: 70% against 50% for US entries not above the band, 20 points against 33.9. Europe and overnight point the other way, also inside noise.",
+      "title_zh": "和「任何時段在上軌之上」是同一件事",
+      "detail_zh": "不分時段，上軌之上 53 筆勝率 64.2%，其他 54.9%，差 9.3、門檻 20.3（和 RS-XAUUSD-20260901-001 相同）。只看美盤：上軌之上 70%，不在上軌之上 50%，差 20、門檻 33.9。歐盤和深夜盤方向相反（上軌之上反而較差），一樣在雜訊內。"
+    },
+    {
+      "title": "Live: 2 signals, both stopped",
+      "tone": "info",
+      "detail": "Since the Telegram signal ledger began (2026-08-17), two S1 signals were US-session above the band, #20261002-002 and #20261016-003; the strategy stopped out on both. Two is no evidence either way.",
+      "title_zh": "實盤：2 筆，都停損",
+      "detail_zh": "Telegram 訊號帳本從 8/17 開始，美盤又在上軌之上的 S1 只有 2 筆：#20261002-002 和 #20261016-003，策略都打到停損。2 筆不能證明任何事。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "entry_context",
+  "card_summary": "Of 472 S1 V3.9 trades, 20 were US-session entries with the last closed bar above the upper band; they won 70% against 55% for the rest. The 15-point gap is inside the 32-point bound that 20 trades can resolve (permutation p = 0.14), so 'historically high win rate' is not established.",
+  "title_zh": "美盤 S1 而且在上軌之上：20 筆贏 70%，其他 55%；差 15 個百分點，但要差 32 才分得出來，「歷史勝率高」不成立",
+  "question_zh": "S1 V3.9 在美盤進場、而且前一根已收盤 K 棒在布林上軌之上時，勝率是否比其他 S1 高？",
+  "hypothesis_zh": "美盤的 S1 且超出上軌，歷史勝率高（一筆實際交易的進場理由，2026-10-20）。",
+  "card_summary_zh": "472 筆 S1 裡，美盤且在上軌之上的有 20 筆，勝率 70%，其他 55%。差 15 個百分點，在 20 筆能分辨的 32 個百分點以內（隨機打散 p＝0.14），所以「歷史勝率高」沒有被證實。",
+  "limitations_zh": [
+    "受測組只有 20 筆，差距小於 32 個百分點都分不出來。",
+    "回測只到 2026-08-13；實盤訊號只列出，不檢定。",
+    "%B 用 30 分 K 收盤（樣本標準差）計算，和 Pine 的布林帶接近但不完全相同。"
+  ],
+  "interpretation_zh": "方向和這個說法一致（美盤上軌之上贏得比較多），但只有 20 筆，差距在雜訊內，不能當成加分理由；不分時段的「上軌之上 64%」也是同樣情況。美盤上軌之上照一般 S1 處理，不因此加碼或放寬條件；實盤這 2 筆都停損，也不代表反過來。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "us_above_n",
+        "us_above_win_rate_pct",
+        "rest_win_rate_pct",
+        "gap_pct_points",
+        "bound_pct_points",
+        "permutation_p"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-18T22:32:45+08:00",
+  "generated_at": "2026-10-20T20:51:16+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 63,
+    "studies": 66,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -106,6 +106,136 @@
     }
   ],
   "entries": [
+    {
+      "entry_id": "RS-MULTI-20260901-001",
+      "study_id": "RS-MULTI-20260901-001",
+      "kind": "study",
+      "family": "calendar seasonality",
+      "origin": "programme",
+      "claim": "Buy the month open, sell the month close — one month clears its bound, and only on the short sample",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Across 48 month-by-series cells exactly one clears its own resolution bound — XAUUSD January on daily 2008+, by 0.033 percentage points — and it does not clear on the 1980+ sample. Separately: weekly-derived month boundaries disagree with daily by a mean 4.48 win-rate points for XAUUSD and 4.76 for TX, which is a caution about every seasonality result computed on weekly bars, RS-TX-20260728-001 included.",
+      "status": "confirmed",
+      "created_on": "2026-09-01"
+    },
+    {
+      "entry_id": "RS-MULTI-20261018-001",
+      "study_id": "RS-MULTI-20261018-001",
+      "kind": "study",
+      "family": "none — calendar windows of the US presidential cycle",
+      "origin": "programme",
+      "claim": "The presidential cycle: the strong stretch is midterm to the end of the pre-election year; buying at the start of the post-election year is one of the cycle's weakest 22-month holds",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20260728-001",
+      "study_id": "RS-TX-20260728-001",
+      "kind": "study",
+      "family": "monthly-seasonality v1",
+      "origin": "programme",
+      "claim": "TX monthly seasonality — buy month-open, sell month-close",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research/publication only; descriptive calendar-month seasonality, no live 請分析 rule.",
+      "status": "progress",
+      "created_on": "2026-07-28"
+    },
+    {
+      "entry_id": "RS-TX-20260728-002",
+      "study_id": "RS-TX-20260728-002",
+      "kind": "study",
+      "family": "annual-fib-pullback v1",
+      "origin": "programme",
+      "claim": "TX annual Jan-open to Jul-1 rally, Fibonacci pullback re-entry",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Exploratory research only, tiny sample (7-8 trades/level); no live 請分析 rule.",
+      "status": "progress",
+      "created_on": "2026-07-28"
+    },
+    {
+      "entry_id": "RS-TX-20260815-001",
+      "study_id": "RS-TX-20260815-001",
+      "kind": "study",
+      "family": "annual-fib-three-wave research-v1",
+      "origin": "programme",
+      "claim": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Private medium/long-term research only; no live entry, sizing, stop, or margin rule is adopted.",
+      "status": "progress",
+      "created_on": "2026-08-15"
+    },
+    {
+      "entry_id": "RS-TX-20261018-001",
+      "study_id": "RS-TX-20261018-001",
+      "kind": "study",
+      "family": "six fixed presidential-cycle in/out rules",
+      "origin": "programme",
+      "claim": "Presidential-cycle in/out rules on TAIEX, TSMC and 0050 — none beats buy-and-hold; skipping the midterm year comes closest and missed 2026",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-002",
+      "study_id": "RS-TX-20261018-002",
+      "kind": "study",
+      "family": "2x Taiwan 50 from the midterm year to the election",
+      "origin": "programme",
+      "claim": "A 2x Taiwan 50 from the start of the midterm year to the election edged holding 0050 in 2014–2026 (22.8% vs 21.3%, 3 windows) with a −58% drawdown against −34%; from the midterm itself it trailed; half capital in 2x matches 1x",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-003",
+      "study_id": "RS-TX-20261018-003",
+      "kind": "study",
+      "family": "six fixed 0050 / 2x / gold / T-bill portfolios",
+      "origin": "programme",
+      "claim": "Half capital in a 2x Taiwan 50 with the other half in T-bills or gold, rebalanced yearly, cut 0050's worst drawdown from −34% to −26–27% in 2014–2026; without rebalancing it rose to −50%",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-004",
+      "study_id": "RS-TX-20261018-004",
+      "kind": "study",
+      "family": "six fixed Taiwan 50 / 2x / gold / T-bill portfolios x five rebalancing rules",
+      "origin": "programme",
+      "claim": "Through the 2000 and 2008 crashes the half-capital 2x barbells, rebalanced yearly, still fell 54–60% (Taiwan 50 proxy −65%); 50% Taiwan 50 + 50% gold kept it to −36%; no rebalancing rule beat annual in both halves",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261018-005",
+      "study_id": "RS-TX-20261018-005",
+      "kind": "study",
+      "family": "gold always; 2x Taiwan 50 from the US midterm to the presidential election",
+      "origin": "programme",
+      "claim": "Gold always with a 2x Taiwan 50 only from the US midterm to the election: 10.76% CAGR, −52% max drawdown over 1997–2026; buying the 2x at once beat staged or pullback entries in 5 of 7 windows",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-18"
+    },
     {
       "entry_id": "RS-XAUUSD-20260727-001",
       "study_id": "RS-XAUUSD-20260727-001",
@@ -209,45 +339,6 @@
       "reason": "None. Research/publication only; reads -006/-007 results.json, recomputes nothing.",
       "status": "confirmed",
       "created_on": "2026-07-27"
-    },
-    {
-      "entry_id": "RS-TX-20260728-001",
-      "study_id": "RS-TX-20260728-001",
-      "kind": "study",
-      "family": "monthly-seasonality v1",
-      "origin": "programme",
-      "claim": "TX monthly seasonality — buy month-open, sell month-close",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research/publication only; descriptive calendar-month seasonality, no live 請分析 rule.",
-      "status": "progress",
-      "created_on": "2026-07-28"
-    },
-    {
-      "entry_id": "RS-TX-20260728-002",
-      "study_id": "RS-TX-20260728-002",
-      "kind": "study",
-      "family": "annual-fib-pullback v1",
-      "origin": "programme",
-      "claim": "TX annual Jan-open to Jul-1 rally, Fibonacci pullback re-entry",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Exploratory research only, tiny sample (7-8 trades/level); no live 請分析 rule.",
-      "status": "progress",
-      "created_on": "2026-07-28"
-    },
-    {
-      "entry_id": "RS-TX-20260815-001",
-      "study_id": "RS-TX-20260815-001",
-      "kind": "study",
-      "family": "annual-fib-three-wave research-v1",
-      "origin": "programme",
-      "claim": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Private medium/long-term research only; no live entry, sizing, stop, or margin rule is adopted.",
-      "status": "progress",
-      "created_on": "2026-08-15"
     },
     {
       "entry_id": "RS-XAUUSD-20260815-001",
@@ -2059,19 +2150,6 @@
       "created_on": "2026-08-31"
     },
     {
-      "entry_id": "RS-MULTI-20260901-001",
-      "study_id": "RS-MULTI-20260901-001",
-      "kind": "study",
-      "family": "calendar seasonality",
-      "origin": "programme",
-      "claim": "Buy the month open, sell the month close — one month clears its bound, and only on the short sample",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Across 48 month-by-series cells exactly one clears its own resolution bound — XAUUSD January on daily 2008+, by 0.033 percentage points — and it does not clear on the 1980+ sample. Separately: weekly-derived month boundaries disagree with daily by a mean 4.48 win-rate points for XAUUSD and 4.76 for TX, which is a caution about every seasonality result computed on weekly bars, RS-TX-20260728-001 included.",
-      "status": "confirmed",
-      "created_on": "2026-09-01"
-    },
-    {
       "entry_id": "RS-XAUUSD-20260901-001",
       "study_id": "RS-XAUUSD-20260901-001",
       "kind": "study",
@@ -2293,84 +2371,6 @@
       "created_on": "2026-10-18"
     },
     {
-      "entry_id": "RS-MULTI-20261018-001",
-      "study_id": "RS-MULTI-20261018-001",
-      "kind": "study",
-      "family": "none — calendar windows of the US presidential cycle",
-      "origin": "programme",
-      "claim": "The presidential cycle: the strong stretch is midterm to the end of the pre-election year; buying at the start of the post-election year is one of the cycle's weakest 22-month holds",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
-      "entry_id": "RS-TX-20261018-001",
-      "study_id": "RS-TX-20261018-001",
-      "kind": "study",
-      "family": "six fixed presidential-cycle in/out rules",
-      "origin": "programme",
-      "claim": "Presidential-cycle in/out rules on TAIEX, TSMC and 0050 — none beats buy-and-hold; skipping the midterm year comes closest and missed 2026",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
-      "entry_id": "RS-TX-20261018-002",
-      "study_id": "RS-TX-20261018-002",
-      "kind": "study",
-      "family": "2x Taiwan 50 from the midterm year to the election",
-      "origin": "programme",
-      "claim": "A 2x Taiwan 50 from the start of the midterm year to the election edged holding 0050 in 2014–2026 (22.8% vs 21.3%, 3 windows) with a −58% drawdown against −34%; from the midterm itself it trailed; half capital in 2x matches 1x",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
-      "entry_id": "RS-TX-20261018-003",
-      "study_id": "RS-TX-20261018-003",
-      "kind": "study",
-      "family": "six fixed 0050 / 2x / gold / T-bill portfolios",
-      "origin": "programme",
-      "claim": "Half capital in a 2x Taiwan 50 with the other half in T-bills or gold, rebalanced yearly, cut 0050's worst drawdown from −34% to −26–27% in 2014–2026; without rebalancing it rose to −50%",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
-      "entry_id": "RS-TX-20261018-004",
-      "study_id": "RS-TX-20261018-004",
-      "kind": "study",
-      "family": "six fixed Taiwan 50 / 2x / gold / T-bill portfolios x five rebalancing rules",
-      "origin": "programme",
-      "claim": "Through the 2000 and 2008 crashes the half-capital 2x barbells, rebalanced yearly, still fell 54–60% (Taiwan 50 proxy −65%); 50% Taiwan 50 + 50% gold kept it to −36%; no rebalancing rule beat annual in both halves",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
-      "entry_id": "RS-TX-20261018-005",
-      "study_id": "RS-TX-20261018-005",
-      "kind": "study",
-      "family": "gold always; 2x Taiwan 50 from the US midterm to the presidential election",
-      "origin": "programme",
-      "claim": "Gold always with a 2x Taiwan 50 only from the US midterm to the election: 10.76% CAGR, −52% max drawdown over 1997–2026; buying the 2x at once beat staged or pullback entries in 5 of 7 windows",
-      "null_tested_against": null,
-      "verdict": "study_level",
-      "reason": "None. Research only; no account, holding or rule changes.",
-      "status": "confirmed",
-      "created_on": "2026-10-18"
-    },
-    {
       "entry_id": "RS-XAUUSD-20261018-002",
       "study_id": "RS-XAUUSD-20261018-002",
       "kind": "study",
@@ -2382,6 +2382,45 @@
       "reason": "None. Research only; no sheet, strategy or 請分析 change.",
       "status": "confirmed",
       "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261019-001",
+      "study_id": "RS-XAUUSD-20261019-001",
+      "kind": "study",
+      "family": "none — a market saying about gold after US midterm elections",
+      "origin": "programme",
+      "claim": "After 13 US midterms gold dipped and then rose 10% from the low in 7 — exactly as often as from the same November week in other years; the saying is gold's November-to-spring seasonality, not the election",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-19"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261020-001",
+      "study_id": "RS-XAUUSD-20261020-001",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9",
+      "origin": "programme",
+      "claim": "US-session S1 above the upper band won 70% of 20 trades against 55% for the rest — a 15-point gap inside a 32-point bound; not a resolved edge",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-20"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261020-002",
+      "study_id": "RS-XAUUSD-20261020-002",
+      "kind": "study",
+      "family": "S1 AweWithBB V3.9 / market timing",
+      "origin": "programme",
+      "claim": "Gold does not fall from 09:30 Taipei: the 2-hour return is +0.08 points on 675 weekdays, and Asian-morning S1 longs won more often than other S1, not less",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-20"
     }
   ],
   "generated_by": "trading-private research pipeline"

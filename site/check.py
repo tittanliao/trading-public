@@ -429,7 +429,7 @@ def check_table_columns(errors: list[str]) -> None:
 KNOWN_STDLIB_AND_THIRD_PARTY = {
     "__future__", "argparse", "base64", "bisect", "collections", "csv", "dataclasses",
     "datetime", "hashlib", "itertools", "json", "math", "matplotlib", "numpy", "os",
-    "pandas", "pathlib", "random", "re", "shutil", "statistics", "sys", "typing",
+    "pandas", "pathlib", "random", "re", "shutil", "sqlite3", "statistics", "sys", "typing",
     "zoneinfo",
 }
 

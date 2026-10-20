@@ -1,0 +1,175 @@
+{
+  "sample": {
+    "days": 675,
+    "start": "2024-01-02",
+    "end": "2026-08-14",
+    "s1_trades": 472
+  },
+  "signal": {
+    "days_with_morning_s1": 51,
+    "return_after_0930_with_vs_without_pct": {
+      "n_a": 51,
+      "n_b": 624,
+      "mean_a": -0.0766,
+      "mean_b": 0.0119,
+      "gap": -0.0885,
+      "bound": 0.185,
+      "resolved": false,
+      "too_small": false
+    },
+    "return_after_0930_with_s1": {
+      "n": 51,
+      "mean_pts": -3.74,
+      "median_pts": 0.46,
+      "mean_pct": -0.0766,
+      "bound_mean_pct": 0.1806,
+      "share_negative_pct": 49.02,
+      "bound_share_points": 19.6
+    },
+    "morning_s1_vs_other_s1_win": {
+      "n_a": 51,
+      "n_b": 421,
+      "rate_a_pct": 64.71,
+      "rate_b_pct": 54.87,
+      "gap_pct_points": 9.84,
+      "bound_pct_points": 20.61,
+      "resolved": false,
+      "too_small": false
+    },
+    "morning_s1": {
+      "n": 51,
+      "win_rate_pct": 64.71,
+      "mean_pnl_usd": 32.19,
+      "profit_factor": 2.861
+    },
+    "other_s1": {
+      "n": 421,
+      "win_rate_pct": 54.87,
+      "mean_pnl_usd": 16.8,
+      "profit_factor": 1.754
+    },
+    "morning_s1_pnl_gap_usd": {
+      "n_a": 51,
+      "n_b": 421,
+      "mean_a": 32.19,
+      "mean_b": 16.8,
+      "gap": 15.38,
+      "bound": 30.15,
+      "resolved": false,
+      "too_small": false
+    },
+    "short_0930_to_1130_on_s1_days": {
+      "n": 51,
+      "mean_pts": 3.74,
+      "share_profitable_pct": 49.02,
+      "note": "Hypothetical, no costs or spread; descriptive."
+    }
+  },
+  "market_supported": false,
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261020-002",
+  "generated_at": "2026-10-20T20:53:57+08:00",
+  "charts": [
+    {
+      "id": "slot_2h_returns",
+      "file": "slot_2h_returns.png",
+      "section": "market",
+      "title": "Mean 2-hour return from each half-hour, Taipei"
+    }
+  ],
+  "market": {
+    "windows": {
+      "0930_to_1130": {
+        "n": 675,
+        "mean_pts": 0.08,
+        "median_pts": 0.52,
+        "mean_pct": 0.0052,
+        "bound_mean_pct": 0.0394,
+        "share_negative_pct": 46.67,
+        "bound_share_points": 5.39
+      },
+      "0930_to_1030": {
+        "n": 675,
+        "mean_pts": 0.62,
+        "median_pts": 0.45,
+        "mean_pct": 0.0189,
+        "bound_mean_pct": 0.0309,
+        "share_negative_pct": 45.48,
+        "bound_share_points": 5.39
+      },
+      "0930_to_1330": {
+        "n": 675,
+        "mean_pts": 0.47,
+        "median_pts": 0.74,
+        "mean_pct": 0.0163,
+        "bound_mean_pct": 0.0458,
+        "share_negative_pct": 46.96,
+        "bound_share_points": 5.39
+      },
+      "0900_to_0930": {
+        "n": 675,
+        "mean_pts": 0.23,
+        "median_pts": 0.06,
+        "mean_pct": 0.0084,
+        "bound_mean_pct": 0.0307,
+        "share_negative_pct": 49.33,
+        "bound_share_points": 5.39
+      }
+    },
+    "rank_0930_among_48_slots_lowest_first": 20,
+    "slot_mean_pct_range": [
+      -0.0225,
+      0.0439
+    ],
+    "slot_means_pct": {
+      "22:30": -0.0225,
+      "21:30": -0.0205,
+      "22:00": -0.0175,
+      "12:00": -0.0114,
+      "12:30": -0.0101,
+      "21:00": -0.0096,
+      "05:00": -0.008,
+      "10:30": -0.007,
+      "23:00": -0.006,
+      "13:00": -0.004,
+      "20:00": -0.0022,
+      "10:00": -0.0002,
+      "23:30": 0.0001,
+      "13:30": 0.0004,
+      "04:00": 0.002,
+      "16:00": 0.0026,
+      "17:00": 0.0036,
+      "15:30": 0.0046,
+      "18:30": 0.005,
+      "09:30": 0.0052,
+      "16:30": 0.0087,
+      "19:30": 0.0087,
+      "01:00": 0.0091,
+      "09:00": 0.0097,
+      "20:30": 0.0105,
+      "02:00": 0.0105,
+      "06:30": 0.0105,
+      "11:30": 0.0112,
+      "15:00": 0.012,
+      "01:30": 0.0132,
+      "11:00": 0.0154,
+      "02:30": 0.0159,
+      "17:30": 0.0179,
+      "04:30": 0.0195,
+      "14:00": 0.0217,
+      "18:00": 0.0219,
+      "14:30": 0.023,
+      "00:30": 0.0231,
+      "00:00": 0.0245,
+      "19:00": 0.0248,
+      "07:30": 0.0249,
+      "08:00": 0.0257,
+      "03:00": 0.0317,
+      "06:00": 0.0327,
+      "08:30": 0.0332,
+      "05:30": 0.0411,
+      "07:00": 0.0427,
+      "03:30": 0.0439
+    }
+  }
+}

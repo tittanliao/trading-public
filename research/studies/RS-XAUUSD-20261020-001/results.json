@@ -1,0 +1,168 @@
+{
+  "sample": {
+    "n": 472,
+    "start": "2024-01-03 10:30:00",
+    "end": "2026-08-13 20:30:00",
+    "baseline": {
+      "n": 472,
+      "win_rate_pct": 55.93,
+      "mean_pnl_usd": 18.46,
+      "profit_factor": 1.849
+    }
+  },
+  "primary_us_above_vs_rest": {
+    "n_a": 20,
+    "n_b": 452,
+    "rate_a_pct": 70.0,
+    "rate_b_pct": 55.31,
+    "gap_pct_points": 14.69,
+    "bound_pct_points": 31.76,
+    "resolved": false,
+    "too_small": false,
+    "permutation_p_one_sided": 0.1424
+  },
+  "us_above": {
+    "n": 20,
+    "win_rate_pct": 70.0,
+    "mean_pnl_usd": 29.94,
+    "profit_factor": 2.97
+  },
+  "rest": {
+    "n": 452,
+    "win_rate_pct": 55.31,
+    "mean_pnl_usd": 17.96,
+    "profit_factor": 1.815
+  },
+  "pnl_gap_usd": {
+    "n_a": 20,
+    "n_b": 452,
+    "mean_a": 29.94,
+    "mean_b": 17.96,
+    "gap": 11.98,
+    "bound": 39.65,
+    "resolved": false,
+    "too_small": false
+  },
+  "us_above_vs_us_not_above": {
+    "n_a": 20,
+    "n_b": 114,
+    "rate_a_pct": 70.0,
+    "rate_b_pct": 50.0,
+    "gap_pct_points": 20.0,
+    "bound_pct_points": 33.88,
+    "resolved": false,
+    "too_small": false
+  },
+  "above_vs_not_any_session": {
+    "n_a": 53,
+    "n_b": 419,
+    "rate_a_pct": 64.15,
+    "rate_b_pct": 54.89,
+    "gap_pct_points": 9.26,
+    "bound_pct_points": 20.27,
+    "resolved": false,
+    "too_small": false
+  },
+  "supported": false,
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261020-001",
+  "generated_at": "2026-10-20T20:53:56+08:00",
+  "by_session": {
+    "asia": {
+      "above": {
+        "n": 18,
+        "win_rate_pct": 72.22,
+        "mean_pnl_usd": 28.89,
+        "profit_factor": 3.126
+      },
+      "not_above": {
+        "n": 142,
+        "win_rate_pct": 55.63,
+        "mean_pnl_usd": 19.8,
+        "profit_factor": 1.909
+      },
+      "gap": {
+        "n_a": 18,
+        "n_b": 142,
+        "rate_a_pct": 72.22,
+        "rate_b_pct": 55.63,
+        "gap_pct_points": 16.59,
+        "bound_pct_points": 34.63,
+        "resolved": false,
+        "too_small": false
+      }
+    },
+    "europe": {
+      "above": {
+        "n": 9,
+        "win_rate_pct": 44.44,
+        "mean_pnl_usd": 17.24,
+        "profit_factor": 1.635
+      },
+      "not_above": {
+        "n": 83,
+        "win_rate_pct": 53.01,
+        "mean_pnl_usd": 20.18,
+        "profit_factor": 1.873
+      },
+      "gap": {
+        "n_a": 9,
+        "n_b": 83,
+        "rate_a_pct": 44.44,
+        "rate_b_pct": 53.01,
+        "gap_pct_points": -8.57,
+        "bound_pct_points": 49.09,
+        "resolved": false,
+        "too_small": true
+      }
+    },
+    "us": {
+      "above": {
+        "n": 20,
+        "win_rate_pct": 70.0,
+        "mean_pnl_usd": 29.94,
+        "profit_factor": 2.97
+      },
+      "not_above": {
+        "n": 114,
+        "win_rate_pct": 50.0,
+        "mean_pnl_usd": 5.51,
+        "profit_factor": 1.224
+      },
+      "gap": {
+        "n_a": 20,
+        "n_b": 114,
+        "rate_a_pct": 70.0,
+        "rate_b_pct": 50.0,
+        "gap_pct_points": 20.0,
+        "bound_pct_points": 33.88,
+        "resolved": false,
+        "too_small": false
+      }
+    },
+    "overnight": {
+      "above": {
+        "n": 6,
+        "win_rate_pct": 50.0,
+        "mean_pnl_usd": 0.29,
+        "profit_factor": 1.012
+      },
+      "not_above": {
+        "n": 80,
+        "win_rate_pct": 62.5,
+        "mean_pnl_usd": 29.06,
+        "profit_factor": 2.541
+      },
+      "gap": {
+        "n_a": 6,
+        "n_b": 80,
+        "rate_a_pct": 50.0,
+        "rate_b_pct": 62.5,
+        "gap_pct_points": -12.5,
+        "bound_pct_points": 57.63,
+        "resolved": false,
+        "too_small": true
+      }
+    }
+  }
+}
