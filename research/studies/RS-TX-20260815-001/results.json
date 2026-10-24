@@ -1,0 +1,2303 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-TX-20260815-001",
+  "generated_at": "2026-08-15T23:30:00+08:00",
+  "method": {
+    "timezone": "Asia/Taipei / TradingView exchange session labels",
+    "data_cutoff": "2026-08-14",
+    "qualification": "jul1 reference close > first trading-day open",
+    "anchor": "known YTD high through July 1, then prior-completed-day rolling high until first 0.618 trigger; freeze thereafter",
+    "formula": "jan_open + ratio * (anchor_high - jan_open)",
+    "level_order": [
+      "0.618",
+      "0.5",
+      "0.382"
+    ],
+    "lots": {
+      "0.618": 3,
+      "0.5": 9,
+      "0.382": 3
+    },
+    "trigger": "previous close >= level and current daily low < level",
+    "fill": "current open if gap below level, otherwise level",
+    "same_day_multi_level": "all crossed levels fill on the same daily bar",
+    "no_stop_exit": "close on or before following March 31",
+    "stop_exit": "after 0.382 entry, any close below frozen 0.382 arms the test; exit all after 10 consecutive closes below, while a close at/above resets the count",
+    "margin": {
+      "initial_twd_per_lot": 31800,
+      "maintenance_twd_per_lot": 24400,
+      "normalized_as_of": "2026-07-06",
+      "historical_application": "fixed-current-margin scenario, not historical schedule"
+    },
+    "funding": "at each fill, top up account equity to maintenance plus 5,000 points times TWD10 times open lots",
+    "costs": "gross; commission, tax, slippage beyond gap handling, and explicit roll cost are unknown/not deducted"
+  },
+  "charts": [
+    {
+      "id": "layer_win_rate",
+      "file": "layer_win_rate.png",
+      "title": "Three-wave layer win rate"
+    },
+    {
+      "id": "annual_pnl",
+      "file": "annual_pnl.png",
+      "title": "Weighted 3/9/3 annual outcomes"
+    }
+  ],
+  "limitations": [
+    "Only 13 complete decision years (2013–2025) exist; every level and combined result is low sample.",
+    "TMF launched in 2024. Pre-launch amounts scale MXF1! prices synthetically at TWD 10/point and cannot reproduce historical TMF liquidity, fills, or slippage.",
+    "MXF1! is a rolling continuous front-month contract. Back-adjustment setting is unknown, and roll jumps/basis can affect anchors, triggers, exits, and drawdown.",
+    "The daily bar cannot establish intraday high/low order. Using only the prior completed day's anchor prevents lookahead but may differ from an intraday implementation.",
+    "Daily close proxies settlement for maintenance checks; intraday-low breach is a stress flag, not proof of an actual broker margin call.",
+    "The fixed 2026 margin scenario is applied to all years for current-capital comparability; it is not the historical margin schedule.",
+    "Results are gross of commission, transaction tax, explicit roll cost, and additional slippage.",
+    "The 2026 cycle is provisional and excluded from WR/PF/PnL statistics because its March 2027 exit is unavailable."
+  ],
+  "market": "TX",
+  "cycles": [
+    {
+      "year": 2013,
+      "jan_open_date": "2013-01-02",
+      "jan_open": 7725.0,
+      "jul1_reference_date": "2013-07-01",
+      "jul1_close": 7903.0,
+      "jan_to_jul1_return_pct": 2.3,
+      "qualified": true,
+      "anchor_high": 8449.0,
+      "anchor_high_date": "2013-05-22",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 8172.43,
+        "0.5": 8087.0,
+        "0.382": 8001.57
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2013-07-15",
+          "level_price": 8172.43,
+          "entry_price": 8145.0,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2013-07-19",
+          "level_price": 8087.0,
+          "entry_price": 8077.0,
+          "lots": 9,
+          "same_day_with_first_wave": false
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2013-07-19",
+          "level_price": 8001.57,
+          "entry_price": 8001.57,
+          "lots": 3,
+          "same_day_with_first_wave": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2014-03-31",
+          "exit_price": 8790.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 8075.51,
+          "pnl_twd": 107172.9,
+          "return_on_funded_capital_pct": 9.51,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2013-07-15",
+              "level_price": 8172.43,
+              "entry_price": 8145.0,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2014-03-31",
+              "exit_price": 8790.0,
+              "pnl_pts_per_contract": 645.0,
+              "pnl_twd": 19350.0,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2013-07-19",
+              "level_price": 8087.0,
+              "entry_price": 8077.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2014-03-31",
+              "exit_price": 8790.0,
+              "pnl_pts_per_contract": 713.0,
+              "pnl_twd": 64170.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2013-07-19",
+              "level_price": 8001.57,
+              "entry_price": 8001.57,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2014-03-31",
+              "exit_price": 8790.0,
+              "pnl_pts_per_contract": 788.43,
+              "pnl_twd": 23652.9,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1127091.6,
+            "max_drawdown_twd": 64650.0,
+            "max_drawdown_pct": 5.69,
+            "max_intraday_drawdown_twd": 74700.0,
+            "max_intraday_drawdown_pct": 6.58,
+            "min_close_buffer_points": 4701.43,
+            "min_intraday_buffer_points": 4634.43,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2013-08-19",
+          "exit_price": 7886.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "lots": 15,
+          "average_entry": 8075.51,
+          "pnl_twd": -28427.1,
+          "return_on_funded_capital_pct": -2.52,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2013-07-15",
+              "level_price": 8172.43,
+              "entry_price": 8145.0,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2013-08-19",
+              "exit_price": 7886.0,
+              "pnl_pts_per_contract": -259.0,
+              "pnl_twd": -7770.0,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2013-07-19",
+              "level_price": 8087.0,
+              "entry_price": 8077.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2013-08-19",
+              "exit_price": 7886.0,
+              "pnl_pts_per_contract": -191.0,
+              "pnl_twd": -17190.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2013-07-19",
+              "level_price": 8001.57,
+              "entry_price": 8001.57,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2013-08-19",
+              "exit_price": 7886.0,
+              "pnl_pts_per_contract": -115.57,
+              "pnl_twd": -3467.1,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1127091.6,
+            "max_drawdown_twd": 46500.0,
+            "max_drawdown_pct": 4.09,
+            "max_intraday_drawdown_twd": 50100.0,
+            "max_intraday_drawdown_pct": 4.41,
+            "min_close_buffer_points": 4822.43,
+            "min_intraday_buffer_points": 4798.43,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 10,
+            "recovery_dates": [
+              "2013-07-22"
+            ],
+            "terminal_open_breach_date": "2013-08-06"
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2014,
+      "jan_open_date": "2014-01-02",
+      "jan_open": 8646.0,
+      "jul1_reference_date": "2014-07-01",
+      "jul1_close": 9380.0,
+      "jan_to_jul1_return_pct": 8.49,
+      "qualified": true,
+      "anchor_high": 9581.0,
+      "anchor_high_date": "2014-07-15",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 9223.83,
+        "0.5": 9113.5,
+        "0.382": 9003.17
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2014-08-01",
+          "level_price": 9223.83,
+          "entry_price": 9223.83,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2014-08-05",
+          "level_price": 9113.5,
+          "entry_price": 9113.5,
+          "lots": 9,
+          "same_day_with_first_wave": false
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2014-08-08",
+          "level_price": 9003.17,
+          "entry_price": 9003.17,
+          "lots": 3,
+          "same_day_with_first_wave": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2015-03-31",
+          "exit_price": 9582.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 9113.5,
+          "pnl_twd": 70275.0,
+          "return_on_funded_capital_pct": 6.21,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2014-08-01",
+              "level_price": 9223.83,
+              "entry_price": 9223.83,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2015-03-31",
+              "exit_price": 9582.0,
+              "pnl_pts_per_contract": 358.17,
+              "pnl_twd": 10745.1,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2014-08-05",
+              "level_price": 9113.5,
+              "entry_price": 9113.5,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2015-03-31",
+              "exit_price": 9582.0,
+              "pnl_pts_per_contract": 468.5,
+              "pnl_twd": 42165.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2014-08-08",
+              "level_price": 9003.17,
+              "entry_price": 9003.17,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2015-03-31",
+              "exit_price": 9582.0,
+              "pnl_pts_per_contract": 578.83,
+              "pnl_twd": 17364.9,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1132549.5,
+            "max_drawdown_twd": 154350.0,
+            "max_drawdown_pct": 12.92,
+            "max_intraday_drawdown_twd": 154800.0,
+            "max_intraday_drawdown_pct": 12.96,
+            "min_close_buffer_points": 4495.83,
+            "min_intraday_buffer_points": 4492.83,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2014-10-22",
+          "exit_price": 8744.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "lots": 15,
+          "average_entry": 9113.5,
+          "pnl_twd": -55425.0,
+          "return_on_funded_capital_pct": -4.89,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2014-08-01",
+              "level_price": 9223.83,
+              "entry_price": 9223.83,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2014-10-22",
+              "exit_price": 8744.0,
+              "pnl_pts_per_contract": -479.83,
+              "pnl_twd": -14394.9,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2014-08-05",
+              "level_price": 9113.5,
+              "entry_price": 9113.5,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2014-10-22",
+              "exit_price": 8744.0,
+              "pnl_pts_per_contract": -369.5,
+              "pnl_twd": -33255.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2014-08-08",
+              "level_price": 9003.17,
+              "entry_price": 9003.17,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2014-10-22",
+              "exit_price": 8744.0,
+              "pnl_pts_per_contract": -259.17,
+              "pnl_twd": -7775.1,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1132549.5,
+            "max_drawdown_twd": 154350.0,
+            "max_drawdown_pct": 12.92,
+            "max_intraday_drawdown_twd": 154800.0,
+            "max_intraday_drawdown_pct": 12.96,
+            "min_close_buffer_points": 4495.83,
+            "min_intraday_buffer_points": 4492.83,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 10,
+            "recovery_dates": [
+              "2014-10-03"
+            ],
+            "terminal_open_breach_date": "2014-10-08"
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2015,
+      "jan_open_date": "2015-01-05",
+      "jan_open": 9243.0,
+      "jul1_reference_date": "2015-07-01",
+      "jul1_close": 9292.0,
+      "jan_to_jul1_return_pct": 0.53,
+      "qualified": true,
+      "anchor_high": 10032.0,
+      "anchor_high_date": "2015-04-28",
+      "anchor_frozen_on_first_wave": false,
+      "level_prices": {
+        "0.618": 9730.6,
+        "0.5": 9637.5,
+        "0.382": 9544.4
+      },
+      "entries": {
+        "0.618": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {},
+      "provisional_mark": null
+    },
+    {
+      "year": 2016,
+      "jan_open_date": "2016-01-05",
+      "jan_open": 8095.0,
+      "jul1_reference_date": "2016-07-01",
+      "jul1_close": 8623.0,
+      "jan_to_jul1_return_pct": 6.52,
+      "qualified": true,
+      "anchor_high": 8819.0,
+      "anchor_high_date": "2016-03-17",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 8542.43,
+        "0.5": 8457.0,
+        "0.382": 8371.57
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2016-07-06",
+          "level_price": 8542.43,
+          "entry_price": 8542.43,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2016-07-06",
+          "level_price": 8457.0,
+          "entry_price": 8457.0,
+          "lots": 9,
+          "same_day_with_first_wave": true
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2017-03-31",
+          "exit_price": 9821.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 12,
+          "average_entry": 8478.36,
+          "pnl_twd": 161117.1,
+          "return_on_funded_capital_pct": 17.99,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2016-07-06",
+              "level_price": 8542.43,
+              "entry_price": 8542.43,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2017-03-31",
+              "exit_price": 9821.0,
+              "pnl_pts_per_contract": 1278.57,
+              "pnl_twd": 38357.1,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2016-07-06",
+              "level_price": 8457.0,
+              "entry_price": 8457.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2017-03-31",
+              "exit_price": 9821.0,
+              "pnl_pts_per_contract": 1364.0,
+              "pnl_twd": 122760.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 895362.9,
+            "max_drawdown_twd": 53880.0,
+            "max_drawdown_pct": 5.37,
+            "max_intraday_drawdown_twd": 59760.0,
+            "max_intraday_drawdown_pct": 5.96,
+            "min_close_buffer_points": 5012.0,
+            "min_intraday_buffer_points": 4986.0,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2017-03-31",
+          "exit_price": 9821.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 12,
+          "average_entry": 8478.36,
+          "pnl_twd": 161117.1,
+          "return_on_funded_capital_pct": 17.99,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2016-07-06",
+              "level_price": 8542.43,
+              "entry_price": 8542.43,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2017-03-31",
+              "exit_price": 9821.0,
+              "pnl_pts_per_contract": 1278.57,
+              "pnl_twd": 38357.1,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2016-07-06",
+              "level_price": 8457.0,
+              "entry_price": 8457.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2017-03-31",
+              "exit_price": 9821.0,
+              "pnl_pts_per_contract": 1364.0,
+              "pnl_twd": 122760.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 895362.9,
+            "max_drawdown_twd": 53880.0,
+            "max_drawdown_pct": 5.37,
+            "max_intraday_drawdown_twd": 59760.0,
+            "max_intraday_drawdown_pct": 5.96,
+            "min_close_buffer_points": 5012.0,
+            "min_intraday_buffer_points": 4986.0,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": null
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2017,
+      "jan_open_date": "2017-01-03",
+      "jan_open": 9266.0,
+      "jul1_reference_date": "2017-06-30",
+      "jul1_close": 10252.0,
+      "jan_to_jul1_return_pct": 10.64,
+      "qualified": true,
+      "anchor_high": 10480.0,
+      "anchor_high_date": "2017-07-17",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 10016.25,
+        "0.5": 9873.0,
+        "0.382": 9729.75
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "level_price": 10016.25,
+          "entry_price": 10016.25,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "level_price": 9873.0,
+          "entry_price": 9873.0,
+          "lots": 9,
+          "same_day_with_first_wave": true
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2017-08-03",
+          "level_price": 9729.75,
+          "entry_price": 9729.75,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 9873.0,
+          "pnl_twd": 156750.0,
+          "return_on_funded_capital_pct": 13.78,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 10016.25,
+              "entry_price": 10016.25,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 901.75,
+              "pnl_twd": 27052.5,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 9873.0,
+              "entry_price": 9873.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 1045.0,
+              "pnl_twd": 94050.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 9729.75,
+              "entry_price": 9729.75,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 1188.25,
+              "pnl_twd": 35647.5,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1137487.5,
+            "max_drawdown_twd": 130800.0,
+            "max_drawdown_pct": 9.76,
+            "max_intraday_drawdown_twd": 165300.0,
+            "max_intraday_drawdown_pct": 12.33,
+            "min_close_buffer_points": 5493.25,
+            "min_intraday_buffer_points": 4678.25,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 9873.0,
+          "pnl_twd": 156750.0,
+          "return_on_funded_capital_pct": 13.78,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 10016.25,
+              "entry_price": 10016.25,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 901.75,
+              "pnl_twd": 27052.5,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 9873.0,
+              "entry_price": 9873.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 1045.0,
+              "pnl_twd": 94050.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2017-08-03",
+              "level_price": 9729.75,
+              "entry_price": 9729.75,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-03-30",
+              "exit_price": 10918.0,
+              "pnl_pts_per_contract": 1188.25,
+              "pnl_twd": 35647.5,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1137487.5,
+            "max_drawdown_twd": 130800.0,
+            "max_drawdown_pct": 9.76,
+            "max_intraday_drawdown_twd": 165300.0,
+            "max_intraday_drawdown_pct": 12.33,
+            "min_close_buffer_points": 5493.25,
+            "min_intraday_buffer_points": 4678.25,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 0,
+            "recovery_dates": [],
+            "terminal_open_breach_date": null
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2018,
+      "jan_open_date": "2018-01-02",
+      "jan_open": 10626.0,
+      "jul1_reference_date": "2018-06-29",
+      "jul1_close": 10677.0,
+      "jan_to_jul1_return_pct": 0.48,
+      "qualified": true,
+      "anchor_high": 11272.0,
+      "anchor_high_date": "2018-01-25",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 11025.23,
+        "0.5": 10949.0,
+        "0.382": 10872.77
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2018-08-02",
+          "level_price": 11025.23,
+          "entry_price": 11025.23,
+          "lots": 3,
+          "same_day_with_first_wave": false
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2018-07-30",
+          "level_price": 10949.0,
+          "entry_price": 10949.0,
+          "lots": 9,
+          "same_day_with_first_wave": true
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2018-08-02",
+          "level_price": 10872.77,
+          "entry_price": 10872.77,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2019-03-29",
+          "exit_price": 10598.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 10949.0,
+          "pnl_twd": -52650.0,
+          "return_on_funded_capital_pct": -4.67,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2018-08-02",
+              "level_price": 11025.23,
+              "entry_price": 11025.23,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2019-03-29",
+              "exit_price": 10598.0,
+              "pnl_pts_per_contract": -427.23,
+              "pnl_twd": -12816.9,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2018-07-30",
+              "level_price": 10949.0,
+              "entry_price": 10949.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2019-03-29",
+              "exit_price": 10598.0,
+              "pnl_pts_per_contract": -351.0,
+              "pnl_twd": -31590.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2018-08-02",
+              "level_price": 10872.77,
+              "entry_price": 10872.77,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2019-03-29",
+              "exit_price": 10598.0,
+              "pnl_pts_per_contract": -274.77,
+              "pnl_twd": -8243.1,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1127434.5,
+            "max_drawdown_twd": 251550.0,
+            "max_drawdown_pct": 22.02,
+            "max_intraday_drawdown_twd": 261150.0,
+            "max_intraday_drawdown_pct": 22.87,
+            "min_close_buffer_points": 3497.23,
+            "min_intraday_buffer_points": 3433.23,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2018-08-24",
+          "exit_price": 10787.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "lots": 15,
+          "average_entry": 10949.0,
+          "pnl_twd": -24300.0,
+          "return_on_funded_capital_pct": -2.16,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2018-08-02",
+              "level_price": 11025.23,
+              "entry_price": 11025.23,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2018-08-24",
+              "exit_price": 10787.0,
+              "pnl_pts_per_contract": -238.23,
+              "pnl_twd": -7146.9,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2018-07-30",
+              "level_price": 10949.0,
+              "entry_price": 10949.0,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-08-24",
+              "exit_price": 10787.0,
+              "pnl_pts_per_contract": -162.0,
+              "pnl_twd": -14580.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2018-08-02",
+              "level_price": 10872.77,
+              "entry_price": 10872.77,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2018-08-24",
+              "exit_price": 10787.0,
+              "pnl_pts_per_contract": -85.77,
+              "pnl_twd": -2573.1,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1127434.5,
+            "max_drawdown_twd": 57900.0,
+            "max_drawdown_pct": 5.07,
+            "max_intraday_drawdown_twd": 69150.0,
+            "max_intraday_drawdown_pct": 6.05,
+            "min_close_buffer_points": 4788.23,
+            "min_intraday_buffer_points": 4713.23,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 10,
+            "recovery_dates": [
+              "2018-08-03"
+            ],
+            "terminal_open_breach_date": "2018-08-13"
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2019,
+      "jan_open_date": "2019-01-02",
+      "jan_open": 9759.0,
+      "jul1_reference_date": "2019-07-01",
+      "jul1_close": 10766.0,
+      "jan_to_jul1_return_pct": 10.32,
+      "qualified": true,
+      "anchor_high": 11138.0,
+      "anchor_high_date": "2019-05-06",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 10611.22,
+        "0.5": 10448.5,
+        "0.382": 10285.78
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2019-07-03",
+          "level_price": 10611.22,
+          "entry_price": 10611.22,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2019-07-03",
+          "level_price": 10448.5,
+          "entry_price": 10448.5,
+          "lots": 9,
+          "same_day_with_first_wave": true
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2019-07-03",
+          "level_price": 10285.78,
+          "entry_price": 10285.78,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2020-03-31",
+          "exit_price": 9595.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 10448.5,
+          "pnl_twd": -128025.0,
+          "return_on_funded_capital_pct": -11.23,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10611.22,
+              "entry_price": 10611.22,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-31",
+              "exit_price": 9595.0,
+              "pnl_pts_per_contract": -1016.22,
+              "pnl_twd": -30486.6,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10448.5,
+              "entry_price": 10448.5,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-31",
+              "exit_price": 9595.0,
+              "pnl_pts_per_contract": -853.5,
+              "pnl_twd": -76815.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10285.78,
+              "entry_price": 10285.78,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-31",
+              "exit_price": 9595.0,
+              "pnl_pts_per_contract": -690.78,
+              "pnl_twd": -20723.4,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1140408.0,
+            "max_drawdown_twd": 573750.0,
+            "max_drawdown_pct": 40.97,
+            "max_intraday_drawdown_twd": 586950.0,
+            "max_intraday_drawdown_pct": 41.92,
+            "min_close_buffer_points": 3070.22,
+            "min_intraday_buffer_points": 2982.22,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2020-03-26",
+          "exit_price": 9631.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "lots": 15,
+          "average_entry": 10448.5,
+          "pnl_twd": -122625.0,
+          "return_on_funded_capital_pct": -10.75,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10611.22,
+              "entry_price": 10611.22,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-26",
+              "exit_price": 9631.0,
+              "pnl_pts_per_contract": -980.22,
+              "pnl_twd": -29406.6,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10448.5,
+              "entry_price": 10448.5,
+              "lots": 9,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-26",
+              "exit_price": 9631.0,
+              "pnl_pts_per_contract": -817.5,
+              "pnl_twd": -73575.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2019-07-03",
+              "level_price": 10285.78,
+              "entry_price": 10285.78,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2020-03-26",
+              "exit_price": 9631.0,
+              "pnl_pts_per_contract": -654.78,
+              "pnl_twd": -19643.4,
+              "win": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1140408.0,
+            "max_drawdown_twd": 573750.0,
+            "max_drawdown_pct": 40.97,
+            "max_intraday_drawdown_twd": 586950.0,
+            "max_intraday_drawdown_pct": 41.92,
+            "min_close_buffer_points": 3070.22,
+            "min_intraday_buffer_points": 2982.22,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 10,
+            "recovery_dates": [],
+            "terminal_open_breach_date": "2020-03-13"
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2020,
+      "jan_open_date": "2020-01-02",
+      "jan_open": 12045.0,
+      "jul1_reference_date": "2020-07-01",
+      "jul1_close": 11544.0,
+      "jan_to_jul1_return_pct": -4.16,
+      "qualified": false,
+      "anchor_high": null,
+      "anchor_high_date": null,
+      "anchor_frozen_on_first_wave": false,
+      "level_prices": {
+        "0.618": null,
+        "0.5": null,
+        "0.382": null
+      },
+      "entries": {
+        "0.618": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {},
+      "provisional_mark": null
+    },
+    {
+      "year": 2021,
+      "jan_open_date": "2021-01-04",
+      "jan_open": 14641.0,
+      "jul1_reference_date": "2021-07-01",
+      "jul1_close": 17646.0,
+      "jan_to_jul1_return_pct": 20.52,
+      "qualified": true,
+      "anchor_high": 18045.0,
+      "anchor_high_date": "2021-07-15",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 16744.67,
+        "0.5": 16343.0,
+        "0.382": 15941.33
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2021-07-28",
+          "level_price": 16744.67,
+          "entry_price": 16744.67,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2021-08-18",
+          "level_price": 16343.0,
+          "entry_price": 16343.0,
+          "lots": 9,
+          "same_day_with_first_wave": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 12,
+          "average_entry": 16443.42,
+          "pnl_twd": 142869.9,
+          "return_on_funded_capital_pct": 15.79,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2021-07-28",
+              "level_price": 16744.67,
+              "entry_price": 16744.67,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2022-03-31",
+              "exit_price": 17634.0,
+              "pnl_pts_per_contract": 889.33,
+              "pnl_twd": 26679.9,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2021-08-18",
+              "level_price": 16343.0,
+              "entry_price": 16343.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2022-03-31",
+              "exit_price": 17634.0,
+              "pnl_pts_per_contract": 1291.0,
+              "pnl_twd": 116190.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 904850.1,
+            "max_drawdown_twd": 216840.0,
+            "max_drawdown_pct": 18.8,
+            "max_intraday_drawdown_twd": 225120.0,
+            "max_intraday_drawdown_pct": 19.52,
+            "min_close_buffer_points": 4833.33,
+            "min_intraday_buffer_points": 4706.0,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 12,
+          "average_entry": 16443.42,
+          "pnl_twd": 142869.9,
+          "return_on_funded_capital_pct": 15.79,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2021-07-28",
+              "level_price": 16744.67,
+              "entry_price": 16744.67,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2022-03-31",
+              "exit_price": 17634.0,
+              "pnl_pts_per_contract": 889.33,
+              "pnl_twd": 26679.9,
+              "win": true
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2021-08-18",
+              "level_price": 16343.0,
+              "entry_price": 16343.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2022-03-31",
+              "exit_price": 17634.0,
+              "pnl_pts_per_contract": 1291.0,
+              "pnl_twd": 116190.0,
+              "win": true
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 904850.1,
+            "max_drawdown_twd": 216840.0,
+            "max_drawdown_pct": 18.8,
+            "max_intraday_drawdown_twd": 225120.0,
+            "max_intraday_drawdown_pct": 19.52,
+            "min_close_buffer_points": 4833.33,
+            "min_intraday_buffer_points": 4706.0,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": null
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2022,
+      "jan_open_date": "2022-01-03",
+      "jan_open": 18270.0,
+      "jul1_reference_date": "2022-07-01",
+      "jul1_close": 14175.0,
+      "jan_to_jul1_return_pct": -22.41,
+      "qualified": false,
+      "anchor_high": null,
+      "anchor_high_date": null,
+      "anchor_frozen_on_first_wave": false,
+      "level_prices": {
+        "0.618": null,
+        "0.5": null,
+        "0.382": null
+      },
+      "entries": {
+        "0.618": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {},
+      "provisional_mark": null
+    },
+    {
+      "year": 2023,
+      "jan_open_date": "2023-01-03",
+      "jan_open": 14120.0,
+      "jul1_reference_date": "2023-06-30",
+      "jul1_close": 16787.0,
+      "jan_to_jul1_return_pct": 18.89,
+      "qualified": true,
+      "anchor_high": 17425.0,
+      "anchor_high_date": "2023-07-31",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 16162.49,
+        "0.5": 15772.5,
+        "0.382": 15382.51
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2023-10-24",
+          "level_price": 16162.49,
+          "entry_price": 16162.49,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2024-03-29",
+          "exit_price": 20278.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 3,
+          "average_entry": 16162.49,
+          "pnl_twd": 123465.3,
+          "return_on_funded_capital_pct": 55.32,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2023-10-24",
+              "level_price": 16162.49,
+              "entry_price": 16162.49,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2024-03-29",
+              "exit_price": 20278.0,
+              "pnl_pts_per_contract": 4115.51,
+              "pnl_twd": 123465.3,
+              "win": true
+            },
+            "0.5": {
+              "triggered": false
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 223200.0,
+            "max_drawdown_twd": 19050.0,
+            "max_drawdown_pct": 6.94,
+            "max_intraday_drawdown_twd": 21240.0,
+            "max_intraday_drawdown_pct": 7.74,
+            "min_close_buffer_points": 4834.51,
+            "min_intraday_buffer_points": 4810.51,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2024-03-29",
+          "exit_price": 20278.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 3,
+          "average_entry": 16162.49,
+          "pnl_twd": 123465.3,
+          "return_on_funded_capital_pct": 55.32,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2023-10-24",
+              "level_price": 16162.49,
+              "entry_price": 16162.49,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2024-03-29",
+              "exit_price": 20278.0,
+              "pnl_pts_per_contract": 4115.51,
+              "pnl_twd": 123465.3,
+              "win": true
+            },
+            "0.5": {
+              "triggered": false
+            },
+            "0.382": {
+              "triggered": false
+            }
+          },
+          "account": {
+            "funded_capital_twd": 223200.0,
+            "max_drawdown_twd": 19050.0,
+            "max_drawdown_pct": 6.94,
+            "max_intraday_drawdown_twd": 21240.0,
+            "max_intraday_drawdown_pct": 7.74,
+            "min_close_buffer_points": 4834.51,
+            "min_intraday_buffer_points": 4810.51,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": null
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2024,
+      "jan_open_date": "2024-01-02",
+      "jan_open": 17871.0,
+      "jul1_reference_date": "2024-07-01",
+      "jul1_close": 22993.0,
+      "jan_to_jul1_return_pct": 28.66,
+      "qualified": true,
+      "anchor_high": 24449.0,
+      "anchor_high_date": "2024-07-12",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 21936.2,
+        "0.5": 21160.0,
+        "0.382": 20383.8
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2024-07-26",
+          "level_price": 21936.2,
+          "entry_price": 21936.2,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": true,
+          "entry_date": "2024-08-05",
+          "level_price": 21160.0,
+          "entry_price": 21160.0,
+          "lots": 9,
+          "same_day_with_first_wave": false
+        },
+        "0.382": {
+          "triggered": true,
+          "entry_date": "2024-08-05",
+          "level_price": 20383.8,
+          "entry_price": 20383.8,
+          "lots": 3,
+          "same_day_with_first_wave": false
+        }
+      },
+      "complete": true,
+      "variants": {
+        "no_stop": {
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 21160.0,
+          "pnl_twd": -59400.0,
+          "return_on_funded_capital_pct": -4.82,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2024-07-26",
+              "level_price": 21936.2,
+              "entry_price": 21936.2,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": -1172.2,
+              "pnl_twd": -35166.0,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2024-08-05",
+              "level_price": 21160.0,
+              "entry_price": 21160.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": -396.0,
+              "pnl_twd": -35640.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2024-08-05",
+              "level_price": 20383.8,
+              "entry_price": 20383.8,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": 380.2,
+              "pnl_twd": 11406.0,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1232430.0,
+            "max_drawdown_twd": 451500.0,
+            "max_drawdown_pct": 27.79,
+            "max_intraday_drawdown_twd": 457500.0,
+            "max_intraday_drawdown_pct": 28.16,
+            "min_close_buffer_points": 3990.2,
+            "min_intraday_buffer_points": 3443.2,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          }
+        },
+        "with_stop": {
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "exit_reason": "scheduled_mar31",
+          "lots": 15,
+          "average_entry": 21160.0,
+          "pnl_twd": -59400.0,
+          "return_on_funded_capital_pct": -4.82,
+          "layers": {
+            "0.618": {
+              "triggered": true,
+              "entry_date": "2024-07-26",
+              "level_price": 21936.2,
+              "entry_price": 21936.2,
+              "lots": 3,
+              "same_day_with_first_wave": true,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": -1172.2,
+              "pnl_twd": -35166.0,
+              "win": false
+            },
+            "0.5": {
+              "triggered": true,
+              "entry_date": "2024-08-05",
+              "level_price": 21160.0,
+              "entry_price": 21160.0,
+              "lots": 9,
+              "same_day_with_first_wave": false,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": -396.0,
+              "pnl_twd": -35640.0,
+              "win": false
+            },
+            "0.382": {
+              "triggered": true,
+              "entry_date": "2024-08-05",
+              "level_price": 20383.8,
+              "entry_price": 20383.8,
+              "lots": 3,
+              "same_day_with_first_wave": false,
+              "exit_date": "2025-03-31",
+              "exit_price": 20764.0,
+              "pnl_pts_per_contract": 380.2,
+              "pnl_twd": 11406.0,
+              "win": true
+            }
+          },
+          "account": {
+            "funded_capital_twd": 1232430.0,
+            "max_drawdown_twd": 451500.0,
+            "max_drawdown_pct": 27.79,
+            "max_intraday_drawdown_twd": 457500.0,
+            "max_intraday_drawdown_pct": 28.16,
+            "min_close_buffer_points": 3990.2,
+            "min_intraday_buffer_points": 3443.2,
+            "maintenance_call_close": false,
+            "maintenance_breach_intraday_low": false
+          },
+          "recovery_test": {
+            "rule": "after the deepest layer exists, any close below 0.382 arms the test; 10 consecutive closes below exits all layers, while a close at/above resets the count",
+            "longest_consecutive_closes_below": 1,
+            "recovery_dates": [
+              "2024-08-06"
+            ],
+            "terminal_open_breach_date": null
+          }
+        }
+      },
+      "provisional_mark": null
+    },
+    {
+      "year": 2025,
+      "jan_open_date": "2025-01-02",
+      "jan_open": 23025.0,
+      "jul1_reference_date": "2025-07-01",
+      "jul1_close": 22352.0,
+      "jan_to_jul1_return_pct": -2.92,
+      "qualified": false,
+      "anchor_high": null,
+      "anchor_high_date": null,
+      "anchor_frozen_on_first_wave": false,
+      "level_prices": {
+        "0.618": null,
+        "0.5": null,
+        "0.382": null
+      },
+      "entries": {
+        "0.618": {
+          "triggered": false
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": true,
+      "variants": {},
+      "provisional_mark": null
+    },
+    {
+      "year": 2026,
+      "jan_open_date": "2026-01-02",
+      "jan_open": 29011.0,
+      "jul1_reference_date": "2026-07-01",
+      "jul1_close": 47221.0,
+      "jan_to_jul1_return_pct": 62.77,
+      "qualified": true,
+      "anchor_high": 49239.0,
+      "anchor_high_date": "2026-06-23",
+      "anchor_frozen_on_first_wave": true,
+      "level_prices": {
+        "0.618": 41511.9,
+        "0.5": 39125.0,
+        "0.382": 36738.1
+      },
+      "entries": {
+        "0.618": {
+          "triggered": true,
+          "entry_date": "2026-07-29",
+          "level_price": 41511.9,
+          "entry_price": 41511.9,
+          "lots": 3,
+          "same_day_with_first_wave": true
+        },
+        "0.5": {
+          "triggered": false
+        },
+        "0.382": {
+          "triggered": false
+        }
+      },
+      "complete": false,
+      "variants": {},
+      "provisional_mark": {
+        "as_of": "2026-08-14",
+        "lots": 3,
+        "average_entry": 41511.9,
+        "mark_price": 45812.0,
+        "unrealized_pnl_pts_per_contract_at_average": 4300.1,
+        "unrealized_pnl_twd": 129003.0,
+        "account": {
+          "funded_capital_twd": 223200.0,
+          "max_drawdown_twd": 36777.0,
+          "max_drawdown_pct": 16.48,
+          "max_intraday_drawdown_twd": 62187.0,
+          "max_intraday_drawdown_pct": 27.86,
+          "min_close_buffer_points": 3774.1,
+          "min_intraday_buffer_points": 2927.1,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        "performance_status": "provisional_excluded_from_statistics"
+      }
+    }
+  ],
+  "execution_model": "synthetic TMF at TWD 10/point",
+  "summaries": {
+    "no_stop": {
+      "by_level": {
+        "0.618": {
+          "n": 9,
+          "wins": 6,
+          "losses": 3,
+          "win_rate_pct": 66.67,
+          "win_rate_ci95_pct": [
+            35.42,
+            87.94
+          ],
+          "profit_factor": 3.131,
+          "net_pnl_pts_per_contract": 5572.68,
+          "net_pnl_twd": 167180.4,
+          "avg_pnl_pts_per_contract": 619.19,
+          "avg_pnl_twd": 18575.6,
+          "low_sample": true
+        },
+        "0.5": {
+          "n": 8,
+          "wins": 5,
+          "losses": 3,
+          "win_rate_pct": 62.5,
+          "win_rate_ci95_pct": [
+            30.57,
+            86.32
+          ],
+          "profit_factor": 3.05,
+          "net_pnl_pts_per_contract": 3281.0,
+          "net_pnl_twd": 295290.0,
+          "avg_pnl_pts_per_contract": 410.12,
+          "avg_pnl_twd": 36911.25,
+          "low_sample": true
+        },
+        "0.382": {
+          "n": 6,
+          "wins": 4,
+          "losses": 2,
+          "win_rate_pct": 66.67,
+          "win_rate_ci95_pct": [
+            30.0,
+            90.32
+          ],
+          "profit_factor": 3.04,
+          "net_pnl_pts_per_contract": 1970.16,
+          "net_pnl_twd": 59104.8,
+          "avg_pnl_pts_per_contract": 328.36,
+          "avg_pnl_twd": 9850.8,
+          "low_sample": true
+        }
+      },
+      "annual_combined": {
+        "n": 9,
+        "wins": 6,
+        "win_rate_pct": 66.67,
+        "win_rate_ci95_pct": [
+          35.42,
+          87.94
+        ],
+        "profit_factor": 3.173,
+        "net_pnl_twd": 521575.2,
+        "avg_pnl_twd": 57952.8,
+        "worst_account_drawdown_twd": 573750.0,
+        "worst_account_drawdown_pct": 40.97,
+        "worst_intraday_drawdown_twd": 586950.0,
+        "worst_intraday_drawdown_pct": 41.92,
+        "maintenance_call_years_close": [],
+        "maintenance_breach_years_intraday_low": [],
+        "low_sample": true
+      },
+      "yearly": [
+        {
+          "year": 2013,
+          "lots": 15,
+          "average_entry": 8075.51,
+          "exit_date": "2014-03-31",
+          "exit_price": 8790.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 107172.9,
+          "return_on_funded_capital_pct": 9.51,
+          "funded_capital_twd": 1127091.6,
+          "max_drawdown_twd": 64650.0,
+          "max_drawdown_pct": 5.69,
+          "max_intraday_drawdown_twd": 74700.0,
+          "max_intraday_drawdown_pct": 6.58,
+          "min_close_buffer_points": 4701.43,
+          "min_intraday_buffer_points": 4634.43,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2014,
+          "lots": 15,
+          "average_entry": 9113.5,
+          "exit_date": "2015-03-31",
+          "exit_price": 9582.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 70275.0,
+          "return_on_funded_capital_pct": 6.21,
+          "funded_capital_twd": 1132549.5,
+          "max_drawdown_twd": 154350.0,
+          "max_drawdown_pct": 12.92,
+          "max_intraday_drawdown_twd": 154800.0,
+          "max_intraday_drawdown_pct": 12.96,
+          "min_close_buffer_points": 4495.83,
+          "min_intraday_buffer_points": 4492.83,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2016,
+          "lots": 12,
+          "average_entry": 8478.36,
+          "exit_date": "2017-03-31",
+          "exit_price": 9821.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 161117.1,
+          "return_on_funded_capital_pct": 17.99,
+          "funded_capital_twd": 895362.9,
+          "max_drawdown_twd": 53880.0,
+          "max_drawdown_pct": 5.37,
+          "max_intraday_drawdown_twd": 59760.0,
+          "max_intraday_drawdown_pct": 5.96,
+          "min_close_buffer_points": 5012.0,
+          "min_intraday_buffer_points": 4986.0,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2017,
+          "lots": 15,
+          "average_entry": 9873.0,
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 156750.0,
+          "return_on_funded_capital_pct": 13.78,
+          "funded_capital_twd": 1137487.5,
+          "max_drawdown_twd": 130800.0,
+          "max_drawdown_pct": 9.76,
+          "max_intraday_drawdown_twd": 165300.0,
+          "max_intraday_drawdown_pct": 12.33,
+          "min_close_buffer_points": 5493.25,
+          "min_intraday_buffer_points": 4678.25,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2018,
+          "lots": 15,
+          "average_entry": 10949.0,
+          "exit_date": "2019-03-29",
+          "exit_price": 10598.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": -52650.0,
+          "return_on_funded_capital_pct": -4.67,
+          "funded_capital_twd": 1127434.5,
+          "max_drawdown_twd": 251550.0,
+          "max_drawdown_pct": 22.02,
+          "max_intraday_drawdown_twd": 261150.0,
+          "max_intraday_drawdown_pct": 22.87,
+          "min_close_buffer_points": 3497.23,
+          "min_intraday_buffer_points": 3433.23,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2019,
+          "lots": 15,
+          "average_entry": 10448.5,
+          "exit_date": "2020-03-31",
+          "exit_price": 9595.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": -128025.0,
+          "return_on_funded_capital_pct": -11.23,
+          "funded_capital_twd": 1140408.0,
+          "max_drawdown_twd": 573750.0,
+          "max_drawdown_pct": 40.97,
+          "max_intraday_drawdown_twd": 586950.0,
+          "max_intraday_drawdown_pct": 41.92,
+          "min_close_buffer_points": 3070.22,
+          "min_intraday_buffer_points": 2982.22,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2021,
+          "lots": 12,
+          "average_entry": 16443.42,
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 142869.9,
+          "return_on_funded_capital_pct": 15.79,
+          "funded_capital_twd": 904850.1,
+          "max_drawdown_twd": 216840.0,
+          "max_drawdown_pct": 18.8,
+          "max_intraday_drawdown_twd": 225120.0,
+          "max_intraday_drawdown_pct": 19.52,
+          "min_close_buffer_points": 4833.33,
+          "min_intraday_buffer_points": 4706.0,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2023,
+          "lots": 3,
+          "average_entry": 16162.49,
+          "exit_date": "2024-03-29",
+          "exit_price": 20278.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 123465.3,
+          "return_on_funded_capital_pct": 55.32,
+          "funded_capital_twd": 223200.0,
+          "max_drawdown_twd": 19050.0,
+          "max_drawdown_pct": 6.94,
+          "max_intraday_drawdown_twd": 21240.0,
+          "max_intraday_drawdown_pct": 7.74,
+          "min_close_buffer_points": 4834.51,
+          "min_intraday_buffer_points": 4810.51,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2024,
+          "lots": 15,
+          "average_entry": 21160.0,
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": -59400.0,
+          "return_on_funded_capital_pct": -4.82,
+          "funded_capital_twd": 1232430.0,
+          "max_drawdown_twd": 451500.0,
+          "max_drawdown_pct": 27.79,
+          "max_intraday_drawdown_twd": 457500.0,
+          "max_intraday_drawdown_pct": 28.16,
+          "min_close_buffer_points": 3990.2,
+          "min_intraday_buffer_points": 3443.2,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        }
+      ]
+    },
+    "with_stop": {
+      "by_level": {
+        "0.618": {
+          "n": 9,
+          "wins": 4,
+          "losses": 5,
+          "win_rate_pct": 44.44,
+          "win_rate_ci95_pct": [
+            18.88,
+            73.33
+          ],
+          "profit_factor": 2.296,
+          "net_pnl_pts_per_contract": 4055.68,
+          "net_pnl_twd": 121670.4,
+          "avg_pnl_pts_per_contract": 450.63,
+          "avg_pnl_twd": 13518.93,
+          "low_sample": true
+        },
+        "0.5": {
+          "n": 8,
+          "wins": 3,
+          "losses": 5,
+          "win_rate_pct": 37.5,
+          "win_rate_ci95_pct": [
+            13.68,
+            69.43
+          ],
+          "profit_factor": 1.911,
+          "net_pnl_pts_per_contract": 1764.0,
+          "net_pnl_twd": 158760.0,
+          "avg_pnl_pts_per_contract": 220.5,
+          "avg_pnl_twd": 19845.0,
+          "low_sample": true
+        },
+        "0.382": {
+          "n": 6,
+          "wins": 2,
+          "losses": 4,
+          "win_rate_pct": 33.33,
+          "win_rate_ci95_pct": [
+            9.68,
+            70.0
+          ],
+          "profit_factor": 1.406,
+          "net_pnl_pts_per_contract": 453.16,
+          "net_pnl_twd": 13594.8,
+          "avg_pnl_pts_per_contract": 75.53,
+          "avg_pnl_twd": 2265.8,
+          "low_sample": true
+        }
+      },
+      "annual_combined": {
+        "n": 9,
+        "wins": 4,
+        "win_rate_pct": 44.44,
+        "win_rate_ci95_pct": [
+          18.88,
+          73.33
+        ],
+        "profit_factor": 2.013,
+        "net_pnl_twd": 294025.2,
+        "avg_pnl_twd": 32669.47,
+        "worst_account_drawdown_twd": 573750.0,
+        "worst_account_drawdown_pct": 40.97,
+        "worst_intraday_drawdown_twd": 586950.0,
+        "worst_intraday_drawdown_pct": 41.92,
+        "maintenance_call_years_close": [],
+        "maintenance_breach_years_intraday_low": [],
+        "low_sample": true
+      },
+      "yearly": [
+        {
+          "year": 2013,
+          "lots": 15,
+          "average_entry": 8075.51,
+          "exit_date": "2013-08-19",
+          "exit_price": 7886.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "pnl_twd": -28427.1,
+          "return_on_funded_capital_pct": -2.52,
+          "funded_capital_twd": 1127091.6,
+          "max_drawdown_twd": 46500.0,
+          "max_drawdown_pct": 4.09,
+          "max_intraday_drawdown_twd": 50100.0,
+          "max_intraday_drawdown_pct": 4.41,
+          "min_close_buffer_points": 4822.43,
+          "min_intraday_buffer_points": 4798.43,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2014,
+          "lots": 15,
+          "average_entry": 9113.5,
+          "exit_date": "2014-10-22",
+          "exit_price": 8744.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "pnl_twd": -55425.0,
+          "return_on_funded_capital_pct": -4.89,
+          "funded_capital_twd": 1132549.5,
+          "max_drawdown_twd": 154350.0,
+          "max_drawdown_pct": 12.92,
+          "max_intraday_drawdown_twd": 154800.0,
+          "max_intraday_drawdown_pct": 12.96,
+          "min_close_buffer_points": 4495.83,
+          "min_intraday_buffer_points": 4492.83,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2016,
+          "lots": 12,
+          "average_entry": 8478.36,
+          "exit_date": "2017-03-31",
+          "exit_price": 9821.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 161117.1,
+          "return_on_funded_capital_pct": 17.99,
+          "funded_capital_twd": 895362.9,
+          "max_drawdown_twd": 53880.0,
+          "max_drawdown_pct": 5.37,
+          "max_intraday_drawdown_twd": 59760.0,
+          "max_intraday_drawdown_pct": 5.96,
+          "min_close_buffer_points": 5012.0,
+          "min_intraday_buffer_points": 4986.0,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2017,
+          "lots": 15,
+          "average_entry": 9873.0,
+          "exit_date": "2018-03-30",
+          "exit_price": 10918.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 156750.0,
+          "return_on_funded_capital_pct": 13.78,
+          "funded_capital_twd": 1137487.5,
+          "max_drawdown_twd": 130800.0,
+          "max_drawdown_pct": 9.76,
+          "max_intraday_drawdown_twd": 165300.0,
+          "max_intraday_drawdown_pct": 12.33,
+          "min_close_buffer_points": 5493.25,
+          "min_intraday_buffer_points": 4678.25,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2018,
+          "lots": 15,
+          "average_entry": 10949.0,
+          "exit_date": "2018-08-24",
+          "exit_price": 10787.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "pnl_twd": -24300.0,
+          "return_on_funded_capital_pct": -2.16,
+          "funded_capital_twd": 1127434.5,
+          "max_drawdown_twd": 57900.0,
+          "max_drawdown_pct": 5.07,
+          "max_intraday_drawdown_twd": 69150.0,
+          "max_intraday_drawdown_pct": 6.05,
+          "min_close_buffer_points": 4788.23,
+          "min_intraday_buffer_points": 4713.23,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2019,
+          "lots": 15,
+          "average_entry": 10448.5,
+          "exit_date": "2020-03-26",
+          "exit_price": 9631.0,
+          "exit_reason": "10_consecutive_closes_below_0382",
+          "pnl_twd": -122625.0,
+          "return_on_funded_capital_pct": -10.75,
+          "funded_capital_twd": 1140408.0,
+          "max_drawdown_twd": 573750.0,
+          "max_drawdown_pct": 40.97,
+          "max_intraday_drawdown_twd": 586950.0,
+          "max_intraday_drawdown_pct": 41.92,
+          "min_close_buffer_points": 3070.22,
+          "min_intraday_buffer_points": 2982.22,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2021,
+          "lots": 12,
+          "average_entry": 16443.42,
+          "exit_date": "2022-03-31",
+          "exit_price": 17634.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 142869.9,
+          "return_on_funded_capital_pct": 15.79,
+          "funded_capital_twd": 904850.1,
+          "max_drawdown_twd": 216840.0,
+          "max_drawdown_pct": 18.8,
+          "max_intraday_drawdown_twd": 225120.0,
+          "max_intraday_drawdown_pct": 19.52,
+          "min_close_buffer_points": 4833.33,
+          "min_intraday_buffer_points": 4706.0,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2023,
+          "lots": 3,
+          "average_entry": 16162.49,
+          "exit_date": "2024-03-29",
+          "exit_price": 20278.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": 123465.3,
+          "return_on_funded_capital_pct": 55.32,
+          "funded_capital_twd": 223200.0,
+          "max_drawdown_twd": 19050.0,
+          "max_drawdown_pct": 6.94,
+          "max_intraday_drawdown_twd": 21240.0,
+          "max_intraday_drawdown_pct": 7.74,
+          "min_close_buffer_points": 4834.51,
+          "min_intraday_buffer_points": 4810.51,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        },
+        {
+          "year": 2024,
+          "lots": 15,
+          "average_entry": 21160.0,
+          "exit_date": "2025-03-31",
+          "exit_price": 20764.0,
+          "exit_reason": "scheduled_mar31",
+          "pnl_twd": -59400.0,
+          "return_on_funded_capital_pct": -4.82,
+          "funded_capital_twd": 1232430.0,
+          "max_drawdown_twd": 451500.0,
+          "max_drawdown_pct": 27.79,
+          "max_intraday_drawdown_twd": 457500.0,
+          "max_intraday_drawdown_pct": 28.16,
+          "min_close_buffer_points": 3990.2,
+          "min_intraday_buffer_points": 3443.2,
+          "maintenance_call_close": false,
+          "maintenance_breach_intraday_low": false
+        }
+      ]
+    }
+  },
+  "volatility_context": {
+    "latest_complete_date": "2026-08-14",
+    "latest_close": 45812.0,
+    "latest_atr14_pts": 1654.36,
+    "one_thousand_points_as_atr14": 0.604,
+    "one_thousand_points_as_price_pct": 2.183,
+    "loss_twd_by_position": {
+      "3": 30000,
+      "12": 120000,
+      "15": 150000
+    },
+    "by_year": {
+      "2013": {
+        "n": 244,
+        "median_true_range_pts": 76.0,
+        "p75_true_range_pts": 100.25,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2014": {
+        "n": 247,
+        "median_true_range_pts": 69.0,
+        "p75_true_range_pts": 100.5,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2015": {
+        "n": 244,
+        "median_true_range_pts": 103.0,
+        "p75_true_range_pts": 145.5,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2016": {
+        "n": 237,
+        "median_true_range_pts": 101.0,
+        "p75_true_range_pts": 131.0,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2017": {
+        "n": 241,
+        "median_true_range_pts": 78.0,
+        "p75_true_range_pts": 104.0,
+        "days_true_range_ge_1000_pct": 0.41
+      },
+      "2018": {
+        "n": 244,
+        "median_true_range_pts": 121.5,
+        "p75_true_range_pts": 168.0,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2019": {
+        "n": 243,
+        "median_true_range_pts": 95.0,
+        "p75_true_range_pts": 128.0,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2020": {
+        "n": 245,
+        "median_true_range_pts": 190.0,
+        "p75_true_range_pts": 239.0,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2021": {
+        "n": 244,
+        "median_true_range_pts": 244.5,
+        "p75_true_range_pts": 320.25,
+        "days_true_range_ge_1000_pct": 0.41
+      },
+      "2022": {
+        "n": 246,
+        "median_true_range_pts": 264.0,
+        "p75_true_range_pts": 357.75,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2023": {
+        "n": 241,
+        "median_true_range_pts": 182.0,
+        "p75_true_range_pts": 232.0,
+        "days_true_range_ge_1000_pct": 0.0
+      },
+      "2024": {
+        "n": 244,
+        "median_true_range_pts": 335.5,
+        "p75_true_range_pts": 451.0,
+        "days_true_range_ge_1000_pct": 2.87
+      },
+      "2025": {
+        "n": 244,
+        "median_true_range_pts": 386.5,
+        "p75_true_range_pts": 504.0,
+        "days_true_range_ge_1000_pct": 3.28
+      },
+      "2026": {
+        "n": 149,
+        "median_true_range_pts": 1056.0,
+        "p75_true_range_pts": 1668.0,
+        "days_true_range_ge_1000_pct": 57.05
+      }
+    }
+  },
+  "insights": [
+    "No-stop combined outcomes: n=9, WR=66.67%, PF=3.173, net TWD 521,575.",
+    "10-bar recovery-stop outcomes: n=9, WR=44.44%, PF=2.013, net TWD 294,025.",
+    "One thousand points equals only 0.604 ATR14 at the latest complete bar, but costs TWD 150,000 at 15 lots.",
+    "The 3/9/3 schedule is a midpoint-conviction design: 12 of 15 lots are already open at 0.5; the final 0.382 layer reduces the full-book average to exactly the 0.5 level but adds little protection before it triggers.",
+    "A 5,000-point maintenance buffer implies a full-book margin line exactly 5,000 points below the funded mark, not the separately supplied 31,454 estimate unless additional capital is deposited."
+  ]
+}

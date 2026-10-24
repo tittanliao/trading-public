@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T20:51:16+08:00",
+  "generated_at": "2026-10-24T13:04:16+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -168,7 +168,7 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. Private medium/long-term research only; no live entry, sizing, stop, or margin rule is adopted.",
-      "status": "progress",
+      "status": "confirmed",
       "created_on": "2026-08-15"
     },
     {
@@ -402,7 +402,7 @@
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": "None. Private behavioral research only; reconstructed signal links are descriptive and do not change formal S1 or live entry rules.",
-      "status": "progress",
+      "status": "confirmed",
       "created_on": "2026-08-16"
     },
     {
@@ -2392,7 +2392,7 @@
       "claim": "After 13 US midterms gold dipped and then rose 10% from the low in 7 — exactly as often as from the same November week in other years; the saying is gold's November-to-spring seasonality, not the election",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-19"
     },
@@ -2405,7 +2405,7 @@
       "claim": "US-session S1 above the upper band won 70% of 20 trades against 55% for the rest — a 15-point gap inside a 32-point bound; not a resolved edge",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-20"
     },
@@ -2418,7 +2418,7 @@
       "claim": "Gold does not fall from 09:30 Taipei: the 2-hour return is +0.08 points on 675 weekdays, and Asian-morning S1 longs won more often than other S1, not less",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-20"
     }

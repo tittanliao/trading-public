@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20260815-001",
+  "revision": 1,
+  "title": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
+  "market": "TX",
+  "strategy": {
+    "id": "annual-fib-three-wave",
+    "version": "research-v1"
+  },
+  "status": "confirmed",
+  "created_on": "2026-08-15",
+  "question": "Under a no-lookahead annual-high anchor, how does a 3/9/3-lot 0.618/0.5/0.382 pullback plan perform through the following March, with and without a 10-close recovery stop, and what capital/drawdown does a 5,000-point maintenance buffer require?",
+  "hypothesis": "Staging small at 0.618, concentrating at 0.5, and limiting the deepest add may retain medium-term upside, but a fixed 1,000-point comfort threshold and a 10-day recovery stop may be unreliable in the 2026 volatility regime.",
+  "headline": {
+    "complete_decision_years": 13,
+    "triggered_years_no_stop_n": 9,
+    "no_stop_win_rate_pct": 66.67,
+    "no_stop_profit_factor": 3.173,
+    "no_stop_net_pnl_twd": 521575.2,
+    "with_stop_win_rate_pct": 44.44,
+    "with_stop_profit_factor": 2.013,
+    "with_stop_net_pnl_twd": 294025.2,
+    "worst_account_drawdown_twd": 573750.0,
+    "worst_account_drawdown_pct": 40.97,
+    "worst_intraday_drawdown_twd": 586950.0,
+    "worst_intraday_drawdown_pct": 41.92,
+    "latest_atr14_pts": 1654.36,
+    "provisional_2026_first_wave": 41511.9
+  },
+  "card_metrics": [
+    "no_stop_win_rate_pct",
+    "with_stop_win_rate_pct",
+    "worst_account_drawdown_twd",
+    "latest_atr14_pts"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "The favorable no-stop result is only six wins in nine triggered years",
+      "detail": "The weighted 3/9/3 book produced 66.67% annual WR, PF 3.173 and synthetic gross TMF net TWD 521,575, but the Wilson 95% interval is 35.42–87.94% and all costs are excluded. This is descriptive, not a position-sizing mandate.",
+      "title_zh": "不設停損的好結果，其實只是 9 年中 6 年賺錢",
+      "detail_zh": "3/9/3 分批的年度勝率 66.67%、PF 3.173，以 TMF 換算淨賺約 52.2 萬台幣；但 Wilson 95% 區間是 35.42–87.94%，而且沒算任何成本。只是描述，不是部位大小的依據。"
+    },
+    {
+      "tone": "warn",
+      "title": "The proposed 10-close recovery stop reduces rather than improves the sample",
+      "detail": "It cuts 2013 and 2014 positions that later finished profitable. Annual WR falls to 44.44%, PF to 2.013 and net to TWD 294,025; the stop reduces some losses but creates larger opportunity cost in this small sample.",
+      "title_zh": "提議的「10 根收盤沒站回就停損」反而更差",
+      "detail_zh": "它砍掉了 2013、2014 年後來會賺錢的部位。年度勝率降到 44.44%、PF 2.013、淨賺約 29.4 萬；減少了一些虧損，但在這麼小的樣本裡錯過的獲利更多。"
+    },
+    {
+      "tone": "warn",
+      "title": "A 5,000-point buffer avoids simulated maintenance breaches but still permits a large drawdown",
+      "detail": "No close or intraday-low maintenance breach occurs under the normalized top-up rule, yet the worst close-equity drawdown is TWD 573,750 (40.97%) and intraday-low stress reaches TWD 586,950 (41.92%) in the 2019 cycle. Safety comes from supplying roughly million-dollar capital, not from the signal itself.",
+      "title_zh": "留 5,000 點保證金緩衝不會被追繳，但回撤仍然很大",
+      "detail_zh": "依補繳規則模擬，收盤與盤中低點都沒有跌破維持保證金；但最大收盤權益回撤約 57.4 萬（40.97%），盤中低點壓力約 58.7 萬（41.92%），發生在 2019 年。安全來自準備約百萬資金，不是訊號本身。"
+    },
+    {
+      "tone": "warn",
+      "title": "One thousand points is currently ordinary volatility, but expensive at full size",
+      "detail": "At the 2026-08-14 complete bar, 1,000 points is 2.183% and 0.604 of ATR14; 57.05% of 2026 complete days have true range at least 1,000 points. The same move costs TWD 150,000 at 15 TMF lots.",
+      "title_zh": "1,000 點現在是正常波動，但滿倉時很貴",
+      "detail_zh": "2026-08-14 的 1,000 點是 2.183%、0.604 個 ATR14；2026 年有 57.05% 的交易日真實波幅至少 1,000 點。15 口 TMF 下同樣的 1,000 點等於 15 萬台幣。"
+    },
+    {
+      "tone": "info",
+      "title": "The 3/9/3 schedule concentrates risk at the midpoint",
+      "detail": "Twelve of fifteen lots are already open at 0.5. The final three lots make the full-book average exactly 0.5, but the 12-lot book bears the entire decline from 0.5 to 0.382 before that improvement arrives.",
+      "title_zh": "3/9/3 把風險集中在 0.5",
+      "detail_zh": "到 0.5 時 15 口裡已經進了 12 口。最後 3 口讓整體均價剛好回到 0.5，但在觸發前，0.5 到 0.382 的整段下跌都由 12 口承擔。"
+    },
+    {
+      "tone": "info",
+      "title": "The provisional 2026 path resembles a recent live 42k-to-45k path",
+      "detail": "Using the corrected anchors, the first layer is 41,511.9 and triggered on 2026-07-29; the 2026-08-14 mark is 45,812, or +4,300.1 points. Before that recovery, daily low reached 39,439, creating TWD 62,187 intraday stress at three lots. The cycle is censored and excluded from completed statistics.",
+      "title_zh": "2026 年暫時的走勢，很像最近一段 42k 到 45k 的實際走勢",
+      "detail_zh": "用修正後的錨點，第一層 41,511.9 在 2026-07-29 觸發；2026-08-14 標記 45,812，約 +4,300 點。回升前日低曾到 39,439，3 口盤中壓力約 6.2 萬。這個週期尚未結束，不計入統計。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "A three-wave Fibonacci pullback on TX, built without lookahead, and the capital it demands.",
+  "title_zh": "台指三段 Fibonacci 分批（無前視）：9 年 6 勝，但最壞回撤約四成，重點是準備多少資金",
+  "question_zh": "用不偷看未來的年度高點當錨，在 0.618／0.5／0.382 分 3／9／3 口進場、持有到隔年 3 月，有沒有 10 根收盤停損的結果各如何？留 5,000 點維持緩衝需要多少資金、會回撤多少？",
+  "hypothesis_zh": "0.618 少量試單、0.5 加重、最深一層限量，也許能保留中期上漲；但固定 1,000 點的舒適門檻和 10 根停損，在 2026 年的波動下可能不可靠。",
+  "card_summary_zh": "台指三段 Fibonacci 分批：9 年 6 勝，最壞回撤約四成，重點在預備資金。",
+  "limitations_zh": [
+    "只有 13 個完整決策年（2013–2025），每一層與合計結果都是小樣本。",
+    "TMF 2024 年才上市；之前的金額是用 MXF1! 每點 10 元換算，無法反映當時的流動性、成交與滑價。",
+    "MXF1! 是連續近月合約，換月調整方式不明，換月跳空可能影響錨點、觸發、出場與回撤。",
+    "日線無法判斷盤中高低點先後；只用前一個完整交易日的錨點避免前視，但可能和盤中做法不同。",
+    "以收盤代替結算檢查保證金；盤中低點跌破只是壓力標記，不代表真的會被追繳。",
+    "所有年份都套用 2026 年的保證金，方便和現在的資金比較，不是當年的保證金。",
+    "沒有扣手續費、交易稅、換月成本與額外滑價。",
+    "2026 年的週期要到 2027 年 3 月才結束，不計入勝率、PF 與損益。"
+  ],
+  "interpretation_zh": "這個分批法在 9 個有觸發的年份裡 6 年賺錢，但區間很寬、沒算成本，只能當描述。10 根收盤停損在樣本裡反而傷害結果。真正的限制是資金：滿倉 15 口時 1,000 點就是 15 萬，最壞回撤約四成；要用這個方法，先決定能準備多少資金、承受多大回撤，而不是先看勝率。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "no_stop_win_rate_pct",
+        "with_stop_win_rate_pct",
+        "worst_account_drawdown_pct",
+        "latest_atr14_pts"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

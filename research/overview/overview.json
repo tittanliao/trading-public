@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T20:54:35+08:00",
+  "generated_at": "2026-10-24T13:04:16+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2043,7 +2043,7 @@
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-10-20"
+      "last_date": "2026-10-23"
     },
     {
       "id": "xau_30m_long",
@@ -2187,15 +2187,15 @@
     {
       "id": "RS-TX-20260815-001",
       "market": "TX",
-      "status": "progress",
+      "status": "confirmed",
       "revision": 1,
       "theme": "market_structure",
       "title": "TX/TMF — no-lookahead three-wave Fibonacci pullback and capital stress",
-      "title_zh": null,
+      "title_zh": "台指三段 Fibonacci 分批（無前視）：9 年 6 勝，但最壞回撤約四成，重點是準備多少資金",
       "summary_zh": "台指三段 Fibonacci 分批：9 年 6 勝，最壞回撤約四成，重點在預備資金。",
       "superseded_by": null,
-      "visibility": "private",
-      "url": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20260815-001/",
       "claims": [
         "K-TX-002"
       ]
@@ -2487,7 +2487,7 @@
     {
       "id": "RS-XAUUSD-20260816-001",
       "market": "XAUUSD",
-      "status": "progress",
+      "status": "confirmed",
       "revision": 1,
       "theme": "strategy_diagnostics",
       "title": "Live S1 trades — signal-delay and discretionary execution study",
@@ -3213,7 +3213,7 @@
       "summary_zh": "472 筆 S1 裡，美盤且在上軌之上的有 20 筆，勝率 70%，其他 55%。差 15 個百分點，在 20 筆能分辨的 32 個百分點以內（隨機打散 p＝0.14），所以「歷史勝率高」沒有被證實。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261020-001/",
       "claims": [
         "K-S1-005"
       ]
@@ -3229,7 +3229,7 @@
       "summary_zh": "675 個交易日，台北 09:30 起算 2 小時平均 +0.08 點，下跌的日子 47%，09:30 是很普通的時段。07:00–09:29 進場的 S1 勝率 65%，其他 S1 55%——和說法相反，且在雜訊內。反手做空亞盤早上的 S1 沒有證據支持。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261020-002/",
       "claims": [
         "K-S1-010"
       ]
