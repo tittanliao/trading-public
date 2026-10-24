@@ -206,7 +206,8 @@ READER_BODY_LIMIT = 3000
 def check_reader_edition(week: str, page: Path, text: str, summary: dict, errors: list[str]) -> None:
     """Reader-format editions (owner decision 2026-10-10): the sections, the chart, and a body
     short enough to read — everything outside the folded details counts toward the limit."""
-    for heading in READER_HEADINGS:
+    headings = READER_HEADINGS + (["市場消息"] if summary.get("news_digest") else [])
+    for heading in headings:
         if f"<h2>{heading}</h2>" not in text:
             errors.append(f"{week} reader edition is missing section: {heading}")
     chart = page.parent / summary.get("levels_chart", {}).get("file", "levels.png")
@@ -218,7 +219,7 @@ def check_reader_edition(week: str, page: Path, text: str, summary: dict, errors
     if summary.get("market_regime_panel"):
         errors.append(f"{week} reader edition must not carry market_regime_panel")
     main = text.split('<details class="weekly-details">')[0]
-    main = re.sub(r"<details>.*?</details>|<script.*?</script>|<style.*?</style>", "", main, flags=re.S)
+    main = re.sub(r"<details(?: class=\"news-details\")?>.*?</details>|<script.*?</script>|<style.*?</style>", "", main, flags=re.S)
     visible = re.sub(r"\s+", "", html.unescape(re.sub(r"<[^>]+>", "", main)))
     if len(visible) > READER_BODY_LIMIT:
         errors.append(f"{week} reader edition body is {len(visible)} characters; the limit is {READER_BODY_LIMIT}")

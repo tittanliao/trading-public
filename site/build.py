@@ -801,6 +801,60 @@ def weekly_reader_page(week: str, s: dict) -> str:
             '</details></section>'
         )
 
+    news = ""
+    if s.get("news_digest"):
+        nd = s["news_digest"]
+        cat = {"fed_macro": "Fed／總經", "geopolitics_oil": "地緣／油價", "us_equity_ai": "美股／AI",
+               "taiwan": "台股／台幣", "gold": "黃金"}
+
+        def links(sources: list[dict]) -> str:
+            return "、".join(f'<a href="{attr(x["url"])}" rel="noopener">{esc(x["publisher"])}</a>' for x in sources)
+
+        def change(row: dict) -> str:
+            sign = "+" if row["change"] > 0 else ""
+            return f'{sign}{row["change"]:.0f} bp' if row["unit"] == "bp" else f'{sign}{row["change"]:.2f}%'
+
+        item_rows = [[
+            ("th", esc(i["date"][5:]), i["date"], False),
+            ("td", esc(cat[i["category"]]), i["category"], False),
+            ("td", esc(i["summary_zh"]) + ("" if i["confirmed"] else ' <span class="tag">未確認</span>'), "", False),
+            ("td", esc(i.get("reaction_zh", "—")), "", False),
+            ("td", links(i["sources"]), "", False),
+        ] for i in nd["items"]]
+        change_rows = [[
+            ("th", esc(r["asset_zh"]), r["asset_zh"], False),
+            ("td", f'{r["close"]:,.2f}', sort_key(r["close"]), True),
+            ("td", change(r), sort_key(r["change"]), True),
+            ("td", esc(r["close_date"][5:]), r["close_date"], False),
+        ] for r in nd["weekly_change"]]
+        three_rows = [[
+            ("th", esc(i["date"][5:]), i["date"], False),
+            ("td", esc(cat[i["category"]]), i["category"], False),
+            ("td", esc(i["summary_zh"]), "", False),
+        ] for i in nd.get("timeline_3m", [])]
+        theme_rows = [[
+            ("th", esc(t["title_zh"]), t["title_zh"], False),
+            ("td", esc(t["since"]), t["since"], False),
+            ("td", esc(t["status_zh"]), "", False),
+        ] for t in nd["themes_6m"]]
+        mood = {"risk_off": "news-off", "risk_on": "news-on"}.get(nd["sentiment"], "news-neutral")
+        news = (
+            '<section class="block-section reading-rail"><h2>市場消息</h2>'
+            f'<p class="news-mood {mood}"><strong>情緒</strong>　{esc(nd["sentiment_zh"])}</p>'
+            f'<ul class="watch-list">{bullets(nd["top_zh"])}</ul>'
+            f'<details class="news-details"><summary>展開看消息整理：上週 {len(nd["items"])} 則、一週變化、近 3 個月、近半年主線</summary>'
+            f'<h3>上週消息（{esc(nd["window_start"])}～{esc(nd["window_end"])}）</h3>'
+            + render_table([("日期", False), ("類別", False), ("發生什麼", False), ("市場反應", False), ("來源", False)], item_rows)
+            + '<h3>一週變化</h3>'
+            + render_table([("市場", False), ("收盤", True), ("一週", True), ("收盤日", False)], change_rows)
+            + f'<p class="data-cutoff">資料：{esc(nd["weekly_change_provider"])}</p>'
+            + ('<h3>近 3 個月</h3>' + render_table([("日期", False), ("類別", False), ("事件", False)], three_rows) if three_rows else '')
+            + '<h3>近半年主線</h3>'
+            + render_table([("主線", False), ("起點", False), ("現在", False)], theme_rows)
+            + '<p class="evidence-takeaway">消息只是背景，不是進出場依據；「未確認」表示只找到評論或二手來源。</p>'
+            '</details></section>\n'
+        )
+
     detail_levels = render_table(
         [("名稱", False), ("價位", False), ("依據", False)],
         [[("th", esc(k["label"]), k["label"], False), ("td", esc(k.get("value", _price_band(k["low"], k["high"]))), "", False),
@@ -850,7 +904,7 @@ def weekly_reader_page(week: str, s: dict) -> str:
 <section class="block-section"><h2>事件</h2>{render_table([("時間", False), ("事件", False), ("處置", False)], ev_rows)}</section>
 <section class="block-section reading-rail"><h2>上週回顧</h2><ul class="watch-list">{bullets(r['last_week_zh'])}</ul></section>
 <section class="block-section">{four_week}</section>
-{cftc}
+{news}{cftc}
 <details class="weekly-details"><summary>展開看細節：價位依據、劇本完整條件、市場摘要、證據限制</summary>
 <h3>市場摘要</h3><p class="prose">{esc(s['market_summary'])}</p>
 <h3>價位依據</h3>{detail_levels}
@@ -1375,6 +1429,9 @@ STYLE_CSS = """
 .watch-list{padding-left:1.2em;max-width:78ch;} .watch-list li{margin:.35em 0;}
 .weekly-details{margin:2em 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
 .weekly-details summary{cursor:pointer;color:var(--cyan);font-weight:600;}
+.news-mood{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:10px;padding:8px 14px;max-width:78ch;}
+.news-mood.news-off{border-left-color:var(--bad);} .news-mood.news-on{border-left-color:var(--good);}
+.news-details{margin:1em 0;} .news-details tbody th,.news-details td:nth-child(2){white-space:nowrap;} .news-details summary{cursor:pointer;color:var(--cyan);font-weight:600;}
 /* research overview */
 .k-strip .k-metric{text-decoration:none;color:var(--text);}
 .k-strip .k-metric:hover{border-color:var(--cyan);}
