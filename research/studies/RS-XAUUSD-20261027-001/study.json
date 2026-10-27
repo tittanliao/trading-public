@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261027-001",
+  "revision": 1,
+  "title": "Gold against real rates, nominal rates and CPI since 1971 — no regime predicts the next year, the level link broke in 2022, and gold is near its most expensive ever in CPI terms",
+  "market": "XAUUSD",
+  "strategy": "none",
+  "status": "confirmed",
+  "created_on": "2026-10-27",
+  "question": "On monthly data since 1971, do real short rates, their direction, Fed cutting/hiking or CPI level change gold's next 12-24 months; how has gold moved with the 10-year real rate; and which past months looked most like now?",
+  "hypothesis": "Textbook: negative or falling real rates are good for gold, positive and rising real rates bad.",
+  "headline": {
+    "regimes_separating_n": 0,
+    "regime_buckets_n": 11,
+    "gold_real_pct_now": 98.82,
+    "corr36_now": -0.716,
+    "level_gap_now_pct": 280.7,
+    "real_short_now_pct": 0.04,
+    "cpi_yoy_now_pct": 3.71,
+    "tips10_now_pct": 2.64
+  },
+  "card_metrics": [
+    "regimes_separating_n",
+    "gold_real_pct_now",
+    "corr36_now",
+    "level_gap_now_pct"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "No rate or CPI regime separates gold's next 12 or 24 months",
+      "detail": "11 buckets, 668 months. Real short rate above 2%: 12-month median −0.85% (233 months, 12 runs) against 0-2%: +19.03% (176 months); effects −7.08 and +14.64 points against bounds 20.11 and 22.85. Hiking was better than cutting (12-month mean +21.66% vs +9.21%), the opposite of the textbook, and also inside the bound.",
+      "title_zh": "沒有任何利率或通膨環境能分辨黃金接下來 12 或 24 個月",
+      "detail_zh": "11 個分組、668 個月。實質短率 > 2%：12 個月中位數 −0.85%（233 個月、12 段）；0–2%：+19.03%（176 個月）；與全體平均的差 −7.08、+14.64 個百分點，門檻 20.11、22.85，分不出來。升息期反而比降息期好（12 個月平均 +21.66% 對 +9.21%），跟教科書相反，也在門檻內。"
+    },
+    {
+      "tone": "info",
+      "title": "Year-on-year, gold still moves against the real rate",
+      "detail": "36-month correlation of 12-month gold change with 12-month change in the 10-year real rate: -0.716 at 2026-09, full sample -0.455 (656 months). It was near zero in the 1990s (-0.08) and 2000s (0.067), −0.70 in the 2010s. Contemporaneous: it describes, it does not predict (K-MAC-002).",
+      "title_zh": "按年變化來看，黃金仍然和實質利率反向",
+      "detail_zh": "黃金 12 個月漲跌 對 10 年實質利率 12 個月變化，36 個月滾動相關係數：2026-09 為 -0.716；全期 -0.455（656 個月）。1990 年代 -0.08、2000 年代 0.067 幾乎無關，2010 年代 −0.70。這是同期關係，只能描述，不能預測（K-MAC-002）。"
+    },
+    {
+      "tone": "warn",
+      "title": "The level link broke in 2022: gold is 281% above what the 2006-2021 real-rate fit implies",
+      "detail": "Exploratory. log(gold/CPI) on the TIPS yield, 2006-2021 (n=192, R² 0.763): each +1 point of real yield ≈ −22% gold in real terms; the largest gap in the fit period was 40.6%. With the TIPS yield at 2.64% the fit implies about 1,126; gold was 4,287 (2026-09). The gap grew from −13% (2021-12) to +84% (2023-10) and +281%. Something other than real rates (the usual candidate is central-bank buying since 2022) now sets the level; changes still move with real rates.",
+      "title_zh": "價格水準和實質利率的關係在 2022 年斷了：金價比 2006–2021 的關係高 281%",
+      "detail_zh": "探索性。用 2006–2021 年（n=192，R² 0.763）的關係：實質殖利率每高 1 個百分點，扣通膨後金價約低 22%；那段期間最大偏離 40.6%。照這個關係，10 年 TIPS 2.64% 對應金價約 1,126，實際是 4,287（2026-09）。偏離從 2021-12 的 −13%，到 2023-10 的 +84%，到現在 +281%。決定價格水準的已經不是實質利率（常見的解釋是 2022 年起的央行買盤），但漲跌方向仍跟著實質利率變化走。"
+    },
+    {
+      "tone": "warn",
+      "title": "Gold is at the 98.8th percentile of its own CPI-adjusted history; past entries above the 90th went both ways",
+      "detail": "Gold/CPI percentile (past-only) 98.8 at 2026-09 (100 in 2026-01). Five runs above the 90th since 1975: 24 months later in real terms −33.7% (1975), +154.8% (1978, into 1980), +15.2% (2008), −13.3% (2016), +20.5% (2019). All months above the 90th: 24-month real median +2.11% (145 months, about 6 independent), effect −4.17 against a bound of 55.04.",
+      "title_zh": "扣掉通膨後，黃金在自己歷史的第 98.8 百分位；過去進入前 10% 之後兩種結果都有",
+      "detail_zh": "金價÷CPI 的百分位（只用過去資料）2026-09 為 98.8（2026-01 為 100）。1975 年起 5 次進入前 10%，24 個月後實質報酬：1975 −33.7%、1978 +154.8%（漲到 1980 高點）、2008 +15.2%、2016 −13.3%、2019 +20.5%。所有在前 10% 的月份，24 個月實質中位數 +2.11%（145 個月，約 6 個獨立樣本），差 −4.17，門檻 55.04。"
+    },
+    {
+      "tone": "info",
+      "title": "The five months most like now: two up, three down a year later",
+      "detail": "Now (2026-09): gold/CPI percentile 98.8, −18.8% from the month-end high, real short rate +0.04% (Fed funds 3.75, CPI 3.71%), real short rate −1.55 points over 12 months, Fed flat over 6 months, gold +24.3% over 12 months. Nearest: 2020-02 (12 months +9.4%), 2016-07 (−6.0%), 2010-03 (+29.2%), 1987-11 (−12.5%), 2012-03 (−4.3%, 24 months −22.5%). Five samples, a reminder not a forecast.",
+      "title_zh": "跟現在最像的 5 個月：一年後 2 次漲、3 次跌",
+      "detail_zh": "現在（2026-09）：金價÷CPI 第 98.8 百分位、離月收盤高點 −18.8%、實質短率 +0.04%（聯邦基金 3.75%、CPI 3.71%）、實質短率一年降 1.55 個百分點、聯準會近 6 個月持平、黃金一年 +24.3%。最像的：2020-02（12 個月 +9.4%）、2016-07（−6.0%）、2010-03（+29.2%）、1987-11（−12.5%）、2012-03（−4.3%，24 個月 −22.5%）。只有 5 個樣本，是提醒不是預測。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "No rate or CPI regime predicts gold's next year; gold still moves against real-rate changes, but its level left the real-rate relation in 2022 and sits near its most expensive ever in CPI terms.",
+  "title_zh": "黃金與實質利率、名目利率、CPI（1971 年起）：沒有環境能預測下一年；2022 年起價格水準脫離實質利率；扣通膨後接近史上最貴",
+  "question_zh": "1971 年以來的月資料裡，實質短率、它的方向、聯準會升降息或 CPI 高低，能不能分辨黃金接下來 12–24 個月？黃金和 10 年實質利率怎麼一起動？歷史上哪幾個月最像現在？",
+  "hypothesis_zh": "教科書說法：實質利率為負或下降對黃金好，為正且上升對黃金不好。",
+  "card_summary_zh": "沒有利率環境能預測黃金下一年；漲跌仍跟實質利率反向，但價格水準 2022 年起脫鉤，扣通膨後接近史上最貴。",
+  "limitations_zh": [
+    "月資料；12／24 個月視窗重疊，每組只有約 14–36 個獨立觀察。",
+    "2003 年前用事後實質利率（10 年公債 − CPI 年增率），之後用 TIPS，兩者不是同一種量法。",
+    "價格水準偏離那一段是看過資料後才加的，屬探索性。",
+    "相似月份只有 5 個，標準化用了全期資料。"
+  ],
+  "interpretation_zh": "利率和通膨的環境不能告訴你黃金明年會怎樣：每一個分組都在門檻內，有些還和教科書相反。能用的是兩件事。第一，同期來看，實質利率上升的那一年黃金通常比較弱（相關 −0.72）；今年 1 月到 9 月 10 年 TIPS 從 1.91% 升到 2.64%，正好和這次回檔同步。所以要看的是實質利率接下來的方向，而不是水準。第二，價格水準已經不是實質利率決定的：照 2006–2021 年的關係金價應該在 1,100 左右，實際高出近 3 倍。這個差距是誰撐起來的（央行買盤），就是最大的風險來源；如果那個買盤減弱，沒有利率面的底可以接。扣通膨後黃金在歷史第 98.8 百分位，過去在這個位置之後兩年，結果從 −34% 到 +155% 都有。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "gold_real_pct_now",
+        "corr36_now",
+        "level_gap_now_pct",
+        "real_short_now_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "table",
+      "source": "part_d_analogs.analogs",
+      "title": "最像現在的 5 個月，與之後 6／12／24 個月的報酬",
+      "columns": [
+        "month",
+        "distance",
+        "gold_real_pct",
+        "dd_ath",
+        "real_short",
+        "d12_real_short",
+        "cpi_yoy",
+        "gold_12m",
+        "fwd_6m_pct",
+        "fwd_12m_pct",
+        "fwd_24m_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "part_b_expensive.episodes",
+      "title": "扣通膨後進入歷史前 10%，之後 24 個月"
+    },
+    {
+      "type": "table",
+      "source": "part_c_level_gap.by_month",
+      "title": "價格水準和 2006–2021 實質利率關係的偏離（探索性）"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-24T13:04:16+08:00",
+  "generated_at": "2026-10-27T20:56:01+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -1962,6 +1962,138 @@
           "says_zh": "+0.08 點、47% 下跌；早上 S1 勝率 65% 對 55%"
         }
       ]
+    },
+    {
+      "id": "K-ACC-006",
+      "topic": "accumulation",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "黃金從歷史高點跌 25% 之後，結果分成兩種：幾週內 V 轉，或多年空頭",
+      "detail_zh": "1970 年以來 5 次：1973、2008 年 9 和 17 週回前高；1975、1980、2013 年要 149、1,451、379 週，兩年內又再跌 17–44%。52 週中位數 −7.9%（基準 +6.6%），門檻 33.9，分不出來。",
+      "how_to_use_zh": "跌 25% 不是買進或賣出訊號；往下買時要先算好「越跌越多」那種情況的總虧損。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-26",
+      "reviewed_on": "2026-10-26",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261026-001",
+          "says_zh": "5 次中 2 次 104 週內回前高；兩年內再跌中位數 −17.4%"
+        }
+      ]
+    },
+    {
+      "id": "K-ACC-007",
+      "topic": "accumulation",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "往下階梯買壓低均價，但錢會集中投進最糟的跌勢",
+      "detail_zh": "每跌 5% 加一份：5 次事件 104 週的投入報酬率都不輸一次買進，但 1980 年買滿 5 份、虧 1.73 份，是一次買的 4 倍；V 轉時只買到 1 份。",
+      "how_to_use_zh": "往下買要搭配總口數上限和減碼線，看總虧損而不是均價。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-26",
+      "reviewed_on": "2026-10-26",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261026-001",
+          "says_zh": "1980 階梯 −34.5%（−1.73 份）對一次買 −43.8%（−0.44 份）"
+        }
+      ]
+    },
+    {
+      "id": "K-MAC-003",
+      "topic": "macro",
+      "kind": "refuted",
+      "strength": "moderate",
+      "statement_zh": "「降息／實質利率為負／通膨高，所以黃金接下來一年會漲」",
+      "detail_zh": "1971 年起 668 個月、11 種利率與通膨環境，之後 12、24 個月都和全體分不開；升息期、實質短率上升期反而較好（1970 年代造成），也在門檻內。",
+      "how_to_use_zh": "不要用利率環境判斷黃金明年的方向。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-27",
+      "reviewed_on": "2026-10-27",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261027-001",
+          "says_zh": "實質短率 > 2% 12 個月中位數 −0.85%（差 −7.08，門檻 20.11）；11 組都分不出來"
+        }
+      ]
+    },
+    {
+      "id": "K-MAC-004",
+      "topic": "macro",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "黃金的漲跌仍跟實質利率反向，但價格水準 2022 年起已脫離實質利率",
+      "detail_zh": "12 個月變化的 36 個月相關係數 −0.72（2026-09）。但照 2006–2021 年的關係（R² 0.76），TIPS 2.64% 對應金價約 1,126，實際 4,287，高 281%；那段期間最大偏離只有 41%（探索性）。",
+      "how_to_use_zh": "看實質利率接下來的方向，不要用水準估「合理金價」；撐住偏離的力量（央行買盤）是最大風險來源。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-27",
+      "reviewed_on": "2026-10-27",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261027-001",
+          "says_zh": "相關 −0.72；偏離 2021-12 −13% → 2023-10 +84% → 2026-09 +281%"
+        }
+      ]
+    },
+    {
+      "id": "K-S1-011",
+      "topic": "s1",
+      "kind": "direction",
+      "strength": "weak",
+      "statement_zh": "走勢乾淨時 S1 稍好（乾淨下跌也一樣），但分不出來；只做乾淨走勢會少賺",
+      "detail_zh": "346 筆：20 日效率比最乾淨三分之一 +0.47R 對最亂 +0.34R（差 +0.13，門檻 0.56）。每月成績和 13 週效率比的等級相關 0.46（n=22，門檻約 0.61）。只做乾淨走勢會拿掉 229 筆合計仍在賺的單（占全部淨利 55%）。",
+      "how_to_use_zh": "可以當減量的參考，不要當開關；要變規則需先登記前瞻檢驗。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-27",
+      "reviewed_on": "2026-10-27",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261027-002",
+          "says_zh": "最乾淨 − 最亂 +0.13R，門檻 0.56R；前後兩半同號"
+        }
+      ]
+    },
+    {
+      "id": "K-ACC-008",
+      "topic": "accumulation",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "下跌時多補一口，挑哪一週（加速、反彈、跌深、站回 20 週線）都和一般週分不開",
+      "detail_zh": "1970 年起 2,215 個下跌週：跌勢加速之後 26 週 +5.36%，一般下跌週 +2.73%（差 +2.64，門檻 12.60）；其他條件也在門檻內。加速時多買，過去 5 次均價只低 0.6–1.4%，續跌那 3 次口數變多、虧更多。",
+      "how_to_use_zh": "重點是總口數上限，不是挑哪一週多補。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-10-27",
+      "reviewed_on": "2026-10-27",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261027-003",
+          "says_zh": "4 種條件都在門檻內；1980 加碼版 52 週 −5.86 口對 −4.72 口"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -2043,7 +2175,7 @@
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-10-23"
+      "last_date": "2026-10-27"
     },
     {
       "id": "xau_30m_long",
@@ -2066,7 +2198,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-10-16"
+      "last_date": "2026-10-23"
     },
     {
       "id": "weekly_manual_set",
@@ -2076,7 +2208,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-10-17"
+      "last_date": "2026-10-24"
     },
     {
       "id": "cftc_transcription",
@@ -2086,7 +2218,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-10-13"
+      "last_date": "2026-10-20"
     },
     {
       "id": "cftc_archive",
@@ -3232,6 +3364,72 @@
       "url": "research/studies/RS-XAUUSD-20261020-002/",
       "claims": [
         "K-S1-010"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261026-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "Gold after a 25-30% fall from its all-time high — five episodes, two V-shaped recoveries, two multi-year bears",
+      "title_zh": "黃金從歷史高點跌 25–30% 之後：5 次裡 2 次很快 V 轉、1 次約 3 年、2 次是多年空頭",
+      "summary_zh": "跌 25% 後：2 次幾週就回前高，3 次要好幾年；往下買壓低均價，但錢集中在最糟的那幾次。",
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": [
+        "K-ACC-006",
+        "K-ACC-007"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261027-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "Gold against real rates, nominal rates and CPI since 1971 — no regime predicts the next year, the level link broke in 2022, and gold is near its most expensive ever in CPI terms",
+      "title_zh": "黃金與實質利率、名目利率、CPI（1971 年起）：沒有環境能預測下一年；2022 年起價格水準脫離實質利率；扣通膨後接近史上最貴",
+      "summary_zh": "沒有利率環境能預測黃金下一年；漲跌仍跟實質利率反向，但價格水準 2022 年起脫鉤，扣通膨後接近史上最貴。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-MAC-003",
+        "K-MAC-004"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261027-002",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "strategy",
+      "title": "S1 V3.9 and trend cleanliness — cleaner trends lean better, including clean down-trends, but nothing separates and a cleanliness filter gives up more profit than it saves",
+      "title_zh": "S1 V3.9 與走勢乾淨度：越乾淨稍好、乾淨下跌也一樣，但分不出來；只做乾淨走勢會少賺",
+      "summary_zh": "乾淨走勢 S1 稍好，乾淨下跌也一樣；但分不出來，而且只做乾淨走勢會砍掉仍在賺錢的單。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-S1-011"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261027-003",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing separates; extra lots on accelerating falls cut the average cost a little and add to the loss in the bad episodes",
+      "title_zh": "補倉時機：跌勢加速、開始反彈、跌深、站回 20 週線，都和一般下跌週分不開；加速時多買均價略低，但續跌時虧更多",
+      "summary_zh": "沒有補倉時機比一般下跌週好；跌勢加速時多買只讓均價略低，續跌時虧損更大。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-ACC-008"
       ]
     }
   ],

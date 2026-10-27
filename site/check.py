@@ -428,6 +428,7 @@ def check_table_columns(errors: list[str]) -> None:
 # the check's job is to catch a LOCAL name that resolves to nothing, and a name on this
 # list is defined as never being that.
 KNOWN_STDLIB_AND_THIRD_PARTY = {
+    "io",  # RS-XAUUSD-20261027-002 filters an export in memory before loading it
     "__future__", "argparse", "base64", "bisect", "collections", "csv", "dataclasses",
     "datetime", "hashlib", "itertools", "json", "math", "matplotlib", "numpy", "os",
     "pandas", "pathlib", "random", "re", "shutil", "sqlite3", "statistics", "sys", "typing",

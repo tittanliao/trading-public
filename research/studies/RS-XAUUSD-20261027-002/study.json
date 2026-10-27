@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261027-002",
+  "revision": 1,
+  "title": "S1 V3.9 and trend cleanliness — cleaner trends lean better, including clean down-trends, but nothing separates and a cleanliness filter gives up more profit than it saves",
+  "market": "XAUUSD",
+  "strategy": "S1 V3.9",
+  "status": "confirmed",
+  "created_on": "2026-10-27",
+  "question": "Does S1 V3.9 do better when the trend into the entry is clean (high efficiency ratio), and would trading S1 only in clean trends have helped?",
+  "hypothesis": "Trader's view: January 2026 went well because the trend was clean; S1 should return when price action is clean again.",
+  "headline": {
+    "trades_n": 346,
+    "high_minus_low_r": 0.1256,
+    "resolution_bound_r": 0.5616,
+    "filter_removed_net_usd_share_pct": 54.9,
+    "month_rank_corr_er20": 0.081,
+    "month_rank_corr_er13w": 0.461,
+    "months_n": 22
+  },
+  "card_metrics": [
+    "high_minus_low_r",
+    "resolution_bound_r",
+    "filter_removed_net_usd_share_pct",
+    "month_rank_corr_er13w"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "The cleanest third of entries did a little better, inside the bound",
+      "detail": "ER20 terciles (cuts [0.1331, 0.3089]): high mean +0.4697R, win 57.26% (n=117); mid +0.2416R (n=114); low +0.3442R (n=115). High minus low +0.1256R against a bound of 0.5616R. Not monotonic: the middle third was worst.",
+      "title_zh": "走勢最乾淨的三分之一稍微好一點，但在門檻內",
+      "detail_zh": "用 20 日效率比分三組（切點 0.1331、0.3089）：最乾淨組平均 +0.4697R、勝率 57.26%（n=117，95% 區間 48.21–65.86）；中間組 +0.2416R（n=114）；最亂組 +0.3442R（n=115）。最乾淨減最亂 +0.1256R，門檻 0.5616R，分不出來。也不是越乾淨越好：中間組最差。"
+    },
+    {
+      "tone": "info",
+      "title": "Clean down-trends were as good as clean up-trends",
+      "detail": "Up-clean +0.4641R (n=126), down-clean +0.4281R (n=47), choppy +0.2513R (n=173). Up-clean vs choppy +0.2128R, bound 0.5009. If anything it is cleanliness, not direction; still unproven.",
+      "title_zh": "乾淨的下跌和乾淨的上漲一樣好",
+      "detail_zh": "乾淨上漲 +0.4641R（n=126）、乾淨下跌 +0.4281R（n=47）、震盪 +0.2513R（n=173）。乾淨上漲比震盪多 +0.2128R，門檻 0.5009。如果有差，是「乾不乾淨」而不是方向；但仍未證實。"
+    },
+    {
+      "tone": "info",
+      "title": "By month, the weekly measure tracks S1 better than the daily one",
+      "detail": "Rank correlation of S1 monthly net R with the month's mean ER: 13-week 0.461, 20-day 0.081 (n=22 months; a rank correlation needs about ±0.61 to clear 2.8/√(n−1)). January 2026: +18.54R, ER20 0.364, ER13w 0.35. The three weakest recent months (2026-08 to 10) had ER13w 0.30, 0.12, 0.11.",
+      "title_zh": "以月來看，週線的乾淨度比日線更貼近 S1 的成績",
+      "detail_zh": "S1 每月淨 R 和當月平均效率比的等級相關：13 週 0.461、20 日 0.081（n=22 個月；要約 ±0.61 才過門檻）。2026 年 1 月 +18.54R，20 日 0.364、13 週 0.35。最近表現最弱的 2026-08 到 10 月，13 週效率比 0.30、0.12、0.11。"
+    },
+    {
+      "tone": "warn",
+      "title": "Trading S1 only in clean trends would have given up more profit than it kept",
+      "detail": "Top-tercile-only: kept 117 trades, +2704.32 USD; removed 229 trades that made +3298.17 USD. Per trade kept is better in both halves (+0.1871R, +0.1681R; bounds 0.6888, 0.6859), but the removed trades were still profitable.",
+      "title_zh": "只在乾淨走勢做 S1，放棄的獲利比留下的還多",
+      "detail_zh": "只做最乾淨三分之一：留下 117 筆、+2704.32 美元；拿掉的 229 筆其實賺了 +3298.17 美元。每筆平均在前後兩半都是留下的較好（+0.1871R、+0.1681R；門檻 0.6888、0.6859），但被拿掉的單仍然是賺的。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "strategy",
+  "card_summary": "Cleaner trends lean slightly better for S1 (clean down-trends too), nothing separates, and a cleanliness filter removes trades that still made money.",
+  "title_zh": "S1 V3.9 與走勢乾淨度：越乾淨稍好、乾淨下跌也一樣，但分不出來；只做乾淨走勢會少賺",
+  "question_zh": "進場前走勢越乾淨（效率比越高），S1 是否越好？只在乾淨走勢做 S1，過去會不會比較好？",
+  "hypothesis_zh": "交易者的想法：今年 1 月做得好是因為走勢乾淨；走勢重新變乾淨時 S1 可以再進來。",
+  "card_summary_zh": "乾淨走勢 S1 稍好，乾淨下跌也一樣；但分不出來，而且只做乾淨走勢會砍掉仍在賺錢的單。",
+  "limitations_zh": [
+    "346 筆、22 個月，只有一份策略回測匯出（不是帳戶成交）。",
+    "三分組切點來自同一批交易，是描述，不是樣本外規則。",
+    "S1 只做多，乾淨下跌只有 47 筆。"
+  ],
+  "interpretation_zh": "你的直覺方向是對的，但證據不夠當規則用。乾淨走勢每筆稍微好一點，前後兩段都一樣，而且乾淨的下跌也一樣好，所以重點是「乾不乾淨」不是漲跌。週線的乾淨度和每月成績的關係（0.46）比日線（0.08）明顯；最近三個月 13 週效率比掉到 0.1 左右，S1 也剛好持平到小虧。但把震盪期的 S1 全部關掉，會砍掉 229 筆合計仍然賺錢的單。比較合理的用法是：13 週效率比低的時候減量，而不是停掉；而這個用法要先登記再用之後的資料驗證。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "high_minus_low_r",
+        "resolution_bound_r",
+        "month_rank_corr_er13w",
+        "filter_removed_net_usd_share_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "months.rows",
+      "title": "S1 每月淨 R 與當月平均效率比",
+      "columns": [
+        "n",
+        "net_r",
+        "mean_er20",
+        "mean_er13w"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

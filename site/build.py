@@ -92,6 +92,9 @@ PUBLISHED_STUDIES = [
     "RS-XAUUSD-20261019-001",
     "RS-XAUUSD-20261020-001",
     "RS-XAUUSD-20261020-002",
+    "RS-XAUUSD-20261027-001",
+    "RS-XAUUSD-20261027-002",
+    "RS-XAUUSD-20261027-003",
     # TX three-wave Fibonacci pullback and its capital stress (2026-08-15), published 2026-10-24.
     "RS-TX-20260815-001",
 ]

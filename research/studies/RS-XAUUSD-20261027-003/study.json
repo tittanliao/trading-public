@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261027-003",
+  "revision": 1,
+  "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing separates; extra lots on accelerating falls cut the average cost a little and add to the loss in the bad episodes",
+  "market": "XAUUSD",
+  "strategy": "none",
+  "status": "confirmed",
+  "created_on": "2026-10-27",
+  "question": "During a gold decline, does a week with an accelerating fall, a rebound start, a deep drawdown or a move back above the 20-week MA have a better forward return than an ordinary decline week — i.e. is it a better week for the extra lot?",
+  "hypothesis": "Trader's view: when the fall accelerates, or a rebound starts, add two lots instead of one.",
+  "headline": {
+    "conditions_separating_n": 0,
+    "conditions_n": 4,
+    "c1_26w_effect_pct": 2.64,
+    "c1_26w_bound_pct": 12.6,
+    "c2_26w_effect_pct": 3.93,
+    "c2_26w_bound_pct": 24.81,
+    "decline_weeks_n": 2215
+  },
+  "card_metrics": [
+    "conditions_separating_n",
+    "c1_26w_effect_pct",
+    "c1_26w_bound_pct",
+    "decline_weeks_n"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "No add-on timing separates from an ordinary week in a decline",
+      "detail": "Against all weeks ≥10% below the high (2,215 weeks; 26-week mean +2.73%): accelerating fall +5.36% (255 weeks, 56 episodes, effect +2.64, bound 12.60); rebound start +6.65% (60 weeks, 38 episodes, +3.93, bound 24.81); deep ≥20% +2.00% (−0.73, bound 5.90); back above the 20-week MA +3.91% (+1.18, bound 17.04). Signs lean positive for C1, C2 and C4 at 13 and 26 weeks.",
+      "title_zh": "沒有一種補倉時機能和下跌中的一般週分開",
+      "detail_zh": "對照：所有離高點 10% 以上的週（2,215 週，26 週平均 +2.73%）。跌勢加速 +5.36%（255 週、56 段，差 +2.64，門檻 12.60）；開始反彈 +6.65%（60 週、38 段，+3.93，門檻 24.81）；跌深 ≥20% +2.00%（−0.73，門檻 5.90）；站回 20 週線 +3.91%（+1.18，門檻 17.04）。跌勢加速、開始反彈、站回 20 週線在 13、26 週都略偏正，但都在門檻內。"
+    },
+    {
+      "tone": "warn",
+      "title": "Extra lots on accelerating falls lower the average cost a little and add to the loss when the decline continues",
+      "detail": "26 weekly lots from each 25% event, plus one extra lot when C1 fires: average cost lower by 0.6-1.4% in the five past episodes, 26-week return better by 0.3-3.1 points. In lot-equivalents at 52 weeks it was worse in 1975 (−4.05 vs −3.44), 1980 (−5.86 vs −4.72) and 2013 (−1.32 vs −1.06), better in 1973 and 2008. In 2026 (from 2026-03-16) C1 fired 9 times and the average cost was slightly higher (4,410.87 vs 4,408.98).",
+      "title_zh": "跌勢加速時多買，均價略低，但跌勢延續時虧更多",
+      "detail_zh": "從每次跌 25% 起每週 1 口、共 26 週，跌勢加速那週再多 1 口：過去 5 次均價低 0.6–1.4%，26 週報酬多 0.3–3.1 個百分點。但以「口數」計算的 52 週損益，1975（−4.05 對 −3.44）、1980（−5.86 對 −4.72）、2013（−1.32 對 −1.06）都更差，1973、2008 較好。2026 年（從 3/16 起）跌勢加速出現 9 次，均價反而略高（4,410.87 對 4,408.98）。"
+    },
+    {
+      "tone": "info",
+      "title": "This week meets the accelerating-fall and deep conditions",
+      "detail": "Week of 2026-10-19: close 3993.69, -24.33% from the high-close, 4-week -6.85%, 20-week MA 4229.95. C1 true, C3 true, C2 and C4 false.",
+      "title_zh": "這週符合「跌勢加速」與「跌深」",
+      "detail_zh": "2026-10-19 那週：收 3993.69，離週收盤高點 -24.33%，4 週 -6.85%，20 週線 4229.95。跌勢加速、跌深成立；開始反彈、站回 20 週線不成立。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "No add-on timing beats an ordinary decline week; buying extra on accelerating falls trims the average cost and enlarges the loss when the decline keeps going.",
+  "title_zh": "補倉時機：跌勢加速、開始反彈、跌深、站回 20 週線，都和一般下跌週分不開；加速時多買均價略低，但續跌時虧更多",
+  "question_zh": "黃金下跌期間，跌勢加速、開始反彈、跌深、站回 20 週線的那一週，之後的報酬是否比一般下跌週好？也就是說，多補的那一口該放哪一週？",
+  "hypothesis_zh": "交易者的想法：跌深的力道增加，或開始有反彈跡象時，可以補兩口。",
+  "card_summary_zh": "沒有補倉時機比一般下跌週好；跌勢加速時多買只讓均價略低，續跌時虧損更大。",
+  "limitations_zh": [
+    "只用週收盤；名目美元；沒有持有成本、轉倉、手續費。",
+    "未來報酬視窗互相重疊，反彈與均線條件在 52 週只有很少的獨立樣本。",
+    "試算只有過去 5 次事件，2026 年這次還沒結束。"
+  ],
+  "interpretation_zh": "沒有一個時機明顯比較好，所以「哪一週多補」不太重要，重要的是「總共補多少」。跌勢加速時多買，均價只低 1% 左右，但在續跌的那幾次（1975、1980、2013）口數變多，虧損跟著變大，和 K-ACC-007 的結論一樣。反彈訊號和站回 20 週線略偏正，但樣本太少。實際上，如果要多補，與其挑時機，不如先決定在最壞情況（像 1980）下總共能承受幾口，並設好減碼線。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "c1_26w_effect_pct",
+        "c1_26w_bound_pct",
+        "c2_26w_effect_pct",
+        "c2_26w_bound_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

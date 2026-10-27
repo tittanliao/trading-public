@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-24T13:04:16+08:00",
+  "generated_at": "2026-10-27T20:55:30+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 66,
+    "studies": 70,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2421,6 +2421,58 @@
       "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-20"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261026-001",
+      "study_id": "RS-XAUUSD-20261026-001",
+      "kind": "study",
+      "family": "none",
+      "origin": "programme",
+      "claim": "Gold after a 25-30% fall from its all-time high — five episodes, two V-shaped recoveries, two multi-year bears",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-26"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261027-001",
+      "study_id": "RS-XAUUSD-20261027-001",
+      "kind": "study",
+      "family": "none",
+      "origin": "programme",
+      "claim": "Gold against real rates, nominal rates and CPI since 1971 — no regime predicts the next year, the level link broke in 2022, and gold is near its most expensive ever in CPI terms",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-27"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261027-002",
+      "study_id": "RS-XAUUSD-20261027-002",
+      "kind": "study",
+      "family": "S1 V3.9",
+      "origin": "programme",
+      "claim": "S1 V3.9 and trend cleanliness — cleaner trends lean better, including clean down-trends, but nothing separates and a cleanliness filter gives up more profit than it saves",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-27"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261027-003",
+      "study_id": "RS-XAUUSD-20261027-003",
+      "kind": "study",
+      "family": "none",
+      "origin": "programme",
+      "claim": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing separates; extra lots on accelerating falls cut the average cost a little and add to the loss in the bad episodes",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-10-27"
     }
   ],
   "generated_by": "trading-private research pipeline"
