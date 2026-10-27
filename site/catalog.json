@@ -4,6 +4,7 @@
   "routes": [
     "/",
     "/xauusd/weekly/",
+    "/xauusd/dashboard/",
     "/xauusd/weekly/2026-W34/",
     "/xauusd/weekly/2026-W35/",
     "/xauusd/weekly/2026-W36/",

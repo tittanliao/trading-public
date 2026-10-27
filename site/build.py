@@ -117,6 +117,22 @@ def weekly_perspectives(week: str) -> list[dict]:
     return views
 
 
+# The gold risk dashboard is rendered in trading-private (scripts/gold_dashboard) from the
+# same completed weekly closes as the Weekly edition and exported here as a sanitized body
+# fragment; this site only wraps it. Absent fragment -> no route.
+DASHBOARD_DIR = ROOT / "xauusd/dashboard"
+
+
+def has_dashboard() -> bool:
+    return (DASHBOARD_DIR / "body.html").is_file() and (DASHBOARD_DIR / "meta.json").is_file()
+
+
+def dashboard_page() -> str:
+    meta = load_json(DASHBOARD_DIR / "meta.json")
+    body = (DASHBOARD_DIR / "body.html").read_text(encoding="utf-8")
+    return document("黃金風險儀表板", meta["description"], 2, body)
+
+
 def latest_week() -> str:
     return weekly_weeks()[-1]
 
@@ -125,6 +141,7 @@ def routes() -> list[str]:
     return [
         "",
         "xauusd/weekly",
+        *(["xauusd/dashboard"] if has_dashboard() else []),
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
           for w in weekly_weeks() for p in weekly_perspectives(w)),
@@ -584,6 +601,7 @@ def nav(depth: int) -> str:
     links = [
         ("Home", f"{prefix}index.html" if depth else "index.html"),
         ("Weekly", f"{prefix}xauusd/weekly/"),
+        *([("Dashboard 儀表板", f"{prefix}xauusd/dashboard/")] if has_dashboard() else []),
         ("Overview 總覽", f"{prefix}overview/"),
         ("Research", f"{prefix}research/"),
     ]
@@ -1927,6 +1945,8 @@ def generated_pages() -> dict[str, str]:
         "research/null-results/index.html": null_results_page(),
         "research/backlog/index.html": backlog_page(),
     }
+    if has_dashboard():
+        pages["xauusd/dashboard/index.html"] = dashboard_page()
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
         for perspective in weekly_perspectives(week):
