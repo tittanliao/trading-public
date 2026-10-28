@@ -1,0 +1,263 @@
+{
+  "modes": {
+    "OFF": {
+      "window": {
+        "n": 480,
+        "win_rate_pct": 55.83,
+        "win_rate_ci95_pct": [
+          51.36,
+          60.21
+        ],
+        "profit_factor": 1.832,
+        "net_return_pct": 88.61,
+        "mean_r": 0.369,
+        "max_drawdown_pct": 3.83
+      },
+      "first_half": {
+        "n": 240,
+        "win_rate_pct": 57.5,
+        "win_rate_ci95_pct": [
+          51.18,
+          63.59
+        ],
+        "profit_factor": 1.868,
+        "net_return_pct": 44.34,
+        "mean_r": 0.369,
+        "max_drawdown_pct": 3.83
+      },
+      "second_half": {
+        "n": 240,
+        "win_rate_pct": 54.17,
+        "win_rate_ci95_pct": [
+          47.85,
+          60.36
+        ],
+        "profit_factor": 1.798,
+        "net_return_pct": 44.28,
+        "mean_r": 0.369,
+        "max_drawdown_pct": 3.5
+      },
+      "after_window": {
+        "n": 31,
+        "win_rate_pct": 32.26,
+        "win_rate_ci95_pct": [
+          18.57,
+          49.86
+        ],
+        "profit_factor": 0.653,
+        "net_return_pct": -3.67,
+        "mean_r": -0.237,
+        "max_drawdown_pct": 3.67
+      },
+      "mean_r_minus_off": null,
+      "resolution_bound_r": null,
+      "coverage_vs_tv_export_2026_08_16": {
+        "tv_export_trades": 472,
+        "replay_trades_in_export_range": 480,
+        "matched_entries": 472,
+        "exact_trades": 469,
+        "tv_only": 0,
+        "replay_only": 8
+      }
+    },
+    "T1": {
+      "window": {
+        "n": 378,
+        "win_rate_pct": 54.23,
+        "win_rate_ci95_pct": [
+          49.19,
+          59.19
+        ],
+        "profit_factor": 1.543,
+        "net_return_pct": 47.17,
+        "mean_r": 0.25,
+        "max_drawdown_pct": 4.0
+      },
+      "first_half": {
+        "n": 189,
+        "win_rate_pct": 55.56,
+        "win_rate_ci95_pct": [
+          48.43,
+          62.46
+        ],
+        "profit_factor": 1.632,
+        "net_return_pct": 26.57,
+        "mean_r": 0.281,
+        "max_drawdown_pct": 4.0
+      },
+      "second_half": {
+        "n": 189,
+        "win_rate_pct": 52.91,
+        "win_rate_ci95_pct": [
+          45.81,
+          59.9
+        ],
+        "profit_factor": 1.46,
+        "net_return_pct": 20.59,
+        "mean_r": 0.218,
+        "max_drawdown_pct": 3.82
+      },
+      "after_window": {
+        "n": 21,
+        "win_rate_pct": 42.86,
+        "win_rate_ci95_pct": [
+          24.47,
+          63.45
+        ],
+        "profit_factor": 1.167,
+        "net_return_pct": 1.0,
+        "mean_r": 0.095,
+        "max_drawdown_pct": 2.25
+      },
+      "mean_r_minus_off": -0.12,
+      "resolution_bound_r": 0.263,
+      "coverage_vs_tv_export_2026_08_16": {
+        "tv_export_trades": 141,
+        "replay_trades_in_export_range": 378,
+        "matched_entries": 140,
+        "exact_trades": 138,
+        "tv_only": 1,
+        "replay_only": 238
+      }
+    },
+    "T2": {
+      "window": {
+        "n": 327,
+        "win_rate_pct": 53.21,
+        "win_rate_ci95_pct": [
+          47.8,
+          58.55
+        ],
+        "profit_factor": 1.507,
+        "net_return_pct": 39.14,
+        "mean_r": 0.239,
+        "max_drawdown_pct": 3.77
+      },
+      "first_half": {
+        "n": 163,
+        "win_rate_pct": 54.6,
+        "win_rate_ci95_pct": [
+          46.94,
+          62.05
+        ],
+        "profit_factor": 1.605,
+        "net_return_pct": 22.38,
+        "mean_r": 0.275,
+        "max_drawdown_pct": 3.0
+      },
+      "second_half": {
+        "n": 164,
+        "win_rate_pct": 51.83,
+        "win_rate_ci95_pct": [
+          44.23,
+          59.35
+        ],
+        "profit_factor": 1.417,
+        "net_return_pct": 16.76,
+        "mean_r": 0.204,
+        "max_drawdown_pct": 3.77
+      },
+      "after_window": {
+        "n": 19,
+        "win_rate_pct": 36.84,
+        "win_rate_ci95_pct": [
+          19.15,
+          58.96
+        ],
+        "profit_factor": 0.792,
+        "net_return_pct": -1.25,
+        "mean_r": -0.132,
+        "max_drawdown_pct": 3.0
+      },
+      "mean_r_minus_off": -0.13,
+      "resolution_bound_r": 0.274,
+      "coverage_vs_tv_export_2026_08_16": {
+        "tv_export_trades": 191,
+        "replay_trades_in_export_range": 327,
+        "matched_entries": 191,
+        "exact_trades": 189,
+        "tv_only": 0,
+        "replay_only": 136
+      }
+    },
+    "T3": {
+      "window": {
+        "n": 298,
+        "win_rate_pct": 52.35,
+        "win_rate_ci95_pct": [
+          46.68,
+          57.95
+        ],
+        "profit_factor": 1.402,
+        "net_return_pct": 28.95,
+        "mean_r": 0.194,
+        "max_drawdown_pct": 6.81
+      },
+      "first_half": {
+        "n": 149,
+        "win_rate_pct": 55.7,
+        "win_rate_ci95_pct": [
+          47.68,
+          63.44
+        ],
+        "profit_factor": 1.644,
+        "net_return_pct": 21.31,
+        "mean_r": 0.286,
+        "max_drawdown_pct": 3.0
+      },
+      "second_half": {
+        "n": 149,
+        "win_rate_pct": 48.99,
+        "win_rate_ci95_pct": [
+          41.09,
+          56.94
+        ],
+        "profit_factor": 1.197,
+        "net_return_pct": 7.64,
+        "mean_r": 0.103,
+        "max_drawdown_pct": 6.81
+      },
+      "after_window": {
+        "n": 16,
+        "win_rate_pct": 43.75,
+        "win_rate_ci95_pct": [
+          23.1,
+          66.82
+        ],
+        "profit_factor": 1.055,
+        "net_return_pct": 0.25,
+        "mean_r": 0.031,
+        "max_drawdown_pct": 1.5
+      },
+      "mean_r_minus_off": -0.175,
+      "resolution_bound_r": 0.282,
+      "coverage_vs_tv_export_2026_08_16": {
+        "tv_export_trades": 19,
+        "replay_trades_in_export_range": 231,
+        "matched_entries": 19,
+        "exact_trades": 19,
+        "tv_only": 0,
+        "replay_only": 212
+      }
+    }
+  },
+  "strategy_version": "S1 V3.9 research Pine with T1/T2/T3 switch (RS-XAUUSD-20260815-004)",
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261028-001",
+  "generated_at": "2026-10-28T11:54:04+08:00",
+  "method": {
+    "design": "research/studies/RS-XAUUSD-20261028-001/decision_log.md (inherited from RS-XAUUSD-20260815-004)",
+    "replay": "PineTS 0.11.1 on TradingView FX_IDC:XAUUSD 30m bars; control 346/346 vs the formal V3.9 export",
+    "r": "(exit / entry - 1) × 100 / 0.5",
+    "window": [
+      "2024-01-01 00:00",
+      "2026-08-13 23:59"
+    ],
+    "after_window": [
+      "2026-08-14 00:00",
+      "2026-10-08 23:59"
+    ],
+    "resolution_bound": "2.8 × SD(R, all modes in window) × √(1/n_mode + 1/n_OFF); modes share signals, so descriptive"
+  },
+  "charts": []
+}

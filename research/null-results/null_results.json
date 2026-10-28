@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T20:55:30+08:00",
+  "generated_at": "2026-10-28T11:56:44+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 70,
+    "studies": 71,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2444,7 +2444,7 @@
       "claim": "Gold against real rates, nominal rates and CPI since 1971 — no regime predicts the next year, the level link broke in 2022, and gold is near its most expensive ever in CPI terms",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-27"
     },
@@ -2457,7 +2457,7 @@
       "claim": "S1 V3.9 and trend cleanliness — cleaner trends lean better, including clean down-trends, but nothing separates and a cleanliness filter gives up more profit than it saves",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-27"
     },
@@ -2470,9 +2470,22 @@
       "claim": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing separates; extra lots on accelerating falls cut the average cost a little and add to the loss in the bad episodes",
       "null_tested_against": null,
       "verdict": "study_level",
-      "reason": null,
+      "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-27"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261028-001",
+      "study_id": "RS-XAUUSD-20261028-001",
+      "kind": "study",
+      "family": "S1",
+      "origin": "programme",
+      "claim": "S1 T1/T2/T3 confirmation entry on complete trade paths (PineTS replay) — no delayed mode beats entering at once; the earlier T3 loss came from a truncated export",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-10-28"
     }
   ],
   "generated_by": "trading-private research pipeline"

@@ -1,0 +1,54 @@
+{
+  "study_id": "RS-XAUUSD-20261028-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/s1-t123-off.csv": {
+      "original_filename": "s1-t123-off.csv",
+      "sha256": "c469e4edb5f39bdeb602eaaf2b9f6ec48613be4ac39c6883246ec9af352db79b",
+      "size_bytes": 33994,
+      "role": "replayed_trades_off"
+    },
+    "local-inputs/s1-t123-t1.csv": {
+      "original_filename": "s1-t123-t1.csv",
+      "sha256": "c02c2ef304006ccf11fbd10c7e53c7863bd717cce61304007ef011ecb8575477",
+      "size_bytes": 26544,
+      "role": "replayed_trades_t1"
+    },
+    "local-inputs/s1-t123-t2.csv": {
+      "original_filename": "s1-t123-t2.csv",
+      "sha256": "1eebb58f4dc4c0ac9b5efba6718eaa1f2f0e770b2851d691899eb41151949f92",
+      "size_bytes": 23015,
+      "role": "replayed_trades_t2"
+    },
+    "local-inputs/s1-t123-t3.csv": {
+      "original_filename": "s1-t123-t3.csv",
+      "sha256": "4d8cc7ba66f11437a6b92a0600d89d4161ca05fcb13d0246c10a3eb2fa288efa",
+      "size_bytes": 20894,
+      "role": "replayed_trades_t3"
+    },
+    "local-inputs/tv-export-off.csv": {
+      "original_filename": "R-S1-V3.9-T123_FX_IDC_XAUUSD_2026-08-16_off.csv",
+      "sha256": "9bb6fc16acbb1b8f284c1d5801961309a9fe936e705ed4ce079c2716c7a81794",
+      "size_bytes": 109651,
+      "role": "tv_export_off_2026_08_16"
+    },
+    "local-inputs/tv-export-t1.csv": {
+      "original_filename": "R-S1-V3.9-T123_FX_IDC_XAUUSD_2026-08-16_T1.csv",
+      "sha256": "da63672de3ed5e336c832b34df5eeef0296d1f6b9df953f1e040226fd20b8c16",
+      "size_bytes": 32383,
+      "role": "tv_export_t1_2026_08_16"
+    },
+    "local-inputs/tv-export-t2.csv": {
+      "original_filename": "R-S1-V3.9-T123_FX_IDC_XAUUSD_2026-08-16_T2.csv",
+      "sha256": "51c5b7ad4b725f48c8b97155dd632ef187baae7fd279b6811dcbb46bc6bd76d5",
+      "size_bytes": 44155,
+      "role": "tv_export_t2_2026_08_16"
+    },
+    "local-inputs/tv-export-t3.csv": {
+      "original_filename": "R-S1-V3.9-T123_FX_IDC_XAUUSD_2026-08-16_T3.csv",
+      "sha256": "9d92d96d29433bb2db746933530b8385c91675a1a5474126414b2546bbfbc080",
+      "size_bytes": 4621,
+      "role": "tv_export_t3_2026_08_16"
+    }
+  }
+}

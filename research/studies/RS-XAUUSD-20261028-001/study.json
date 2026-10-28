@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261028-001",
+  "revision": 1,
+  "title": "S1 T1/T2/T3 confirmation entry on complete trade paths (PineTS replay) — no delayed mode beats entering at once; the earlier T3 loss came from a truncated export",
+  "market": "XAUUSD",
+  "strategy": "S1",
+  "status": "confirmed",
+  "created_on": "2026-10-28",
+  "question": "On complete trade paths, is waiting 1, 2 or 3 bars for the signal low to hold (T1/T2/T3) better than entering at once (OFF)?",
+  "hypothesis": "Inherited from RS-XAUUSD-20260815-004: confirmation filters out bad signals and improves the result.",
+  "headline": {
+    "off_mean_r": 0.369,
+    "t1_mean_r": 0.25,
+    "t2_mean_r": 0.239,
+    "t3_mean_r": 0.194,
+    "off_n": 480,
+    "t1_n": 378,
+    "t2_n": 327,
+    "t3_n": 298,
+    "t3_profit_factor": 1.402,
+    "t3_tv_export_n": 19
+  },
+  "card_metrics": [
+    "off_mean_r",
+    "t1_mean_r",
+    "t3_mean_r",
+    "t3_n"
+  ],
+  "findings": [
+    {
+      "tone": "warn",
+      "title": "No delayed mode beats entering at once",
+      "detail": "Entries 2024-01 → 2026-08-13, complete paths: OFF 480 trades, mean 0.369R, PF 1.832; T1 378, 0.25R, PF 1.543; T2 327, 0.239R, PF 1.507; T3 298, 0.194R, PF 1.402. Every delayed mode is below OFF in both halves, by -0.12 to -0.175R — inside the descriptive resolution bound (~0.263R).",
+      "title_zh": "等確認再進場，沒有一種比直接進場好",
+      "detail_zh": "2024-01 到 2026-08-13 的完整路徑：直接進場 480 筆、平均 0.369R、獲利因子 1.832；等 1 根 378 筆、0.25R、1.543；等 2 根 327 筆、0.239R、1.507；等 3 根 298 筆、0.194R、1.402。三種延遲在前後兩半都低於直接進場，差 -0.12 到 -0.175R，但都在門檻（約 0.263R）內，所以是「沒有比較好」，不是「確定比較差」。"
+    },
+    {
+      "tone": "info",
+      "title": "The earlier delayed-mode exports were incomplete; T3's loss was an artifact",
+      "detail": "Against the 2026-08-16 TradingView exports the replay matches what they contain (OFF 472/472, T1 140/141, T2 191/191, T3 19/19) but those exports missed 238 T1, 136 T2 and 212 T3 trades inside their own range. T3 was 19 trades at PF 0.33; complete, it is 298 trades at PF 1.402.",
+      "title_zh": "之前延遲模式的匯出不完整；等 3 根「大虧」是假象",
+      "detail_zh": "重跑結果和 2026-08-16 的 TradingView 匯出逐筆對得上（直接進場 472／472、等 1 根 140／141、等 2 根 191／191、等 3 根 19／19），但那些匯出在自己的期間內漏了等 1 根 238 筆、等 2 根 136 筆、等 3 根 212 筆。等 3 根原本是 19 筆、獲利因子 0.33；完整後是 298 筆、1.402。"
+    },
+    {
+      "tone": "info",
+      "title": "After the window (2026-08-14 → 10-08) the delayed modes lost less — not evidence",
+      "detail": "OFF 31 trades -0.237R; T1 21 0.095R; T2 19 -0.132R; T3 16 0.031R. Too few trades, and the period was singled out after it looked bad.",
+      "title_zh": "8 月中以後，等確認的版本虧得較少——不能當證據",
+      "detail_zh": "直接進場 31 筆 -0.237R；等 1 根 21 筆 0.095R；等 2 根 19 筆 -0.132R；等 3 根 16 筆 0.031R。筆數太少，而且這段是表現變差後才挑出來看的。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "improvement_attempts",
+  "card_summary": "On complete paths no confirmation delay beats entering at once; the earlier T3 loss was a truncated export.",
+  "title_zh": "S1 等 1／2／3 根確認再進場（完整路徑重跑）：沒有一種比直接進場好；之前等 3 根「大虧」是匯出不完整造成",
+  "question_zh": "用完整的交易路徑來看，訊號後等 1、2、3 根 K 確認低點沒破再進場，會不會比直接進場好？",
+  "hypothesis_zh": "沿用 RS-XAUUSD-20260815-004：確認可以濾掉壞訊號、提高成績。",
+  "card_summary_zh": "完整重跑後，等確認再進場沒有一種比直接進場好；等 3 根的大虧是舊匯出漏單造成的。",
+  "limitations_zh": [
+    "回測，用 TradingView FX_IDC 的 K 棒；PineTS 對正式 V3.9 逐筆驗證 346／346，但延遲模式沒有完整的 TradingView 匯出可以對照。",
+    "四種模式共用同一批訊號，門檻只是描述用，不是檢定。",
+    "重跑時拿掉了 36 根時間出場，因為 TradingView 裡它從來不會成交（見 scripts/research/pinets/README.md）。"
+  ],
+  "interpretation_zh": "原研究的方向成立，而且這次資料完整：等確認的三種版本，前後兩半都低於直接進場，等越久越低。但差距都在門檻內，所以結論是「等確認沒有幫助」，不是「等確認一定更差」。原研究裡等 3 根只有 19 筆、獲利因子 0.33，是當時匯出漏掉大部分交易造成的，完整後是小賺。實務上仍是訊號出現就照計畫進場（K-BOTH-002）。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "off_mean_r",
+        "t1_mean_r",
+        "t2_mean_r",
+        "t3_mean_r"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

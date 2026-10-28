@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T20:56:01+08:00",
+  "generated_at": "2026-10-28T11:57:11+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -1021,14 +1021,14 @@
       "kind": "reference",
       "strength": "strong",
       "statement_zh": "等一根 K 確認再用市價進場，會把優勢做掉",
-      "detail_zh": "完全同一批訊號：原始進場勝率 61%、獲利因子 2.31；等一根再市價進場 54%、1.59。確認常常是用更高的價格買進。",
+      "detail_zh": "完全同一批訊號：原始進場勝率 61%、獲利因子 2.31；等一根再市價進場 54%、1.59。確認常常是用更高的價格買進。2026-10-28 用 PineTS 重跑完整路徑（RS-XAUUSD-20261028-001）：直接進場平均 +0.37R，等 1／2／3 根 +0.25／+0.24／+0.19R，前後兩半都較低；差在門檻內，方向一致。",
       "how_to_use_zh": "訊號出現就照計畫進場，不要「等確認」。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-09",
-      "reviewed_on": "2026-10-09",
+      "reviewed_on": "2026-10-28",
       "preliminary": null,
       "evidence": [
         {
@@ -1038,6 +1038,10 @@
         {
           "study_id": "RS-XAUUSD-20260815-001",
           "says_zh": "篩選關聯不是延後進場的損益"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261028-001",
+          "says_zh": "完整路徑：三種延遲都沒有比直接進場好；舊匯出漏單"
         }
       ]
     },
@@ -2054,17 +2058,17 @@
     {
       "id": "K-S1-011",
       "topic": "s1",
-      "kind": "direction",
+      "kind": "watching",
       "strength": "weak",
       "statement_zh": "走勢乾淨時 S1 稍好（乾淨下跌也一樣），但分不出來；只做乾淨走勢會少賺",
       "detail_zh": "346 筆：20 日效率比最乾淨三分之一 +0.47R 對最亂 +0.34R（差 +0.13，門檻 0.56）。每月成績和 13 週效率比的等級相關 0.46（n=22，門檻約 0.61）。只做乾淨走勢會拿掉 229 筆合計仍在賺的單（占全部淨利 55%）。",
-      "how_to_use_zh": "可以當減量的參考，不要當開關；要變規則需先登記前瞻檢驗。",
+      "how_to_use_zh": "可以當減量的參考，不要當開關。已登記前瞻檢驗 PREREG-20261028-001（2026-10-28），結果出來前不改規則。",
       "policy_ref": null,
-      "prereg_ref": null,
+      "prereg_ref": "PREREG-20261028-001",
       "backlog_ref": null,
       "supersedes": null,
       "since": "2026-10-27",
-      "reviewed_on": "2026-10-27",
+      "reviewed_on": "2026-10-28",
       "preliminary": null,
       "evidence": [
         {
@@ -2128,6 +2132,14 @@
       "target": 263,
       "state": "collecting",
       "advances_with": "s2_tester"
+    },
+    {
+      "id": "PREREG-20261028-001",
+      "title_zh": "S1 在 13 週走勢很亂時（效率比 < 0.256）是否賺得較少：40＋20 筆後判斷",
+      "n": 0,
+      "target": 60,
+      "state": "collecting",
+      "advances_with": "s1_tester"
     }
   ],
   "sources": [
@@ -3394,7 +3406,7 @@
       "summary_zh": "沒有利率環境能預測黃金下一年；漲跌仍跟實質利率反向，但價格水準 2022 年起脫鉤，扣通膨後接近史上最貴。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261027-001/",
       "claims": [
         "K-MAC-003",
         "K-MAC-004"
@@ -3411,7 +3423,7 @@
       "summary_zh": "乾淨走勢 S1 稍好，乾淨下跌也一樣；但分不出來，而且只做乾淨走勢會砍掉仍在賺錢的單。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261027-002/",
       "claims": [
         "K-S1-011"
       ]
@@ -3427,9 +3439,25 @@
       "summary_zh": "沒有補倉時機比一般下跌週好；跌勢加速時多買只讓均價略低，續跌時虧損更大。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261027-003/",
       "claims": [
         "K-ACC-008"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261028-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "improvement_attempts",
+      "title": "S1 T1/T2/T3 confirmation entry on complete trade paths (PineTS replay) — no delayed mode beats entering at once; the earlier T3 loss came from a truncated export",
+      "title_zh": "S1 等 1／2／3 根確認再進場（完整路徑重跑）：沒有一種比直接進場好；之前等 3 根「大虧」是匯出不完整造成",
+      "summary_zh": "完整重跑後，等確認再進場沒有一種比直接進場好；等 3 根的大虧是舊匯出漏單造成的。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-BOTH-002"
       ]
     }
   ],

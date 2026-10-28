@@ -429,6 +429,7 @@ def check_table_columns(errors: list[str]) -> None:
 # list is defined as never being that.
 KNOWN_STDLIB_AND_THIRD_PARTY = {
     "io",  # RS-XAUUSD-20261027-002 filters an export in memory before loading it
+    "subprocess",  # RS-XAUUSD-20261028-001 calls the PineTS replay only behind --replay
     "__future__", "argparse", "base64", "bisect", "collections", "csv", "dataclasses",
     "datetime", "hashlib", "itertools", "json", "math", "matplotlib", "numpy", "os",
     "pandas", "pathlib", "random", "re", "shutil", "sqlite3", "statistics", "sys", "typing",

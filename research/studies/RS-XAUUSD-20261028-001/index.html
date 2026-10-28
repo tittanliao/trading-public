@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="用完整的交易路徑來看，訊號後等 1、2、3 根 K 確認低點沒破再進場，會不會比直接進場好？">
+<title>S1 T1/T2/T3 confirmation entry on complete trade paths (PineTS replay) — no delayed mode beats entering at once; the earlier T3 loss came from a truncated export · Trading Research</title>
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../../favicon.svg">
+<link rel="stylesheet" href="../../../site/style.css">
+</head>
+<body>
+<header class="shell wide">
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a></div></nav>
+</header>
+<main class="shell wide">
+
+<article class="study-report">
+<p class="eyebrow">RS-XAUUSD-20261028-001 · XAUUSD · 2026-10-28</p>
+<h1>S1 T1/T2/T3 confirmation entry on complete trade paths (PineTS replay) — no delayed mode beats entering at once; the earlier T3 loss came from a truncated export</h1>
+<p class="lede research-question">用完整的交易路徑來看，訊號後等 1、2、3 根 K 確認低點沒破再進場，會不會比直接進場好？</p>
+<section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">0.369</div><div class="metric-label">off mean r</div></div><div class="metric"><div class="metric-value">0.25</div><div class="metric-label">t1 mean r</div></div><div class="metric"><div class="metric-value">0.239</div><div class="metric-label">t2 mean r</div></div><div class="metric"><div class="metric-value">0.194</div><div class="metric-label">t3 mean r</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>等確認再進場，沒有一種比直接進場好</h3><p>2024-01 到 2026-08-13 的完整路徑：直接進場 480 筆、平均 0.369R、獲利因子 1.832；等 1 根 378 筆、0.25R、1.543；等 2 根 327 筆、0.239R、1.507；等 3 根 298 筆、0.194R、1.402。三種延遲在前後兩半都低於直接進場，差 -0.12 到 -0.175R，但都在門檻（約 0.263R）內，所以是「沒有比較好」，不是「確定比較差」。</p></article><article class="finding-card"><h3>之前延遲模式的匯出不完整；等 3 根「大虧」是假象</h3><p>重跑結果和 2026-08-16 的 TradingView 匯出逐筆對得上（直接進場 472／472、等 1 根 140／141、等 2 根 191／191、等 3 根 19／19），但那些匯出在自己的期間內漏了等 1 根 238 筆、等 2 根 136 筆、等 3 根 212 筆。等 3 根原本是 19 筆、獲利因子 0.33；完整後是 298 筆、1.402。</p></article><article class="finding-card"><h3>8 月中以後，等確認的版本虧得較少——不能當證據</h3><p>直接進場 31 筆 -0.237R；等 1 根 21 筆 0.095R；等 2 根 19 筆 -0.132R；等 3 根 16 筆 0.031R。筆數太少，而且這段是表現變差後才挑出來看的。</p></article></div></section><section class="block-section"><h2>詮釋與實務意義</h2><p class="prose">原研究的方向成立，而且這次資料完整：等確認的三種版本，前後兩半都低於直接進場，等越久越低。但差距都在門檻內，所以結論是「等確認沒有幫助」，不是「等確認一定更差」。原研究裡等 3 根只有 19 筆、獲利因子 0.33，是當時匯出漏掉大部分交易造成的，完整後是小賺。實務上仍是訊號出現就照計畫進場（K-BOTH-002）。</p></section><section class="block-section"><h2>限制與注意事項</h2><ul class="limitations-list"><li>回測，用 TradingView FX_IDC 的 K 棒；PineTS 對正式 V3.9 逐筆驗證 346／346，但延遲模式沒有完整的 TradingView 匯出可以對照。</li><li>四種模式共用同一批訊號，門檻只是描述用，不是檢定。</li><li>重跑時拿掉了 36 根時間出場，因為 TradingView 裡它從來不會成交（見 scripts/research/pinets/README.md）。</li></ul></section><section class="block-section"><h2>Evidence 原始證據</h2><ul class="evidence-links"><li><a href="analysis.py">analysis.py — Method</a></li><li><a href="results.json">results.json — Results</a></li><li><a href="study.json">study.json — Study manifest</a></li></ul></section>
+</article>
+
+</main>
+<footer class="shell wide"><p>研究證據，不是交易建議；執行前必須以即時 TradingView 確認。Research evidence, not trading advice.</p></footer>
+<script src="../../../site/table.js" defer></script>
+</body>
+</html>
