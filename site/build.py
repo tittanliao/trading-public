@@ -137,6 +137,63 @@ def dashboard_page() -> str:
     return document("黃金風險儀表板", meta["description"], 2, body)
 
 
+# Monthly list of popular open-source trading/quant projects, collected in trading-private
+# (scripts/github_scan) as data.json; this site renders it. Absent data -> no route.
+GITHUB_DIR = ROOT / "tools/github"
+GITHUB_STATUS = {
+    "adopted": "已導入",
+    "candidate": "候補",
+    "rejected": "評估過，不導入",
+    "execution": "下單／交易所類，不考慮",
+}
+
+
+def has_github_scan() -> bool:
+    return (GITHUB_DIR / "data.json").is_file()
+
+
+def github_scan_page() -> str:
+    data = load_json(GITHUB_DIR / "data.json")
+    repos = data["repos"]
+    headers = [("專案", False), ("在做什麼", False), ("⭐", True), ("我們的評估", False), ("類別", False), ("授權", False)]
+    rows = []
+    for r in repos:
+        label = esc(r["name"])
+        if r.get("new"):
+            label += ' <span class="tag">新進榜</span>'
+        gain = f'<br><span class="muted">{r["star_gain"]:+,}</span>' if r.get("star_gain") else ""
+        what = esc(r["zh"]) if r.get("zh") else f'<span class="muted" lang="en">{esc(r.get("description_en") or "")}</span>'
+        status = GITHUB_STATUS.get(r.get("status") or "", "")
+        verdict = esc(status) + (f'<br><span class="muted">{esc(r["note"])}</span>' if r.get("note") else "")
+        rows.append([
+            ("th", f'<a href="{attr(r["url"])}" rel="noopener">{label}</a>', r["name"].lower(), False),
+            ("td", what, (r.get("zh") or r.get("description_en") or "").lower(), False),
+            ("td", f'{r["stars"]:,}{gain}', str(r["stars"]), True),
+            ("td", verdict, status, False),
+            ("td", esc("、".join(r["topics"])), "、".join(r["topics"]), False),
+            ("td", esc(r.get("license") or "無"), str(r.get("license") or ""), False),
+        ])
+    counts = {k: sum(1 for r in repos if r.get("status") == k) for k in GITHUB_STATUS}
+    new = sum(1 for r in repos if r.get("new"))
+    summary = "　".join(f"{v} {counts[k]}" for k, v in GITHUB_STATUS.items())
+    adopted = "".join(
+        f'<li><a href="{attr(a["url"])}" rel="noopener">{esc(a["name"])}</a>：{esc(a["zh"])}'
+        f'{f"（{esc(a['note'])}）" if a.get("note") else ""}</li>' for a in data.get("adopted", []))
+    body = f"""
+<h1>GitHub 熱門專案月報 {esc(data["month"])}</h1>
+<p class="lede">每月 1 日自動搜尋 GitHub 上回測、量化交易、Pine Script、TradingView、資產配置、總經、黃金相關，
+⭐ {data["min_stars"]} 以上且最近 {data["pushed_within_days"]} 天有更新的開源專案。
+共 {len(repos)} 個{f"，本月新進榜 {new} 個" if not data.get("first_run") else ""}。{esc(summary)}。</p>
+<p class="muted">這是候選清單，不是推薦。導入原則：只用發布滿兩週、鎖定版本的程式；用之前先和現有結果逐筆比對；
+只當研究與圖表工具，不接下單或券商連線。中文說明為人工撰寫；沒有中文的是本月新出現、尚未整理的專案。
+點欄位標題可重新排序。更新時間 {esc(data["checked_at"][:10])}。</p>
+{f"<h2>目前已導入</h2><ul>{adopted}</ul>" if adopted else ""}
+<h2>本月清單</h2>
+{render_table(headers, rows, sorted_column=2)}
+"""
+    return document("GitHub 熱門專案月報", "每月整理熱門的量化交易、回測、TradingView 開源專案與評估狀態。", 2, body, wide=True)
+
+
 def latest_week() -> str:
     return weekly_weeks()[-1]
 
@@ -146,6 +203,7 @@ def routes() -> list[str]:
         "",
         "xauusd/weekly",
         *(["xauusd/dashboard"] if has_dashboard() else []),
+        *(["tools/github"] if has_github_scan() else []),
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
           for w in weekly_weeks() for p in weekly_perspectives(w)),
@@ -608,6 +666,7 @@ def nav(depth: int) -> str:
         *([("Dashboard 儀表板", f"{prefix}xauusd/dashboard/")] if has_dashboard() else []),
         ("Overview 總覽", f"{prefix}overview/"),
         ("Research", f"{prefix}research/"),
+        *([("GitHub 月報", f"{prefix}tools/github/")] if has_github_scan() else []),
     ]
     items = "".join(f'<a href="{attr(href)}">{label}</a>' for label, href in links)
     return f'<nav class="nav"><a class="brand" href="{attr(f"{prefix}index.html" if depth else "index.html")}">{SITE_NAME}</a><div class="nav-links">{items}</div></nav>'
@@ -1951,6 +2010,8 @@ def generated_pages() -> dict[str, str]:
     }
     if has_dashboard():
         pages["xauusd/dashboard/index.html"] = dashboard_page()
+    if has_github_scan():
+        pages["tools/github/index.html"] = github_scan_page()
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
         for perspective in weekly_perspectives(week):

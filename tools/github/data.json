@@ -1,0 +1,1198 @@
+{
+ "schema_version": 1,
+ "month": "2026-10",
+ "checked_at": "2026-10-28T13:43:52+00:00",
+ "min_stars": 500,
+ "pushed_within_days": 30,
+ "first_run": true,
+ "topics": [
+  "回測",
+  "量化交易",
+  "量化金融",
+  "Pine Script／TradingView",
+  "TradingView",
+  "資產配置",
+  "績效分析",
+  "總經資料",
+  "黃金"
+ ],
+ "repos": [
+  {
+   "name": "openbq-org/OpenBB",
+   "url": "https://github.com/openbq-org/OpenBB",
+   "stars": 74821,
+   "license": "NOASSERTION",
+   "created": "2020-12-20",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "給分析師的金融資料平台，整合股票、總經、加密等資料來源",
+   "description_en": null,
+   "status": "rejected",
+   "note": "組織改名，來源未確認",
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "ZhuLinsen/daily_stock_analysis",
+   "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+   "stars": 67210,
+   "license": "MIT",
+   "created": "2026-01-10",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "用大型語言模型每天分析股票、整合新聞並推送通知",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "freqtrade/freqtrade",
+   "url": "https://github.com/freqtrade/freqtrade",
+   "stars": 56078,
+   "license": "GPL-3.0",
+   "created": "2017-05-17",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "加密貨幣自動交易機器人",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "microsoft/qlib",
+   "url": "https://github.com/microsoft/qlib",
+   "stars": 49774,
+   "license": "MIT",
+   "created": "2020-08-14",
+   "topics": [
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "微軟的 AI 量化研究平台，從資料、選股模型到回測",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "HKUDS/Vibe-Trading",
+   "url": "https://github.com/HKUDS/Vibe-Trading",
+   "stars": 36990,
+   "license": "MIT",
+   "created": "2026-04-01",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "用 AI 代理人產生交易想法與執行的實驗專案",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Fincept-Corporation/FinceptTerminal",
+   "url": "https://github.com/Fincept-Corporation/FinceptTerminal",
+   "stars": 33222,
+   "license": "NOASSERTION",
+   "created": "2024-08-29",
+   "topics": [
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "類似彭博終端機的桌面看盤與研究軟體",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "wilsonfreitas/awesome-quant",
+   "url": "https://github.com/wilsonfreitas/awesome-quant",
+   "stars": 30327,
+   "license": null,
+   "created": "2015-09-30",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "量化金融工具大全（清單，不是程式）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "stefan-jansen/machine-learning-for-trading",
+   "url": "https://github.com/stefan-jansen/machine-learning-for-trading",
+   "stars": 21617,
+   "license": "MIT",
+   "created": "2018-05-09",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "《機器學習交易》一書的範例程式",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "hummingbot/hummingbot",
+   "url": "https://github.com/hummingbot/hummingbot",
+   "stars": 20759,
+   "license": "Apache-2.0",
+   "created": "2019-04-02",
+   "topics": [
+    "回測",
+    "量化金融"
+   ],
+   "zh": "加密貨幣高頻造市機器人",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "bbfamily/abu",
+   "url": "https://github.com/bbfamily/abu",
+   "stars": 19049,
+   "license": "GPL-3.0",
+   "created": "2016-09-19",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "中國的 Python 量化交易系統（股票、期權、期貨）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "questdb/questdb",
+   "url": "https://github.com/questdb/questdb",
+   "stars": 17476,
+   "license": "Apache-2.0",
+   "created": "2014-04-28",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "高速時間序列資料庫，適合存逐筆行情",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "AI4Finance-Foundation/FinRL",
+   "url": "https://github.com/AI4Finance-Foundation/FinRL",
+   "stars": 16846,
+   "license": "MIT",
+   "created": "2020-07-26",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "用強化學習訓練交易策略的研究框架",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "paperswithbacktest/awesome-systematic-trading",
+   "url": "https://github.com/paperswithbacktest/awesome-systematic-trading",
+   "stars": 15051,
+   "license": null,
+   "created": "2022-02-05",
+   "topics": [
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "系統化交易的工具、書、策略清單",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "OpenByteInc/QuantDinger",
+   "url": "https://github.com/OpenByteInc/QuantDinger",
+   "stars": 13231,
+   "license": "Apache-2.0",
+   "created": "2025-12-28",
+   "topics": [
+    "回測",
+    "量化金融"
+   ],
+   "zh": "AI 交易作業系統，研究到自動下單一條龍",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "TA-Lib/ta-lib-python",
+   "url": "https://github.com/TA-Lib/ta-lib-python",
+   "stars": 12335,
+   "license": "BSD-2-Clause",
+   "created": "2012-03-23",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "最常用的技術指標函式庫（Python 版）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "simonlin1212/a-stock-data",
+   "url": "https://github.com/simonlin1212/a-stock-data",
+   "stars": 11209,
+   "license": "Apache-2.0",
+   "created": "2026-05-11",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "中國 A 股資料下載工具包",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "StockSharp/StockSharp",
+   "url": "https://github.com/StockSharp/StockSharp",
+   "stars": 11016,
+   "license": "NOASSERTION",
+   "created": "2014-12-08",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "C# 的交易機器人開發平台",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "polakowo/vectorbt",
+   "url": "https://github.com/polakowo/vectorbt",
+   "stars": 9573,
+   "license": "NOASSERTION",
+   "created": "2017-11-14",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融",
+    "資產配置"
+   ],
+   "zh": "高速向量化回測，一次跑數千組參數",
+   "description_en": null,
+   "status": "rejected",
+   "note": "與 PineTS 重複，有商用限制",
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "jesse-ai/jesse",
+   "url": "https://github.com/jesse-ai/jesse",
+   "stars": 8720,
+   "license": "MIT",
+   "created": "2018-11-09",
+   "topics": [
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "加密貨幣交易機器人",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "lballabio/QuantLib",
+   "url": "https://github.com/lballabio/QuantLib",
+   "stars": 7716,
+   "license": "NOASSERTION",
+   "created": "2015-12-17",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "衍生品定價與利率模型的 C++ 函式庫",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "cantaro86/Financial-Models-Numerical-Methods",
+   "url": "https://github.com/cantaro86/Financial-Models-Numerical-Methods",
+   "stars": 7509,
+   "license": "AGPL-3.0",
+   "created": "2019-09-10",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "量化金融數學模型的教學筆記本",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "hugo2046/QuantsPlaybook",
+   "url": "https://github.com/hugo2046/QuantsPlaybook",
+   "stars": 6774,
+   "license": null,
+   "created": "2020-07-06",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "重現中國券商量化研究報告的程式",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "shy3130/tick-stock-panel",
+   "url": "https://github.com/shy3130/tick-stock-panel",
+   "stars": 6367,
+   "license": "MIT",
+   "created": "2026-06-18",
+   "topics": [
+    "回測"
+   ],
+   "zh": "A 股自建策略、監控、回測工作台",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Mathieu2301/TradingView-API",
+   "url": "https://github.com/Mathieu2301/TradingView-API",
+   "stars": 5774,
+   "license": null,
+   "created": "2021-03-05",
+   "topics": [
+    "回測",
+    "TradingView"
+   ],
+   "zh": "非官方方式從 TradingView 抓即時行情",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Superalgos/Superalgos",
+   "url": "https://github.com/Superalgos/Superalgos",
+   "stars": 5739,
+   "license": "Apache-2.0",
+   "created": "2019-08-12",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "視覺化的加密貨幣自動交易平台",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "JerBouma/FinanceToolkit",
+   "url": "https://github.com/JerBouma/FinanceToolkit",
+   "stars": 5472,
+   "license": "MIT",
+   "created": "2019-04-08",
+   "topics": [
+    "量化交易",
+    "量化金融",
+    "績效分析"
+   ],
+   "zh": "財報比率、估值、風險指標計算工具",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "wangzhe3224/awesome-systematic-trading",
+   "url": "https://github.com/wangzhe3224/awesome-systematic-trading",
+   "stars": 5349,
+   "license": "MIT",
+   "created": "2021-12-11",
+   "topics": [
+    "回測",
+    "量化交易"
+   ],
+   "zh": "系統化交易資源清單",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "atilaahmettaner/tradingview-mcp",
+   "url": "https://github.com/atilaahmettaner/tradingview-mcp",
+   "stars": 5160,
+   "license": "MIT",
+   "created": "2025-08-08",
+   "topics": [
+    "TradingView"
+   ],
+   "zh": "讓 AI 助理查 TradingView 篩選器與技術分析",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "dcajasn/Riskfolio-Lib",
+   "url": "https://github.com/dcajasn/Riskfolio-Lib",
+   "stars": 4577,
+   "license": "BSD-3-Clause",
+   "created": "2020-03-02",
+   "topics": [
+    "量化金融",
+    "資產配置"
+   ],
+   "zh": "投資組合最佳化（風險平價、各種風險指標）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "simonlin1212/TradingAgents-astock",
+   "url": "https://github.com/simonlin1212/TradingAgents-astock",
+   "stars": 3828,
+   "license": "Apache-2.0",
+   "created": "2026-05-13",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "多個 AI 分析師辯論後做 A 股決策的框架",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "edtechre/pybroker",
+   "url": "https://github.com/edtechre/pybroker",
+   "stars": 3665,
+   "license": "NOASSERTION",
+   "created": "2023-01-16",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "結合機器學習的 Python 回測框架",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "fasiondog/hikyuu",
+   "url": "https://github.com/fasiondog/hikyuu",
+   "stars": 3658,
+   "license": "Apache-2.0",
+   "created": "2012-07-18",
+   "topics": [
+    "回測"
+   ],
+   "zh": "高效能 C++／Python 量化研究框架",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "thrasher-corp/gocryptotrader",
+   "url": "https://github.com/thrasher-corp/gocryptotrader",
+   "stars": 3464,
+   "license": "MIT",
+   "created": "2014-10-28",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "Go 語言加密貨幣交易機器人",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "hello245m/free-stockdb",
+   "url": "https://github.com/hello245m/free-stockdb",
+   "stars": 3070,
+   "license": "MIT",
+   "created": "2026-05-08",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "A 股本地行情資料庫與回測引擎",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "marketcalls/openalgo",
+   "url": "https://github.com/marketcalls/openalgo",
+   "stars": 2926,
+   "license": "AGPL-3.0",
+   "created": "2024-02-19",
+   "topics": [
+    "量化交易",
+    "TradingView"
+   ],
+   "zh": "印度券商自動下單平台",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "man-group/ArcticDB",
+   "url": "https://github.com/man-group/ArcticDB",
+   "stars": 2565,
+   "license": "NOASSERTION",
+   "created": "2022-11-11",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "Man Group 的大型時間序列 DataFrame 資料庫",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "skfolio/skfolio",
+   "url": "https://github.com/skfolio/skfolio",
+   "stars": 2556,
+   "license": "BSD-3-Clause",
+   "created": "2023-12-14",
+   "topics": [
+    "回測",
+    "量化金融",
+    "資產配置"
+   ],
+   "zh": "投資組合最佳化與風險管理（scikit-learn 風格）",
+   "description_en": null,
+   "status": "candidate",
+   "note": "年終再平衡時算風險貢獻",
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Jakeschincariol/day-trader-skill",
+   "url": "https://github.com/Jakeschincariol/day-trader-skill",
+   "stars": 2482,
+   "license": "MIT",
+   "created": "2026-10-20",
+   "topics": [
+    "回測"
+   ],
+   "zh": "給 Claude 用的當沖技能組",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "coding-kitties/investing-algorithm-framework",
+   "url": "https://github.com/coding-kitties/investing-algorithm-framework",
+   "stars": 2197,
+   "license": "Apache-2.0",
+   "created": "2019-12-18",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "從回測到部署自動交易的框架",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Lumiwealth/lumibot",
+   "url": "https://github.com/Lumiwealth/lumibot",
+   "stars": 2180,
+   "license": "GPL-3.0",
+   "created": "2020-09-10",
+   "topics": [
+    "回測",
+    "量化交易",
+    "量化金融"
+   ],
+   "zh": "會實際下單的 AI 交易框架",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "enarjord/passivbot",
+   "url": "https://github.com/enarjord/passivbot",
+   "stars": 2149,
+   "license": "Unlicense",
+   "created": "2020-12-11",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "加密貨幣交易所的網格交易機器人",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "chengzuopeng/stock-sdk",
+   "url": "https://github.com/chengzuopeng/stock-sdk",
+   "stars": 1991,
+   "license": "ISC",
+   "created": "2025-12-12",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "前端 JavaScript 抓股票資料的工具",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "fabston/TradingView-Webhook-Bot",
+   "url": "https://github.com/fabston/TradingView-Webhook-Bot",
+   "stars": 1888,
+   "license": "MIT",
+   "created": "2020-04-21",
+   "topics": [
+    "TradingView"
+   ],
+   "zh": "把 TradingView 警報轉發到 Telegram／Discord",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Barca0412/Introduction-to-Quantitative-Finance",
+   "url": "https://github.com/Barca0412/Introduction-to-Quantitative-Finance",
+   "stars": 1845,
+   "license": "MIT",
+   "created": "2023-08-04",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": "多因子選股教學與 AI 金融資料彙整",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "ScottfreeLLC/AlphaPy",
+   "url": "https://github.com/ScottfreeLLC/AlphaPy",
+   "stars": 1772,
+   "license": "Apache-2.0",
+   "created": "2016-02-14",
+   "topics": [
+    "回測"
+   ],
+   "zh": "自動機器學習應用在交易系統",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "TA-Lib/ta-lib",
+   "url": "https://github.com/TA-Lib/ta-lib",
+   "stars": 1708,
+   "license": "BSD-3-Clause",
+   "created": "2016-08-20",
+   "topics": [
+    "回測",
+    "量化交易"
+   ],
+   "zh": "技術指標與 K 線型態函式庫（C 原版）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "deepentropy/tvscreener",
+   "url": "https://github.com/deepentropy/tvscreener",
+   "stars": 1707,
+   "license": "Apache-2.0",
+   "created": "2023-08-02",
+   "topics": [
+    "TradingView"
+   ],
+   "zh": "用程式呼叫 TradingView 篩選器",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "ccxt/node-binance-api",
+   "url": "https://github.com/ccxt/node-binance-api",
+   "stars": 1670,
+   "license": "MIT",
+   "created": "2017-10-05",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "幣安交易所 API 的 Node.js 套件",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "khscience/OSkhQuant",
+   "url": "https://github.com/khscience/OSkhQuant",
+   "stars": 1606,
+   "license": "NOASSERTION",
+   "created": "2025-01-08",
+   "topics": [
+    "回測"
+   ],
+   "zh": "A 股量化回測桌面軟體",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "alpacahq/alpaca-py",
+   "url": "https://github.com/alpacahq/alpaca-py",
+   "stars": 1571,
+   "license": "Apache-2.0",
+   "created": "2022-02-19",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "美國券商 Alpaca 的官方下單 SDK",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "shner-elmo/TradingView-Screener",
+   "url": "https://github.com/shner-elmo/TradingView-Screener",
+   "stars": 1337,
+   "license": "MIT",
+   "created": "2022-05-30",
+   "topics": [
+    "TradingView"
+   ],
+   "zh": "用 Python 建立 TradingView 篩選器",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "gnzsnz/ib-gateway-docker",
+   "url": "https://github.com/gnzsnz/ib-gateway-docker",
+   "stars": 1283,
+   "license": "MIT",
+   "created": "2023-08-06",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "把 IBKR 下單閘道包成 Docker",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "facioquo/stock-indicators-dotnet",
+   "url": "https://github.com/facioquo/stock-indicators-dotnet",
+   "stars": 1249,
+   "license": "Apache-2.0",
+   "created": "2019-12-29",
+   "topics": [
+    "回測",
+    "量化交易"
+   ],
+   "zh": "C# 技術指標套件",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "mars-tw/anti-gambling-trader-tw",
+   "url": "https://github.com/mars-tw/anti-gambling-trader-tw",
+   "stars": 1154,
+   "license": "MIT",
+   "created": "2026-06-26",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "台灣作者的反詐騙、交易統計與自動交易工具",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "alpacahq/alpaca-mcp-server",
+   "url": "https://github.com/alpacahq/alpaca-mcp-server",
+   "stars": 1049,
+   "license": "MIT",
+   "created": "2025-06-03",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "讓 AI 助理透過 Alpaca 下單",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "AlexWan/OsEngine",
+   "url": "https://github.com/AlexWan/OsEngine",
+   "stars": 1043,
+   "license": "NOASSERTION",
+   "created": "2017-02-28",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "俄羅斯的開源自動交易平台",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "merovinh/best-of-algorithmic-trading",
+   "url": "https://github.com/merovinh/best-of-algorithmic-trading",
+   "stars": 1020,
+   "license": "CC-BY-SA-4.0",
+   "created": "2023-01-07",
+   "topics": [
+    "量化交易"
+   ],
+   "zh": "演算法交易專案排行榜（清單）",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Superior-Trade/trading-terminal",
+   "url": "https://github.com/Superior-Trade/trading-terminal",
+   "stars": 1003,
+   "license": "Apache-2.0",
+   "created": "2026-08-21",
+   "topics": [
+    "TradingView"
+   ],
+   "zh": "自架的 AI 加密貨幣交易終端",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "everget/tradingview-pinescript-indicators",
+   "url": "https://github.com/everget/tradingview-pinescript-indicators",
+   "stars": 948,
+   "license": "GPL-3.0",
+   "created": "2018-09-07",
+   "topics": [
+    "Pine Script／TradingView",
+    "TradingView"
+   ],
+   "zh": "各種技術指標的 Pine Script 寫法合集",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "Leo4815162342/dukascopy-node",
+   "url": "https://github.com/Leo4815162342/dukascopy-node",
+   "stars": 943,
+   "license": "MIT",
+   "created": "2019-06-08",
+   "topics": [
+    "回測"
+   ],
+   "zh": "從 Dukascopy 下載外匯、黃金歷史逐筆資料",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "jianweiweng05/qsx-strategy-score",
+   "url": "https://github.com/jianweiweng05/qsx-strategy-score",
+   "stars": 931,
+   "license": "MIT",
+   "created": "2026-06-24",
+   "topics": [
+    "回測",
+    "TradingView"
+   ],
+   "zh": "回測評分卡：檢查過度擬合、優勢是否只是運氣",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "LuxAlgo/PineTS",
+   "url": "https://github.com/LuxAlgo/PineTS",
+   "stars": 906,
+   "license": "AGPL-3.0",
+   "created": "2025-01-30",
+   "topics": [
+    "回測",
+    "Pine Script／TradingView",
+    "TradingView"
+   ],
+   "zh": "不開 TradingView 就能執行 Pine Script",
+   "description_en": null,
+   "status": "adopted",
+   "note": "重跑 S1 研究，逐筆與 TradingView 一致",
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "rootSunc/CNEquity",
+   "url": "https://github.com/rootSunc/CNEquity",
+   "stars": 889,
+   "license": "Apache-2.0",
+   "created": "2026-06-28",
+   "topics": [
+    "回測"
+   ],
+   "zh": "A 股本地資料湖，給量化研究與回測",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "gbeced/basana",
+   "url": "https://github.com/gbeced/basana",
+   "stars": 874,
+   "license": "NOASSERTION",
+   "created": "2023-03-04",
+   "topics": [
+    "回測"
+   ],
+   "zh": "事件驅動的加密貨幣演算法交易框架",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "wshobson/maverick-mcp",
+   "url": "https://github.com/wshobson/maverick-mcp",
+   "stars": 712,
+   "license": "MIT",
+   "created": "2025-08-24",
+   "topics": [
+    "回測"
+   ],
+   "zh": "讓 AI 助理查 Yahoo 行情、做技術分析與回測",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "ArturSepp/QuantInvestStrats",
+   "url": "https://github.com/ArturSepp/QuantInvestStrats",
+   "stars": 645,
+   "license": "MIT",
+   "created": "2022-12-30",
+   "topics": [
+    "回測"
+   ],
+   "zh": "績效分析、組合回測與月報表產生",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "ryanfrigo/kalshi-ai-trading-bot",
+   "url": "https://github.com/ryanfrigo/kalshi-ai-trading-bot",
+   "stars": 635,
+   "license": "MIT",
+   "created": "2025-07-26",
+   "topics": [
+    "資產配置"
+   ],
+   "zh": "預測市場 Kalshi 的 AI 交易工具",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "jrmeier/fast-trade",
+   "url": "https://github.com/jrmeier/fast-trade",
+   "stars": 602,
+   "license": "AGPL-3.0",
+   "created": "2019-08-06",
+   "topics": [
+    "回測"
+   ],
+   "zh": "低程式碼的快速回測函式庫",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "cm45t3r/candlestick",
+   "url": "https://github.com/cm45t3r/candlestick",
+   "stars": 538,
+   "license": "MIT",
+   "created": "2016-10-22",
+   "topics": [
+    "回測"
+   ],
+   "zh": "K 線型態偵測",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": null
+  },
+  {
+   "name": "YichengYang-Ethan/oracle3-prediction-market-agent",
+   "url": "https://github.com/YichengYang-Ethan/oracle3-prediction-market-agent",
+   "stars": 535,
+   "license": "Apache-2.0",
+   "created": "2026-02-28",
+   "topics": [
+    "回測"
+   ],
+   "zh": "預測市場套利交易引擎",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": null
+  }
+ ],
+ "adopted": [
+  {
+   "name": "LuxAlgo/PineTS",
+   "url": "https://github.com/LuxAlgo/PineTS",
+   "zh": "不開 TradingView 就能執行 Pine Script",
+   "note": "重跑 S1 研究，逐筆與 TradingView 一致"
+  },
+  {
+   "name": "ranaroussi/quantstats",
+   "url": "https://github.com/ranaroussi/quantstats",
+   "zh": "策略績效報告：夏普、回撤、月報酬",
+   "note": "S1 績效報告"
+  },
+  {
+   "name": "tradingview/lightweight-charts",
+   "url": "https://github.com/tradingview/lightweight-charts",
+   "zh": "TradingView 的開源互動 K 線圖元件",
+   "note": "黃金儀表板週 K 圖"
+  }
+ ]
+}
