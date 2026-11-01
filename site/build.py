@@ -194,6 +194,99 @@ def github_scan_page() -> str:
     return document("GitHub 熱門專案月報", "每月整理熱門的量化交易、回測、TradingView 開源專案與評估狀態。", 2, body, wide=True)
 
 
+# S1/S2 backtest performance (QuantStats), built in trading-private (scripts/research/strategy_performance.py)
+# from the owner's TradingView Strategy Tester exports and published here as data.json. Absent -> no route.
+PERFORMANCE_DIR = ROOT / "strategies/performance"
+
+
+def has_performance() -> bool:
+    return (PERFORMANCE_DIR / "data.json").is_file()
+
+
+def _perf_chart(strategies: list[dict]) -> str:
+    """Cumulative return (% of starting capital, fixed size) of each strategy and gold, weekly, with drawdown."""
+    w, h, pad, dd_h = 900, 300, 44, 90
+    series = [(x["name"], [p["equity_pct"] for p in x["weekly"]], c)
+              for x, c in zip(strategies, ("var(--cyan)", "var(--warn)"))]
+    gold = [p["gold_pct"] for p in strategies[0]["weekly"]]
+    series.append(("黃金（買進持有）", gold, "var(--muted)"))
+    dates = [p["date"] for p in strategies[0]["weekly"]]
+    values = [v for _, vs, _ in series for v in vs if v is not None]
+    lo, hi = min(0.0, min(values)), max(values)
+    n = max(len(vs) for _, vs, _ in series)
+
+    def xy(i: int, v: float, top: float, height: float, a: float, b: float) -> str:
+        x = pad + (w - 2 * pad) * i / max(n - 1, 1)
+        y = top + height - (v - a) / ((b - a) or 1) * height
+        return f"{x:.1f},{y:.1f}"
+    lines = "".join(
+        f'<polyline fill="none" stroke="{c}" stroke-width="2" points="'
+        + " ".join(xy(i, v, 10, h - 20, lo, hi) for i, v in enumerate(vs) if v is not None) + '"/>'
+        for _, vs, c in series)
+    zero = xy(0, 0, 10, h - 20, lo, hi).split(",")[1]
+    dd = [min(p["drawdown_pct"] for p in [x["weekly"][i] for x in strategies if i < len(x["weekly"])]) for i in range(n)]
+    dd_lo = min(dd) or -1
+    dd_paths = "".join(
+        f'<polyline fill="none" stroke="{c}" stroke-width="1.5" points="'
+        + " ".join(xy(i, p["drawdown_pct"], h + 20, dd_h, dd_lo, 0) for i, p in enumerate(x["weekly"])) + '"/>'
+        for x, c in zip(strategies, ("var(--cyan)", "var(--warn)")))
+    legend = "　".join(f'<span style="color:{c}">━ {esc(name)}</span>' for name, _, c in series)
+    return (f'<figure class="perf-chart"><svg viewBox="0 0 {w} {h + dd_h + 40}" role="img" aria-label="累計報酬與回撤">'
+            f'<line x1="{pad}" x2="{w - pad}" y1="{zero}" y2="{zero}" stroke="var(--line2)"/>'
+            f'<text x="{pad}" y="{h + 14}" fill="var(--muted)" font-size="12">回撤（百分點）</text>'
+            f'<text x="4" y="20" fill="var(--muted)" font-size="12">{hi:+.0f}%</text>'
+            f'<text x="4" y="{h - 8}" fill="var(--muted)" font-size="12">{lo:+.0f}%</text>'
+            f'<text x="4" y="{h + dd_h + 18}" fill="var(--muted)" font-size="12">{dd_lo:.1f}</text>'
+            f'{lines}{dd_paths}'
+            f'<text x="{pad}" y="{h + dd_h + 38}" fill="var(--muted)" font-size="12">{esc(dates[0])}</text>'
+            f'<text x="{w - pad}" y="{h + dd_h + 38}" fill="var(--muted)" font-size="12" text-anchor="end">{esc(dates[-1])}</text>'
+            f'</svg><figcaption>{legend}</figcaption></figure>')
+
+
+def performance_page() -> str:
+    data = load_json(PERFORMANCE_DIR / "data.json")
+    st = data["strategies"]
+    metrics = [("交易筆數", "trades", ""), ("勝率", "win_rate_pct", "%"), ("累計報酬", "net_return_pct", "%"),
+               ("獲利因子 PF", "profit_factor", ""), ("平均獲利", "avg_win_pct", "%"), ("平均虧損", "avg_loss_pct", "%"),
+               ("最大回撤", "max_drawdown_pct", "%"), ("最長回撤天數", "longest_drawdown_days", ""),
+               ("夏普", "sharpe", ""), ("索提諾", "sortino", ""), ("與黃金日相關", "correlation_to_gold", ""),
+               ("同期黃金", "gold_return_pct", "%")]
+    kpi_rows = [[("th", esc(label), label, False),
+                 *(("td", f'{x[key]}{unit}' if x.get(key) is not None else "—", sort_key(x.get(key)), True) for x in st)]
+                for label, key, unit in metrics]
+    kpi_rows.insert(0, [("th", "期間", "期間", False),
+                        *(("td", f'{esc(x["first_trade"])}～{esc(x["export_date"])}', x["first_trade"], False) for x in st)])
+    year = st[0]["ytd_year"]
+    kpi_rows.append([("th", f"{year} 年至今", "ytd", False),
+                     *(("td", f'{x["ytd_pct"]:+}%（黃金 {x["gold_ytd_pct"]:+}%）', sort_key(x["ytd_pct"]), True) for x in st)])
+    months = sorted({m["month"] for x in st for m in x["monthly"]})[-12:]
+    by = {x["name"]: {m["month"]: m for m in x["monthly"]} for x in st}
+    gold = {m["month"]: m["gold_pct"] for x in st for m in x["monthly"]}
+
+    def cell(v):
+        if v is None:
+            return ("td", "—", "", True)
+        tone = "good" if v > 0 else "bad" if v < 0 else "muted"
+        return ("td", f'<span style="color:var(--{tone})">{v:+.2f}%</span>', sort_key(v), True)
+    month_rows = [[("th", esc(m), m, False), *(cell(by[x["name"]].get(m, {}).get("pct")) for x in st), cell(gold.get(m))]
+                  for m in reversed(months)]
+    newest = max(x["export_date"] for x in st)
+    body = f"""
+<h1>策略績效：S1／S2 回測</h1>
+<p class="lede">S1 V3.9（右側突破）與 S2 V3.2（左側反轉）在 TradingView 策略測試器的回測，和同期買進持有黃金比較。
+資料到 {esc(newest)}，只在重新匯出交易清單時更新；每月 1 日自動檢查一次。</p>
+<p class="muted">每筆固定部位、不複利：每筆的報酬率就是帳戶的報酬率，累計報酬是逐筆相加，回撤是相對起始資金的百分點。
+夏普與索提諾用 QuantStats 以日報酬計算。這是回測結果，不是訊號，也不保證未來；實際成交會有滑價與手續費差異。</p>
+<section class="block-section"><h2>累計報酬與回撤</h2>{_perf_chart(st)}</section>
+<section class="block-section"><h2>主要指標</h2>
+{render_table([("指標", False), *((esc(x["name"]), True) for x in st)], kpi_rows)}</section>
+<section class="block-section"><h2>近 12 個月</h2>
+{render_table([("月份", False), *((esc(x["name"]), True) for x in st), ("黃金", True)], month_rows)}</section>
+<p class="muted">產生時間 {esc(data["generated_at"][:16].replace("T", " "))}。方法：{esc(data["method"]["metrics"])}。</p>
+"""
+    return document("策略績效", "S1／S2 回測績效（QuantStats）：累計報酬、回撤、勝率、月報酬，和黃金比較。", 2, body, wide=True)
+
+
 def latest_week() -> str:
     return weekly_weeks()[-1]
 
@@ -204,6 +297,7 @@ def routes() -> list[str]:
         "xauusd/weekly",
         *(["xauusd/dashboard"] if has_dashboard() else []),
         *(["tools/github"] if has_github_scan() else []),
+        *(["strategies/performance"] if has_performance() else []),
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
           for w in weekly_weeks() for p in weekly_perspectives(w)),
@@ -666,6 +760,7 @@ def nav(depth: int) -> str:
         *([("Dashboard 儀表板", f"{prefix}xauusd/dashboard/")] if has_dashboard() else []),
         ("Overview 總覽", f"{prefix}overview/"),
         ("Research", f"{prefix}research/"),
+        *([("策略績效", f"{prefix}strategies/performance/")] if has_performance() else []),
         *([("GitHub 月報", f"{prefix}tools/github/")] if has_github_scan() else []),
     ]
     items = "".join(f'<a href="{attr(href)}">{label}</a>' for label, href in links)
@@ -884,6 +979,35 @@ def weekly_reader_page(week: str, s: dict) -> str:
             '</details></section>'
         )
 
+    perf = ""
+    if s.get("strategy_performance"):
+        sp = s["strategy_performance"]
+        perf_rows = [[
+            ("th", esc(x["name"]), x["name"], False),
+            ("td", str(x["trades"]), sort_key(x["trades"]), True),
+            ("td", f'{x["win_rate_pct"]}%', sort_key(x["win_rate_pct"]), True),
+            ("td", f'{x["net_return_pct"]:+}%', sort_key(x["net_return_pct"]), True),
+            ("td", esc(x["profit_factor"]), sort_key(x["profit_factor"]), True),
+            ("td", f'{x["max_drawdown_pct"]}%', sort_key(x["max_drawdown_pct"]), True),
+            ("td", esc(x["sharpe"]), sort_key(x["sharpe"]), True),
+            ("td", f'{x["ytd_pct"]:+}%（黃金 {x["gold_ytd_pct"]:+}%）', sort_key(x["ytd_pct"]), True),
+        ] for x in sp["rows"]]
+        months = [m["month"] for m in sp["rows"][0]["last_months"]]
+        month_rows = [[("th", esc(x["name"]), x["name"], False),
+                       *(("td", f'{m["pct"]:+}%', sort_key(m["pct"]), True) for m in x["last_months"])]
+                      for x in sp["rows"]]
+        month_rows.append([("th", "黃金", "黃金", False),
+                           *(("td", f'{m["gold_pct"]:+}%', sort_key(m["gold_pct"]), True) for m in sp["rows"][0]["last_months"])])
+        perf = (
+            '<details class="weekly-details"><summary>展開看策略績效：S1／S2 回測（資料到 '
+            f'{esc(sp["as_of"])}）</summary>'
+            + render_table([("策略", False), ("筆數", True), ("勝率", True), ("累計", True), ("PF", True),
+                            ("最大回撤", True), ("夏普", True), ("今年", True)], perf_rows)
+            + render_table([("策略", False), *((esc(m), True) for m in months)], month_rows)
+            + f'<p class="evidence-takeaway">{esc(sp["note_zh"])} 距上次匯出 {sp["days_since_export"]} 天。'
+            '<a href="../../../strategies/performance/">完整績效頁 →</a></p></details>\n'
+        )
+
     news = ""
     if s.get("news_digest"):
         nd = s["news_digest"]
@@ -987,7 +1111,7 @@ def weekly_reader_page(week: str, s: dict) -> str:
 <section class="block-section"><h2>事件</h2>{render_table([("時間", False), ("事件", False), ("處置", False)], ev_rows)}</section>
 <section class="block-section reading-rail"><h2>上週回顧</h2><ul class="watch-list">{bullets(r['last_week_zh'])}</ul></section>
 <section class="block-section">{four_week}</section>
-{news}{cftc}
+{news}{cftc}{perf}
 <details class="weekly-details"><summary>展開看細節：價位依據、劇本完整條件、市場摘要、證據限制</summary>
 <h3>市場摘要</h3><p class="prose">{esc(s['market_summary'])}</p>
 <h3>價位依據</h3>{detail_levels}
@@ -1510,6 +1634,8 @@ STYLE_CSS = """
 .role-resistance{background:rgba(235,87,87,.16);color:var(--bad);}
 .role-pivot{background:rgba(154,163,178,.16);color:var(--muted);}
 .watch-list{padding-left:1.2em;max-width:78ch;} .watch-list li{margin:.35em 0;}
+.perf-chart svg{width:100%;max-width:960px;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
+.perf-chart figcaption{color:var(--muted);font-size:.85rem;margin-top:6px;}
 .weekly-details{margin:2em 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
 .weekly-details summary{cursor:pointer;color:var(--cyan);font-weight:600;}
 .news-mood{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:10px;padding:8px 14px;max-width:78ch;}
@@ -2012,6 +2138,8 @@ def generated_pages() -> dict[str, str]:
         pages["xauusd/dashboard/index.html"] = dashboard_page()
     if has_github_scan():
         pages["tools/github/index.html"] = github_scan_page()
+    if has_performance():
+        pages["strategies/performance/index.html"] = performance_page()
     for week in weekly_weeks():
         pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
         for perspective in weekly_perspectives(week):
