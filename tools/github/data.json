@@ -1,10 +1,10 @@
 {
  "schema_version": 1,
- "month": "2026-10",
- "checked_at": "2026-10-28T13:43:52+00:00",
+ "month": "2026-11",
+ "checked_at": "2026-11-01T01:00:02+00:00",
  "min_stars": 500,
  "pushed_within_days": 30,
- "first_run": true,
+ "first_run": false,
  "topics": [
   "回測",
   "量化交易",
@@ -20,7 +20,7 @@
   {
    "name": "openbq-org/OpenBB",
    "url": "https://github.com/openbq-org/OpenBB",
-   "stars": 74821,
+   "stars": 74958,
    "license": "NOASSERTION",
    "created": "2020-12-20",
    "topics": [
@@ -31,12 +31,12 @@
    "status": "rejected",
    "note": "組織改名，來源未確認",
    "new": false,
-   "star_gain": null
+   "star_gain": 153
   },
   {
    "name": "ZhuLinsen/daily_stock_analysis",
    "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
-   "stars": 67210,
+   "stars": 67341,
    "license": "MIT",
    "created": "2026-01-10",
    "topics": [
@@ -47,12 +47,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 164
   },
   {
    "name": "freqtrade/freqtrade",
    "url": "https://github.com/freqtrade/freqtrade",
-   "stars": 56078,
+   "stars": 56223,
    "license": "GPL-3.0",
    "created": "2017-05-17",
    "topics": [
@@ -63,12 +63,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 174
   },
   {
    "name": "microsoft/qlib",
    "url": "https://github.com/microsoft/qlib",
-   "stars": 49774,
+   "stars": 49875,
    "license": "MIT",
    "created": "2020-08-14",
    "topics": [
@@ -80,12 +80,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 112
   },
   {
    "name": "HKUDS/Vibe-Trading",
    "url": "https://github.com/HKUDS/Vibe-Trading",
-   "stars": 36990,
+   "stars": 37303,
    "license": "MIT",
    "created": "2026-04-01",
    "topics": [
@@ -98,12 +98,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 396
   },
   {
    "name": "Fincept-Corporation/FinceptTerminal",
    "url": "https://github.com/Fincept-Corporation/FinceptTerminal",
-   "stars": 33222,
+   "stars": 33325,
    "license": "NOASSERTION",
    "created": "2024-08-29",
    "topics": [
@@ -115,12 +115,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 117
   },
   {
    "name": "wilsonfreitas/awesome-quant",
    "url": "https://github.com/wilsonfreitas/awesome-quant",
-   "stars": 30327,
+   "stars": 30389,
    "license": null,
    "created": "2015-09-30",
    "topics": [
@@ -131,12 +131,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 66
   },
   {
    "name": "stefan-jansen/machine-learning-for-trading",
    "url": "https://github.com/stefan-jansen/machine-learning-for-trading",
-   "stars": 21617,
+   "stars": 21654,
    "license": "MIT",
    "created": "2018-05-09",
    "topics": [
@@ -149,12 +149,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 44
   },
   {
    "name": "hummingbot/hummingbot",
    "url": "https://github.com/hummingbot/hummingbot",
-   "stars": 20759,
+   "stars": 20881,
    "license": "Apache-2.0",
    "created": "2019-04-02",
    "topics": [
@@ -166,12 +166,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 132
   },
   {
    "name": "bbfamily/abu",
    "url": "https://github.com/bbfamily/abu",
-   "stars": 19049,
+   "stars": 19090,
    "license": "GPL-3.0",
    "created": "2016-09-19",
    "topics": [
@@ -182,12 +182,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 46
   },
   {
    "name": "questdb/questdb",
    "url": "https://github.com/questdb/questdb",
-   "stars": 17476,
+   "stars": 17492,
    "license": "Apache-2.0",
    "created": "2014-04-28",
    "topics": [
@@ -198,12 +198,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 15
   },
   {
    "name": "AI4Finance-Foundation/FinRL",
    "url": "https://github.com/AI4Finance-Foundation/FinRL",
-   "stars": 16846,
+   "stars": 16932,
    "license": "MIT",
    "created": "2020-07-26",
    "topics": [
@@ -214,29 +214,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
-  },
-  {
-   "name": "paperswithbacktest/awesome-systematic-trading",
-   "url": "https://github.com/paperswithbacktest/awesome-systematic-trading",
-   "stars": 15051,
-   "license": null,
-   "created": "2022-02-05",
-   "topics": [
-    "量化交易",
-    "量化金融"
-   ],
-   "zh": "系統化交易的工具、書、策略清單",
-   "description_en": null,
-   "status": null,
-   "note": null,
-   "new": false,
-   "star_gain": null
+   "star_gain": 94
   },
   {
    "name": "OpenByteInc/QuantDinger",
    "url": "https://github.com/OpenByteInc/QuantDinger",
-   "stars": 13231,
+   "stars": 13356,
    "license": "Apache-2.0",
    "created": "2025-12-28",
    "topics": [
@@ -248,12 +231,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 170
   },
   {
    "name": "TA-Lib/ta-lib-python",
    "url": "https://github.com/TA-Lib/ta-lib-python",
-   "stars": 12335,
+   "stars": 12342,
    "license": "BSD-2-Clause",
    "created": "2012-03-23",
    "topics": [
@@ -264,12 +247,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 6
   },
   {
    "name": "simonlin1212/a-stock-data",
    "url": "https://github.com/simonlin1212/a-stock-data",
-   "stars": 11209,
+   "stars": 11322,
    "license": "Apache-2.0",
    "created": "2026-05-11",
    "topics": [
@@ -280,12 +263,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 136
   },
   {
    "name": "StockSharp/StockSharp",
    "url": "https://github.com/StockSharp/StockSharp",
-   "stars": 11016,
+   "stars": 11032,
    "license": "NOASSERTION",
    "created": "2014-12-08",
    "topics": [
@@ -298,12 +281,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 20
   },
   {
    "name": "polakowo/vectorbt",
    "url": "https://github.com/polakowo/vectorbt",
-   "stars": 9573,
+   "stars": 9616,
    "license": "NOASSERTION",
    "created": "2017-11-14",
    "topics": [
@@ -317,12 +300,12 @@
    "status": "rejected",
    "note": "與 PineTS 重複，有商用限制",
    "new": false,
-   "star_gain": null
+   "star_gain": 51
   },
   {
    "name": "jesse-ai/jesse",
    "url": "https://github.com/jesse-ai/jesse",
-   "stars": 8720,
+   "stars": 8745,
    "license": "MIT",
    "created": "2018-11-09",
    "topics": [
@@ -334,12 +317,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 28
   },
   {
    "name": "lballabio/QuantLib",
    "url": "https://github.com/lballabio/QuantLib",
-   "stars": 7716,
+   "stars": 7731,
    "license": "NOASSERTION",
    "created": "2015-12-17",
    "topics": [
@@ -350,12 +333,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 20
   },
   {
    "name": "cantaro86/Financial-Models-Numerical-Methods",
    "url": "https://github.com/cantaro86/Financial-Models-Numerical-Methods",
-   "stars": 7509,
+   "stars": 7514,
    "license": "AGPL-3.0",
    "created": "2019-09-10",
    "topics": [
@@ -366,12 +349,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 5
   },
   {
    "name": "hugo2046/QuantsPlaybook",
    "url": "https://github.com/hugo2046/QuantsPlaybook",
-   "stars": 6774,
+   "stars": 6822,
    "license": null,
    "created": "2020-07-06",
    "topics": [
@@ -382,12 +365,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 59
   },
   {
    "name": "shy3130/tick-stock-panel",
    "url": "https://github.com/shy3130/tick-stock-panel",
-   "stars": 6367,
+   "stars": 6646,
    "license": "MIT",
    "created": "2026-06-18",
    "topics": [
@@ -398,12 +381,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 283
   },
   {
    "name": "Mathieu2301/TradingView-API",
    "url": "https://github.com/Mathieu2301/TradingView-API",
-   "stars": 5774,
+   "stars": 5789,
    "license": null,
    "created": "2021-03-05",
    "topics": [
@@ -415,12 +398,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 20
   },
   {
    "name": "Superalgos/Superalgos",
    "url": "https://github.com/Superalgos/Superalgos",
-   "stars": 5739,
+   "stars": 5751,
    "license": "Apache-2.0",
    "created": "2019-08-12",
    "topics": [
@@ -431,12 +414,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 16
   },
   {
    "name": "JerBouma/FinanceToolkit",
    "url": "https://github.com/JerBouma/FinanceToolkit",
-   "stars": 5472,
+   "stars": 5483,
    "license": "MIT",
    "created": "2019-04-08",
    "topics": [
@@ -449,12 +432,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 11
   },
   {
    "name": "wangzhe3224/awesome-systematic-trading",
    "url": "https://github.com/wangzhe3224/awesome-systematic-trading",
-   "stars": 5349,
+   "stars": 5360,
    "license": "MIT",
    "created": "2021-12-11",
    "topics": [
@@ -466,12 +449,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 13
   },
   {
    "name": "atilaahmettaner/tradingview-mcp",
    "url": "https://github.com/atilaahmettaner/tradingview-mcp",
-   "stars": 5160,
+   "stars": 5184,
    "license": "MIT",
    "created": "2025-08-08",
    "topics": [
@@ -482,12 +465,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 28
   },
   {
    "name": "dcajasn/Riskfolio-Lib",
    "url": "https://github.com/dcajasn/Riskfolio-Lib",
-   "stars": 4577,
+   "stars": 4579,
    "license": "BSD-3-Clause",
    "created": "2020-03-02",
    "topics": [
@@ -499,12 +482,28 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
+  },
+  {
+   "name": "Jakeschincariol/day-trader-skill",
+   "url": "https://github.com/Jakeschincariol/day-trader-skill",
+   "stars": 3978,
+   "license": "MIT",
+   "created": "2026-10-20",
+   "topics": [
+    "回測"
+   ],
+   "zh": "給 Claude 用的當沖技能組",
+   "description_en": null,
+   "status": "execution",
+   "note": null,
+   "new": false,
+   "star_gain": 1620
   },
   {
    "name": "simonlin1212/TradingAgents-astock",
    "url": "https://github.com/simonlin1212/TradingAgents-astock",
-   "stars": 3828,
+   "stars": 3859,
    "license": "Apache-2.0",
    "created": "2026-05-13",
    "topics": [
@@ -515,7 +514,23 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 40
+  },
+  {
+   "name": "fasiondog/hikyuu",
+   "url": "https://github.com/fasiondog/hikyuu",
+   "stars": 3673,
+   "license": "Apache-2.0",
+   "created": "2012-07-18",
+   "topics": [
+    "回測"
+   ],
+   "zh": "高效能 C++／Python 量化研究框架",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": 20
   },
   {
    "name": "edtechre/pybroker",
@@ -533,28 +548,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
-  },
-  {
-   "name": "fasiondog/hikyuu",
-   "url": "https://github.com/fasiondog/hikyuu",
-   "stars": 3658,
-   "license": "Apache-2.0",
-   "created": "2012-07-18",
-   "topics": [
-    "回測"
-   ],
-   "zh": "高效能 C++／Python 量化研究框架",
-   "description_en": null,
-   "status": null,
-   "note": null,
-   "new": false,
-   "star_gain": null
+   "star_gain": 2
   },
   {
    "name": "thrasher-corp/gocryptotrader",
    "url": "https://github.com/thrasher-corp/gocryptotrader",
-   "stars": 3464,
+   "stars": 3467,
    "license": "MIT",
    "created": "2014-10-28",
    "topics": [
@@ -565,12 +564,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
   },
   {
    "name": "hello245m/free-stockdb",
    "url": "https://github.com/hello245m/free-stockdb",
-   "stars": 3070,
+   "stars": 3094,
    "license": "MIT",
    "created": "2026-05-08",
    "topics": [
@@ -583,12 +582,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 26
   },
   {
    "name": "marketcalls/openalgo",
    "url": "https://github.com/marketcalls/openalgo",
-   "stars": 2926,
+   "stars": 2943,
    "license": "AGPL-3.0",
    "created": "2024-02-19",
    "topics": [
@@ -600,12 +599,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 20
   },
   {
    "name": "man-group/ArcticDB",
    "url": "https://github.com/man-group/ArcticDB",
-   "stars": 2565,
+   "stars": 2589,
    "license": "NOASSERTION",
    "created": "2022-11-11",
    "topics": [
@@ -616,12 +615,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 26
   },
   {
    "name": "skfolio/skfolio",
    "url": "https://github.com/skfolio/skfolio",
-   "stars": 2556,
+   "stars": 2571,
    "license": "BSD-3-Clause",
    "created": "2023-12-14",
    "topics": [
@@ -634,28 +633,12 @@
    "status": "candidate",
    "note": "年終再平衡時算風險貢獻",
    "new": false,
-   "star_gain": null
-  },
-  {
-   "name": "Jakeschincariol/day-trader-skill",
-   "url": "https://github.com/Jakeschincariol/day-trader-skill",
-   "stars": 2482,
-   "license": "MIT",
-   "created": "2026-10-20",
-   "topics": [
-    "回測"
-   ],
-   "zh": "給 Claude 用的當沖技能組",
-   "description_en": null,
-   "status": "execution",
-   "note": null,
-   "new": false,
-   "star_gain": null
+   "star_gain": 16
   },
   {
    "name": "coding-kitties/investing-algorithm-framework",
    "url": "https://github.com/coding-kitties/investing-algorithm-framework",
-   "stars": 2197,
+   "stars": 2226,
    "license": "Apache-2.0",
    "created": "2019-12-18",
    "topics": [
@@ -668,12 +651,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 30
   },
   {
    "name": "Lumiwealth/lumibot",
    "url": "https://github.com/Lumiwealth/lumibot",
-   "stars": 2180,
+   "stars": 2191,
    "license": "GPL-3.0",
    "created": "2020-09-10",
    "topics": [
@@ -686,12 +669,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 14
   },
   {
    "name": "enarjord/passivbot",
    "url": "https://github.com/enarjord/passivbot",
-   "stars": 2149,
+   "stars": 2150,
    "license": "Unlicense",
    "created": "2020-12-11",
    "topics": [
@@ -702,12 +685,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 1
   },
   {
    "name": "chengzuopeng/stock-sdk",
    "url": "https://github.com/chengzuopeng/stock-sdk",
-   "stars": 1991,
+   "stars": 1995,
    "license": "ISC",
    "created": "2025-12-12",
    "topics": [
@@ -718,12 +701,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 4
   },
   {
    "name": "fabston/TradingView-Webhook-Bot",
    "url": "https://github.com/fabston/TradingView-Webhook-Bot",
-   "stars": 1888,
+   "stars": 1890,
    "license": "MIT",
    "created": "2020-04-21",
    "topics": [
@@ -734,12 +717,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
   },
   {
    "name": "Barca0412/Introduction-to-Quantitative-Finance",
    "url": "https://github.com/Barca0412/Introduction-to-Quantitative-Finance",
-   "stars": 1845,
+   "stars": 1854,
    "license": "MIT",
    "created": "2023-08-04",
    "topics": [
@@ -750,12 +733,28 @@
    "status": null,
    "note": null,
    "new": false,
+   "star_gain": 9
+  },
+  {
+   "name": "avhz/RustQuant",
+   "url": "https://github.com/avhz/RustQuant",
+   "stars": 1834,
+   "license": "Apache-2.0",
+   "created": "2022-08-31",
+   "topics": [
+    "量化金融"
+   ],
+   "zh": null,
+   "description_en": "Rust library for quantitative finance.",
+   "status": null,
+   "note": null,
+   "new": true,
    "star_gain": null
   },
   {
    "name": "ScottfreeLLC/AlphaPy",
    "url": "https://github.com/ScottfreeLLC/AlphaPy",
-   "stars": 1772,
+   "stars": 1775,
    "license": "Apache-2.0",
    "created": "2016-02-14",
    "topics": [
@@ -766,12 +765,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
   },
   {
    "name": "TA-Lib/ta-lib",
    "url": "https://github.com/TA-Lib/ta-lib",
-   "stars": 1708,
+   "stars": 1715,
    "license": "BSD-3-Clause",
    "created": "2016-08-20",
    "topics": [
@@ -783,12 +782,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 7
   },
   {
    "name": "deepentropy/tvscreener",
    "url": "https://github.com/deepentropy/tvscreener",
-   "stars": 1707,
+   "stars": 1713,
    "license": "Apache-2.0",
    "created": "2023-08-02",
    "topics": [
@@ -799,12 +798,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 7
   },
   {
    "name": "ccxt/node-binance-api",
    "url": "https://github.com/ccxt/node-binance-api",
-   "stars": 1670,
+   "stars": 1672,
    "license": "MIT",
    "created": "2017-10-05",
    "topics": [
@@ -815,12 +814,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 2
   },
   {
    "name": "khscience/OSkhQuant",
    "url": "https://github.com/khscience/OSkhQuant",
-   "stars": 1606,
+   "stars": 1618,
    "license": "NOASSERTION",
    "created": "2025-01-08",
    "topics": [
@@ -831,12 +830,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 13
   },
   {
    "name": "alpacahq/alpaca-py",
    "url": "https://github.com/alpacahq/alpaca-py",
-   "stars": 1571,
+   "stars": 1574,
    "license": "Apache-2.0",
    "created": "2022-02-19",
    "topics": [
@@ -847,12 +846,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
   },
   {
    "name": "shner-elmo/TradingView-Screener",
    "url": "https://github.com/shner-elmo/TradingView-Screener",
-   "stars": 1337,
+   "stars": 1341,
    "license": "MIT",
    "created": "2022-05-30",
    "topics": [
@@ -863,12 +862,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 5
   },
   {
    "name": "gnzsnz/ib-gateway-docker",
    "url": "https://github.com/gnzsnz/ib-gateway-docker",
-   "stars": 1283,
+   "stars": 1289,
    "license": "MIT",
    "created": "2023-08-06",
    "topics": [
@@ -879,12 +878,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 7
   },
   {
    "name": "facioquo/stock-indicators-dotnet",
    "url": "https://github.com/facioquo/stock-indicators-dotnet",
-   "stars": 1249,
+   "stars": 1250,
    "license": "Apache-2.0",
    "created": "2019-12-29",
    "topics": [
@@ -896,12 +895,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 1
   },
   {
    "name": "mars-tw/anti-gambling-trader-tw",
    "url": "https://github.com/mars-tw/anti-gambling-trader-tw",
-   "stars": 1154,
+   "stars": 1157,
    "license": "MIT",
    "created": "2026-06-26",
    "topics": [
@@ -912,12 +911,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 10
   },
   {
    "name": "alpacahq/alpaca-mcp-server",
    "url": "https://github.com/alpacahq/alpaca-mcp-server",
-   "stars": 1049,
+   "stars": 1053,
    "license": "MIT",
    "created": "2025-06-03",
    "topics": [
@@ -928,12 +927,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 4
   },
   {
    "name": "AlexWan/OsEngine",
    "url": "https://github.com/AlexWan/OsEngine",
-   "stars": 1043,
+   "stars": 1047,
    "license": "NOASSERTION",
    "created": "2017-02-28",
    "topics": [
@@ -944,12 +943,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 4
   },
   {
    "name": "merovinh/best-of-algorithmic-trading",
    "url": "https://github.com/merovinh/best-of-algorithmic-trading",
-   "stars": 1020,
+   "stars": 1023,
    "license": "CC-BY-SA-4.0",
    "created": "2023-01-07",
    "topics": [
@@ -960,12 +959,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 3
   },
   {
    "name": "Superior-Trade/trading-terminal",
    "url": "https://github.com/Superior-Trade/trading-terminal",
-   "stars": 1003,
+   "stars": 1008,
    "license": "Apache-2.0",
    "created": "2026-08-21",
    "topics": [
@@ -976,6 +975,22 @@
    "status": "execution",
    "note": null,
    "new": false,
+   "star_gain": 5
+  },
+  {
+   "name": "FRBNY-DSGE/DSGE.jl",
+   "url": "https://github.com/FRBNY-DSGE/DSGE.jl",
+   "stars": 965,
+   "license": "BSD-3-Clause",
+   "created": "2015-11-25",
+   "topics": [
+    "總經資料"
+   ],
+   "zh": null,
+   "description_en": "Solve and estimate Dynamic Stochastic General Equilibrium models (including the New York Fed DSGE)",
+   "status": null,
+   "note": null,
+   "new": true,
    "star_gain": null
   },
   {
@@ -993,12 +1008,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 0
   },
   {
    "name": "Leo4815162342/dukascopy-node",
    "url": "https://github.com/Leo4815162342/dukascopy-node",
-   "stars": 943,
+   "stars": 945,
    "license": "MIT",
    "created": "2019-06-08",
    "topics": [
@@ -1009,7 +1024,7 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 4
   },
   {
    "name": "jianweiweng05/qsx-strategy-score",
@@ -1019,6 +1034,7 @@
    "created": "2026-06-24",
    "topics": [
     "回測",
+    "量化交易",
     "TradingView"
    ],
    "zh": "回測評分卡：檢查過度擬合、優勢是否只是運氣",
@@ -1026,12 +1042,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 0
   },
   {
    "name": "LuxAlgo/PineTS",
    "url": "https://github.com/LuxAlgo/PineTS",
-   "stars": 906,
+   "stars": 915,
    "license": "AGPL-3.0",
    "created": "2025-01-30",
    "topics": [
@@ -1044,12 +1060,12 @@
    "status": "adopted",
    "note": "重跑 S1 研究，逐筆與 TradingView 一致",
    "new": false,
-   "star_gain": null
+   "star_gain": 9
   },
   {
    "name": "rootSunc/CNEquity",
    "url": "https://github.com/rootSunc/CNEquity",
-   "stars": 889,
+   "stars": 910,
    "license": "Apache-2.0",
    "created": "2026-06-28",
    "topics": [
@@ -1060,12 +1076,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 27
   },
   {
    "name": "gbeced/basana",
    "url": "https://github.com/gbeced/basana",
-   "stars": 874,
+   "stars": 876,
    "license": "NOASSERTION",
    "created": "2023-03-04",
    "topics": [
@@ -1076,12 +1092,12 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 2
   },
   {
    "name": "wshobson/maverick-mcp",
    "url": "https://github.com/wshobson/maverick-mcp",
-   "stars": 712,
+   "stars": 716,
    "license": "MIT",
    "created": "2025-08-24",
    "topics": [
@@ -1092,7 +1108,7 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 5
   },
   {
    "name": "ArturSepp/QuantInvestStrats",
@@ -1108,12 +1124,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 1
   },
   {
    "name": "ryanfrigo/kalshi-ai-trading-bot",
    "url": "https://github.com/ryanfrigo/kalshi-ai-trading-bot",
-   "stars": 635,
+   "stars": 641,
    "license": "MIT",
    "created": "2025-07-26",
    "topics": [
@@ -1124,7 +1140,7 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 7
   },
   {
    "name": "jrmeier/fast-trade",
@@ -1140,28 +1156,12 @@
    "status": null,
    "note": null,
    "new": false,
-   "star_gain": null
-  },
-  {
-   "name": "cm45t3r/candlestick",
-   "url": "https://github.com/cm45t3r/candlestick",
-   "stars": 538,
-   "license": "MIT",
-   "created": "2016-10-22",
-   "topics": [
-    "回測"
-   ],
-   "zh": "K 線型態偵測",
-   "description_en": null,
-   "status": null,
-   "note": null,
-   "new": false,
-   "star_gain": null
+   "star_gain": 0
   },
   {
    "name": "YichengYang-Ethan/oracle3-prediction-market-agent",
    "url": "https://github.com/YichengYang-Ethan/oracle3-prediction-market-agent",
-   "stars": 535,
+   "stars": 559,
    "license": "Apache-2.0",
    "created": "2026-02-28",
    "topics": [
@@ -1172,7 +1172,23 @@
    "status": "execution",
    "note": null,
    "new": false,
-   "star_gain": null
+   "star_gain": 28
+  },
+  {
+   "name": "cm45t3r/candlestick",
+   "url": "https://github.com/cm45t3r/candlestick",
+   "stars": 539,
+   "license": "MIT",
+   "created": "2016-10-22",
+   "topics": [
+    "回測"
+   ],
+   "zh": "K 線型態偵測",
+   "description_en": null,
+   "status": null,
+   "note": null,
+   "new": false,
+   "star_gain": 1
   }
  ],
  "adopted": [
