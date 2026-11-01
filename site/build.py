@@ -26,6 +26,7 @@ import html
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -979,6 +980,20 @@ def weekly_reader_page(week: str, s: dict) -> str:
             '</details></section>'
         )
 
+    # Owner request 2026-11-01: the week's event dates and when to be flat, at the top of the page.
+    next_week = ""
+    if r.get("next_week"):
+        wd = "一二三四五六日"
+        nw_rows = [[
+            ("th", f'{esc(i["date"][5:].replace("-", "/"))}（{wd[date.fromisoformat(i["date"]).weekday()]}）', i["date"], False),
+            ("td", esc(i["time_zh"]), "", False),
+            ("td", esc(i["event_zh"]), "", False),
+            ("td", f'<strong>{esc(i["stay_out_zh"])}</strong>', "", False),
+        ] for i in r["next_week"]]
+        next_week = ('<section class="block-section next-week"><h2>重要事件日期（盡量不在場內）</h2>'
+                     + render_table([("日期", False), ("時間", False), ("事件", False), ("空手時段", False)], nw_rows)
+                     + '</section>\n')
+
     perf = ""
     if s.get("strategy_performance"):
         sp = s["strategy_performance"]
@@ -1101,7 +1116,7 @@ def weekly_reader_page(week: str, s: dict) -> str:
 <p class="weekly-action"><strong>本週建議</strong>　{esc(r['action_zh'])}</p>
 <p class="data-cutoff">資料截止：{esc(s['data_cutoff'])}</p>
 </div>
-<section class="block-section"><h2>關鍵價位</h2>
+{next_week}<section class="block-section"><h2>關鍵價位</h2>
 <figure class="chart-figure levels-figure"><img src="{attr(s['levels_chart']['file'])}" alt="{attr(s['forecast_week'])} 關鍵價位圖" loading="lazy">
 <figcaption>綠＝支撐　紅＝阻力　灰＝樞紐　黃虛線＝劇本觸發價 <a class="chart-full" href="{attr(s['levels_chart']['file'])}">開啟原圖 ↗</a></figcaption></figure>
 {levels}</section>
@@ -1634,6 +1649,7 @@ STYLE_CSS = """
 .role-resistance{background:rgba(235,87,87,.16);color:var(--bad);}
 .role-pivot{background:rgba(154,163,178,.16);color:var(--muted);}
 .watch-list{padding-left:1.2em;max-width:78ch;} .watch-list li{margin:.35em 0;}
+.next-week{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:12px;padding:6px 16px 12px;}
 .perf-chart svg{width:100%;max-width:960px;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
 .perf-chart figcaption{color:var(--muted);font-size:.85rem;margin-top:6px;}
 .weekly-details{margin:2em 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
