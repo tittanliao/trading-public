@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T11:56:44+08:00",
+  "generated_at": "2026-11-02T17:28:07+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 71,
+    "studies": 76,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2486,6 +2486,71 @@
       "reason": "None. Research only; no rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-28"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261101-001",
+      "study_id": "RS-XAUUSD-20261101-001",
+      "kind": "study",
+      "family": "none — new short-timeframe patterns (not S1/S2)",
+      "origin": "programme",
+      "claim": "XAUUSD intraday pattern sweep: 8 left/right-side patterns x long/short on 15m, 5m, 30m",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261101-002",
+      "study_id": "RS-XAUUSD-20261101-002",
+      "kind": "study",
+      "family": "new short-timeframe entry rules keyed off S1 V3.9 / S2 V3.2 signals (no change to S1/S2)",
+      "origin": "programme",
+      "claim": "XAUUSD short-timeframe entries after 30m S1/S2 signals: 4 left/right triggers on 15m, 5m, 30m",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261101-003",
+      "study_id": "RS-XAUUSD-20261101-003",
+      "kind": "study",
+      "family": "none — new short-timeframe patterns (not S1/S2)",
+      "origin": "programme",
+      "claim": "XAUUSD after NFP / CPI / FOMC: fade or follow the first post-release bar (30m, 15m, 5m)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261101-004",
+      "study_id": "RS-XAUUSD-20261101-004",
+      "kind": "study",
+      "family": "none — new short-timeframe patterns (not S1/S2)",
+      "origin": "programme",
+      "claim": "XAUUSD intraday rules by regime: 16 left/right-side rules x 8 pre-registered regime states on 15m",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-01"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261102-001",
+      "study_id": "RS-XAUUSD-20261102-001",
+      "kind": "study",
+      "family": "none — gold around US nonfarm payrolls releases",
+      "origin": "programme",
+      "claim": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-11-02"
     }
   ],
   "generated_by": "trading-private research pipeline"

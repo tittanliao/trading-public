@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261102-001",
+  "revision": 1,
+  "title": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
+  "market": "XAUUSD",
+  "strategy": "none — gold around US nonfarm payrolls releases",
+  "status": "confirmed",
+  "created_on": "2026-11-02",
+  "question": "What does gold do around a US nonfarm payrolls release, against ordinary days?",
+  "hypothesis": "Common sayings: gold moves sharply on NFP, tends to dump then pump, and is quiet the day before.",
+  "headline": {
+    "nfp_days_n": 221,
+    "abs_ret_nfp_pct": 0.897,
+    "abs_ret_other_pct": 0.767,
+    "abs_ret_bound_pts": 0.1128,
+    "ge2_nfp_pct": 12.2,
+    "ge2_other_pct": 6.3,
+    "up_nfp_pct": 55.7,
+    "up_other_pct": 52.4,
+    "drift5_nfp_pct": 0.403,
+    "drift5_other_pct": 0.171,
+    "intraday_n": 32,
+    "first30_range_multiple": 2.89,
+    "first30_points_median_nfp": 26.83,
+    "first30_points_median_friday": 10.74,
+    "reverse_after_first30_nfp_pct": 53.1,
+    "reverse_after_first30_friday_pct": 50.0,
+    "supported_direction": false
+  },
+  "card_metrics": [
+    "ge2_nfp_pct",
+    "ge2_other_pct",
+    "first30_range_multiple",
+    "reverse_after_first30_nfp_pct"
+  ],
+  "findings": [
+    {
+      "title": "NFP days move more",
+      "tone": "info",
+      "detail": "On 221 release days since 2008 gold moved 0.897% on average (absolute) against 0.767% on other days (bound 0.1128 pts). Moves of 2% or more: 12.2% against 6.3%.",
+      "title_zh": "非農日波動比較大",
+      "detail_zh": "2008 年以來 221 次非農，公布當天平均漲跌幅（取絕對值）0.897%，平常日 0.767%（樣本要差 0.1128 個百分點才分得出來，實際差 0.13）。單日漲跌 2% 以上：非農日 12.2%（n=221），平常日 6.3%，約兩倍。"
+    },
+    {
+      "title": "No direction",
+      "tone": "warn",
+      "detail": "Up on 55.7% of release days against 52.4% of other days (difference 3.3 pts, bound 6.7). The 5-day drift after release is not distinguishable either.",
+      "title_zh": "方向沒有優勢",
+      "detail_zh": "非農日收漲 55.7%（n=221），平常日 52.4%，差 3.3 個百分點，在雜訊內（要差 6.7 才分得出來）。公布後 5 天平均 0.403%，平常 0.171%，也分不出來。"
+    },
+    {
+      "title": "First 30 minutes about 2.9x a normal Friday",
+      "tone": "info",
+      "detail": "On 32 releases since 2024 the first 30m bar spanned a median 26.83 points against 10.74 at the same New York time on other Fridays.",
+      "title_zh": "公布後 30 分鐘，振幅約平常的 2.9 倍",
+      "detail_zh": "2024 年以來 32 次非農，公布後第一根 30 分鐘 K 棒的高低差中位數 26.83 點；其他週五同一時間只有 10.74 點。公布後 1 小時平均漲跌（絕對值）0.492%，平常 0.235%。"
+    },
+    {
+      "title": "After the first 30 minutes, a coin flip",
+      "tone": "warn",
+      "detail": "Post-hoc: from the first bar's close to 4 hours, price went against the first bar in 53.1% of releases against 50.0% on other Fridays (bound 19.5 pts). 'Dump then pump' is not the norm, and neither is continuation.",
+      "title_zh": "30 分鐘之後：反轉或延續，一半一半",
+      "detail_zh": "（看完結果後加的檢查）從第一根 K 棒收盤到 4 小時後，走勢和第一根相反的比例 53.1%（n=32），其他週五 50.0%；差 3.1 個百分點，要差 19.5 才分得出來。「先殺後拉」不是常態，「第一根方向會延續」也不是。"
+    },
+    {
+      "title": "The day before is ordinary",
+      "tone": "info",
+      "detail": "Mean absolute move the day before release 0.765% against 0.767% on other days.",
+      "title_zh": "非農前一天沒有比較安靜",
+      "detail_zh": "公布前一天平均漲跌（絕對值）0.765%，平常 0.767%，幾乎一樣。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "event",
+  "card_summary": "221 NFP days since 2008: bigger moves (2%+ on 12.2% vs 6.3%), no direction edge; first 30m range 2.89x a normal Friday (n=32); afterwards reversal 53.1% vs 50.0%.",
+  "title_zh": "非農公布日：黃金波動大、沒有方向；前 30 分鐘振幅約平常 2.9 倍，之後反轉或延續一半一半",
+  "question_zh": "美國非農就業報告公布前後，黃金和平常日比起來有什麼不同？",
+  "hypothesis_zh": "常見說法：非農當天黃金大波動、常常先殺後拉、公布前一天比較安靜。",
+  "card_summary_zh": "2008 年以來 221 次非農：單日漲跌 2% 以上 12.2%，平常日 6.3%；漲跌方向沒有優勢。公布後 30 分鐘振幅約平常週五的 2.89 倍（n=32），之後反轉比例 53.1%，和平常一樣。",
+  "limitations_zh": [
+    "沒有預期值與實際值的資料，所以沒有測「數字好或壞」時的差別。",
+    "日線用 repo 的 XAUUSD_1d，不是 TradingView，價位略有差異。",
+    "30 分鐘資料只有 2024 年以後 32 次，比例的誤差範圍很寬。",
+    "「30 分鐘後反轉一半一半」是看完結果後加的檢查（研究紀錄中已註明）。",
+    "只是描述，不構成交易規則。"
+  ],
+  "interpretation_zh": "非農會放大波動，但不給方向：當天單日漲跌 2% 以上的機率約是平常的兩倍，漲跌各半。公布後第一個 30 分鐘最劇烈，之後往哪走和平常的週五沒有差別。這份研究描述的是波動，不是方向，不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "ge2_nfp_pct",
+        "ge2_other_pct",
+        "first30_range_multiple",
+        "reverse_after_first30_nfp_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T11:57:11+08:00",
+  "generated_at": "2026-11-02T17:28:07+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2098,6 +2098,28 @@
           "says_zh": "4 種條件都在門檻內；1980 加碼版 52 週 −5.86 口對 −4.72 口"
         }
       ]
+    },
+    {
+      "id": "K-MKT-008",
+      "topic": "market",
+      "kind": "reference",
+      "strength": "moderate",
+      "statement_zh": "非農公布日黃金波動放大、方向沒有優勢；公布後 30 分鐘振幅約平常 2.9 倍，之後反轉或延續一半一半",
+      "detail_zh": "2008 年以來 221 次非農，單日漲跌 2% 以上 12.2%（平常 6.3%），收漲 55.7%（平常 52.4%）。2024 年以來 32 次，第一根 30 分鐘高低差中位數 26.83 點（平常週五 10.74 點）；之後 4 小時和第一根反向 53.1%（平常 50.0%）。",
+      "how_to_use_zh": "非農前後降低部位或放寬停損，不要押方向；「先殺後拉」不是常態。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-02",
+      "reviewed_on": "2026-11-02",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261102-001",
+          "says_zh": "≥2% 日 12.2% 對 6.3%；30 分鐘振幅 2.89 倍；之後反轉 53.1% 對 50.0%"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -2187,7 +2209,7 @@
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-10-27"
+      "last_date": "2026-10-29"
     },
     {
       "id": "xau_30m_long",
@@ -2210,7 +2232,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-10-23"
+      "last_date": "2026-10-30"
     },
     {
       "id": "weekly_manual_set",
@@ -2220,7 +2242,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-10-24"
+      "last_date": "2026-11-01"
     },
     {
       "id": "cftc_transcription",
@@ -2230,7 +2252,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-10-20"
+      "last_date": "2026-10-27"
     },
     {
       "id": "cftc_archive",
@@ -3455,11 +3477,88 @@
       "summary_zh": "完整重跑後，等確認再進場沒有一種比直接進場好；等 3 根的大虧是舊匯出漏單造成的。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261028-001/",
       "claims": [
         "K-BOTH-002"
       ]
+    },
+    {
+      "id": "RS-XAUUSD-20261101-001",
+      "market": "XAUUSD",
+      "status": "progress",
+      "revision": 1,
+      "theme": "methodology",
+      "title": "XAUUSD intraday pattern sweep: 8 left/right-side patterns x long/short on 15m, 5m, 30m",
+      "title_zh": null,
+      "summary_zh": null,
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": []
+    },
+    {
+      "id": "RS-XAUUSD-20261101-002",
+      "market": "XAUUSD",
+      "status": "progress",
+      "revision": 1,
+      "theme": "methodology",
+      "title": "XAUUSD short-timeframe entries after 30m S1/S2 signals: 4 left/right triggers on 15m, 5m, 30m",
+      "title_zh": null,
+      "summary_zh": null,
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": []
+    },
+    {
+      "id": "RS-XAUUSD-20261101-003",
+      "market": "XAUUSD",
+      "status": "progress",
+      "revision": 1,
+      "theme": "methodology",
+      "title": "XAUUSD after NFP / CPI / FOMC: fade or follow the first post-release bar (30m, 15m, 5m)",
+      "title_zh": null,
+      "summary_zh": null,
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": []
+    },
+    {
+      "id": "RS-XAUUSD-20261101-004",
+      "market": "XAUUSD",
+      "status": "progress",
+      "revision": 1,
+      "theme": "methodology",
+      "title": "XAUUSD intraday rules by regime: 16 left/right-side rules x 8 pre-registered regime states on 15m",
+      "title_zh": null,
+      "summary_zh": null,
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": []
+    },
+    {
+      "id": "RS-XAUUSD-20261102-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "event",
+      "title": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
+      "title_zh": "非農公布日：黃金波動大、沒有方向；前 30 分鐘振幅約平常 2.9 倍，之後反轉或延續一半一半",
+      "summary_zh": "2008 年以來 221 次非農：單日漲跌 2% 以上 12.2%，平常日 6.3%；漲跌方向沒有優勢。公布後 30 分鐘振幅約平常週五的 2.89 倍（n=32），之後反轉比例 53.1%，和平常一樣。",
+      "superseded_by": null,
+      "visibility": "private",
+      "url": null,
+      "claims": [
+        "K-MKT-008"
+      ]
     }
   ],
-  "unmapped": []
+  "unmapped": [
+    "RS-XAUUSD-20261101-001",
+    "RS-XAUUSD-20261101-002",
+    "RS-XAUUSD-20261101-003",
+    "RS-XAUUSD-20261101-004"
+  ]
 }
