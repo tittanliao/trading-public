@@ -2,17 +2,17 @@
   "daily": {
     "n_event": 222,
     "n_base": 4400,
-    "n_fri": 2721,
+    "n_midweek": 2721,
     "abs_ret_mean": {
       "event": 0.813,
       "base": 0.765,
-      "fri": 0.77,
+      "midweek": 0.77,
       "vs_base": {
         "diff": 0.0483,
         "bound_95": 0.1004,
         "resolved": false
       },
-      "vs_fri": {
+      "vs_midweek": {
         "diff": 0.0432,
         "bound_95": 0.1019,
         "resolved": false
@@ -152,17 +152,17 @@
       "2008–2015": {
         "n_event": 93,
         "n_base": 1839,
-        "n_fri": 1144,
+        "n_midweek": 1144,
         "abs_ret_mean": {
           "event": 0.908,
           "base": 0.845,
-          "fri": 0.856,
+          "midweek": 0.856,
           "vs_base": {
             "diff": 0.0631,
             "bound_95": 0.1732,
             "resolved": false
           },
-          "vs_fri": {
+          "vs_midweek": {
             "diff": 0.0526,
             "bound_95": 0.1758,
             "resolved": false
@@ -264,17 +264,17 @@
       "2016–2023": {
         "n_event": 96,
         "n_base": 1891,
-        "n_fri": 1169,
+        "n_midweek": 1169,
         "abs_ret_mean": {
           "event": 0.688,
           "base": 0.615,
-          "fri": 0.626,
+          "midweek": 0.626,
           "vs_base": {
             "diff": 0.0729,
             "bound_95": 0.1139,
             "resolved": false
           },
-          "vs_fri": {
+          "vs_midweek": {
             "diff": 0.062,
             "bound_95": 0.1157,
             "resolved": false
@@ -376,17 +376,17 @@
       "2024–2026": {
         "n_event": 33,
         "n_base": 670,
-        "n_fri": 408,
+        "n_midweek": 408,
         "abs_ret_mean": {
           "event": 0.908,
           "base": 0.966,
-          "fri": 0.941,
+          "midweek": 0.941,
           "vs_base": {
             "diff": -0.0581,
             "bound_95": 0.3203,
             "resolved": false
           },
-          "vs_fri": {
+          "vs_midweek": {
             "diff": -0.0332,
             "bound_95": 0.3238,
             "resolved": false
@@ -1878,7 +1878,7 @@
   },
   "intraday": {
     "n_event": 33,
-    "n_base_fridays": 666,
+    "n_base_weekdays": 666,
     "skipped_release_dates": [],
     "coverage": {
       "first": "2024-01-02 07:00:00+08:00",
@@ -2427,7 +2427,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261102-002",
-  "generated_at": "2026-11-02T22:29:30+08:00",
+  "generated_at": "2026-11-02T23:49:14+08:00",
   "method": {
     "release_time": "08:30 America/New_York, converted with zoneinfo",
     "daily": "XAUUSD_1d close-to-close; release day D vs non-release days (NFP days excluded) and non-release Tue-Thu; drift close(D+5)/close(D); bound = 1.96 x pooled SE",

@@ -269,6 +269,19 @@ def intraday_layer(dates: list[pd.Timestamp]) -> dict:
     return out
 
 
+RENAMES = {"n_base_fridays": "n_base_weekdays", "n_fri": "n_midweek", "fri": "midweek", "vs_fri": "vs_midweek"}
+
+
+def rename_keys(o):
+    """This runner was derived from the NFP one; its Friday baseline is Tue-Thu here and the intraday
+    baseline is every non-release weekday. Publish honest key names (review 2026-11-02)."""
+    if isinstance(o, dict):
+        return {RENAMES.get(k, k): rename_keys(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [rename_keys(v) for v in o]
+    return o
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry", action="store_true")
@@ -301,6 +314,7 @@ def main() -> None:
                           "intraday": {k: v for k, v in intra.items() if k != "events"}},
                          ensure_ascii=False, indent=1, default=str))
         return
+    payload = rename_keys(payload)
     Path("reproduced").mkdir(exist_ok=True); (Path("reproduced") / "results.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
     def loc(path: Path) -> str:
         try:
