@@ -1943,7 +1943,7 @@
         "resolved": true
       }
     },
-    "posthoc_reverse_after_first_bar": {
+    "reverse_after_first_bar": {
       "note": "pre-registered secondary (carried over from the NFP study): sign of close(bar 8) / close(bar 1) against the first-bar sign, so the first bar no longer counts toward its own continuation",
       "event": {
         "k": 14,
@@ -2427,7 +2427,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261102-002",
-  "generated_at": "2026-11-02T23:49:14+08:00",
+  "generated_at": "2026-11-02T23:58:30+08:00",
   "method": {
     "release_time": "08:30 America/New_York, converted with zoneinfo",
     "daily": "XAUUSD_1d close-to-close; release day D vs non-release days (NFP days excluded) and non-release Tue-Thu; drift close(D+5)/close(D); bound = 1.96 x pooled SE",

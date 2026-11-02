@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T22:30:22+08:00",
+  "generated_at": "2026-11-03T00:01:07+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2104,9 +2104,9 @@
       "topic": "market",
       "kind": "reference",
       "strength": "moderate",
-      "statement_zh": "非農公布日黃金波動放大、方向沒有優勢；公布後 30 分鐘振幅約平常 2.9 倍，之後反轉或延續一半一半",
-      "detail_zh": "2008 年以來 221 次非農，單日漲跌 2% 以上 12.2%（平常 6.3%），收漲 55.7%（平常 52.4%）。2024 年以來 32 次，第一根 30 分鐘高低差中位數 26.83 點（平常週五 10.74 點）；之後 4 小時和第一根反向 53.1%（平常 50.0%）。",
-      "how_to_use_zh": "非農前後降低部位或放寬停損，不要押方向；「先殺後拉」不是常態。",
+      "statement_zh": "非農公布日黃金單日大波動較多、方向分不出來；公布後 30 分鐘高低差約平常週五 2.5 倍",
+      "detail_zh": "2008 年以來 221 次非農，單日漲跌 2% 以上 12.2%（平常 6.3%，界線 4.4），收漲 55.7%（平常 52.4%，界線 6.7）。2024 年以來 32 次，第一根 30 分鐘高低差中位數 26.83 點（平常週五 10.74 點）；第一根之後和第一根反向 53.1%（平常 50.0%，界線 19.5，事後補算，分不出差別）。",
+      "how_to_use_zh": "非農前後預期波動放大，不要押方向；「先殺後拉」沒有證據。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
@@ -2117,7 +2117,7 @@
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261102-001",
-          "says_zh": "≥2% 日 12.2% 對 6.3%；30 分鐘振幅 2.89 倍；之後反轉 53.1% 對 50.0%"
+          "says_zh": "≥2% 日 12.2% 對 6.3%；30 分鐘高低差 26.83 對 10.74 點（約 2.5 倍）；之後反轉 53.1% 對 50.0%（事後）"
         }
       ]
     },
@@ -2126,9 +2126,9 @@
       "topic": "market",
       "kind": "reference",
       "strength": "moderate",
-      "statement_zh": "CPI 公布後黃金前一小時波動約平常 2.5 倍，但收盤時跟平常日一樣，方向沒有優勢",
-      "detail_zh": "2024 年以來 33 次 CPI，第一根 30 分鐘 K 棒高低差中位數 22.0 點（平常 10.11）；2008 年以來 222 次，單日漲跌 2% 以上 6.3%（平常 6.3%），收漲 55.4%（平常 52.2%）。",
-      "how_to_use_zh": "CPI 的風險集中在公布後一小時；不要押方向。和非農不同，非農當天收盤的大波動是平常兩倍。",
+      "statement_zh": "CPI 公布後黃金第一小時波動約平常 2.2 倍；收盤時大波動比例和平常分不出差別，方向也分不出來",
+      "detail_zh": "2024 年以來 33 次 CPI，第一根 30 分鐘高低差中位數 22.0 點（平常 10.11），1 小時漲跌 0.518% 對 0.233%；2008 年以來 222 次，單日漲跌 2% 以上 6.3%（平常 6.3%，界線 3.3），但當天高低振幅較大（1.678% 對 1.543%）；收漲 55.4%（平常 52.2%）。",
+      "how_to_use_zh": "CPI 的風險集中在公布後幾小時；不要押方向。",
       "policy_ref": null,
       "prereg_ref": null,
       "backlog_ref": null,
@@ -2139,7 +2139,7 @@
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261102-002",
-          "says_zh": "30 分鐘振幅 2.51 倍；≥2% 日 6.3% 對 6.3%"
+          "says_zh": "30 分鐘高低差 22.0 對 10.11 點；1 小時約 2.2 倍；≥2% 日 6.3% 對 6.3%（分不出差別）"
         }
       ]
     }
@@ -3564,11 +3564,11 @@
       "id": "RS-XAUUSD-20261102-001",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 1,
+      "revision": 2,
       "theme": "event",
-      "title": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
-      "title_zh": "非農公布日：黃金波動大、沒有方向；前 30 分鐘振幅約平常 2.9 倍，之後反轉或延續一半一半",
-      "summary_zh": "2008 年以來 221 次非農：單日漲跌 2% 以上 12.2%，平常日 6.3%；漲跌方向沒有優勢。公布後 30 分鐘振幅約平常週五的 2.89 倍（n=32），之後反轉比例 53.1%，和平常一樣。",
+      "title": "Gold on NFP days since 2008: more 2%+ days (12.2% vs 6.3%) and no detectable direction; the first 30m range is about 2.5x a normal Friday in points",
+      "title_zh": "非農公布日：黃金單日大波動較多、方向分不出來；公布後 30 分鐘高低差約平常週五的 2.5 倍",
+      "summary_zh": "2008 年以來 221 次非農：單日漲跌 2% 以上 12.2%，平常日 6.3%（差 5.9，界線 4.4）；方向分不出來（收漲 55.7% 對 52.4%，界線 6.7）。2024 年以來 32 次，公布後第一根 30 分鐘高低差中位數 26.83 點，平常週五 10.74 點。",
       "superseded_by": null,
       "visibility": "public",
       "url": "research/studies/RS-XAUUSD-20261102-001/",
@@ -3580,14 +3580,14 @@
       "id": "RS-XAUUSD-20261102-002",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 1,
+      "revision": 2,
       "theme": "event",
-      "title": "Gold on CPI days: the first hour is 2.51x a normal weekday, but by the close a CPI day is ordinary (2%+ days 6.3% vs 6.3%) and has no direction",
-      "title_zh": "CPI 公布日：前一小時波動約平常 2.5 倍，收盤卻跟平常日一樣，也沒有方向",
-      "summary_zh": "2008 年以來 222 次 CPI：公布後 30 分鐘振幅約平常 2.51 倍，但收盤時單日漲跌 2% 以上的比例 6.3%，和平常日 6.3% 一樣；方向沒有優勢。",
+      "title": "Gold on CPI days: the first 30m range is large (22.0 vs 10.11 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
+      "title_zh": "CPI 公布日：前 30 分鐘高低差約平常 2.2 倍、1 小時漲跌約 2.2 倍；收盤時大波動比例和平常分不出差別，方向也分不出來",
+      "summary_zh": "2008 年以來 222 次 CPI：2024 年以來 33 次，公布後第一根 30 分鐘高低差中位數 22.0 點，平常 10.11 點；1 小時漲跌 0.518% 對 0.233%。收盤時單日漲跌 2% 以上的比例 6.3% 對 6.3%，分不出差別（界線 3.3），但當天高低振幅較大（1.678% 對 1.543%）。",
       "superseded_by": null,
       "visibility": "public",
-      "url": null,
+      "url": "research/studies/RS-XAUUSD-20261102-002/",
       "claims": [
         "K-MKT-009"
       ]

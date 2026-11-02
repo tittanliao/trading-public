@@ -269,7 +269,8 @@ def intraday_layer(dates: list[pd.Timestamp]) -> dict:
     return out
 
 
-RENAMES = {"n_base_fridays": "n_base_weekdays", "n_fri": "n_midweek", "fri": "midweek", "vs_fri": "vs_midweek"}
+RENAMES = {"n_base_fridays": "n_base_weekdays", "n_fri": "n_midweek", "fri": "midweek", "vs_fri": "vs_midweek",
+           "posthoc_reverse_after_first_bar": "reverse_after_first_bar"}  # pre-registered here (G0 review 2026-11-02)
 
 
 def rename_keys(o):

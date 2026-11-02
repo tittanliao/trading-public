@@ -2412,7 +2412,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261102-001",
-  "generated_at": "2026-11-02T17:28:07+08:00",
+  "generated_at": "2026-11-03T00:00:20+08:00",
   "method": {
     "release_time": "08:30 America/New_York, converted with zoneinfo",
     "daily": "XAUUSD_1d close-to-close; release day D vs non-release days and non-release Fridays; drift close(D+5)/close(D); bound = 1.96 x pooled SE",

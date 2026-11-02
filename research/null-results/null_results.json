@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T22:30:22+08:00",
+  "generated_at": "2026-11-03T00:01:06+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -2545,7 +2545,7 @@
       "kind": "study",
       "family": "none — gold around US nonfarm payrolls releases",
       "origin": "programme",
-      "claim": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
+      "claim": "Gold on NFP days since 2008: more 2%+ days (12.2% vs 6.3%) and no detectable direction; the first 30m range is about 2.5x a normal Friday in points",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": null,
@@ -2558,7 +2558,7 @@
       "kind": "study",
       "family": "none — gold around US CPI releases",
       "origin": "programme",
-      "claim": "Gold on CPI days: the first hour is 2.51x a normal weekday, but by the close a CPI day is ordinary (2%+ days 6.3% vs 6.3%) and has no direction",
+      "claim": "Gold on CPI days: the first 30m range is large (22.0 vs 10.11 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": null,

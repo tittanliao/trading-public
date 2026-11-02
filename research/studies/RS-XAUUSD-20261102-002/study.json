@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261102-002",
-  "revision": 1,
-  "title": "Gold on CPI days: the first hour is 2.51x a normal weekday, but by the close a CPI day is ordinary (2%+ days 6.3% vs 6.3%) and has no direction",
+  "revision": 2,
+  "title": "Gold on CPI days: the first 30m range is large (22.0 vs 10.11 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
   "market": "XAUUSD",
   "strategy": "none — gold around US CPI releases",
   "status": "confirmed",
@@ -19,17 +19,19 @@
     "up_cpi_pct": 55.4,
     "up_other_pct": 52.2,
     "intraday_n": 33,
-    "first30_range_multiple": 2.51,
     "first30_points_median_cpi": 22.0,
     "first30_points_median_other": 10.11,
     "abs_r1h_cpi_pct": 0.518,
     "abs_r1h_other_pct": 0.233,
     "reverse_after_first30_cpi_pct": 42.4,
     "reverse_after_first30_other_pct": 52.9,
-    "supported_direction": false
+    "supported_direction": false,
+    "first30_points_multiple": 2.18,
+    "first30_range_pct_median_multiple": 2.51,
+    "abs_r1h_multiple": 2.22
   },
   "card_metrics": [
-    "first30_range_multiple",
+    "first30_points_median_cpi",
     "abs_r1h_cpi_pct",
     "ge2_cpi_pct",
     "ge2_other_pct"
@@ -38,23 +40,23 @@
     {
       "title": "The first hour is large",
       "tone": "info",
-      "detail": "On 33 CPI releases since 2024 the first 30m bar spanned a median 22.0 points against 10.11 at 08:30 ET on other weekdays (2.51x); the 1-hour absolute move was 0.518% against 0.233%.",
+      "detail": "On 33 CPI releases since 2024 the first 30m bar spanned a median 22.0 points against 10.11 at 08:30 ET on other weekdays (2.18x in points; 2.51x for the median range in % of price); the 1-hour absolute move was 0.518% against 0.233% (2.22x; diff 0.285, bound 0.1552). The 4-hour range was 1.411% against 1.033% (bound 0.1598).",
       "title_zh": "公布後一小時波動很大",
-      "detail_zh": "2024 年以來 33 次 CPI，公布後第一根 30 分鐘 K 棒高低差中位數 22.0 點，其他平日同一時間 10.11 點（約 2.51 倍）；1 小時平均漲跌（絕對值）0.518%，平常 0.233%（差 0.29，要差 0.16 才分得出來）。"
+      "detail_zh": "2024 年以來 33 次 CPI，公布後第一根 30 分鐘 K 棒高低差中位數 22.0 點，其他平日同一時間 10.11 點（以點數算約 2.2 倍；以佔價格百分比的中位數算 2.51 倍）；1 小時平均漲跌（絕對值）0.518%，平常 0.233%（約 2.2 倍；差 0.29，界線 0.16）。4 小時振幅 1.411% 對 1.033%（界線 0.16），也分得出來。"
     },
     {
-      "title": "By the close, an ordinary day",
+      "title": "By the close: 2%+ share not distinguishable, range still larger",
       "tone": "warn",
-      "detail": "On 222 CPI days since 2008 gold moved 0.813% (absolute, close to close) against 0.765% on other days (bound 0.1004); 2%+ days 6.3% against 6.3%.",
-      "title_zh": "收盤時，跟平常日差不多",
-      "detail_zh": "2008 年以來 222 次 CPI，當天收盤漲跌（絕對值）平均 0.813%，平常日 0.765%（差 0.05，要差 0.10 才分得出來）；單日漲跌 2% 以上：CPI 日 6.3%（n=222），平常日 6.3%，一樣。和非農日（12.2% 對 6.3%）不同。"
+      "detail": "On 222 CPI days since 2008 gold moved 0.813% (absolute, close to close) against 0.765% on other days (diff 0.048, bound 0.1004, not resolved); 2%+ days 6.3% (n=222) against 6.3% (bound 3.3 pts, not resolved). The daily high-low range is larger: 1.678% against 1.543% (diff 0.135, bound 0.1335, resolved).",
+      "title_zh": "收盤時：大波動比例分不出差別，但當天振幅較大",
+      "detail_zh": "2008 年以來 222 次 CPI，當天收盤漲跌（絕對值）平均 0.813%，平常日 0.765%（差 0.05，界線 0.10，分不出來）；單日漲跌 2% 以上：CPI 日 6.3%（n=222），平常日 6.3%，界線 3.3 個百分點，分不出差別。當天高低振幅 1.678% 對 1.543%（差 0.135，界線 0.1335），分得出來。"
     },
     {
-      "title": "No direction",
+      "title": "No detectable direction",
       "tone": "warn",
-      "detail": "Up on 55.4% of CPI days against 52.2% (difference 3.2 pts, bound 6.7).",
-      "title_zh": "方向沒有優勢",
-      "detail_zh": "CPI 日收漲 55.4%，平常日 52.2%，差 3.2 個百分點，在雜訊內（要差 6.7 才分得出來）。"
+      "detail": "Up on 55.4% of CPI days (n=222) against 52.2% (difference 3.2 pts, bound 6.7).",
+      "title_zh": "方向分不出來",
+      "detail_zh": "CPI 日收漲 55.4%（n=222），平常日 52.2%，差 3.2 個百分點，要差 6.7 才分得出來。"
     },
     {
       "title": "After the first 30 minutes, no edge",
@@ -64,28 +66,31 @@
       "detail_zh": "從第一根 K 棒收盤到 4 小時後，走勢和第一根相反的比例 42.4%（n=33），其他平日 52.9%；差 -10.4 個百分點，要差 17.3 才分得出來。"
     },
     {
-      "title": "The day before is ordinary",
+      "title": "The day before: no detectable difference",
       "tone": "info",
-      "detail": "Mean absolute move the day before 0.737% against 0.765%.",
-      "title_zh": "CPI 前一天沒有比較安靜",
-      "detail_zh": "公布前一天平均漲跌（絕對值）0.737%，平常 0.765%。"
+      "detail": "Mean absolute move the day before 0.737% (n=222) against other days' same-day 0.765% (diff -0.028, bound 0.1222).",
+      "title_zh": "CPI 前一天：和平常分不出差別",
+      "detail_zh": "公布前一天平均漲跌（絕對值）0.737%（n=222），平常日當天 0.765%；差 -0.028，界線 0.1222。"
     }
   ],
   "policy_impacts": [],
   "theme": "event",
-  "card_summary": "222 CPI days since 2008: first 30m range 2.51x (n=33), but daily 2%+ moves 6.3% vs 6.3%; no direction edge.",
-  "title_zh": "CPI 公布日：前一小時波動約平常 2.5 倍，收盤卻跟平常日一樣，也沒有方向",
+  "card_summary": "222 CPI days since 2008: first 30m high-low median 22.0 vs 10.11 points (n=33); 1-hour move 0.518% vs 0.233%; daily 2%+ share 6.3% vs 6.3% not distinguishable (bound 3.3), though the daily high-low range is larger (1.678% vs 1.543%, bound 0.1335).",
+  "title_zh": "CPI 公布日：前 30 分鐘高低差約平常 2.2 倍、1 小時漲跌約 2.2 倍；收盤時大波動比例和平常分不出差別，方向也分不出來",
   "question_zh": "美國 CPI 公布前後，黃金和平常日比起來有什麼不同？",
   "hypothesis_zh": "常見說法：CPI 當天黃金大波動、方向跟著數字走、公布前一天比較安靜。",
-  "card_summary_zh": "2008 年以來 222 次 CPI：公布後 30 分鐘振幅約平常 2.51 倍，但收盤時單日漲跌 2% 以上的比例 6.3%，和平常日 6.3% 一樣；方向沒有優勢。",
+  "card_summary_zh": "2008 年以來 222 次 CPI：2024 年以來 33 次，公布後第一根 30 分鐘高低差中位數 22.0 點，平常 10.11 點；1 小時漲跌 0.518% 對 0.233%。收盤時單日漲跌 2% 以上的比例 6.3% 對 6.3%，分不出差別（界線 3.3），但當天高低振幅較大（1.678% 對 1.543%）。",
   "limitations_zh": [
     "沒有預期值與實際值，沒有測「數字高於或低於預期」的差別。",
     "日線用 repo 的 XAUUSD_1d，不是 TradingView。",
     "30 分鐘資料只有 2024 年以後 33 次。",
     "30 分鐘線的對照組包含其他 08:30 公布的數據（例如初領失業金）；非農日已排除。",
-    "只是描述，不構成交易規則。"
+    "只是描述，不構成交易規則。",
+    "預先登記假設 CPI 在週二到週四公布；實際 222 次中有 46 次在週五。週二到週四對照組（只做了平均漲跌幅）在 results.json 的 vs_midweek。",
+    "2025 年 11 月 CPI 因政府停擺取消；延後發布的 2025-10-24、2026-02-13 留在樣本中。",
+    "第 2 版（2026-11-02）：結果欄位改名，數字未變；審查後修正文字。"
   ],
-  "interpretation_zh": "CPI 的波動集中在公布後的前一小時，到收盤時大多被消化，單日大漲大跌的機率和平常日一樣；方向沒有優勢。和非農不同：非農當天收盤的極端波動是平常的兩倍。這份研究描述的是波動，不構成交易建議。",
+  "interpretation_zh": "CPI 公布後的第一個小時波動明顯放大，4 小時振幅與當天高低振幅也較大；但收盤對收盤的大漲大跌比例，和平常日分不出差別；方向也分不出來。這份研究描述的是波動，不構成交易建議。（和非農研究的比較是事後加的，兩份研究的對照組定義不同。）",
   "presentation": [
     {
       "type": "metrics",
