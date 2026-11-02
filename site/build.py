@@ -752,6 +752,55 @@ def render_block(block: dict, study: dict, results: dict) -> str:
 # ---------------------------------------------------------------------------
 
 SITE_NAME = "Trading Research"
+SITE_URL = "https://tittanliao.github.io/trading-public/"
+# Google Search Console ownership token (public by design; 2026-11-02).
+GOOGLE_SITE_VERIFICATION = "R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo"
+
+
+def youtube_data() -> dict:
+    """Public videos of the YouTube channel, exported by trading-youtube/pipeline/export_site_videos.py."""
+    path = ROOT / "youtube/videos.json"
+    return load_json(path) if path.is_file() else {"videos": []}
+
+
+def video_block(key: str, value: str) -> str:
+    """Embed the channel's long videos made from this page (study id or weekly edition); list its Shorts."""
+    y = youtube_data()
+    vids = [v for v in y["videos"] if v.get(key) == value]
+    if not vids:
+        return ""
+    longs = [v for v in vids if v["kind"] == "long"]
+    shorts = [v for v in vids if v["kind"] == "short"]
+    parts = ['<section class="block-section video-section"><h2>影片 Video</h2>']
+    for v in longs:
+        parts.append(
+            '<div class="video-embed"><iframe loading="lazy" '
+            f'src="https://www.youtube-nocookie.com/embed/{attr(v["id"])}" title="{attr(v["title"])}" '
+            'allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>'
+            f'<p><a href="https://youtu.be/{attr(v["id"])}">在 YouTube 觀看：{esc(v["title"])} ↗</a></p>')
+    if shorts:
+        items = "".join(f'<li><a href="https://youtube.com/shorts/{attr(v["id"])}">{esc(v["title"])} ↗</a></li>' for v in shorts)
+        parts.append(f"<p>一分鐘重點（Shorts）：</p><ul>{items}</ul>")
+    parts.append(f'<p><a href="{attr(y.get("channel", ""))}">訂閱頻道：{esc(y.get("channel_name", "YouTube"))} ↗</a></p></section>')
+    return "".join(parts)
+
+
+def home_youtube_card() -> str:
+    y = youtube_data()
+    longs = [v for v in y["videos"] if v["kind"] == "long"]
+    if not longs:
+        return ""
+    items = "".join(f'<li><a href="https://youtu.be/{attr(v["id"])}">{esc(v["title"])} ↗</a></li>' for v in longs)
+    return ('<section class="block-section"><h2>YouTube 頻道</h2>'
+            f'<p>用影片講週報與研究：<a href="{attr(y["channel"])}">{esc(y["channel_name"])} ↗</a></p>'
+            f'<ul>{items}</ul></section>')
+
+
+def sitemap_xml() -> str:
+    urls = "".join(f"<url><loc>{SITE_URL}{r + '/' if r else ''}</loc></url>" for r in routes())
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n'
+
+
 SITE_NAME_ZH = "交易研究站"
 
 
@@ -765,6 +814,7 @@ def nav(depth: int) -> str:
         ("Research", f"{prefix}research/"),
         *([("策略績效", f"{prefix}strategies/performance/")] if has_performance() else []),
         *([("GitHub 月報", f"{prefix}tools/github/")] if has_github_scan() else []),
+        *([("YouTube", youtube_data()["channel"])] if youtube_data().get("channel") else []),
     ]
     items = "".join(f'<a href="{attr(href)}">{label}</a>' for label, href in links)
     return f'<nav class="nav"><a class="brand" href="{attr(f"{prefix}index.html" if depth else "index.html")}">{SITE_NAME}</a><div class="nav-links">{items}</div></nav>'
@@ -779,6 +829,7 @@ def document(title: str, description: str, depth: int, body: str, wide: bool = F
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="{attr(description)}">
+<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 <title>{esc(title)} · {SITE_NAME}</title>
 <link rel="icon" href="{attr(prefix)}favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{attr(prefix)}favicon.svg">
@@ -859,6 +910,7 @@ def home_page() -> str:
 </section>
 
 {home_overview_card()}
+{home_youtube_card()}
 
 <section class="block-section">
   <h2>Featured Research</h2>
@@ -1627,6 +1679,7 @@ def study_page(study_id: str) -> str:
 <p class="eyebrow">{esc(study_id)} · {esc(study.get("market", ""))} · {esc(study.get("created_on", ""))}</p>
 <h1>{esc(study.get("title", study_id))}</h1>
 <p class="lede research-question">{esc(question)}</p>
+{video_block("study", study_id)}
 {blocks}
 </article>
 """
@@ -1642,7 +1695,8 @@ def study_page(study_id: str) -> str:
 # capped everything at 960px and set `white-space: nowrap` on every cell, so a wide screen
 # still had to scroll sideways to see columns that would have fit easily. Horizontal
 # scrolling is now a genuinely-too-narrow fallback, not the normal reading mode.
-STYLE_CSS = """
+STYLE_CSS = """.video-embed{position:relative;padding-top:56.25%;margin:12px 0}.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
+
 /* weekly reader format */
 .weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
 .levels-figure img{width:100%;max-width:1200px;border-radius:10px;border:1px solid var(--line);}
@@ -2160,7 +2214,11 @@ def generated_pages() -> dict[str, str]:
     if has_performance():
         pages["strategies/performance/index.html"] = performance_page()
     for week in weekly_weeks():
-        pages[f"xauusd/weekly/{week}/index.html"] = weekly_report_page(week)
+        page = weekly_report_page(week)
+        block = video_block("week", week)
+        if block and "</h1>" in page:
+            page = page.replace("</h1>", "</h1>\n" + block, 1)
+        pages[f"xauusd/weekly/{week}/index.html"] = page
         for perspective in weekly_perspectives(week):
             producer = perspective["producer"]
             pages[f"xauusd/weekly/{week}/perspectives/{producer}/index.html"] = weekly_perspective_page(week, producer)
@@ -2174,6 +2232,7 @@ def assets() -> dict[str, str]:
         "site/style.css": STYLE_CSS,
         "site/table.js": TABLE_JS,
         "site/catalog.json": json.dumps(build_catalog(), ensure_ascii=False, indent=2) + "\n",
+        "sitemap.xml": sitemap_xml(),
     }
 
 

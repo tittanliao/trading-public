@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="S1 V3.9 或 S2 V3.2 出訊號之後，先不要立刻進場，改成等下一根、或下兩根 30 分鐘 K 棒收完；只要這段等待期間跌破訊號 K 棒的最低點就放棄這筆。這樣的「等確認」規則，能不能把賠錢的單子先篩掉？">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 V3.9 / S2 V3.2 — post-signal 1–2 bar confirmation · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260815-001 · XAUUSD · 2026-08-15</p>
 <h1>S1 V3.9 / S2 V3.2 — post-signal 1–2 bar confirmation</h1>
 <p class="lede research-question">S1 V3.9 或 S2 V3.2 出訊號之後，先不要立刻進場，改成等下一根、或下兩根 30 分鐘 K 棒收完；只要這段等待期間跌破訊號 K 棒的最低點就放棄這筆。這樣的「等確認」規則，能不能把賠錢的單子先篩掉？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">165</div><div class="metric-label">s1 matched n</div></div><div class="metric"><div class="metric-value">55.15</div><div class="metric-label">s1 baseline win rate %</div></div><div class="metric"><div class="metric-value">60.83</div><div class="metric-label">s1 t1 hold win rate %</div></div><div class="metric"><div class="metric-value">66.67</div><div class="metric-label">s1 t1 t2 hold win rate %</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>S1 的一根 K 棒確認，是這份研究唯一撐過驗證的訊號</h3><p>在能對應到 30 分鐘歷史的 165 筆 S1 交易中，等 T+1 收完且守住訊號 K 低點，原始勝率從 55.15% 升到 60.83%（n=120）。更重要的是它在最新 30% 的資料上仍然成立：勝率從 48.0% 升到 57.14%（n=35），過程中濾掉 11 筆虧損、只誤殺 4 筆獲利。</p></article><article class="finding-card"><h3>等第二根 K 棒在近期資料上反而變差</h3><p>全樣本看 T+1/T+2 都守住低點可以到 66.67%（n=99），是最漂亮的數字；但在最新 30% 的驗證區只剩 54.84%（n=31），低於只等一根的 57.14%。多等一根換來的是更少的樣本和更差的近期表現，這份篩選證據不足以支持把它當成實盤規則。</p></article><article class="finding-card"><h3>S2 在近期驗證區完全沒有通過</h3><p>全樣本 S2 從 43.08% 一路升到 46.0%（等一根）與 55.0%（等兩根），看起來和 S1 同向。但最新一段只有 20 筆：基準勝率本身就掉到 20.0%，等一根之後仍是 20.0%（毫無改善），等兩根反而降到 15.38%。S2 的結果必須視為不穩定。</p></article><article class="finding-card"><h3>這是「篩選關聯」，不是延後進場的實際損益</h3><p>被留下的交易仍然沿用 TradingView 原本的進出場與損益，因此這裡量到的是「哪些單子事後看比較好」，而不是真的延後進場會賺多少。真正的 T+2/T+3 進場勝率、獲利因子與停損停利行為需要重跑 Pine；而且只有 36.67% 的 S1 與 41.4% 的 S2 交易落在這段 30 分鐘資料內。</p></article></div></section><section class="evidence-unit">
 <h2>Full Sample Rule Ladder 全樣本確認規則階梯</h2>
 <p class="evidence-takeaway">兩個策略在全樣本上都隨著等待變長而勝率上升，但同時留下的交易也越來越少——S1 等一根保留 72.73%、等兩根只剩 60.0%。下表列出 S1 五條規則的完整階梯，包含圖上沒有的兩條更嚴格版本。</p>

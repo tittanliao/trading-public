@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="對照 RS-XAUUSD-20260727-003（V3.4）與 -004（V3.9）兩份 fail-pattern 報告，這兩個策略版本在 30 分鐘進場時機、失敗型態占比、布林區位、DXY 狀態與多時間框對齊上，實際差在哪裡？">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 AweWithBB V3.4 vs V3.9 — gap report · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260727-005 · XAUUSD · 2026-07-27</p>
 <h1>S1 AweWithBB V3.4 vs V3.9 — gap report</h1>
 <p class="lede research-question">對照 RS-XAUUSD-20260727-003（V3.4）與 -004（V3.9）兩份 fail-pattern 報告，這兩個策略版本在 30 分鐘進場時機、失敗型態占比、布林區位、DXY 狀態與多時間框對齊上，實際差在哪裡？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">53.17</div><div class="metric-label">v34 win rate %</div></div><div class="metric"><div class="metric-value">1.525</div><div class="metric-label">v34 profit factor</div></div><div class="metric"><div class="metric-value">56.22</div><div class="metric-label">v39 win rate %</div></div><div class="metric"><div class="metric-value">1.869</div><div class="metric-label">v39 profit factor</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>V3.9 在每一項標頭指標上都優於 V3.4</h3><p>勝率 +3.05 個百分點（56.22% 對 53.17%），獲利因子 +0.344（1.869 對 1.525），而且交易筆數在相近的時間範圍內還少了 54 筆。</p></article><article class="finding-card"><h3>立即虧損占比下降了 5 個百分點</h3><p>立即虧損占虧損交易的比例，從 V3.4 的 30.9% 降到 V3.9 的 25.9%；假突破 30.9% → 33.0%、正常停損 20.3% → 23.4%、時間耗損都是 17.8%。與 V3.9 進場後立刻判斷錯誤的情況減少相符。</p></article><article class="finding-card"><h3>逆勢差距縮小了</h3><p>以已收盤的 4H K 棒來看，逆勢（4H 空頭）與順勢進場的勝率差距，V3.4 是 6.2 個百分點（50.0% 對 56.2%），V3.9 只有 2.25 個百分點（54.89% 對 57.14%）。第 2 版修正：第 1 版讀到進場當下尚未收盤的 4H K 棒，曾寫成從 9.6 擴大到 12.25。</p></article><article class="finding-card"><h3>各 30 分鐘時槽的差異仍屬低樣本、雜訊偏高</h3><p>兩個版本在多數時槽裡都只有個位數到十幾筆交易；請把逐時槽差異圖當成描述性資料，不要拿它當成新增進場時機規則的依據。</p></article><article class="finding-card"><h3>出場規則差異混雜了每一項比較</h3><p>V3.4 使用 0.5% 停損搭配 TP2=2R；V3.9 的出場結構與此不同。這些差異都無法單獨分離出純粹的時機或市場狀態效果。</p></article></div></section><section class="data-block"><h3>Baseline: V3.4 vs V3.9</h3><div class="table-wrap"><table data-sortable><thead><tr><th scope="col" data-type="text"><button type="button" class="sort-btn"><span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">n<span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">win rate %<span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">profit factor<span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">net pnl usd<span class="sort-ind"></span></button></th><th scope="col" data-type="number"><button type="button" class="sort-btn">avg return %<span class="sort-ind"></span></button></th></tr></thead><tbody><tr><th data-sort="v34">v34</th><td data-sort="504.0" class="num">504</td><td data-sort="53.17" class="num">53.17</td><td data-sort="1.525" class="num">1.525</td><td data-sort="6137.27" class="num">6,137.27</td><td data-sort="0.1238" class="num">0.1238</td></tr><tr><th data-sort="v39">v39</th><td data-sort="450.0" class="num">450</td><td data-sort="56.22" class="num">56.22</td><td data-sort="1.869" class="num">1.869</td><td data-sort="8455.49" class="num">8,455.49</td><td data-sort="0.1909" class="num">0.1909</td></tr></tbody></table></div></section><section class="evidence-unit">
 <h2>30-Minute Entry Slots 時槽差異</h2>
 <p class="evidence-takeaway">逐時槽的差異多屬低樣本；圖與表用來描述兩版差異，不能直接推導新的時機規則。</p>

@@ -1,0 +1,95 @@
+{
+ "schema_version": 1,
+ "channel": "https://www.youtube.com/@impulsive.treader",
+ "channel_name": "半導體大叔的黃金筆記",
+ "videos": [
+  {
+   "id": "t4nTF4YQxC4",
+   "kind": "long",
+   "title": "期中選舉後黃金先跌再漲？13 次逐年拆解＋總統大選年對照｜黃金筆記",
+   "published": "2026-11-02",
+   "study": "RS-XAUUSD-20261019-001",
+   "week": null
+  },
+  {
+   "id": "HT1yt9xWoG0",
+   "kind": "long",
+   "title": "黃金跌了 26%，55 年只有 6 次：跌破 25% 買進，一年後賠還是賺？｜黃金筆記",
+   "published": "2026-11-02",
+   "study": null,
+   "week": null
+  },
+  {
+   "id": "bVHpi4TswAs",
+   "kind": "long",
+   "title": "金價跌破今年低點：近四週走勢、CFTC、下週 6 個價位｜黃金週報第 45 週｜黃金筆記",
+   "published": "2026-11-02",
+   "study": null,
+   "week": "2026-W45"
+  },
+  {
+   "id": "VyWs5ktMWE8",
+   "kind": "short",
+   "title": "總統大選年，黃金反而最弱？13 次數據",
+   "published": "2026-11-02 18:00",
+   "study": "RS-XAUUSD-20261019-001",
+   "week": null
+  },
+  {
+   "id": "vrcDBulHRi4",
+   "kind": "short",
+   "title": "聽到黃金說法，先問這 3 個問題",
+   "published": "2026-11-02 18:00",
+   "study": "RS-XAUUSD-20261019-001",
+   "week": null
+  },
+  {
+   "id": "dgz70NFpdgk",
+   "kind": "short",
+   "title": "黃金大跌 55 年只有 6 次，現在像哪一種？",
+   "published": "2026-11-02",
+   "study": null,
+   "week": null
+  },
+  {
+   "id": "KBv3ttvSyZI",
+   "kind": "short",
+   "title": "黃金跌了 25% 就是便宜嗎？55 年數據",
+   "published": "2026-11-02",
+   "study": null,
+   "week": null
+  },
+  {
+   "id": "EdSLHInTtpE",
+   "kind": "short",
+   "title": "黃金大跌後，要等幾年才回本？",
+   "published": "2026-11-02",
+   "study": null,
+   "week": null
+  },
+  {
+   "id": "vpw9FuLWFxk",
+   "kind": "short",
+   "title": "金價跌到今年新低，下週只盯這 2 個價位",
+   "published": "2026-11-02",
+   "study": null,
+   "week": "2026-W45"
+  },
+  {
+   "id": "_QuKIXfiiy0",
+   "kind": "short",
+   "title": "金價下週只看這 2 個價位：3,924 和 3,838",
+   "published": "2026-11-02",
+   "study": null,
+   "week": "2026-W45"
+  },
+  {
+   "id": "0LLFjcWzSrU",
+   "kind": "short",
+   "title": "黃金下跌，兇手不是美元？",
+   "published": "2026-11-02",
+   "study": null,
+   "week": "2026-W45"
+  }
+ ]
+}

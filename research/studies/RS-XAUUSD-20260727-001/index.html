@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="在目前的 V3.9 交易匯出資料下，Macro 綜合判定與各個 30 分鐘進場時槽，是否足以支持 S1 建議分數的調整？同一批交易的完整 fail-pattern／BB／DXY／MTF 拆解又顯示什麼？第 4 版另外追加一個問題：V3.9 的回測優勢是否隨時間穩定，還是集中在同一批匯出資料裡較早的一">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260727-001 · XAUUSD · 2026-07-27</p>
 <h1>S1 V3.9 — Macro composite, 30-minute timing, temporal stability, and full fail-pattern report</h1>
 <p class="lede research-question">在目前的 V3.9 交易匯出資料下，Macro 綜合判定與各個 30 分鐘進場時槽，是否足以支持 S1 建議分數的調整？同一批交易的完整 fail-pattern／BB／DXY／MTF 拆解又顯示什麼？第 4 版另外追加一個問題：V3.9 的回測優勢是否隨時間穩定，還是集中在同一批匯出資料裡較早的一段（這是在有人對 TradingView 開發的策略提出過度配適疑慮之後才加入的）？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">450</div><div class="metric-label">trades</div></div><div class="metric"><div class="metric-value">56.22</div><div class="metric-label">win rate %</div></div><div class="metric"><div class="metric-value">1.869</div><div class="metric-label">profit factor</div></div><div class="metric"><div class="metric-value">97.11</div><div class="metric-label">macro coverage %</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>Macro WAIT 判定下仍然是賺錢的</h3><p>211 筆符合條件的交易，勝率 56.87%，獲利因子 1.837。證據不支持把 WAIT 當成 S1 的封鎖條件；排序分數是 0（三個判定中的中段），不是負分。</p></article><article class="finding-card"><h3>以排序分數法計算，NEUTRAL 才是最弱的 Macro 判定</h3><p>NEUTRAL 的勝率（53.66%）是三個判定裡最低的，儘管獲利因子最高（1.963）、樣本數也最小（82 筆）——排序分數為 -1，敬陪末座，與先前用收縮平均報酬法算出的 +1.4（原本排第一）方向完全相反。兩種方法讀的是同一批 82 筆交易，會得出相反結論是因為排序依據的統計量不同（勝率 vs. 收縮後的平均報酬）。</p></article><article class="finding-card"><h3>亞盤並不是 V3.9 表現較弱的盤別</h3><p>154 筆交易，勝率 57.79%，獲利因子 1.999。原本沿用的『亞盤獨弱』觀察並不成立；在三個列入計分的盤別中，亞盤的排序分數是 +1，表現最好。</p></article><article class="finding-card"><h3>應查對應時槽，而非套用印象</h3><p>即時分數會查目前 HH:00／HH:30 進場時槽自己的整數排序分數，範圍 -2 至 +2。48 個時槽中有 5 個樣本過小（n&lt;5），一律計 0 分。</p></article><article class="finding-card"><h3>最大的失敗型態是假突破，其次是立即虧損</h3><p>197 筆虧損：假突破 33.0%（65 筆）、立即虧損 25.9%（51）、正常停損 23.4%（46）、時間耗損 17.8%（35）。第 7 版修正：之前的版本因為工具讀到匯出檔負號的 MAE，一筆假突破都分不出來，把它們算進了正常停損與時間耗損。這是描述性脈絡，不是即時分數的調整依據。</p></article><article class="finding-card"><h3>逆勢（4H 空頭）進場不再明顯較差</h3><p>改用已收盤 K 棒後：4H RSI 空頭狀態下進場 184 筆，勝率 54.89%（獲利因子 1.845），順勢 266 筆為 57.14%（1.887），只差 2.25 個百分點。先前的 12.25 個百分點（47.95% 對 60.2%），來自讀到了包含進場時點、尚未收盤的 4H K 棒。這是描述性脈絡，不是即時分數的調整依據。</p></article><article class="finding-card"><h3>時間保留集檢定：判定為穩定，未見明顯退化</h3><p>依進場時間 70/30 切分：樣本內（2024-01-05 至 2025-11-18，n=315）勝率 57.14%、獲利因子 1.886；保留集（2025-11-20 至 2026-07-10，n=135）勝率 54.07%、獲利因子 1.832。保留集勝率落在樣本內 95% 信賴區間 [51.62, 62.49] 之內，獲利因子也維持在 1 以上，因此這條固定規則判定為『穩定』，不是『退化』。這只是對同一份已定案回測做的時間分段檢查，不是重新最佳化的 walk-forward——把它當成『策略沒有過度配適』的證明之前，請先看 results.json 裡 method.temporal_stability_limitation 的完整說明。</p></article><article class="finding-card"><h3>匯出資料中最弱的完整季度是 2026Q2，不是 2026Q1</h3><p>11 個季度的勝率介於 48.94%–62.96% 之間，沒有單調的趨勢。2026Q1 是表現最好的季度（n=55，勝率 60.0%，獲利因子 2.563）；2026Q2 是表現最弱的完整季度（n=47，勝率 48.94%，獲利因子 1.429），但獲利因子仍大於 1。這個季度形狀值得拿去對照實際下單紀錄再確認：如果實盤結果轉弱、但回測本身沒有變，問題更可能出在執行面，而不是策略本身。</p></article></div></section><section class="evidence-unit">
 <h2>Failure Types 失敗型態</h2>
 <p class="evidence-takeaway">虧損以假突破最多（33.0%），其次是立即虧損（25.9%）與正常停損（23.4%）；這是描述性脈絡，不是新的即時規則。</p>

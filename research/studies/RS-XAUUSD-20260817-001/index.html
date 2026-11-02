@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Macro 綜合分數因為缺乏鑑別力已經從分析評分中撤除。那麼：單一的 Macro 因子有沒有任何一個能分開 S1 或 S2 的結果？這個綜合分數裡有多少比重其實是同一個輸入被算了兩次？以及 GVZ 到底有沒有任何一個轉折點——而不是沿用先前假定的 13／20？">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 V3.9 / S2 V3.2 — Macro factor attribution, composite redundancy, and GVZ as a continuum · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260817-001 · XAUUSD · 2026-08-17</p>
 <h1>S1 V3.9 / S2 V3.2 — Macro factor attribution, composite redundancy, and GVZ as a continuum</h1>
 <p class="lede research-question">Macro 綜合分數因為缺乏鑑別力已經從分析評分中撤除。那麼：單一的 Macro 因子有沒有任何一個能分開 S1 或 S2 的結果？這個綜合分數裡有多少比重其實是同一個輸入被算了兩次？以及 GVZ 到底有沒有任何一個轉折點——而不是沿用先前假定的 13／20？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">0</div><div class="metric-label">factors separating outcomes</div></div><div class="metric"><div class="metric-value">5.85</div><div class="metric-label">s1 largest factor gap pp</div></div><div class="metric"><div class="metric-value">13.3</div><div class="metric-label">s1 smallest resolvable pp</div></div><div class="metric"><div class="metric-value">0.107</div><div class="metric-label">s2 gvz permutation p</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>沒有任何單一 Macro 因子能分開結果</h3><p>兩個策略都一樣。所有觀察到的差距（S1 1.08～5.85 個百分點，S2 0.54～6.43 個百分點）都遠低於各自樣本能夠分辨的最小差距（S1 約 13.3～15.2、S2 約 23.2～26.4 個百分點），而且沒有任何一個雜訊檢定接近顯著（最低的 p 值是 0.234）。</p></article><article class="finding-card"><h3>綜合分數有一半是同一個輸入</h3><p>US10Y 與實質利率在 S1 的期間有 89.2% 的時間給出相同判讀，而實質利率本來就是 US10Y 減去 T10YIE，兩者在定義上共用輸入。六分之三的分數會一起移動，所以它實際上比較像是「四因子、其中一個半權重」的分數。</p></article><article class="finding-card"><h3>綜合分數的鑑別力比原先報告的還低</h3><p>重跑後的綜合分數差距只有 1.49 個百分點，而可分辨門檻是 14.9 個百分點（雜訊檢定 p=0.973）；先前報告的數字是 3.98 個百分點。差異來自本研究採用更嚴格的「前一日」指派方式。</p></article><article class="finding-card"><h3>S2 對 GVZ 是唯一一個差一點的結果</h3><p>這是唯一值得往下追的線索。GVZ 低於 22 時 S2 勝率 59.72%（n=72、獲利因子 3.421），高於 22 時只有 34.33%（n=67、獲利因子 1.2），差距 25.39 個百分點，確實超過 23.2 的可分辨門檻。但它通不過「搜尋了 15 個門檻」的多重比較校正：把結果隨機打散，仍有 10.7% 的機率出現同樣大的最佳差距。</p></article><article class="finding-card"><h3>規則使用的門檻 20 並不是 S1 訊號所在的位置</h3><p>在門檻 20 的位置，S1 的差距只有 1.94 個百分點。S1 少數的梯度出現在低端——15 到 17 以下——而且方向與被移除的那條規則相反。</p></article><article class="finding-card"><h3>DXY 的方向與面板的預期相反，而且兩個策略一致</h3><p>面板認為對黃金偏多的狀態（美元低於均線），在兩個策略上的勝率反而比較低（S1 55.88% 對 61.73%，S2 44.29% 對 50.72%）。這個結果並不顯著；記錄下來是因為「方向一致地相反」比「隨機」更值得注意。</p></article></div></section><section class="evidence-unit">
 <h2>S1 — Factor Gaps vs Detection Limit 單因子差距與可分辨門檻</h2>
 <p class="evidence-takeaway">紅線是這個樣本能分辨的最小差距，藍柱是實際觀察到的差距。五根柱子全部在紅線之下，而且差得很遠——最大的 DXY 5.85 個百分點，還不到門檻 13.3 的一半。這張圖就是「沒有任何因子能分開結果」的完整證據。</p>

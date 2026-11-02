@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="依 30 分鐘粒度的標準失敗型態規範，S2-Hammer V1.9 的 224 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S2-Hammer V1.9 — fail-pattern report (30-minute contract) · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260727-006 · XAUUSD · 2026-07-27</p>
 <h1>S2-Hammer V1.9 — fail-pattern report (30-minute contract)</h1>
 <p class="lede research-question">依 30 分鐘粒度的標準失敗型態規範，S2-Hammer V1.9 的 224 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">224</div><div class="metric-label">trades</div></div><div class="metric"><div class="metric-value">41.07</div><div class="metric-label">win rate %</div></div><div class="metric"><div class="metric-value">1.535</div><div class="metric-label">profit factor</div></div><div class="metric"><div class="metric-value">40.2</div><div class="metric-label">time bleed %</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>主導 S2 虧損的是時間耗損與假突破，不是立即虧損</h3><p>132 筆虧損中，時間耗損 53 筆（40.2%，持有 ≥24 根 K 棒後才停損）、假突破 46 筆（34.8%）、立即虧損 21 筆（15.9%）、正常停損 12 筆（9.1%）。第 3 版修正：之前的版本一筆假突破都分不出來（工具讀到匯出檔負號的 MAE），曾寫成時間耗損 53.8%。</p></article><article class="finding-card"><h3>這種策略形狀的低勝率屬於預期之內</h3><p>勝率 41.07%、獲利因子 1.535——左側反轉策略是用「贏的時候平均賺得比輸的時候多」來補償低於五成的勝率（每筆平均 +31.75 美元）。</p></article><article class="finding-card"><h3>以已收盤 K 棒來看，沒有逆勢懲罰</h3><p>改用已收盤 K 棒後：4H 空頭逆勢勝率 42.39%（92 筆，獲利因子 1.70），順勢 40.15%（132 筆，1.424）——逆勢反而高 2.2 個百分點，在雜訊範圍內。先前的 4.76 個百分點懲罰，讀到的是尚未收盤的 4H K 棒。符合 S2 本來就是設計來對抗趨勢。</p></article><article class="finding-card"><h3>已被取代的策略版本</h3><p>V1.9 未通過樣本外驗證，且不是現行的正式 S2 版本（V3.2 是，2026-07-27 確認）。本報告僅作歷史／對照脈絡；現行版本見 RS-XAUUSD-20260727-007。</p></article></div></section><section class="evidence-unit">
 <h2>Failure Types 失敗型態</h2>
 <p class="evidence-takeaway">132 筆虧損的組成：時間耗損 40.2%、假突破 34.8%、立即虧損 15.9%、正常停損 9.1%。立即虧損少，是 S2 與 S1 設計差異最直接的證據。</p>

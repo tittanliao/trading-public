@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="S1 V3.9 自 2026-08-16（Telegram 推播開始）以來的 31 筆回測交易，比匯出檔裡任何更早的時段都差。這是否超出策略自己的歷史範圍？金價方向或波動能否解釋？進場時的市況能否解釋？交易的結束方式變了什麼？依研究規格 §5 標準格式回答，並因為問題本身是「是否衰退」而納入 §5.">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20261009-001 · XAUUSD · 2026-10-09</p>
 <h1>S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it</h1>
 <p class="lede research-question">S1 V3.9 自 2026-08-16（Telegram 推播開始）以來的 31 筆回測交易，比匯出檔裡任何更早的時段都差。這是否超出策略自己的歷史範圍？金價方向或波動能否解釋？進場時的市況能否解釋？交易的結束方式變了什麼？依研究規格 §5 標準格式回答，並因為問題本身是「是否衰退」而納入 §5.1 第 11 項。</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">32.26</div><div class="metric-label">live win rate %</div></div><div class="metric"><div class="metric-value">55.56</div><div class="metric-label">reference win rate %</div></div><div class="metric"><div class="metric-value">0</div><div class="metric-label">reference windows as bad</div></div><div class="metric"><div class="metric-value">4.46</div><div class="metric-label">drift predicted return %</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>上線後這段已超出策略自己的歷史範圍</h3><p>勝率 32.26%（n=31），歷史 55.56%（n=315）；獲利因子 0.661 對 1.92。之前 285 個連續 31 筆窗口沒有一個這麼差，最差的是 -1.5%，這次是 -3.67%。互不重疊的 10 段全部是正報酬。</p></article><article class="finding-card"><h3>金價下跌不能解釋</h3><p>這段期間金價跌 5.33%。依歷史窗口的關係，這樣的跌幅應該對應 +4.46%（R² 0.283）。歷史上有 58 個窗口金價跌得一樣多，最差的仍然賺 +1.95%。S1 歷史上反而是在金價跌過之後表現最好。</p></article><article class="finding-card"><h3>沒有任何進場條件能把它切出來：每一組裡面都變差了</h3><p>把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，變化全部來自各組內部，不是組合轉向較差的組。波動略升，但歷史上 ATR 最高的一組反而是 S1 最好的。這份研究不支持任何進場過濾條件。</p></article><article class="finding-card"><h3>變的是交易怎麼結束</h3><p>打到 TP1 的比例從 146/315 降到 9/31；正常停損從 13.0% 升到 25.8%、假突破從 15.2% 升到 19.4%。虧損單裡先走到 TP1 一半（+0.25%）再回頭的比例從 37.1% 升到 47.6%（上線後只有 21 筆虧損單，僅供描述）。第 2 版修正：第 1 版分不出假突破，曾寫成正常停損 27.3% → 41.9%。</p></article><article class="finding-card"><h3>原因沒有確定</h3><p>這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。</p></article></div></section><section class="block-section"><h2>詮釋與實務意義</h2><p class="prose">S1 V3.9 從 2026-08-16 開始推播後的 31 筆回測交易，勝率 32.26%、獲利因子 0.661，合計 -3.67%。歷史上 285 個連續 31 筆窗口**沒有一個這麼差**，最差的是 -1.5%。
 
 最直覺的解釋是「只做多的策略剛好遇到跌勢」，但資料不支持：這段期間金價跌 5.33%，依歷史關係 S1 應該還能賺 4.46%；歷史上金價跌得一樣多的 58 個窗口，最差也賺 1.95%。S1 過去反而是在金價跌過之後表現最好。

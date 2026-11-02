@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="依 30 分鐘粒度的標準失敗型態規範，S1 AweWithBB V3.9 的 450 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？">
+<meta name="google-site-verification" content="R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo">
 <title>S1 AweWithBB V3.9 — fail-pattern report (30-minute contract) · Trading Research</title>
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../../favicon.svg">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <header class="shell wide">
-<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a></div></nav>
+<nav class="nav"><a class="brand" href="../../../index.html">Trading Research</a><div class="nav-links"><a href="../../../index.html">Home</a><a href="../../../xauusd/weekly/">Weekly</a><a href="../../../xauusd/dashboard/">Dashboard 儀表板</a><a href="../../../overview/">Overview 總覽</a><a href="../../../research/">Research</a><a href="../../../strategies/performance/">策略績效</a><a href="../../../tools/github/">GitHub 月報</a><a href="https://www.youtube.com/@impulsive.treader">YouTube</a></div></nav>
 </header>
 <main class="shell wide">
 
@@ -19,6 +20,7 @@
 <p class="eyebrow">RS-XAUUSD-20260727-004 · XAUUSD · 2026-07-27</p>
 <h1>S1 AweWithBB V3.9 — fail-pattern report (30-minute contract)</h1>
 <p class="lede research-question">依 30 分鐘粒度的標準失敗型態規範，S1 AweWithBB V3.9 的 450 筆交易在失敗型態、進場時槽、布林區位、DXY 狀態與多時間框對齊上，各自呈現什麼樣的分布？</p>
+
 <section class="block-section"><h2>Headline Metrics 關鍵數字</h2><div class="metrics-strip metrics-featured"><div class="metric"><div class="metric-value">450</div><div class="metric-label">trades</div></div><div class="metric"><div class="metric-value">56.22</div><div class="metric-label">win rate %</div></div><div class="metric"><div class="metric-value">1.869</div><div class="metric-label">profit factor</div></div><div class="metric"><div class="metric-value">25.9</div><div class="metric-label">immediate loss %</div></div></div></section><section class="block-section"><h2>Key Findings 重點發現</h2><div class="findings-grid"><article class="finding-card"><h3>最大的失敗型態是假突破；立即虧損比 V3.4 少</h3><p>197 筆虧損：假突破 33.0%（65 筆）、立即虧損 25.9%（51）、正常停損 23.4%（46）、時間耗損 17.8%（35）。立即虧損從 V3.4 的 30.9% 降到 25.9%。第 3 版修正：之前的版本一筆假突破都分不出來（工具讀到匯出檔負號的 MAE），把它們算成了正常停損與時間耗損。</p></article><article class="finding-card"><h3>V3.9 的逆勢（4H 空頭）差距很小——比 V3.4 小</h3><p>改用已收盤 K 棒後：4H RSI 空頭狀態下 184 筆，勝率 54.89%，順勢對齊 266 筆為 57.14%（差距 2.25 個百分點；V3.4 為 6.2）；獲利因子 1.845 對 1.887。先前報告的 12.25 個百分點、比 V3.4 更寬，來自讀到包含進場時點、尚未收盤的 4H K 棒。</p></article><article class="finding-card"><h3>K 棒覆蓋率有改善，但仍然只是部分樣本</h3><p>51 筆立即虧損中有 19 筆（37.3%）具備重疊的 30 分鐘 OHLCV 與 RSI 價格歷史，高於 V3.4 的 23.3%，但仍未達全樣本。</p></article><article class="finding-card"><h3>與已採用的 RS-XAUUSD-20260727-001 基準一致</h3><p>本報告的整體 n／勝率／獲利因子（450／56.22%／1.869）與 RS-XAUUSD-20260727-001 完全相同，確認這份更深入的報告並未改動已經被採用的 S1 建議分數證據。</p></article></div></section><section class="evidence-unit">
 <h2>Failure Types 失敗型態</h2>
 <p class="evidence-takeaway">197 筆虧損：假突破 33.0%（65 筆）、立即虧損 25.9%（51）、正常停損 23.4%（46）、時間耗損 17.8%（35）。立即虧損比 V3.4 的 30.9% 下降，代表 V3.9 的改進落在進場品質。</p>
