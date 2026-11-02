@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261102-002",
+  "revision": 1,
+  "title": "Gold on CPI days: the first hour is 2.51x a normal weekday, but by the close a CPI day is ordinary (2%+ days 6.3% vs 6.3%) and has no direction",
+  "market": "XAUUSD",
+  "strategy": "none — gold around US CPI releases",
+  "status": "confirmed",
+  "created_on": "2026-11-02",
+  "question": "What does gold do around a US CPI release, against ordinary days?",
+  "hypothesis": "Common sayings: CPI days are wild for gold, direction follows the print, the day before is quiet.",
+  "headline": {
+    "cpi_days_n": 222,
+    "abs_ret_cpi_pct": 0.813,
+    "abs_ret_other_pct": 0.765,
+    "abs_ret_bound_pts": 0.1004,
+    "ge2_cpi_pct": 6.3,
+    "ge2_other_pct": 6.3,
+    "up_cpi_pct": 55.4,
+    "up_other_pct": 52.2,
+    "intraday_n": 33,
+    "first30_range_multiple": 2.51,
+    "first30_points_median_cpi": 22.0,
+    "first30_points_median_other": 10.11,
+    "abs_r1h_cpi_pct": 0.518,
+    "abs_r1h_other_pct": 0.233,
+    "reverse_after_first30_cpi_pct": 42.4,
+    "reverse_after_first30_other_pct": 52.9,
+    "supported_direction": false
+  },
+  "card_metrics": [
+    "first30_range_multiple",
+    "abs_r1h_cpi_pct",
+    "ge2_cpi_pct",
+    "ge2_other_pct"
+  ],
+  "findings": [
+    {
+      "title": "The first hour is large",
+      "tone": "info",
+      "detail": "On 33 CPI releases since 2024 the first 30m bar spanned a median 22.0 points against 10.11 at 08:30 ET on other weekdays (2.51x); the 1-hour absolute move was 0.518% against 0.233%.",
+      "title_zh": "公布後一小時波動很大",
+      "detail_zh": "2024 年以來 33 次 CPI，公布後第一根 30 分鐘 K 棒高低差中位數 22.0 點，其他平日同一時間 10.11 點（約 2.51 倍）；1 小時平均漲跌（絕對值）0.518%，平常 0.233%（差 0.29，要差 0.16 才分得出來）。"
+    },
+    {
+      "title": "By the close, an ordinary day",
+      "tone": "warn",
+      "detail": "On 222 CPI days since 2008 gold moved 0.813% (absolute, close to close) against 0.765% on other days (bound 0.1004); 2%+ days 6.3% against 6.3%.",
+      "title_zh": "收盤時，跟平常日差不多",
+      "detail_zh": "2008 年以來 222 次 CPI，當天收盤漲跌（絕對值）平均 0.813%，平常日 0.765%（差 0.05，要差 0.10 才分得出來）；單日漲跌 2% 以上：CPI 日 6.3%（n=222），平常日 6.3%，一樣。和非農日（12.2% 對 6.3%）不同。"
+    },
+    {
+      "title": "No direction",
+      "tone": "warn",
+      "detail": "Up on 55.4% of CPI days against 52.2% (difference 3.2 pts, bound 6.7).",
+      "title_zh": "方向沒有優勢",
+      "detail_zh": "CPI 日收漲 55.4%，平常日 52.2%，差 3.2 個百分點，在雜訊內（要差 6.7 才分得出來）。"
+    },
+    {
+      "title": "After the first 30 minutes, no edge",
+      "tone": "info",
+      "detail": "From the first bar's close to 4 hours, price went against the first bar in 42.4% of releases against 52.9% on other weekdays (bound 17.3 pts).",
+      "title_zh": "30 分鐘之後：反轉或延續都分不出來",
+      "detail_zh": "從第一根 K 棒收盤到 4 小時後，走勢和第一根相反的比例 42.4%（n=33），其他平日 52.9%；差 -10.4 個百分點，要差 17.3 才分得出來。"
+    },
+    {
+      "title": "The day before is ordinary",
+      "tone": "info",
+      "detail": "Mean absolute move the day before 0.737% against 0.765%.",
+      "title_zh": "CPI 前一天沒有比較安靜",
+      "detail_zh": "公布前一天平均漲跌（絕對值）0.737%，平常 0.765%。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "event",
+  "card_summary": "222 CPI days since 2008: first 30m range 2.51x (n=33), but daily 2%+ moves 6.3% vs 6.3%; no direction edge.",
+  "title_zh": "CPI 公布日：前一小時波動約平常 2.5 倍，收盤卻跟平常日一樣，也沒有方向",
+  "question_zh": "美國 CPI 公布前後，黃金和平常日比起來有什麼不同？",
+  "hypothesis_zh": "常見說法：CPI 當天黃金大波動、方向跟著數字走、公布前一天比較安靜。",
+  "card_summary_zh": "2008 年以來 222 次 CPI：公布後 30 分鐘振幅約平常 2.51 倍，但收盤時單日漲跌 2% 以上的比例 6.3%，和平常日 6.3% 一樣；方向沒有優勢。",
+  "limitations_zh": [
+    "沒有預期值與實際值，沒有測「數字高於或低於預期」的差別。",
+    "日線用 repo 的 XAUUSD_1d，不是 TradingView。",
+    "30 分鐘資料只有 2024 年以後 33 次。",
+    "30 分鐘線的對照組包含其他 08:30 公布的數據（例如初領失業金）；非農日已排除。",
+    "只是描述，不構成交易規則。"
+  ],
+  "interpretation_zh": "CPI 的波動集中在公布後的前一小時，到收盤時大多被消化，單日大漲大跌的機率和平常日一樣；方向沒有優勢。和非農不同：非農當天收盤的極端波動是平常的兩倍。這份研究描述的是波動，不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "first30_range_multiple",
+        "abs_r1h_cpi_pct",
+        "ge2_cpi_pct",
+        "ge2_other_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T17:28:07+08:00",
+  "generated_at": "2026-11-02T22:30:22+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 76,
+    "studies": 77,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2546,6 +2546,19 @@
       "family": "none — gold around US nonfarm payrolls releases",
       "origin": "programme",
       "claim": "Gold on NFP days since 2008 moves more (2%+ days 12.2% vs 6.3%) with no direction; the first 30 minutes are 2.89x a normal Friday and after them reversal is a coin flip",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-11-02"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261102-002",
+      "study_id": "RS-XAUUSD-20261102-002",
+      "kind": "study",
+      "family": "none — gold around US CPI releases",
+      "origin": "programme",
+      "claim": "Gold on CPI days: the first hour is 2.51x a normal weekday, but by the close a CPI day is ordinary (2%+ days 6.3% vs 6.3%) and has no direction",
       "null_tested_against": null,
       "verdict": "study_level",
       "reason": null,

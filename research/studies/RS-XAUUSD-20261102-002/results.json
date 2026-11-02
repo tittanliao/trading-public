@@ -1,0 +1,2447 @@
+{
+  "daily": {
+    "n_event": 222,
+    "n_base": 4400,
+    "n_fri": 2721,
+    "abs_ret_mean": {
+      "event": 0.813,
+      "base": 0.765,
+      "fri": 0.77,
+      "vs_base": {
+        "diff": 0.0483,
+        "bound_95": 0.1004,
+        "resolved": false
+      },
+      "vs_fri": {
+        "diff": 0.0432,
+        "bound_95": 0.1019,
+        "resolved": false
+      }
+    },
+    "abs_ret_median": {
+      "event": 0.638,
+      "base": 0.541
+    },
+    "range_mean": {
+      "event": 1.678,
+      "base": 1.543,
+      "vs_base": {
+        "diff": 0.1352,
+        "bound_95": 0.1335,
+        "resolved": true
+      }
+    },
+    "ge1": {
+      "event": {
+        "k": 62,
+        "n": 222,
+        "pct": 27.9,
+        "ci95_pct": [
+          22.4,
+          34.2
+        ]
+      },
+      "base": {
+        "k": 1144,
+        "n": 4400,
+        "pct": 26.0,
+        "ci95_pct": [
+          24.7,
+          27.3
+        ]
+      }
+    },
+    "ge2": {
+      "event": {
+        "k": 14,
+        "n": 222,
+        "pct": 6.3,
+        "ci95_pct": [
+          3.8,
+          10.3
+        ]
+      },
+      "base": {
+        "k": 277,
+        "n": 4400,
+        "pct": 6.3,
+        "ci95_pct": [
+          5.6,
+          7.1
+        ]
+      },
+      "diff": {
+        "diff_pts": 0.0,
+        "bound_95_pts": 3.3,
+        "resolved": false
+      }
+    },
+    "up": {
+      "event": {
+        "k": 123,
+        "n": 222,
+        "pct": 55.4,
+        "ci95_pct": [
+          48.8,
+          61.8
+        ]
+      },
+      "base": {
+        "k": 2297,
+        "n": 4400,
+        "pct": 52.2,
+        "ci95_pct": [
+          50.7,
+          53.7
+        ]
+      },
+      "diff": {
+        "diff_pts": 3.2,
+        "bound_95_pts": 6.7,
+        "resolved": false
+      }
+    },
+    "ret_mean": {
+      "event": 0.122,
+      "base": 0.029,
+      "vs_base": {
+        "diff": 0.0931,
+        "bound_95": 0.1477,
+        "resolved": false
+      }
+    },
+    "drift_5d": {
+      "event_mean": 0.147,
+      "base_mean": 0.172,
+      "event_up": {
+        "k": 120,
+        "n": 222,
+        "pct": 54.1,
+        "ci95_pct": [
+          47.5,
+          60.5
+        ]
+      },
+      "base_up": {
+        "k": 2383,
+        "n": 4395,
+        "pct": 54.2,
+        "ci95_pct": [
+          52.7,
+          55.7
+        ]
+      },
+      "vs_base": {
+        "diff": -0.0249,
+        "bound_95": 0.3718,
+        "resolved": false
+      }
+    },
+    "day_before": {
+      "abs_ret_mean": 0.737,
+      "base_abs_ret_mean": 0.765,
+      "range_mean": 1.498,
+      "base_range_mean": 1.543,
+      "vs_base_abs": {
+        "diff": -0.028,
+        "bound_95": 0.1222,
+        "resolved": false
+      }
+    },
+    "eras": {
+      "2008–2015": {
+        "n_event": 93,
+        "n_base": 1839,
+        "n_fri": 1144,
+        "abs_ret_mean": {
+          "event": 0.908,
+          "base": 0.845,
+          "fri": 0.856,
+          "vs_base": {
+            "diff": 0.0631,
+            "bound_95": 0.1732,
+            "resolved": false
+          },
+          "vs_fri": {
+            "diff": 0.0526,
+            "bound_95": 0.1758,
+            "resolved": false
+          }
+        },
+        "abs_ret_median": {
+          "event": 0.78,
+          "base": 0.592
+        },
+        "range_mean": {
+          "event": 1.83,
+          "base": 1.715,
+          "vs_base": {
+            "diff": 0.1146,
+            "bound_95": 0.2537,
+            "resolved": false
+          }
+        },
+        "ge1": {
+          "event": {
+            "k": 32,
+            "n": 93,
+            "pct": 34.4,
+            "ci95_pct": [
+              25.5,
+              44.5
+            ]
+          },
+          "base": {
+            "k": 561,
+            "n": 1839,
+            "pct": 30.5,
+            "ci95_pct": [
+              28.4,
+              32.6
+            ]
+          }
+        },
+        "ge2": {
+          "event": {
+            "k": 8,
+            "n": 93,
+            "pct": 8.6,
+            "ci95_pct": [
+              4.4,
+              16.1
+            ]
+          },
+          "base": {
+            "k": 163,
+            "n": 1839,
+            "pct": 8.9,
+            "ci95_pct": [
+              7.6,
+              10.2
+            ]
+          },
+          "diff": {
+            "diff_pts": -0.3,
+            "bound_95_pts": 5.8,
+            "resolved": false
+          }
+        },
+        "up": {
+          "event": {
+            "k": 45,
+            "n": 93,
+            "pct": 48.4,
+            "ci95_pct": [
+              38.5,
+              58.4
+            ]
+          },
+          "base": {
+            "k": 938,
+            "n": 1839,
+            "pct": 51.0,
+            "ci95_pct": [
+              48.7,
+              53.3
+            ]
+          },
+          "diff": {
+            "diff_pts": -2.6,
+            "bound_95_pts": 10.4,
+            "resolved": false
+          }
+        },
+        "ret_mean": {
+          "event": -0.021,
+          "base": 0.008,
+          "vs_base": {
+            "diff": -0.0294,
+            "bound_95": 0.2567,
+            "resolved": false
+          }
+        }
+      },
+      "2016–2023": {
+        "n_event": 96,
+        "n_base": 1891,
+        "n_fri": 1169,
+        "abs_ret_mean": {
+          "event": 0.688,
+          "base": 0.615,
+          "fri": 0.626,
+          "vs_base": {
+            "diff": 0.0729,
+            "bound_95": 0.1139,
+            "resolved": false
+          },
+          "vs_fri": {
+            "diff": 0.062,
+            "bound_95": 0.1157,
+            "resolved": false
+          }
+        },
+        "abs_ret_median": {
+          "event": 0.572,
+          "base": 0.453
+        },
+        "range_mean": {
+          "event": 1.474,
+          "base": 1.263,
+          "vs_base": {
+            "diff": 0.2112,
+            "bound_95": 0.1495,
+            "resolved": true
+          }
+        },
+        "ge1": {
+          "event": {
+            "k": 21,
+            "n": 96,
+            "pct": 21.9,
+            "ci95_pct": [
+              14.8,
+              31.1
+            ]
+          },
+          "base": {
+            "k": 345,
+            "n": 1891,
+            "pct": 18.2,
+            "ci95_pct": [
+              16.6,
+              20.0
+            ]
+          }
+        },
+        "ge2": {
+          "event": {
+            "k": 3,
+            "n": 96,
+            "pct": 3.1,
+            "ci95_pct": [
+              1.1,
+              8.8
+            ]
+          },
+          "base": {
+            "k": 49,
+            "n": 1891,
+            "pct": 2.6,
+            "ci95_pct": [
+              2.0,
+              3.4
+            ]
+          },
+          "diff": {
+            "diff_pts": 0.5,
+            "bound_95_pts": 3.6,
+            "resolved": false
+          }
+        },
+        "up": {
+          "event": {
+            "k": 61,
+            "n": 96,
+            "pct": 63.5,
+            "ci95_pct": [
+              53.6,
+              72.5
+            ]
+          },
+          "base": {
+            "k": 984,
+            "n": 1891,
+            "pct": 52.0,
+            "ci95_pct": [
+              49.8,
+              54.3
+            ]
+          },
+          "diff": {
+            "diff_pts": 11.5,
+            "bound_95_pts": 9.9,
+            "resolved": true
+          }
+        },
+        "ret_mean": {
+          "event": 0.269,
+          "base": 0.024,
+          "vs_base": {
+            "diff": 0.2448,
+            "bound_95": 0.1732,
+            "resolved": true
+          }
+        }
+      },
+      "2024–2026": {
+        "n_event": 33,
+        "n_base": 670,
+        "n_fri": 408,
+        "abs_ret_mean": {
+          "event": 0.908,
+          "base": 0.966,
+          "fri": 0.941,
+          "vs_base": {
+            "diff": -0.0581,
+            "bound_95": 0.3203,
+            "resolved": false
+          },
+          "vs_fri": {
+            "diff": -0.0332,
+            "bound_95": 0.3238,
+            "resolved": false
+          }
+        },
+        "abs_ret_median": {
+          "event": 0.705,
+          "base": 0.724
+        },
+        "range_mean": {
+          "event": 1.842,
+          "base": 1.858,
+          "vs_base": {
+            "diff": -0.0161,
+            "bound_95": 0.2905,
+            "resolved": false
+          }
+        },
+        "ge1": {
+          "event": {
+            "k": 9,
+            "n": 33,
+            "pct": 27.3,
+            "ci95_pct": [
+              15.1,
+              44.2
+            ]
+          },
+          "base": {
+            "k": 238,
+            "n": 670,
+            "pct": 35.5,
+            "ci95_pct": [
+              32.0,
+              39.2
+            ]
+          }
+        },
+        "ge2": {
+          "event": {
+            "k": 3,
+            "n": 33,
+            "pct": 9.1,
+            "ci95_pct": [
+              3.1,
+              23.6
+            ]
+          },
+          "base": {
+            "k": 65,
+            "n": 670,
+            "pct": 9.7,
+            "ci95_pct": [
+              7.7,
+              12.2
+            ]
+          },
+          "diff": {
+            "diff_pts": -0.6,
+            "bound_95_pts": 10.1,
+            "resolved": false
+          }
+        },
+        "up": {
+          "event": {
+            "k": 17,
+            "n": 33,
+            "pct": 51.5,
+            "ci95_pct": [
+              35.2,
+              67.5
+            ]
+          },
+          "base": {
+            "k": 375,
+            "n": 670,
+            "pct": 56.0,
+            "ci95_pct": [
+              52.2,
+              59.7
+            ]
+          },
+          "diff": {
+            "diff_pts": -4.5,
+            "bound_95_pts": 17.5,
+            "resolved": false
+          }
+        },
+        "ret_mean": {
+          "event": 0.095,
+          "base": 0.097,
+          "vs_base": {
+            "diff": -0.0013,
+            "bound_95": 0.4537,
+            "resolved": false
+          }
+        }
+      }
+    },
+    "largest": [
+      {
+        "date": "2008-10-16",
+        "ret_pct": -5.06,
+        "range_pct": 7.61,
+        "close": 806.0
+      },
+      {
+        "date": "2026-06-10",
+        "ret_pct": -4.43,
+        "range_pct": 4.49,
+        "close": 4075.08
+      },
+      {
+        "date": "2009-01-16",
+        "ret_pct": 3.31,
+        "range_pct": 3.28,
+        "close": 843.35
+      },
+      {
+        "date": "2025-04-10",
+        "ret_pct": 2.98,
+        "range_pct": 3.44,
+        "close": 3173.92
+      },
+      {
+        "date": "2009-03-18",
+        "ret_pct": 2.94,
+        "range_pct": 6.79,
+        "close": 941.9
+      },
+      {
+        "date": "2022-11-10",
+        "ret_pct": 2.84,
+        "range_pct": 3.18,
+        "close": 1754.75
+      },
+      {
+        "date": "2013-11-20",
+        "ret_pct": -2.51,
+        "range_pct": 2.77,
+        "close": 1243.2
+      },
+      {
+        "date": "2026-02-13",
+        "ret_pct": 2.5,
+        "range_pct": 3.24,
+        "close": 5043.11
+      }
+    ],
+    "events": [
+      {
+        "date": "2008-04-16",
+        "ret_pct": 1.799,
+        "range_pct": 2.682,
+        "drift5_pct": -4.328
+      },
+      {
+        "date": "2008-05-14",
+        "ret_pct": -0.214,
+        "range_pct": 1.327,
+        "drift5_pct": 7.83
+      },
+      {
+        "date": "2008-06-13",
+        "ret_pct": 0.265,
+        "range_pct": 1.709,
+        "drift5_pct": 3.518
+      },
+      {
+        "date": "2008-07-16",
+        "ret_pct": -1.79,
+        "range_pct": 2.399,
+        "drift5_pct": -4.099
+      },
+      {
+        "date": "2008-08-14",
+        "ret_pct": -2.42,
+        "range_pct": 3.883,
+        "drift5_pct": 3.701
+      },
+      {
+        "date": "2008-09-16",
+        "ret_pct": -1.099,
+        "range_pct": 2.306,
+        "drift5_pct": 14.598
+      },
+      {
+        "date": "2008-10-16",
+        "ret_pct": -5.065,
+        "range_pct": 7.609,
+        "drift5_pct": -10.422
+      },
+      {
+        "date": "2008-11-19",
+        "ret_pct": -0.535,
+        "range_pct": 4.92,
+        "drift5_pct": 10.805
+      },
+      {
+        "date": "2008-12-16",
+        "ret_pct": 2.161,
+        "range_pct": 3.595,
+        "drift5_pct": -2.185
+      },
+      {
+        "date": "2009-01-16",
+        "ret_pct": 3.307,
+        "range_pct": 3.277,
+        "drift5_pct": 6.646
+      },
+      {
+        "date": "2009-02-20",
+        "ret_pct": 1.893,
+        "range_pct": 3.672,
+        "drift5_pct": -4.847
+      },
+      {
+        "date": "2009-03-18",
+        "ret_pct": 2.94,
+        "range_pct": 6.792,
+        "drift5_pct": -0.823
+      },
+      {
+        "date": "2009-04-15",
+        "ret_pct": 0.197,
+        "range_pct": 1.489,
+        "drift5_pct": -0.163
+      },
+      {
+        "date": "2009-05-15",
+        "ret_pct": 0.578,
+        "range_pct": 1.16,
+        "drift5_pct": 2.753
+      },
+      {
+        "date": "2009-06-17",
+        "ret_pct": 0.46,
+        "range_pct": 1.331,
+        "drift5_pct": -0.777
+      },
+      {
+        "date": "2009-07-15",
+        "ret_pct": 1.496,
+        "range_pct": 1.907,
+        "drift5_pct": 1.272
+      },
+      {
+        "date": "2009-08-14",
+        "ret_pct": -0.801,
+        "range_pct": 1.686,
+        "drift5_pct": 0.718
+      },
+      {
+        "date": "2009-09-16",
+        "ret_pct": 1.073,
+        "range_pct": 1.45,
+        "drift5_pct": -0.909
+      },
+      {
+        "date": "2009-10-15",
+        "ret_pct": -1.138,
+        "range_pct": 1.816,
+        "drift5_pct": 0.909
+      },
+      {
+        "date": "2009-11-18",
+        "ret_pct": 0.315,
+        "range_pct": 1.512,
+        "drift5_pct": 3.966
+      },
+      {
+        "date": "2009-12-16",
+        "ret_pct": 1.196,
+        "range_pct": 1.752,
+        "drift5_pct": -4.46
+      },
+      {
+        "date": "2010-01-15",
+        "ret_pct": -1.08,
+        "range_pct": 1.671,
+        "drift5_pct": -3.351
+      },
+      {
+        "date": "2010-02-19",
+        "ret_pct": -0.449,
+        "range_pct": 2.491,
+        "drift5_pct": -0.21
+      },
+      {
+        "date": "2010-03-18",
+        "ret_pct": 0.08,
+        "range_pct": 0.991,
+        "drift5_pct": -3.073
+      },
+      {
+        "date": "2010-04-14",
+        "ret_pct": 0.326,
+        "range_pct": 1.025,
+        "drift5_pct": -0.745
+      },
+      {
+        "date": "2010-05-19",
+        "ret_pct": -2.451,
+        "range_pct": 3.313,
+        "drift5_pct": 1.607
+      },
+      {
+        "date": "2010-06-17",
+        "ret_pct": 1.116,
+        "range_pct": 1.766,
+        "drift5_pct": -0.064
+      },
+      {
+        "date": "2010-07-16",
+        "ret_pct": -1.233,
+        "range_pct": 2.04,
+        "drift5_pct": -0.381
+      },
+      {
+        "date": "2010-08-13",
+        "ret_pct": 0.194,
+        "range_pct": 0.56,
+        "drift5_pct": 1.028
+      },
+      {
+        "date": "2010-09-17",
+        "ret_pct": -0.051,
+        "range_pct": 0.874,
+        "drift5_pct": 1.73
+      },
+      {
+        "date": "2010-10-15",
+        "ret_pct": -0.88,
+        "range_pct": 1.669,
+        "drift5_pct": -2.991
+      },
+      {
+        "date": "2010-11-17",
+        "ret_pct": -0.268,
+        "range_pct": 1.037,
+        "drift5_pct": 2.815
+      },
+      {
+        "date": "2010-12-15",
+        "ret_pct": -1.178,
+        "range_pct": 1.433,
+        "drift5_pct": 0.377
+      },
+      {
+        "date": "2011-01-14",
+        "ret_pct": -0.91,
+        "range_pct": 1.663,
+        "drift5_pct": -1.42
+      },
+      {
+        "date": "2011-02-17",
+        "ret_pct": 0.622,
+        "range_pct": 0.789,
+        "drift5_pct": 1.198
+      },
+      {
+        "date": "2011-03-17",
+        "ret_pct": 0.221,
+        "range_pct": 1.334,
+        "drift5_pct": 1.901
+      },
+      {
+        "date": "2011-04-15",
+        "ret_pct": 0.786,
+        "range_pct": 1.132,
+        "drift5_pct": 1.455
+      },
+      {
+        "date": "2011-05-13",
+        "ret_pct": -0.552,
+        "range_pct": 2.256,
+        "drift5_pct": 1.271
+      },
+      {
+        "date": "2011-06-15",
+        "ret_pct": 0.433,
+        "range_pct": 1.305,
+        "drift5_pct": 1.117
+      },
+      {
+        "date": "2011-07-15",
+        "ret_pct": 0.432,
+        "range_pct": 1.124,
+        "drift5_pct": 0.323
+      },
+      {
+        "date": "2011-08-18",
+        "ret_pct": 1.996,
+        "range_pct": 2.497,
+        "drift5_pct": -2.891
+      },
+      {
+        "date": "2011-09-15",
+        "ret_pct": -1.679,
+        "range_pct": 2.965,
+        "drift5_pct": -2.98
+      },
+      {
+        "date": "2011-10-19",
+        "ret_pct": -0.807,
+        "range_pct": 1.57,
+        "drift5_pct": 5.113
+      },
+      {
+        "date": "2011-11-16",
+        "ret_pct": -1.069,
+        "range_pct": 1.678,
+        "drift5_pct": -3.918
+      },
+      {
+        "date": "2011-12-16",
+        "ret_pct": 1.735,
+        "range_pct": 2.043,
+        "drift5_pct": 0.541
+      },
+      {
+        "date": "2012-01-19",
+        "ret_pct": -0.22,
+        "range_pct": 1.277,
+        "drift5_pct": 3.855
+      },
+      {
+        "date": "2012-02-17",
+        "ret_pct": -0.362,
+        "range_pct": 1.07,
+        "drift5_pct": 2.963
+      },
+      {
+        "date": "2012-03-16",
+        "ret_pct": 0.146,
+        "range_pct": 1.52,
+        "drift5_pct": 0.097
+      },
+      {
+        "date": "2012-04-13",
+        "ret_pct": -0.984,
+        "range_pct": 1.719,
+        "drift5_pct": -0.983
+      },
+      {
+        "date": "2012-05-15",
+        "ret_pct": -0.796,
+        "range_pct": 1.443,
+        "drift5_pct": 1.586
+      },
+      {
+        "date": "2012-06-14",
+        "ret_pct": 0.307,
+        "range_pct": 1.099,
+        "drift5_pct": -3.574
+      },
+      {
+        "date": "2012-07-17",
+        "ret_pct": -0.415,
+        "range_pct": 1.752,
+        "drift5_pct": -0.142
+      },
+      {
+        "date": "2012-08-15",
+        "ret_pct": 0.296,
+        "range_pct": 1.014,
+        "drift5_pct": 3.157
+      },
+      {
+        "date": "2012-09-14",
+        "ret_pct": 0.316,
+        "range_pct": 0.734,
+        "drift5_pct": 0.032
+      },
+      {
+        "date": "2012-10-16",
+        "ret_pct": 0.674,
+        "range_pct": 0.79,
+        "drift5_pct": -2.237
+      },
+      {
+        "date": "2012-11-15",
+        "ret_pct": -0.617,
+        "range_pct": 1.313,
+        "drift5_pct": 0.801
+      },
+      {
+        "date": "2012-12-14",
+        "ret_pct": -0.108,
+        "range_pct": 0.43,
+        "drift5_pct": -2.27
+      },
+      {
+        "date": "2013-01-16",
+        "ret_pct": 0.036,
+        "range_pct": 0.689,
+        "drift5_pct": 0.372
+      },
+      {
+        "date": "2013-02-21",
+        "ret_pct": 0.841,
+        "range_pct": 1.92,
+        "drift5_pct": 0.26
+      },
+      {
+        "date": "2013-03-15",
+        "ret_pct": 0.135,
+        "range_pct": 0.623,
+        "drift5_pct": 1.005
+      },
+      {
+        "date": "2013-04-16",
+        "ret_pct": 1.156,
+        "range_pct": 5.904,
+        "drift5_pct": 3.247
+      },
+      {
+        "date": "2013-05-16",
+        "ret_pct": -0.474,
+        "range_pct": 2.055,
+        "drift5_pct": 0.353
+      },
+      {
+        "date": "2013-06-18",
+        "ret_pct": -1.188,
+        "range_pct": 1.806,
+        "drift5_pct": -6.654
+      },
+      {
+        "date": "2013-07-16",
+        "ret_pct": 0.78,
+        "range_pct": 1.434,
+        "drift5_pct": 4.294
+      },
+      {
+        "date": "2013-08-15",
+        "ret_pct": 2.311,
+        "range_pct": 3.789,
+        "drift5_pct": 0.717
+      },
+      {
+        "date": "2013-09-17",
+        "ret_pct": -0.331,
+        "range_pct": 1.326,
+        "drift5_pct": 1.035
+      },
+      {
+        "date": "2013-10-30",
+        "ret_pct": -0.112,
+        "range_pct": 1.857,
+        "drift5_pct": -1.817
+      },
+      {
+        "date": "2013-11-20",
+        "ret_pct": -2.513,
+        "range_pct": 2.774,
+        "drift5_pct": -0.467
+      },
+      {
+        "date": "2013-12-17",
+        "ret_pct": -0.844,
+        "range_pct": 1.677,
+        "drift5_pct": -2.093
+      },
+      {
+        "date": "2014-01-16",
+        "ret_pct": 0.065,
+        "range_pct": 0.701,
+        "drift5_pct": 1.754
+      },
+      {
+        "date": "2014-02-20",
+        "ret_pct": 0.845,
+        "range_pct": 1.321,
+        "drift5_pct": 0.646
+      },
+      {
+        "date": "2014-03-18",
+        "ret_pct": -0.783,
+        "range_pct": 1.241,
+        "drift5_pct": -3.333
+      },
+      {
+        "date": "2014-04-15",
+        "ret_pct": -1.791,
+        "range_pct": 2.832,
+        "drift5_pct": -1.47
+      },
+      {
+        "date": "2014-05-15",
+        "ret_pct": -0.708,
+        "range_pct": 1.241,
+        "drift5_pct": -0.193
+      },
+      {
+        "date": "2014-06-17",
+        "ret_pct": -0.008,
+        "range_pct": 1.132,
+        "drift5_pct": 3.681
+      },
+      {
+        "date": "2014-07-22",
+        "ret_pct": -0.347,
+        "range_pct": 1.025,
+        "drift5_pct": -0.658
+      },
+      {
+        "date": "2014-08-19",
+        "ret_pct": -0.151,
+        "range_pct": 0.667,
+        "drift5_pct": -1.127
+      },
+      {
+        "date": "2014-09-17",
+        "ret_pct": -0.967,
+        "range_pct": 1.44,
+        "drift5_pct": -0.507
+      },
+      {
+        "date": "2014-10-22",
+        "ret_pct": -0.662,
+        "range_pct": 0.754,
+        "drift5_pct": -2.355
+      },
+      {
+        "date": "2014-11-20",
+        "ret_pct": 0.883,
+        "range_pct": 1.727,
+        "drift5_pct": -0.168
+      },
+      {
+        "date": "2014-12-17",
+        "ret_pct": -0.66,
+        "range_pct": 1.602,
+        "drift5_pct": -1.253
+      },
+      {
+        "date": "2015-01-16",
+        "ret_pct": 1.479,
+        "range_pct": 2.11,
+        "drift5_pct": 1.113
+      },
+      {
+        "date": "2015-02-26",
+        "ret_pct": 0.353,
+        "range_pct": 1.394,
+        "drift5_pct": -0.864
+      },
+      {
+        "date": "2015-03-24",
+        "ret_pct": 0.322,
+        "range_pct": 0.879,
+        "drift5_pct": -0.807
+      },
+      {
+        "date": "2015-04-17",
+        "ret_pct": 0.584,
+        "range_pct": 0.903,
+        "drift5_pct": -2.098
+      },
+      {
+        "date": "2015-05-22",
+        "ret_pct": -0.006,
+        "range_pct": 1.119,
+        "drift5_pct": -1.316
+      },
+      {
+        "date": "2015-06-18",
+        "ret_pct": 1.347,
+        "range_pct": 1.872,
+        "drift5_pct": -2.338
+      },
+      {
+        "date": "2015-07-17",
+        "ret_pct": -0.965,
+        "range_pct": 1.301,
+        "drift5_pct": -3.086
+      },
+      {
+        "date": "2015-08-19",
+        "ret_pct": 1.471,
+        "range_pct": 1.638,
+        "drift5_pct": -0.785
+      },
+      {
+        "date": "2015-09-16",
+        "ret_pct": 1.28,
+        "range_pct": 1.877,
+        "drift5_pct": 0.969
+      },
+      {
+        "date": "2015-10-15",
+        "ret_pct": -0.175,
+        "range_pct": 1.238,
+        "drift5_pct": -1.442
+      },
+      {
+        "date": "2015-11-17",
+        "ret_pct": -1.153,
+        "range_pct": 1.776,
+        "drift5_pct": 0.478
+      },
+      {
+        "date": "2015-12-15",
+        "ret_pct": -0.203,
+        "range_pct": 0.875,
+        "drift5_pct": 1.095
+      },
+      {
+        "date": "2016-01-20",
+        "ret_pct": 1.279,
+        "range_pct": 2.104,
+        "drift5_pct": 2.232
+      },
+      {
+        "date": "2016-02-19",
+        "ret_pct": -0.338,
+        "range_pct": 1.217,
+        "drift5_pct": -0.455
+      },
+      {
+        "date": "2016-03-16",
+        "ret_pct": 2.491,
+        "range_pct": 3.014,
+        "drift5_pct": -3.397
+      },
+      {
+        "date": "2016-04-14",
+        "ret_pct": -1.267,
+        "range_pct": 1.656,
+        "drift5_pct": 1.748
+      },
+      {
+        "date": "2016-05-17",
+        "ret_pct": 0.482,
+        "range_pct": 1.021,
+        "drift5_pct": -4.141
+      },
+      {
+        "date": "2016-06-16",
+        "ret_pct": -0.956,
+        "range_pct": 2.891,
+        "drift5_pct": -1.836
+      },
+      {
+        "date": "2016-07-15",
+        "ret_pct": 0.206,
+        "range_pct": 1.225,
+        "drift5_pct": -1.156
+      },
+      {
+        "date": "2016-08-16",
+        "ret_pct": 0.502,
+        "range_pct": 1.412,
+        "drift5_pct": -0.593
+      },
+      {
+        "date": "2016-09-16",
+        "ret_pct": -0.291,
+        "range_pct": 0.899,
+        "drift5_pct": 2.074
+      },
+      {
+        "date": "2016-10-18",
+        "ret_pct": 0.569,
+        "range_pct": 0.835,
+        "drift5_pct": 0.911
+      },
+      {
+        "date": "2016-11-17",
+        "ret_pct": -0.727,
+        "range_pct": 1.688,
+        "drift5_pct": -2.663
+      },
+      {
+        "date": "2016-12-15",
+        "ret_pct": -1.383,
+        "range_pct": 1.928,
+        "drift5_pct": 0.023
+      },
+      {
+        "date": "2017-01-18",
+        "ret_pct": -1.06,
+        "range_pct": 1.29,
+        "drift5_pct": -0.277
+      },
+      {
+        "date": "2017-02-15",
+        "ret_pct": 0.352,
+        "range_pct": 1.368,
+        "drift5_pct": 0.385
+      },
+      {
+        "date": "2017-03-15",
+        "ret_pct": 1.695,
+        "range_pct": 2.062,
+        "drift5_pct": 2.456
+      },
+      {
+        "date": "2017-04-14",
+        "ret_pct": -0.159,
+        "range_pct": 0.267,
+        "drift5_pct": -0.093
+      },
+      {
+        "date": "2017-05-12",
+        "ret_pct": 0.325,
+        "range_pct": 0.629,
+        "drift5_pct": 2.174
+      },
+      {
+        "date": "2017-06-14",
+        "ret_pct": -0.369,
+        "range_pct": 1.795,
+        "drift5_pct": -1.16
+      },
+      {
+        "date": "2017-07-14",
+        "ret_pct": 0.947,
+        "range_pct": 1.496,
+        "drift5_pct": 2.109
+      },
+      {
+        "date": "2017-08-11",
+        "ret_pct": 0.179,
+        "range_pct": 0.832,
+        "drift5_pct": -0.365
+      },
+      {
+        "date": "2017-09-14",
+        "ret_pct": 0.497,
+        "range_pct": 1.102,
+        "drift5_pct": -2.891
+      },
+      {
+        "date": "2017-10-13",
+        "ret_pct": 0.872,
+        "range_pct": 1.07,
+        "drift5_pct": -1.852
+      },
+      {
+        "date": "2017-11-15",
+        "ret_pct": -0.149,
+        "range_pct": 0.971,
+        "drift5_pct": 1.042
+      },
+      {
+        "date": "2017-12-13",
+        "ret_pct": 0.933,
+        "range_pct": 1.358,
+        "drift5_pct": 0.81
+      },
+      {
+        "date": "2018-01-12",
+        "ret_pct": 1.208,
+        "range_pct": 1.379,
+        "drift5_pct": -0.493
+      },
+      {
+        "date": "2018-02-14",
+        "ret_pct": 1.595,
+        "range_pct": 2.719,
+        "drift5_pct": -1.962
+      },
+      {
+        "date": "2018-03-13",
+        "ret_pct": 0.252,
+        "range_pct": 0.897,
+        "drift5_pct": -1.144
+      },
+      {
+        "date": "2018-04-11",
+        "ret_pct": 0.988,
+        "range_pct": 1.935,
+        "drift5_pct": -0.293
+      },
+      {
+        "date": "2018-05-10",
+        "ret_pct": 0.656,
+        "range_pct": 0.933,
+        "drift5_pct": -2.3
+      },
+      {
+        "date": "2018-06-12",
+        "ret_pct": -0.321,
+        "range_pct": 0.606,
+        "drift5_pct": -1.637
+      },
+      {
+        "date": "2018-07-12",
+        "ret_pct": 0.401,
+        "range_pct": 0.609,
+        "drift5_pct": -1.952
+      },
+      {
+        "date": "2018-08-10",
+        "ret_pct": -0.087,
+        "range_pct": 0.959,
+        "drift5_pct": -2.19
+      },
+      {
+        "date": "2018-09-13",
+        "ret_pct": -0.394,
+        "range_pct": 1.079,
+        "drift5_pct": 0.511
+      },
+      {
+        "date": "2018-10-11",
+        "ret_pct": 2.473,
+        "range_pct": 2.977,
+        "drift5_pct": 0.116
+      },
+      {
+        "date": "2018-11-14",
+        "ret_pct": 0.712,
+        "range_pct": 1.598,
+        "drift5_pct": 1.248
+      },
+      {
+        "date": "2018-12-12",
+        "ret_pct": 0.23,
+        "range_pct": 0.451,
+        "drift5_pct": -0.193
+      },
+      {
+        "date": "2019-01-11",
+        "ret_pct": 0.126,
+        "range_pct": 0.731,
+        "drift5_pct": -0.505
+      },
+      {
+        "date": "2019-02-13",
+        "ret_pct": -0.359,
+        "range_pct": 1.044,
+        "drift5_pct": 2.473
+      },
+      {
+        "date": "2019-03-12",
+        "ret_pct": 0.6,
+        "range_pct": 0.783,
+        "drift5_pct": 0.349
+      },
+      {
+        "date": "2019-04-10",
+        "ret_pct": 0.301,
+        "range_pct": 0.756,
+        "drift5_pct": -2.592
+      },
+      {
+        "date": "2019-05-10",
+        "ret_pct": 0.145,
+        "range_pct": 0.508,
+        "drift5_pct": -0.657
+      },
+      {
+        "date": "2019-06-12",
+        "ret_pct": 0.5,
+        "range_pct": 0.938,
+        "drift5_pct": 2.004
+      },
+      {
+        "date": "2019-07-11",
+        "ret_pct": -1.057,
+        "range_pct": 1.748,
+        "drift5_pct": 3.013
+      },
+      {
+        "date": "2019-08-13",
+        "ret_pct": -0.662,
+        "range_pct": 3.523,
+        "drift5_pct": 0.38
+      },
+      {
+        "date": "2019-09-12",
+        "ret_pct": 0.09,
+        "range_pct": 2.351,
+        "drift5_pct": 0.017
+      },
+      {
+        "date": "2019-10-10",
+        "ret_pct": -0.757,
+        "range_pct": 1.705,
+        "drift5_pct": -0.161
+      },
+      {
+        "date": "2019-11-13",
+        "ret_pct": 0.412,
+        "range_pct": 0.771,
+        "drift5_pct": 0.551
+      },
+      {
+        "date": "2019-12-11",
+        "ret_pct": 0.727,
+        "range_pct": 1.145,
+        "drift5_pct": 0.04
+      },
+      {
+        "date": "2020-01-14",
+        "ret_pct": -0.125,
+        "range_pct": 0.834,
+        "drift5_pct": 0.753
+      },
+      {
+        "date": "2020-02-13",
+        "ret_pct": 0.687,
+        "range_pct": 0.81,
+        "drift5_pct": 2.747
+      },
+      {
+        "date": "2020-03-11",
+        "ret_pct": -0.869,
+        "range_pct": 2.308,
+        "drift5_pct": -9.096
+      },
+      {
+        "date": "2020-04-10",
+        "ret_pct": 0.346,
+        "range_pct": 1.277,
+        "drift5_pct": -0.308
+      },
+      {
+        "date": "2020-05-12",
+        "ret_pct": 0.316,
+        "range_pct": 1.105,
+        "drift5_pct": 2.49
+      },
+      {
+        "date": "2020-06-10",
+        "ret_pct": 1.314,
+        "range_pct": 1.835,
+        "drift5_pct": -0.579
+      },
+      {
+        "date": "2020-07-14",
+        "ret_pct": 0.243,
+        "range_pct": 1.105,
+        "drift5_pct": 1.905
+      },
+      {
+        "date": "2020-08-12",
+        "ret_pct": 0.336,
+        "range_pct": 4.464,
+        "drift5_pct": 0.613
+      },
+      {
+        "date": "2020-09-11",
+        "ret_pct": -0.643,
+        "range_pct": 1.051,
+        "drift5_pct": 0.422
+      },
+      {
+        "date": "2020-10-13",
+        "ret_pct": -1.62,
+        "range_pct": 2.036,
+        "drift5_pct": 0.823
+      },
+      {
+        "date": "2020-11-12",
+        "ret_pct": 0.592,
+        "range_pct": 1.148,
+        "drift5_pct": -0.447
+      },
+      {
+        "date": "2020-12-10",
+        "ret_pct": -0.207,
+        "range_pct": 1.192,
+        "drift5_pct": 2.755
+      },
+      {
+        "date": "2021-01-13",
+        "ret_pct": -0.658,
+        "range_pct": 1.073,
+        "drift5_pct": 1.492
+      },
+      {
+        "date": "2021-02-10",
+        "ret_pct": 0.281,
+        "range_pct": 1.186,
+        "drift5_pct": -3.58
+      },
+      {
+        "date": "2021-03-10",
+        "ret_pct": 0.623,
+        "range_pct": 1.094,
+        "drift5_pct": 1.066
+      },
+      {
+        "date": "2021-04-13",
+        "ret_pct": 0.653,
+        "range_pct": 1.499,
+        "drift5_pct": 1.917
+      },
+      {
+        "date": "2021-05-12",
+        "ret_pct": -1.17,
+        "range_pct": 1.671,
+        "drift5_pct": 2.982
+      },
+      {
+        "date": "2021-06-10",
+        "ret_pct": 0.521,
+        "range_pct": 1.602,
+        "drift5_pct": -6.576
+      },
+      {
+        "date": "2021-07-13",
+        "ret_pct": 0.086,
+        "range_pct": 1.05,
+        "drift5_pct": 0.144
+      },
+      {
+        "date": "2021-08-11",
+        "ret_pct": 1.322,
+        "range_pct": 1.798,
+        "drift5_pct": 2.057
+      },
+      {
+        "date": "2021-09-14",
+        "ret_pct": 0.601,
+        "range_pct": 1.511,
+        "drift5_pct": -1.664
+      },
+      {
+        "date": "2021-10-13",
+        "ret_pct": 1.859,
+        "range_pct": 2.183,
+        "drift5_pct": -0.603
+      },
+      {
+        "date": "2021-11-10",
+        "ret_pct": 0.987,
+        "range_pct": 2.572,
+        "drift5_pct": 0.94
+      },
+      {
+        "date": "2021-12-10",
+        "ret_pct": 0.454,
+        "range_pct": 1.13,
+        "drift5_pct": 0.851
+      },
+      {
+        "date": "2022-01-12",
+        "ret_pct": 0.182,
+        "range_pct": 0.776,
+        "drift5_pct": 0.802
+      },
+      {
+        "date": "2022-02-10",
+        "ret_pct": -0.32,
+        "range_pct": 1.14,
+        "drift5_pct": 3.871
+      },
+      {
+        "date": "2022-03-10",
+        "ret_pct": 0.219,
+        "range_pct": 1.954,
+        "drift5_pct": -2.666
+      },
+      {
+        "date": "2022-04-12",
+        "ret_pct": 0.674,
+        "range_pct": 1.492,
+        "drift5_pct": -0.852
+      },
+      {
+        "date": "2022-05-11",
+        "ret_pct": 0.76,
+        "range_pct": 1.423,
+        "drift5_pct": -1.971
+      },
+      {
+        "date": "2022-06-10",
+        "ret_pct": 1.264,
+        "range_pct": 2.785,
+        "drift5_pct": -1.69
+      },
+      {
+        "date": "2022-07-13",
+        "ret_pct": 0.546,
+        "range_pct": 2.211,
+        "drift5_pct": -2.236
+      },
+      {
+        "date": "2022-08-10",
+        "ret_pct": -0.109,
+        "range_pct": 1.147,
+        "drift5_pct": -1.734
+      },
+      {
+        "date": "2022-09-13",
+        "ret_pct": -1.306,
+        "range_pct": 2.067,
+        "drift5_pct": -2.259
+      },
+      {
+        "date": "2022-10-13",
+        "ret_pct": -0.401,
+        "range_pct": 2.427,
+        "drift5_pct": -2.289
+      },
+      {
+        "date": "2022-11-10",
+        "ret_pct": 2.838,
+        "range_pct": 3.181,
+        "drift5_pct": 0.349
+      },
+      {
+        "date": "2022-12-13",
+        "ret_pct": 1.636,
+        "range_pct": 2.53,
+        "drift5_pct": 0.393
+      },
+      {
+        "date": "2023-01-12",
+        "ret_pct": 1.091,
+        "range_pct": 1.505,
+        "drift5_pct": 1.82
+      },
+      {
+        "date": "2023-02-14",
+        "ret_pct": 0.049,
+        "range_pct": 1.502,
+        "drift5_pct": -1.077
+      },
+      {
+        "date": "2023-03-14",
+        "ret_pct": -0.581,
+        "range_pct": 1.011,
+        "drift5_pct": 1.999
+      },
+      {
+        "date": "2023-04-12",
+        "ret_pct": 0.576,
+        "range_pct": 1.359,
+        "drift5_pct": -1.063
+      },
+      {
+        "date": "2023-05-10",
+        "ret_pct": -0.229,
+        "range_pct": 1.31,
+        "drift5_pct": -2.355
+      },
+      {
+        "date": "2023-06-13",
+        "ret_pct": -0.695,
+        "range_pct": 1.571,
+        "drift5_pct": -0.382
+      },
+      {
+        "date": "2023-07-12",
+        "ret_pct": 1.299,
+        "range_pct": 1.431,
+        "drift5_pct": 1.03
+      },
+      {
+        "date": "2023-08-10",
+        "ret_pct": -0.132,
+        "range_pct": 0.96,
+        "drift5_pct": -1.212
+      },
+      {
+        "date": "2023-09-13",
+        "ret_pct": -0.364,
+        "range_pct": 0.564,
+        "drift5_pct": 1.227
+      },
+      {
+        "date": "2023-10-12",
+        "ret_pct": -0.265,
+        "range_pct": 0.981,
+        "drift5_pct": 5.622
+      },
+      {
+        "date": "2023-11-14",
+        "ret_pct": 0.863,
+        "range_pct": 1.41,
+        "drift5_pct": 1.819
+      },
+      {
+        "date": "2023-12-12",
+        "ret_pct": -0.094,
+        "range_pct": 0.99,
+        "drift5_pct": 3.066
+      },
+      {
+        "date": "2024-01-11",
+        "ret_pct": 0.232,
+        "range_pct": 1.304,
+        "drift5_pct": -0.267
+      },
+      {
+        "date": "2024-02-13",
+        "ret_pct": -1.369,
+        "range_pct": 1.973,
+        "drift5_pct": 1.576
+      },
+      {
+        "date": "2024-03-12",
+        "ret_pct": -1.122,
+        "range_pct": 1.57,
+        "drift5_pct": -0.035
+      },
+      {
+        "date": "2024-04-10",
+        "ret_pct": -0.841,
+        "range_pct": 1.726,
+        "drift5_pct": 1.201
+      },
+      {
+        "date": "2024-05-15",
+        "ret_pct": 1.191,
+        "range_pct": 1.634,
+        "drift5_pct": -0.327
+      },
+      {
+        "date": "2024-06-12",
+        "ret_pct": 0.271,
+        "range_pct": 1.334,
+        "drift5_pct": 0.212
+      },
+      {
+        "date": "2024-07-11",
+        "ret_pct": 1.843,
+        "range_pct": 2.268,
+        "drift5_pct": 1.25
+      },
+      {
+        "date": "2024-08-14",
+        "ret_pct": -0.705,
+        "range_pct": 1.638,
+        "drift5_pct": 2.627
+      },
+      {
+        "date": "2024-09-11",
+        "ret_pct": -0.186,
+        "range_pct": 1.128,
+        "drift5_pct": 1.886
+      },
+      {
+        "date": "2024-10-10",
+        "ret_pct": 0.833,
+        "range_pct": 1.054,
+        "drift5_pct": 2.398
+      },
+      {
+        "date": "2024-11-13",
+        "ret_pct": -0.904,
+        "range_pct": 1.77,
+        "drift5_pct": 2.963
+      },
+      {
+        "date": "2024-12-11",
+        "ret_pct": 0.902,
+        "range_pct": 1.736,
+        "drift5_pct": -4.794
+      },
+      {
+        "date": "2025-01-15",
+        "ret_pct": 0.697,
+        "range_pct": 1.076,
+        "drift5_pct": 2.196
+      },
+      {
+        "date": "2025-02-12",
+        "ret_pct": 0.184,
+        "range_pct": 1.558,
+        "drift5_pct": 0.998
+      },
+      {
+        "date": "2025-03-12",
+        "ret_pct": 0.549,
+        "range_pct": 1.188,
+        "drift5_pct": 3.926
+      },
+      {
+        "date": "2025-04-10",
+        "ret_pct": 2.976,
+        "range_pct": 3.436,
+        "drift5_pct": 4.84
+      },
+      {
+        "date": "2025-05-13",
+        "ret_pct": 0.426,
+        "range_pct": 1.53,
+        "drift5_pct": 1.282
+      },
+      {
+        "date": "2025-06-11",
+        "ret_pct": 0.927,
+        "range_pct": 1.372,
+        "drift5_pct": 0.455
+      },
+      {
+        "date": "2025-07-15",
+        "ret_pct": -0.633,
+        "range_pct": 1.385,
+        "drift5_pct": 3.277
+      },
+      {
+        "date": "2025-08-12",
+        "ret_pct": 0.041,
+        "range_pct": 0.844,
+        "drift5_pct": -0.919
+      },
+      {
+        "date": "2025-09-11",
+        "ret_pct": -0.183,
+        "range_pct": 0.968,
+        "drift5_pct": 0.283
+      },
+      {
+        "date": "2025-10-24",
+        "ret_pct": -0.341,
+        "range_pct": 2.424,
+        "drift5_pct": -2.671
+      },
+      {
+        "date": "2025-12-18",
+        "ret_pct": -0.2,
+        "range_pct": 1.522,
+        "drift5_pct": 3.761
+      },
+      {
+        "date": "2026-01-13",
+        "ret_pct": -0.131,
+        "range_pct": 1.422,
+        "drift5_pct": 3.825
+      },
+      {
+        "date": "2026-02-13",
+        "ret_pct": 2.496,
+        "range_pct": 3.236,
+        "drift5_pct": 1.214
+      },
+      {
+        "date": "2026-03-11",
+        "ret_pct": -0.306,
+        "range_pct": 1.419,
+        "drift5_pct": -6.92
+      },
+      {
+        "date": "2026-04-10",
+        "ret_pct": -0.374,
+        "range_pct": 1.351,
+        "drift5_pct": 1.732
+      },
+      {
+        "date": "2026-05-12",
+        "ret_pct": -0.422,
+        "range_pct": 2.862,
+        "drift5_pct": -4.937
+      },
+      {
+        "date": "2026-06-10",
+        "ret_pct": -4.434,
+        "range_pct": 4.489,
+        "drift5_pct": 4.51
+      },
+      {
+        "date": "2026-07-14",
+        "ret_pct": 1.342,
+        "range_pct": 2.906,
+        "drift5_pct": 0.552
+      },
+      {
+        "date": "2026-08-12",
+        "ret_pct": 0.921,
+        "range_pct": 1.841,
+        "drift5_pct": 2.588
+      },
+      {
+        "date": "2026-09-11",
+        "ret_pct": 0.728,
+        "range_pct": 2.482,
+        "drift5_pct": 0.677
+      },
+      {
+        "date": "2026-10-14",
+        "ret_pct": -1.257,
+        "range_pct": 2.334,
+        "drift5_pct": 0.702
+      }
+    ],
+    "coverage": {
+      "first": "2008-03-26",
+      "last": "2026-10-30",
+      "release_dates_in_span_missing_from_series": []
+    }
+  },
+  "intraday": {
+    "n_event": 33,
+    "n_base_fridays": 666,
+    "skipped_release_dates": [],
+    "coverage": {
+      "first": "2024-01-02 07:00:00+08:00",
+      "last": "2026-10-31 04:30:00+08:00"
+    },
+    "rng30": {
+      "event_mean": 0.847,
+      "event_median": 0.768,
+      "base_mean": 0.359,
+      "base_median": 0.305,
+      "multiple_of_base_median": 2.51,
+      "vs_base": {
+        "diff": 0.4877,
+        "bound_95": 0.1588,
+        "resolved": true
+      }
+    },
+    "points30_median": {
+      "event": 22.0,
+      "base": 10.11
+    },
+    "abs_r1h": {
+      "event_mean": 0.518,
+      "base_mean": 0.233,
+      "vs_base": {
+        "diff": 0.2854,
+        "bound_95": 0.1552,
+        "resolved": true
+      }
+    },
+    "rng4h": {
+      "event_mean": 1.411,
+      "base_mean": 1.033,
+      "vs_base": {
+        "diff": 0.3779,
+        "bound_95": 0.1598,
+        "resolved": true
+      }
+    },
+    "whipsaw": {
+      "event": {
+        "k": 6,
+        "n": 33,
+        "pct": 18.2,
+        "ci95_pct": [
+          8.6,
+          34.4
+        ]
+      },
+      "base": {
+        "k": 270,
+        "n": 666,
+        "pct": 40.5,
+        "ci95_pct": [
+          36.9,
+          44.3
+        ]
+      },
+      "diff": {
+        "diff_pts": -22.4,
+        "bound_95_pts": 13.7,
+        "resolved": true
+      }
+    },
+    "posthoc_reverse_after_first_bar": {
+      "note": "pre-registered secondary (carried over from the NFP study): sign of close(bar 8) / close(bar 1) against the first-bar sign, so the first bar no longer counts toward its own continuation",
+      "event": {
+        "k": 14,
+        "n": 33,
+        "pct": 42.4,
+        "ci95_pct": [
+          27.2,
+          59.2
+        ]
+      },
+      "base": {
+        "k": 352,
+        "n": 666,
+        "pct": 52.9,
+        "ci95_pct": [
+          49.1,
+          56.6
+        ]
+      },
+      "diff": {
+        "diff_pts": -10.4,
+        "bound_95_pts": 17.3,
+        "resolved": false
+      },
+      "event_after_mean_abs": 0.48,
+      "base_after_mean_abs": 0.458
+    },
+    "first_bar_up": {
+      "event": {
+        "k": 22,
+        "n": 33,
+        "pct": 66.7,
+        "ci95_pct": [
+          49.6,
+          80.2
+        ]
+      }
+    },
+    "r4h_up": {
+      "event": {
+        "k": 18,
+        "n": 33,
+        "pct": 54.5,
+        "ci95_pct": [
+          38.0,
+          70.2
+        ]
+      }
+    },
+    "events": [
+      {
+        "r30": -0.389,
+        "rng30": 1.064,
+        "r1h": -0.383,
+        "r4h": -1.017,
+        "after": -0.631,
+        "reverse_after": false,
+        "rng4h": 1.625,
+        "whipsaw": false,
+        "points30": 21.674,
+        "date": "2024-01-11",
+        "taipei": "21:30"
+      },
+      {
+        "r30": -1.23,
+        "rng30": 1.476,
+        "r1h": -1.379,
+        "r4h": -1.793,
+        "after": -0.57,
+        "reverse_after": false,
+        "rng4h": 2.116,
+        "whipsaw": false,
+        "points30": 29.945,
+        "date": "2024-02-13",
+        "taipei": "21:30"
+      },
+      {
+        "r30": -0.014,
+        "rng30": 0.99,
+        "r1h": -0.26,
+        "r4h": -0.358,
+        "after": -0.344,
+        "reverse_after": false,
+        "rng4h": 1.359,
+        "whipsaw": false,
+        "points30": 21.49,
+        "date": "2024-03-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.491,
+        "rng30": 0.936,
+        "r1h": -0.997,
+        "r4h": -0.562,
+        "after": -0.071,
+        "reverse_after": false,
+        "rng4h": 1.407,
+        "whipsaw": false,
+        "points30": 22.0,
+        "date": "2024-04-10",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.48,
+        "rng30": 0.768,
+        "r1h": 0.243,
+        "r4h": 1.008,
+        "after": 0.525,
+        "reverse_after": false,
+        "rng4h": 1.449,
+        "whipsaw": false,
+        "points30": 18.129,
+        "date": "2024-05-15",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.906,
+        "rng30": 1.028,
+        "r1h": 1.092,
+        "r4h": 0.872,
+        "after": -0.034,
+        "reverse_after": true,
+        "rng4h": 1.2,
+        "whipsaw": false,
+        "points30": 23.8,
+        "date": "2024-06-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 1.115,
+        "rng30": 1.348,
+        "r1h": 1.204,
+        "r4h": 1.412,
+        "after": 0.294,
+        "reverse_after": false,
+        "rng4h": 1.969,
+        "whipsaw": false,
+        "points30": 32.085,
+        "date": "2024-07-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.144,
+        "rng30": 0.72,
+        "r1h": -0.864,
+        "r4h": -1.265,
+        "after": -1.123,
+        "reverse_after": false,
+        "rng4h": 1.672,
+        "whipsaw": false,
+        "points30": 17.81,
+        "date": "2024-08-14",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.436,
+        "rng30": 0.863,
+        "r1h": -0.46,
+        "r4h": -0.135,
+        "after": 0.302,
+        "reverse_after": true,
+        "rng4h": 0.91,
+        "whipsaw": false,
+        "points30": 21.732,
+        "date": "2024-09-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.445,
+        "rng30": 0.977,
+        "r1h": 0.159,
+        "r4h": 0.53,
+        "after": 0.085,
+        "reverse_after": false,
+        "rng4h": 1.07,
+        "whipsaw": false,
+        "points30": 25.54,
+        "date": "2024-10-10",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.131,
+        "rng30": 0.42,
+        "r1h": 0.168,
+        "r4h": -1.151,
+        "after": -1.28,
+        "reverse_after": true,
+        "rng4h": 1.583,
+        "whipsaw": true,
+        "points30": 10.945,
+        "date": "2024-11-13",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.269,
+        "rng30": 0.335,
+        "r1h": 0.258,
+        "r4h": 0.869,
+        "after": 0.598,
+        "reverse_after": false,
+        "rng4h": 1.001,
+        "whipsaw": false,
+        "points30": 9.025,
+        "date": "2024-12-11",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.391,
+        "rng30": 0.406,
+        "r1h": 0.233,
+        "r4h": 0.282,
+        "after": -0.109,
+        "reverse_after": true,
+        "rng4h": 0.731,
+        "whipsaw": false,
+        "points30": 10.892,
+        "date": "2025-01-15",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.272,
+        "rng30": 0.763,
+        "r1h": 0.647,
+        "r4h": 1.0,
+        "after": 0.726,
+        "reverse_after": false,
+        "rng4h": 1.582,
+        "whipsaw": false,
+        "points30": 21.945,
+        "date": "2025-02-12",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.137,
+        "rng30": 0.336,
+        "r1h": -0.087,
+        "r4h": 0.83,
+        "after": 0.692,
+        "reverse_after": false,
+        "rng4h": 1.114,
+        "whipsaw": false,
+        "points30": 9.795,
+        "date": "2025-03-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.106,
+        "rng30": 0.581,
+        "r1h": 0.214,
+        "r4h": 1.168,
+        "after": 1.275,
+        "reverse_after": true,
+        "rng4h": 1.891,
+        "whipsaw": true,
+        "points30": 18.175,
+        "date": "2025-04-10",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.044,
+        "rng30": 0.342,
+        "r1h": 0.128,
+        "r4h": 0.414,
+        "after": 0.37,
+        "reverse_after": false,
+        "rng4h": 1.012,
+        "whipsaw": false,
+        "points30": 11.085,
+        "date": "2025-05-13",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.106,
+        "rng30": 0.854,
+        "r1h": -0.074,
+        "r4h": -0.255,
+        "after": -0.149,
+        "reverse_after": false,
+        "rng4h": 0.996,
+        "whipsaw": false,
+        "points30": 28.532,
+        "date": "2025-06-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -0.166,
+        "rng30": 0.426,
+        "r1h": -0.404,
+        "r4h": -0.855,
+        "after": -0.69,
+        "reverse_after": false,
+        "rng4h": 1.205,
+        "whipsaw": false,
+        "points30": 14.275,
+        "date": "2025-07-15",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.3,
+        "rng30": 0.56,
+        "r1h": 0.226,
+        "r4h": 0.264,
+        "after": -0.036,
+        "reverse_after": true,
+        "rng4h": 0.848,
+        "whipsaw": false,
+        "points30": 18.71,
+        "date": "2025-08-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.158,
+        "rng30": 0.863,
+        "r1h": -0.055,
+        "r4h": 0.397,
+        "after": 0.239,
+        "reverse_after": false,
+        "rng4h": 0.863,
+        "whipsaw": false,
+        "points30": 31.25,
+        "date": "2025-09-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.505,
+        "rng30": 0.819,
+        "r1h": 1.293,
+        "r4h": 1.845,
+        "after": 1.333,
+        "reverse_after": false,
+        "rng4h": 1.939,
+        "whipsaw": false,
+        "points30": 33.265,
+        "date": "2025-10-24",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.359,
+        "rng30": 0.529,
+        "r1h": 0.271,
+        "r4h": 0.158,
+        "after": -0.201,
+        "reverse_after": true,
+        "rng4h": 1.548,
+        "whipsaw": false,
+        "points30": 22.87,
+        "date": "2025-12-18",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.218,
+        "rng30": 0.453,
+        "r1h": 0.368,
+        "r4h": 0.186,
+        "after": -0.032,
+        "reverse_after": true,
+        "rng4h": 0.909,
+        "whipsaw": false,
+        "points30": 20.822,
+        "date": "2026-01-13",
+        "taipei": "21:30"
+      },
+      {
+        "r30": 0.404,
+        "rng30": 0.677,
+        "r1h": 0.723,
+        "r4h": 1.025,
+        "after": 0.618,
+        "reverse_after": false,
+        "rng4h": 1.412,
+        "whipsaw": false,
+        "points30": 33.6,
+        "date": "2026-02-13",
+        "taipei": "21:30"
+      },
+      {
+        "r30": -0.456,
+        "rng30": 0.592,
+        "r1h": -0.199,
+        "r4h": -0.472,
+        "after": -0.016,
+        "reverse_after": false,
+        "rng4h": 0.931,
+        "whipsaw": false,
+        "points30": 30.72,
+        "date": "2026-03-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.197,
+        "rng30": 0.443,
+        "r1h": 0.278,
+        "r4h": -0.099,
+        "after": -0.295,
+        "reverse_after": true,
+        "rng4h": 1.009,
+        "whipsaw": true,
+        "points30": 21.12,
+        "date": "2026-04-10",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.179,
+        "rng30": 0.472,
+        "r1h": -0.134,
+        "r4h": -0.616,
+        "after": -0.794,
+        "reverse_after": true,
+        "rng4h": 1.568,
+        "whipsaw": true,
+        "points30": 22.185,
+        "date": "2026-05-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.139,
+        "rng30": 0.836,
+        "r1h": 0.208,
+        "r4h": -0.328,
+        "after": -0.466,
+        "reverse_after": true,
+        "rng4h": 1.928,
+        "whipsaw": true,
+        "points30": 34.64,
+        "date": "2026-06-10",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 1.153,
+        "rng30": 1.861,
+        "r1h": 1.279,
+        "r4h": 0.729,
+        "after": -0.419,
+        "reverse_after": true,
+        "rng4h": 1.861,
+        "whipsaw": false,
+        "points30": 74.988,
+        "date": "2026-07-14",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 0.241,
+        "rng30": 1.28,
+        "r1h": -0.189,
+        "r4h": -0.084,
+        "after": -0.324,
+        "reverse_after": true,
+        "rng4h": 1.349,
+        "whipsaw": true,
+        "points30": 56.655,
+        "date": "2026-08-12",
+        "taipei": "20:30"
+      },
+      {
+        "r30": 1.098,
+        "rng30": 2.274,
+        "r1h": 1.133,
+        "r4h": 0.32,
+        "after": -0.769,
+        "reverse_after": true,
+        "rng4h": 2.559,
+        "whipsaw": false,
+        "points30": 98.731,
+        "date": "2026-09-11",
+        "taipei": "20:30"
+      },
+      {
+        "r30": -1.295,
+        "rng30": 1.656,
+        "r1h": -1.483,
+        "r4h": -1.722,
+        "after": -0.433,
+        "reverse_after": false,
+        "rng4h": 1.94,
+        "whipsaw": false,
+        "points30": 68.74,
+        "date": "2026-10-14",
+        "taipei": "20:30"
+      }
+    ]
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261102-002",
+  "generated_at": "2026-11-02T22:29:30+08:00",
+  "method": {
+    "release_time": "08:30 America/New_York, converted with zoneinfo",
+    "daily": "XAUUSD_1d close-to-close; release day D vs non-release days (NFP days excluded) and non-release Tue-Thu; drift close(D+5)/close(D); bound = 1.96 x pooled SE",
+    "intraday": "FX_IDC:XAUUSD 30m chart exports (Oct 2026 resampled from 15m); release bar opens 08:30 ET; 1h = close of 2nd bar, 4h = close of 8th bar, both vs release-bar open; baseline = same ET bar on non-release weekdays (NFP days excluded); whipsaw = first-bar sign differs from 4h sign",
+    "eras": [
+      "2008–2015",
+      "2016–2023",
+      "2024–2026"
+    ]
+  },
+  "limitations": [
+    "No CPI consensus or surprise data: 'hot vs cool print' is not tested.",
+    "Daily series is the repository XAUUSD_1d, not TradingView; levels differ slightly.",
+    "Intraday sample is 33 releases (2024-01 onward); shares carry wide intervals.",
+    "Descriptive only; no trading rule is implied."
+  ]
+}
