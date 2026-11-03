@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-03T00:01:07+08:00",
+  "generated_at": "2026-11-03T09:42:24+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2142,6 +2142,28 @@
           "says_zh": "30 分鐘高低差 22.0 對 10.11 點；1 小時約 2.2 倍；≥2% 日 6.3% 對 6.3%（分不出差別）"
         }
       ]
+    },
+    {
+      "id": "K-MKT-010",
+      "topic": "market",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "CPI 數據好壞與黃金：方向偏向「核心高於預期偏跌」，但證據很薄；公布後才進場的簡單規則扣成本分不出賺賠",
+      "detail_zh": "2024–2026 年 32 次：預先登記的 30 分鐘斜率每 0.1 個百分點 -0.2154%（剛好越過界線，拿掉 6 次中任一次就變）；4 小時高於預期 -0.34%、低於 0.477%（邊緣）。",
+      "how_to_use_zh": "公布後才順著數據進場，32 次樣本裡扣成本後看不出優勢（界線很寬，約 ±7–9 美金）；只作背景參考。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-03",
+      "reviewed_on": "2026-11-03",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261103-001",
+          "says_zh": "30 分鐘斜率邊緣、脆弱；規則 B/C 扣成本後分不出賺賠"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -3590,6 +3612,22 @@
       "url": "research/studies/RS-XAUUSD-20261102-002/",
       "claims": [
         "K-MKT-009"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261103-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "event",
+      "title": "Gold and the CPI surprise (32 releases 2024-2026): moves lean the pre-registered way (hot core CPI, weaker gold) but the evidence is marginal and fragile; simple rules that trade after the release are not distinguishable from zero after costs",
+      "title_zh": "CPI 數據好壞與黃金：方向偏向「高於預期偏跌」，但證據很薄、拿掉一兩筆就會變；公布後才進場的簡單規則，扣成本後分不出賺賠",
+      "summary_zh": "2024–2026 年 32 次 CPI（核心月增率：高於預期 8、符合 11、低於 13）。預先登記的 30 分鐘斜率：每高 0.1 個百分點 -0.2154%（界線 0.1955），分得出來但很脆弱，拿掉 6 次中任一次就分不出。4 小時高於預期 -0.34%、低於預期 0.477%，屬於邊緣。公布 30 分鐘後才照規則進場，扣成本後分不出賺賠。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": null,
+      "claims": [
+        "K-MKT-010"
       ]
     }
   ],

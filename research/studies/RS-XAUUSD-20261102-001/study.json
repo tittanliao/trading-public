@@ -106,8 +106,8 @@
       "keys": [
         "ge2_nfp_pct",
         "ge2_other_pct",
-        "first30_range_multiple",
-        "reverse_after_first30_nfp_pct"
+        "first30_points_median_nfp",
+        "first30_points_median_friday"
       ]
     },
     {

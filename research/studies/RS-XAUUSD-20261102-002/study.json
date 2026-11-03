@@ -96,7 +96,7 @@
       "type": "metrics",
       "source": "headline",
       "keys": [
-        "first30_range_multiple",
+        "first30_points_median_cpi",
         "abs_r1h_cpi_pct",
         "ge2_cpi_pct",
         "ge2_other_pct"

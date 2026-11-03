@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261103-001",
+  "revision": 1,
+  "title": "Gold and the CPI surprise (32 releases 2024-2026): moves lean the pre-registered way (hot core CPI, weaker gold) but the evidence is marginal and fragile; simple rules that trade after the release are not distinguishable from zero after costs",
+  "market": "XAUUSD",
+  "strategy": "none — gold around US CPI releases, by surprise",
+  "status": "confirmed",
+  "created_on": "2026-11-03",
+  "question": "Does the CPI surprise (actual minus consensus) decide gold's direction after the release, and do simple post-release rules make money?",
+  "hypothesis": "Pre-registered: hot core CPI (above consensus) means gold falls; cool means gold rises.",
+  "headline": {
+    "n_events": 32,
+    "n_hot": 8,
+    "n_inline": 11,
+    "n_cool": 13,
+    "core_r4h_hot_pct": -0.34,
+    "core_r4h_cool_pct": 0.477,
+    "core_r4h_diff_pct": -0.8169,
+    "core_r4h_diff_bound": 0.8119,
+    "core_slope_r30_pct_per_0p1": -0.2154,
+    "core_slope_r4h_pct_per_0p1": -0.3555,
+    "rule_c_mean_usd_cost3": 1.34,
+    "rule_b_mean_usd_cost3": -1.16,
+    "core_slope_r30_bound": 0.1955
+  },
+  "card_metrics": [
+    "core_slope_r30_pct_per_0p1",
+    "core_r4h_hot_pct",
+    "core_r4h_cool_pct",
+    "rule_c_mean_usd_cost3"
+  ],
+  "findings": [
+    {
+      "title": "Pre-registered: hot core CPI leans to weaker gold (marginal, fragile)",
+      "tone": "warn",
+      "detail": "Core MoM surprise, n=32. 30m OLS slope -0.2154% per 0.1 pp (normal bound 0.1955, t bound 0.204): resolved, but dropping any one of 6 releases (2024-02-13, 2024-04-10, 2024-07-11, 2024-09-11, 2026-07-14, 2026-10-14) makes it unresolved. 4h hot (8) -0.34%, in line (11) -0.095%, cool (13) 0.477%; hot minus cool -0.8169 vs normal bound 0.8119 (Welch t bound about 0.90 is not cleared; 12 of 21 single-event removals flip it). Post-hoc 4h slope -0.3555% per 0.1 pp (bound 0.3162), equally fragile.",
+      "title_zh": "預先登記：核心高於預期時黃金偏跌（邊緣、脆弱）",
+      "detail_zh": "以核心月增率計，32 次。30 分鐘斜率：每高 0.1 個百分點 -0.2154%（常態界線 0.1955，t 界線 0.204），分得出來，但拿掉 6 次中任一次（2024-02-13、2024-04-10、2024-07-11、2024-09-11、2026-07-14、2026-10-14）就分不出。4 小時：高於預期（8 次）-0.34%、符合（11）-0.095%、低於（13）0.477%；高減低 -0.8169，只比常態界線 0.8119 多 0.005，用 t 界線（約 0.90）就分不出，21 次中拿掉 12 次的任一次也會分不出。事後補算的 4 小時斜率 -0.3555%（界線 0.3162）一樣脆弱。"
+    },
+    {
+      "title": "First 30 minutes and the close: same sign, class differences not resolved",
+      "tone": "warn",
+      "detail": "R30 hot minus cool -0.5468 (bound 0.6223); Rday -0.6426 (bound 0.8035). The R30 slope is resolved (-0.2154% per 0.1 pp, bound 0.1955). Gold moved with the surprise in 15/21 non-in-line releases in the first 30m (CI [50.0, 86.2]). The Wilson lower bound is 50.0%, so this share is not shown to differ from a coin flip. At 4h the share is 14/21 (CI 45.4-82.8).",
+      "title_zh": "第一根 30 分鐘與收盤：方向一致，分組差距分不出來",
+      "detail_zh": "30 分鐘：高減低 -0.5468（界線 0.6223）；收盤 -0.6426（界線 0.8035），都分不出來。但 30 分鐘的斜率分得出來（每 0.1 個百分點 -0.2154%，界線 0.1955）。不是「符合預期」的 21 次裡，第一根 30 分鐘順著數據方向走的有 15 次（區間 [50.0, 86.2]）；區間下界剛好 50%，不能說明比一半一半高。4 小時順著數據的比例 14/21（區間 45.4–82.8），也分不出來。"
+    },
+    {
+      "title": "Headline CPI (secondary, not corrected for multiple comparisons)",
+      "tone": "warn",
+      "detail": "Headline MoM surprise: hot (7) vs cool (9) 4h -0.166% vs 0.959% (diff -1.1253, bound 0.8229); 30m diff -0.6192 (bound 0.552); close diff -1.0813 (bound 0.7675). Not monotonic: the in-line group fell more at 4h than the hot group; the gap is driven by the 9 cool releases. All three horizons clear their bounds, uncorrected.",
+      "title_zh": "整體 CPI（次要指標，未校正多重比較）",
+      "detail_zh": "以整體月增率計：高於預期（7 次）4 小時 -0.166%，低於（9 次）0.959%（差 -1.1253，界線 0.8229）；30 分鐘差 -0.6192（界線 0.552）；收盤差 -1.0813（界線 0.7675）。 不是單調的：符合預期那組 4 小時比高於預期跌得還多，差距主要來自 9 次低於預期。 三個時間點都越過界線，但未校正多重比較。"
+    },
+    {
+      "title": "Rules after the release: not distinguishable from zero",
+      "tone": "warn",
+      "detail": "Entries and exits at 30m closes, USD per oz after costs (1.5 / 3.0 round trip). B follow first bar: 33 trades, mean 0.34 / -1.16 (bound 7.08), worst -42.8; C surprise after 30m: 21 trades, mean 2.84 / 1.34 (bound 8.73), worst -26.1; D surprise at release upper bound: 21 trades, mean 6.95 / 5.45 (bound 9.0), worst -50.7. Rule D assumes a fill at the 08:30:00 open and is not executable.",
+      "title_zh": "公布後才進場的規則：扣成本後分不出賺賠",
+      "detail_zh": "以 30 分鐘 K 棒收盤進出，每盎司美金，扣來回成本 1.5／3.0：B 跟第一根 K 棒方向（33 次，平均 0.34／-1.16，界線 7.08，最差 -42.8）；C 公布 30 分鐘後順著數據（21 次，平均 2.84／1.34，界線 8.73，最差 -26.1）；D 公布瞬間順著數據（21 次；假設能成交，實際做不到；平均 6.95／5.45，界線 9.0，最差 -50.7）。都分不出賺賠。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "event",
+  "card_summary": "32 CPI releases 2024-2026 (core MoM: hot 8, in line 11, cool 13). Pre-registered 30m slope -0.2154% per 0.1 pp (bound 0.1955): resolved but fragile (dropping any one of 6 releases removes it). 4h hot vs cool -0.34% vs 0.477%: marginal. Rules trading after the first 30m: not distinguishable from zero after costs.",
+  "title_zh": "CPI 數據好壞與黃金：方向偏向「高於預期偏跌」，但證據很薄、拿掉一兩筆就會變；公布後才進場的簡單規則，扣成本後分不出賺賠",
+  "question_zh": "CPI 實際值比預期高或低，會不會決定黃金公布後的方向？公布後照簡單規則進場，能不能賺？",
+  "hypothesis_zh": "預先登記：核心 CPI 高於預期，黃金跌；低於預期，黃金漲。",
+  "card_summary_zh": "2024–2026 年 32 次 CPI（核心月增率：高於預期 8、符合 11、低於 13）。預先登記的 30 分鐘斜率：每高 0.1 個百分點 -0.2154%（界線 0.1955），分得出來但很脆弱，拿掉 6 次中任一次就分不出。4 小時高於預期 -0.34%、低於預期 0.477%，屬於邊緣。公布 30 分鐘後才照規則進場，扣成本後分不出賺賠。",
+  "limitations_zh": [
+    "只有 32 次（規則 B 為 33 次），分成三組，每組 8–13 次，多數界線很寬。",
+    "預先登記的 30 分鐘斜率剛好越過界線；4 小時差距只越過常態界線（t 界線過不了）。兩者拿掉單一一次就會變。",
+    "預期值來自新聞引述的 Dow Jones／Reuters 調查；其中 7 次的核心預期值是從公布後的報導用語推得，2026-08-12 由公布後報導裁定。剔除這 7 次，4 小時差距仍越過常態界線（差 -0.985，界線 0.900），一樣是邊緣。",
+    "2026-04-10 的預期值來自一篇主要談 PCE 的報導。",
+    "以 30 分鐘 K 棒收盤進出，忽略 K 棒內滑價；規則 D 假設公布瞬間成交，實際做不到。",
+    "規則的百分比結果未扣成本；美金結果已扣成本。",
+    "2025-12-18 沒有月增率（政府停擺後只公布兩個月合計），不列入。",
+    "不是完全盲測：每次的黃金反應已在 RS-XAUUSD-20261102-002 公開，執行者也記得部分 2024–2025 的數據好壞。",
+    "只是描述與一般規則回測，不構成交易建議。"
+  ],
+  "interpretation_zh": "方向偏向預先登記的假設：核心 CPI 高於預期時黃金偏跌、低於預期偏漲。但只有 32 次，證據很薄：預先登記的 30 分鐘斜率剛好越過界線，4 小時差距只越過常態界線（t 界線過不了），拿掉一兩筆就會變；30 分鐘與收盤的分組差距分不出來。另外，公布 30 分鐘後才順著數據或第一根 K 棒進場，扣成本後平均賺賠分不出來；就算假設在公布瞬間成交（實際做不到），也分不出來；樣本小、界線寬（約 ±7–9 美金），這代表看不出優勢，不代表確定沒有優勢。這份研究描述歷史反應，不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "core_slope_r30_pct_per_0p1",
+        "core_r4h_hot_pct",
+        "core_r4h_cool_pct",
+        "rule_c_mean_usd_cost3"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

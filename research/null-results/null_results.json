@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-03T00:01:06+08:00",
+  "generated_at": "2026-11-03T09:42:24+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 77,
+    "studies": 78,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2564,6 +2564,19 @@
       "reason": null,
       "status": "confirmed",
       "created_on": "2026-11-02"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261103-001",
+      "study_id": "RS-XAUUSD-20261103-001",
+      "kind": "study",
+      "family": "none — gold around US CPI releases, by surprise",
+      "origin": "programme",
+      "claim": "Gold and the CPI surprise (32 releases 2024-2026): moves lean the pre-registered way (hot core CPI, weaker gold) but the evidence is marginal and fragile; simple rules that trade after the release are not distinguishable from zero after costs",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "confirmed",
+      "created_on": "2026-11-03"
     }
   ],
   "generated_by": "trading-private research pipeline"
