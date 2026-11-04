@@ -88,7 +88,8 @@
           "count": 11,
           "pct_of_trades": 3.5
         },
-        "_losers": {
+        "n_trades": 315,
+        "losers": {
           "n": 140,
           "median_mfe_pct": 0.175,
           "share_reaching_0_25pct_mfe": 37.1
@@ -120,7 +121,8 @@
           "count": 2,
           "pct_of_trades": 6.5
         },
-        "_losers": {
+        "n_trades": 31,
+        "losers": {
           "n": 21,
           "median_mfe_pct": 0.23,
           "share_reaching_0_25pct_mfe": 47.6
@@ -163,7 +165,7 @@
               "avg_return_pct": -0.1977
             },
             "weight_reference": 0.2032,
-            "weight_live": 0.4194
+            "weight_live": 0.4483
           },
           "flat (±2%)": {
             "reference": {
@@ -193,7 +195,7 @@
               "avg_return_pct": 0.0283
             },
             "weight_reference": 0.254,
-            "weight_live": 0.1935
+            "weight_live": 0.2069
           },
           "rising (>+2%)": {
             "reference": {
@@ -223,41 +225,20 @@
               "avg_return_pct": -0.127
             },
             "weight_reference": 0.5429,
-            "weight_live": 0.3226
-          },
-          "unknown": {
-            "reference": {
-              "n": 0,
-              "wins": 0,
-              "win_rate_pct": null,
-              "win_rate_ci95_pct": null,
-              "profit_factor": null,
-              "net_pnl_usd": 0.0,
-              "avg_pnl_usd": null,
-              "avg_return_pct": null
-            },
-            "live": {
-              "n": 2,
-              "wins": 1,
-              "win_rate_pct": 50.0,
-              "win_rate_ci95_pct": [
-                9.45,
-                90.55
-              ],
-              "profit_factor": 1.003,
-              "net_pnl_usd": 0.16,
-              "avg_pnl_usd": 0.08,
-              "avg_return_pct": 0.0
-            },
-            "weight_reference": 0.0,
-            "weight_live": 0.0645
+            "weight_live": 0.3448
           }
         },
-        "delta_mean_return_pct": -0.3238,
-        "within_pct_points": -0.3281,
-        "mix_pct_points": 0.0043,
+        "n_reference": 315,
+        "n_live": 29,
+        "excluded_unknown": {
+          "reference": 0,
+          "live": 0
+        },
+        "delta_mean_return_pct": -0.332,
+        "within_pct_points": -0.3507,
+        "mix_pct_points": 0.0188,
         "unattributed_pct_points": 0.0,
-        "within_share_of_delta": 1.013
+        "within_share_of_delta": 1.057
       },
       "htf_4h_rsi_state": {
         "groups": {
@@ -289,7 +270,7 @@
               "avg_return_pct": 0.0946
             },
             "weight_reference": 0.4698,
-            "weight_live": 0.4194
+            "weight_live": 0.4483
           },
           "bullish": {
             "reference": {
@@ -319,7 +300,7 @@
               "avg_return_pct": -0.2375
             },
             "weight_reference": 0.2444,
-            "weight_live": 0.2581
+            "weight_live": 0.2759
           },
           "neutral": {
             "reference": {
@@ -349,41 +330,20 @@
               "avg_return_pct": -0.375
             },
             "weight_reference": 0.2857,
-            "weight_live": 0.2581
-          },
-          "unknown": {
-            "reference": {
-              "n": 0,
-              "wins": 0,
-              "win_rate_pct": null,
-              "win_rate_ci95_pct": null,
-              "profit_factor": null,
-              "net_pnl_usd": 0.0,
-              "avg_pnl_usd": null,
-              "avg_return_pct": null
-            },
-            "live": {
-              "n": 2,
-              "wins": 1,
-              "win_rate_pct": 50.0,
-              "win_rate_ci95_pct": [
-                9.45,
-                90.55
-              ],
-              "profit_factor": 1.003,
-              "net_pnl_usd": 0.16,
-              "avg_pnl_usd": 0.08,
-              "avg_return_pct": 0.0
-            },
-            "weight_reference": 0.0,
-            "weight_live": 0.0645
+            "weight_live": 0.2759
           }
         },
-        "delta_mean_return_pct": -0.3238,
-        "within_pct_points": -0.3093,
-        "mix_pct_points": -0.0145,
+        "n_reference": 315,
+        "n_live": 29,
+        "excluded_unknown": {
+          "reference": 0,
+          "live": 0
+        },
+        "delta_mean_return_pct": -0.332,
+        "within_pct_points": -0.3307,
+        "mix_pct_points": -0.0013,
         "unattributed_pct_points": 0.0,
-        "within_share_of_delta": 0.955
+        "within_share_of_delta": 0.996
       },
       "session": {
         "groups": {
@@ -415,7 +375,7 @@
               "avg_return_pct": -0.3
             },
             "weight_reference": 0.3587,
-            "weight_live": 0.3226
+            "weight_live": 0.3448
           },
           "europe": {
             "reference": {
@@ -432,20 +392,20 @@
               "avg_return_pct": 0.2188
             },
             "live": {
-              "n": 8,
-              "wins": 2,
-              "win_rate_pct": 25.0,
+              "n": 6,
+              "wins": 1,
+              "win_rate_pct": 16.67,
               "win_rate_ci95_pct": [
-                7.15,
-                59.07
+                3.01,
+                56.35
               ],
-              "profit_factor": 0.928,
-              "net_pnl_usd": -21.06,
-              "avg_pnl_usd": -2.63,
-              "avg_return_pct": -0.0338
+              "profit_factor": 0.913,
+              "net_pnl_usd": -21.22,
+              "avg_pnl_usd": -3.54,
+              "avg_return_pct": -0.045
             },
             "weight_reference": 0.1778,
-            "weight_live": 0.2581
+            "weight_live": 0.2069
           },
           "overnight": {
             "reference": {
@@ -475,7 +435,7 @@
               "avg_return_pct": 0.0
             },
             "weight_reference": 0.1873,
-            "weight_live": 0.129
+            "weight_live": 0.1379
           },
           "us": {
             "reference": {
@@ -505,14 +465,20 @@
               "avg_return_pct": -0.0444
             },
             "weight_reference": 0.2762,
-            "weight_live": 0.2903
+            "weight_live": 0.3103
           }
         },
-        "delta_mean_return_pct": -0.3238,
-        "within_pct_points": -0.313,
-        "mix_pct_points": -0.0108,
+        "n_reference": 315,
+        "n_live": 29,
+        "excluded_unknown": {
+          "reference": 0,
+          "live": 0
+        },
+        "delta_mean_return_pct": -0.332,
+        "within_pct_points": -0.3195,
+        "mix_pct_points": -0.0125,
         "unattributed_pct_points": 0.0,
-        "within_share_of_delta": 0.967
+        "within_share_of_delta": 0.962
       },
       "bb_zone": {
         "groups": {
@@ -544,7 +510,7 @@
               "avg_return_pct": -0.19
             },
             "weight_reference": 0.1048,
-            "weight_live": 0.0968
+            "weight_live": 0.1034
           },
           "near_middle": {
             "reference": {
@@ -574,7 +540,7 @@
               "avg_return_pct": -0.3
             },
             "weight_reference": 0.181,
-            "weight_live": 0.1613
+            "weight_live": 0.1724
           },
           "near_upper": {
             "reference": {
@@ -604,34 +570,7 @@
               "avg_return_pct": -0.3571
             },
             "weight_reference": 0.2508,
-            "weight_live": 0.2258
-          },
-          "unknown": {
-            "reference": {
-              "n": 0,
-              "wins": 0,
-              "win_rate_pct": null,
-              "win_rate_ci95_pct": null,
-              "profit_factor": null,
-              "net_pnl_usd": 0.0,
-              "avg_pnl_usd": null,
-              "avg_return_pct": null
-            },
-            "live": {
-              "n": 2,
-              "wins": 1,
-              "win_rate_pct": 50.0,
-              "win_rate_ci95_pct": [
-                9.45,
-                90.55
-              ],
-              "profit_factor": 1.003,
-              "net_pnl_usd": 0.16,
-              "avg_pnl_usd": 0.08,
-              "avg_return_pct": 0.0
-            },
-            "weight_reference": 0.0,
-            "weight_live": 0.0645
+            "weight_live": 0.2414
           },
           "upper_mid": {
             "reference": {
@@ -661,14 +600,20 @@
               "avg_return_pct": 0.0643
             },
             "weight_reference": 0.4635,
-            "weight_live": 0.4516
+            "weight_live": 0.4828
           }
         },
-        "delta_mean_return_pct": -0.3238,
-        "within_pct_points": -0.3119,
-        "mix_pct_points": -0.0119,
+        "n_reference": 315,
+        "n_live": 29,
+        "excluded_unknown": {
+          "reference": 0,
+          "live": 0
+        },
+        "delta_mean_return_pct": -0.332,
+        "within_pct_points": -0.3334,
+        "mix_pct_points": 0.0015,
         "unattributed_pct_points": 0.0,
-        "within_share_of_delta": 0.963
+        "within_share_of_delta": 1.004
       },
       "atr_tercile": {
         "groups": {
@@ -699,8 +644,8 @@
               "avg_pnl_usd": -7.8,
               "avg_return_pct": -0.0814
             },
-            "weight_reference": 0.3333,
-            "weight_live": 0.2258
+            "weight_reference": 0.3344,
+            "weight_live": 0.2414
           },
           "low ATR%": {
             "reference": {
@@ -726,7 +671,7 @@
               "avg_pnl_usd": null,
               "avg_return_pct": null
             },
-            "weight_reference": 0.3333,
+            "weight_reference": 0.3344,
             "weight_live": 0.0
           },
           "mid ATR%": {
@@ -756,45 +701,21 @@
               "avg_pnl_usd": -13.4,
               "avg_return_pct": -0.1409
             },
-            "weight_reference": 0.3302,
-            "weight_live": 0.7097
-          },
-          "unknown": {
-            "reference": {
-              "n": 1,
-              "wins": 1,
-              "win_rate_pct": 100.0,
-              "win_rate_ci95_pct": [
-                20.65,
-                100.0
-              ],
-              "profit_factor": null,
-              "net_pnl_usd": 168.89,
-              "avg_pnl_usd": 168.89,
-              "avg_return_pct": 1.75
-            },
-            "live": {
-              "n": 2,
-              "wins": 1,
-              "win_rate_pct": 50.0,
-              "win_rate_ci95_pct": [
-                9.45,
-                90.55
-              ],
-              "profit_factor": 1.003,
-              "net_pnl_usd": 0.16,
-              "avg_pnl_usd": 0.08,
-              "avg_return_pct": 0.0
-            },
-            "weight_reference": 0.0032,
-            "weight_live": 0.0645
+            "weight_reference": 0.3312,
+            "weight_live": 0.7586
           }
         },
-        "delta_mean_return_pct": -0.3238,
-        "within_pct_points": -0.4075,
-        "mix_pct_points": 0.0837,
+        "n_reference": 314,
+        "n_live": 29,
+        "excluded_unknown": {
+          "reference": 1,
+          "live": 0
+        },
+        "delta_mean_return_pct": -0.3271,
+        "within_pct_points": -0.3149,
+        "mix_pct_points": -0.0122,
         "unattributed_pct_points": 0.0,
-        "within_share_of_delta": 1.258
+        "within_share_of_delta": 0.963
       }
     },
     "volatility": {
@@ -1173,7 +1094,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261009-001",
-  "generated_at": "2026-10-11T15:59:43+08:00",
+  "generated_at": "2026-11-04T13:54:01+08:00",
   "strategy": "S1-AweWithBB V3.9",
   "method": {
     "fail_pattern_thresholds": {

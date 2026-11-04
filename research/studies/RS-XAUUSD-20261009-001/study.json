@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261009-001",
-  "revision": 3,
+  "revision": 4,
   "title": "S1 V3.9 since the live push began — outside its history; gold's net fall and the entry contexts tested do not account for it",
   "market": "XAUUSD",
   "strategy": {
@@ -11,7 +11,7 @@
   "status": "confirmed",
   "created_on": "2026-10-09",
   "question": "The 31 S1 V3.9 Strategy Tester trades entered since 2026-08-16 did worse than anything earlier in the 2026-10-09 export. Is that outside the strategy's own history, does gold's direction or volatility explain it, does any entry context explain it, and what changed in how trades end? Answered under the section 5 contract, with item 11 included because the question is one of degradation.",
-  "hypothesis": "If the decline were a long-only strategy meeting a falling market, the market-drift fit and the trend-regime split would account for it and the shift-share would show it as mix. The null being tested against is that it is a window the strategy's own history already contains. This is a post hoc exploration, not a pre-registered test: the window was picked after the 2026-10-09 reconciliation showed it was worse than every earlier one, and the five design rules in the decision log were set in the same session. Every subset and threshold beyond those five rules was chosen while looking at the data.",
+  "hypothesis": "If the decline were a long-only strategy meeting a falling market, the market-drift fit and the trend-regime split would account for it and the shift-share would show it as mix. The null being tested against is that it is a window the strategy's own history already contains. This is a post hoc exploration, not a pre-registered test: the window was picked after the 2026-10-09 reconciliation showed it was worse than every earlier one, and the five design rules were set in the same session. Every subset and threshold beyond those five rules was chosen while looking at the data.",
   "headline": {
     "live_trades": 31,
     "live_win_rate_pct": 32.26,
@@ -54,9 +54,9 @@
     {
       "tone": "info",
       "title": "The entry contexts tested do not isolate it — the decline shows up inside each group",
-      "detail": "Shift-share over gold's 20-session trend, 4H RSI state, session, Bollinger zone and 30m ATR tercile, recomputed post hoc on the 29 live trades that have context (results.json still holds the 31-trade version, which keeps the 2 trades without context as an 'unknown' group and distorts the ATR row; rerun pending): within-group change is -0.31 to -0.35 points of a -0.33 change (96-106%), mix -0.013 to +0.019. Every live cell holds 0-22 trades. Volatility: median 30m ATR 0.2714% to 0.2921% of price, but 0 of the 29 live trades fall in the reference lowest ATR tercile (about 8e-6 if the distribution were unchanged), so that group has no live within-change. The highest-ATR tercile was not worse historically (58.1% n=105 against 52.9% n=104, no difference seen, Fisher p 0.49). The study gives no basis for an entry filter.",
+      "detail": "Shift-share over gold's 20-session trend, 4H RSI state, session, Bollinger zone and 30m ATR tercile, on the 29 live trades that have context (the 2 trades the price data does not reach are left out, and `unknown` groups are dropped from both sides): within-group change is -0.31 to -0.35 points of a -0.33 change (96-106%), mix -0.013 to +0.019. Every live cell holds 0-22 trades. Volatility: median 30m ATR 0.2714% to 0.2921% of price, but 0 of the 29 live trades fall in the reference lowest ATR tercile (about 8e-6 if the distribution were unchanged), so that group has no live within-change. The highest-ATR tercile was not worse historically (58.1% n=105 against 52.9% n=104, no difference seen, Fisher p 0.49). The study gives no basis for an entry filter.",
       "title_zh": "測過的進場條件都切不出來：每一組裡面都變差了",
-      "detail_zh": "把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，事後補算並排除 2 筆沒有市況資料的交易（用 29 筆；results.json 仍是 31 筆版本，把這 2 筆當成 unknown 組，ATR 那列被扭曲，待重跑）：組內變化 -0.31 到 -0.35 個百分點，佔總變化 -0.33 的 96–106%，組合轉移 -0.013 到 +0.019。每個上線後的格子只有 0–22 筆。波動：30 分鐘 ATR 中位數從 0.2714% 到 0.2921%，但 29 筆裡有 0 筆落在參考期最低的 ATR 三分位（分布沒變的話機率約 8e-6），所以那一組算不出上線後的組內變化。歷史上 ATR 最高一組沒有比較差（58.1% n=105 對中組 52.9% n=104，看不出差別，Fisher p=0.49）。這份研究沒有給任何進場過濾條件的依據。"
+      "detail_zh": "把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，排除 2 筆沒有市況資料的交易（用 29 筆，unknown 組兩邊都排除）：組內變化 -0.31 到 -0.35 個百分點，佔總變化 -0.33 的 96–106%，組合轉移 -0.013 到 +0.019。每個上線後的格子只有 0–22 筆。波動：30 分鐘 ATR 中位數從 0.2714% 到 0.2921%，但 29 筆裡有 0 筆落在參考期最低的 ATR 三分位（分布沒變的話機率約 8e-6），所以那一組算不出上線後的組內變化。歷史上 ATR 最高一組沒有比較差（58.1% n=105 對中組 52.9% n=104，看不出差別，Fisher p=0.49）。這份研究沒有給任何進場過濾條件的依據。"
     },
     {
       "tone": "info",
@@ -70,7 +70,7 @@
       "title": "Cause not established",
       "detail": "One window, chosen after it looked bad; permutation p 0.008 is optimistic for that reason. There is no pre-registration for this study; the forward check PREREG-20261009-001 was registered after it. Every analysis beyond the five design rules is exploratory. The data cannot separate an intraday regime change no context measure captures from an unusually bad run. The section 5.1 item 11 flag is degraded.",
       "title_zh": "原因沒有確定",
-      "detail_zh": "這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。這份研究本身沒有預先登記（PREREG-20261009-001 是研究完成後才登記的前瞻檢驗）；除了決策 1–5，所有分析都屬探索性。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。"
+      "detail_zh": "這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。這份研究本身沒有預先登記（PREREG-20261009-001 是研究完成後才登記的前瞻檢驗）；除了研究開始時寫下的 5 項分析規則，所有分析都屬探索性。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。"
     }
   ],
   "policy_impacts": [
@@ -94,9 +94,8 @@
     "價格匯出只到 2026-10-03，之後 2 筆交易沒有市況資料",
     "30 分鐘價格由兩份匯出拼接；重疊處有 49 根收盤價不同，最大差 0.396",
     "這份研究沒有預先登記；除了 5 條設計規則，其他分析都是同一工作階段看資料時決定的（探索性）",
-    "results.json（第 2 版）的 shift-share 與金價趨勢表仍把 2 筆沒有市況資料的交易當成 unknown 組，ATR 那列被扭曲；文字改用事後重算的 29 筆版本，results.json 待重跑",
     "金價漂移只算頭尾淨變動，終點是 2026-10-02 日收盤（最後一筆出場是 10-09）；窗口內金價先漲約 6.4% 再跌約 11.1%，路徑沒有控制",
-    "Outcome Mix 表的 n 與 MFE 欄位只算虧損單（參考期 140、上線後 21）"
+    "Outcome Mix 表的 losers.* 欄位（n 與 MFE 欄位）只算虧損單（參考期 140、上線後 21）；n_trades 才是全部交易（315、31）"
   ],
   "interpretation_zh": "S1 V3.9 從 2026-08-16 開始推播後的 31 筆回測交易，勝率 32.26%（10/31，區間 18.6–49.9）、獲利因子 0.661，合計 -3.67%。歷史上 285 個連續 31 筆窗口**沒有一個這麼差**，最差的是 -1.5%（窗口重疊，這是描述）。\n\n最直覺的解釋是「只做多的策略剛好遇到跌勢」，但金價的淨跌幅解釋不了：這段期間金價日收盤跌 5.33%（只到 10-02，中間先漲約 6.4% 再跌約 11.1%，路徑沒有控制），依歷史關係 S1 應該還能賺 4.46%；歷史上金價跌得一樣多的 58 個窗口，最差也賺 1.95%。歷史上金價跌過之後並沒有比較差（跌勢組 59.4% n=64，漲勢組 53.2% n=171，看不出差別）。\n\n按金價趨勢、4H RSI、盤別、布林位置、波動度分組（事後補算，排除 2 筆沒有市況資料的交易，用 29 筆），變化有 96–106% 在各組內部，組合轉移的部分很小（-0.013 到 +0.019 個百分點），所以測過的 5 個條件都切不出來；每個上線後的格子只有 0–22 筆。確定的只有「贏的變少」；TP1 比例下降（p=0.087）、正常停損上升（p=0.061）、假突破、先走到 +0.25% 再回頭（21 筆虧損單，p=0.47）這些單項變化，在 n=31 時都分不出來。\n\n⚠️ 這份研究沒有預先登記，窗口是「看起來很差」之後才挑出來分析的，統計上偏樂觀；31 筆也只是一段樣本。原因沒有確定，所以在研究完成後登記了一個前瞻檢驗：接下來 31 筆如果又比歷史最差窗口還差，就停止建議 S1，而不是現在就改策略。",
   "presentation": [
@@ -143,7 +142,7 @@
     {
       "type": "evidence_pair",
       "title": "Gold Trend at Entry 進場時的金價趨勢",
-      "takeaway_zh": "依進場前 20 日金價漲跌分三組。歷史上跌勢後並沒有比較差（59.4% n=64 對漲勢 53.2% n=171，看不出差別）；上線後跌勢、漲勢都輸，所以測過的金價趨勢解釋不了。各組上線後樣本很小（13／6／10 筆），只能看方向；表中只列三個趨勢組，2 筆沒有市況資料的交易不納入比較（results.json 仍有一個 unknown 組，事後重算的 29 筆版本已排除，results.json 待重跑）。",
+      "takeaway_zh": "依進場前 20 日金價漲跌分三組。歷史上跌勢後並沒有比較差（59.4% n=64 對漲勢 53.2% n=171，看不出差別）；上線後跌勢、漲勢都輸，所以測過的金價趨勢解釋不了。各組上線後樣本很小（13／6／10 筆），只能看方向；上線後用有市況資料的 29 筆；2 筆沒有市況資料的交易不納入比較。",
       "chart_file": "return_by_gold_trend.png",
       "table_source": "decline.shift_share.gold_trend_20d.groups",
       "table_title": "By Gold 20-Session Trend",
@@ -165,8 +164,10 @@
       "type": "table",
       "source": "decline.shift_share",
       "title": "Shift-Share 變化來源分解",
-      "takeaway_zh": "每一列把「每筆平均報酬的變化」拆成「同一類交易變差」（within）和「交易組合轉向較差的類別」（mix）。⚠️ 這張表是 results.json 的 31 筆版本，把 2 筆沒有市況資料的交易當成 unknown 組，ATR 那一列（within -0.4075、mix +0.0837）是錯的。事後重算（排除 2 筆，用 29 筆，results.json 待重跑）：金價趨勢 within -0.3508／mix +0.0188；4H RSI -0.3307／-0.0013；盤別 -0.3195／-0.0125；布林位置 -0.3334／+0.0015；ATR -0.3149／-0.0121（變化約 -0.33）。組內變化佔 96–106%，測過的 5 個條件都切不出來。這個分解本身沒有區間（組內、組合都沒有誤差界線），各格上線後只有 0–22 筆，只能看方向。",
+      "takeaway_zh": "每一列把「每筆平均報酬的變化」拆成「同一類交易變差」（within）和「交易組合轉向較差的類別」（mix）。上線後用有市況資料的 29 筆（2 筆沒有市況資料的交易不納入），unknown 組從兩邊都排除（ATR 參考期另有 1 筆缺值）。變化約 -0.33：金價趨勢 within -0.3507／mix +0.0188；4H RSI -0.3307／-0.0013；盤別 -0.3195／-0.0125；布林位置 -0.3334／+0.0015；ATR -0.3149／-0.0122。組內變化佔 96–106%，測過的 5 個條件都切不出來。這個分解本身沒有區間（組內、組合都沒有誤差界線），各格上線後只有 0–22 筆，只能看方向。",
       "columns": [
+        "n_reference",
+        "n_live",
         "delta_mean_return_pct",
         "within_pct_points",
         "mix_pct_points",
@@ -176,7 +177,7 @@
     {
       "type": "evidence_pair",
       "title": "How Trades End 交易怎麼結束",
-      "takeaway_zh": "上線前勝出 55.6%、正常停損 13.0%、假突破 15.2%；上線後勝出 32.3%、正常停損 25.8%（8/31）、假突破 19.4%（6/31）。確定的只有贏的變少；單項虧損類型的變化在 n=31 都分不出來（正常停損 p=0.061、假突破 p=0.60）。表中 n、median mfe、share reaching 0.25pct mfe 只算虧損單（參考期 140、上線後 21）。",
+      "takeaway_zh": "上線前勝出 55.6%、正常停損 13.0%、假突破 15.2%；上線後勝出 32.3%、正常停損 25.8%（8/31）、假突破 19.4%（6/31）。確定的只有贏的變少；單項虧損類型的變化在 n=31 都分不出來（正常停損 p=0.061、假突破 p=0.60）。表中 losers.* 欄（n、median mfe、share reaching 0.25pct mfe）只算虧損單（參考期 140、上線後 21）；n_trades 是全部交易（315、31）。",
       "chart_file": "fail_mix_shift.png",
       "table_source": "decline.fail_mix",
       "table_title": "Outcome Mix",

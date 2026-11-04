@@ -259,7 +259,15 @@ def shift_share(reference: pd.DataFrame, live: pd.DataFrame, column: str) -> dic
     Delta = sum_g w_L(g) * (m_L(g) - m_R(g))   [within: the same context got worse]
           + sum_g (w_L(g) - w_R(g)) * m_R(g)   [mix: more trades in historically worse context]
     A group absent from the reference has no m_R and is reported, not imputed.
+
+    Trades whose context is `unknown` (no price bar reaches them, or the indicator is missing)
+    are left out of BOTH sides before the weights are formed: decision 4 keeps them out of every
+    context table, and an `unknown` live group compared with a differently-sized `unknown`
+    reference group is not a like-for-like comparison. The counts left out are reported.
     """
+    excluded = {"reference": int((reference[column] == "unknown").sum()),
+                "live": int((live[column] == "unknown").sum())}
+    reference, live = reference[reference[column] != "unknown"], live[live[column] != "unknown"]
     groups = sorted(set(reference[column]) | set(live[column]))
     out_groups, within, mix, unattributed = {}, 0.0, 0.0, 0.0
     for g in groups:
@@ -276,7 +284,8 @@ def shift_share(reference: pd.DataFrame, live: pd.DataFrame, column: str) -> dic
         out_groups[g] = {"reference": tk.stats(r), "live": tk.stats(l),
                          "weight_reference": round(w_r, 4), "weight_live": round(w_l, 4)}
     delta = float(live["return_pct"].mean() - reference["return_pct"].mean())
-    return {"groups": out_groups, "delta_mean_return_pct": round(delta, 4),
+    return {"groups": out_groups, "n_reference": int(len(reference)), "n_live": int(len(live)),
+            "excluded_unknown": excluded, "delta_mean_return_pct": round(delta, 4),
             "within_pct_points": round(within, 4), "mix_pct_points": round(mix, 4),
             "unattributed_pct_points": round(unattributed, 4),
             "within_share_of_delta": round(within / delta, 3) if delta else None}
@@ -290,7 +299,8 @@ def fail_mix(trades: pd.DataFrame, classified: pd.DataFrame) -> dict:
         counts = part["fail_type"].value_counts()
         out[name] = {k: {"count": int(v), "pct_of_trades": round(100 * v / len(part), 1)} for k, v in counts.items()}
         losers = part[part["result"] == "loss"]
-        out[name]["_losers"] = {
+        out[name]["n_trades"] = int(len(part))
+        out[name]["losers"] = {
             "n": int(len(losers)),
             "median_mfe_pct": round(float(losers["mfe_pct"].median()), 3) if len(losers) else None,
             "share_reaching_0_25pct_mfe": round(100 * float((losers["mfe_pct"] >= 0.25).mean()), 1) if len(losers) else None,
@@ -383,8 +393,11 @@ def chart_regime(share: dict) -> plt.Figure:
     return fig
 
 
-def build(output_dir: Path) -> dict:
-    paths = dict(SOURCES)
+def build(output_dir: Path, paths: dict | None = None, locators: dict | None = None) -> dict:
+    """`paths` replaces SOURCES (same roles) and `locators` the repository path printed for each
+    role; the defaults read the working tree, which is how this runner always ran."""
+    paths = dict(SOURCES if paths is None else paths)
+    locators = locators or {}
     for path in paths.values():
         if not path.is_file():
             raise FileNotFoundError(path)
@@ -445,6 +458,10 @@ def build(output_dir: Path) -> dict:
     labelled = labelled.fillna({"htf_4h_rsi_state": "unknown", "bb_zone": "unknown"})
     reference = labelled[labelled["entry_time"] < LIVE_START]
     live = labelled[labelled["entry_time"] >= LIVE_START]
+    # Decision 4: trades the price exports do not reach have no context and leave every context
+    # table. The 31-trade `live` frame is still the comparison sample for everything that needs
+    # no price data (performance, windows, fail mix); shift-share uses the trades with context.
+    live_ctx = live[live["entry_time"] < context_end]
     if len(live) != WINDOW:
         raise ValueError(f"expected {WINDOW} live trades, found {len(live)}; the window size is the live sample")
 
@@ -495,12 +512,12 @@ def build(output_dir: Path) -> dict:
         "market_control": drift_fit,
         "fail_mix": fail_mix(trades, classified),
         "shift_share": {
-            "gold_trend_20d": shift_share(reference, live, "gold_trend_20d"),
+            "gold_trend_20d": shift_share(reference, live_ctx, "gold_trend_20d"),
             "htf_4h_rsi_state": shift_share(reference.fillna({"htf_4h_rsi_state": "unknown"}),
-                                            live.fillna({"htf_4h_rsi_state": "unknown"}), "htf_4h_rsi_state"),
-            "session": shift_share(reference, live, "session"),
-            "bb_zone": shift_share(reference, live, "bb_zone"),
-            "atr_tercile": shift_share(reference, live, "atr_tercile"),
+                                            live_ctx.fillna({"htf_4h_rsi_state": "unknown"}), "htf_4h_rsi_state"),
+            "session": shift_share(reference, live_ctx, "session"),
+            "bb_zone": shift_share(reference, live_ctx, "bb_zone"),
+            "atr_tercile": shift_share(reference, live_ctx, "atr_tercile"),
         },
         "volatility": {
             "atr_pct_30m_tercile_cuts_reference": atr_cuts,
@@ -617,7 +634,7 @@ def build(output_dir: Path) -> dict:
         "temporal_stability": temporal,
         "decline": decline,
         "charts": charts,
-        "sources": [{"role": role, "path": locator(p), "sha256": sha256(p)}
+        "sources": [{"role": role, "path": locators.get(role, locator(p)), "sha256": sha256(p)}
                     for role, p in paths.items()],
     }
     results = tk.to_json_safe(results)
@@ -633,7 +650,10 @@ def _pct(v, digits=2):
 
 
 def render_readme(r: dict) -> str:
-    """Every figure comes from results.json; the prose around it is fixed."""
+    """The prose is fixed text, edited after independent review. Figures come from
+    results.json except those marked "post hoc": Fisher p, Wilson intervals, the drift prediction
+    interval, the August split and the gold path. They came from a read-only recomputation, are
+    written here as fixed text, and are not in results.json."""
     d, mc, rw = r["decline"], r["decline"]["market_control"], r["decline"]["rolling_windows"]
     ref, live = d["reference"], d["live"]
     fm = d["fail_mix"]
@@ -641,18 +661,24 @@ def render_readme(r: dict) -> str:
     ts = r["temporal_stability"]
     hi, ho = ts["holdout_split"]["in_sample"], ts["holdout_split"]["held_out"]
     vol = d["volatility"]
-    trend = d["shift_share"]["gold_trend_20d"]["groups"]
-    atr = d["shift_share"]["atr_tercile"]["groups"]
+    ss = d["shift_share"]
+    trend = ss["gold_trend_20d"]["groups"]
+    atr = ss["atr_tercile"]["groups"]
     st = r["price_30m_stitch"]
     cc = r["context_coverage"]
     wr_gap = round(ref["win_rate_pct"] - live["win_rate_pct"], 2)
     tp1_ref = fm["reference"]["_exits"].get("S1BB_TP1", 0)
     tp1_live = fm["live"]["_exits"].get("S1BB_TP1", 0)
     aug = d["monthly"].get("2026-08", {})
+    q4 = ts["by_period"].get("2026Q4", {})
+    ratios = [v["within_share_of_delta"] for v in ss.values()]
+    n_ctx = ss["gold_trend_20d"]["n_live"]
+    n_atr_ref = ss["atr_tercile"]["n_reference"]
+    shift_labels = {"session": "session (needs no price data; both trades without context are `europe`)"}
 
     def share_row(name, block):
-        return (f"| {name} | {block['delta_mean_return_pct']:+.4f} | {block['within_pct_points']:+.4f} | "
-                f"{block['mix_pct_points']:+.4f} | {block['unattributed_pct_points']:+.4f} |")
+        return (f"| {shift_labels.get(name, name)} | {block['delta_mean_return_pct']:+.4f} | {block['within_pct_points']:+.4f} | "
+                f"{block['mix_pct_points']:+.4f} | {100 * block['within_share_of_delta']:.0f}% |")
 
     def group_row(name, g):
         rr, ll = g["reference"], g["live"]
@@ -663,8 +689,18 @@ def render_readme(r: dict) -> str:
     lines = [
         f"# {r['study_id']} — S1 V3.9 since the live push began: what the decline is made of",
         "",
-        f"Generated `{r['generated_at']}` by `scripts/research/build_s1_v39_decline.py`. Every number below is read",
-        "from `results.json`; the runner writes this file.",
+        f"Generated `{r['generated_at']}` by `scripts/research/build_s1_v39_decline.py` (the inputs are the files listed in",
+        "`reproduction_inputs.json`, because four of them are overwritten weekly). Numbers are read from",
+        "`results.json` except those marked \"post hoc\", which come from a read-only recomputation (Fisher p, Wilson intervals,",
+        "the drift prediction interval, the August split, the gold path) and are written into this text; they are not in `results.json`.",
+        "",
+        "**Revision 4 (2026-11-04).** Rerun after the two independent review rounds, to fix program errors only; no hypothesis,",
+        "threshold, sample or design rule changed. The shift-share now uses the 29 live trades that have price context, with",
+        "`unknown` groups left out of both sides, and the Outcome Mix fields say they count losers. **This study has no",
+        "pre-registration:** the window was picked after the 2026-10-09 reconciliation showed it was worse than every earlier one,",
+        "the five design rules recorded with the study were set in the same session, and every subset and threshold beyond them",
+        "(the +0.25% loser threshold, the 58-window falling-gold subset, the August comparison, TP1 counts, the 10 blocks) was",
+        "chosen while looking at the data. All of it is exploratory.",
         "",
         "## Question",
         "",
@@ -679,16 +715,20 @@ def render_readme(r: dict) -> str:
         f"  {ref['win_rate_pct']}% (n={ref['n']}, CI {ref['win_rate_ci95_pct']}); profit factor {live['profit_factor']} against",
         f"  {ref['profit_factor']}. None of the {rw['reference_count']} earlier {d['window_trades']}-trade windows did as badly;",
         f"  the worst returned {rw['reference_min_total_return_pct']:+.2f}% against the live window's {d['live_total_return_pct']:+.2f}%.",
-        f"- **Not the market.** Gold fell {abs(mc['live_gold_drift_pct']):.2f}% over the live window. Across the reference windows",
-        f"  gold's drift explains R² = {mc['r_squared']} of the window return, and the fit predicts {mc['live_predicted_total_return_pct']:+.2f}%",
-        f"  for that drift. {mc['reference_windows_with_drift_at_or_below_live']} earlier windows saw gold fall at least as much; the",
-        f"  worst of them still returned {mc['their_worst_total_return_pct']:+.2f}%. In August 2026 gold rose",
-        f"  {aug.get('gold_month_return_pct', 0):+.2f}% and S1 returned {aug.get('total_return_pct', 0):+.2f}% (n={aug.get('n', 0)}).",
-        "- **Not the entry context.** Across gold's trend, the 4H RSI state, the session, the Bollinger zone and",
-        "  30-minute volatility, the decline is inside each group, not a shift toward historically worse groups.",
-        f"- **What changed is how trades end.** TP1 exits fell from {tp1_ref} of {ref['n']} ({_pct(100 * tp1_ref / ref['n'], 1)}) to",
-        f"  {tp1_live} of {live['n']} ({_pct(100 * tp1_live / live['n'], 1)}); clean stop-outs rose from",
-        f"  {fm['reference']['normal_sl']['pct_of_trades']}% to {fm['live']['normal_sl']['pct_of_trades']}% of trades.",
+        f"- **Gold's net fall does not account for it.** Gold's daily close fell {abs(mc['live_gold_drift_pct']):.2f}% over the live window (4376 to 4143; the",
+        "  price data ends 2026-10-02 although the last exit is 2026-10-09, and gold first rose about 6.4% to 2026-08-25 then fell",
+        "  about 11.1%, so only the net head-to-tail change is controlled, not the path). Across the reference windows",
+        f"  that drift explains R² = {mc['r_squared']} of the window return, and the fit predicts {mc['live_predicted_total_return_pct']:+.2f}% (naive 95% prediction interval about",
+        "  -1.8 to +10.7, post hoc, too narrow because windows overlap). "
+        f"{mc['reference_windows_with_drift_at_or_below_live']} earlier windows saw gold fall at least as much; the",
+        f"  worst of them still returned {mc['their_worst_total_return_pct']:+.2f}%.",
+        "- **The entry contexts tested do not isolate it.** Across gold's trend, the 4H RSI state, the session, the Bollinger zone and",
+        f"  30-minute volatility, the change sits {100 * min(ratios):.0f}-{100 * max(ratios):.0f}% inside the groups (the {n_ctx} live trades that have",
+        "  context, see section 3), not in a shift toward historically worse groups. Live cells hold 0-22 trades.",
+        f"- **How trades ended.** The firm change is that fewer trades won. TP1 exits fell from {tp1_ref} of {ref['n']} ({_pct(100 * tp1_ref / ref['n'], 1)}) to",
+        f"  {tp1_live} of {live['n']} ({_pct(100 * tp1_live / live['n'], 1)}, CI 16.1-46.6, Fisher p 0.087, post hoc); clean stop-outs rose from",
+        f"  {fm['reference']['normal_sl']['pct_of_trades']}% to {fm['live']['normal_sl']['pct_of_trades']}% (8/31, CI 13.7-43.2, p 0.061, post hoc). None of the single",
+        "  loss-type changes was separable from noise at n=31.",
         "- **Cause not established.** This is one live window chosen after it looked bad. The study can say what the",
         "  decline is not; it cannot say what it is, and it supports no entry filter.",
         "",
@@ -704,7 +744,8 @@ def render_readme(r: dict) -> str:
         "  happened inside, which RS-XAUUSD-20260901-001 showed can manufacture a finding.",
         f"- Price exports end {cc['price_30m_last_bar_close']}. The {len(cc['trades_after_context_end'])} trades entered after",
         f"  {cc['context_end']} ({', '.join(cc['trades_after_context_end'])}) have no context and are left out of every",
-        "  context table rather than given stale bars. They stay in performance, fail-pattern and timing tables.",
+        f"  context table, including the shift-share (live n={n_ctx} of {live['n']}), rather than given stale bars. They stay in the performance,",
+        "  fail-pattern, timing, rolling-window and fail-mix tables.",
         "- RSI everywhere is Wilder RSI(14) computed locally, with an SMA(14) RSI-MA; no export carried native RSI.",
         "",
         "## 1. Outside the strategy's own history",
@@ -716,7 +757,7 @@ def render_readme(r: dict) -> str:
         f"| live, from {d['live_start']} | {live['n']} | {live['win_rate_pct']}% {live['win_rate_ci95_pct']} | {live['profit_factor']} | "
         f"{live['avg_return_pct']:+.4f}% | {d['live_total_return_pct']:+.2f}% |",
         "",
-        f"- The win-rate gap is {wr_gap} points. With these sample sizes the smallest gap that could be separated from",
+        f"- The win-rate gap is {wr_gap} points (Fisher p = 0.014, post hoc). With these sample sizes the smallest gap that could be separated from",
         f"  noise at 95% is about {d['win_rate_resolution_bound_pp']} points (1.96 x the standard error of a difference of two",
         "  proportions at the reference rate), so the gap clears its bound.",
         f"- Permutation: drawing {d['window_trades']} trades at random from all {ref['n'] + live['n']}, a mean return as low as the",
@@ -729,51 +770,71 @@ def render_readme(r: dict) -> str:
         f"  this is a description, not a test. The {rw['non_overlapping_reference_blocks']} non-overlapping reference blocks returned",
         f"  {', '.join(f'{x:+.2f}%' for x in rw['non_overlapping_block_returns_pct'])}: every one positive.",
         "",
-        "## 2. The market does not explain it",
+        "## 2. Gold's net fall does not account for it",
         "",
-        f"For each reference window, gold's change from the daily close at its first entry to the daily close at its",
+        "For each reference window, gold's change from the daily close at its first entry to the daily close at its",
         f"last exit was regressed against the window's total return: slope {mc['slope']} return points per 1% of gold, R² {mc['r_squared']}.",
+        "The drift is the head-to-tail net change; for the live window it ends at the 2026-10-02 daily close, the last bar",
+        "available, while the last exit is 2026-10-09, and inside the window gold rose about 6.4% (to 2026-08-25) then fell about 11.1%.",
+        "The path is not controlled.",
         f"Gold moved {mc['live_gold_drift_pct']:+.2f}% over the live window; the fit predicts {mc['live_predicted_total_return_pct']:+.2f}%",
         f"and the window returned {mc['live_actual_total_return_pct']:+.2f}%, a residual of {mc['live_residual_pct_points']:+.2f} points.",
         f"{mc['reference_residuals_below_live']} of {mc['reference_windows']} reference residuals are as low.",
         "",
-        f"By gold's {REGIME_LOOKBACK_DAYS}-session trend at entry (last closed daily bar against {REGIME_LOOKBACK_DAYS} bars earlier, ±{REGIME_BAND_PCT}% bands):",
+        f"By gold's {REGIME_LOOKBACK_DAYS}-session trend at entry (last closed daily bar against {REGIME_LOOKBACK_DAYS} bars earlier, ±{REGIME_BAND_PCT}% bands;",
+        f"live n={n_ctx}, the trades with context):",
         "",
         "| gold trend | ref n | ref WR | ref mean % | live n | live WR | live mean % |",
         "|---|---|---|---|---|---|---|",
         *[group_row(g, trend[g]) for g in ("falling (<-2%)", "flat (±2%)", "rising (>+2%)") if g in trend],
         "",
-        "Historically S1 did *best* after gold had fallen. In the live window it lost in falling and rising markets",
+        "Historically S1 was not worse after gold had fallen: 59.38% (38/64) after falling against 53.22% (91/171) after rising,",
+        "no difference seen (Fisher p = 0.46, post hoc). In the live window it lost in falling and rising markets",
         f"alike, on cells of n={trend.get('falling (<-2%)', {}).get('live', {}).get('n', 0)} and "
         f"n={trend.get('rising (>+2%)', {}).get('live', {}).get('n', 0)} that are not separately interpretable.",
         "",
-        "## 3. Nor does entry context — the decline is inside every group",
+        "## 3. The entry contexts tested do not isolate it — the decline is inside each group",
         "",
         "Shift-share splits the change in mean return per trade into *within* (the same kind of trade did worse) and",
-        "*mix* (more trades of a historically worse kind). Percentage points of mean return per trade:",
+        "*mix* (more trades of a historically worse kind). Percentage points of mean return per trade. The 2 live trades",
+        "without context (2026-10-06, 2026-10-08) are left out, and an `unknown` group is dropped from both sides before the weights",
+        f"are formed (live n={n_ctx}; reference n={ss['gold_trend_20d']['n_reference']}, {n_atr_ref} for ATR, where one reference trade has no ATR):",
         "",
-        "| dimension | change | within | mix | unattributed |",
+        "| dimension | change | within | mix | within / change |",
         "|---|---|---|---|---|",
-        *[share_row(k, v) for k, v in d["shift_share"].items()],
+        *[share_row(k, v) for k, v in ss.items()],
         "",
-        f"Volatility rose a little — median 30m ATR at entry {vol['reference_median_atr_pct_30m']}% of price before,",
-        f"{vol['live_median_atr_pct_30m']}% live (n={vol['live_trades_with_atr']}) — but it cannot carry the decline: historically the",
-        "highest-ATR tercile was S1's best, not its worst.",
+        "The shift-share has no interval; each live cell holds 0-22 trades. The conclusion is that the change sits inside the groups,",
+        "not that any single group is established as worse.",
+        "",
+        f"Volatility: median 30m ATR at entry {vol['reference_median_atr_pct_30m']}% of price before, {vol['live_median_atr_pct_30m']}% live (n={vol['live_trades_with_atr']}). The live trades are not spread like the",
+        f"reference: {atr.get('low ATR%', {}).get('live', {}).get('n', 0)} of the {n_ctx} fall in the reference lowest ATR tercile (about 8e-6 if the distribution were unchanged, post hoc), so that group has",
+        "no live within-change at all. The highest-ATR tercile was not worse historically (58.1% n=105 against 52.88% n=104 and 55.24% n=105;",
+        "Fisher p 0.49 and 0.78, no difference seen, post hoc), so higher ATR does not explain the decline either.",
         "",
         "| 30m ATR tercile (cut on reference trades) | ref n | ref WR | ref mean % | live n | live WR | live mean % |",
         "|---|---|---|---|---|---|---|",
         *[group_row(g, atr[g]) for g in ("low ATR%", "mid ATR%", "high ATR%") if g in atr],
         "",
-        "## 4. What changed is how trades end",
+        "## 4. How trades ended",
+        "",
+        "The firm change is that fewer trades won. The loss-type changes below are descriptions: with 31 live trades none of the single",
+        "changes was separable from noise (Fisher p, post hoc: TP1 exits 0.087, clean stop-outs 0.061, false breakouts 0.60, losers",
+        f"that first went +0.25% 0.47). In `results.json` the fail-mix block now carries `n_trades` ({fm['reference']['n_trades']} reference, {fm['live']['n_trades']} live) and a",
+        f"`losers` block (`n`, `median_mfe_pct`, `share_reaching_0_25pct_mfe`) that counts losing trades only ({fm['reference']['losers']['n']} reference, {fm['live']['losers']['n']} live).",
         "",
         "| outcome, % of trades | reference | live |",
         "|---|---|---|",
-        *[f"| {k} | {fm['reference'].get(k, {}).get('pct_of_trades', 0)}% | {fm['live'].get(k, {}).get('pct_of_trades', 0)}% |"
+        *[f"| {k} | {fm['reference'].get(k, {}).get('pct_of_trades', 0)}%"
+          f"{' (41/315)' if k == 'normal_sl' else ' (48/315)' if k == 'false_breakout' else ''} | "
+          f"{fm['live'].get(k, {}).get('pct_of_trades', 0)}%"
+          f"{' (8/31, CI 13.7-43.2)' if k == 'normal_sl' else ' (6/31, CI 9.2-36.3)' if k == 'false_breakout' else ''} |"
           for k in ("win", "normal_sl", "immediate_loss", "time_bleed", "false_breakout")],
         "",
-        f"- Losers that first went at least +0.25% in favour (half way to a 0.5% TP1): {fm['reference']['_losers']['share_reaching_0_25pct_mfe']}%",
-        f"  of {fm['reference']['_losers']['n']} reference losers, {fm['live']['_losers']['share_reaching_0_25pct_mfe']}% of {fm['live']['_losers']['n']} live losers.",
-        "  More live trades moved toward target and then failed. On 21 losers this is a description, not a result.",
+        f"- Losers that first went at least +0.25% in favour (half way to a 0.5% TP1): {fm['reference']['losers']['share_reaching_0_25pct_mfe']}%",
+        f"  of {fm['reference']['losers']['n']} reference losers, {fm['live']['losers']['share_reaching_0_25pct_mfe']}% of {fm['live']['losers']['n']} live losers.",
+        "  (CI of the live share 28.3-67.6, p 0.47, post hoc.) A higher share of live losers moved toward target first, but 21 losers cannot separate",
+        "  47.6% from 37.1%; this is a description, not a result. The +0.25% threshold was chosen after seeing the data.",
         "",
         "## 5. The standard section 5 report, full period",
         "",
@@ -786,12 +847,17 @@ def render_readme(r: dict) -> str:
         f"  {ho['profit_factor']}). Flag: **{ts['degradation_flag']}** under the fixed rule (held-out win rate below the",
         f"  in-sample lower bound {hi['win_rate_ci95_pct'][0]}%, or held-out PF below 1.0).",
         "- Quarterly: " + "; ".join(f"{q} {v['win_rate_pct']}% (n={v['n']}, PF {v['profit_factor']})" for q, v in ts["by_period"].items()) + ".",
-        "  2026-Q4 holds only the first days of October.",
+        f"  2026-Q4 holds only the first days of October: n={q4.get('n')}, 1 win, Wilson CI 3.6-62.4 (post hoc), a direction only.",
         "- 30-minute slots, BB zone, DXY, multi-timeframe and streak tables are in `report.html` and `results.json`.",
         "  They are descriptive; no cell is a gate.",
         "",
         "## What this does not show",
         "",
+        "- A pre-registered result. This study has no pre-registration (see the top); all analyses beyond the five design",
+        "  rules recorded with the study are exploratory and were chosen while looking at the data.",
+        "- Anything about August as a \"gold rose, S1 did not\" case. The August row mixes 11 trades entered before 2026-08-16 (+2.00%)",
+        "  with 6 after (-2.00%), and gold's +9.7% for the month mostly came before the push began (08-14 close 4376, 08-31 close 4448,",
+        "  about +1.6% after, post hoc).",
         "- A cause. Candidates the data cannot separate: a change in how gold trades intraday that none of these",
         "  context measures captures, or an unusually bad run of a strategy that has not changed.",
         "- That S1 has stopped working. Thirty-one trades is one window; the next one decides more than this one.",
@@ -857,7 +923,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
-    results = build(args.output_dir.resolve())
+    paths = locators = None
+    results = build(args.output_dir.resolve(), paths, locators)
     d = results["decline"]
     print(json.dumps({"study_id": STUDY_ID, "baseline": {k: results["baseline"][k] for k in ("n", "win_rate_pct", "profit_factor")},
                       "reference": d["reference"], "live": d["live"], "p": d["permutation_p_one_sided"],
