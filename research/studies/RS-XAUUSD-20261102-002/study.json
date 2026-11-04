@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261102-002",
-  "revision": 2,
+  "revision": 3,
   "title": "Gold on CPI days: the first 30m range is large (22.0 vs 10.11 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
   "market": "XAUUSD",
   "strategy": "none — gold around US CPI releases",
@@ -40,9 +40,9 @@
     {
       "title": "The first hour is large",
       "tone": "info",
-      "detail": "On 33 CPI releases since 2024 the first 30m bar spanned a median 22.0 points against 10.11 at 08:30 ET on other weekdays (2.18x in points; 2.51x for the median range in % of price); the 1-hour absolute move was 0.518% against 0.233% (2.22x; diff 0.285, bound 0.1552). The 4-hour range was 1.411% against 1.033% (bound 0.1598).",
+      "detail": "On 33 CPI releases since 2024 the first 30m bar spanned a median 22.0 points against 10.11 at 08:30 ET on other weekdays (2.18x in points; 2.51x for the median range in % of price: 0.768% against 0.305%); the 1-hour absolute move was 0.518% against 0.233% (2.22x; diff 0.285, bound 0.1552). The 4-hour range was 1.411% against 1.033% (bound 0.1598). Post-hoc note: the points version (22.0 / 10.11 = 2.18x) and the 4-hour range were added after the results were seen; the pre-registered measure is the median first-bar range in % of price (2.51x). The 1-hour 2.22x is a ratio of two means; on medians the 1-hour absolute move is 0.271% against 0.173% (about 1.57x), so the 'about 2.2x' is the mean and the typical release is closer to 1.6x.",
       "title_zh": "公布後一小時波動很大",
-      "detail_zh": "2024 年以來 33 次 CPI，公布後第一根 30 分鐘 K 棒高低差中位數 22.0 點，其他平日同一時間 10.11 點（以點數算約 2.2 倍；以佔價格百分比的中位數算 2.51 倍）；1 小時平均漲跌（絕對值）0.518%，平常 0.233%（約 2.2 倍；差 0.29，界線 0.16）。4 小時振幅 1.411% 對 1.033%（界線 0.16），也分得出來。"
+      "detail_zh": "2024 年以來 33 次 CPI，公布後第一根 30 分鐘 K 棒高低差中位數 22.0 點，其他平日同一時間 10.11 點（以點數算約 2.2 倍；以佔價格百分比的中位數算 0.768% 對 0.305%，2.51 倍）；1 小時平均漲跌（絕對值）0.518%，平常 0.233%（約 2.2 倍；差 0.29，界線 0.16）。4 小時振幅 1.411% 對 1.033%（界線 0.16），也分得出來。 事後補算：點數版（22.0 ÷ 10.11 ≈ 2.18 倍）與 4 小時振幅是看到結果之後才加的呈現指標；預先登記的是佔價格百分比的第一根高低差中位數（2.51 倍）。1 小時約 2.2 倍是兩個平均數相除；改用中位數，1 小時絕對漲跌 0.271% 對 0.173%，約 1.57 倍，也就是平均約 2.2 倍、中位數約 1.6 倍（事後補算）。"
     },
     {
       "title": "By the close: 2%+ share not distinguishable, range still larger",
@@ -88,7 +88,8 @@
     "只是描述，不構成交易規則。",
     "預先登記假設 CPI 在週二到週四公布；實際 222 次中有 46 次在週五。週二到週四對照組（只做了平均漲跌幅）在 results.json 的 vs_midweek。",
     "2025 年 11 月 CPI 因政府停擺取消；延後發布的 2025-10-24、2026-02-13 留在樣本中。",
-    "第 2 版（2026-11-02）：結果欄位改名，數字未變；審查後修正文字。"
+    "事後補算（看到結果之後才算）：30 分鐘點數倍數 22.0 ÷ 10.11 ≈ 2.18 倍、4 小時振幅、1 小時中位數倍數（0.271% ÷ 0.173% ≈ 1.57 倍）。預先登記的是佔價格百分比的版本（約 2.51 倍）。設計文字與結果是同一個 commit 進入版本庫，「先登記再算」只能由執行者自述，無法從歷史查證。",
+    "第 3 版（2026-11-04）：只改文字，補事後補算的標示與 1 小時中位數倍數；results.json 數字未變。"
   ],
   "interpretation_zh": "CPI 公布後的第一個小時波動明顯放大，4 小時振幅與當天高低振幅也較大；但收盤對收盤的大漲大跌比例，和平常日分不出差別；方向也分不出來。這份研究描述的是波動，不構成交易建議。（和非農研究的比較是事後加的，兩份研究的對照組定義不同。）",
   "presentation": [
