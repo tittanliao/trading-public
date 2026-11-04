@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T14:30:46+08:00",
+  "generated_at": "2026-11-04T14:46:11+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,12 +15,13 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 78,
+    "studies": 80,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
       "RS-XAUUSD-20260824-004",
-      "RS-XAUUSD-20260824-005"
+      "RS-XAUUSD-20260824-005",
+      "RS-XAUUSD-20261104-001"
     ],
     "hypotheses": 63,
     "by_verdict": {
@@ -2577,6 +2578,32 @@
       "reason": null,
       "status": "confirmed",
       "created_on": "2026-11-03"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261104-001",
+      "study_id": "RS-XAUUSD-20261104-001",
+      "kind": "study",
+      "family": "none — gold around S&P 500 single-day crashes",
+      "origin": "programme",
+      "claim": "Does gold fall with US stock crashes? 207 days with the S&P 500 down 2% or more, 2008-2026: gold's same-day return is not distinguishable from ordinary days, and VIX-jump crash days are not distinguishable from the other crash days (pre-registered)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-04"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261104-002",
+      "study_id": "RS-XAUUSD-20261104-002",
+      "kind": "study",
+      "family": "none — gold around FOMC statements and press conferences",
+      "origin": "programme",
+      "claim": "Gold around FOMC rate decisions (FX_IDC 30m, existing data 2024-2026): first 30m and 1h range multiple vs the same ET bars on nearby ordinary weekdays, 1h direction, and press-conference bar vs statement bar (pre-registered, amended twice before any result)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": null,
+      "status": "progress",
+      "created_on": "2026-11-04"
     }
   ],
   "generated_by": "trading-private research pipeline"
