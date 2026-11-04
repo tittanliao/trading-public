@@ -1,0 +1,1295 @@
+{
+  "results": {
+    "n_events": 21,
+    "primaries": {
+      "P1a": {
+        "n": 21,
+        "mean": 1.213369995271252,
+        "sd": 0.6435355498678356,
+        "se": 0.14043096998401836,
+        "t": 8.640330515479162,
+        "p": 3.47728659008093e-08,
+        "holm_level_applied": 0.016666666666666666,
+        "holm_rejects": true,
+        "cleared": true,
+        "t_crit_at_holm_level": 2.612585423033488,
+        "bound_at_holm_level": 0.36688790512269964,
+        "t_crit_first_step": 2.7443763705409046,
+        "bound_first_step": 0.385395435716279,
+        "multiple": 3.3648049439209404,
+        "multiple_interval_holm": [
+          2.331430645626666,
+          4.856208067725549
+        ],
+        "multiple_interval_first_step": [
+          2.2886784606257016,
+          4.9469213371018945
+        ],
+        "not_distinguishable_range_first_step": [
+          0.6801816149136866,
+          1.4701955743495032
+        ]
+      },
+      "P1b": {
+        "n": 21,
+        "mean": 1.403032379154573,
+        "sd": 0.495754251829104,
+        "se": 0.10818244690966994,
+        "t": 12.969131492524617,
+        "p": 3.405788240676893e-11,
+        "holm_level_applied": 0.0125,
+        "holm_rejects": true,
+        "cleared": true,
+        "t_crit_at_holm_level": 2.7443763705409046,
+        "bound_at_holm_level": 0.2968933510061941,
+        "t_crit_first_step": 2.7443763705409046,
+        "bound_first_step": 0.2968933510061941,
+        "multiple": 4.067515533989169,
+        "multiple_interval_holm": [
+          3.0226654097550933,
+          5.473540857631243
+        ],
+        "multiple_interval_first_step": [
+          3.0226654097550933,
+          5.473540857631243
+        ],
+        "not_distinguishable_range_first_step": [
+          0.7431232614840562,
+          1.3456717772539477
+        ]
+      },
+      "P2": {
+        "n": 21,
+        "mean": -0.10175279099848651,
+        "sd": 0.9500128021050098,
+        "se": 0.2073097893725386,
+        "t": -0.49082482456067383,
+        "p": 0.6288925800687701,
+        "holm_level_applied": 0.05,
+        "holm_rejects": false,
+        "cleared": false,
+        "t_crit_at_holm_level": 2.0859634472658644,
+        "bound_at_holm_level": 0.43244064289150086,
+        "t_crit_first_step": 2.7443763705409046,
+        "bound_first_step": 0.5689360873358069
+      },
+      "P3": {
+        "n": 21,
+        "mean": 0.30000384335649566,
+        "sd": 0.39597910498667455,
+        "se": 0.08640972486772865,
+        "t": 3.471875923869974,
+        "p": 0.0024067682547955957,
+        "holm_level_applied": 0.025,
+        "holm_rejects": true,
+        "cleared": true,
+        "t_crit_at_holm_level": 2.4231165398734094,
+        "bound_at_holm_level": 0.20938083353290393,
+        "t_crit_first_step": 2.7443763705409046,
+        "bound_first_step": 0.23714080711193528,
+        "multiple": 1.349863995574589,
+        "multiple_interval_holm": [
+          1.094856177423867,
+          1.664266817981488
+        ],
+        "multiple_interval_first_step": [
+          1.064880979144761,
+          1.7111140514614185
+        ],
+        "not_distinguishable_range_first_step": [
+          0.788880200254159,
+          1.2676195950637665
+        ]
+      }
+    },
+    "P3_three_numbers": {
+      "R_fomc_press_over_statement_geomean": 1.1868319535788372,
+      "C_control_press_over_statement_geomean": 0.8792233569231876,
+      "X_R_over_C": 1.3498639955745892,
+      "X_check_exp_mean_q": 1.349863995574589
+    },
+    "descriptive": {
+      "median_event_ratio_P1a": 2.9051811350184327,
+      "median_event_ratio_P1b": 4.005094220542618,
+      "median_event_ratio_P3": 1.388992513407195,
+      "mean_points_first30_events": 27.114047619047692,
+      "median_points_first30_events": 18.690999999999804,
+      "median_R30_pct_events": 0.6298215212476872,
+      "median_R60_pct_events": 0.9127341734731522,
+      "mean_abs_r60_events_pct": 0.7089336022261425,
+      "mean_r60_events_pct": -0.09148437757954475,
+      "share_up_r60_events": 0.42857142857142855,
+      "median_control_R30_pct_pooled_events": 0.1562525458929094
+    },
+    "sensitivity_wilcoxon": {
+      "P1a": {
+        "statistic": 0.0,
+        "p": 9.5367431640625e-07,
+        "agrees_with_t_verdict_at_0.05": true
+      },
+      "P1b": {
+        "statistic": 0.0,
+        "p": 9.5367431640625e-07,
+        "agrees_with_t_verdict_at_0.05": true
+      },
+      "P2": {
+        "statistic": 109.0,
+        "p": 0.8381938934326172,
+        "agrees_with_t_verdict_at_0.05": true
+      },
+      "P3": {
+        "statistic": 33.0,
+        "p": 0.002857208251953125,
+        "agrees_with_t_verdict_at_0.05": true
+      }
+    },
+    "sensitivity_leave_one_out": {
+      "P1a": {
+        "verdict_full": true,
+        "flips": [],
+        "n_flips": 0
+      },
+      "P1b": {
+        "verdict_full": true,
+        "flips": [],
+        "n_flips": 0
+      },
+      "P2": {
+        "verdict_full": false,
+        "flips": [],
+        "n_flips": 0
+      },
+      "P3": {
+        "verdict_full": true,
+        "flips": [],
+        "n_flips": 0
+      }
+    },
+    "sensitivity_without_same_day_release": {
+      "n": 20,
+      "excluded": [
+        "2024-06-12"
+      ],
+      "P1a": {
+        "mean": 1.2054472574174304,
+        "multiple": 3.3382518021063246,
+        "cleared": true,
+        "bound_first_step": 0.4066211753148742
+      },
+      "P1b": {
+        "mean": 1.4010933893977857,
+        "multiple": 4.059636304374563,
+        "cleared": true,
+        "bound_first_step": 0.31369412867733176
+      },
+      "P2": {
+        "mean": -0.08025358252553697,
+        "multiple": null,
+        "cleared": false,
+        "bound_first_step": 0.5979861547308392
+      },
+      "P3": {
+        "mean": 0.3010848437731545,
+        "multiple": 1.351323988100328,
+        "cleared": true,
+        "bound_first_step": 0.2505809168691747
+      }
+    },
+    "sensitivity_global_baseline_CPI_formulas": {
+      "baseline_days": 569,
+      "events_n": 21,
+      "R30_points_median_events": 18.690999999999804,
+      "R30_points_median_baseline": 4.911000000000058,
+      "ratio_points_median": 3.8059458358785547,
+      "R30_pct_median_events": 0.6298215212476872,
+      "R30_pct_median_baseline": 0.16205063374171322,
+      "ratio_pct_median": 3.8865724045950816,
+      "mean_abs_r60_events_pct": 0.7089336022261425,
+      "mean_abs_r60_baseline_pct": 0.12719017561572263,
+      "ratio_mean_abs_r60": 5.573807873086289,
+      "cpi_study_reference": {
+        "points_median_ratio": 2.18,
+        "pct_median_ratio": 2.51,
+        "abs_move_1h_ratio": 2.22,
+        "source": "RS-XAUUSD-20261102-002 README (n=33, different denominator: 08:30 ET bars)"
+      },
+      "note": "descriptive; may be said as 'same formula as the CPI study', never as a test (amendment A9)"
+    },
+    "post_hoc_descriptive": {
+      "label": "事後補算: written after the results were seen; descriptive; no verdict depends on it",
+      "r60_up_share": {
+        "k": 9,
+        "n": 21,
+        "share": 0.42857142857142855,
+        "wilson95": [
+          0.2446996892537596,
+          0.6345344563069328
+        ],
+        "p_vs_half_binomial": 0.6636238098144531
+      },
+      "P3_by_press_conference_start": {
+        "start_stated_on_fed_calendar": {
+          "n": 9,
+          "X": 1.1524768523087778,
+          "interval_holm_level_0.025": [
+            0.7997637386946548,
+            1.6607440808399154
+          ],
+          "p": 0.31635795672232114
+        },
+        "start_assumed_14_30": {
+          "n": 12,
+          "X": 1.5197892405054112,
+          "interval_holm_level_0.025": [
+            1.1556389025079725,
+            1.9986860346630464
+          ],
+          "p": 0.0022245896741646064
+        },
+        "difference_welch_p": 0.12190885164628988,
+        "note": "the 13 pre-2025-09 start times were re-checked against federalreserve.gov pages on 2026-11-04 (none states a start time); the assumed group is the 2024-01 to 2025-07 meetings, the stated group 2025-09 to 2026-09"
+      },
+      "denominators_for_CPI_comparison": {
+        "ordinary_weekday_1400_ET_R30_pct_median": 0.16205063374171322,
+        "ordinary_1400_days": 569,
+        "ordinary_weekday_0830_ET_R30_pct_median": 0.3081468691987671,
+        "ordinary_0830_days": 589,
+        "FOMC_bar1_R30_pct_median": 0.6298215212476872,
+        "FOMC_n": 21,
+        "CPI_0830_bar_R30_pct_median": 0.7678002474206505,
+        "CPI_n": 33,
+        "ratio_1400_over_0830_ordinary": 0.5258876527386818,
+        "ratio_FOMC_over_CPI_actual_median": 0.8202934596120681,
+        "note": "ordinary weekdays here use this study's exclusions; the CPI study reports 0.305% for its own 666 other weekdays"
+      }
+    },
+    "sensitivity_mgc": {
+      "n": 20,
+      "dates": [
+        "2024-01-31",
+        "2024-03-20",
+        "2024-05-01",
+        "2024-06-12",
+        "2024-07-31",
+        "2024-09-18",
+        "2024-11-07",
+        "2025-01-29",
+        "2025-03-19",
+        "2025-05-07",
+        "2025-06-18",
+        "2025-07-30",
+        "2025-09-17",
+        "2025-10-29",
+        "2025-12-10",
+        "2026-01-28",
+        "2026-03-18",
+        "2026-04-29",
+        "2026-06-17",
+        "2026-07-29"
+      ],
+      "agreement_with_primary": {
+        "P1a": true,
+        "P1b": true,
+        "P2": true,
+        "P3": true
+      },
+      "P1a": {
+        "mean": 1.3110050585158013,
+        "multiple": 3.7099005061699812,
+        "cleared": true,
+        "bound_first_step": 0.4242597413671556,
+        "p": 6.446247009314436e-08
+      },
+      "P1b": {
+        "mean": 1.453975960531812,
+        "multiple": 4.280098231142341,
+        "cleared": true,
+        "bound_first_step": 0.31478957383982825,
+        "p": 9.349379048081832e-11
+      },
+      "P2": {
+        "mean": -2.7201046815561457e-05,
+        "multiple": null,
+        "cleared": false,
+        "bound_first_step": 0.5224498610351481,
+        "p": 0.9998869017720905
+      },
+      "P3": {
+        "mean": 0.2467753218242148,
+        "multiple": 1.2798915167800147,
+        "cleared": true,
+        "bound_first_step": 0.25580313546689437,
+        "p": 0.015424449998765829
+      },
+      "fx_idc_same_events": {
+        "n": 20,
+        "P1a": {
+          "mean": 1.1855038650318555,
+          "multiple": 3.272335221436116,
+          "cleared": true
+        },
+        "P1b": {
+          "mean": 1.3775907779503505,
+          "multiple": 3.965336733451915,
+          "cleared": true
+        },
+        "P2": {
+          "mean": 0.006666408588737294,
+          "multiple": null,
+          "cleared": false
+        },
+        "P3": {
+          "mean": 0.3127186321282592,
+          "multiple": 1.3671368085316733,
+          "cleared": true
+        }
+      }
+    },
+    "S7_surprise_descriptive": {
+      "classes": {
+        "not_searched": 23
+      },
+      "note": "no pre-meeting preview article was searched or coded in this run: every row is `not_searched` (not `unknown`, which would mean searched and not found) and none is filled from memory; the study cannot say how gold moves on a surprise (amendment A7/A9)"
+    },
+    "secondary": {
+      "S1": {
+        "n": 21,
+        "mean": 1.2751889465048212,
+        "se": 0.08961435086540846,
+        "p": 6.3358466488444e-12,
+        "bound_95": 0.18693226025570014,
+        "resolved_uncorrected": true,
+        "multiple": 3.579377657110059,
+        "multiple_interval": [
+          2.9690934966701215,
+          4.315103053031999
+        ],
+        "label": "3-hour range multiple (bars 1-6)",
+        "bh_q010_pass": true
+      },
+      "S2": {
+        "n": 21,
+        "mean": 0.015422927147979146,
+        "se": 0.09949148409299403,
+        "p": 0.8783612614941275,
+        "bound_95": 0.20753559913221875,
+        "resolved_uncorrected": false,
+        "multiple": 1.0155424742871164,
+        "multiple_interval": [
+          0.8252138847676316,
+          1.24976874010258
+        ],
+        "label": "bar 3 vs bar 1 (P3 form)",
+        "bh_q010_pass": false
+      },
+      "S3": {
+        "n": 21,
+        "mean": -0.28859563054319193,
+        "se": 0.09661399548387985,
+        "p": 0.007284274962066537,
+        "bound_95": 0.20153326307368266,
+        "resolved_uncorrected": true,
+        "multiple": 0.7493151443068028,
+        "multiple_interval": [
+          0.6125474356414122,
+          0.9166199265851035
+        ],
+        "dropped_events": [],
+        "label": "day before (t-1) R30 at 14:00 ET vs control",
+        "bh_q010_pass": true
+      },
+      "S4a": {
+        "n_a": 10,
+        "n_b": 11,
+        "mean_a": 1.493680260546638,
+        "mean_b": 0.9585424813845378,
+        "diff": 0.5351377791621001,
+        "se": 0.26737230355483316,
+        "df": 14.396190378928111,
+        "p": 0.06455884753584035,
+        "bound_95": 0.5719794943762119,
+        "resolved_uncorrected": false,
+        "label": "SEP minus non-SEP on y (P1a)",
+        "bh_q010_pass": false
+      },
+      "S4b": {
+        "n_a": 10,
+        "n_b": 11,
+        "mean_a": -0.43935087496832603,
+        "mean_b": 0.20515455806500385,
+        "diff": -0.6445054330333299,
+        "se": 0.40842104382919764,
+        "df": 14.751727138864242,
+        "p": 0.13575506616045543,
+        "bound_95": 0.8718066522148975,
+        "resolved_uncorrected": false,
+        "label": "SEP minus non-SEP on z (P2)",
+        "bh_q010_pass": false
+      },
+      "S5a": {
+        "judged": false,
+        "reason": "sample too small, not judged",
+        "n_a": 5,
+        "n_b": 15,
+        "mean_z_a": -0.18315410008489574,
+        "mean_z_hold": 0.0699399114799483,
+        "label": "cut minus hold on z",
+        "bh_q010_pass": null
+      },
+      "S5b": {
+        "judged": false,
+        "reason": "sample too small, not judged",
+        "n_a": 1,
+        "n_b": 15,
+        "mean_z_a": -2.270136782742963,
+        "mean_z_hold": 0.0699399114799483,
+        "label": "hike minus hold on z",
+        "bh_q010_pass": null
+      },
+      "S6": {
+        "judged": false,
+        "reason": "sample too small, not judged",
+        "n_dovish": 2,
+        "n_hawkish": 3,
+        "n_unchanged": 5,
+        "mean_z_dovish": -0.3453368187176594,
+        "mean_z_hawkish": -1.6402695183474527,
+        "label": "dovish minus hawkish on z",
+        "bh_q010_pass": null
+      },
+      "S8a": {
+        "n": 21,
+        "mean": -0.0707425660094884,
+        "se": 0.1335976428918334,
+        "p": 0.6022740182672033,
+        "bound_95": 0.2786797997132427,
+        "resolved_uncorrected": false,
+        "label": "bar 1 signed return minus control (pp)",
+        "bh_q010_pass": false
+      },
+      "S8b": {
+        "n": 21,
+        "mean": -0.030832197696727123,
+        "se": 0.12581952837649713,
+        "p": 0.8089137771035492,
+        "bound_95": 0.2624549371456032,
+        "resolved_uncorrected": false,
+        "label": "bar 2 signed return minus control (pp)",
+        "bh_q010_pass": false
+      },
+      "S8c": {
+        "k_event": 9,
+        "n_event": 21,
+        "pct_event": 42.9,
+        "k_control": 166,
+        "n_control": 309,
+        "pct_control": 53.7,
+        "diff_pts": -10.9,
+        "bound_95_pts": 21.9,
+        "resolved_uncorrected": false,
+        "p": 0.33438341968406093,
+        "label": "reversal share (bar 2 sign != bar 1 sign): FOMC vs unique control days",
+        "bh_q010_pass": false
+      },
+      "S9": {
+        "n_a": 21,
+        "n_b": 33,
+        "mean_a": -0.4916966898111879,
+        "mean_b": -0.2949100436961032,
+        "diff": -0.19678664611508473,
+        "se": 0.1652142847320073,
+        "df": 35.77491464904999,
+        "p": 0.24145744846032044,
+        "bound_95": 0.33514331562865385,
+        "resolved_uncorrected": false,
+        "multiple_fomc_over_cpi": 0.8213658562161101,
+        "note": "different denominators: FOMC 14:00 ET bar vs ordinary 14:00 ET bars; CPI 08:30 ET bar vs ordinary 08:30 ET bars",
+        "label": "ln R30: FOMC bar 1 vs CPI 08:30 ET bar",
+        "bh_q010_pass": false
+      }
+    },
+    "event_table": [
+      {
+        "date": "2024-01-31",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.4584,
+        "pts30": 9.38,
+        "multiple_30m": 3.278,
+        "multiple_1h": 3.817,
+        "r60_pct": -0.0704,
+        "z_pp": -0.0923,
+        "ratio_press_over_statement": 1.079,
+        "control_ratio_press_over_statement": 0.668,
+        "q_multiple": 1.614
+      },
+      {
+        "date": "2024-03-20",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 14,
+        "R30_pct": 0.8555,
+        "pts30": 18.45,
+        "multiple_30m": 6.49,
+        "multiple_1h": 7.212,
+        "r60_pct": 1.1383,
+        "z_pp": 1.0789,
+        "ratio_press_over_statement": 1.158,
+        "control_ratio_press_over_statement": 0.937,
+        "q_multiple": 1.236
+      },
+      {
+        "date": "2024-05-01",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.8129,
+        "pts30": 18.69,
+        "multiple_30m": 5.418,
+        "multiple_1h": 7.617,
+        "r60_pct": 1.1243,
+        "z_pp": 1.1271,
+        "ratio_press_over_statement": 1.131,
+        "control_ratio_press_over_statement": 0.927,
+        "q_multiple": 1.22
+      },
+      {
+        "date": "2024-06-12",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "CPI",
+        "n_control": 15,
+        "R30_pct": 0.5255,
+        "pts30": 12.27,
+        "multiple_30m": 3.943,
+        "multiple_1h": 4.228,
+        "r60_pct": -0.5353,
+        "z_pp": -0.5317,
+        "ratio_press_over_statement": 1.108,
+        "control_ratio_press_over_statement": 0.839,
+        "q_multiple": 1.321
+      },
+      {
+        "date": "2024-07-31",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.2533,
+        "pts30": 6.14,
+        "multiple_30m": 1.55,
+        "multiple_1h": 3.075,
+        "r60_pct": 0.3343,
+        "z_pp": 0.334,
+        "ratio_press_over_statement": 1.791,
+        "control_ratio_press_over_statement": 0.763,
+        "q_multiple": 2.346
+      },
+      {
+        "date": "2024-09-18",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 1.2086,
+        "pts30": 31.03,
+        "multiple_30m": 8.54,
+        "multiple_1h": 6.997,
+        "r60_pct": 0.299,
+        "z_pp": 0.2602,
+        "ratio_press_over_statement": 0.908,
+        "control_ratio_press_over_statement": 0.923,
+        "q_multiple": 0.984
+      },
+      {
+        "date": "2024-11-07",
+        "sep": false,
+        "decision": "cut",
+        "same_day_release": "",
+        "n_control": 16,
+        "R30_pct": 0.3531,
+        "pts30": 9.51,
+        "multiple_30m": 2.905,
+        "multiple_1h": 2.602,
+        "r60_pct": -0.013,
+        "z_pp": -0.0273,
+        "ratio_press_over_statement": 0.948,
+        "control_ratio_press_over_statement": 0.848,
+        "q_multiple": 1.117
+      },
+      {
+        "date": "2025-01-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 14,
+        "R30_pct": 0.2403,
+        "pts30": 6.61,
+        "multiple_30m": 1.982,
+        "multiple_1h": 3.001,
+        "r60_pct": 0.1762,
+        "z_pp": 0.2206,
+        "ratio_press_over_statement": 1.967,
+        "control_ratio_press_over_statement": 0.939,
+        "q_multiple": 2.095
+      },
+      {
+        "date": "2025-03-19",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.4049,
+        "pts30": 12.27,
+        "multiple_30m": 2.693,
+        "multiple_1h": 3.472,
+        "r60_pct": 0.5362,
+        "z_pp": 0.5223,
+        "ratio_press_over_statement": 0.922,
+        "control_ratio_press_over_statement": 0.856,
+        "q_multiple": 1.078
+      },
+      {
+        "date": "2025-05-07",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.3985,
+        "pts30": 13.49,
+        "multiple_30m": 1.914,
+        "multiple_1h": 2.555,
+        "r60_pct": -0.0016,
+        "z_pp": -0.0516,
+        "ratio_press_over_statement": 1.133,
+        "control_ratio_press_over_statement": 0.719,
+        "q_multiple": 1.575
+      },
+      {
+        "date": "2025-06-18",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.3283,
+        "pts30": 11.11,
+        "multiple_30m": 2.332,
+        "multiple_1h": 2.969,
+        "r60_pct": -0.168,
+        "z_pp": -0.1776,
+        "ratio_press_over_statement": 1.287,
+        "control_ratio_press_over_statement": 0.858,
+        "q_multiple": 1.499
+      },
+      {
+        "date": "2025-07-30",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.2465,
+        "pts30": 8.14,
+        "multiple_30m": 1.902,
+        "multiple_1h": 5.225,
+        "r60_pct": -0.6173,
+        "z_pp": -0.66,
+        "ratio_press_over_statement": 2.454,
+        "control_ratio_press_over_statement": 0.715,
+        "q_multiple": 3.434
+      },
+      {
+        "date": "2025-09-17",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 1.5435,
+        "pts30": 56.9,
+        "multiple_30m": 10.869,
+        "multiple_1h": 8.108,
+        "r60_pct": -0.98,
+        "z_pp": -0.9508,
+        "ratio_press_over_statement": 0.687,
+        "control_ratio_press_over_statement": 1.061,
+        "q_multiple": 0.647
+      },
+      {
+        "date": "2025-10-29",
+        "sep": false,
+        "decision": "cut",
+        "same_day_release": "",
+        "n_control": 16,
+        "R30_pct": 0.7691,
+        "pts30": 30.72,
+        "multiple_30m": 2.753,
+        "multiple_1h": 4.852,
+        "r60_pct": -0.6289,
+        "z_pp": -0.6766,
+        "ratio_press_over_statement": 1.554,
+        "control_ratio_press_over_statement": 0.797,
+        "q_multiple": 1.95
+      },
+      {
+        "date": "2025-12-10",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": "",
+        "n_control": 11,
+        "R30_pct": 0.693,
+        "pts30": 29.07,
+        "multiple_30m": 3.765,
+        "multiple_1h": 4.005,
+        "r60_pct": 0.5213,
+        "z_pp": 0.4789,
+        "ratio_press_over_statement": 1.234,
+        "control_ratio_press_over_statement": 0.873,
+        "q_multiple": 1.413
+      },
+      {
+        "date": "2026-01-28",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.6373,
+        "pts30": 33.67,
+        "multiple_30m": 1.562,
+        "multiple_1h": 1.914,
+        "r60_pct": 0.8059,
+        "z_pp": 0.7804,
+        "ratio_press_over_statement": 1.542,
+        "control_ratio_press_over_statement": 1.011,
+        "q_multiple": 1.526
+      },
+      {
+        "date": "2026-03-18",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.4722,
+        "pts30": 23.09,
+        "multiple_30m": 1.014,
+        "multiple_1h": 1.33,
+        "r60_pct": -0.7483,
+        "z_pp": -0.6845,
+        "ratio_press_over_statement": 1.57,
+        "control_ratio_press_over_statement": 0.997,
+        "q_multiple": 1.575
+      },
+      {
+        "date": "2026-04-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 0.6298,
+        "pts30": 28.64,
+        "multiple_30m": 2.888,
+        "multiple_1h": 2.837,
+        "r60_pct": -0.2068,
+        "z_pp": -0.1885,
+        "ratio_press_over_statement": 0.838,
+        "control_ratio_press_over_statement": 0.945,
+        "q_multiple": 0.886
+      },
+      {
+        "date": "2026-06-17",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 14,
+        "R30_pct": 2.366,
+        "pts30": 103.61,
+        "multiple_30m": 9.171,
+        "multiple_1h": 7.055,
+        "r60_pct": -2.1344,
+        "z_pp": -2.1189,
+        "ratio_press_over_statement": 0.62,
+        "control_ratio_press_over_statement": 0.954,
+        "q_multiple": 0.649
+      },
+      {
+        "date": "2026-07-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": "",
+        "n_control": 15,
+        "R30_pct": 1.0941,
+        "pts30": 44.25,
+        "multiple_30m": 5.297,
+        "multiple_1h": 5.614,
+        "r60_pct": 1.5477,
+        "z_pp": 1.491,
+        "ratio_press_over_statement": 1.302,
+        "control_ratio_press_over_statement": 0.938,
+        "q_multiple": 1.389
+      },
+      {
+        "date": "2026-09-16",
+        "sep": true,
+        "decision": "hike",
+        "same_day_release": "",
+        "n_control": 14,
+        "R30_pct": 1.4294,
+        "pts30": 62.34,
+        "multiple_30m": 5.875,
+        "multiple_1h": 6.766,
+        "r60_pct": -2.3004,
+        "z_pp": -2.2701,
+        "ratio_press_over_statement": 1.082,
+        "control_ratio_press_over_statement": 1.033,
+        "q_multiple": 1.047
+      }
+    ],
+    "secondary_summary": {
+      "planned_family_size": 16,
+      "planned_tests_in_this_run": [
+        "S1",
+        "S2",
+        "S3",
+        "S4a",
+        "S4b",
+        "S5a",
+        "S5b",
+        "S6",
+        "S8a",
+        "S8b",
+        "S8c",
+        "S9"
+      ],
+      "judged": 9,
+      "cleared_uncorrected": 2,
+      "expected_by_chance_about_5pct": 0.45,
+      "bh_q010_passing": [
+        "S1",
+        "S3"
+      ],
+      "not_run": [
+        "S10a",
+        "S10b",
+        "S10c",
+        "S10d (daily layer 2008-2026)"
+      ],
+      "s10_status": "formally dropped (decision 2026-11-04, taken after the intraday results were seen); no S10 number is reported",
+      "daily_2013_sensitivity_status": "formally dropped (same decision); not run",
+      "not_judged_or_not_run": 7,
+      "bh_robustness_unjudged_as_p1": {
+        "m=13": [
+          "S1",
+          "S3"
+        ],
+        "m=16": [
+          "S1",
+          "S3"
+        ]
+      }
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261104-002",
+  "generated_at": "2026-11-04T14:19:07+08:00",
+  "baseline": "each event's own control days: ordinary weekdays at offsets -10..-2 and +2..+10 (Monday-Friday counting; the days t-1 and t+1 are not used) at the same ET bars, after the exclusions; 11-16 control days per judged meeting",
+  "limitations": [
+    "Descriptive event study; no trading rule is implied.",
+    "Small n: 21 judged meetings, 2024-2026 only. C1 is met exactly (21 of 23): one fewer usable meeting would have stopped the study under the registered rule. S5, S6 splits are below the 8-event rule and are not judged.",
+    "S7 surprise: no preview article was searched; every row of the consensus file is `not_searched`. The study cannot say how gold moves on a surprise.",
+    "Secondary family: 16 registered, 9 judged, 2 pass BH (S1, S3). S5a, S5b, S6 are below the 8-meeting rule (registered). S10a-d (daily layer 2008-2026) and the FX_IDC daily sensitivity from 2013 were not run and are formally dropped (decision of 2026-11-04, taken after the intraday results were seen); no S10 number is reported. Counting the 7 unjudged tests as p = 1 (m = 16), S1 and S3 still pass.",
+    "S1 (3-hour range, bars 1-6) contains the two bars of P1b, so it is not independent evidence.",
+    "13 of 23 meetings (12 of the 21 judged): the 14:30 ET press-conference start is assumed (the Fed monthly calendar states it explicitly only from 2025-09-17). On 2026-11-04 the Fed's press-conference page, monthly calendar page, statement release and transcript PDF of each of the 13 were opened: none states a start time, so none is confirmed and none contradicts 14:30. Post-hoc: P3 X = 1.52 on the 12 assumed meetings and 1.15 on the 9 with a stated start (not distinguishable at n = 9); the two groups do not differ detectably (Welch p = 0.12).",
+    "Other 14:00-17:00 ET events (Fed speakers etc.) are not excluded from control days.",
+    "Dollar-point figures depend on the gold price level (2024-2026); compare the percent figures.",
+    "FX_IDC is a spot composite; MGC is the COMEX source sensitivity."
+  ],
+  "coverage": {
+    "bar_union": {
+      "rows": {
+        "30": 30959,
+        "30_to_2026-10-03": 3476,
+        "15m": 20164,
+        "synthesized_30m": 10081
+      },
+      "duplicates_within_files": 0,
+      "union_bars": 33484,
+      "duplicates_after_union": 0,
+      "synth_dropped_one_15m_bar": 2,
+      "synth_dropped_on_weekdays": 2,
+      "first_bar_utc": "2024-01-01 23:00:00+00:00",
+      "last_bar_utc": "2026-10-30 20:30:00+00:00",
+      "bars_by_source": {
+        "1": 30959,
+        "2": 1605,
+        "4": 920
+      }
+    },
+    "events": [
+      {
+        "date": "2024-01-31",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-03-20",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1,
+          "no_6_bars_or_flat": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-05-01",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-06-12",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [
+          "CPI"
+        ],
+        "status": "judged",
+        "control_left": 7,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "no_6_bars_or_flat": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-07-31",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-09-18",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-11-07",
+        "sep": false,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2024-12-18",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "excluded: control days insufficient (left 6, right 2, total 8; need >= 8 total and >= 4 per side)",
+        "control_left": 6,
+        "control_right": 2,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1,
+          "holiday_adjacent": 7
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-01-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 7,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "no_6_bars_or_flat": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-03-19",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-05-07",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 7,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-06-18",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-07-30",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30 assumed"
+      },
+      {
+        "date": "2025-09-17",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2025-10-29",
+        "sep": false,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 7,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2025-12-10",
+        "sep": true,
+        "decision": "cut",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 5,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "no_6_bars_or_flat": 2,
+          "holiday_adjacent": 2,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-01-28",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 7,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "no_6_bars_or_flat": 1,
+          "nfp_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-03-18",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-04-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-06-17",
+        "sep": true,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 6,
+        "control_right": 8,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1,
+          "no_6_bars_or_flat": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-07-29",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 8,
+        "control_right": 7,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-09-16",
+        "sep": true,
+        "decision": "hike",
+        "same_day_release": [],
+        "status": "judged",
+        "control_left": 5,
+        "control_right": 9,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "nfp_day": 1,
+          "no_6_bars_or_flat": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      },
+      {
+        "date": "2026-10-28",
+        "sep": false,
+        "decision": "hold",
+        "same_day_release": [],
+        "status": "excluded: control days insufficient (left 8, right 1, total 9; need >= 8 total and >= 4 per side)",
+        "control_left": 8,
+        "control_right": 1,
+        "control_dropped_reasons": {
+          "beige_book_day": 1,
+          "after_data_end": 6,
+          "nfp_day": 1,
+          "cpi_day": 1
+        },
+        "presconf_start": "14:30"
+      }
+    ],
+    "n_judged": 21
+  },
+  "method_parameters": {
+    "bars": "FX_IDC:XAUUSD 30m bars opening 14:00..16:30 America/New_York; bar 1 statement, bar 2 first press-conference bar",
+    "control_offsets_weekdays": "-10..-2 and +2..+10 (Mon-Fri counting; holidays occupy a slot)",
+    "min_control": ">= 8 total and >= 4 per side",
+    "holm": "4 primaries, family alpha 0.05, two-sided t, df n-1",
+    "secondary_bound": "t(0.975, n-1) when n < 30 (Welch df for two-group tests) else 1.96, times SE; uncorrected",
+    "sample": "scheduled meetings 2024-01 .. 2026-10-28 (amendment 2: existing data, no 2019 rule)"
+  },
+  "data_freeze": "2026-11-04"
+}

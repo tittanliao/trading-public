@@ -1,0 +1,66 @@
+{
+  "study_id": "RS-XAUUSD-20261104-002",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/FX_IDC_XAUUSD, 30.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 30.csv",
+      "sha256": "85136e93b4e2c6eb02f26b474225cfb22e57e708eec6e17ff449f8fc6bd7b687",
+      "size_bytes": 4433593,
+      "role": "price_30m_1"
+    },
+    "local-inputs/FX_IDC_XAUUSD, 30_to_2026-10-03.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 30_to_2026-10-03.csv",
+      "sha256": "f602bcd1a95a30feb15688821e01f1d487e2ff1246217bb1ac9bef0d53897d72",
+      "size_bytes": 203094,
+      "role": "price_30m_2"
+    },
+    "local-inputs/FX_IDC_XAUUSD, 15_to_2026-10-31.csv": {
+      "original_filename": "FX_IDC_XAUUSD, 15_to_2026-10-31.csv",
+      "sha256": "b072bff335de8383a2da4daf6fc7cd1ce577d22c354d165b00a58f071ee355e9",
+      "size_bytes": 1183180,
+      "role": "price_15m"
+    },
+    "local-inputs/COMEX_MINI_DL_MGC1!, 30.csv": {
+      "original_filename": "COMEX_MINI_DL_MGC1!, 30.csv",
+      "sha256": "4b929ee26b363678782a36d01d52b837795dc7643144bd97d4fd55760c4cbda0",
+      "size_bytes": 4258544,
+      "role": "price_30m_source_sensitivity"
+    },
+    "local-inputs/cpi_release_dates.csv": {
+      "original_filename": "cpi_release_dates.csv",
+      "sha256": "627b04a9f65d55b22045eb6df52d61316693c222b4c551cbc538a6ce820be0b4",
+      "size_bytes": 37284,
+      "role": "cpi_release_dates"
+    },
+    "local-inputs/nfp_release_dates.csv": {
+      "original_filename": "nfp_release_dates.csv",
+      "sha256": "d4e2538bee46300155e1422c9198c5c9726bac86e3e86ed097f97fd13afb4486",
+      "size_bytes": 52936,
+      "role": "nfp_release_dates"
+    },
+    "local-inputs/fomc_meetings.csv": {
+      "original_filename": "fomc_meetings.csv",
+      "sha256": "ce87369663c8f3f1a3544135dec967975c117f196bf7726a23db6918baaedfba",
+      "size_bytes": 14689,
+      "role": "fomc_meetings"
+    },
+    "local-inputs/fed_beige_book_dates.csv": {
+      "original_filename": "fed_beige_book_dates.csv",
+      "sha256": "bb9a95b59f41820b4c1dad5a366493f4e12df2e3a249211d25b43ee20bc9b12f",
+      "size_bytes": 3728,
+      "role": "fed_beige_book_dates"
+    },
+    "local-inputs/fomc_sep_dots.csv": {
+      "original_filename": "fomc_sep_dots.csv",
+      "sha256": "3a8ae33687227b1edc61572abb5f7917c78498e2ba7534389558bccbba4b3aeb",
+      "size_bytes": 2560,
+      "role": "fomc_sep_dots"
+    },
+    "local-inputs/fomc_consensus.csv": {
+      "original_filename": "fomc_consensus.csv",
+      "sha256": "ab70105531dc73605b89b5b626fa3a26ba6b7eeac52bf290f769ee594eb4beb9",
+      "size_bytes": 1068,
+      "role": "fomc_consensus"
+    }
+  }
+}

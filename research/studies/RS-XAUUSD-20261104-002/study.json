@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261104-002",
+  "revision": 5,
+  "title": "Gold around FOMC rate decisions (FX_IDC 30m, existing data 2024-2026): first 30m and 1h range multiple vs the same ET bars on nearby ordinary weekdays, 1h direction, and press-conference bar vs statement bar (pre-registered, amended twice before any result)",
+  "market": "XAUUSD",
+  "strategy": "none — gold around FOMC statements and press conferences",
+  "status": "progress",
+  "created_on": "2026-11-04",
+  "question": "In the first 30 minutes and first hour after an FOMC statement (14:00 ET), how much larger is gold's range than in the same ET bars on nearby ordinary weekdays; is the 1-hour move biased up or down; and is the press-conference bar (14:30-15:00 ET) larger than the statement bar (14:00-14:30 ET), beyond the normal difference between those two bars?",
+  "hypothesis": "Pre-registered, two-sided tests. Expected directions: (P1) range multiple above 1 at 30m and 1h; (P2) no expected direction; (P3) no expected direction (common saying: the press conference moves gold more than the statement).",
+  "headline": {
+    "meetings_judged": 21,
+    "meetings_in_sample": 23,
+    "p1a_multiple": 3.36,
+    "p1a_interval_holm": [
+      2.33,
+      4.86
+    ],
+    "p1b_multiple": 4.07,
+    "p1b_interval_holm": [
+      3.02,
+      5.47
+    ],
+    "p2_mean_pp": -0.102,
+    "p2_bound_holm_pp": 0.432,
+    "p3_R": 1.19,
+    "p3_C": 0.88,
+    "p3_X": 1.35,
+    "p3_interval_holm": [
+      1.09,
+      1.66
+    ],
+    "p1a_cleared": true,
+    "p1b_cleared": true,
+    "p2_cleared": false,
+    "p3_cleared": true
+  },
+  "card_metrics": [
+    "p1a_multiple",
+    "p1b_multiple",
+    "p2_mean_pp",
+    "p3_X"
+  ],
+  "findings": [
+    {
+      "title": "The first 30 minutes and first hour after the statement are several times a normal day",
+      "tone": "info",
+      "detail": "21 scheduled FOMC meetings, 2024-01 to 2026-10: first-30-minute range 3.36x the same ET bar on the nearest ordinary weekdays (interval 2.33–4.86), first-hour range 4.07x (3.02–5.47); both clear Holm. Local-baseline geometric means; not comparable with the CPI study's 2.2x, which uses 08:30 ET bars. Same CPI-study formula on all weekdays: 3.81x / 3.89x / 5.57x (CPI 2.18 / 2.51 / 2.22).",
+      "title_zh": "公布後 30 分鐘與 1 小時的波動是平常日的好幾倍",
+      "detail_zh": "21 次 FOMC（排程會議 23 次，2 次因對照日不足排除：2024-12-18、2026-10-28），公布後 30 分鐘黃金高低差一般是前後兩週平常日同一時段的 3.36 倍（界線 2.33–4.86 倍；分得出）；1 小時 4.07 倍（界線 3.02–5.47 倍；分得出）。倍數是幾何平均；中位數是 2.91 倍與 4.01 倍。CPI 研究的 2.2 倍用的是 08:30 的平常日，分母不同，不能直接比大小。同 CPI 研究算法（全部平常日當分母）：第一根 30 分鐘高低差中位數 18.7 點對 4.91 點（3.81 倍）；佔價格百分比的中位數 0.630% 對 0.162%（3.89 倍）；1 小時絕對漲跌平均 0.709% 對 0.127%（5.57 倍）。CPI 研究對應數字是 2.18、2.51、2.22 倍。這是描述，不是檢定。倍數不能直接比大小，因為分母不同：平常日下午兩點那根的中位數 0.162%，約是平常日早上八點半那根 0.308% 的一半（比值 0.53）。實際幅度的中位數：FOMC 公布那根 0.63%（21 次），CPI 公布那根 0.77%（33 次）；S9 比較兩者，分不出誰大（未校正）。"
+    },
+    {
+      "title": "The 1-hour direction is not distinguishable from normal days",
+      "tone": "info",
+      "detail": "Mean 1-hour move minus control -0.102 pp, bound +/-0.43 (Holm level) / +/-0.57 (first step), n = 21: not distinguishable. The 1-hour move closed up in 9 of 21 meetings (Wilson 95% interval 24-63%; post-hoc): no lean either way can be told. The sample has 15 holds, 5 cuts and 1 hike; the decision and dot-plot splits are below the 8-meeting rule.",
+      "title_zh": "公布後 1 小時的方向分不出偏向",
+      "detail_zh": "公布後 1 小時的方向：平均與平常日相差 -0.10 個百分點（負值＝比平常日更偏跌），界線 ±0.43（Holm 水準）／±0.57（首步水準），21 次；分不出。21 次中 9 次 1 小時收漲（95% 區間約 24–63%，分不出偏向；事後補算，平均 -0.091%）。這是平均，不是每次。"
+    },
+    {
+      "title": "The press-bar / statement-bar ratio is higher on FOMC days than on ordinary days (X 1.35x; R 1.19x, C 0.88x)",
+      "tone": "info",
+      "detail": "The tested quantity is X = R / C = 1.35x (interval 1.09–1.66); it clears Holm at n = 21. R = 1.19x is the press bar (14:30-15:00 ET) range over the statement bar range on FOMC days and C = 0.88x the same ratio on control days; R and C are descriptive and not tested alone. Post-hoc: X = 1.15x on the 9 meetings whose press-conference start is stated on the Fed calendar (not distinguishable) and 1.52x on the 12 with an assumed 14:30 start; the two do not differ detectably. Bar 3 vs bar 1 (secondary S2) 1.02x, not distinguishable.",
+      "title_zh": "FOMC 當天「記者會那半小時 ÷ 公布那半小時」的比值，比平常日高（相對 1.35 倍；R 1.19、C 0.88）",
+      "detail_zh": "檢定的是 X：「記者會那根（14:30–15:00）÷ 公布那根（14:00–14:30）」這個比值，FOMC 當天比平常日放大 1.35 倍（界線 1.09–1.66；分得出）。三個數字一起看：FOMC 當天這個比值 R = 1.19 倍，平常日 C = 0.88 倍，X = R ÷ C = 1.35。R 只是描述，本身沒有檢定；R 大於 1 只說明記者會那半小時比較大，不是檢定的結論。事後補算（不改判定）：記者會開始時間有官方行事曆標示的 9 次，X = 1.15（界線 0.80–1.66，分不出）；依慣例推定 14:30 的 12 次，X = 1.52（界線 1.16–2.00）；兩組彼此分不出差別（p = 0.12）。推定的那 12 次已對聯準會官方頁面再查一次，頁面都沒有寫開始時間，所以沒有任何一次被確認，也沒有任何一次與 14:30 矛盾。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "event",
+  "card_summary": "21 scheduled FOMC meetings 2024-2026: gold's first-30-minute range after the statement is 3.36x the same ET bar on nearby ordinary weekdays (interval 2.33–4.86) and the first-hour range 4.07x (3.02–5.47). The 1-hour direction is not distinguishable from normal days (up in 9 of 21). The press-bar / statement-bar ratio is 1.35x higher than on ordinary days; the 14:30 press-conference start is assumed for 12 of the 21 meetings.",
+  "title_zh": "黃金在 FOMC 利率決議前後的波動與方向（2024–2026 年 21 次，FX_IDC 30 分鐘）：公布後 30 分鐘與 1 小時的高低差是附近平常日的數倍，1 小時方向分不出偏向",
+  "question_zh": "FOMC 利率決議公布（美東 14:00）後 30 分鐘與 1 小時，黃金的波動是附近平常日同一時段的幾倍？1 小時的方向有沒有偏向？記者會那半小時（14:30–15:00）是否比公布那半小時（14:00–14:30）更大（扣掉平常這兩根 K 棒本來的差別）？",
+  "hypothesis_zh": "預先登記，雙尾檢定。預期方向：P1 倍數大於 1；P2、P3 沒有預期方向（常見說法是記者會比公布那一刻動得更大）。",
+  "card_summary_zh": "2024–2026 年 21 次 FOMC：公布後 30 分鐘黃金高低差是附近平常日同一時段的 3.36 倍（界線 2.33–4.86），1 小時 4.07 倍（3.02–5.47）。1 小時方向分不出偏向（21 次中 9 次收漲）。記者會那半小時相對公布那半小時的比值，FOMC 當天比平常日高 1.35 倍。樣本只有 21 次，其中 12 次的記者會開始時間是推定。",
+  "limitations_zh": [
+    "描述性的事件研究，不隱含任何交易規則。",
+    "樣本小：判定了 21 次 FOMC，只有 2024–2026 年。登記的最少次數門檻剛好達到（23 次中的 21 次），少一次可用會議就會依規則停止。決議與點陣圖分組（S5、S6）低於 8 次門檻，沒有判定。",
+    "S7 意外幅度：沒有搜尋任何會前預期報導，預期檔每一列都是「未搜尋」，所以這份研究回答不了「意外時黃金怎麼動」。",
+    "次要檢定：登記 16 項、實際判定 9 項、2 項通過 BH（S1、S3）。S5a、S5b、S6 低於 8 次門檻（登記時就定好）。S10a–d（2008–2026 日線）與 2013 年起的 FX_IDC 日線敏感度沒有執行，已在看過日內結果之後的 2026-11-04 決定正式放棄；不報任何 S10 數字。把 7 項未判定當 p = 1（m = 16），S1 與 S3 仍通過。",
+    "S1（3 小時高低差，第 1–6 根）包含 P1b 的兩根，不是獨立證據。",
+    "23 次中的 13 次（判定的 21 次中的 12 次）：記者會 14:30（美東）開始是推定的，聯準會月行事曆要到 2025-09-17 才明確寫出。2026-11-04 逐一打開這 13 次的聯準會記者會頁、月行事曆頁、聲明頁與逐字稿 PDF：都沒有寫開始時間，所以沒有任何一次被確認，也沒有任何一次與 14:30 矛盾。事後補算：推定的 12 次 X = 1.52、有標示的 9 次 X = 1.15（n = 9 時分不出）；兩組彼此分不出差別（Welch p = 0.12）。",
+    "美東 14:00–17:00 的其他事件（聯準會官員談話等）沒有從對照日排除。",
+    "以點數表示的數字取決於黃金價位（2024–2026 年），請比較百分比的數字。",
+    "FX_IDC 是現貨綜合報價；MGC（COMEX 微型黃金）只做來源敏感度。",
+    "不是完全盲測：CPI 研究的日內倍數（RS-XAUUSD-20261102-002）與「FOMC 日波動大」的一般看法，在執行前就已知道。",
+    "點陣圖分組比較的是點陣圖中位數與前一次公布的經濟預測摘要（12 月則是下一年底），不是和市場預期比。"
+  ],
+  "interpretation_zh": "公布後 30 分鐘與 1 小時，黃金的高低差是附近平常日同一時段的 3.36 倍與 4.07 倍，兩者都分得出差別；這是 21 次的平均倍數，不是每一次，也不是對下一次的預測。公布後 1 小時的方向分不出偏向：21 次中 9 次收漲，平均與平常日相差 -0.10 個百分點，界線 ±0.43。記者會那半小時相對公布那半小時的比值，FOMC 當天比平常日高 1.35 倍（FOMC 當天 R = 1.19，平常日 C = 0.88；R 只是描述，沒有單獨檢定）；但 21 次中有 12 次的記者會開始時間是依慣例推定 14:30，官方頁面沒有寫開始時間，沒有任何一次被確認；官方行事曆有標示開始時間的 9 次，這個比值是 1.15，分不出差別。這些倍數的分母是下午兩點的平常日，和 CPI 研究用的早上八點半平常日不同，不能直接比大小；兩者實際幅度的中位數（FOMC 0.63%、CPI 0.77%）也分不出誰大。樣本只有 2024–2026 年 21 次，這份研究描述歷史反應，不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "meetings_judged",
+        "p1a_multiple",
+        "p1b_multiple",
+        "p3_X"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
