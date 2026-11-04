@@ -8,7 +8,7 @@
     "id": "S1-AweWithBB / S2-Hammer",
     "version": "V3.9 / V3.2"
   },
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-09-01",
   "question": "RS-XAUUSD-20260901-004 read its result as a stop-loss marking a drop that a hammer entry wants. A take-profit is also an S1 exit and is not a drop. Is only the stop group elevated?",
   "hypothesis": "If the mechanism is right, the stop group beats the take-profit group. If the two strategies simply cluster, both are elevated and the exit type adds little.",
