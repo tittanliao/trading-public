@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""RS-XAUUSD-20260824-003 — a stated selection rule, tested on 273 weeks of real data.
+"""RS-XAUUSD-20260824-003 — a stated selection rule, tested on 274 weeks of real data.
 
 Three specific claims and one criticism were raised, and all four deserved a direct
 answer rather than an argument about statistics:
@@ -16,33 +16,34 @@ printed side by side so the disagreement is visible rather than asserted.
 
 The sample is no longer the constraint. The CFTC disaggregated history was downloaded with
 permission — 503 weeks for gold, 2017 to 2026 — and joined to the daily series
-gives **273 usable weeks**, up from the 31 that made the previous study unanswerable.
+gives **274 usable weeks**, up from the 31 that made the previous study unanswerable.
 
-## What the three tests found
+This is a post-hoc exploration, not a pre-registered test: the windows, the half split, the
+six votes and the five-vote cutoff were chosen by the researcher.
 
-**The Monday sweep is real until the lookahead is removed.** Weeks where Monday broke
-Friday's low finished Mon+Tue positive 34.1% of the time against 63.9% otherwise — a
-29.8-point gap. But "Monday broke Friday's low" is not knowable until Monday is over, and
-the return being measured *includes Monday*. Conditioning on Monday's close and measuring
-Tuesday alone, the gap is **+1.7 points**. The 29.8 was the same circularity that produced
-this programme's largest false result a day earlier.
+## What the three tests found (figures are in results.json; this is a summary)
 
-**">50% is alpha" fails because the baseline is not 50%.** In the first half of the sample
-the Mon+Tue baseline win rate is 45.6%; in the second half it is 54.7%. The same 50%
-threshold means "beats the market" in one period and "loses to it" in the other. Of 182
-comparable conditions, one cleared 50% in the first half and 80% of *all* conditions
-cleared it in the second. The threshold is measuring the period, not the condition.
+**The Monday sweep gap is a lookahead.** Weeks where Monday broke Friday's low finished
+Mon+Tue positive 34.13% of the time against 64.19% otherwise, a -30.06 point gap. But
+"Monday broke Friday's low" is not knowable until Monday is over, and the return being
+measured *includes Monday*. Conditioning on Monday's close and measuring Tuesday alone (242
+weeks, after dropping 32 weeks that have no separate Monday and Tuesday bar), the gap is
++1.80 points.
 
-**Consensus does produce a higher win rate, and less money.** Five of six positioning votes
-agreeing gives a 64.5% win rate against 48.3% — a genuine 16-point gap that survives a
-walk-forward reconstruction (13.6 points, no lookahead). And it earns +0.022% per week
-against +0.071%. It wins more often and smaller: +0.83% per win against +1.27%, −1.45% per
-loss against −1.05%. Trading it takes 4% of the total return for 11% of the opportunities.
+**">50% is alpha" is measured against a moving baseline.** The Mon+Tue baseline win rate is
+45.99% in the first half of the sample and 54.74% in the second (137 weeks each). Of 118
+distinct conditions (182 before removing conditions that select identical weeks), one
+cleared 50% in the first half and 80.5% of them did in the second; the win rates of the
+two halves correlate at -0.143.
 
-That last result is the useful one, and it is not a rejection of the original instinct. The
-consensus signal really does pick weeks that end green more often. It just does not pay,
-because win rate and expectancy are different quantities and this programme has now
-demonstrated that three separate ways.
+**Consensus: higher in-sample win rate, no visible gain in return.** Five or more of six
+positioning votes agreeing gives a 62.5% win rate (n=32) against 48.76%, a 13.74 point gap
+with permutation p 0.1883. The mean weekly return gap is -0.1298 points (p 0.6497). The
+walk-forward reconstruction (medians from prior weeks only, n=19) gives +13.83 points
+(p 0.3393) and a return gap of +0.1570 (p 0.678). None of these gaps is separable from
+chance at 0.05.
+
+Inputs: see reproduction_inputs.json (the daily series is replaced weekly in the source repository).
 
 Usage:
     python3.12 -m scripts.research.build_cftc_winrate_test
@@ -51,9 +52,11 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import itertools
 import json
 import random
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -67,18 +70,20 @@ import fail_pattern_toolkit as tk  # noqa: E402
 STUDY_ID = "RS-XAUUSD-20260824-003"
 OUTPUT_DIR = Path("reproduced")
 CFTC = Path("local-inputs/cftc_gold_disagg_2017_2026.csv")
+DAILY_LOCATOR = "FX_IDC_XAUUSD, 1D.csv"
 DAILY = Path("local-inputs/FX_IDC_XAUUSD, 1D.csv")
 TAIPEI = timezone(timedelta(hours=8))
 PERMUTATIONS = 20000
 WARMUP = 30
 SEED = 20260824
+TIE_TOLERANCE = 1e-9   # permuted and observed gaps that are equal in exact arithmetic count as ties
 
 
-def build_frame() -> pd.DataFrame:
+def build_frame(cftc_path: Path = CFTC, daily_path: Path = DAILY) -> pd.DataFrame:
     """One row per COT report, joined to the sessions around its publication."""
-    c = pd.read_csv(CFTC)
+    c = pd.read_csv(cftc_path)
     c["report_date"] = pd.to_datetime(c["report_date"])
-    d = pd.read_csv(DAILY)
+    d = pd.read_csv(daily_path)
     d["time"] = pd.to_datetime(d["time"])
     d = d.sort_values("time").reset_index(drop=True)
 
@@ -101,6 +106,10 @@ def build_frame() -> pd.DataFrame:
             "fri_low": b_fri["low"], "fri_close": b_fri["close"],
             "mon_low": b_mon["low"], "mon_close": b_mon["close"],
             "tue_close": b_tue["close"],
+            # True when the "Monday" bar and the "Tuesday" bar are the same bar (no daily bar
+            # on Monday or on Tuesday, e.g. a US holiday). Tuesday-only return is then 0 by
+            # construction, not a measured flat day.
+            "same_bar": bool(b_mon["time"] == b_tue["time"]),
             "mm_net": r["mm_long"] - r["mm_short"],
             "mm_net_chg": r.get("mm_long_chg", np.nan) - r.get("mm_short_chg", np.nan),
             "retail_net": r["retail_long"] - r["retail_short"],
@@ -143,6 +152,19 @@ def test_monday_sweep(f: pd.DataFrame) -> dict:
     swept, quiet = f[f["mon_broke_fri_low"]], f[~f["mon_broke_fri_low"]]
     recovered = f[f["mon_broke_fri_low"] & f["mon_closed_up"]]
     kept_falling = f[f["mon_broke_fri_low"] & ~f["mon_closed_up"]]
+
+    # Weeks where the Monday and Tuesday bars are the same bar have a Tuesday-only return of
+    # 0 by construction, which win_rate() counts as a loss. They are dropped from every
+    # Tuesday-only comparison (clean version, sweep-and-recover); the circular version
+    # measures Friday close to Tuesday close, which stays a valid return, so it keeps them.
+    valid = f[~f["same_bar"]]
+    swept_v, quiet_v = swept[~swept["same_bar"]], quiet[~quiet["same_bar"]]
+    recovered_v = recovered[~recovered["same_bar"]]
+    kept_falling_v = kept_falling[~kept_falling["same_bar"]]
+    clean_gap = round(
+        win_rate(swept_v["tue_only_ret"]) - win_rate(quiet_v["tue_only_ret"]), 2)
+    circular_gap = round(
+        win_rate(swept["mon_tue_ret"]) - win_rate(quiet["mon_tue_ret"]), 2)
     return {
         "claim": "Monday after the release breaks the low, sweeps liquidity, then rises.",
         "circular_version": {
@@ -153,27 +175,44 @@ def test_monday_sweep(f: pd.DataFrame) -> dict:
             ),
             "broke": block(swept["mon_tue_ret"]),
             "did_not_break": block(quiet["mon_tue_ret"]),
-            "win_rate_gap_pct": round(
-                win_rate(swept["mon_tue_ret"]) - win_rate(quiet["mon_tue_ret"]), 2),
+            "win_rate_gap_pct": circular_gap,
         },
         "clean_version": {
             "note": (
                 "Same condition, evaluated at Monday's close, measuring Tuesday alone. "
-                "Condition strictly precedes the window it predicts."
+                "Condition strictly precedes the window it predicts. Weeks without a "
+                "separate Monday bar and Tuesday bar (same_bar) are excluded: their "
+                "Tuesday-only return is 0 by construction."
             ),
-            "broke": block(swept["tue_only_ret"]),
-            "did_not_break": block(quiet["tue_only_ret"]),
-            "win_rate_gap_pct": round(
-                win_rate(swept["tue_only_ret"]) - win_rate(quiet["tue_only_ret"]), 2),
+            "weeks_excluded_same_bar": int(f["same_bar"].sum()),
+            "weeks_used": int(len(valid)),
+            "broke": block(swept_v["tue_only_ret"]),
+            "did_not_break": block(quiet_v["tue_only_ret"]),
+            "win_rate_gap_pct": clean_gap,
+            "including_same_bar_weeks": {
+                "note": "Earlier computation, kept for comparison: same-bar weeks counted "
+                        "as 0% (a loss).",
+                "broke": block(swept["tue_only_ret"]),
+                "did_not_break": block(quiet["tue_only_ret"]),
+                "win_rate_gap_pct": round(
+                    win_rate(swept["tue_only_ret"]) - win_rate(quiet["tue_only_ret"]), 2),
+            },
         },
         "sweep_and_recover": {
-            "note": "The claimed shape: broke the low AND closed up — a real sweep.",
-            "swept_and_recovered": block(recovered["tue_only_ret"]),
-            "swept_and_kept_falling": block(kept_falling["tue_only_ret"]),
+            "note": "The claimed shape: broke the low AND closed up — a real sweep. "
+                    "Same-bar weeks excluded, as in the clean version.",
+            "swept_and_recovered": block(recovered_v["tue_only_ret"]),
+            "swept_and_kept_falling": block(kept_falling_v["tue_only_ret"]),
+            "including_same_bar_weeks": {
+                "swept_and_recovered": block(recovered["tue_only_ret"]),
+                "swept_and_kept_falling": block(kept_falling["tue_only_ret"]),
+            },
         },
         "reading": (
-            "The 29.8-point gap is entirely an artefact of measuring a window that contains "
-            "the condition. Removing it leaves 1.7 points."
+            f"The circular version shows a win-rate gap of {circular_gap:+.2f} points between "
+            "weeks that broke Friday's low and weeks that did not. That gap comes from "
+            "measuring a window that contains the condition. Evaluated at Monday's close "
+            f"and measuring Tuesday alone, the gap is {clean_gap:+.2f} points."
         ),
     }
 
@@ -195,33 +234,10 @@ def make_conditions(df: pd.DataFrame, reference: pd.DataFrame) -> dict:
     return combined
 
 
-def test_fifty_percent_rule(f: pd.DataFrame) -> dict:
-    """Claim 2: a win rate above 50% is alpha. Tested by splitting the sample in half."""
-    half = len(f) // 2
-    train, test = f.iloc[:half], f.iloc[half:]
-    ctrain, ctest = make_conditions(train, train), make_conditions(test, test)
-    rows = []
-    for name in ctrain:
-        if name not in ctest:
-            continue
-        a, b = ctrain[name].fillna(False), ctest[name].fillna(False)
-        if a.sum() < 15 or b.sum() < 15:
-            continue
-        rows.append({
-            "condition": name,
-            "train_win_rate": win_rate(train.loc[a, "mon_tue_ret"]),
-            "test_win_rate": win_rate(test.loc[b, "mon_tue_ret"]),
-        })
-    r = pd.DataFrame(rows)
-    base_train = win_rate(train["mon_tue_ret"])
-    base_test = win_rate(test["mon_tue_ret"])
+def _condition_summary(r: pd.DataFrame, train: pd.DataFrame, test: pd.DataFrame) -> dict:
     selected = r[r["train_win_rate"] > 50]
     return {
-        "claim": "A condition with a win rate above 50% is alpha.",
         "conditions_compared": int(len(r)),
-        "baseline_win_rate_first_half": base_train,
-        "baseline_win_rate_second_half": base_test,
-        "baseline_shift_pct": round(base_test - base_train, 2),
         "first_half": {
             "from": str(train["report_date"].min().date()),
             "to": str(train["report_date"].max().date()),
@@ -238,11 +254,55 @@ def test_fifty_percent_rule(f: pd.DataFrame) -> dict:
         "still_over_50_in_second": int((selected["test_win_rate"] > 50).sum()) if len(selected) else 0,
         "correlation_train_vs_test_win_rate": round(
             float(r["train_win_rate"].corr(r["test_win_rate"])), 3),
+    }
+
+
+def test_fifty_percent_rule(f: pd.DataFrame) -> dict:
+    """Claim 2: a win rate above 50% is alpha. Tested by splitting the sample in half."""
+    half = len(f) // 2
+    train, test = f.iloc[:half], f.iloc[half:]
+    ctrain, ctest = make_conditions(train, train), make_conditions(test, test)
+    rows = []
+    for name in ctrain:
+        if name not in ctest:
+            continue
+        a, b = ctrain[name].fillna(False), ctest[name].fillna(False)
+        if a.sum() < 15 or b.sum() < 15:
+            continue
+        rows.append({
+            "condition": name,
+            "train_win_rate": win_rate(train.loc[a, "mon_tue_ret"]),
+            "test_win_rate": win_rate(test.loc[b, "mon_tue_ret"]),
+            # The weeks each condition selects, in both halves: conditions that select the
+            # same weeks in both halves are one condition, not several.
+            "weeks_key": (a.to_numpy().tobytes(), b.to_numpy().tobytes()),
+        })
+    r_raw = pd.DataFrame(rows)
+    r = r_raw.drop_duplicates(subset="weeks_key", keep="first").reset_index(drop=True)
+    base_train = win_rate(train["mon_tue_ret"])
+    base_test = win_rate(test["mon_tue_ret"])
+    summary = _condition_summary(r, train, test)
+    raw_summary = _condition_summary(r_raw, train, test)
+    return {
+        "claim": "A condition with a win rate above 50% is alpha.",
+        "note": (
+            "Conditions that select exactly the same weeks in both halves are counted once. "
+            "The quantile and median cutoffs inside each condition are computed within each "
+            "half (the second half uses its own cutoffs, not the first half's), so the "
+            "second half is not a strict out-of-sample test of first-half cutoffs."
+        ),
+        "conditions_compared_before_deduplication": raw_summary["conditions_compared"],
+        "baseline_win_rate_first_half": base_train,
+        "baseline_win_rate_second_half": base_test,
+        "baseline_shift_pct": round(base_test - base_train, 2),
+        **summary,
+        "before_deduplication": raw_summary,
         "reading": (
-            "The baseline moved 9.2 points between halves, so the same 50% threshold means "
-            "'beats the market' in one period and 'loses to it' in the other. A condition's "
-            "win rate ranks it against the period, not against chance, and the "
-            "period-to-period correlation of that rank is about zero."
+            f"The baseline moved {round(base_test - base_train, 2)} points between halves, so "
+            "the same 50% threshold means 'beats the market' in one period and 'loses to it' "
+            "in the other. A condition's win rate ranks it against the period, not against "
+            "chance, and the period-to-period correlation of that rank is "
+            f"{summary['correlation_train_vs_test_win_rate']}."
         ),
     }
 
@@ -260,7 +320,7 @@ def vote_count(df: pd.DataFrame, reference: pd.DataFrame) -> pd.Series:
 
 
 def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
-    """Claim 3: several conditions agreeing is alpha. This one partly survives."""
+    """Claim 3: several conditions agreeing is alpha."""
     f = f.copy()
     f["votes"] = vote_count(f, f)
 
@@ -272,14 +332,22 @@ def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
 
     mask = (f["votes"] >= 5).to_numpy()
     hit, miss = f.loc[mask, "mon_tue_ret"], f.loc[~mask, "mon_tue_ret"]
+    # Reported gap: difference of the two rounded win rates, as before. The permutation
+    # test below compares against the UNROUNDED observed gap: comparing permuted gaps (which
+    # are not rounded) with a gap rounded up by up to 0.005 drops the permutations that tie
+    # with the observed one, which is the largest single mass, and understates p.
     observed = win_rate(hit) - win_rate(miss)
     values = f["mon_tue_ret"].to_numpy().copy()
-    exceed = 0
+    observed_exact = 100 * float((values[mask] > 0).mean()) - 100 * float((values[~mask] > 0).mean())
+    observed_mean = float(hit.mean() - miss.mean())
+    exceed = exceed_mean = 0
     for _ in range(PERMUTATIONS):
         stream.shuffle(values)
         gap = (100 * (values[mask] > 0).mean()) - (100 * (values[~mask] > 0).mean())
-        if abs(gap) >= abs(observed):
+        if abs(gap) >= abs(observed_exact) - TIE_TOLERANCE:
             exceed += 1
+        if abs(values[mask].mean() - values[~mask].mean()) >= abs(observed_mean):
+            exceed_mean += 1
 
     # Walk-forward: every median is computed from prior weeks only.
     forward = []
@@ -312,16 +380,26 @@ def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
     wf_values = g["mon_tue_ret"].to_numpy().copy()
     wf_flag = wf_mask.to_numpy()
     wf_observed_wr = win_rate(g.loc[wf_mask, "mon_tue_ret"]) - win_rate(g.loc[~wf_mask, "mon_tue_ret"])
+    wf_observed_wr_exact = (100 * float((wf_values[wf_flag] > 0).mean())
+                            - 100 * float((wf_values[~wf_flag] > 0).mean()))
     wf_observed_mean = float(g.loc[wf_mask, "mon_tue_ret"].mean() - g.loc[~wf_mask, "mon_tue_ret"].mean())
     wf_exceed_wr = wf_exceed_mean = 0
     for _ in range(PERMUTATIONS):
         stream.shuffle(wf_values)
         gap_wr = (100 * (wf_values[wf_flag] > 0).mean()) - (100 * (wf_values[~wf_flag] > 0).mean())
         gap_mean = wf_values[wf_flag].mean() - wf_values[~wf_flag].mean()
-        if abs(gap_wr) >= abs(wf_observed_wr):
+        if abs(gap_wr) >= abs(wf_observed_wr_exact) - TIE_TOLERANCE:
             wf_exceed_wr += 1
         if abs(gap_mean) >= abs(wf_observed_mean):
             wf_exceed_mean += 1
+
+    p_wr = round((exceed + 1) / (PERMUTATIONS + 1), 4)
+    p_mean = round((exceed_mean + 1) / (PERMUTATIONS + 1), 4)
+    p_wf_wr = round((wf_exceed_wr + 1) / (PERMUTATIONS + 1), 4)
+    p_wf_mean = round((wf_exceed_mean + 1) / (PERMUTATIONS + 1), 4)
+
+    def verdict(p: float) -> str:
+        return "separable from chance at 0.05" if p < 0.05 else "not separable from chance at 0.05"
 
     return {
         "claim": "Several conditions agreeing at once is alpha.",
@@ -338,7 +416,8 @@ def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
             "other": block(miss),
             "win_rate_gap_pct": round(observed, 2),
             "mean_return_gap_pct": round(float(hit.mean() - miss.mean()), 4),
-            "permutation_p": round((exceed + 1) / (PERMUTATIONS + 1), 4),
+            "permutation_p": p_wr,
+            "permutation_p_mean_return": p_mean,
             "permutations": PERMUTATIONS,
         },
         "five_or_more_walk_forward": {
@@ -348,8 +427,8 @@ def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
             "other": block(g.loc[~wf_mask, "mon_tue_ret"]),
             "win_rate_gap_pct": round(wf_observed_wr, 2),
             "mean_return_gap_pct": round(wf_observed_mean, 4),
-            "permutation_p_win_rate": round((wf_exceed_wr + 1) / (PERMUTATIONS + 1), 4),
-            "permutation_p_mean_return": round((wf_exceed_mean + 1) / (PERMUTATIONS + 1), 4),
+            "permutation_p_win_rate": p_wf_wr,
+            "permutation_p_mean_return": p_wf_mean,
             "caveat": (
                 "n=19. The walk-forward selection looks better than the full-sample one on "
                 "both measures, which is the opposite of the usual direction and a reason "
@@ -367,9 +446,14 @@ def test_consensus(f: pd.DataFrame, stream: random.Random) -> dict:
                 100 * float(hit.sum() / f["mon_tue_ret"].sum()), 1),
         },
         "reading": (
-            "The win rate gap is real and survives a walk-forward reconstruction. The mean "
-            "return gap is negative: the signal wins more often and smaller, and loses "
-            "bigger. Win rate and expectancy are different quantities."
+            f"In sample, five or more votes gives a win-rate gap of {round(observed, 2):+.2f} "
+            f"points (permutation p {p_wr}, {verdict(p_wr)}) and a mean weekly return gap of "
+            f"{round(observed_mean, 4):+.4f} points (permutation p {p_mean}, {verdict(p_mean)}). "
+            f"Walk-forward (n={int(wf_mask.sum())}): win-rate gap {round(wf_observed_wr, 2):+.2f} "
+            f"(p {p_wf_wr}, {verdict(p_wf_wr)}), mean return gap {round(wf_observed_mean, 4):+.4f} "
+            f"(p {p_wf_mean}, {verdict(p_wf_mean)}). Win rate and expectancy are different "
+            "quantities; the gaps are described here, and a gap marked not separable is not "
+            "evidence of either a gain or a loss."
         ),
     }
 
@@ -379,7 +463,9 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
 
-    f = build_frame()
+    cftc_path, daily_path = CFTC, DAILY
+
+    f = build_frame(cftc_path, daily_path)
     stream = random.Random(SEED)
     sweep = test_monday_sweep(f)
     fifty = test_fifty_percent_rule(f)
@@ -394,7 +480,8 @@ def main() -> int:
         "method": {
             "cftc_source": "CFTC disaggregated futures-only history, downloaded "
                            "2026-08-24; 503 gold weeks, 2017-01-03 to 2026-08-18",
-            "price_source": str(DAILY.relative_to(ROOT)),
+            "price_source": DAILY_LOCATOR,
+            "price_input_sha256": hashlib.sha256(daily_path.read_bytes()).hexdigest(),
             "usable_weeks": int(len(f)),
             "from": str(f["report_date"].min().date()),
             "to": str(f["report_date"].max().date()),
@@ -410,13 +497,20 @@ def main() -> int:
             "claim_3_consensus": consensus,
         },
         "limitations": [
-            "273 weeks joined to a daily series starting 2021-05. The CFTC history reaches "
-            "2017 and 503 weeks; the binding constraint is now price data, not positioning.",
+            f"{len(f)} weeks joined to a daily series starting 2021-05. The CFTC history "
+            "reaches 2017 and 503 weeks; the binding constraint is now price data, not "
+            "positioning.",
             "Returns are measured on daily closes. The intraday shape of the sweep "
             "hypothesis — break the low, then recover within the session — needs 30-minute "
             "data, which covers only 137 of these weeks.",
-            "The consensus votes were chosen by the executor, not optimised. A search over "
-            "vote definitions would find better ones and would need its own correction.",
+            "The consensus votes were chosen by the researcher, not optimised, and no record "
+            "shows the five-vote cutoff was fixed before the by-vote table was seen. A search "
+            "over vote definitions would find better ones and would need its own correction.",
+            f"{int(f['same_bar'].sum())} weeks have no separate Monday bar and Tuesday bar "
+            "(for example a US Monday holiday). They are excluded from the Tuesday-only "
+            "comparisons and kept in the Friday-to-Tuesday ones.",
+            "The claim-2 cutoffs (quantiles and medians) are computed inside each half, so "
+            "the second half is not a strict out-of-sample test of first-half cutoffs.",
             "No result changes formal S1 or S2 logic, live risk, or an entry checklist.",
         ],
     }
