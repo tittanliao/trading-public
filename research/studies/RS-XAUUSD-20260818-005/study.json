@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260818-005",
-  "revision": 2,
+  "revision": 3,
   "title": "S1 V3.9 + S2 V3.2 — the two strategies as a portfolio, not as two strategies",
   "market": "XAUUSD",
   "strategy": "S1 AweWithBB V3.9; S2 Hammer V3.2 — portfolio construction",
@@ -44,17 +44,17 @@
   "findings": [
     {
       "tone": "good",
-      "title": "The two strategies are much less redundant than they look",
-      "detail": "Monthly R returns correlate at 0.234 (Pearson) and 0.344 (Spearman) across 32 months, with both trading in 29 of them. Two long-only strategies on the same instrument were expected to be near-duplicates; they are not, and that is the whole basis for anything else here.",
-      "title_zh": "兩個策略的重複性遠低於直覺",
-      "detail_zh": "32 個月的月報酬 R 相關係數是 0.234（Pearson）與 0.344（Spearman），其中 29 個月兩者都有交易。原本預期同一商品上的兩個純多方策略會近乎重複，結果並不是——這是後面所有結論的唯一基礎。"
+      "title": "The two strategies' monthly returns correlate at about 0.23, lower than the near-duplicate case",
+      "detail": "Monthly R returns correlate at 0.234 (Pearson) and 0.344 (Spearman, ranks without tie handling; 0.332 with average ranks, recomputed after the fact, results.json to be rerun) across 32 months, with both trading in 29 of them. The 95% interval on the Pearson value is about -0.12 to 0.54 (Fisher transform, n=32, recomputed after the fact): it rules out near-duplicates but cannot separate zero from a moderate correlation. Everything else on this page rests on this one estimate.",
+      "title_zh": "兩個策略的月報酬相關約 0.23，不像近乎重複",
+      "detail_zh": "32 個月的月報酬 R 相關係數是 0.234（Pearson）與 0.344（Spearman；runner 的排名沒有處理同值，用平均排名重算是 0.332，事後重算，results.json 待重跑），其中 29 個月兩者都有交易。Pearson 0.234 的 95% 區間約 −0.12 到 0.54（Fisher 轉換，n=32，事後補算）：可以排除近乎重複，但分不出零相關與中度相關。後面所有結論都建立在這一個估計上。"
     },
     {
       "tone": "good",
       "title": "Blending is strongly better than running S2 alone",
-      "detail": "A 50/50 risk split lifts the annualised Sharpe from 2.327 to 3.882 and cuts the worst drawdown from 12.79R to 2.17R. Resampling months gives P(improvement > 0) = 0.999 for Sharpe and 0.99 for drawdown, with a 90% interval of [0.763, 2.377] on the Sharpe gain.",
+      "detail": "A 50/50 risk split lifts the annualised Sharpe from 2.327 to 3.882 and cuts the worst month-end drawdown from 12.79R to 2.17R. 'Drawdown' here is computed on monthly-summed R, so any decline inside a month is invisible; recomputed trade by trade in exit order after the fact (results.json to be rerun), the figures are S1 7.66R, S2 14.79R and 50/50 4.50R, so the ordering holds but the levels are larger. Resampling months gives P(improvement > 0) = 0.999 for Sharpe and 0.99 for monthly drawdown, with a 90% interval of [0.763, 2.377] on the Sharpe gain.",
       "title_zh": "組合明顯優於單獨執行 S2",
-      "detail_zh": "50／50 的風險分配把年化 Sharpe 從 2.327 提升到 3.882，最大回檔從 12.79R 降到 2.17R。以月份重抽樣，Sharpe 改善為正的機率是 0.999、回檔改善為正是 0.99，Sharpe 增益的 90% 區間是 [0.763, 2.377]。"
+      "detail_zh": "50／50 的風險分配把年化 Sharpe 從 2.327 提升到 3.882，月結最大回檔從 12.79R 降到 2.17R。這裡的「回檔」是用月加總 R 算的，月內的下跌看不到；事後改按出場時間逐筆重算（results.json 待重跑）：S1 是 7.66R、S2 是 14.79R、50／50 是 4.50R——排序不變，但絕對值比月結大。以月份重抽樣，Sharpe 改善為正的機率是 0.999、月結回檔改善為正是 0.99，Sharpe 增益的 90% 區間是 [0.763, 2.377]。"
     },
     {
       "tone": "warn",
@@ -79,53 +79,56 @@
     },
     {
       "tone": "info",
-      "title": "Per year the blend leads twice out of three",
-      "detail": "The 50/50 blend has the best Sharpe of the three options in 2/3 years. In 2026 S1 alone is better, because S2 had a weak year — which is what a diversification result should look like rather than a uniform win.",
-      "title_zh": "逐年來看，組合三年中領先兩年",
-      "detail_zh": "50／50 組合在三個年度中有 2 個年度的 Sharpe 是三個選項裡最高的。2026 年是 S1 單獨較好，因為 S2 那年很弱——而這正是一個分散化結果應該有的樣子，而不是一面倒地全勝。"
-    },
-    {
-      "tone": "good",
-      "title": "The strategies are mostly alpha, so an uncorrelated third is not structurally blocked",
-      "detail": "Regressing monthly R on gold's monthly return gives S1 a beta of 0.444 and S2 0.27, with R-squared of 0.22 and 0.116. 79.7% of S1's return and 77.0% of S2's is alpha rather than being long gold, and in the 8 months gold fell both were still positive (4.06R and 1.507R). Had they been mostly beta, decorrelating would have required shorting gold and the search would have been hopeless. Caveat: this is backtest alpha, and the version history from V3.4 to V4.1 is itself a selection process.",
-      "title_zh": "兩個策略以 alpha 為主，因此「找不相關的第三個」在結構上並沒有被堵死",
-      "detail_zh": "把月 R 對黃金月報酬迴歸，S1 的 beta 是 0.444、S2 是 0.27，R² 分別為 0.22 與 0.116。S1 有 79.7%、S2 有 77.0% 的報酬來自 alpha 而非單純做多黃金；而在黃金下跌的 8 個月裡，兩者仍然是正的（4.06R 與 1.507R）。如果它們主要是 beta，去相關就必須靠放空黃金，這個搜尋一開始就沒有希望。但要注意：這是回測的 alpha，而從 V3.4 到 V4.1 的版本演進本身就是一個篩選過程。"
-    },
-    {
-      "tone": "warn",
-      "title": "A counter-trend fade is genuinely uncorrelated and genuinely unprofitable",
-      "detail": "Fading a two-bar move of 2.5 ATR, held 8 bars, is symmetric long and short and correlates 0.036 with the blend, -0.054 with S1 and 0.128 with S2 — exactly the property being looked for. Over 700 trades its own Sharpe is -0.046 and its total is -3.08R, so it lowers the blend's Sharpe at every weight tested (3.882 down to 2.911 at 30%). Two of four variants held their sign from train to valid; surviving that is not the same as being worth adding.",
-      "title_zh": "一個逆勢策略確實不相關，也確實不賺錢",
-      "detail_zh": "對兩根 K 棒內 2.5 倍 ATR 的走勢做反向、持有 8 根 K 棒，多空對稱，與組合的相關係數是 0.036、與 S1 是 −0.054、與 S2 是 0.128——正是我們在找的性質。但在 700 筆交易上它自己的 Sharpe 是 −0.046、總計 −3.08R，因此在測試過的每一個權重上都會拉低組合的 Sharpe（從 3.882 降到 30% 權重時的 2.911）。四個變體中有兩個從 train 到 valid 保持了正負號；撐過那一關，不等於值得加入。"
+      "title": "Per year the blend has the highest Sharpe in 2 of 3 years, but the gaps are inside the noise",
+      "detail": "The 50/50 blend has the best Sharpe of the three options in 2/3 years. A one-year annualised Sharpe from 8 to 12 months has a standard error of roughly 1.2 to 1.7 (approximation, recomputed after the fact), while the blend leads S1 by only 0.81 in 2024 and 0.49 in 2025, and trails it by 1.27 in 2026. None of these year gaps can be separated from noise, so the table does not show the blend leading in some years and not others; it also cannot say S2 became weaker in 2026 (8 months).",
+      "title_zh": "逐年來看，組合的 Sharpe 三年中有兩年最高，但差距都在雜訊內",
+      "detail_zh": "50／50 組合在三個年度中有 2 個年度的 Sharpe 是三個選項裡最高的。8 到 12 個月的單年年化 Sharpe，標準誤大約 1.2 到 1.7（近似值，事後補算），而組合只比 S1 高 0.81（2024）與 0.49（2025）、2026 年低 1.27。這些逐年差距都分不出與雜訊的差別，所以這張表看不出「組合某幾年領先、某幾年沒有」，也分不出 S2 在 2026 年（只有 8 個月）是否變弱。"
     },
     {
       "tone": "info",
-      "title": "The structural mirror of S2 does not work as a short",
-      "detail": "S2's hammer definition was reverse-engineered from the export's own flags and each characteristic reflected — body, both wicks, close position and Bollinger position — giving 96 shooting-star signals against 212 hammers. Shorting them loses in every period and every exit rule tested, with win rates from 13% to 39%. A working long pattern does not become a working short by reflection.",
-      "title_zh": "把 S2 結構鏡像過來當空方策略行不通",
-      "detail_zh": "從匯出檔自身的旗標反推出 S2 的錘子定義，再把每一項特徵都鏡射——實體、上下影線、收盤位置與布林位置——得到 96 個流星訊號，對照 212 個錘子訊號。放空它們在每一段期間、每一種出場規則下都是虧損的。一個有效的做多型態，並不會因為鏡射就變成有效的做空型態。"
+      "title": "The point estimate is that about four fifths of each strategy's return is alpha, but the interval is wide",
+      "detail": "Regressing monthly R on gold's monthly return (31 months) gives S1 a beta of 0.444 and S2 0.27, with R-squared of 0.22 and 0.116. The point estimates are that 79.7% of S1's return and 77.0% of S2's is alpha rather than being long gold. Resampling months (recomputed after the fact, 90% interval) puts the alpha share at roughly 48% to 96% for S1 and 37% to 100% for S2, and the 95% interval for S2's beta (about -0.05 to 0.65) includes zero, so the split is poorly pinned down. In the 8 months gold fell, S1 was positive in all 8 (mean 4.06R); S2 averaged +1.507R but was positive in only 5 of 8 (one month at 0, two at -5.0R and -2.0R). n=8 carries no interval. Caveat: this is backtest alpha, and the version history from V3.4 to V4.1 is itself a selection process.",
+      "title_zh": "alpha 佔比的點估計約八成，但區間很寬",
+      "detail_zh": "把月 R 對黃金月報酬迴歸（31 個月），S1 的 beta 是 0.444、S2 是 0.27，R² 分別為 0.22 與 0.116。點估計是 S1 有 79.7%、S2 有 77.0% 的報酬來自 alpha 而非做多黃金。以月份重抽樣（事後補算，90% 區間），alpha 佔比 S1 約 48% 到 96%、S2 約 37% 到 100%，S2 beta 的 95% 區間約 −0.05 到 0.65、包含零，所以這個拆分沒有被釘得很準。在黃金下跌的 8 個月裡，S1 8 個月全為正（平均 4.06R）；S2 平均 +1.507R，但只有 8 個月中的 5 個月為正（1 個月為 0，另外 2 個月是 −5.0R 與 −2.0R）。n=8，沒有附區間。要注意：這是回測的 alpha，而從 V3.4 到 V4.1 的版本演進本身就是一個篩選過程。"
+    },
+    {
+      "tone": "warn",
+      "title": "A counter-trend fade has low correlation to S1 and S2 and showed no profit",
+      "detail": "Four fade variants were hand-entered in the runner (how they were chosen from a wider grid is not recorded; the idea came from the unvalidated negative h=1/h=2 TRAIN IC cells in RS-XAUUSD-20260818-004). The carried candidate fades a two-bar move of 2.5 ATR, held 8 bars, symmetric long and short. It is the first survivor in list order (n2_x2.5_h8), not the best one; recomputed after the fact, the other survivor n2_x2.5_h16 gives Sharpe -0.00, correlation 0.004 and 2.455 at weight 0.3, the same conclusion. Over 700 trades (the full period, holdout included) the monthly correlation is 0.036 with the blend, -0.054 with S1 and 0.128 with S2 (n=32, interval not computed) and its own Sharpe is -0.046 (total -3.08R), which cannot be separated from zero. Adding it lowers the blend's Sharpe at every weight tested (3.882 down to 2.911 at 30%), but the weight is a raw-R weight, not a risk allocation: the fade has no stop and is divided by an arbitrary 0.5, its monthly sd is 7.29 against 3.77 for the blend, so 30% weight is about 45% of the risk. Scaled to equal risk (after the fact, results.json to be rerun) the 30% figure is 3.505, still below 3.882. Two of the four variants kept their sign from train to valid; neither was positive in the holdout (n=156 each: -0.096% and -0.131% per trade, after the fact). The t-values use an iid formula although signals overlap (117 of 377 train signals fall inside the previous signal's holding window), so they are overstated; none is near significance.",
+      "title_zh": "一個逆勢策略與 S1、S2 相關很低，也沒看到獲利",
+      "detail_zh": "四個逆勢變體是手填在 runner 裡的（從較大網格挑選的過程沒有紀錄；想法來自 RS-XAUUSD-20260818-004 中未經驗證的 h=1／h=2 TRAIN IC 負值格）。進入組合的候選是「對兩根 K 棒內 2.5 倍 ATR 的走勢做反向、持有 8 根 K 棒」，多空對稱；它是存活者清單中順序排第一的（n2_x2.5_h8），不是表現最好的——事後重算另一個存活者 n2_x2.5_h16：Sharpe −0.00、相關 0.004、30% 權重時組合 2.455，結論相同。700 筆交易（全期間，含 holdout）上，月報酬與組合的相關是 0.036、與 S1 是 −0.054、與 S2 是 0.128（n=32，未算區間），自身 Sharpe 是 −0.046（總計 −3.08R），與零分不出差別。加入組合後，在測試過的每個權重上組合 Sharpe 都下降（3.882 降到 30% 權重時的 2.911）；但這個權重是原始 R 權重，不是風險配置：逆勢策略沒有停損、除以任意的 0.5，月 sd 是 7.29、組合是 3.77，所以 30% 權重約佔 45% 的風險。縮放成等風險後（事後補算，results.json 待重跑），30% 時是 3.505，仍低於 3.882。四個變體中有兩個從 train 到 valid 保持了正負號；兩個在 holdout 都不是正的（各 n=156，每筆平均 −0.096% 與 −0.131%，事後補算）。t 值用的是 iid 公式，但訊號重疊（train 的 377 筆中有 117 筆落在前一筆的持有期內），t 值偏高；沒有一個接近顯著。"
+    },
+    {
+      "tone": "info",
+      "title": "A short on S2-inspired shooting stars (stricter than a mirror) lost in train and valid; holdout was slightly positive on 22 trades",
+      "detail": "Thresholds were hand-set by reflecting S2's hammer features (hammer medians from the export's flags: body 0.25 of range, lower wick 0.69, upper wick 0.06, close position 0.81, Bollinger position 0.25), giving 96 shooting-star signals against 212 hammers. It is not an exact mirror: the close and Bollinger thresholds are one minus the hammer median, while the body and wick thresholds sit near the edge of the hammer range, and the reverse rule recovers only 43 of the 212 hammers (20%, recomputed after the fact). With one exit rule (hold 16 bars, 1% stop, 0.02% cost) the short lost in train (n=44, win rate 34.1%, 95% interval about 22% to 49%, mean -0.17% per trade) and in valid (n=30, 36.7%, about 22% to 54%, mean -0.28%). The runner did not report the holdout; recomputed after the fact (results.json to be rerun) it has n=22, win rate 54.5% and mean +0.115% per trade, a small positive that n=22 cannot separate from zero. Only this one exit rule is in the runner. This test says that this stricter definition lost in train and valid; it does not say a reflected pattern fails in general.",
+      "title_zh": "參考 S2 特徵的流星空單（比鏡像嚴格）在 train 與 valid 虧損；holdout 22 筆小幅為正",
+      "detail_zh": "門檻是參考 S2 錘子的特徵手設的（用匯出檔旗標算出的錘子中位數：實體 0.25、下影線 0.69、上影線 0.06、收盤位置 0.81、布林位置 0.25），得到 96 個流星訊號，對照 212 個錘子訊號。它不是精確的鏡像：收盤與布林位置的門檻是「1 減中位數」，實體與影線的門檻則接近錘子範圍的邊緣；把規則反向套回錘子，只涵蓋 212 根中的 43 根（20%，事後補算）。只用一種出場規則（持有 16 根、1% 停損、成本 0.02%）：train 虧損（n=44，勝率 34.1%，95% 區間約 22% 到 49%，每筆平均 −0.17%），valid 也虧損（n=30，勝率 36.7%，約 22% 到 54%，每筆平均 −0.28%）。runner 沒有報告 holdout；事後重算（results.json 待重跑）holdout 是 n=22、勝率 54.5%、每筆平均 +0.115%，小幅為正，但 n=22 分不出它與零的差別。runner 裡只有這一種出場規則。這個測試只說明「這個較嚴格的定義」在 train 與 valid 虧損；不能推論成「鏡射後的型態一般都無效」。"
     },
     {
       "tone": "good",
-      "title": "The reusable output is the bar a new strategy has to clear",
-      "detail": "At a 30% risk allocation, a candidate needs a Sharpe of 0.8 to improve the blend if it is uncorrelated, 1.65 at correlation 0.25 and 2.44 at 0.50 — but only -0.14 at correlation −0.25, where a candidate helps while losing money slightly. Correlation is worth more than return, which argues for a different instrument rather than another rule on this one.",
-      "title_zh": "真正可重複使用的產出，是「新策略必須跨過的門檻」",
-      "detail_zh": "在 30% 風險配置下，一個候選策略若與現有組合不相關，需要 0.8 的 Sharpe 才能改善組合；相關 0.25 時需要 1.65，相關 0.50 時需要 2.44；但相關 −0.25 時只需要 −0.14——也就是說它可以一邊小虧一邊仍然有幫助。相關性比報酬更值錢，而這正是「應該換一個商品，而不是在同一個商品上再加一條規則」的論據。"
+      "title": "The reusable output is a formula-based bar for a new strategy, scaled to this backtest's Sharpe",
+      "detail": "At a 30% risk allocation, with the blend's in-sample Sharpe of 3.88 as the starting point, a candidate needs a Sharpe of 0.8 to improve the blend if it is uncorrelated, 1.65 at correlation 0.25 and 2.44 at 0.50 — but only -0.14 at correlation -0.25, where a candidate helps while losing money slightly. The table is a formula, not a measurement: the thresholds scale in proportion to the blend's Sharpe (about 0.21 times it at zero correlation), and this study itself says 3.9 is not a live level. At a blend Sharpe of 1.5 the zero-correlation threshold would be 0.31 and the -0.25 threshold -0.05 (after-the-fact recomputation), so '0.8 is not demanding' and 'nothing on this instrument reaches it' cannot be quoted as absolute statements. In this formula correlation weighs more than return. That makes a different instrument one direction worth trying; it is untested here, and two failed candidates do not show that a third strategy on gold cannot exist.",
+      "title_zh": "真正可重複使用的產出，是「新策略門檻」的公式（隨本回測 Sharpe 縮放）",
+      "detail_zh": "在 30% 風險配置下，以組合樣本內 Sharpe 3.88 為起點，一個候選策略若與現有組合不相關，需要 0.8 的 Sharpe 才能改善組合；相關 0.25 時需要 1.65，相關 0.50 時需要 2.44；但相關 −0.25 時只需要 −0.14——也就是說它可以一邊小虧一邊仍然有幫助。這張表是公式、不是量測：門檻與組合的 Sharpe 成正比（零相關時約為其 0.21 倍），而本研究自己就說 3.9 不是實盤水準。若組合 Sharpe 是 1.5，零相關門檻會是 0.31、相關 −0.25 時是 −0.05（事後重算），因此「0.8 並不難」「這個商品上沒有東西達得到」都不能當成絕對值引用。在這個公式裡，相關性比報酬更值錢。這讓「換一個商品」成為值得試的方向，但本研究沒有檢驗；兩個候選失敗，也不代表黃金上不可能有第三個策略。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
-  "card_summary": "S1 and S2 as one portfolio: correlation 0.234, and what that is worth.",
+  "card_summary": "S1 and S2 as one portfolio: monthly correlation 0.234 (95% interval about -0.12 to 0.54), and what that is worth.",
   "question_zh": "在 K 棒層級的 alpha 搜尋一無所獲之後，「這兩個既有策略如何組合」這件事本身還有沒有剩下什麼？以及——能不能在同一個商品上找到一個真正不相關的第三個策略，做多做空都可以？",
+  "card_summary_zh": "S1 與 S2 月報酬相關約 0.23（95% 區間約 −0.12 到 0.54）；一起做優於只做 S2，但沒證明優於只做 S1。",
   "limitations_zh": [
-    "接近 3.9 的 Sharpe 不是實盤預期。這些是 Strategy Tester 的 R 倍數，期間市場上漲 112%，且未計入匯出檔以外的滑價。可用的是配置之間的排序，不是水準值。",
-    "32 個月對 Sharpe 比較而言是小樣本，這也是為什麼每一項主張都附上自助抽樣區間，以及為什麼與 S1 的比較被明確標示為「未獲支持」而不是「小幅為正」。",
-    "按月彙總假設兩個策略之間的風險可以用穩定比例配置。在每筆固定比例風險的作法下，這本來就已經是實際情形，並非新增的機制。",
+    "接近 3.9 的 Sharpe 不是實盤預期。這些是 Strategy Tester 的 R 倍數，期間市場上漲 112%，且未計入匯出檔以外的滑價。可用的是配置之間的排序，不是水準值；第十項發現的門檻表與這個水準成正比，也不能當成絕對值。",
+    "32 個月對 Sharpe 比較而言是小樣本，這也是為什麼每一項主張都附上自助抽樣區間，以及為什麼與 S1 的比較被明確標示為「未獲支持」而不是「小幅為正」。相關係數 0.234 的 95% 區間約 −0.12 到 0.54；alpha 佔比與 beta 的區間很寬；逐年 Sharpe 的標準誤約 1.2 到 1.7（以上區間皆為事後補算）。",
+    "按月彙總假設兩個策略之間的風險可以用穩定比例配置。在每筆固定比例風險的作法下，這本來就已經是實際情形，並非新增的機制。報告的「最大回檔」是月結（月加總 R）回檔，月內下跌看不到；事後逐筆重算 S1 7.66R、S2 14.79R、50／50 4.50R，results.json 待重跑。",
     "兩個策略都是單一商品、純多方、且處於單一市場環境。這裡量到的 0.234 相關性未必在下跌行情中維持，而這個分散化本質上是同一個方向性押注的兩種表達方式。",
-    "第九項發現提到的「勝率介於 13% 到 39%」不在本研究發布的 results.json 之內（其中僅記錄 train 34.1%、valid 36.7%），讀者無法從本頁表格核對該區間。",
+    "沒有預先登記。修訂版 2 是看過修訂版 1 結果後追加的事後探索；逆勢策略的四個變體與流星空單的門檻都是手設的，挑選過程沒有紀錄，比較次數未知。",
+    "逆勢策略：進入組合的是存活者清單中順序排第一的變體（不是表現最好的）；R 單位是任意的（無停損、除以 0.5），權重不等於風險配置（30% 權重約佔 45% 的風險）；t 值用 iid 公式、訊號重疊，偏高。流星空單：runner 只有一種出場規則，沒有報告 holdout（事後補算 n=22，每筆平均 +0.115%，樣本太小）；門檻比錘子嚴格、不是精確鏡像。上述事後數字都未寫進 results.json，待重跑。",
+    "runner 與 Public 的 analysis.py 說明文字仍含查不到來源的「反轉低於隨機漫步基準 12 個標準差」；來源清單記錄的是修訂版 1 的 runner，且沒有列出 K 棒檔，Public 重現輸入不完整。這兩項需要改程式／重新匯出，列為待辦。results.json 內的 note、verdict、definition 文字（例如「換商品的論據」「genuinely unprofitable」「each hammer characteristic reflected」）以及 runner 與 analysis.py 中 mirror_short 的 docstring（「this is a mirror」）仍是修訂版 2 原文，以本頁文字為準，事後重算，results.json 待重跑。",
     "本研究不改變任何正式 S1／S2 邏輯、實際風險設定或現行進場檢查表。"
   ],
-  "interpretation_zh": "這份研究最值得學的是第三項發現，而不是第二項。組合相對 S2 的改善很大而且穩固（P=0.999）；但相對 S1 的改善只有 0.218，90% 區間 [−0.753, 0.985]，跨過零。如果只報告前者，這頁就會變成「應該做組合」的建議——但資料真正支持的是「如果你現在只跑 S2，加入 S1 是明確的改善；如果你現在只跑 S1，加不加組合，這份資料分不出來」。值得補充一點研究本身沒有點出的：不只 Sharpe，連回檔的比較也是如此——相對 S1 的回檔改善是 0.83R，90% 區間 [−0.77, 2.65]，為正的機率 0.794，同樣不成立。也就是說，對 S1 而言兩個維度都沒有被證明。\n\n第四項發現的形式值得注意：作者主動說明「樣本內的最佳權重落在平台裡，所以它不帶資訊」。這與挑選最佳參數再宣稱它有效，是相反的做法。權重從 0.4 到 0.8 的 Sharpe 只在 3.707 到 3.958 之間，這種平坦本身就是結論——它告訴你這個決定不需要優化，隨手選 50／50 幾乎沒有代價。\n\n2026 年 S2 的 Sharpe 只有 0.429，是三年中唯一組合輸給 S1 的年度。這件事不是孤立的：本站另外兩份研究在完全不同的切法下看到同一件事——RS-XAUUSD-20260815-001 的 S2 時序驗證區勝率只有 20.0%，RS-XAUUSD-20260815-002 的 S2 驗證區基準是 33.33%。三份研究、三種方法，都指向 S2 在近期環境明顯轉弱。這不是本研究的結論，但它是把三份研究放在一起才看得到的東西，也是目前最值得持續觀察的一件事。\n\n最後，第十項發現是這份研究真正能被重複使用的產出，而且它的方向可能違反直覺：在 30% 配置下，一個與現有組合相關 −0.25 的候選策略，即使 Sharpe 是 −0.14（小幅虧損），仍然會改善整體組合；而一個相關 0.50 的候選，就算 Sharpe 高達 2.4 也還不夠。相關性比報酬更值錢——這就是為什麼結論是「去找別的商品」，而不是「在黃金上再想一條規則」。",
+  "interpretation_zh": "先說明證據範圍：本研究沒有預先登記（research/prereg/ 沒有檔案）。修訂版 1 的組合比較是主要分析；修訂版 2（beta 分解、兩個第三策略候選、門檻表）是看過修訂版 1 結果後、由追問才加的事後探索，候選的挑選與門檻都是手設的。\n\n組合相對 S2 的改善很大而且穩固（P=0.999）；但相對 S1 的改善只有 0.218，90% 區間 [−0.753, 0.985]，跨過零。如果只報告前者，這頁就會變成「應該做組合」的建議——但資料真正支持的是「如果你現在只跑 S2，加入 S1 是明確的改善；如果你現在只跑 S1，加不加組合，這份資料分不出來」。不只 Sharpe，月結回檔的比較也是如此——相對 S1 的回檔改善是 0.83R，90% 區間 [−0.77, 2.65]，為正的機率 0.794，同樣不成立。也就是說，對 S1 而言兩個維度都沒有被證明。\n\n權重那一項的形式值得注意：作者主動說明「樣本內的最佳權重落在平台裡，所以它不帶資訊」。權重從 0.4 到 0.8 的 Sharpe 只在 3.707 到 3.958 之間，這種平坦本身就是結論——它告訴你這個決定不需要優化，隨手選 50／50 幾乎沒有代價。\n\n2026 年 S2 的 Sharpe 是 0.429，是三年中唯一組合輸給 S1 的年度；但 2026 年只有 8 個月，單年 Sharpe 的標準誤約 1.2 到 1.7，這個差距分不出與雜訊的差別。本站另外兩份研究（RS-XAUUSD-20260815-001 的 S2 時序驗證區勝率 20.0%，n=20，95% 區間約 8.1% 到 41.6%；RS-XAUUSD-20260815-002 的 S2 驗證區基準 33.33%，n=48）也看到 S2 近期的數字偏弱。但這三份研究用的是同一組 S2 V3.2 交易（前兩份用 2026-07-11 的匯出，本研究用 2026-08-15 的匯出，內容重疊），不是三個獨立證據，也沒有和前期做過檢定，所以分不出 S2 是否真的轉弱。這不是本研究的結論，只是值得持續觀察的一件事。\n\n最後，第十項發現是一個公式：在 30% 配置下，一個與現有組合相關 −0.25 的候選策略，即使 Sharpe 是 −0.14（小幅虧損），仍然會改善整體組合；而相關 0.50 的候選，Sharpe 要 2.4 才夠。在這個公式裡相關性比報酬更值錢。但門檻與組合 Sharpe 成正比，這裡用的是樣本內的 3.88，所以絕對值不能直接引用。兩個候選都沒有通過門檻，這不代表黃金上不可能有第三個策略；「換一個商品」是一個值得試的方向，本研究沒有檢驗。",
   "presentation": [
     {
       "type": "metrics",
@@ -145,7 +148,7 @@
       "type": "table",
       "source": "by_weight",
       "title": "Blend by S1 Weight 依 S1 權重的組合表現（w=0.0 即單獨 S2，w=1.0 即單獨 S1）",
-      "takeaway_zh": "這一張表就是整份研究的骨架。從 w=0.0（單獨 S2，Sharpe 2.327、回檔 12.79R）往右，回檔一路改善到 w=0.5 的 2.17R。但請注意 0.4 到 0.8 之間 Sharpe 只在 3.707 到 3.958 之間——平台這麼平，代表權重不需要優化，樣本內的最佳值也不帶資訊。",
+      "takeaway_zh": "這一張表就是整份研究的骨架。從 w=0.0（單獨 S2，Sharpe 2.327、月結回檔 12.79R）往右，月結回檔一路改善到 w=0.5 的 2.17R（回檔為月加總 R 的月結值；逐筆約 4.50R，事後重算）。0.4 到 0.8 之間 Sharpe 只在 3.707 到 3.958 之間——平台這麼平，代表權重不需要優化，樣本內的最佳值也不帶資訊。",
       "columns": [
         "mean_monthly_r",
         "sd_monthly_r",
@@ -171,7 +174,7 @@
       "type": "table",
       "source": "by_year",
       "title": "By Year 逐年 Sharpe",
-      "takeaway_zh": "2024 與 2025 是組合最好，2026 是 S1 單獨最好——因為 S2 那年的 Sharpe 只有 0.429。分散化的結果本來就應該長這樣，而不是每年都贏。",
+      "takeaway_zh": "2024 與 2025 組合的 Sharpe 最高，2026 是 S1 單獨最高（S2 的 Sharpe 只有 0.429）。但各年只有 8 到 12 個月，單年 Sharpe 的標準誤約 1.2 到 1.7（事後補算），逐年差距都在雜訊內，不能解讀為「組合某幾年領先」。",
       "columns": [
         "months",
         "s1_sharpe",
@@ -183,7 +186,7 @@
       "type": "table",
       "source": "beta_decomposition",
       "title": "Alpha vs Beta 月報酬對黃金月報酬的迴歸分解",
-      "takeaway_zh": "兩個策略的 R² 都很低（0.22 與 0.116），alpha 佔報酬的 79.7% 與 77.0%，而且在黃金下跌的 8 個月裡都還是正的。這代表它們不是偽裝過的「做多黃金」，所以尋找不相關的第三個策略在結構上是可行的。",
+      "takeaway_zh": "兩個策略的 R² 都很低（0.22 與 0.116），alpha 佔報酬的點估計是 79.7% 與 77.0%，但月份重抽樣的 90% 區間很寬（S1 約 48%–96%、S2 約 37%–100%，事後補算）。黃金下跌的 8 個月裡 S1 全為正，S2 只有 5 個月為正。",
       "record_keys": [
         "S1",
         "S2"
@@ -200,7 +203,7 @@
     {
       "type": "metric_table",
       "source": "bar_for_a_new_strategy.minimum_sharpe_to_improve",
-      "title": "The Bar for a New Strategy 新策略的門檻（30% 配置下所需的最低 Sharpe）",
+      "title": "The Bar for a New Strategy 新策略的門檻（30% 配置、以本回測組合 Sharpe 3.88 計算；門檻與組合 Sharpe 成正比，非絕對值）",
       "keys": [
         "rho=-0.50",
         "rho=-0.25",
@@ -214,8 +217,8 @@
     {
       "type": "table",
       "source": "uncorrelated_candidates.counter_trend_fade.variants",
-      "title": "Counter-Trend Fade Variants 逆勢策略四個變體（train 固定，valid 檢驗）",
-      "takeaway_zh": "四個變體中有兩個從 train 到 valid 保持了正負號。但請看 t 值——沒有任何一個接近顯著，最好的 valid t 只有 0.49。撐過正負號檢查不等於有效。",
+      "title": "Counter-Trend Fade Variants 逆勢策略四個手選變體（挑選過程未記錄；train／valid 分開報告）",
+      "takeaway_zh": "四個變體中有兩個從 train 到 valid 保持了正負號。但請看 t 值——沒有任何一個接近顯著，最好的 valid t 只有 0.49（t 值用 iid 公式，訊號重疊，偏高）。撐過正負號檢查不等於有效；這兩個變體在 holdout 也都不是正的（事後補算）。",
       "columns": [
         "train.n",
         "train.mean_pct",
@@ -229,8 +232,8 @@
     {
       "type": "table",
       "source": "candidate_portfolio_impact.blend_sharpe_by_candidate_weight",
-      "title": "Adding the Fade to the Blend 把逆勢策略加進組合",
-      "takeaway_zh": "它通過了相關性那一半的門檻（與組合相關 0.036），卻沒通過報酬那一半（自身 Sharpe −0.046、總計 −3.08R），所以每一個權重都讓組合變差。這正好示範了第十項發現裡那張門檻表怎麼用。",
+      "title": "Adding the Fade to the Blend 把逆勢策略加進組合（全期間 700 筆，含 holdout；權重為原始 R 權重，不是風險配置；候選取自清單中第一個存活者）",
+      "takeaway_zh": "它與組合相關很低（0.036），自身 Sharpe 是 −0.046、總計 −3.08R，加入後每一個權重都讓組合 Sharpe 下降。注意權重單位：30% 的 R 權重約佔 45% 的風險；縮放成等風險後 30% 時是 3.505（事後補算），仍低於 3.882。",
       "columns": [
         "sharpe",
         "total_r"
