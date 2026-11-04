@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260901-001",
-  "revision": 1,
-  "title": "The surviving %B finding was measured on a bar that had not closed — re-run, it fails every screen",
+  "revision": 3,
+  "title": "The surviving %B finding was labelled on a bar that had not closed — re-run on the last completed bar, it fails the two pass/fail screens re-tested and its zone ordering largely disappears",
   "market": "XAUUSD",
   "strategy": {
     "id": "S1-AweWithBB",
@@ -10,76 +10,88 @@
   },
   "status": "confirmed",
   "created_on": "2026-09-01",
-  "question": "RS-XAUUSD-20260823-002 and -20260824-006 join %B to each trade with a backward asof on entry_time. Every entry timestamp coincides with a bar timestamp, so that match lands on the bar the fill happened inside. Re-run with the label on the last completed bar: what survives?",
-  "hypothesis": "If the finding is about market context it should survive the shift; if it is partly measuring the bar that triggered the entry, it should not.",
+  "question": "RS-XAUUSD-20260823-002 and -20260824-006 join %B to each trade with a backward asof on entry_time. Every entry timestamp coincides with a bar timestamp, so that match lands on the bar whose open is the fill price (it closes 30 minutes after the fill). With the label moved to the last completed bar, what happens to the three screens this study re-tests: the resolvable-gap bound, a two-group permutation, and the zone ordering?",
+  "hypothesis": "If the finding is about market context it should survive the shift; if it is partly measuring information from the bar the fill happened inside, it should not. (Stated before running; the design note in the research record was committed together with the results, so its order relative to the results cannot be shown.)",
   "headline": {
     "entry_times_on_a_bar_timestamp": 472,
     "entry_times_total": 472,
     "published_gap_pct_points": 20.86,
     "published_bound_pct_points": 16.9,
-    "published_p": 0.0003,
+    "rerun_entry_bar_p_one_sided": 0.0003,
     "corrected_gap_pct_points": 9.26,
     "corrected_bound_pct_points": 20.28,
-    "corrected_p": 0.0748,
+    "corrected_p_exact_posthoc_one_sided": 0.1284,
     "above_upper_published": 82,
     "above_upper_corrected": 53,
-    "screens_failed_after_correction": 3
+    "screens_failed_after_correction": 2
   },
   "card_metrics": [
     "published_gap_pct_points",
     "corrected_gap_pct_points",
-    "published_p",
-    "corrected_p"
+    "rerun_entry_bar_p_one_sided",
+    "corrected_p_exact_posthoc_one_sided"
   ],
   "findings": [
     {
       "tone": "good",
-      "title": "The harness reproduces the published study exactly",
-      "detail": "Left unmodified, the re-run returns n=82 above the upper band at 73.17% against a 55.93% baseline, a 20.86-point gap against a 16.9-point resolvable bound, permutation p=0.0003. Those are the published numbers to the decimal, so any difference that follows comes from the one changed line.",
-      "title_zh": "這個重跑完全重現了已發布的數字",
-      "detail_zh": "不做任何修改時，重跑得到上軌外 n=82、勝率 73.17%，對照基準 55.93%，差距 20.86 個百分點、可分辨門檻 16.9，置換檢定 p=0.0003。這些與已發布數字完全一致到小數位，因此接下來的任何差異都只可能來自那一行改動。"
+      "title": "The re-run reproduces the published n, win rates, gap and bound",
+      "detail": "Left unmodified, the re-run returns n=82 above the upper band at 73.17% (Wilson 95% 62.7–81.6) against the other 390 trades at 52.31% (47.4–57.2), whole-sample baseline 55.93%: a 20.86-point gap (95% interval about 10.1–31.7) against a 16.9-point resolvable bound. These match the originals to the decimal. The p-value does not belong in that sentence: this study's own one-sided two-group permutation gives 0.0003, but the originals published a different test (RS-XAUUSD-20260823-002: family max-abs-t permutation p=0.003; RS-XAUUSD-20260824-006 variant A: two-sided 0.0008 on 422 trades). This study also uses its own runner on the originals' shared toolkit and inputs, and redefines three screens (see limitations).",
+      "title_zh": "重跑重現了已發布的 n、勝率、差距與門檻",
+      "detail_zh": "不做修改時，重跑得到上軌外 n=82、勝率 73.17%（Wilson 95% 62.7–81.6），對照其餘 390 筆的 52.31%（47.4–57.2），整體基準 55.93%；差距 20.86 個百分點（95% 區間約 10.1–31.7），可分辨門檻 16.9。這些與原研究到小數位一致。p 值不在「一致」之內：本研究自己的單尾兩組置換檢定得 0.0003，但原研究發表的是另一種檢定（RS-XAUUSD-20260823-002 為 family max-abs-t 置換 p=0.003；RS-XAUUSD-20260824-006 variant A 為雙尾 0.0008、422 筆）。另外，本研究是另寫的 runner（沿用原研究的共用工具與輸入），並重新定義了三道篩子（見限制）。"
     },
     {
       "tone": "warn",
       "title": "Every one of the 472 entry timestamps sits exactly on a bar timestamp",
-      "detail": "That is what makes the backward asof land on the bar the fill happened inside rather than the one before it. The join is documented in the runner as reaching 'the last completed bar', which is what it would do if entry times fell between bars. They never do.",
+      "detail": "That is what makes the backward asof land on the bar whose open is the fill price rather than the one before it. The join is documented in the runner as reaching 'the last completed bar', which is what it would do if entry times fell between bars. They never do. Post-hoc check: in 472 of 472 trades the fill price equals the open of that bar to within 0.05.",
       "title_zh": "472 個進場時間戳，每一個都恰好落在 K 棒的時間戳上",
-      "detail_zh": "這正是 backward asof 會接到「成交發生在其中」那根、而不是前一根的原因。runner 裡把這個接合註記為接到「最後一根已收盤的 K 棒」——如果進場時間落在兩根 K 棒之間，那個說法會是對的。但它從來沒有落在中間過。"
+      "detail_zh": "這正是 backward asof 會接到「成交價 = 開盤價」那根 K 棒、而不是前一根的原因。原 runner 把這個接合註記為接到「最後一根已收盤的 K 棒」——如果進場時間落在兩根 K 棒之間，那個說法會是對的，但它從來沒有落在中間過。事後補算：472 筆中 472 筆的成交價與該根 K 棒的開盤價相差 <0.05。"
     },
     {
       "tone": "warn",
-      "title": "Moved to the last completed bar, the finding fails all three screens",
-      "detail": "The gap falls from 20.86 to 9.26 points while the resolvable bound rises from 16.9 to 20.28, so it no longer clears its own bound. Permutation p goes from 0.0003 to 0.0748. And the dose response, which the original study required to rise continuously rather than jump at one edge, is no longer monotone: 52.63, 57.92, 50.82, 64.15.",
-      "title_zh": "把標籤移到最後一根已收盤的 K 棒，三道篩子全部沒過",
-      "detail_zh": "差距從 20.86 掉到 9.26 個百分點，而可分辨門檻從 16.9 升到 20.28——它不再跨過自己的門檻。置換檢定 p 從 0.0003 變成 0.0748。而原研究明確要求的「劑量反應必須連續上升、不能只在某一格跳一下」也不再單調：52.63、57.92、50.82、64.15。"
+      "title": "Moved to the last completed bar, the finding does not pass the two pass/fail screens re-tested here, and the zone ordering weakens sharply",
+      "detail": "Above upper band: n=53, 64.15% (Wilson 95% 50.7–75.7) against the other 419 trades at 54.89% (50.1–59.6), a 9.26-point gap (95% interval about -4.5 to 23.0) against a 20.28-point resolvable bound (the smallest gap an 80%-power test could separate, not an error bar on the gap), so it does not clear the bound (bound screen: not passed). Zone win rates (n=76/221/122/53): 52.63, 57.92, 50.82, 64.15; the published label rose in 5 of 6 steps, this one in 2 of 3, but near_upper 50.82 (42.1–59.5) and upper_mid 57.92 (51.3–64.2) overlap heavily, so the dip itself is not resolved. The ordering screen: by the originals' own measure (win rate against the rank index of the zone or decile, which the originals call Spearman and which is a Pearson correlation; computed post-hoc here, the runner did not compute it) the zone ordering falls from 0.849 (identical to the original -002 record) to 0.592, and the decile ordering from 0.839 (identical to the original record) to 0.147 (rank Spearman 0.141). The originals set no pass threshold for this measure and no interval was computed for it, so the ordering is reported as sharply weaker, not as failed. The permutation screen, one-sided two-group p (not passed): results.json holds 0.0748, which is wrong (post-hoc recomputed, results.json pending rerun: exact value 0.1284; two-sided about 0.24). The cause is that the runner compared permuted gaps with the rounded observed gap 9.26 rather than the exact 9.2583. The error makes p look smaller than it is; the conclusion does not change. The size of the change itself (-11.6 points, paired on the same trades) was not tested.",
+      "title_zh": "標籤移到最後一根已收盤的 K 棒後，本研究重測的兩道有門檻的篩子都沒過，分區排序也明顯變弱",
+      "detail_zh": "上軌外 n=53，勝率 64.15%（Wilson 95% 50.7–75.7），對照其餘 419 筆的 54.89%（50.1–59.6），差距 9.26 個百分點（95% 區間約 −4.5 到 23.0），可分辨門檻 20.28（80% 檢定力下能分出的最小差距，不是差距的誤差界線），因此沒有跨過門檻（門檻篩子：沒過）。分區勝率（n=76／221／122／53）：52.63、57.92、50.82、64.15；已發布標籤 6 步中上升 5 步，這裡 3 步中上升 2 步，但 near_upper 50.82（42.1–59.5）與 upper_mid 57.92（51.3–64.2）大幅重疊，這個「下降」本身分不出來；排序篩子：用原研究自己的排序指標（勝率對分區／十分位序號的相關，原研究稱為 Spearman，實際是 Pearson；本次事後補算，runner 沒算），分區從 0.849（與原研究 -002 記錄相同）降到 0.592，十分位從 0.839（與原研究記錄相同）降到 0.147（秩 Spearman 為 0.141）。原研究沒有為這個指標設通過門檻，本次也沒算區間，所以只能說排序明顯變弱，不能說沒過。置換篩子，單尾兩組置換 p（沒過）：results.json 記的 0.0748 有誤（事後重算，results.json 待重跑：精確值 0.1284；雙尾約 0.24）。原因是 runner 拿「進位後」的觀測差距 9.26 去比，而不是精確的 9.2583；這使 p 看起來比實際小，結論不變。-11.6 點的變化本身（同一批交易的成對比較）沒有檢定過。"
     },
     {
       "tone": "info",
-      "title": "The above-upper group shrinks from 82 trades to 53",
-      "detail": "The whole %B distribution concentrates into the middle-upper zones once the label moves back one bar. That is what would happen if the entry bar were, by construction, the bar on which a Bollinger-based strategy fired — using its close to compute %B measures the trigger as much as the context. The study records the pattern; it does not claim the mechanism as demonstrated.",
-      "title_zh": "上軌外的樣本從 82 筆縮到 53 筆",
-      "detail_zh": "把標籤往回移一根之後，整個 %B 分布集中到中上區間。如果進場那根 K 棒本來就是「布林通道策略觸發訊號的那一根」，這正是會發生的事——用它的收盤價計算 %B，量到的有一部分是觸發條件本身，而不只是市場環境。本研究記錄這個型態，但不宣稱這個機制已被證明。"
+      "title": "Post-hoc: re-running two more of the originals' screens, and a split, does not rescue it — but the direction in the later segments is still positive",
+      "detail": "Post-hoc additions (computed after seeing the results; not in results.json; recomputed independently by the G0 reviewer and by the fixer, 4000 draws; no script is stored in this package and no seed was recorded, so these are not reproducible from the repository): the originals' family max-abs-t permutation p moves from 0.003 to about 0.51; the 90% moving-block bootstrap interval for the above-upper win-rate gap moves from about 11.1–29.6 to about -1.5–18.4 (across five seeds the lower end ran -1.2 to -1.8 and the upper end 18.2 to 18.6), which includes 0. In the 55/25/20 chronological split, above-upper win rate with the corrected label is 62.07% (n=29, segment baseline 56.76%), 63.64% (n=11, 57.63%) and 69.23% (n=13, 51.58%): positive in all three segments, on very small samples. The originals' momentum ablation and threshold sweep were not re-run, so 'fails every screen' cannot be said.",
+      "title_zh": "事後補算：再重跑原研究兩道篩子與時間切分，仍救不回來，但後段的方向仍是正的",
+      "detail_zh": "事後補算（看到結果後才算；不在 results.json 內；4000 次抽樣；由 G0 審查者與修正者各自獨立重算，研究包內沒有保存腳本也沒記 seed，因此無法從 repo 重現）：原研究的 family max-abs-t 置換 p 從 0.003 變成約 0.51；上軌外勝率差距的 90% 移動區塊 bootstrap 區間從約 11.1–29.6 變成約 −1.5–18.4（五個 seed 下，下界 −1.2 到 −1.8，上界 18.2 到 18.6），包含 0。依 55／25／20 時序切分，修正標籤下上軌外勝率為 62.07%（n=29，該段基準 56.76%）、63.64%（n=11，57.63%）、69.23%（n=13，51.58%）：三段方向都是正的，但樣本很小。原研究的動能分層（momentum ablation）與門檻掃描沒有重跑，所以不能說「每一道篩子都沒過」。"
     },
     {
       "tone": "info",
-      "title": "This does not refute %B, it unresolves it",
-      "detail": "A 9.26-point gap on 53 trades against a 20.28-point bound is a question this sample cannot answer, not an answer of no. What does not survive is the evidence that made this the programme's one surviving finding; the honest status is open with a wide bound.",
+      "title": "The above-upper group shrinks from 82 trades to 53 (post-hoc explanation, not tested)",
+      "detail": "With the label moved back one bar, %B concentrates in the middle-upper zones: post-hoc, the previous bar's %B is above 0.5 in 99.15% of the 472 trades (minimum 0.4961), and the zone label is the same under both conventions in only 44.7%. Seen after the results, a consistent reading is: S1 V3.9 evaluates its entry condition (ta.crossover(fast_ma, bb_basis) and close > bb_basis and math.abs(AO_State) == 1) on the closed bar, and with no process_orders_on_close the order fills at the next bar's open, so the bar that triggered the signal is the previous one (T-1), whose close is above the Pine basis by construction (the Pine basis is an SMA of ohlc4, the default bb_source, while this study's %B uses close-based bands, which is why the share is 99.15% and not 100%); the bar the published label used (T) closes 30 minutes after the fill, so its close includes price movement that follows the fill, which is outcome information. This explanation was proposed after the results and no test was designed for it, so it is not claimed as established.",
+      "title_zh": "上軌外的樣本從 82 筆縮到 53 筆（事後解釋，未檢定）",
+      "detail_zh": "標籤往回移一根後，%B 集中到中上區間：事後算得，472 筆中前一根 K 棒的 %B >0.5 佔 99.15%（最小值 0.4961），而兩種標記下分區相同的只有 44.7%。看到結果後，一個一致的解讀是：S1 V3.9 在 K 棒收盤時判斷進場條件（ta.crossover(fast_ma, bb_basis) and close > bb_basis and math.abs(AO_State) == 1），且沒設 process_orders_on_close，所以在下一根開盤成交——觸發訊號的是前一根 K 棒（T-1），它的收盤依條件必然在 Pine 的基準線之上（Pine 基準線是 ohlc4 的 SMA，即預設 bb_source；本研究的 %B 用收盤價算的通道，所以比例是 99.15% 而不是 100%）；已發布標籤用的那一根（T）要到成交後 30 分鐘才收盤，它的收盤價含有成交之後的價格走勢，也就是交易結果的一部分。這個解釋是看到結果後才提出的，沒有設計檢定，因此不宣稱已證實。"
+    },
+    {
+      "tone": "info",
+      "title": "This does not refute %B, it returns it to unresolved",
+      "detail": "A 9.26-point gap on 53 trades (95% interval about -4.5 to 23.0) is a question this sample cannot answer, not an answer of no. What no longer stands is the evidence that made this the programme's one surviving finding; the honest status is open with a wide interval.",
       "title_zh": "這不是否定 %B，而是把它退回「未解決」",
-      "detail_zh": "9.26 個百分點的差距、53 筆樣本、20.28 的門檻——這是一個「這個樣本回答不了」的問題，不是一個「答案是否」的結論。沒有存活的是「讓它成為本計畫唯一存活發現」的那些證據；誠實的狀態是「開啟中，門檻很寬」。"
+      "detail_zh": "53 筆樣本上 9.26 個百分點的差距（95% 區間約 −4.5 到 23.0），是「這個樣本回答不了」，不是「答案是否」。不再成立的是「讓它成為本計畫唯一存活發現」的那些證據；誠實的狀態是「開啟中，區間很寬」。"
     }
   ],
   "policy_impacts": [],
   "theme": "methodology",
-  "card_summary": "The one thing that survived, re-run with the label on a bar that had closed.",
-  "question_zh": "RS-XAUUSD-20260823-002 與 -20260824-006 用 backward asof 對 entry_time 把 %B 接到每一筆交易上。而每一個進場時間戳都恰好落在某根 K 棒的時間戳上，因此接到的是「成交發生在其中」的那一根。改用成交前最後一根**已收盤**的 K 棒重跑：還剩下什麼？",
+  "card_summary": "The one finding that survived, re-labelled on a bar that had closed: the two pass/fail screens re-tested are not passed (one-sided p 0.1284, post-hoc exact) and the zone ordering largely disappears (decile r 0.839 to 0.147, post-hoc).",
+  "question_zh": "RS-XAUUSD-20260823-002 與 -20260824-006 用 backward asof 對 entry_time 把 %B 接到每一筆交易上。每一個進場時間戳都恰好落在某根 K 棒的時間戳上，因此接到的是「開盤價即成交價」的那一根（它在成交後 30 分鐘才收盤）。改用成交前最後一根已收盤的 K 棒重跑：本研究重測的三道篩子（可分辨門檻、兩組置換檢定、分區排序）會怎樣？",
+  "card_summary_zh": "布林上軌發現改用已收盤 K 棒重跑：重測的兩道有門檻的篩子（可分辨門檻、置換檢定；單尾 p 0.1284 為事後精確值）沒過，分區排序也大幅變弱（事後補算：十分位相關 0.839→0.147）；原研究其他篩子未全部重跑。",
   "limitations_zh": [
-    "本研究只改變標籤讀取的 K 棒，未重新檢視原研究的其他任何設定；若原研究另有問題，本研究不會發現。",
-    "「進場 K 棒本身就是訊號觸發的 K 棒，因此其收盤價部分反映觸發條件」是對觀察到的分布集中現象最合理的解釋，但本研究未設計檢定來證明這個機制。",
-    "修正後的 9.26 個百分點差距未跨過 20.28 的可分辨門檻，因此本研究不主張 %B 無效，只主張支持它的證據不成立。",
+    "本研究是另寫的 runner（build_bb_entry_bar_verification.py），沿用原研究的共用工具與輸入，並把三道篩子重新定義（單尾兩組置換 20000 次、門檻常數 2.802、分區逐格上升），不是原研究 runner 的原樣重跑；原研究的 OOS 切分、block bootstrap、momentum ablation、threshold sweep、十分位劑量反應在本研究的 results.json 內都沒有。",
+    "事後補算（看到結果後才算，不在 results.json 內）：family 置換、block bootstrap、時序切分、成交價對開盤價、前一根 %B 的分布、原研究定義的分區／十分位排序相關（0.849→0.592；0.839→0.147），以及修正置換 p 的精確值。這些補算的腳本沒有存進研究包、seed 也沒記，無法從 repo 重現；bootstrap 區間隨 seed 變動（已發布約 10.9–29.7，修正約 −1.2～−1.8 到 18.2～18.6；原研究記錄的已發布區間為 10.96–29.64），結論不受影響。",
+    "「觸發訊號的是前一根 K 棒、已發布標籤含成交後價格資訊」是看到結果後提出的解釋，與 Pine 原始碼和 472/472 的成交價資料一致，但本研究未設計檢定來證明；也沒有分開檢驗「觸發條件」與「前視」各自佔多少。",
+    "修正後的 9.26 個百分點差距在 53 筆樣本上 95% 區間約 −4.5 到 23.0，包含 0 也包含大於 20 的值，因此本研究不主張 %B 無效，只主張支持它的證據不成立。",
+    "results.json 的 corrected permutation_p（0.0748）與 change.permutation_p_corrected 有計算錯誤，正確的單尾精確值約 0.1284（事後重算）；results.json 與 Public 頁面上的表格尚未更新，待重跑。已發布版本的 p 不受影響。另外 results.json 的 method.everything_else 寫「same runner」也不正確（實際是另寫的 runner），change 表的鍵 permutation_p_published 是本研究用已發布標籤重跑的單尾 p（0.0003），不是原研究發表的 p（0.003／0.0008）；這兩處待重跑時一併改名與更正。兩張 metric_table 與兩張分區表目前都沒有 95% 區間，區間見 findings。",
+    "排序這道篩子沒有通過門檻可判：原研究沒有為 Spearman／十分位相關設通過標準，本次補算的 0.849→0.592、0.839→0.147 也沒有區間，只能說明顯變弱；n=3 的分區與 47 筆一格的十分位都很吵。",
+    "-11.6 個百分點的變化量本身（同一批交易、兩種標記的成對差）沒有誤差界線，也沒有檢定。",
     "本研究使用與原研究相同的 2026-08-15 交易匯出檔與 30 分鐘 K 棒；結論僅適用於這組資料與這個接合方式。",
     "本研究本身不修改 RS-XAUUSD-20260823-002 與 -20260824-006 的記錄；那需要另外的決定。"
   ],
-  "interpretation_zh": "這份研究只做一件事：用原研究自己的 runner、自己的共用工具、自己的交易匯出檔與通道慣例，**只改一行**——把標籤讀取的 K 棒往回移一根，然後看還剩下什麼。\n\n第一步是確認重跑是忠實的。不改動時，它回傳 n=82、73.17%、差距 20.86、門檻 16.9、p=0.0003，與已發布數字完全一致。所以後面的差異只可能來自那一行。\n\n改了之後，這個發現在它原本通過的每一道篩子上都失敗：\n\n差距 20.86 → 9.26，而門檻 16.9 → 20.28——**從跨過門檻變成跨不過**。置換檢定 p 0.0003 → 0.0748。而原研究特別強調的劑量反應（「%B 必須連續地預測，不能只在某一格邊緣跳一下」）也不再單調。三道篩子，三道都沒過。\n\n為什麼會這樣？線索在樣本數：上軌外從 82 筆縮到 53 筆，而整個分布集中到中上區間。S1 是「AweWithBB」——它本來就是依布林通道條件進場的。進場那根 K 棒，正是訊號觸發的那根；用它的收盤價去算 %B，量到的有一部分是**觸發條件本身**，而不只是進場當下的市場環境。本研究記錄這個型態，但沒有把這個機制當成已證明——那需要另外設計的檢定。\n\n必須把界線劃清楚：**這不是說 %B 沒用。**9.26 個百分點、53 筆樣本、20.28 的可分辨門檻——這是「這個樣本回答不了」，不是「答案是否」。沒有存活的是「讓它成為本計畫唯一存活發現」的那組證據。誠實的狀態是「開啟中，門檻很寬」。\n\n最後一點，關於這件事是怎麼被發現的：它不是靠審查抓到的，而是在 RS-XAUUSD-20260831-005 測「要不要加碼」時，順手比較了兩種標記方式才浮現的。而更早之前，RS-XAUUSD-20260818-002 已經確認過成交是盤中發生的（中位數落在該 K 棒區間的 0.443），並正因如此採用了 entry_index − 1。**同一個計畫裡兩種慣例並存了十天，而沒有任何一道檢查會發現它們不一致**——因為每一份研究單獨看都是自洽的。這是這次真正該記住的地方。",
+  "interpretation_zh": "這份研究只做一件事：用原研究的共用工具（compute_bb、bb_zone）、同一份交易匯出檔與同一份 K 棒、同樣的通道慣例，另寫一支 runner，把標籤讀取的 K 棒往回移一根，重做三道篩子（可分辨門檻、兩組置換檢定、分區排序），看還剩下什麼；其中前兩道有門檻可判通過與否，第三道沒有。注意：這不是原研究的 runner，三道篩子是重新定義的版本，與原研究的差別是——置換檢定為單尾、20000 次、seed 20260901（原研究 23-002 為 7 個分區的 family max-abs-t 置換、4000 次、seed 20260823；24-006 為雙尾兩組比較）；門檻常數 2.802（原研究 2.8）；分區排序在 runner 裡改成看各分區勝率是否逐格上升（原研究看 Spearman 與十分位；本次另以原研究的定義事後補算，見下）。\n\n第一步是確認重跑接得上。不改動時，它回傳上軌外 n=82、勝率 73.17%（對其餘 390 筆的 52.31%，整體基準 55.93%）、差距 20.86、門檻 16.9，這些與原研究一致。p 值不在一致之內：本研究的單尾檢定得 0.0003，原研究發表的是 0.003（family 置換）與 0.0008（24-006 variant A）。\n\n標籤移到最後一根已收盤的 K 棒後：上軌外 n=53、勝率 64.15%（Wilson 95% 50.7–75.7），對其餘 419 筆的 54.89%，差距 9.26（95% 區間約 −4.5 到 23.0）而可分辨門檻 20.28，沒有跨過門檻；單尾置換 p 正確值約 0.128（事後重算；results.json 記的 0.0748 是進位造成的錯誤，待重跑），雙尾約 0.24；分區勝率 52.63、57.92、50.82、64.15（n=76／221／122／53），上升趨勢變弱，但相鄰分區的區間大幅重疊，分不出某一格比另一格低。已發布版本本身也並非嚴格單調（6 步中上升 5 步，前三格 n=3、3、18），所以「逐格是否上升」不是好的判準，要看區間與樣本數。改用原研究自己的排序指標（勝率對分區／十分位序號的相關，原研究稱為 Spearman，實際是 Pearson；本次事後補算，與原研究記錄相同的是已發布版本）：分區從 0.849 降到 0.592，十分位從 0.839 降到 0.147（秩 Spearman 0.141）。原研究沒有為這個指標設通過門檻，本次也沒算區間，所以第三道（排序）只能說「明顯變弱」，不能說「沒過」。本研究重測的結果因此是：兩道有門檻的篩子（可分辨門檻、置換檢定）沒過，排序明顯變弱。原研究的動能分層與門檻掃描沒有重跑，事後補算的 family 置換（約 0.51）與 bootstrap 區間（約 −1.5 到 18.4）同樣沒過，但時序切分三段的上軌外勝率方向都仍是正的（n=29／11／13，樣本很小）。所以能說的是「兩道有門檻的重測篩子沒過、排序明顯變弱、補算的兩道也沒過」，不能說「每一道篩子都沒過」。\n\n為什麼會這樣？以下是看到結果後才提出的解釋，沒有設計檢定：上軌外從 82 筆縮到 53 筆，前一根 K 棒的 %B 在 99.15% 的交易上 >0.5（不是 100%，因為 Pine 的基準線是 ohlc4 的 SMA，本研究的 %B 用收盤價算的通道）。S1 V3.9 在 K 棒收盤判斷進場條件（ta.crossover(fast_ma, bb_basis)、close > bb_basis，還有 math.abs(AO_State) == 1）、沒設 process_orders_on_close，下一根開盤成交（472 筆中 472 筆成交價 = 該根開盤價），所以觸發訊號的是前一根（T-1），不是成交的那一根（T）。已發布標籤用的 T 要到成交後 30 分鐘才收盤，它的收盤價含有成交之後的價格走勢——也就是交易結果的一部分。因此已發布的差距可能含有前視資訊；這個說法與資料一致，但沒有被檢定證明。\n\n必須把界線劃清楚：這不是說 %B 沒用。9.26 個百分點、53 筆樣本、區間包含 0——這是「這個樣本分不出來」，不是「答案是否」。沒有存活的是「讓它成為本計畫唯一存活發現」的那組證據。誠實的狀態是「開啟中，區間很寬」。\n\n最後是這件事怎麼被發現的：它不是靠審查抓到的，而是在 RS-XAUUSD-20260831-005 測「要不要加碼」時，順手比較兩種標記方式才浮現。更早的 RS-XAUUSD-20260818-002 已採用 entry_index − 1。該研究記的 0.443 是成交價在該根 K 棒高低區間中的位置（本次重算中位數 0.444），不是成交時間；本次重算顯示成交價等於進場 K 棒的開盤價。同一個計畫裡兩種慣例並存了十天，沒有任何一道檢查會發現它們不一致——因為每一份研究單獨看都是自洽的。這是這次真正該記住的地方。",
   "presentation": [
     {
       "type": "metrics",
@@ -87,8 +99,8 @@
       "keys": [
         "published_gap_pct_points",
         "corrected_gap_pct_points",
-        "published_p",
-        "corrected_p"
+        "rerun_entry_bar_p_one_sided",
+        "corrected_p_exact_posthoc_one_sided"
       ]
     },
     {
@@ -98,8 +110,8 @@
     {
       "type": "table",
       "source": "as_published_entry_bar.dose_response",
-      "title": "Dose Response as Published 已發布版本的劑量反應（標籤在進場 K 棒上）",
-      "takeaway_zh": "原研究要求 %B 必須連續地預測，而不是只在某一格跳一下。這一欄確實乾淨地一路上升到 73.17%。",
+      "title": "Win Rate by %B Zone, as Published 已發布版本的分區勝率（標籤在進場 K 棒上）",
+      "takeaway_zh": "n=3、3、18、81、165、120、82；勝率 33.33、0.0、33.33、40.74、55.76、60.0、73.17。6 步中上升 5 步（不是嚴格單調），前三格樣本極小（n=3 的 0% 其 95% 區間是 0–56%），不要單獨解讀。這是分區勝率表，不是原研究的十分位劑量反應。原研究定義的排序相關：分區 0.849、十分位 0.839（與原研究記錄相同）。",
       "columns": [
         "zone",
         "n",
@@ -109,8 +121,8 @@
     {
       "type": "table",
       "source": "corrected_last_completed_bar.dose_response",
-      "title": "Dose Response Corrected 修正後的劑量反應（標籤在最後一根已收盤 K 棒上）",
-      "takeaway_zh": "52.63、57.92、50.82、64.15——不再單調（near_upper 的 50.82 低於 upper_mid 的 57.92）。原研究最看重的那道篩子，修正後沒有通過。",
+      "title": "Win Rate by %B Zone, Corrected 修正後的分區勝率（標籤在最後一根已收盤 K 棒上）",
+      "takeaway_zh": "52.63、57.92、50.82、64.15（n=76／221／122／53）。3 步中上升 2 步，上升趨勢比已發布版本弱；但 near_upper 50.82（95% 42.1–59.5）與 upper_mid 57.92（51.3–64.2）大幅重疊，分不出某一格比另一格低。以原研究定義的排序相關（事後補算）：分區 0.592（已發布 0.849）、十分位 0.147（已發布 0.839），排序明顯變弱，但原研究沒有通過門檻，也沒算區間。",
       "columns": [
         "zone",
         "n",
@@ -120,7 +132,7 @@
     {
       "type": "metric_table",
       "source": "as_published_entry_bar",
-      "title": "As Published 已發布版本（重現，與原數字完全一致）",
+      "title": "As Published 已發布版本重跑（n、勝率、差距、門檻與原研究一致；permutation p 為本研究的單尾檢定，原研究發表的是 0.003／0.0008；此表沒有 95% 區間，區間見 findings）",
       "keys": [
         "trades_joined",
         "above_upper_n",
@@ -138,7 +150,7 @@
     {
       "type": "metric_table",
       "source": "corrected_last_completed_bar",
-      "title": "Corrected 修正版本（標籤在最後一根已收盤的 K 棒）",
+      "title": "Corrected 修正版本（標籤在最後一根已收盤的 K 棒）；單尾 permutation p 此表為 0.0748，事後重算正確值約 0.1284（results.json 待重跑）；此表沒有 95% 區間，區間見 findings",
       "keys": [
         "trades_joined",
         "above_upper_n",
@@ -156,7 +168,7 @@
     {
       "type": "metric_table",
       "source": "change",
-      "title": "The Change 差異",
+      "title": "The Change 差異（permutation_p_corrected 的 0.0748 為進位錯誤，正確約 0.128；變化量本身未檢定；permutation_p_published 是本研究用已發布標籤重跑的單尾 p 0.0003，不是原研究發表的 p 0.003／0.0008）",
       "keys": [
         "win_rate_gap_pct_points",
         "above_upper_n",
