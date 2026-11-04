@@ -244,7 +244,7 @@ def main() -> None:
                    for r in rows],
         "limitations": [
             f"n = {int(E['core_surprise'].notna().sum())} releases with MoM figures ({len(E)} for rule B) split into hot / in-line / cool; most bounds are wide.",
-            "Consensus figures come from secondary sources (polls quoted in news, or calendars), not an official series.",
+            "Consensus figures come from secondary sources (mostly Dow Jones polls quoted by CNBC, one Reuters poll, and some values inferred from post-release recaps), not an official series.",
             "Fills at 30m bar closes ignore slippage inside the bar; rule D (from the release open) is not executable.",
             "The delayed 2025-10-24 and 2026-02-13 releases are kept.",
             "Generic rule backtests for illustration; not trading advice.",
@@ -264,7 +264,7 @@ def main() -> None:
     inputs += [{"role": "price_15m", "source_system": "TradingView FX_IDC:XAUUSD chart export",
                 "locator": loc(base.EXPORTS / base.M15_FILE), **base.sha(base.EXPORTS / base.M15_FILE), "immutable": True,
                 "privacy": "private_raw_source", "note": "resampled to 30m"},
-               {"role": "cpi_surprise", "source_system": "BLS releases (actual) and pre-release consensus from news polls or calendars",
+               {"role": "cpi_surprise", "source_system": "BLS releases (actual) and pre-release consensus from news-quoted polls (mostly Dow Jones via CNBC)",
                 "locator": loc(SURPRISE), **base.sha(SURPRISE), "immutable": False, "privacy": "public",
                 "observed": "2026-11-03", "note": "every value carries its source URL in the CSV"}]
     (OUT / "source_manifest.json").write_text(json.dumps({"schema_version": 1, "study_id": STUDY_ID, "inputs": inputs},

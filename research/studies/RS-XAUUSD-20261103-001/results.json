@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261103-001",
-  "generated_at": "2026-11-03T09:42:55+08:00",
+  "generated_at": "2026-11-04T11:21:40+08:00",
   "method": {
     "sample": "CPI releases 2024-01..2026-10 with FX_IDC:XAUUSD 30m data (release bar opens 08:30 ET)",
     "surprise": "actual minus consensus MoM (0.1 pp steps); primary core, secondary headline; hot > 0, cool < 0",
@@ -11,7 +11,7 @@
   },
   "limitations": [
     "n = 32 releases with MoM figures (33 for rule B) split into hot / in-line / cool; most bounds are wide.",
-    "Consensus figures come from secondary sources (polls quoted in news, or calendars), not an official series.",
+    "Consensus figures come from secondary sources (mostly Dow Jones polls quoted by CNBC, one Reuters poll, and some values inferred from post-release recaps), not an official series.",
     "Fills at 30m bar closes ignore slippage inside the bar; rule D (from the release open) is not executable.",
     "The delayed 2025-10-24 and 2026-02-13 releases are kept.",
     "Generic rule backtests for illustration; not trading advice."
