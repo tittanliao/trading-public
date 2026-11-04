@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261014-001",
-  "revision": 1,
-  "title": "ATR stops and weekly sizing on a 50,000 USD account — S1 gains nothing from an ATR stop; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment",
+  "revision": 3,
+  "title": "ATR stops and weekly sizing on a 50,000 USD account — no S1 ATR stop shows a reliable gain; a tighter 2×ATR stop on S2 replays better but does not survive the family adjustment",
   "market": "XAUUSD",
   "strategy": "S1 V3.9 and S2 V3.2",
   "status": "confirmed",
@@ -27,47 +27,51 @@
   "findings": [
     {
       "tone": "info",
-      "title": "S1: an ATR stop does not help",
-      "detail": "Fixed 47.5%/0.217R; ATR14×3 54.1%/0.175R; best ATR14×1.5 +0.238R, 參考 only.",
-      "title_zh": "S1：改 ATR 停損沒有幫助",
-      "detail_zh": "固定 0.5%：勝率 47.5%、每筆 0.217R；3 倍 ATR（約 0.72%）勝率 54.1%、每筆 0.175R。放寬停損被洗掉變少，但賺得更少。"
+      "title": "S1: no ATR stop shows a reliable gain",
+      "detail": "n=503 trades. Fixed 0.5%: win 47.5% (95% CI 43.2–51.9%), mean +0.217R (+0.11 to +0.32). ATR14×3 (median stop 0.715%): win 54.1% (49.7–58.4%), +0.175R (+0.08 to +0.27); paired difference vs fixed −0.042R (−0.095 to +0.010), p 0.107, BH p 0.317, not distinguishable. Win rate rises steadily with width (ATR144: 30.8% to 55.5%) but mean R is not shown to follow and is not monotone (ATR144 k=1..3: 0.191, 0.230, 0.254, 0.219, 0.196). Six of ten ATR variants have a point estimate above fixed; the highest is ATR144×2 +0.254R (參考; paired difference +0.037R, −0.012 to +0.086), then ATR14×1.5 +0.238R (參考) and ATR14×2 +0.238R (無證據). All differences are within the error; none is separable after the family adjustment. Intervals are a post-hoc recomputation at G0 review (normal approximation; Wilson for win rates); results.json holds point values only.",
+      "title_zh": "S1：改 ATR 停損沒有證實的改善",
+      "detail_zh": "n＝503 筆。固定 0.5%：勝率 47.5%（95% 區間 43.2–51.9%）、每筆 0.217R（+0.11～+0.32）。3 倍 ATR（停損中位數約 0.72%）：勝率 54.1%（49.7–58.4%）、每筆 0.175R（+0.08～+0.27）；和固定停損的配對差 −0.042R（−0.095～+0.010），p 0.107、BH p 0.317，分不出差別。放寬停損勝率穩定上升（ATR144：30.8%→55.5%），但每筆 R 沒有證實跟著變好，也不單調（ATR144 五個倍數：0.191、0.230、0.254、0.219、0.196）。10 個 ATR 變體中 6 個點估計高於固定，最高是 2 倍 ATR(144) 的 0.254R（參考，配對差 +0.037R，−0.012～+0.086），其次 1.5 倍 ATR(14) 與 2 倍 ATR(14) 各 0.238R；差異都在誤差內，多重比較校正後沒有一個分得出來。區間為 G0 審查後事後補算（常態近似，勝率用 Wilson），results.json 只存點估計。"
     },
     {
       "tone": "warn",
-      "title": "S2: a tighter 2×ATR stop replays better, unconfirmed",
-      "detail": "Fixed 1.0% 57.6%/0.279R; 2×ATR14 (median stop 0.53%) 50.3%/0.445R, both halves better, p 0.0114, BH p 0.114.",
-      "title_zh": "S2：約 2 倍 ATR 的較緊停損重播較好，尚未確認",
-      "detail_zh": "固定 1%：勝率 57.6%、每筆 0.279R；2 倍 ATR（中位數約 0.53%）：50.3%、0.445R，前後兩段都較好，但未過多重比較，需要 TradingView 重跑策略再前瞻檢驗。"
+      "title": "S2: a tighter 2×ATR stop (targets shrink with it) replays better, unconfirmed",
+      "detail": "n=177 trades (first half 83, second half 94). Fixed 1.0%: win 57.6% (50.3–64.7%), +0.279R (+0.12 to +0.44). 2×ATR14 (median stop 0.532%; first half 0.456%, second half 0.644%): win 50.3% (43.0–57.6%), +0.445R (+0.22 to +0.67); paired difference +0.166R (+0.035 to +0.297), p 0.0114, BH p 0.114. By half the paired difference is +0.340R in the first half (+0.13 to +0.55) and +0.013R in the second (−0.15 to +0.17): the gain sits in the first half and the second half is not distinguishable from fixed. TP1/TP2 are 2R/4R of the variant's own stop, so stop and targets shrink together to about half the fixed distance. Intervals and half-level differences are post-hoc (G0 review). Needs a TradingView re-run of the strategy and a forward check.",
+      "title_zh": "S2：約 2 倍 ATR 的較緊停損（目標一併縮短）重播較好，尚未確認",
+      "detail_zh": "n＝177 筆（前半 83、後半 94）。固定 1%：勝率 57.6%（50.3–64.7%）、每筆 0.279R（+0.12～+0.44）。2 倍 ATR(14)（停損中位數 0.532%；前半 0.456%、後半 0.644%）：勝率 50.3%（43.0–57.6%）、每筆 0.445R（+0.22～+0.67）；配對差 +0.166R（+0.035～+0.297），p 0.0114、BH p 0.114，未過多重比較。分半看：前半配對差 +0.340R（+0.13～+0.55），後半 +0.013R（−0.15～+0.17），差異集中在前半段，後半段和固定停損分不出差別。TP1／TP2 是這個變體自己停損的 2R／4R，所以停損與目標一起縮短到固定距離的約一半，不是只收緊停損。區間與分半差為事後補算（G0 審查）。需要在 TradingView 重跑策略，再前瞻檢驗。"
     },
     {
       "tone": "info",
-      "title": "Weekly-balance sizing changes nothing",
-      "detail": "Compounded: 546.3% weekly vs 553.2% per trade, drawdown 20.5% both. Fixed 1,000 USD: 200.3%, drawdown 9.6%, worst week -6883.0 USD.",
-      "title_zh": "用每週餘額算部位，結果幾乎一樣",
-      "detail_zh": "複利下每週算 546.3%、每筆算 553.2%，最大回撤都是 20.5%。固定 1,000 美元：回測 200.3%、最大回撤 9.6%、最差一週 -6883 美元。"
+      "title": "Start-of-week and per-trade balance sizing give similar accounts (same trades, single path)",
+      "detail": "524 trades taken, 50,000 USD start, 2% per trade, compounding. Sized on the balance at each entry: 553.2%, max drawdown 20.5%, worst week −21,918 USD. Sized on the start-of-week balance: results.json shows 546.3% but that uses the balance at the week's first signal, not the registered Monday 00:00 balance; post-hoc recomputation with the Monday 00:00 realised balance gives 533.2%, drawdown 20.6%, worst week −22,074 USD (post-hoc recomputation, results.json to be re-run). When S1 and S2 enter on the same bar (2025-09-26 13:30) the runner took S2 first (not registered); S1 first gives 548.7% per trade and 529.1% start-of-week. Fixed 1,000 USD per trade, no compounding (post-hoc reference, not part of any label): 200.3%, drawdown 9.6%, worst week −6,883 USD (199.7% with S1 first). Max drawdown uses balances after each closed trade; worst week groups by entry week.",
+      "title_zh": "用每週餘額算部位與用每筆進場餘額算部位，結果接近（同一組交易，單一路徑）",
+      "detail_zh": "共 524 筆成交，起始 5 萬美元，每筆 2% 風險、複利。以每筆進場時餘額算部位：+553.2%、最大回撤 20.5%、最差一週 −21,918 美元。以每週初餘額算部位：results.json 記 546.3%，但它用的是該週第一個訊號出現時的餘額，不是登記的週一 00:00 餘額；照登記的週一 00:00 已實現餘額事後重算為 533.2%、最大回撤 20.6%、最差一週 −22,074 美元（事後重算，results.json 待重跑）。S1 與 S2 在同一根 K（2025-09-26 13:30）同時進場時，程式先取 S2（登記沒有規定）；改先取 S1 則每筆算 548.7%、每週算 529.1%。固定 1,000 美元（不複利，事後加的參考算法，不影響任何判定）：+200.3%、最大回撤 9.6%、最差一週 −6,883 美元（先取 S1 為 199.7%）。最大回撤以每筆平倉後餘額計，最差一週以進場週分組。"
     }
   ],
   "policy_impacts": [],
   "theme": "strategy_diagnostics",
-  "card_summary": "S1 gains nothing from an ATR stop (wider wins more, earns less); S2 with a tighter 2×ATR stop replays +0.45R vs +0.28R but does not survive the family adjustment; weekly sizing changes nothing.",
-  "title_zh": "ATR 動態停損與每週部位（5 萬美帳戶）：S1 改 ATR 停損沒有幫助；S2 改成約 2 倍 ATR 的較緊停損重播較好，但未過多重比較",
+  "card_summary": "No S1 ATR stop shows a reliable gain (wider stops win more often, per-trade R is not shown to improve; n=503); S2 with a tighter 2×ATR stop (targets shrink with it) replays +0.45R vs +0.28R per trade (n=177) but does not survive the family adjustment; start-of-week and per-trade balance sizing give similar accounts on the same trades (single path).",
+  "title_zh": "ATR 動態停損與每週部位（5 萬美帳戶）：S1 改 ATR 停損沒有證實的改善；S2 改成約 2 倍 ATR 的較緊停損（目標一併縮短）重播較好，但未過多重比較",
   "question_zh": "5 萬美帳戶每筆 2% 風險下，S1／S2 改用 ATR 動態停損（手數跟著調、金額風險不變）會不會比固定 % 停損好？用每週帳戶餘額算部位有沒有差？",
   "hypothesis_zh": "執行前登記：固定 % 對 k 倍 ATR(14)／ATR(144) 停損，兩張單照策略的 R 目標與時間出場重播，一次一筆，以同筆交易的 R 差分可用／參考／無證據。",
-  "card_summary_zh": "S1 改 ATR 停損沒有幫助（放寬勝率升、報酬降）；S2 改約 2 倍 ATR 的較緊停損重播 +0.45R 對 +0.28R，但未過多重比較；每週算部位沒有差別。",
+  "card_summary_zh": "S1 改 ATR 停損沒有證實的改善（放寬停損勝率上升，每筆 R 沒有證實變好；n＝503）；S2 改約 2 倍 ATR 的較緊停損（目標一併縮短）重播每筆 +0.45R 對 +0.28R（n＝177），但未過多重比較；每週餘額算部位與每筆餘額算部位在同一組交易上結果接近（單一路徑）。",
   "limitations_zh": [
-    "重播沒有策略的移動停損與保本，每筆報酬比回測低；只能比較停損設定之間的差異。",
-    "回測報酬不等於實盤：屋主 2026 年實際交易大致打平，最近三個月 S1 固定停損每筆 −0.05R。",
-    "二十種設定中挑最好的，S2 的結果沒通過多重比較，不能直接採用。",
+    "重播沒有策略的移動停損與保本，每筆報酬比回測低（S1 重播 +0.22R 對回測 +0.34R；S2 +0.28R 對 +0.52R）；只能比較停損設定之間的差異。",
+    "重播不等於實盤。重播最近三個月（2026-07-14 起）S1 固定停損每筆 −0.05R（n＝51，95% 區間未算，樣本小），是重播數字。",
+    "二十種設定中挑最好的，S2 的結果沒通過多重比較，不能直接採用；登記的「可用」標籤仍需先在 TradingView 重跑策略並前瞻檢驗。",
+    "登記與程式有兩處差異，已在 findings 與研究紀錄揭露：每週部位基準（程式用該週第一個訊號時的餘額，登記為週一 00:00）、同時進場順序（程式先取 S2）；方向不變，但帳戶數字須待 results.json 重跑後才算定案。時間出場照策略原始碼的 BarsSinceEntry >= 36（S1）／48（S2），即進場 K 之後第 36／48 根收盤出場（含進場 K 共檢查 37／49 根），和策略一致，不是偏離登記。",
+    "n、95% 區間、分半差、變體挑選（固定 1,000 美元帳戶只算了 S2 兩個「可用」變體）、BH 後可用數都是看完結果後整理的，只用來描述，不改變判定。",
     "本研究不改變策略、停損、風險規則或請分析。"
   ],
-  "interpretation_zh": "把停損改成 ATR 倍數，S1 沒有任何版本更好：停損放寬時勝率上升但每筆 R 下降。S2 用約 2 倍 ATR(14) 的較緊停損，重播每筆 +0.45R 對固定停損 +0.28R，但 20 個版本做多重比較校正後沒有一個通過，只能當方向。以 5 萬美元模擬帳戶、每筆 2% 風險計算，每週重算部位和固定部位沒有差別。",
+  "interpretation_zh": "把停損改成 ATR 倍數，S1 沒有任何版本被證實更好：放寬停損勝率上升（ATR144 由 30.8% 到 55.5%），每筆 R 沒有證實變好；最好的 2 倍 ATR(144) 每筆 +0.25R 對固定 +0.22R（n＝503，配對差 +0.04R，區間 −0.01～+0.09），差異在誤差內。S2 用約 2 倍 ATR(14) 的較緊停損（目標也照新停損的 R 倍數一起縮短），重播每筆 +0.45R 對固定 +0.28R（n＝177，配對差 +0.17R，區間 +0.04～+0.30）；差異集中在前半段（+0.34R），後半段（+0.01R）分不出差別，且 20 個版本做多重比較校正後沒有一個 BH p 低於 0.05，只能當方向。以 5 萬美元模擬帳戶、每筆 2% 風險計算，每週初餘額算部位與每筆進場餘額算部位，在同一組交易上結果接近（複利 533.2% 對 553.2%，單一路徑；每週基準照登記的週一 00:00，事後重算，results.json 待重跑）；兩者都是複利，和固定 1,000 美元不複利的 200.3% 不是同一種比較。",
   "presentation": [
     {
       "type": "metrics",
       "source": "headline",
       "keys": [
+        "variants_tested",
         "variants_usable",
         "variants_usable_after_bh",
+        "s2_fixed_mean_r",
         "s2_atr14_x2_mean_r"
       ]
     },
