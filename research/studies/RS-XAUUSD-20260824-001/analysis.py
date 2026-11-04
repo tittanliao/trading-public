@@ -30,8 +30,14 @@ session adds. Adding a hypothesis is writing one function that returns a boolean
 - **Smallest resolvable effect** printed beside every number, so "no evidence" is
   distinguishable from "no power". Several hypotheses here are the second thing, and saying
   so is the useful part.
-- **One family-wide permutation across all twenty**, because running twenty tests and
-  reporting the best is how noise gets published.
+- **One family-wide max-|z| test across all twenty** (parametric, not a permutation test),
+  because running twenty tests and reporting the best is how noise gets published.
+
+Targets: the weekday, turn-of-month and September hypotheses (h01, h02, h04, h05) are
+scored on the SAME session's close-to-close return; the gap hypotheses (h06, h07) on the
+same session's open-to-close return (close-to-close would contain the gap itself). The
+streak, outside-day and range hypotheses (h10-h12, h08, h09) keep the next-session target
+their claims name.
 
 Usage:
     python3.12 -m scripts.research.build_xauusd_hypothesis_sweep
@@ -59,6 +65,12 @@ OUTPUT_DIR = Path("reproduced")
 BARS_FILE = Path("local-inputs/FX_IDC_XAUUSD, 30_volumn.csv")
 DXY_FILE = Path("local-inputs/TVC_DXY, 60.csv")
 CFTC_FILE = Path("local-inputs/CFTC_GOLD.csv")
+# The locator that goes into results.json no matter where the bytes were read from: the
+# repository-relative path when the file sits under ROOT, otherwise the path as written.
+try:
+    BARS_LOCATOR = str(BARS_FILE.relative_to(ROOT))
+except ValueError:
+    BARS_LOCATOR = str(BARS_FILE)
 TAIPEI = timezone(timedelta(hours=8))
 
 BOOTSTRAP = 2000
@@ -223,6 +235,7 @@ def load() -> dict:
     daily = daily[daily["bars"] >= 40].reset_index(drop=True)
     daily["ret"] = 100 * (daily["close"] / daily["close"].shift(1) - 1)
     daily["fwd"] = daily["ret"].shift(-1)
+    daily["intraday"] = 100 * (daily["close"] / daily["open"] - 1)
     daily["range"] = daily["high"] - daily["low"]
     daily["fwd_range"] = daily["range"].shift(-1)
     daily["dow"] = pd.to_datetime(daily["session_day"]).dt.dayofweek
@@ -257,11 +270,11 @@ def build_hypotheses(data: dict) -> list[dict]:
         out.append({"fn": fn, **meta})
 
     # --- external claims, tested because someone else specified them first ---------
-    add(lambda: h_daily(daily, (daily["dow"] == 0).to_numpy()),
+    add(lambda: h_daily(daily, (daily["dow"] == 0).to_numpy(), target="ret"),
         id="h01_monday_weak", family="calendar", origin="external_claim",
         claim="Gold starts the week weak: Monday is the worst weekday.",
         null="all weekdays share one return distribution")
-    add(lambda: h_daily(daily, (daily["dow"] == 4).to_numpy()),
+    add(lambda: h_daily(daily, (daily["dow"] == 4).to_numpy(), target="ret"),
         id="h02_friday_strong", family="calendar", origin="external_claim",
         claim="Gold rises into the weekend: Friday is the strongest weekday.",
         null="all weekdays share one return distribution")
@@ -282,24 +295,25 @@ def build_hypotheses(data: dict) -> list[dict]:
     day_index = pd.to_datetime(daily["session_day"])
     month_position = day_index.groupby([day_index.dt.year, day_index.dt.month]).rank()
     month_size = day_index.groupby([day_index.dt.year, day_index.dt.month]).transform("size")
-    add(lambda: h_daily(daily, ((month_position <= 3) | (month_position > month_size - 3)).to_numpy()),
+    add(lambda: h_daily(daily, ((month_position <= 3) | (month_position > month_size - 3)).to_numpy(),
+                        target="ret"),
         id="h04_turn_of_month", family="calendar", origin="external_claim",
         claim="Turn-of-month: the first and last three sessions outperform the middle.",
         null="position within the month carries no return information")
-    add(lambda: h_daily(daily, (daily["month"] == 9).to_numpy()),
+    add(lambda: h_daily(daily, (daily["month"] == 9).to_numpy(), target="ret"),
         id="h05_september_weak", family="calendar", origin="external_claim",
         claim="September is gold's worst month.",
         null="all months share one return distribution")
 
     # --- gaps and overnight -------------------------------------------------------
-    add(lambda: h_daily(daily, (daily["gap"] > 0.1).to_numpy()),
+    add(lambda: h_daily(daily, (daily["gap"] > 0.1).to_numpy(), target="intraday"),
         id="h06_gap_up_continues", family="gap", origin="internal_idea",
         claim="A session that opens more than 0.1% above the prior close keeps going.",
-        null="the opening gap carries no information about the session that follows")
-    add(lambda: h_daily(daily, (daily["gap"] < -0.1).to_numpy()),
+        null="the opening gap carries no information about the rest of the session after the gap")
+    add(lambda: h_daily(daily, (daily["gap"] < -0.1).to_numpy(), target="intraday"),
         id="h07_gap_down_continues", family="gap", origin="internal_idea",
         claim="A session that opens more than 0.1% below the prior close keeps going.",
-        null="the opening gap carries no information about the session that follows")
+        null="the opening gap carries no information about the rest of the session after the gap")
 
     # --- range structure ----------------------------------------------------------
     narrow = daily["range"] == daily["range"].rolling(4).min()
@@ -366,7 +380,9 @@ def build_hypotheses(data: dict) -> list[dict]:
         am_high=("high", "max"), am_low=("low", "min"))
     at_ten = price[(price["hour"] == 10) & (price["minute"] == 0)].groupby(
         "session_day")["open"].first().rename("price_at_10")
-    rest = price[price["hour"] >= 10].groupby("session_day")["close"].last().rename("close_of_day")
+    # The session's own last bar (06:00-06:30 Taipei on most days), not the last bar at or
+    # after 10:00 by clock hour, which is always 23:30 and stops the window 6.5 hours early.
+    rest = price.groupby("session_day")["close"].last().rename("close_of_day")
     frame = (
         daily[["session_day"]]
         .merge(opening, on="session_day").merge(morning, on="session_day")
@@ -460,10 +476,14 @@ def build_hypotheses(data: dict) -> list[dict]:
     # --- intraday timing ----------------------------------------------------------
     fwd_2 = price["close"].shift(-2) / price["close"] * 100 - 100
     ok = fwd_2.notna().to_numpy()
-    release = ((price["hour"] == 20) & (price["minute"] == 30)).to_numpy()
+    # US data is released at 08:30 New York time: 20:30 Taipei in US summer time, 21:30 in
+    # winter. Select the slot by New York clock so the DST shift is followed.
+    new_york = price["time"].dt.tz_localize("Asia/Taipei").dt.tz_convert("America/New_York")
+    release = ((new_york.dt.hour == 8) & (new_york.dt.minute == 30)).to_numpy()
     add(lambda: (release[ok], fwd_2.to_numpy()[ok], thirds(int(ok.sum()))),
         id="h19_us_release_slot_direction", family="session", origin="internal_idea",
-        claim="The 20:30 Taipei US-release slot has a directional bias.",
+        claim=("The 08:30 New York US-release slot (20:30 Taipei in US summer time, 21:30 in "
+               "winter) has a directional bias."),
         null="the release slot moves price but carries no direction")
     quiet = ((price["hour"] >= 3) & (price["hour"] < 6)).to_numpy()
     add(lambda: (quiet[ok], fwd_2.to_numpy()[ok], thirds(int(ok.sum()))),
@@ -479,10 +499,14 @@ def build_hypotheses(data: dict) -> list[dict]:
 def family_permutation(results: list[dict], stream: random.Random) -> dict:
     """Twenty tests are twenty chances. Correct across the whole set, not per hypothesis.
 
-    Each hypothesis is reduced to a standardised effect, and the null redraws the same
-    number of standardised effects from a normal centred on zero — the distribution a set
-    of true nulls would produce. The comparison is between the largest observed effect and
-    the largest a no-effect family typically produces.
+    A parametric max-|z| test (the function keeps its name and the results.json key, which
+    the Public export lists, but nothing is permuted). Each hypothesis is reduced to
+    effect / bound, where bound = 2.8 * SE, so the observed value is |z| / 2.8. The null
+    redraws the same number of standardised effects from a standard normal and divides by
+    the same 2.8, so both sides are in the same unit. The comparison is between the largest
+    observed effect and the largest a no-effect family typically produces. z here is an iid
+    statistic and overlapping bars overstate it; the block-bootstrap p values per
+    hypothesis are the more conservative reading.
     """
     scored = [
         row for row in results
@@ -490,21 +514,24 @@ def family_permutation(results: list[dict], stream: random.Random) -> dict:
     ]
     if not scored:
         return {"tested": 0}
-    # effect / resolution bound is a scale-free "how many just-resolvable units" measure.
+    # effect / resolution bound is a scale-free "how many just-resolvable units" measure;
+    # since bound = 2.8 * SE this is |z| / 2.8.
     observed = [abs(row["effect"]) / row["smallest_resolvable_effect"] for row in scored]
     observed_max = max(observed)
     null_max = []
     for _ in range(FAMILY_PERMUTATIONS):
-        null_max.append(max(abs(stream.gauss(0, 1)) / 2.8 * 2.8 for _ in scored))
+        null_max.append(max(abs(stream.gauss(0, 1)) / 2.8 for _ in scored))
     exceed = sum(1 for value in null_max if value >= observed_max)
     return {
         "tested": len(scored),
         "largest_observed_units_of_resolution": round(observed_max, 3),
         "null_median": round(float(np.median(null_max)), 3),
         "p_value": round((exceed + 1) / (FAMILY_PERMUTATIONS + 1), 4),
+        "test": "parametric max-|z| test (not a permutation test)",
+        "unit": "effect / (2.8 * SE) = |z| / 2.8, on both the observed and the null side",
         "note": (
             "An effect below 1.0 is inside what its own sample can separate, whatever its "
-            "p-value looks like in isolation."
+            "p-value looks like in isolation. z is iid and overlapping bars overstate it."
         ),
     }
 
@@ -513,6 +540,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
+
+    global BARS_FILE, DXY_FILE, CFTC_FILE
 
     data = load()
     specs = build_hypotheses(data)
@@ -551,7 +580,7 @@ def main() -> int:
         "market": "XAUUSD",
         "strategy": "none — hypothesis sweep on the price series",
         "method": {
-            "bars": str(BARS_FILE.relative_to(ROOT)),
+            "bars": BARS_LOCATOR,
             "day_boundary_hour_taipei": DAY_BOUNDARY_HOUR,
             "bootstrap": BOOTSTRAP,
             "block_size": BLOCK,
@@ -560,9 +589,11 @@ def main() -> int:
             "seed": SEED,
             "cost_pct_round_trip": COST_PCT,
             "verdict_rule": (
-                "survives_screens requires all three: the effect exceeds what the samples "
-                "can resolve, the block bootstrap two-sided p is at or below 0.05, and the "
-                "sign holds in train, valid and holdout."
+                "survives_screens requires all four: the effect exceeds what the samples "
+                "can resolve, the block bootstrap two-sided p is at or below 0.05, the "
+                "sign holds in train, valid and holdout, and the effect net of the "
+                "round-trip cost still clears the same resolution bound (the cost screen "
+                "applies to % return targets; a hypothesis that fails it is below_cost)."
             ),
         },
         "coverage": {
@@ -576,8 +607,9 @@ def main() -> int:
         "hypotheses": results,
         "limitations": [
             "One instrument, 32 months, one strong uptrend. A calendar hypothesis needing "
-            "many years — the month-of-year claims in particular — cannot be settled here "
-            "and is reported as underpowered rather than as absence of effect.",
+            "many years — the month-of-year claims in particular — cannot be settled here: "
+            "September (h05) carries a no_evidence verdict, but with only two Septembers in "
+            "the sample the month-level claim is effectively untestable.",
             "Forward returns overlap for the intraday hypotheses; the moving-block "
             "bootstrap accounts for the clustering but does not eliminate it.",
             "A verdict of no_evidence bounds an effect, it does not prove one is absent. "
