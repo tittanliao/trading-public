@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261027-003",
-  "revision": 1,
-  "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing separates; extra lots on accelerating falls cut the average cost a little and add to the loss in the bad episodes",
+  "revision": 3,
+  "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing could be told apart from an ordinary decline week; in 5 past episodes (5 paths, no bound) extra lots on accelerating-fall weeks gave a slightly lower average cost, and so a slightly higher return at the same exit price, with more lots",
   "market": "XAUUSD",
   "strategy": "none",
   "status": "confirmed",
@@ -27,17 +27,17 @@
   "findings": [
     {
       "tone": "warn",
-      "title": "No add-on timing separates from an ordinary week in a decline",
-      "detail": "Against all weeks ≥10% below the high (2,215 weeks; 26-week mean +2.73%): accelerating fall +5.36% (255 weeks, 56 episodes, effect +2.64, bound 12.60); rebound start +6.65% (60 weeks, 38 episodes, +3.93, bound 24.81); deep ≥20% +2.00% (−0.73, bound 5.90); back above the 20-week MA +3.91% (+1.18, bound 17.04). Signs lean positive for C1, C2 and C4 at 13 and 26 weeks.",
-      "title_zh": "沒有一種補倉時機能和下跌中的一般週分開",
-      "detail_zh": "對照：所有離高點 10% 以上的週（2,215 週，26 週平均 +2.73%）。跌勢加速 +5.36%（255 週、56 段，差 +2.64，門檻 12.60）；開始反彈 +6.65%（60 週、38 段，+3.93，門檻 24.81）；跌深 ≥20% +2.00%（−0.73，門檻 5.90）；站回 20 週線 +3.91%（+1.18，門檻 17.04）。跌勢加速、開始反彈、站回 20 週線在 13、26 週都略偏正，但都在門檻內。"
+      "title": "No add-on timing could be told apart from an ordinary week in a decline",
+      "detail": "Against all weeks ≥10% below the high (2,215 weeks; 2,189 have a 26-week outcome, mean +2.73%, median +1.06%). 26-week mean (median): accelerating fall +5.36% (+1.51%; 248 weeks, 56 episodes; effect +2.64, bound 12.60); rebound start +6.65% (+3.36%; 59 weeks, 38 episodes; +3.93, bound 24.81); deep ≥20% +2.00% (+0.37%; 1,891 weeks, 7 episodes; −0.73, bound 5.90); back above the 20-week MA +3.91% (+2.18%; 129 weeks, 64 episodes; +1.18, bound 17.04). Signs lean positive for C1, C2 and C4 at 13 and 26 weeks, but all within the bound, so this sample cannot tell them apart. Means are pulled up by a few large rallies (accelerating fall: mean +5.36% vs median +1.51%). The deep-fall baseline is 86% deep-fall weeks itself, which dilutes its difference, and it has only 7 episodes, so its bound is narrow. Post-hoc (not registered, not among the reproducible numbers on this page): against the weeks 10-20% below the high instead, the deep-fall 26-week difference is negative and still inside the bound.",
+      "title_zh": "這個樣本分不出任何補倉時機和下跌中的一般週有差別",
+      "detail_zh": "對照：所有離高點 10% 以上的週（2,215 週，其中 26 週後有資料的 2,189 週，26 週平均 +2.73%、中位數 +1.06%）。26 週後平均（中位數）：跌勢加速 +5.36%（+1.51%；248 週、56 段；差 +2.64，門檻 12.60）；開始反彈 +6.65%（+3.36%；59 週、38 段；差 +3.93，門檻 24.81）；跌深 ≥20% +2.00%（+0.37%；1,891 週、7 段；差 −0.73，門檻 5.90）；站回 20 週線 +3.91%（+2.18%；129 週、64 段；差 +1.18，門檻 17.04）。跌勢加速、開始反彈、站回 20 週線的平均在 13、26 週都略偏正，但都在門檻內，這個樣本分不出差別。平均被少數大漲拉高（跌勢加速平均 +5.36% 對中位數 +1.51%）。跌深的基準有 86% 就是跌深週本身，差被稀釋，而且只有 7 段，門檻偏窄。事後補算（未登記，也不在本頁可重現的數字內）：改和離高點 10–20% 的週比，跌深 26 週的差是負的，仍在門檻內。"
     },
     {
       "tone": "warn",
-      "title": "Extra lots on accelerating falls lower the average cost a little and add to the loss when the decline continues",
-      "detail": "26 weekly lots from each 25% event, plus one extra lot when C1 fires: average cost lower by 0.6-1.4% in the five past episodes, 26-week return better by 0.3-3.1 points. In lot-equivalents at 52 weeks it was worse in 1975 (−4.05 vs −3.44), 1980 (−5.86 vs −4.72) and 2013 (−1.32 vs −1.06), better in 1973 and 2008. In 2026 (from 2026-03-16) C1 fired 9 times and the average cost was slightly higher (4,410.87 vs 4,408.98).",
-      "title_zh": "跌勢加速時多買，均價略低，但跌勢延續時虧更多",
-      "detail_zh": "從每次跌 25% 起每週 1 口、共 26 週，跌勢加速那週再多 1 口：過去 5 次均價低 0.6–1.4%，26 週報酬多 0.3–3.1 個百分點。但以「口數」計算的 52 週損益，1975（−4.05 對 −3.44）、1980（−5.86 對 −4.72）、2013（−1.32 對 −1.06）都更差，1973、2008 較好。2026 年（從 3/16 起）跌勢加速出現 9 次，均價反而略高（4,410.87 對 4,408.98）。"
+      "title": "In 5 past 25% declines, extra lots on accelerating-fall weeks gave a slightly lower average cost (so a slightly higher return at the same exit price), with more lots; in 2026 so far it did not",
+      "detail": "Plan: 1 lot a week for 26 weeks from the first week 25% below the high, plus one extra lot in accelerating-fall weeks (C1). Registered metrics, five past episodes: average cost lower by 0.3-2.6% (1973 −2.58%, 1975 −0.57%, 1980 −0.96%, 2008 −1.36%, 2013 −0.30%); 26-week return higher by 0.3-3.1 points; 52-week return higher in all five (the return is exit price over average cost, so with the same exit price a lower average cost and a higher return are one result, not two; 1973 +35.87% vs +32.36%, 1975 −12.56% vs −13.06%, 1980 −18.35% vs −19.14%, 2008 +24.01% vs +22.32%, 2013 −3.94% vs −4.23%). Post-hoc (not registered): counted in lot-equivalents, the 52-week loss is larger with the extra lots in 1975 (−4.05 vs −3.44), 1980 (−5.86 vs −4.72) and 2013 (−1.32 vs −1.06), because the plan holds 6-9 more lots (32, 34, 35 vs 26); the return per unit of cost was not worse. One path per episode, five episodes, no bound. 2026 (start 2026-03-16, the first week 10% or more below the high at −14.9%; the fall has not reached 25%): accelerating fall fired 9 times, average cost 4,410.87 vs 4,408.98 (+0.04%), 26-week return −0.74% vs −0.70%.",
+      "title_zh": "過去 5 次大跌，跌勢加速時多買：均價略低（同一個出場價，所以報酬率也略高），但口數較多；2026 年到目前沒有這個好處",
+      "detail_zh": "從第一次離高點跌 25% 的那週起每週 1 口、共 26 週，跌勢加速（C1）那週再多 1 口。登記指標，過去 5 次：均價低 0.3–2.6%（1973 −2.58%、1975 −0.57%、1980 −0.96%、2008 −1.36%、2013 −0.30%）；26 週報酬多 0.3–3.1 個百分點；52 週報酬率 5 次都較高（報酬率＝出場價 ÷ 均價，出場價相同時，均價較低和報酬率較高是同一件事，不是兩個好處；1973 +35.87% 對 +32.36%、1975 −12.56% 對 −13.06%、1980 −18.35% 對 −19.14%、2008 +24.01% 對 +22.32%、2013 −3.94% 對 −4.23%）。事後補算（未登記）：以「口數」計的 52 週損益，1975（−4.05 對 −3.44）、1980（−5.86 對 −4.72）、2013（−1.32 對 −1.06）加碼版虧得更多，因為多持有 6–9 口（32、34、35 對 26 口），每單位成本的報酬率沒有比較差（5 次均價都較低，同一件事）。每次事件只有一條路徑、共 5 次，沒有誤差界線。2026 年（從 3/16 起，那是第一次離高點 10% 以上、−14.9%；這次還沒跌到 25%）：跌勢加速出現 9 次，均價 4,410.87 對 4,408.98（高 0.04%），26 週報酬 −0.74% 對 −0.70%。"
     },
     {
       "tone": "info",
@@ -49,28 +49,20 @@
   ],
   "policy_impacts": [],
   "theme": "market_structure",
-  "card_summary": "No add-on timing beats an ordinary decline week; buying extra on accelerating falls trims the average cost and enlarges the loss when the decline keeps going.",
-  "title_zh": "補倉時機：跌勢加速、開始反彈、跌深、站回 20 週線，都和一般下跌週分不開；加速時多買均價略低，但續跌時虧更多",
+  "card_summary": "No add-on timing could be told apart from an ordinary decline week; in 5 past episodes (5 paths, no bound) extra lots on accelerating falls gave a slightly lower average cost, and so a slightly higher return at the same exit price, with more lots (a larger absolute loss in the 3 losing episodes, post-hoc).",
+  "title_zh": "補倉時機：跌勢加速、開始反彈、跌深、站回 20 週線，都分不出和一般下跌週的差別；過去 5 次（5 條路徑、無界線），跌勢加速時多買的版本均價略低（同一個出場價，所以報酬率也略高），但口數較多",
   "question_zh": "黃金下跌期間，跌勢加速、開始反彈、跌深、站回 20 週線的那一週，之後的報酬是否比一般下跌週好？也就是說，多補的那一口該放哪一週？",
   "hypothesis_zh": "交易者的想法：跌深的力道增加，或開始有反彈跡象時，可以補兩口。",
-  "card_summary_zh": "沒有補倉時機比一般下跌週好；跌勢加速時多買只讓均價略低，續跌時虧損更大。",
+  "card_summary_zh": "分不出哪種補倉時機比一般下跌週好；過去 5 次（5 條路徑、無界線）跌勢加速時多買，均價略低（同一個出場價，所以報酬率也略高），但口數較多，續跌時絕對虧損較大（事後補算）。",
   "limitations_zh": [
     "只用週收盤；名目美元；沒有持有成本、轉倉、手續費。",
     "未來報酬視窗互相重疊，反彈與均線條件在 52 週只有很少的獨立樣本。",
-    "試算只有過去 5 次事件，2026 年這次還沒結束。"
+    "跌深只有 7 段，而且佔基準的 86%，門檻偏窄、差被稀釋；平均右偏，中位數較低。",
+    "C1–C4＝跌勢加速、開始反彈、跌深、站回 20 週線。「段」＝相隔超過 13 週（登記寫 13 週以上；改用 13 週以上時 C1–C4 為 59／40／8／65 段）。C1 的「前一個 4 週」是前一段不重疊的 4 週；改讀成上週的 4 週報酬，C1 週數較少、26 週差方向相同（事後補算，不在本頁可重現的數字內）。",
+    "試算只有過去 5 次事件，每次一條路徑、沒有誤差界線；2026 年這次還沒結束，起點規則（第一次離高點 10%）是寫程式時才定的，和另外 5 次（第一次跌 25%）不同。口數損益、互補組比較和 C1 另一種讀法是事後補算。"
   ],
-  "interpretation_zh": "沒有一個時機明顯比較好，所以「哪一週多補」不太重要，重要的是「總共補多少」。跌勢加速時多買，均價只低 1% 左右，但在續跌的那幾次（1975、1980、2013）口數變多，虧損跟著變大，和 K-ACC-007 的結論一樣。反彈訊號和站回 20 週線略偏正，但樣本太少。實際上，如果要多補，與其挑時機，不如先決定在最壞情況（像 1980）下總共能承受幾口，並設好減碼線。",
+  "interpretation_zh": "這個樣本分不出哪一種時機比較好（四個條件在 13／26／52 週、兩個對照組下都在門檻內，這是「分不出」，不是證明沒差），所以「哪一週多補」沒有資料上的理由。跌勢加速時多買，過去 5 次（5 條路徑、沒有誤差界線）均價低 0.3–2.6%（平均約 1.2%）；出場價相同，所以 26、52 週報酬率略高是均價較低的另一種說法，不是第二個好處。但口數多 2–9 口，在續跌的 1975、1980、2013 絕對虧損較大（事後補算，非登記指標），這是口數增加造成，不能說明那一週是壞時機。2026 年這次到目前沒有這個好處（均價高 0.04%）。反彈訊號和站回 20 週線的平均略偏正，但樣本少、分布右偏。本研究沒有測試減碼線或總口數上限。",
   "presentation": [
-    {
-      "type": "metrics",
-      "source": "headline",
-      "keys": [
-        "c1_26w_effect_pct",
-        "c1_26w_bound_pct",
-        "c2_26w_effect_pct",
-        "c2_26w_bound_pct"
-      ]
-    },
     {
       "type": "findings",
       "source": "findings"
