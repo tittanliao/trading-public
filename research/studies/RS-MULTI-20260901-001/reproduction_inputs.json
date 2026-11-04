@@ -2,6 +2,18 @@
   "study_id": "RS-MULTI-20260901-001",
   "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
   "inputs": {
+    "local-inputs/TAIFEX_DLY_MXF1!, 1D.csv": {
+      "original_filename": "TAIFEX_DLY_MXF1!, 1D.csv",
+      "sha256": "128543e2a6dc9306bde2096fd0bb96978e1f18b814d3df3fc2a6f3bf0d43123a",
+      "size_bytes": 402606,
+      "role": "price_daily_tx"
+    },
+    "local-inputs/TAIFEX_DLY_MXF1!, 1W.csv": {
+      "original_filename": "TAIFEX_DLY_MXF1!, 1W.csv",
+      "sha256": "61d8e3064626da86e813a1d40c0ccd5e4b71450fadb26c4d96296f72df691304",
+      "size_bytes": 84389,
+      "role": "price_weekly_tx"
+    },
     "local-inputs/XAUUSD_1d.csv": {
       "original_filename": "XAUUSD_1d.csv",
       "sha256": "a3b4b6e5a925162cabd189c46599e7eecbcf941e3e3ab9fc53a56ecd66270cdd",

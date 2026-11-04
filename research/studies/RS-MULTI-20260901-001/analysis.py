@@ -24,8 +24,11 @@ later month, so the last month of every file is dropped rather than half-measure
 """
 from __future__ import annotations
 
+import argparse
 import csv
+import hashlib
 import json
+import subprocess
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -92,12 +95,25 @@ def load(path: Path, start_year: int | None) -> list[dict]:
     return rows
 
 
-def monthly(bars: list[dict]) -> list[dict]:
-    """One record per completed month: first bar's open to last bar's close."""
+# A series' first month is a part-month when the file starts after the month does. Daily:
+# the first bar must fall within the month's first four calendar days (the first trading
+# day is at most the 4th when the 1st is a Friday). Weekly: the first bar must begin on the
+# 1st, i.e. the week that contains the month's first day must be in the file.
+FIRST_MONTH_MAX_DAY = {"daily": 4, "weekly": 1}
+
+
+def monthly(bars: list[dict], grain: str = "daily") -> list[dict]:
+    """One record per completed month: first bar's open to last bar's close.
+
+    The final month is dropped (never known to be complete) and so is the series' first
+    month when the file starts part-way through it (see FIRST_MONTH_MAX_DAY).
+    """
     buckets: dict[tuple[int, int], list[dict]] = defaultdict(list)
     for bar in bars:
         buckets[(bar["date"].year, bar["date"].month)].append(bar)
     keys = sorted(buckets)
+    if keys and buckets[keys[0]][0]["date"].day > FIRST_MONTH_MAX_DAY[grain]:
+        keys = keys[1:]
     out = []
     for year, month in keys[:-1]:          # the final month is never known to be complete
         group = buckets[(year, month)]
@@ -153,18 +169,41 @@ def resolution_bound(records: list[dict], month: int) -> float | None:
     return round(2.802 * sd * (1 / len(a) + 1 / len(b)) ** 0.5, 3)
 
 
+def wilson95(wins: int, n: int) -> list[float]:
+    """Wilson score 95% interval for a win rate, in percent."""
+    z = 1.96
+    p = wins / n
+    denom = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denom
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / denom
+    return [round(100 * (centre - half), 1), round(100 * (centre + half), 1)]
+
+
 def build(key: str, cfg: dict) -> dict:
     path = cfg["path"]
     if not path.is_file():
         raise SystemExit(f"missing input: {path}\n  refresh with: {cfg['refresh']}")
     bars = load(path, cfg["start_year"])
-    records = monthly(bars)
+    records = monthly(bars, cfg["grain"])
     months = by_month(records)
     for month, stats in months.items():
+        sub = [r for r in records if r["month"] == int(month)]
+        rest = [r["change_pct"] for r in records if r["month"] != int(month)]
+        stats["win_rate_wilson95_pct"] = wilson95(sum(1 for r in sub if r["up"]), len(sub))
         stats["min_detectable_pct"] = resolution_bound(records, int(month))
-        stats["separates"] = bool(
-            stats["min_detectable_pct"] is not None
-            and abs(stats["mean_pct"]) > stats["min_detectable_pct"])
+        # The bound is the two-sample one (this month against all other months), so the
+        # quantity compared with it is this month's mean minus the other months' mean.
+        if rest:
+            diff = sum(r["change_pct"] for r in sub) / len(sub) - sum(rest) / len(rest)
+            stats["mean_other_months_pct"] = round(sum(rest) / len(rest), 3)
+            stats["diff_vs_other_months_pct"] = round(diff, 3)
+        else:
+            diff = None
+            stats["mean_other_months_pct"] = None
+            stats["diff_vs_other_months_pct"] = None
+        stats["differs_from_other_months"] = bool(
+            stats["min_detectable_pct"] is not None and diff is not None
+            and abs(diff) > stats["min_detectable_pct"])
     grid: dict[str, dict[str, float]] = defaultdict(dict)
     for r in records:
         grid[str(r["year"])][str(r["month"])] = r["change_pct"]
@@ -192,7 +231,12 @@ def build(key: str, cfg: dict) -> dict:
     }
 
 
+
+
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", type=Path, default=OUT, help="output directory (default: the study folder)")
+    args = ap.parse_args()
     stage_tx()
     built = {key: build(key, cfg) for key, cfg in SERIES.items()}
 
@@ -206,6 +250,7 @@ def main() -> None:
         lo = max(d["first_month"], w["first_month"])
         hi = min(d["last_month"], w["last_month"])
         rows = []
+        raw_gaps = []
         for month in range(1, 13):
             dm = [r["change_pct"] for r in d["records"]
                   if r["month"] == month and lo <= f"{r['year']}-{r['month']:02d}" <= hi]
@@ -213,14 +258,17 @@ def main() -> None:
                   if r["month"] == month and lo <= f"{r['year']}-{r['month']:02d}" <= hi]
             if not dm or not wm:
                 continue
+            d_rate = 100 * sum(1 for v in dm if v > 0) / len(dm)
+            w_rate = 100 * sum(1 for v in wm if v > 0) / len(wm)
+            raw_gaps.append(abs(d_rate - w_rate))      # from unrounded rates
             rows.append({
                 "month": month, "n": len(dm),
-                "daily_win_rate_pct": round(100 * sum(1 for v in dm if v > 0) / len(dm), 2),
-                "weekly_win_rate_pct": round(100 * sum(1 for v in wm if v > 0) / len(wm), 2),
+                "daily_win_rate_pct": round(d_rate, 2),
+                "weekly_win_rate_pct": round(w_rate, 2),
                 "daily_mean_pct": round(sum(dm) / len(dm), 3),
                 "weekly_mean_pct": round(sum(wm) / len(wm), 3),
             })
-        gaps = [abs(r["daily_win_rate_pct"] - r["weekly_win_rate_pct"]) for r in rows]
+        gaps = raw_gaps
         agreement[instrument] = {
             "overlap_from": lo, "overlap_to": hi,
             "mean_absolute_win_rate_gap_pct_points": round(sum(gaps) / len(gaps), 2) if gaps else None,
@@ -235,7 +283,18 @@ def main() -> None:
         "method": {
             "rule": "buy at the first bar's open of each calendar month, sell at the last bar's close",
             "unit": "percent of the month's open price",
-            "incomplete_months": "excluded; the final month of each series is dropped",
+            "incomplete_months": ("excluded: the final month of each series is dropped, and so is "
+                                  "a series' first month when the file starts part-way through it "
+                                  "(daily: first bar after the 4th; weekly: first bar not on the 1st)"),
+            "differs_from_other_months": ("true when |this month's mean - mean of all other months| "
+                                          "exceeds min_detectable_pct (the two-sample bound, alpha "
+                                          "0.05, power 0.80: 2.802 * sd * sqrt(1/n + 1/n_rest)); "
+                                          "not a p-value test and not a multiple-comparison correction"),
+            "win_rate_wilson95_pct": "Wilson score 95% interval of the month's win rate",
+            "continuous_contract": ("TX MXF1! is a rolling front-month continuous contract; roll "
+                                    "adjustments near a month boundary can shift month_open/"
+                                    "month_close independent of real price movement. A limitation "
+                                    "to disclose, not a defect fixed here."),
             "why_daily": ("a weekly bar straddles the month boundary, so a weekly-derived "
                           "month open can belong to the previous month"),
             "xauusd_pre_1980_excluded": ("that part of the export is a close-only "
@@ -253,9 +312,10 @@ def main() -> None:
                 "refresh": SERIES[k]["refresh"]}
             for k, v in built.items()},
         "grain_agreement": agreement,
+        "inputs": "current files on disk",
     }
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n",
+    args.out.mkdir(parents=True, exist_ok=True)
+    (args.out / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n",
                                       encoding="utf-8")
     for key, value in built.items():
         print(f"{key:14s} {value['first_month']}..{value['last_month']}  "
