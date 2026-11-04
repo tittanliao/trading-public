@@ -290,7 +290,7 @@ def round_number_test(bars, sp, rng) -> dict:
         out[key]["pooled"] = run(step, tolerance, 16, (0, len(bars)))
     out["verdict"] = (
         "Not supported. The 100 dollar level is positive in all three periods but never "
-        "significant, pooled p is about 0.17, and the 50 and 25 dollar levels show nothing. "
+        "significant, pooled p is 0.1913, and the 50 and 25 dollar levels show nothing. "
         "A real order-clustering effect would appear at the finer levels too, weaker but "
         "present. Sign consistency without a mechanism is what noise looks like.")
     return out

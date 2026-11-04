@@ -559,7 +559,7 @@
         "largest_abs_excess_t": 1.35,
         "largest_abs_raw_t_if_drift_ignored": 5.88
       },
-      "verdict": "Drift, not patterns. At a 16-bar horizon the raw returns make every pattern look profitable, with t-statistics up to about 5.9; after subtracting the same period's baseline the largest excess t falls to about 1.4. The round-number family is the only one whose sign holds in all three periods, and it is tested separately."
+      "verdict": "Drift, not patterns. At a 16-bar horizon the raw returns make every pattern look profitable, with t-statistics up to about 5.9; after subtracting the same period's baseline the largest excess t falls to about 1.4. Two of the twelve rows (three_down_closes and the 100 dollar round-number row) keep their sign in all three periods; the round-number rows are tested separately."
     },
     "round_number_bootstrap": {
       "level_100_within_10": {
@@ -650,7 +650,7 @@
           "p_value": 0.4303
         }
       },
-      "verdict": "Not supported. The 100 dollar level is positive in all three periods but never significant, pooled p is about 0.17, and the 50 and 25 dollar levels show nothing. A real order-clustering effect would appear at the finer levels too, weaker but present. Sign consistency without a mechanism is what noise looks like."
+      "verdict": "Not supported. The 100 dollar level is positive in all three periods but never significant, pooled p is 0.1913, and the 50 and 25 dollar levels show nothing. A real order-clustering effect would appear at the finer levels too, weaker but present. Sign consistency without a mechanism is what noise looks like."
     },
     "daily_extreme_timing": {
       "day_boundary_hour_taipei": 7,
@@ -901,7 +901,7 @@
           ]
         }
       ],
-      "verdict": "The one family that survives. Daily extremes form at 09:00 and 22:00-23:00 Taipei far more often than a random walk on the same returns produces, and at 04:00-06:00 far less often, with comparable magnitudes in all three periods. It is the intraday volatility profile expressed in a form that can be acted on, and it says nothing about direction."
+      "verdict": "The one family with a timing pattern that partly survives. Under the original comparison (real highs and lows against a shuffled-returns null), daily extremes form at 09:00, 21:00, 22:00 and 23:00 Taipei more often than a random walk on the same returns produces, and at 04:00 less often. When the extreme and the null are both defined from closing prices, only 22:00 and 23:00 pass the same rule: 23:00 holds across Monte Carlo seeds, 22:00 is marginal (it drops out under some seeds), and 09:00, 21:00 and 04:00 depend on how an extreme is defined. The hours were chosen after seeing all three periods, with no multiplicity correction. It says nothing about direction."
     },
     "multi_bar_sequences": {
       "encodings": {
