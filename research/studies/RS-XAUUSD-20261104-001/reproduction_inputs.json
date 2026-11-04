@@ -1,0 +1,90 @@
+{
+  "study_id": "RS-XAUUSD-20261104-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/spx_1d.csv": {
+      "original_filename": "GSPC_1d_to_2026-11-04.csv",
+      "sha256": "bfaf5c147eb299c6824179acf09ee65c378c2dd34a70f499aba8825997d469f5",
+      "size_bytes": 2223062,
+      "role": "spx_1d"
+    },
+    "local-inputs/spx_1d_crosscheck.csv": {
+      "original_filename": "SP500_20261104.csv",
+      "sha256": "26519bd48dcef6e7be87b4d6df130586af7ce3008ca16dd53394091904596f58",
+      "size_bytes": 48884,
+      "role": "spx_1d_crosscheck"
+    },
+    "local-inputs/vix_1d.csv": {
+      "original_filename": "VIX_History_20261104.csv",
+      "sha256": "2b76ef381fbff39fa7a500d4973d01952ccb47368a27b603b88e6bc78e990b42",
+      "size_bytes": 474400,
+      "role": "vix_1d"
+    },
+    "local-inputs/vix_1d_crosscheck.csv": {
+      "original_filename": "VIXCLS_20261104.csv",
+      "sha256": "94dd44a77d3969d0f24a0bea3619aa589f7f1d7787c53403b444b4e4ebf53d17",
+      "size_bytes": 161816,
+      "role": "vix_1d_crosscheck"
+    },
+    "local-inputs/dxy_1d.csv": {
+      "original_filename": "DXY_1d_max_to_2026-11-04.csv",
+      "sha256": "f4434167caa39f69ee19ba2825d9bd5105887a0b19679f89a353123e40e6fb26",
+      "size_bytes": 1187331,
+      "role": "dxy_1d"
+    },
+    "local-inputs/price_1d_frozen.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "e775688033a9a05f624dd134f622ebd6e28a6eda58765b570395f0aa8bf5e8da",
+      "size_bytes": 325206,
+      "role": "price_1d_frozen"
+    },
+    "local-inputs/price_1h_frozen.csv": {
+      "original_filename": "XAUUSD_1h.csv",
+      "sha256": "1518ebe6e5ab74fa52a398308dd86d40a0680abe701bf5768d9d299616dabace",
+      "size_bytes": 246275,
+      "role": "price_1h_frozen"
+    },
+    "local-inputs/price_1d_snapshot_crosscheck.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "1240ac10a2354bd14bcd1ec2ec7634615f835abf408f7281e3789790466904a7",
+      "size_bytes": 314894,
+      "role": "price_1d_snapshot_crosscheck"
+    },
+    "local-inputs/price_1d_independent_crosscheck_2008_2013.csv": {
+      "original_filename": "GC_F_1d_max_20261104.csv",
+      "sha256": "330b9ef865d3cb7e94d9d305acc7fa66078748772f411cf3725a3548689790ca",
+      "size_bytes": 497092,
+      "role": "price_1d_independent_crosscheck_2008_2013"
+    },
+    "local-inputs/spx_1d_existing.csv": {
+      "original_filename": "GSPC_1d.csv",
+      "sha256": "11876c0fb82be7d6a17b3eca47eeeda7779221654a228e8e9033f9ec59621fb1",
+      "size_bytes": 1754758,
+      "role": "spx_1d_existing"
+    },
+    "local-inputs/price_1d_fxidc_frozen.csv": {
+      "original_filename": "FX_IDC_XAUUSD_1D.csv",
+      "sha256": "4e2d2105732d715755f401b46e00f1682bef6e3f64e7a6194fc02bbf73377797",
+      "size_bytes": 142367,
+      "role": "price_1d_fxidc_frozen"
+    },
+    "local-inputs/price_1d_version_826439b.csv": {
+      "original_filename": "XAUUSD_1d_826439b.csv",
+      "sha256": "ddfb57c3203a8000174108464d50023419a49f800a7d6fcce09d49886d2ff98a",
+      "size_bytes": 314261,
+      "role": "price_1d_version_826439b"
+    },
+    "local-inputs/price_1d_version_06d4fd0.csv": {
+      "original_filename": "XAUUSD_1d_06d4fd0.csv",
+      "sha256": "8decb0bc1c6acfb3aa33d69d2898a2b8eaef40350841b8a1f1e9d55ee1e98ab9",
+      "size_bytes": 315573,
+      "role": "price_1d_version_06d4fd0"
+    },
+    "local-inputs/price_1d_version_811f9af.csv": {
+      "original_filename": "XAUUSD_1d_811f9af.csv",
+      "sha256": "385c7bbb9f7275038cc07b4896b1840a2f5dbf84156c2896617acd60369cf1f6",
+      "size_bytes": 315488,
+      "role": "price_1d_version_811f9af"
+    }
+  }
+}

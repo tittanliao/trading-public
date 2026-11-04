@@ -1,0 +1,2217 @@
+{
+  "schema_version": 1,
+  "study_id": "RS-XAUUSD-20261104-001",
+  "generated_at": "2026-11-04T14:48:16+08:00",
+  "limitations": [
+    "Same-day co-movement, not causation. P2's VIX label uses no USD-priced input, but a VIX jump may coincide with dollar strength, so a P2 difference may still run partly through the dollar.",
+    "Gold daily bar (Twelve Data) closes about 1-2 h after the 16:00 ET S&P 500 close; DXY about 1 h after. The 1h stamp convention is not verified, and before the restatement the daily close equalled the 20Z-stamped 1h close. The 1h overlap covers 2026-04 to 2026-10 (US daylight time) only; the boundary in US standard time and before 2026-04 is assumed (the check 2c lead-coefficient comparison supports it only partly).",
+    "Twelve Data restated 2024-05 to 2026-10 (and 24 earlier dates, 646 dates in all) between the 2026-10-10 and 2026-10-17 fetches; the frozen post-restatement version was used and adjudicated against FX_IDC (check 2a). 12 crash days have a revised H0 endpoint; they are not excluded. S-SRC reports the FX_IDC sensitivity.",
+    "105 of 207 crash days are before 2013-07-16 (no FX_IDC overlap); the only independent check of 2008-2013 is Yahoo GC=F (COMEX futures, settlement about 13:30 ET), because Stooq was blocked; it is judged relative to the FX_IDC vs GC=F reference pair (amended check 2c), not against an absolute 0.95.",
+    "2008-2026 only; 1987 and 2000-2002 not covered.",
+    "Crash days cluster; the effective sample is the episode count.",
+    "Checks 2a and 2c were amended after their original thresholds failed. The new thresholds were set after the check values were seen but before any outcome was computed, so passing them means the numbers reproduce; it is not an independent data-quality gate.",
+    "Not fully blind: the S&P 500 crash-day counts and the gold 1h/1d close-time alignment had been looked at before the pre-run checks, and the researcher recalled some crash episodes from memory. No gold, VIX or DXY value on a crash day had been seen before the pre-run checks.",
+    "Secondary results are uncorrected; none is a headline.",
+    "The two secondary results that pass BH (DXY-only split -1.098 pp; S-USD2 c -0.652 per 1 pp of DXY return) are the mechanical effect of gold being priced in US dollars, not coincidence and not safe-haven behaviour: on ordinary days gold is already 0.725 pp lower when the dollar rises (+/-0.059, n=4,478). Read them only next to that baseline. Post-hoc: the DXY-only split net of the baseline is -0.373 pp (bound +/-0.593, not distinguishable); the simple slope of gold H0 on DXY return is -1.00 on ordinary days and -0.72 on crash days (difference not tested).",
+    "The down-day-share interval (45.3-58.5%) bootstraps the crash share minus an iid-resampled ordinary-day share and adds the ordinary-day point share, so it includes baseline sampling error; a pure crash-share bootstrap gives 45.5-58.5% (post-hoc recomputation); same verdict (not distinguishable)."
+  ],
+  "coverage": {
+    "sessions": 4738,
+    "first_session": "2008-01-02",
+    "last_session": "2026-10-30",
+    "crash_days_le_minus2": 207,
+    "episodes_5_session": 107,
+    "episodes_20_session": 49,
+    "single_day_episodes_5_session": 72,
+    "crash_days_le_minus3": 81,
+    "episodes_5_session_le_minus3": 37,
+    "episodes_20_session_le_minus3": 22,
+    "crash_days_before_2013_07_16": 105,
+    "crash_days_gold_H0_missing": 0,
+    "crash_days_vix_missing": 0,
+    "crash_days_dxy_missing": 1,
+    "gold_H0_missing_sessions": 0,
+    "gold_H1_missing_or_beyond_end_sessions": 1
+  },
+  "secondary": [
+    {
+      "label": "H1 close(t)->close(t+1), crash days vs C1",
+      "n_a": 207,
+      "g_a": 107,
+      "mean_a": -0.06608435891405676,
+      "n_b": 4530,
+      "g_b": null,
+      "mean_b": 0.043077531724005295,
+      "diff": -0.10916189063806206,
+      "se": 0.12936240224406906,
+      "crit": 1.96,
+      "bound": 0.25355030839837533,
+      "bound_196": 0.25355030839837533,
+      "resolved": false,
+      "p": 0.39875570457785336,
+      "df": null,
+      "groups": {
+        "crash_days": 207,
+        "episodes": 107,
+        "baseline_days": 4530
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H1 crash(<=-2%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H5 first day of each 20-session episode vs C1",
+      "n_a": 49,
+      "g_a": 49,
+      "mean_a": 0.45055044949266504,
+      "n_b": 4526,
+      "g_b": null,
+      "mean_b": 0.18186090474105088,
+      "diff": 0.26868954475161416,
+      "se": 0.43178654594907123,
+      "crit": 1.96,
+      "bound": 0.8463016300601796,
+      "bound_196": 0.8463016300601796,
+      "resolved": false,
+      "p": 0.5337617088941484,
+      "df": null,
+      "groups": {
+        "crash_first_days": 49,
+        "episodes_20_session": 49,
+        "baseline_days": 4526,
+        "baseline_se": "Newey-West lag 5"
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H5 crash(<=-2%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H20 first day of each 20-session episode vs C1",
+      "n_a": 49,
+      "g_a": 49,
+      "mean_a": 1.6579757136587896,
+      "n_b": 4511,
+      "g_b": null,
+      "mean_b": 0.7321181642131009,
+      "diff": 0.9258575494456887,
+      "se": 0.6976653101189398,
+      "crit": 1.96,
+      "bound": 1.3674240078331221,
+      "bound_196": 1.3674240078331221,
+      "resolved": false,
+      "p": 0.18448228223271657,
+      "df": null,
+      "groups": {
+        "crash_first_days": 49,
+        "episodes_20_session": 49,
+        "baseline_days": 4511,
+        "baseline_se": "Newey-West lag 20"
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H20 crash(<=-2%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H0, <=-3% crash days vs C1",
+      "n_a": 81,
+      "g_a": 37,
+      "mean_a": 0.10162481010648626,
+      "n_b": 4531,
+      "g_b": null,
+      "mean_b": 0.03933395602732847,
+      "diff": 0.06229085407915779,
+      "se": 0.25332972225157274,
+      "crit": 1.96,
+      "bound": 0.49652625561308256,
+      "bound_196": 0.49652625561308256,
+      "resolved": false,
+      "p": 0.8057685808792157,
+      "df": null,
+      "groups": {
+        "crash_days": 81,
+        "episodes": 37,
+        "baseline_days": 4531
+      },
+      "group_size_ok": true,
+      "judged": true,
+      "name": "H0 crash(<=-3%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H1, <=-3% days vs C1",
+      "n_a": 81,
+      "g_a": 37,
+      "mean_a": -0.19920056183162185,
+      "n_b": 4530,
+      "g_b": null,
+      "mean_b": 0.043077531724005295,
+      "diff": -0.24227809355562716,
+      "se": 0.31393271104611387,
+      "crit": 1.96,
+      "bound": 0.6153081136503832,
+      "bound_196": 0.6153081136503832,
+      "resolved": false,
+      "p": 0.440261522246729,
+      "df": null,
+      "groups": {
+        "crash_days": 81,
+        "episodes": 37,
+        "baseline_days": 4530
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H1 crash(<=-3%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H5, <=-3% days vs C1",
+      "n_a": 22,
+      "g_a": 22,
+      "mean_a": 0.006840119087586597,
+      "n_b": 4526,
+      "g_b": null,
+      "mean_b": 0.18186090474105088,
+      "diff": -0.17502078565346427,
+      "se": 0.645104207073544,
+      "crit": 2.0796138447276795,
+      "bound": 1.3415676403222139,
+      "bound_196": 1.2644042458641462,
+      "resolved": false,
+      "p": 0.788804614378058,
+      "df": 21,
+      "groups": {
+        "crash_first_days": 22,
+        "episodes_20_session": 22,
+        "baseline_days": 4526,
+        "baseline_se": "Newey-West lag 5"
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H5 crash(<=-3%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H20, <=-3% days vs C1",
+      "n_a": 22,
+      "g_a": 22,
+      "mean_a": 1.762016914275481,
+      "n_b": 4511,
+      "g_b": null,
+      "mean_b": 0.7321181642131009,
+      "diff": 1.02989875006238,
+      "se": 1.2929350527466,
+      "crit": 2.0796138447276795,
+      "bound": 2.688805636025542,
+      "bound_196": 2.5341527033833358,
+      "resolved": false,
+      "p": 0.4346208299597697,
+      "df": 21,
+      "groups": {
+        "crash_first_days": 22,
+        "episodes_20_session": 22,
+        "baseline_days": 4511,
+        "baseline_se": "Newey-West lag 20"
+      },
+      "judged": true,
+      "group_size_ok": true,
+      "name": "H20 crash(<=-3%) vs non-crash",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H0 crash days vs local non-crash days (+-60 sessions, each day once)",
+      "n_a": 207,
+      "g_a": 107,
+      "mean_a": 0.0293270501033139,
+      "n_b": 3903,
+      "g_b": null,
+      "mean_b": 0.042124878533814594,
+      "diff": -0.012797828430500695,
+      "se": 0.1447597193084011,
+      "crit": 1.96,
+      "bound": 0.2837290498444661,
+      "bound_196": 0.2837290498444661,
+      "resolved": false,
+      "p": 0.929552890839797,
+      "df": null,
+      "groups": {
+        "crash_days": 207,
+        "episodes": 107,
+        "baseline_days": 3903
+      },
+      "group_size_ok": true,
+      "judged": true,
+      "name": "C2 local baseline H0",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "C3 crash vs non-crash within prior-day VIX buckets (<20 / 20-30 / >=30), weighted by crash days",
+      "diff": -0.02621007425886445,
+      "se": 0.1466100297684544,
+      "n_crash": 207,
+      "g": 107,
+      "buckets": [
+        {
+          "bucket": 0,
+          "crash_days": 37,
+          "episodes": 33,
+          "baseline_days": 3017,
+          "weight": 0.178743961352657,
+          "crash_mean": 0.1118026770491545,
+          "baseline_mean": 0.020478369308474662
+        },
+        {
+          "bucket": 1,
+          "crash_days": 85,
+          "episodes": 61,
+          "baseline_days": 1153,
+          "weight": 0.4106280193236715,
+          "crash_mean": -0.16175967447151127,
+          "baseline_mean": 0.08943426357567089
+        },
+        {
+          "bucket": 2,
+          "crash_days": 85,
+          "episodes": 27,
+          "baseline_days": 361,
+          "weight": 0.4106280193236715,
+          "crash_mean": 0.18451261941936126,
+          "baseline_mean": 0.03690085499559201
+        }
+      ],
+      "merge_notes": [],
+      "judged": true,
+      "group_size_ok": true,
+      "crit": 1.96,
+      "bound": 0.2873556583461706,
+      "resolved": false,
+      "p": 0.8581150928220355,
+      "name": "C3 VIX-stratified H0",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "gold down-day share (H0<0), crash days vs C1",
+      "n_crash": 207,
+      "episodes": 107,
+      "crash_share_pct": 51.690821256038646,
+      "baseline_share_pct": 47.16398146104613,
+      "baseline_n": 4531,
+      "wilson_95_pct_reference_only": [
+        44.91467167298253,
+        58.40535625319523
+      ],
+      "bootstrap_crash_share_95_pct": [
+        45.26095321833107,
+        58.46592423808702
+      ],
+      "diff_pp": 4.526839794992519,
+      "resolved": false,
+      "p": 0.17098290170982902,
+      "judged": true,
+      "group_size_ok": true,
+      "name": "down-day share",
+      "note": "verdict: episode-bootstrap 95% interval of the crash-day share excludes the C1 share; Wilson assumes independent days",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H0 crash vs non-crash, 2008-2012",
+      "n_a": 103,
+      "g_a": 46,
+      "mean_a": 0.058790197742960765,
+      "n_b": 1156,
+      "g_b": null,
+      "mean_b": 0.065069592641265,
+      "diff": -0.00627939489830423,
+      "se": 0.23810463459538422,
+      "crit": 1.96,
+      "bound": 0.46668508380695306,
+      "bound_196": 0.46668508380695306,
+      "resolved": false,
+      "p": 0.9789602939206631,
+      "df": null,
+      "groups": {
+        "crash_days": 103,
+        "episodes": 46,
+        "baseline_days": 1156
+      },
+      "group_size_ok": true,
+      "judged": true,
+      "name": "subperiod 2008-2012",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H0 crash vs non-crash, 2013-2019",
+      "n_a": 37,
+      "g_a": 24,
+      "mean_a": 0.3053834819340308,
+      "n_b": 1725,
+      "g_b": null,
+      "mean_b": -0.008028211678833294,
+      "diff": 0.3134116936128641,
+      "se": 0.34607172576875384,
+      "crit": 2.0686576104190486,
+      "bound": 0.7159039092623866,
+      "bound_196": 0.6783005825067575,
+      "resolved": false,
+      "p": 0.37452341486426927,
+      "df": 23,
+      "groups": {
+        "crash_days": 37,
+        "episodes": 24,
+        "baseline_days": 1725
+      },
+      "group_size_ok": true,
+      "judged": true,
+      "name": "subperiod 2013-2019",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "label": "H0 crash vs non-crash, 2020-2026",
+      "n_a": 67,
+      "g_a": 37,
+      "mean_a": -0.1684161168313152,
+      "n_b": 1650,
+      "g_b": null,
+      "mean_b": 0.07081840655303659,
+      "diff": -0.23923452338435178,
+      "se": 0.1880505971490855,
+      "crit": 1.96,
+      "bound": 0.3685791704122076,
+      "bound_196": 0.3685791704122076,
+      "resolved": false,
+      "p": 0.20330857752355458,
+      "df": null,
+      "groups": {
+        "crash_days": 67,
+        "episodes": 37,
+        "baseline_days": 1650
+      },
+      "group_size_ok": true,
+      "judged": true,
+      "name": "subperiod 2020-2026",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "n_1": 129,
+      "g_1": 73,
+      "mean_1": -0.37939220654238937,
+      "n_0": 77,
+      "g_0": 48,
+      "mean_0": 0.7190989288090059,
+      "diff": -1.0984911353513946,
+      "se": 0.3009192942960289,
+      "g_total": 107,
+      "g_a_total": 107,
+      "crit": 1.96,
+      "bound": 0.5898018168202167,
+      "bound_196": 0.5898018168202167,
+      "resolved": true,
+      "p": 0.00026178025983867144,
+      "df": null,
+      "judged": true,
+      "label": "crash days: DXY up minus DXY down, mean H0 (pp)",
+      "groups": {
+        "dxy_up": [
+          129,
+          73
+        ],
+        "dxy_down": [
+          77,
+          48
+        ]
+      },
+      "name": "DXY-only split",
+      "note": "",
+      "bh_pass_q10": true,
+      "verdict_secondary": "分得出（次要、未校正）"
+    },
+    {
+      "n_1": 85,
+      "g_1": 27,
+      "mean_1": 0.18451261941936126,
+      "n_0": 122,
+      "g_0": 87,
+      "mean_0": -0.07879404327262078,
+      "diff": 0.2633066626919822,
+      "se": 0.3021085235009628,
+      "g_total": 107,
+      "g_a_total": 107,
+      "crit": 1.96,
+      "bound": 0.5921327060618871,
+      "bound_196": 0.5921327060618871,
+      "resolved": false,
+      "p": 0.3834467296935532,
+      "df": null,
+      "judged": true,
+      "label": "crash days: prior-day VIX >= 30 minus < 30, mean H0 (pp)",
+      "groups": {
+        "vix_prev_ge30": [
+          85,
+          27
+        ],
+        "vix_prev_lt30": [
+          122,
+          87
+        ]
+      },
+      "name": "VIX-level split",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "n_1": 43,
+      "g_1": 34,
+      "mean_1": -0.6082550040280029,
+      "n_0": 163,
+      "g_0": 85,
+      "mean_0": 0.19990176716275668,
+      "diff": -0.8081567711907597,
+      "se": 0.43307901866264553,
+      "g_total": 107,
+      "g_a_total": 107,
+      "crit": 1.96,
+      "bound": 0.8488348765787852,
+      "bound_196": 0.8488348765787852,
+      "resolved": false,
+      "p": 0.062031247347638235,
+      "df": null,
+      "judged": true,
+      "label": "S-USD1 usd_up_vix_jump minus other crash days, mean H0 (pp)",
+      "net_of_dollar_baseline": {
+        "net_diff": -0.08281512411878122,
+        "se": 0.43412424687631584,
+        "bound_196_or_t": 0.850883523877579,
+        "clears": false
+      },
+      "groups": {
+        "usd_up_vix_jump": [
+          43,
+          34
+        ],
+        "other": [
+          163,
+          85
+        ]
+      },
+      "name": "S-USD1",
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "name": "S-USD2 b (usd_up_vix_jump)",
+      "label": "S-USD2 gold_H0 = a + b*usd_up_vix_jump + c*DXY_return(%), CR1 by episode",
+      "judged": true,
+      "n": 206,
+      "g": 107,
+      "coef": -0.42599478481812747,
+      "se": 0.4509067514804416,
+      "bound": 0.8837772329016655,
+      "resolved": false,
+      "p": 0.34478580884966337,
+      "note": "",
+      "bh_pass_q10": false,
+      "verdict_secondary": "分不出"
+    },
+    {
+      "name": "S-USD2 c (DXY return, per 1 pp)",
+      "label": "S-USD2 gold_H0 = a + b*usd_up_vix_jump + c*DXY_return(%), CR1 by episode",
+      "judged": true,
+      "n": 206,
+      "g": 107,
+      "coef": -0.6524243347170553,
+      "se": 0.2522464809721245,
+      "bound": 0.494403102705364,
+      "resolved": true,
+      "p": 0.00969686497919903,
+      "note": "",
+      "bh_pass_q10": true,
+      "verdict_secondary": "分得出（次要、未校正）"
+    }
+  ],
+  "method_parameters": {
+    "sample": "NYSE sessions 2008-01-02 to 2026-10-30 (fixed)",
+    "crash_primary_pct": -2.0,
+    "crash_secondary_pct": -3.0,
+    "vix_jump": "VIX close(t)/close(t-1)-1 >= +20%, t-1 previous NYSE session",
+    "episode_gap_sessions": [
+      5,
+      20
+    ],
+    "clustered_se": "CR1 G/(G-1)*(N-1)/(N-K)",
+    "primary_critical": "2.2414 or t(0.9875,G-1) when G<30",
+    "secondary_critical": "1.96 or t(0.975,G-1) when G<30",
+    "bootstrap": {
+      "draws": 10000,
+      "seed": 20261104,
+      "unit": "episode",
+      "baseline": "C1 days resampled iid"
+    },
+    "group_size_rule": ">= 20 days and >= 10 episodes",
+    "local_window_sessions": 60,
+    "h5_h20": "first crash day of each 20-session episode (iid SE) vs all non-crash days (Newey-West, lag = horizon)",
+    "implementation_choices_not_fixed_in_registration": [
+      "-3% secondary tests use the primary C1 non-crash baseline (S&P > -2%)",
+      "VIX-level split uses prior-day VIX close(t-1) >= 30",
+      "bootstrap resamples C1 baseline days iid (episodes for the crash side)",
+      "floating-point tolerance 1e-12 on the -2%/-3%/+20% thresholds",
+      "down-day share enters BH with an episode-bootstrap two-sided p-value",
+      "S-USD2 b and c each count as one secondary test",
+      "down-day-share interval = bootstrap of the crash share minus an iid-resampled C1 share, plus the C1 point share"
+    ],
+    "flags": {
+      "dxy_ok": true,
+      "vix_source": "cboe"
+    },
+    "prechecks_amended": "checks 2a and 2c amended 2026-11-04 before any outcome was computed; thresholds unchanged otherwise",
+    "S_SRC": "pre-declared source sensitivity, reported only"
+  },
+  "prechecks": {
+    "check1_gold_day_boundary": {
+      "rule": "better of 20Z/21Z median <= 1.00 USD and <= 1/3 of the 23Z median; days = 1h-overlap days except S&P crash days and the session before",
+      "overlap_days_used": 148,
+      "by_stamp": {
+        "stamp_19Z": {
+          "median_abs_diff_usd": 3.4774600000000646,
+          "n_days": 148
+        },
+        "stamp_20Z": {
+          "median_abs_diff_usd": 0.571324999999888,
+          "n_days": 148
+        },
+        "stamp_21Z": {
+          "median_abs_diff_usd": 0.18616500000007363,
+          "n_days": 148
+        },
+        "stamp_22Z": {
+          "median_abs_diff_usd": 3.4492749999999432,
+          "n_days": 148
+        },
+        "stamp_23Z": {
+          "median_abs_diff_usd": 4.667090000000371,
+          "n_days": 148
+        }
+      },
+      "best_stamp": "stamp_21Z",
+      "pass": true,
+      "action": "none: bar stamped D ends about 1-2 h after the 16:00 ET S&P close (1h stamp convention not verified; before the restatement the daily close equalled the 20Z-stamped 1h close)",
+      "scope_note": "US daylight time only (2026-04-06 to 2026-10-30)."
+    },
+    "check2a_stability_and_fxidc_adjudication": {
+      "amended": "threshold amended 2026-11-04, before any outcome was computed",
+      "stability_vs_post_restatement_fetches": {
+        "06d4fd0": {
+          "shared_dates": 4833,
+          "dates_differing_gt_0p01": 0,
+          "pass": true
+        },
+        "811f9af": {
+          "shared_dates": 4831,
+          "dates_differing_gt_0p01": 0,
+          "pass": true
+        }
+      },
+      "adjudication_vs_fxidc": {
+        "sessions": "NYSE sessions 2022-08-15 to 2026-10-30, crash day +/- 1 session excluded; consecutive-session returns",
+        "frozen_vs_fxidc": {
+          "n_sessions": 992,
+          "corr_returns": 0.9977853042914486,
+          "share_return_diff_gt_1pp_pct": 0.0,
+          "median_abs_diff_pct_of_close": 0.021443431642504323
+        },
+        "same_sessions_as_pre_restatement_version": {
+          "n_sessions": 977,
+          "frozen_share_gt_1pp_pct": 0.0,
+          "pre_restatement_826439b_share_gt_1pp_pct": 0.9211873080859775,
+          "pre_restatement_corr_returns": 0.9830887615094557
+        }
+      },
+      "disclosed_not_gates": {
+        "vs_2026_08_24_snapshot": {
+          "shared_dates": 4849,
+          "revised_dates_gt_0p01": 612,
+          "returns_shifted_gt_0p10pp_shared_rows": 241,
+          "returns_shifted_gt_0p10pp_sessions_not_excluded": 219,
+          "returns_shifted_gt_0p10pp_sessions_crash_pm1": 14,
+          "snapshot_last_bar": "2026-08-24",
+          "snapshot_last_bar_incomplete": true,
+          "note": "snapshot taken 2026-08-24 15:00Z; its last bar was not closed"
+        },
+        "crash_days_with_revised_H0_endpoint_vs_826439b": {
+          "count": 12,
+          "by_year": {
+            "2024": 4,
+            "2025": 6,
+            "2026": 2
+          },
+          "excluded_from_sample": false
+        }
+      },
+      "pass": true,
+      "action": "none: frozen file equals the post-restatement fetches and agrees with FX_IDC"
+    },
+    "check2b_fxidc_2013_07_16_on": {
+      "n_sessions": 3344,
+      "corr_returns": 0.997511011669346,
+      "median_abs_diff_pct_of_close": 0.026613247608190446,
+      "share_return_diff_gt_1pp_pct": 0.0,
+      "pass": true,
+      "action": "none"
+    },
+    "check2c_relative_2008_2013": {
+      "source": "Yahoo GC=F (registered fallback; Stooq returned a JavaScript bot-challenge page on 2026-11-04)",
+      "sessions": "NYSE sessions, crash day +/- 1 session excluded; consecutive-session returns",
+      "reference_pair_fxidc_vs_gc_2013_07_16_on": {
+        "n_sessions": 3068,
+        "corr_returns": 0.8846732121964177,
+        "share_return_diff_gt_1pp_pct": 4.758800521512386,
+        "median_abs_diff_pct_of_close": 0.19711039753015488,
+        "lead": {
+          "daylight": {
+            "n_sessions": 2037,
+            "b0": 0.8537659347986034,
+            "b1": 0.13432091354305076
+          },
+          "standard": {
+            "n_sessions": 1027,
+            "b0": 0.8971838354551764,
+            "b1": 0.09957416179688502
+          }
+        }
+      },
+      "test_pair_twelvedata_vs_gc_2008_01_02_to_2013_07_15": {
+        "n_sessions": 1122,
+        "corr_returns": 0.8986028068765355,
+        "share_return_diff_gt_1pp_pct": 4.545454545454546,
+        "median_abs_diff_pct_of_close": 0.15111831081981378,
+        "lead": {
+          "daylight": {
+            "n_sessions": 743,
+            "b0": 0.855892522712187,
+            "b1": 0.14436119156764707
+          },
+          "standard": {
+            "n_sessions": 379,
+            "b0": 0.9205928006609275,
+            "b1": 0.07664047111774239
+          }
+        }
+      },
+      "context_twelvedata_vs_fxidc_reference_sessions": {
+        "n_sessions": 3074,
+        "corr_returns": 0.9974676400358375,
+        "share_return_diff_gt_1pp_pct": 0.0,
+        "median_abs_diff_pct_of_close": 0.02646671056123471
+      },
+      "conditions": {
+        "a_corr_ge_ref_minus_0p03": true,
+        "b_share_le_ref_plus_1pp": true,
+        "c_lead_b1_within_0p05": {
+          "daylight": true,
+          "standard": true
+        }
+      },
+      "pass": true,
+      "action": "none"
+    },
+    "check3_vix": {
+      "shared_dates": 9307,
+      "share_within_0p01": 1.0,
+      "share_gt_0p05": 0.0,
+      "cboe_missing_sample_sessions_pct": 0.0,
+      "pass": true,
+      "action": "none: Cboe used"
+    },
+    "check4_spx": {
+      "shared_dates": 19320,
+      "identical_within_0p01_share": 1.0,
+      "same_crash_list_on_overlap": true,
+      "fred_sp500_dates_compared": 2510,
+      "fred_classification_differences": 0,
+      "pass": true,
+      "action": "none"
+    },
+    "check5_dxy_coverage": {
+      "missing_share_sample_sessions_pct": 1.1397214014352046,
+      "stale_sessions": 50,
+      "crash_days_missing_dxy": 1,
+      "crash_days": 207,
+      "pass": true,
+      "action": "none"
+    }
+  },
+  "baseline_C1": {
+    "n_days": 4531,
+    "mean_H0_pct": 0.03933395602732847,
+    "sd_pct": 1.068677099596519,
+    "down_share_pct": 47.16398146104613,
+    "up_share_pct": 52.747737806223796
+  },
+  "all_days_descriptive": {
+    "n_days": 4738,
+    "mean_H0_pct": 0.03889676110831813
+  },
+  "crash_days_descriptive": {
+    "n_days": 207,
+    "episodes": 107,
+    "mean_H0_pct": 0.0293270501033139,
+    "median_H0_pct": -0.08226039353556036,
+    "sd_pct": 2.0808163893690543,
+    "gold_up_days": 100,
+    "gold_down_days": 107,
+    "gold_up_share_pct": 48.309178743961354
+  },
+  "P1": {
+    "label": "P1 crash-day H0 minus C1 H0 (percentage points)",
+    "n_a": 207,
+    "g_a": 107,
+    "mean_a": 0.0293270501033139,
+    "n_b": 4531,
+    "g_b": null,
+    "mean_b": 0.03933395602732847,
+    "diff": -0.01000690592401457,
+    "se": 0.1445612611478776,
+    "crit": 2.2414,
+    "bound": 0.32401961073685287,
+    "bound_196": 0.28334007184984006,
+    "resolved": false,
+    "p": 0.9448124364337092,
+    "df": null,
+    "judged": true,
+    "verdict": "分不出",
+    "bootstrap_98p75": [
+      -0.3411011565279848,
+      0.29990393084461975
+    ],
+    "bootstrap_valid_draws": 10000,
+    "bootstrap_95": [
+      -0.29493348651075696,
+      0.26339457819168277
+    ],
+    "bootstrap_excludes_zero_primary": false,
+    "episode_equal_weight": {
+      "episodes": 107,
+      "mean_of_episode_means": -0.10544737220941593,
+      "diff": -0.1447813282367444,
+      "se": 0.16618299798992228,
+      "bound": 0.3724825716946118,
+      "resolved": false
+    },
+    "fragility": {
+      "removals": 107,
+      "verdict_flips": 0,
+      "flipping_episodes": []
+    }
+  },
+  "P2_counts": {
+    "crash_days_in_regression": 207,
+    "dropped_gold_missing": 0,
+    "dropped_vix_missing": 0,
+    "vix_jump_days": 70,
+    "vix_jump_episodes": 51,
+    "other_days": 137,
+    "other_episodes": 71,
+    "episodes_in_regression": 107
+  },
+  "P2": {
+    "n_1": 70,
+    "g_1": 51,
+    "mean_1": -0.1371880723977462,
+    "n_0": 137,
+    "g_0": 71,
+    "mean_0": 0.11440776962940301,
+    "diff": -0.25159584202714913,
+    "se": 0.3017425407166592,
+    "g_total": 107,
+    "g_a_total": 107,
+    "crit": 2.2414,
+    "bound": 0.6763257307623199,
+    "bound_196": 0.591415379804652,
+    "resolved": false,
+    "p": 0.4043882570247649,
+    "df": null,
+    "judged": true,
+    "label": "P2 mean H0 of VIX-jump crash days minus other crash days (percentage points)",
+    "verdict": "分不出",
+    "group_size": {
+      "vix_jump": [
+        70,
+        51
+      ],
+      "other": [
+        137,
+        71
+      ],
+      "min_days": 20,
+      "min_episodes": 10
+    },
+    "bootstrap_98p75": [
+      -0.9385055018108381,
+      0.43584949206442253
+    ],
+    "bootstrap_valid_draws": 10000,
+    "bootstrap_95": [
+      -0.8565358722801885,
+      0.3448730788991299
+    ],
+    "bootstrap_excludes_zero_primary": false,
+    "episode_equal_weight": {
+      "episodes_vix_jump": 51,
+      "episodes_other": 71,
+      "diff": -0.3952090008832555,
+      "se": 0.3537838302604891,
+      "bound": 0.7929710771458602,
+      "resolved": false,
+      "note": "SE ignores the covariance of groups sharing an episode; sensitivity only"
+    },
+    "fragility": {
+      "removals": 107,
+      "verdict_flips": 0,
+      "flipping_episodes": []
+    },
+    "dxy_up_share_by_group": {
+      "vix_jump": {
+        "n_with_dxy": 70,
+        "dxy_up": 43,
+        "share_pct": 61.42857142857143
+      },
+      "other": {
+        "n_with_dxy": 136,
+        "dxy_up": 86,
+        "share_pct": 63.23529411764706
+      }
+    }
+  },
+  "dollar_baseline_non_crash": {
+    "dxy_up_days": 2244,
+    "dxy_down_days": 2234,
+    "mean_up_pct": -0.32087316087329915,
+    "mean_down_pct": 0.40446848619867937,
+    "diff": -0.7253416470719785,
+    "se": 0.030106898214999192,
+    "bound_196": 0.05900952050139842
+  },
+  "sensitivity_S_SRC": {
+    "definition": "gold = Twelve Data XAU/USD before 2013-07-16, FX_IDC:XAUUSD from 2013-07-16; all else as the primary run; H0 of the 2013-07-16 session spans the junction",
+    "P1": {
+      "judged": true,
+      "verdict": "分不出",
+      "diff": -0.014335230400564704,
+      "bound": 0.32377069560380445,
+      "bound_196": 0.28312240714886083,
+      "resolved": false,
+      "fragility_flips": 0,
+      "flipping_episodes": [],
+      "primary_diff": -0.01000690592401457,
+      "primary_verdict": "分不出",
+      "crash_days": 207,
+      "episodes": 107,
+      "mean_crash_H0_pct": 0.025152175391669446,
+      "mean_C1_H0_pct": 0.03948740579223415,
+      "bootstrap_98p75": [
+        -0.34322820769495527,
+        0.29242794808536854
+      ],
+      "flips_primary_verdict": false
+    },
+    "P2": {
+      "judged": true,
+      "verdict": "分不出",
+      "diff": -0.25192672140654093,
+      "bound": 0.675625083998196,
+      "bound_196": 0.5908026968129134,
+      "resolved": false,
+      "fragility_flips": 0,
+      "flipping_episodes": [],
+      "primary_diff": -0.25159584202714913,
+      "primary_verdict": "分不出",
+      "n_vix_jump": 70,
+      "g_vix_jump": 51,
+      "mean_vix_jump": -0.14158193491121032,
+      "n_other": 137,
+      "g_other": 71,
+      "mean_other": 0.1103447864953307,
+      "bootstrap_98p75": [
+        -0.9374183954666808,
+        0.4374739512714194
+      ],
+      "flips_primary_verdict": false
+    },
+    "claim_rows": {
+      "P1": "P1_not_cleared",
+      "P2": "P2_not_cleared",
+      "title": "美股大跌時，黃金會跟著跌嗎？2008 年以來的 207 天",
+      "P1_fragile": false,
+      "P2_fragile": false
+    },
+    "any_primary_verdict_flipped": false,
+    "sentence_if_flipped": "這個結論對黃金資料來源敏感：換成另一家報價，結果變成 ⟨…⟩"
+  },
+  "secondary_summary": {
+    "tests_judged": 18,
+    "cleared_uncorrected": 2,
+    "bh_q10_pass": 2,
+    "chance_expectation_pct": 5,
+    "descriptive_only": 0
+  },
+  "crash_dates_le_minus2": [
+    "2008-01-04",
+    "2008-01-15",
+    "2008-01-17",
+    "2008-02-05",
+    "2008-02-29",
+    "2008-03-06",
+    "2008-03-14",
+    "2008-03-19",
+    "2008-04-11",
+    "2008-06-06",
+    "2008-06-26",
+    "2008-07-09",
+    "2008-07-24",
+    "2008-09-04",
+    "2008-09-09",
+    "2008-09-15",
+    "2008-09-17",
+    "2008-09-22",
+    "2008-09-29",
+    "2008-10-02",
+    "2008-10-06",
+    "2008-10-07",
+    "2008-10-09",
+    "2008-10-15",
+    "2008-10-21",
+    "2008-10-22",
+    "2008-10-24",
+    "2008-10-27",
+    "2008-11-05",
+    "2008-11-06",
+    "2008-11-11",
+    "2008-11-12",
+    "2008-11-14",
+    "2008-11-17",
+    "2008-11-19",
+    "2008-11-20",
+    "2008-12-01",
+    "2008-12-04",
+    "2008-12-09",
+    "2008-12-11",
+    "2008-12-18",
+    "2009-01-07",
+    "2009-01-09",
+    "2009-01-12",
+    "2009-01-14",
+    "2009-01-20",
+    "2009-01-29",
+    "2009-01-30",
+    "2009-02-10",
+    "2009-02-17",
+    "2009-02-23",
+    "2009-02-27",
+    "2009-03-02",
+    "2009-03-05",
+    "2009-03-24",
+    "2009-03-27",
+    "2009-03-30",
+    "2009-04-07",
+    "2009-04-14",
+    "2009-04-20",
+    "2009-05-11",
+    "2009-05-13",
+    "2009-06-15",
+    "2009-06-22",
+    "2009-07-02",
+    "2009-08-17",
+    "2009-09-01",
+    "2009-10-01",
+    "2009-10-30",
+    "2010-01-22",
+    "2010-02-04",
+    "2010-04-27",
+    "2010-05-04",
+    "2010-05-06",
+    "2010-05-20",
+    "2010-06-04",
+    "2010-06-29",
+    "2010-07-16",
+    "2010-08-11",
+    "2011-02-22",
+    "2011-06-01",
+    "2011-07-27",
+    "2011-08-02",
+    "2011-08-04",
+    "2011-08-08",
+    "2011-08-10",
+    "2011-08-18",
+    "2011-09-02",
+    "2011-09-09",
+    "2011-09-21",
+    "2011-09-22",
+    "2011-09-28",
+    "2011-09-30",
+    "2011-10-03",
+    "2011-10-25",
+    "2011-10-31",
+    "2011-11-01",
+    "2011-11-09",
+    "2011-11-23",
+    "2011-12-08",
+    "2012-06-01",
+    "2012-06-21",
+    "2012-11-07",
+    "2013-04-15",
+    "2013-06-20",
+    "2014-01-24",
+    "2014-02-03",
+    "2014-04-10",
+    "2014-10-09",
+    "2015-06-29",
+    "2015-08-20",
+    "2015-08-21",
+    "2015-08-24",
+    "2015-09-01",
+    "2015-09-28",
+    "2016-01-07",
+    "2016-01-13",
+    "2016-01-15",
+    "2016-06-24",
+    "2016-09-09",
+    "2018-02-02",
+    "2018-02-05",
+    "2018-02-08",
+    "2018-03-22",
+    "2018-03-23",
+    "2018-04-02",
+    "2018-04-06",
+    "2018-10-10",
+    "2018-10-11",
+    "2018-10-24",
+    "2018-12-04",
+    "2018-12-07",
+    "2018-12-17",
+    "2018-12-21",
+    "2018-12-24",
+    "2019-01-03",
+    "2019-05-13",
+    "2019-08-05",
+    "2019-08-14",
+    "2019-08-23",
+    "2020-02-24",
+    "2020-02-25",
+    "2020-02-27",
+    "2020-03-03",
+    "2020-03-05",
+    "2020-03-09",
+    "2020-03-11",
+    "2020-03-12",
+    "2020-03-16",
+    "2020-03-18",
+    "2020-03-20",
+    "2020-03-23",
+    "2020-03-27",
+    "2020-04-01",
+    "2020-04-15",
+    "2020-04-21",
+    "2020-05-01",
+    "2020-05-12",
+    "2020-06-11",
+    "2020-06-24",
+    "2020-06-26",
+    "2020-09-03",
+    "2020-09-08",
+    "2020-09-23",
+    "2020-10-28",
+    "2021-01-27",
+    "2021-02-25",
+    "2021-05-12",
+    "2021-09-28",
+    "2021-11-26",
+    "2022-02-03",
+    "2022-02-17",
+    "2022-03-07",
+    "2022-04-22",
+    "2022-04-26",
+    "2022-04-29",
+    "2022-05-05",
+    "2022-05-09",
+    "2022-05-18",
+    "2022-06-09",
+    "2022-06-10",
+    "2022-06-13",
+    "2022-06-16",
+    "2022-06-28",
+    "2022-08-22",
+    "2022-08-26",
+    "2022-09-13",
+    "2022-09-29",
+    "2022-10-07",
+    "2022-10-14",
+    "2022-11-02",
+    "2022-11-09",
+    "2022-12-15",
+    "2023-02-21",
+    "2024-07-24",
+    "2024-08-05",
+    "2024-09-03",
+    "2024-12-18",
+    "2025-03-10",
+    "2025-04-03",
+    "2025-04-04",
+    "2025-04-10",
+    "2025-04-16",
+    "2025-04-21",
+    "2025-10-10",
+    "2026-01-20",
+    "2026-06-05"
+  ],
+  "crash_dates_le_minus3": [
+    "2008-02-05",
+    "2008-06-06",
+    "2008-09-09",
+    "2008-09-15",
+    "2008-09-17",
+    "2008-09-22",
+    "2008-09-29",
+    "2008-10-02",
+    "2008-10-06",
+    "2008-10-07",
+    "2008-10-09",
+    "2008-10-15",
+    "2008-10-21",
+    "2008-10-22",
+    "2008-10-24",
+    "2008-10-27",
+    "2008-11-05",
+    "2008-11-06",
+    "2008-11-12",
+    "2008-11-14",
+    "2008-11-19",
+    "2008-11-20",
+    "2008-12-01",
+    "2009-01-07",
+    "2009-01-14",
+    "2009-01-20",
+    "2009-01-29",
+    "2009-02-10",
+    "2009-02-17",
+    "2009-02-23",
+    "2009-03-02",
+    "2009-03-05",
+    "2009-03-30",
+    "2009-04-20",
+    "2009-06-22",
+    "2010-02-04",
+    "2010-05-06",
+    "2010-05-20",
+    "2010-06-04",
+    "2010-06-29",
+    "2011-08-04",
+    "2011-08-08",
+    "2011-08-10",
+    "2011-08-18",
+    "2011-09-22",
+    "2011-11-09",
+    "2015-08-21",
+    "2015-08-24",
+    "2016-06-24",
+    "2018-02-05",
+    "2018-02-08",
+    "2018-10-10",
+    "2018-10-24",
+    "2018-12-04",
+    "2020-02-24",
+    "2020-02-25",
+    "2020-02-27",
+    "2020-03-05",
+    "2020-03-09",
+    "2020-03-11",
+    "2020-03-12",
+    "2020-03-16",
+    "2020-03-18",
+    "2020-03-20",
+    "2020-03-27",
+    "2020-04-01",
+    "2020-04-21",
+    "2020-06-11",
+    "2020-09-03",
+    "2020-10-28",
+    "2022-04-29",
+    "2022-05-05",
+    "2022-05-09",
+    "2022-05-18",
+    "2022-06-13",
+    "2022-06-16",
+    "2022-08-26",
+    "2022-09-13",
+    "2025-04-03",
+    "2025-04-04",
+    "2025-04-10"
+  ],
+  "episodes_5_session": [
+    {
+      "episode": 0,
+      "first": "2008-01-04",
+      "last": "2008-01-04",
+      "days": 1
+    },
+    {
+      "episode": 1,
+      "first": "2008-01-15",
+      "last": "2008-01-17",
+      "days": 2
+    },
+    {
+      "episode": 2,
+      "first": "2008-02-05",
+      "last": "2008-02-05",
+      "days": 1
+    },
+    {
+      "episode": 3,
+      "first": "2008-02-29",
+      "last": "2008-03-06",
+      "days": 2
+    },
+    {
+      "episode": 4,
+      "first": "2008-03-14",
+      "last": "2008-03-19",
+      "days": 2
+    },
+    {
+      "episode": 5,
+      "first": "2008-04-11",
+      "last": "2008-04-11",
+      "days": 1
+    },
+    {
+      "episode": 6,
+      "first": "2008-06-06",
+      "last": "2008-06-06",
+      "days": 1
+    },
+    {
+      "episode": 7,
+      "first": "2008-06-26",
+      "last": "2008-06-26",
+      "days": 1
+    },
+    {
+      "episode": 8,
+      "first": "2008-07-09",
+      "last": "2008-07-09",
+      "days": 1
+    },
+    {
+      "episode": 9,
+      "first": "2008-07-24",
+      "last": "2008-07-24",
+      "days": 1
+    },
+    {
+      "episode": 10,
+      "first": "2008-09-04",
+      "last": "2008-10-27",
+      "days": 15
+    },
+    {
+      "episode": 11,
+      "first": "2008-11-05",
+      "last": "2008-11-20",
+      "days": 8
+    },
+    {
+      "episode": 12,
+      "first": "2008-12-01",
+      "last": "2008-12-18",
+      "days": 5
+    },
+    {
+      "episode": 13,
+      "first": "2009-01-07",
+      "last": "2009-01-20",
+      "days": 5
+    },
+    {
+      "episode": 14,
+      "first": "2009-01-29",
+      "last": "2009-01-30",
+      "days": 2
+    },
+    {
+      "episode": 15,
+      "first": "2009-02-10",
+      "last": "2009-03-05",
+      "days": 6
+    },
+    {
+      "episode": 16,
+      "first": "2009-03-24",
+      "last": "2009-03-30",
+      "days": 3
+    },
+    {
+      "episode": 17,
+      "first": "2009-04-07",
+      "last": "2009-04-20",
+      "days": 3
+    },
+    {
+      "episode": 18,
+      "first": "2009-05-11",
+      "last": "2009-05-13",
+      "days": 2
+    },
+    {
+      "episode": 19,
+      "first": "2009-06-15",
+      "last": "2009-06-22",
+      "days": 2
+    },
+    {
+      "episode": 20,
+      "first": "2009-07-02",
+      "last": "2009-07-02",
+      "days": 1
+    },
+    {
+      "episode": 21,
+      "first": "2009-08-17",
+      "last": "2009-08-17",
+      "days": 1
+    },
+    {
+      "episode": 22,
+      "first": "2009-09-01",
+      "last": "2009-09-01",
+      "days": 1
+    },
+    {
+      "episode": 23,
+      "first": "2009-10-01",
+      "last": "2009-10-01",
+      "days": 1
+    },
+    {
+      "episode": 24,
+      "first": "2009-10-30",
+      "last": "2009-10-30",
+      "days": 1
+    },
+    {
+      "episode": 25,
+      "first": "2010-01-22",
+      "last": "2010-01-22",
+      "days": 1
+    },
+    {
+      "episode": 26,
+      "first": "2010-02-04",
+      "last": "2010-02-04",
+      "days": 1
+    },
+    {
+      "episode": 27,
+      "first": "2010-04-27",
+      "last": "2010-05-06",
+      "days": 3
+    },
+    {
+      "episode": 28,
+      "first": "2010-05-20",
+      "last": "2010-05-20",
+      "days": 1
+    },
+    {
+      "episode": 29,
+      "first": "2010-06-04",
+      "last": "2010-06-04",
+      "days": 1
+    },
+    {
+      "episode": 30,
+      "first": "2010-06-29",
+      "last": "2010-06-29",
+      "days": 1
+    },
+    {
+      "episode": 31,
+      "first": "2010-07-16",
+      "last": "2010-07-16",
+      "days": 1
+    },
+    {
+      "episode": 32,
+      "first": "2010-08-11",
+      "last": "2010-08-11",
+      "days": 1
+    },
+    {
+      "episode": 33,
+      "first": "2011-02-22",
+      "last": "2011-02-22",
+      "days": 1
+    },
+    {
+      "episode": 34,
+      "first": "2011-06-01",
+      "last": "2011-06-01",
+      "days": 1
+    },
+    {
+      "episode": 35,
+      "first": "2011-07-27",
+      "last": "2011-08-10",
+      "days": 5
+    },
+    {
+      "episode": 36,
+      "first": "2011-08-18",
+      "last": "2011-08-18",
+      "days": 1
+    },
+    {
+      "episode": 37,
+      "first": "2011-09-02",
+      "last": "2011-09-09",
+      "days": 2
+    },
+    {
+      "episode": 38,
+      "first": "2011-09-21",
+      "last": "2011-10-03",
+      "days": 5
+    },
+    {
+      "episode": 39,
+      "first": "2011-10-25",
+      "last": "2011-11-01",
+      "days": 3
+    },
+    {
+      "episode": 40,
+      "first": "2011-11-09",
+      "last": "2011-11-09",
+      "days": 1
+    },
+    {
+      "episode": 41,
+      "first": "2011-11-23",
+      "last": "2011-11-23",
+      "days": 1
+    },
+    {
+      "episode": 42,
+      "first": "2011-12-08",
+      "last": "2011-12-08",
+      "days": 1
+    },
+    {
+      "episode": 43,
+      "first": "2012-06-01",
+      "last": "2012-06-01",
+      "days": 1
+    },
+    {
+      "episode": 44,
+      "first": "2012-06-21",
+      "last": "2012-06-21",
+      "days": 1
+    },
+    {
+      "episode": 45,
+      "first": "2012-11-07",
+      "last": "2012-11-07",
+      "days": 1
+    },
+    {
+      "episode": 46,
+      "first": "2013-04-15",
+      "last": "2013-04-15",
+      "days": 1
+    },
+    {
+      "episode": 47,
+      "first": "2013-06-20",
+      "last": "2013-06-20",
+      "days": 1
+    },
+    {
+      "episode": 48,
+      "first": "2014-01-24",
+      "last": "2014-01-24",
+      "days": 1
+    },
+    {
+      "episode": 49,
+      "first": "2014-02-03",
+      "last": "2014-02-03",
+      "days": 1
+    },
+    {
+      "episode": 50,
+      "first": "2014-04-10",
+      "last": "2014-04-10",
+      "days": 1
+    },
+    {
+      "episode": 51,
+      "first": "2014-10-09",
+      "last": "2014-10-09",
+      "days": 1
+    },
+    {
+      "episode": 52,
+      "first": "2015-06-29",
+      "last": "2015-06-29",
+      "days": 1
+    },
+    {
+      "episode": 53,
+      "first": "2015-08-20",
+      "last": "2015-08-24",
+      "days": 3
+    },
+    {
+      "episode": 54,
+      "first": "2015-09-01",
+      "last": "2015-09-01",
+      "days": 1
+    },
+    {
+      "episode": 55,
+      "first": "2015-09-28",
+      "last": "2015-09-28",
+      "days": 1
+    },
+    {
+      "episode": 56,
+      "first": "2016-01-07",
+      "last": "2016-01-15",
+      "days": 3
+    },
+    {
+      "episode": 57,
+      "first": "2016-06-24",
+      "last": "2016-06-24",
+      "days": 1
+    },
+    {
+      "episode": 58,
+      "first": "2016-09-09",
+      "last": "2016-09-09",
+      "days": 1
+    },
+    {
+      "episode": 59,
+      "first": "2018-02-02",
+      "last": "2018-02-08",
+      "days": 3
+    },
+    {
+      "episode": 60,
+      "first": "2018-03-22",
+      "last": "2018-04-06",
+      "days": 4
+    },
+    {
+      "episode": 61,
+      "first": "2018-10-10",
+      "last": "2018-10-11",
+      "days": 2
+    },
+    {
+      "episode": 62,
+      "first": "2018-10-24",
+      "last": "2018-10-24",
+      "days": 1
+    },
+    {
+      "episode": 63,
+      "first": "2018-12-04",
+      "last": "2018-12-07",
+      "days": 2
+    },
+    {
+      "episode": 64,
+      "first": "2018-12-17",
+      "last": "2018-12-24",
+      "days": 3
+    },
+    {
+      "episode": 65,
+      "first": "2019-01-03",
+      "last": "2019-01-03",
+      "days": 1
+    },
+    {
+      "episode": 66,
+      "first": "2019-05-13",
+      "last": "2019-05-13",
+      "days": 1
+    },
+    {
+      "episode": 67,
+      "first": "2019-08-05",
+      "last": "2019-08-05",
+      "days": 1
+    },
+    {
+      "episode": 68,
+      "first": "2019-08-14",
+      "last": "2019-08-14",
+      "days": 1
+    },
+    {
+      "episode": 69,
+      "first": "2019-08-23",
+      "last": "2019-08-23",
+      "days": 1
+    },
+    {
+      "episode": 70,
+      "first": "2020-02-24",
+      "last": "2020-04-01",
+      "days": 14
+    },
+    {
+      "episode": 71,
+      "first": "2020-04-15",
+      "last": "2020-04-21",
+      "days": 2
+    },
+    {
+      "episode": 72,
+      "first": "2020-05-01",
+      "last": "2020-05-01",
+      "days": 1
+    },
+    {
+      "episode": 73,
+      "first": "2020-05-12",
+      "last": "2020-05-12",
+      "days": 1
+    },
+    {
+      "episode": 74,
+      "first": "2020-06-11",
+      "last": "2020-06-11",
+      "days": 1
+    },
+    {
+      "episode": 75,
+      "first": "2020-06-24",
+      "last": "2020-06-26",
+      "days": 2
+    },
+    {
+      "episode": 76,
+      "first": "2020-09-03",
+      "last": "2020-09-08",
+      "days": 2
+    },
+    {
+      "episode": 77,
+      "first": "2020-09-23",
+      "last": "2020-09-23",
+      "days": 1
+    },
+    {
+      "episode": 78,
+      "first": "2020-10-28",
+      "last": "2020-10-28",
+      "days": 1
+    },
+    {
+      "episode": 79,
+      "first": "2021-01-27",
+      "last": "2021-01-27",
+      "days": 1
+    },
+    {
+      "episode": 80,
+      "first": "2021-02-25",
+      "last": "2021-02-25",
+      "days": 1
+    },
+    {
+      "episode": 81,
+      "first": "2021-05-12",
+      "last": "2021-05-12",
+      "days": 1
+    },
+    {
+      "episode": 82,
+      "first": "2021-09-28",
+      "last": "2021-09-28",
+      "days": 1
+    },
+    {
+      "episode": 83,
+      "first": "2021-11-26",
+      "last": "2021-11-26",
+      "days": 1
+    },
+    {
+      "episode": 84,
+      "first": "2022-02-03",
+      "last": "2022-02-03",
+      "days": 1
+    },
+    {
+      "episode": 85,
+      "first": "2022-02-17",
+      "last": "2022-02-17",
+      "days": 1
+    },
+    {
+      "episode": 86,
+      "first": "2022-03-07",
+      "last": "2022-03-07",
+      "days": 1
+    },
+    {
+      "episode": 87,
+      "first": "2022-04-22",
+      "last": "2022-05-09",
+      "days": 5
+    },
+    {
+      "episode": 88,
+      "first": "2022-05-18",
+      "last": "2022-05-18",
+      "days": 1
+    },
+    {
+      "episode": 89,
+      "first": "2022-06-09",
+      "last": "2022-06-16",
+      "days": 4
+    },
+    {
+      "episode": 90,
+      "first": "2022-06-28",
+      "last": "2022-06-28",
+      "days": 1
+    },
+    {
+      "episode": 91,
+      "first": "2022-08-22",
+      "last": "2022-08-26",
+      "days": 2
+    },
+    {
+      "episode": 92,
+      "first": "2022-09-13",
+      "last": "2022-09-13",
+      "days": 1
+    },
+    {
+      "episode": 93,
+      "first": "2022-09-29",
+      "last": "2022-09-29",
+      "days": 1
+    },
+    {
+      "episode": 94,
+      "first": "2022-10-07",
+      "last": "2022-10-14",
+      "days": 2
+    },
+    {
+      "episode": 95,
+      "first": "2022-11-02",
+      "last": "2022-11-09",
+      "days": 2
+    },
+    {
+      "episode": 96,
+      "first": "2022-12-15",
+      "last": "2022-12-15",
+      "days": 1
+    },
+    {
+      "episode": 97,
+      "first": "2023-02-21",
+      "last": "2023-02-21",
+      "days": 1
+    },
+    {
+      "episode": 98,
+      "first": "2024-07-24",
+      "last": "2024-07-24",
+      "days": 1
+    },
+    {
+      "episode": 99,
+      "first": "2024-08-05",
+      "last": "2024-08-05",
+      "days": 1
+    },
+    {
+      "episode": 100,
+      "first": "2024-09-03",
+      "last": "2024-09-03",
+      "days": 1
+    },
+    {
+      "episode": 101,
+      "first": "2024-12-18",
+      "last": "2024-12-18",
+      "days": 1
+    },
+    {
+      "episode": 102,
+      "first": "2025-03-10",
+      "last": "2025-03-10",
+      "days": 1
+    },
+    {
+      "episode": 103,
+      "first": "2025-04-03",
+      "last": "2025-04-21",
+      "days": 5
+    },
+    {
+      "episode": 104,
+      "first": "2025-10-10",
+      "last": "2025-10-10",
+      "days": 1
+    },
+    {
+      "episode": 105,
+      "first": "2026-01-20",
+      "last": "2026-01-20",
+      "days": 1
+    },
+    {
+      "episode": 106,
+      "first": "2026-06-05",
+      "last": "2026-06-05",
+      "days": 1
+    }
+  ],
+  "episodes_20_session": [
+    {
+      "episode": 0,
+      "first": "2008-01-04",
+      "last": "2008-04-11",
+      "days": 9
+    },
+    {
+      "episode": 1,
+      "first": "2008-06-06",
+      "last": "2008-07-24",
+      "days": 4
+    },
+    {
+      "episode": 2,
+      "first": "2008-09-04",
+      "last": "2009-05-13",
+      "days": 49
+    },
+    {
+      "episode": 3,
+      "first": "2009-06-15",
+      "last": "2009-07-02",
+      "days": 3
+    },
+    {
+      "episode": 4,
+      "first": "2009-08-17",
+      "last": "2009-09-01",
+      "days": 2
+    },
+    {
+      "episode": 5,
+      "first": "2009-10-01",
+      "last": "2009-10-01",
+      "days": 1
+    },
+    {
+      "episode": 6,
+      "first": "2009-10-30",
+      "last": "2009-10-30",
+      "days": 1
+    },
+    {
+      "episode": 7,
+      "first": "2010-01-22",
+      "last": "2010-02-04",
+      "days": 2
+    },
+    {
+      "episode": 8,
+      "first": "2010-04-27",
+      "last": "2010-08-11",
+      "days": 8
+    },
+    {
+      "episode": 9,
+      "first": "2011-02-22",
+      "last": "2011-02-22",
+      "days": 1
+    },
+    {
+      "episode": 10,
+      "first": "2011-06-01",
+      "last": "2011-06-01",
+      "days": 1
+    },
+    {
+      "episode": 11,
+      "first": "2011-07-27",
+      "last": "2011-12-08",
+      "days": 19
+    },
+    {
+      "episode": 12,
+      "first": "2012-06-01",
+      "last": "2012-06-21",
+      "days": 2
+    },
+    {
+      "episode": 13,
+      "first": "2012-11-07",
+      "last": "2012-11-07",
+      "days": 1
+    },
+    {
+      "episode": 14,
+      "first": "2013-04-15",
+      "last": "2013-04-15",
+      "days": 1
+    },
+    {
+      "episode": 15,
+      "first": "2013-06-20",
+      "last": "2013-06-20",
+      "days": 1
+    },
+    {
+      "episode": 16,
+      "first": "2014-01-24",
+      "last": "2014-02-03",
+      "days": 2
+    },
+    {
+      "episode": 17,
+      "first": "2014-04-10",
+      "last": "2014-04-10",
+      "days": 1
+    },
+    {
+      "episode": 18,
+      "first": "2014-10-09",
+      "last": "2014-10-09",
+      "days": 1
+    },
+    {
+      "episode": 19,
+      "first": "2015-06-29",
+      "last": "2015-06-29",
+      "days": 1
+    },
+    {
+      "episode": 20,
+      "first": "2015-08-20",
+      "last": "2015-09-28",
+      "days": 5
+    },
+    {
+      "episode": 21,
+      "first": "2016-01-07",
+      "last": "2016-01-15",
+      "days": 3
+    },
+    {
+      "episode": 22,
+      "first": "2016-06-24",
+      "last": "2016-06-24",
+      "days": 1
+    },
+    {
+      "episode": 23,
+      "first": "2016-09-09",
+      "last": "2016-09-09",
+      "days": 1
+    },
+    {
+      "episode": 24,
+      "first": "2018-02-02",
+      "last": "2018-02-08",
+      "days": 3
+    },
+    {
+      "episode": 25,
+      "first": "2018-03-22",
+      "last": "2018-04-06",
+      "days": 4
+    },
+    {
+      "episode": 26,
+      "first": "2018-10-10",
+      "last": "2018-10-24",
+      "days": 3
+    },
+    {
+      "episode": 27,
+      "first": "2018-12-04",
+      "last": "2019-01-03",
+      "days": 6
+    },
+    {
+      "episode": 28,
+      "first": "2019-05-13",
+      "last": "2019-05-13",
+      "days": 1
+    },
+    {
+      "episode": 29,
+      "first": "2019-08-05",
+      "last": "2019-08-23",
+      "days": 3
+    },
+    {
+      "episode": 30,
+      "first": "2020-02-24",
+      "last": "2020-05-12",
+      "days": 18
+    },
+    {
+      "episode": 31,
+      "first": "2020-06-11",
+      "last": "2020-06-26",
+      "days": 3
+    },
+    {
+      "episode": 32,
+      "first": "2020-09-03",
+      "last": "2020-09-23",
+      "days": 3
+    },
+    {
+      "episode": 33,
+      "first": "2020-10-28",
+      "last": "2020-10-28",
+      "days": 1
+    },
+    {
+      "episode": 34,
+      "first": "2021-01-27",
+      "last": "2021-02-25",
+      "days": 2
+    },
+    {
+      "episode": 35,
+      "first": "2021-05-12",
+      "last": "2021-05-12",
+      "days": 1
+    },
+    {
+      "episode": 36,
+      "first": "2021-09-28",
+      "last": "2021-09-28",
+      "days": 1
+    },
+    {
+      "episode": 37,
+      "first": "2021-11-26",
+      "last": "2021-11-26",
+      "days": 1
+    },
+    {
+      "episode": 38,
+      "first": "2022-02-03",
+      "last": "2022-03-07",
+      "days": 3
+    },
+    {
+      "episode": 39,
+      "first": "2022-04-22",
+      "last": "2022-06-28",
+      "days": 11
+    },
+    {
+      "episode": 40,
+      "first": "2022-08-22",
+      "last": "2022-11-09",
+      "days": 8
+    },
+    {
+      "episode": 41,
+      "first": "2022-12-15",
+      "last": "2022-12-15",
+      "days": 1
+    },
+    {
+      "episode": 42,
+      "first": "2023-02-21",
+      "last": "2023-02-21",
+      "days": 1
+    },
+    {
+      "episode": 43,
+      "first": "2024-07-24",
+      "last": "2024-09-03",
+      "days": 3
+    },
+    {
+      "episode": 44,
+      "first": "2024-12-18",
+      "last": "2024-12-18",
+      "days": 1
+    },
+    {
+      "episode": 45,
+      "first": "2025-03-10",
+      "last": "2025-04-21",
+      "days": 6
+    },
+    {
+      "episode": 46,
+      "first": "2025-10-10",
+      "last": "2025-10-10",
+      "days": 1
+    },
+    {
+      "episode": 47,
+      "first": "2026-01-20",
+      "last": "2026-01-20",
+      "days": 1
+    },
+    {
+      "episode": 48,
+      "first": "2026-06-05",
+      "last": "2026-06-05",
+      "days": 1
+    }
+  ]
+}

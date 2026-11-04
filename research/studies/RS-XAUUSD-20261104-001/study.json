@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261104-001",
+  "revision": 4,
+  "title": "Does gold fall with US stock crashes? 207 days with the S&P 500 down 2% or more, 2008-2026: gold's same-day return is not distinguishable from ordinary days, and VIX-jump crash days are not distinguishable from the other crash days (pre-registered)",
+  "market": "XAUUSD",
+  "strategy": "none — gold around S&P 500 single-day crashes",
+  "status": "progress",
+  "created_on": "2026-11-04",
+  "question": "When the S&P 500 falls 2% or more in one day, how does gold move that day, the next day, and over 5 and 20 days, compared with ordinary days; and do crash days on which VIX jumps 20% or more differ from the other crash days?",
+  "hypothesis": "Pre-registered, two-sided tests. Expected directions: (P1) gold's same-day return on crash days is below its mean on non-crash days; (P2) VIX-jump crash days are below other crash days.",
+  "headline": {
+    "crash_days": 207,
+    "episodes_5_session": 107,
+    "crash_mean_h0_pct": 0.029,
+    "ordinary_mean_h0_pct": 0.039,
+    "p1_diff_pp": -0.01,
+    "p1_bound_pp": 0.324,
+    "gold_up_days": 100,
+    "vix_jump_days": 70,
+    "vix_jump_mean_h0_pct": -0.137,
+    "other_crash_mean_h0_pct": 0.114,
+    "p2_diff_pp": -0.252,
+    "p2_bound_pp": 0.676,
+    "secondary_tests_judged": 18,
+    "secondary_bh_pass": 2,
+    "dollar_baseline_diff_pp": -0.725
+  },
+  "card_metrics": [
+    "crash_days",
+    "crash_mean_h0_pct",
+    "ordinary_mean_h0_pct",
+    "p2_diff_pp"
+  ],
+  "findings": [
+    {
+      "title": "Gold's same-day return on crash days is not distinguishable from ordinary days",
+      "tone": "info",
+      "detail": "207 crash days (S&P 500 down 2% or more) in 107 episodes, 2008-01-02 to 2026-10-30: gold's mean same-day return +0.029% against +0.039% on 4,531 ordinary days (S&P 500 above -2%); difference -0.010 pp, bound +/-0.324 (2.24 x episode-clustered SE, Bonferroni over the 2 primary tests): not distinguishable. Gold rose on 100 of the 207 crash days (48.3%) against 52.7% on ordinary days; the episode-bootstrap 95% interval of the crash-day down share (45.3-58.5%) contains the ordinary-day share (47.2%) (secondary, uncorrected). The source sensitivity (FX_IDC gold from 2013-07-16) gives -0.014 pp, same verdict; dropping any one of the 107 episodes changes nothing.",
+      "title_zh": "大跌日黃金當天的平均報酬，和平常日分不出差別",
+      "detail_zh": "2008-01-02 到 2026-10-30，S&P 500 單日跌 2% 以上的大跌日共 207 天（107 串，5 個交易日內算同一串）。黃金當天平均 +0.029%，平常日（S&P 500 沒跌到 -2%，4,531 天）+0.039%，差 -0.010 個百分點，界線 ±0.324（2 個主要檢定的 Bonferroni 界線，依事件串群聚）；分不出。上漲天數 100/207（48.3%），平常日 52.7%；大跌日下跌比例的事件串拔靴 95% 區間 45.3–58.5%，包含平常日的 47.2%，分不出（次要、未校正）。換成 FX_IDC 報價（2013-07-16 以後）差 -0.014，結論相同；逐串拿掉任何一串都不改變判定。分不出不等於沒有關係：這個樣本分辨不了小於界線的差別。"
+    },
+    {
+      "title": "VIX-jump crash days are not distinguishable from the other crash days",
+      "tone": "info",
+      "detail": "Of the 207 crash days, 70 (51 episodes) had VIX up 20% or more on the day; gold's mean same-day return on them is -0.137% against +0.114% on the other 137 days (71 episodes): difference -0.252 pp, bound +/-0.676 (Bonferroni): not distinguishable. The source sensitivity gives the same -0.252 pp; dropping any one of the 107 episodes changes nothing.",
+      "title_zh": "VIX 急升型大跌日，和其他大跌日分不出差別",
+      "detail_zh": "207 個大跌日中，當天 VIX 急升 20% 以上的有 70 天（51 串），黃金當天平均 -0.137%；其他 137 天（71 串）+0.114%；差 -0.252 個百分點，界線 ±0.676；分不出。逐串拿掉任何一串（107 次）都不改變判定；換成 FX_IDC 報價（2013-07-16 以後）差也是 -0.252，結論相同。"
+    },
+    {
+      "title": "Next-day, 5-day and 20-day moves, the -3% crash days and the sub-periods are not distinguishable either (secondary, uncorrected)",
+      "tone": "info",
+      "detail": "Gold's next-day (H1) mean is -0.109 pp against ordinary days (bound +/-0.254); 5-day +0.269 (+/-0.846) and 20-day +0.926 (+/-1.367) on the 49 episodes at the 20-session gap; the 81 days at -3% or worse (37 episodes) +0.062 (+/-0.497) on the same day. By sub-period: 2008-2012 -0.006 (+/-0.467), 2013-2019 +0.313 (+/-0.716), 2020-2026 -0.239 (+/-0.369). All not distinguishable and none passes BH.",
+      "title_zh": "隔天、5 天、20 天的走勢、跌 3% 以上的大跌日、三個年代，也都分不出差別（次要、未校正）",
+      "detail_zh": "和平常日相比：黃金隔天（H1）平均差 -0.109 個百分點（界線 ±0.254）；5 天 +0.269（±0.846）、20 天 +0.926（±1.367）（以 20 個交易日為間隔的 49 串，各取第一個大跌日）；跌 3% 以上的 81 天（37 串）當天差 +0.062（±0.497）。分年代：2008–2012 年 -0.006（±0.467）、2013–2019 年 +0.313（±0.716）、2020–2026 年 -0.239（±0.369）。全部分不出，也都沒有通過 BH。"
+    },
+    {
+      "title": "The two secondary results that pass BH are the US-dollar effect on gold, which also exists on ordinary days",
+      "tone": "warn",
+      "detail": "18 secondary tests were judged and 2 cleared their uncorrected bound (chance alone gives about 5% of tests); both pass BH q = 0.10: the DXY-only split (crash days with the dollar up minus the dollar down: -1.098 pp, bound +/-0.590) and gold's return per 1 pp of DXY return (-0.652, +/-0.494). Gold is priced in US dollars: on the 4,478 ordinary days gold is already 0.725 pp lower when the dollar rises (+/-0.059). Post-hoc: the DXY-only split net of that baseline is -0.373 pp (bound +/-0.593), not distinguishable. These two are not a crash-specific finding.",
+      "title_zh": "通過 BH 的兩項次要結果，是黃金以美元計價的效果，平常日就有",
+      "detail_zh": "18 項次要檢定都判定了，2 項越過未校正的界線（光靠運氣約會有 5% 的檢定越線），兩項都通過 BH q = 0.10：只看美元的分組（大跌日美元漲減美元跌：-1.098 個百分點，界線 ±0.590），與黃金每 1 個百分點美元報酬的變化（-0.652，±0.494）。黃金以美元計價，平常日（4,478 天）美元漲的日子黃金本來就低 0.725 個百分點（±0.059），所以這兩項要放在 -0.725 旁邊讀，不是大跌日特有的現象，也不是巧合或避險。事後補算：扣掉這個平常日基準後，只看美元的分組是 -0.373（界線 ±0.593），分不出；黃金對美元報酬的簡單斜率，平常日 -1.00、大跌日 -0.72（差別未檢定）。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "event",
+  "card_summary": "207 days (107 episodes) since 2008 with the S&P 500 down 2% or more: gold's same-day mean +0.029% vs +0.039% on 4,531 ordinary days, difference -0.010 pp (bound +/-0.324): not distinguishable. VIX-jump crash days -0.137% vs other crash days +0.114%, difference -0.252 pp (bound +/-0.676): not distinguishable. Not distinguishable does not mean no relationship. The 2 of 18 secondary tests that pass BH are the US-dollar effect on gold that also exists on ordinary days (-0.725 pp).",
+  "title_zh": "美股大跌時，黃金會跟著跌嗎？2008 年以來的 207 天",
+  "question_zh": "美股（S&P 500）單日跌 2% 以上時，黃金當天、隔天、5 天、20 天怎麼走？和平常日比？當天 VIX 急升 20% 以上的大跌（「VIX 急升型」），和其他大跌是否不同？",
+  "hypothesis_zh": "預先登記，雙尾檢定。預期方向：P1 大跌日黃金當天報酬低於平常日；P2 VIX 急升型大跌日低於其他大跌日。",
+  "card_summary_zh": "2008 年以來美股（S&P 500）單日跌 2% 以上的 207 天（107 串）：黃金當天平均 +0.029%，平常日（4,531 天）+0.039%，差 -0.010 個百分點（界線 ±0.324），分不出。VIX 急升型大跌日 -0.137%，其他大跌日 +0.114%，差 -0.252（界線 ±0.676），分不出。分不出不等於沒有關係。18 項次要檢定有 2 項通過 BH，都是黃金以美元計價的效果，平常日就有（美元漲時黃金低 0.725 個百分點）。",
+  "limitations_zh": [
+    "同一天的連動，不是因果。P2 的 VIX 標籤沒有用任何以美元計價的輸入，但 VIX 急升可能和美元走強同時發生，所以 P2 的差別仍可能部分經由美元。",
+    "黃金日 K（Twelve Data）收在 S&P 500 美東 16:00 收盤後約 1–2 小時，美元指數（DXY）約 1 小時；1 小時 K 的時間戳慣例沒有驗證。1 小時資料只重疊 2026-04 到 2026-10（美國夏令時間），標準時間與 2026-04 之前的對齊是假設（前置檢查 2c 的領先係數比較只部分支持）。",
+    "Twelve Data 在 2026-10-10 與 2026-10-17 兩次下載之間重述了 2024-05 到 2026-10 的資料（含更早 24 天，共 646 天）。使用重述後的凍結版本，並以 FX_IDC 仲裁（前置檢查 2a）；12 個大跌日的 H0 終點被修訂，沒有排除；S-SRC 報告 FX_IDC 敏感度。",
+    "207 個大跌日中 105 個在 2013-07-16 之前（沒有 FX_IDC 可對照）；2008–2013 唯一的獨立檢查是 Yahoo GC=F（COMEX 期貨，結算約 13:30 ET），因 Stooq 被擋；判斷方式是和 FX_IDC 對 GC=F 的參考組相比（修正後的前置檢查 2c），不是絕對的 0.95 門檻。",
+    "前置檢查 2a、2c 的門檻是原門檻失敗後修正的。新門檻在看過檢查值、還沒有任何結果時定的，所以通過代表數字可重現，不是獨立的資料品質關卡。",
+    "只涵蓋 2008–2026 年，不含 1987 與 2000–2002 年。",
+    "大跌日會群聚，有效樣本是串數（107 串）。",
+    "不是完全盲測：S&P 500 大跌日數與黃金 1 小時／日 K 收盤時間的對齊，在前置檢查前就已看過，研究者也記得部分大跌事件；任何一個大跌日的黃金、VIX、DXY 數值在前置檢查前都沒看過。",
+    "次要結果沒有校正多重比較，沒有任何一項是主要結論。",
+    "通過 BH 的兩項次要結果（只看美元的分組 -1.098 個百分點；每 1 個百分點美元報酬 -0.652）是黃金以美元計價的機械效果，平常日就有（美元漲時黃金低 0.725 個百分點，±0.059，n = 4,478），要放在這個基準旁邊讀。事後補算：扣掉基準後只看美元的分組是 -0.373（界線 ±0.593，分不出）；黃金對美元報酬的簡單斜率，平常日 -1.00、大跌日 -0.72（差別未檢定）。",
+    "下跌日比例的區間（45.3–58.5%）是以「大跌日比例的拔靴減去平常日比例的 iid 重抽樣，再加平常日比例」計算，包含基準的抽樣誤差；純大跌日比例的拔靴（事後重算）是 45.5–58.5%，判定相同（分不出）。"
+  ],
+  "interpretation_zh": "2008 年以來的 207 個美股大跌日，黃金當天的平均報酬（+0.029%）和平常日（+0.039%）分不出差別；當天 VIX 急升的大跌日和其他大跌日也分不出差別。分不出不等於沒有關係：這個樣本分辨不了大約 0.3 個百分點以內的差別，大跌日又集中在少數時期，有效樣本是 107 串。次要結果中通過 BH 的兩項，是黃金以美元計價的效果，平常日就有（美元漲時黃金低 0.725 個百分點），要放在這個基準旁邊讀，不是大跌日特有的現象。這份研究只描述歷史上同一天的連動，不是因果，也不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "crash_days",
+        "crash_mean_h0_pct",
+        "ordinary_mean_h0_pct",
+        "p1_diff_pp",
+        "vix_jump_mean_h0_pct",
+        "other_crash_mean_h0_pct",
+        "p2_diff_pp",
+        "dollar_baseline_diff_pp"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
