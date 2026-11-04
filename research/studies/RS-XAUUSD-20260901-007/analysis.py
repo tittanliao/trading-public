@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import csv
 import json
+import statistics
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -36,6 +37,9 @@ REPO = Path(__file__).resolve().parents[3]
 BARS = Path("local-inputs/xauusd-daily-long.csv")
 OUT = Path("reproduced")
 FIBS = [0.236, 0.382, 0.5, 0.618, 0.786]
+# t quantiles for 17 degrees of freedom (18 paired cycles): 0.975 and 0.80, computed once by
+# numerical integration of the t density (no scipy dependency). paired() refuses other n.
+T17_975, T17_80 = 2.109816, 0.863279
 
 
 def load() -> list[dict]:
@@ -111,7 +115,7 @@ def cycle(bars: list[dict], year: int) -> dict | None:
         # Where the August close sits inside the year's range. This, not the sign of the
         # year's move, is what decides whether the levels sit above or below the market.
         "august_position_in_range_pct": round(100 * (window[-1]["close"] - low) / (high - low), 2),
-        "september_open": round(buying[0]["close"], 2),
+        "september_first_close": round(buying[0]["close"], 2),
         "exit_date": january[-1]["date"].isoformat(), "exit_price": round(exit_price, 2),
         "fib_levels": levels,
         "fib_fills": fills,
@@ -125,12 +129,24 @@ def summarise(cycles: list[dict], key: str, field: str) -> dict:
     values = [c[key][field] for c in cycles if c[key][field] is not None]
     if not values:
         return {"cycles": 0}
+    n = len(values)
     wins = sum(1 for v in values if v > 0)
-    return {"cycles": len(values), "win_rate_pct": round(100 * wins / len(values), 2),
-            "mean_pct": round(sum(values) / len(values), 3),
-            "median_pct": round(sorted(values)[len(values) // 2], 3),
-            "worst_pct": round(min(values), 3), "best_pct": round(max(values), 3),
-            "total_pct": round(sum(values), 2)}
+    # Wilson 95% interval for the win rate (z = 1.96).
+    z = 1.96
+    p = wins / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    out = {"cycles": n, "win_rate_pct": round(100 * wins / n, 2),
+           "wins": wins,
+           "win_rate_ci95_wilson_pct": [round(100 * (centre - half), 1),
+                                        round(100 * (centre + half), 1)],
+           "mean_pct": round(sum(values) / n, 3),
+           "median_pct": round(statistics.median(values), 3),
+           "worst_pct": round(min(values), 3), "best_pct": round(max(values), 3),
+           "total_pct": round(sum(values), 2)}
+    if n > 1:
+        out["se_of_mean_pct"] = round(statistics.stdev(values) / n ** 0.5, 3)
+    return out
 
 
 def main() -> None:
@@ -232,12 +248,21 @@ def main() -> None:
         n = len(diffs)
         mean = sum(diffs) / n
         sd = (sum((d - mean) ** 2 for d in diffs) / (n - 1)) ** 0.5
+        se = sd / n ** 0.5
+        if n != 18:
+            raise SystemExit("t quantiles are hard-coded for 17 degrees of freedom (n=18)")
         return {
             "cycles": n,
             "mean_difference_pct_points": round(mean, 3),
             "sd_of_difference": round(sd, 3),
-            "min_detectable_pct_points": round(2.802 * sd / n ** 0.5, 3),
-            "separates": bool(abs(mean) > 2.802 * sd / n ** 0.5),
+            "se_of_difference": round(se, 3),
+            # normal approximation (z 0.975 + z 0.80 = 2.802); this is the figure the study
+            # headline has always used.
+            "min_detectable_pct_points": round(2.802 * se, 3),
+            "min_detectable_t17_pct_points": round((T17_975 + T17_80) * se, 3),
+            "mean_difference_ci95_t17_pct_points": [round(mean - T17_975 * se, 2),
+                                                   round(mean + T17_975 * se, 2)],
+            "separates": bool(abs(mean) > 2.802 * se),
             "cycles_ahead": sum(1 for d in diffs if d > 0),
             "cycles_behind": sum(1 for d in diffs if d < 0),
         }
@@ -247,7 +272,10 @@ def main() -> None:
         "fib_with_december_catchup": paired("fib_with_december_catchup"),
     }
     summary["paired_vs_baseline_note"] = (
-        "alpha 0.05, power 0.80. Per RS-XAUUSD-20260824-001 the bound decides, not the p-value.")
+        "alpha 0.05, power 0.80. min_detectable_pct_points uses a normal approximation "
+        "(2.802 x SE); min_detectable_t17_pct_points uses a t distribution with 17 degrees of "
+        "freedom, which is larger at n=18. Per RS-XAUUSD-20260824-001 the bound decides, not "
+        "the p-value.")
 
     summary["rules_compared"] = {
         "fibonacci_as_specified": summary["fib"],
@@ -275,62 +303,86 @@ def main() -> None:
     worst_missed = max((c for c in cycles if c["fib"]["tranches_filled"] == 0),
                        key=lambda c: c["equal_monthly"]["return_on_committed_pct"], default=None)
 
+    all_five = [c for c in cycles if c["fib"]["tranches_filled"] == len(FIBS)]
+    costlier = sum(1 for c in all_five if c["fib"]["avg_cost"] > c["equal_monthly"]["avg_cost"])
     answers = [
         {"question": "What has the win rate been?",
-         "answer": (f"{fib_s['win_rate_pct']}% of {fib_s['cycles']} cycles on committed "
-                    f"capital, against {eq_s['win_rate_pct']}% for four equal monthly buys. "
-                    f"Counting only the {summary['fib_on_deployed_only']['cycles']} cycles "
-                    f"where it invested at all, "
-                    f"{summary['fib_on_deployed_only']['win_rate_pct']}%. Adding a "
-                    f"December catch-up for unfilled tranches lifts it to "
-                    f"{cat_s['win_rate_pct']}%.")},
+         "answer": (f"{fib_s['wins']} of {fib_s['cycles']} cycles ({fib_s['win_rate_pct']}%, "
+                    f"Wilson 95% interval {fib_s['win_rate_ci95_wilson_pct'][0]}-"
+                    f"{fib_s['win_rate_ci95_wilson_pct'][1]}%) on committed capital, against "
+                    f"{eq_s['wins']} of {eq_s['cycles']} ({eq_s['win_rate_pct']}%, "
+                    f"{eq_s['win_rate_ci95_wilson_pct'][0]}-"
+                    f"{eq_s['win_rate_ci95_wilson_pct'][1]}%) for four equal monthly buys; the "
+                    f"intervals overlap. A cycle that never invested has return 0 and counts as "
+                    f"not won. Counting only the {summary['fib_on_deployed_only']['cycles']} "
+                    f"cycles where it invested at all, "
+                    f"{summary['fib_on_deployed_only']['win_rate_pct']}%. Adding a December "
+                    f"catch-up for unfilled tranches gives {cat_s['win_rate_pct']}%.")},
         {"question": "Is it worse than buying four equal monthly tranches?",
-         "answer": (f"Not established. The paired difference is "
-                    f"{pair['mean_difference_pct_points']} percentage points against a "
-                    f"resolution bound of {pair['min_detectable_pct_points']} on "
-                    f"{pair['cycles']} cycles, so the sample cannot separate them on return. "
-                    f"It is ahead in {pair['cycles_ahead']} cycles and behind in "
-                    f"{pair['cycles_behind']}. The case against it is structural, not "
-                    f"statistical.")},
-        {"question": "What is the structural problem?",
-         "answer": (f"It does not stage the entry. Fills are decided by where the August "
-                    f"close sits inside the January-August range: with August in the lower "
-                    f"half all five tranches filled in {lower['n']} of {lower['n']} cycles "
-                    f"(mean {lower['mean_tranches_filled']} of 5), and "
-                    f"{summary['staging_check']['august_in_lower_half']['marketable_at_open_pct']}% of "
-                    f"those fills were marketable at the open — a market buy, not a "
-                    f"retracement buy. With August in the upper half the mean is "
-                    f"{upper['mean_tranches_filled']} of 5. So it commits everything at once "
-                    f"when gold is weak into September and holds back when gold is strong, "
-                    f"which is backwards for a seasonal long.")},
+         "answer": (f"Not established, and not shown to be equal. The paired difference is "
+                    f"{pair['mean_difference_pct_points']} percentage points (SE "
+                    f"{pair['se_of_difference']}); the paired 95% interval (t, 17 degrees of "
+                    f"freedom) is {pair['mean_difference_ci95_t17_pct_points'][0]} to "
+                    f"{pair['mean_difference_ci95_t17_pct_points'][1]} and includes 0. The "
+                    f"resolution bound is {pair['min_detectable_pct_points']} (normal "
+                    f"approximation; {pair['min_detectable_t17_pct_points']} with a t "
+                    f"distribution) on {pair['cycles']} cycles, so the sample cannot separate "
+                    f"them on return. The rule is ahead in {pair['cycles_ahead']} cycles and "
+                    f"behind in {pair['cycles_behind']}, so the frozen plan's pass criterion "
+                    f"(higher committed-capital return in more cycles than not) was not met. "
+                    f"The resolution bound and the interval are post hoc additions.")},
+        {"question": "How many tranches fill, and what decides it?",
+         "answer": (f"Post hoc split by where the August close sits inside the "
+                    f"January-August range. With August in the lower half (n={lower['n']}) the "
+                    f"mean is {lower['mean_tranches_filled']} of 5 and "
+                    f"{summary['staging_check']['august_in_lower_half']['marketable_at_open_pct']}% "
+                    f"of those fills were marketable at the open, a market buy rather than a "
+                    f"retracement buy; with August in the upper half (n={upper['n']}) the mean "
+                    f"is {upper['mean_tranches_filled']} of 5. Much of this is arithmetic of "
+                    f"the levels: when August closes below the range midpoint the 0.236, 0.382 "
+                    f"and 0.5 levels sit above the close by construction.")},
         {"question": "What does the shortfall come from?",
-         "answer": (f"Cash, not bad prices. {fill['cycles_with_zero_fills']} of "
-                    f"{summary['cycles']} cycles never filled a single tranche and sat in "
-                    f"cash through the whole window."
-                    + (f" The worst of these is {worst_missed['build_year']}, where the "
-                       f"baseline returned "
-                       f"{worst_missed['equal_monthly']['return_on_committed_pct']}% — the "
-                       f"largest single-cycle gain in the sample — and the Fibonacci rule "
-                       f"returned nothing." if worst_missed else ""))},
+         "answer": (f"Mostly from cycles that never invested: "
+                    f"{fill['cycles_with_zero_fills']} of {summary['cycles']} cycles filled no "
+                    f"tranche and sat in cash through the whole window."
+                    + (f" The largest is {worst_missed['build_year']}, where the baseline "
+                       f"returned {worst_missed['equal_monthly']['return_on_committed_pct']}% "
+                       f"(the largest single-cycle gain in the sample) and this rule returned "
+                       f"nothing; the shortfall rests heavily on that one cycle. It is not "
+                       f"only cash: in {costlier} of the {len(all_five)} cycles that filled "
+                       f"all five tranches the average cost was above the baseline's. Post hoc "
+                       f"decomposition." if worst_missed else ""))},
     ]
 
     limitations = [
         f"{summary['cycles']} cycles. This is a seasonal rule, so one year is one observation "
         f"and the sample cannot be enlarged by using more granular data.",
         "The resolution bound exceeds the observed difference, so no claim is made that the "
-        "Fibonacci rule underperforms on return. Only the fill behaviour is established.",
+        "Fibonacci rule underperforms on return, and none that it matches. The bound, the "
+        "paired interval, the August-position split and the shortfall decomposition were "
+        "added after the results and are not in the frozen plan.",
         "Spread, carry and roll are not modelled. RS-XAUUSD-20260827-001 covers the financing "
         "cost of holding this position.",
-        "The five levels and the January exit were fixed before running and not searched over. "
-        "A different level set would be a different study and would need its own registration "
-        "to mean anything.",
+        "The five levels and the January exit are written in the decision log as fixed before "
+        "running, but the plan, runner, results and conclusions were added in one commit, so "
+        "the freeze cannot be verified from version history. No other level set was searched; "
+        "a different level set would be a different study and would need its own registration.",
         "The baseline buys at the first trading day's close of each month while the Fibonacci "
-        "rule buys at level or open prices. The two are not filled on an identical convention.",
+        "rule buys at level or open prices. The two are not filled on an identical convention. "
+        "The baseline is recomputed in this study from spot daily closes; it is not the "
+        "RS-XAUUSD-20260827-001 series (different leverage settings and data end).",
+        "The buying window runs through January 31 of the following year (2012's 0.618 "
+        "tranche filled on 2013-01-04), so the December catch-up variant can use information "
+        "not available at December's close in that cycle. Kept as pre-registered and "
+        "disclosed; it affects one cycle.",
+        "A cycle that never invested has return 0 and counts as not won, so part of the "
+        "win-rate gap comes from that definition.",
     ]
 
     results = {
         "schema_version": 1, "study_id": "RS-XAUUSD-20260901-007",
-        "title": "Fibonacci staged entry for the September-to-January gold window",
+        "title": ("Fibonacci staged entry for the September-to-January gold window: how "
+                  "many tranches fill depends on where August closed"),
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "strategy": "seasonal accumulation, no strategy signal involved",
         "method": {
@@ -342,7 +394,10 @@ def main() -> None:
             "exit": "the last trading day of the following January, at its close",
             "unfilled": "stays in cash and earns nothing",
             "baseline": "four equal buys at the first trading day of Sep, Oct, Nov, Dec",
-            "baseline_source": "RS-XAUUSD-20260827-001, which measured 77.78% on 18 cycles",
+            "baseline_source": ("recomputed in this study from the spot daily closes; "
+                                "RS-XAUUSD-20260827-001 measured the same four-equal-buys "
+                                "season with other leverage settings and a data end of "
+                                "2026-08-21, so its figures are reference only"),
             "why_two_return_measures": ("return on deployed capital flatters a rule that "
                                         "under-invests; return on committed capital is the "
                                         "comparable one"),
