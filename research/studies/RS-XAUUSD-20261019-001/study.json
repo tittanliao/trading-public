@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261019-001",
-  "revision": 1,
-  "title": "After 13 US midterms gold dipped and then rose 10% from the low in 7 — exactly as often as from the same November week in other years; the saying is gold's November-to-spring seasonality, not the election",
+  "revision": 2,
+  "title": "After 13 US midterms gold dipped and then rose 10% from the low in 7 — the same rate as from the same November week in 26 odd years (no regular federal election); no election effect is visible",
   "market": "XAUUSD",
   "strategy": "none — a market saying about gold after US midterm elections",
   "status": "confirmed",
@@ -30,55 +30,58 @@
   ],
   "findings": [
     {
-      "title": "The dip is small",
-      "detail": "11 of 13 midterms closed lower at some point in the first 8 weeks; the median low was −1.85%. From any week since 1974 the median low over 8 weeks is −2.16%, so the first dip is ordinary.",
+      "title": "The dip is small and ordinary",
+      "detail": "11 of 13 midterms (84.6%) closed lower at some point in the first 8 weeks; the median low was −1.85%. From any week since 1974 (n=2,729) 76.9% did, and the median low over 8 weeks is −2.16%. The share differs by 7.7 points against a bound of 32.7 (post-hoc calculation), so the first dip cannot be told apart from an ordinary week; no bound was computed for the median low.",
       "tone": "info",
-      "title_zh": "先跌，但跌得很少",
-      "detail_zh": "13 次裡 11 次在選後 8 週內先跌，跌幅中位數 −1.85%。隨便哪一週起算，8 週內最低點的中位數是 −2.16%，所以「先跌」是常態，不是選舉造成的。"
+      "title_zh": "先跌，但跌得很少，和隨便一週分不出差別",
+      "detail_zh": "13 次裡 11 次（84.6%）在選後 8 週內先跌，跌幅中位數 −1.85%。隨便哪一週起算（n=2,729）有 76.9% 先跌，8 週內最低點的中位數是 −2.16%。先跌的比例差 7.7 個百分點，樣本要差 32.7 個百分點才分得出來（事後補算）；跌幅中位數沒有算界線。所以「先跌」和隨便一週分不出差別，看不出選舉的影響。"
     },
     {
-      "title": "Dip then +10%: 54%, the same as other Novembers",
-      "detail": "7 of 13 midterms (54%) dipped and then rose 10% from the low within 26 weeks. The same November week in the 26 non-election years did so in 54% as well; any week did so in 37% (difference 17 points, bound 38).",
+      "title": "Dip then +10%: 54%, the same as the same week in odd years",
+      "detail": "7 of 13 midterms (54%) dipped and then rose 10% from the low within 26 weeks. The same November week in the 26 odd years (no regular federal election) did so in 54% as well (difference 0 points, bound 38.7); any week (n=2,729) did so in 37% (difference 17 points, bound 37.5). Neither comparison separates.",
       "tone": "warn",
-      "title_zh": "先跌再漲 10%：54%，和其他年的 11 月一樣",
-      "detail_zh": "13 次裡 7 次（54%）先跌、再從低點漲 10% 以上。26 個非選舉年的同一週也是 54%；隨便哪一週是 37%（差 17 個百分點，樣本要差 38 個百分點才分得出來）。"
+      "title_zh": "先跌再漲 10%：54%，和奇數年同一週一樣",
+      "detail_zh": "13 次裡 7 次（54%）先跌、再從低點漲 10% 以上。26 個奇數年（沒有例行聯邦大選）的同一週也是 54%（差 0 個百分點，界線 38.7）；隨便哪一週（n=2,729）是 37%（差 17 個百分點，樣本要差 37.5 個百分點才分得出來）。兩個比較都分不出差別。"
     },
     {
       "title": "Half-year return inside noise",
-      "detail": "Mean return 26 weeks after the midterm 6.17% against 5.49% for the same week in other years and 4.16% for any week; the bound for 13 events is 11.7 points.",
+      "detail": "Mean return 26 weeks after the midterm 6.17% (n=13) against 5.49% for the same week in 26 odd years (difference 0.7 points, bound 10.8) and 4.16% for any week (n=2,729; difference 2.0 points, bound 11.7).",
       "tone": "info",
-      "title_zh": "選後半年報酬在雜訊內",
-      "detail_zh": "選後 26 週平均 +6.17%；其他年同一週 +5.49%，隨便一週 +4.16%。13 次的樣本要差 11.7 個百分點才分得出來。"
+      "title_zh": "選後半年報酬分不出差別",
+      "detail_zh": "選後 26 週平均 +6.17%（n=13）；26 個奇數年同一週 +5.49%（差 0.7 個百分點，界線 10.8），隨便一週 +4.16%（n=2,729；差 2.0 個百分點，樣本要差 11.7 個百分點才分得出來）。"
     },
     {
       "title": "100 dollars is a price-level effect",
-      "detail": "Every midterm from 2010 rose more than 100 dollars from its low, because gold was above 1,100; before 2010 only 1982 did. At today's price 100 dollars is 2.4%, which 67% of all weeks reach after a dip.",
+      "detail": "Post-hoc description (the registered design said S100 would be reported but not read across eras). All 4 midterms since 2010 rose more than 100 dollars from their 8-week low within 26 weeks, because gold was above 1,100; 3 of them (2010, 2014, 2018) dipped first, so only 3 meet 'dip, then +100' — 2022 had no dip (+4.13%). Before 2010 only 1982 did. At the 2026-10-16 close of about 4,168, 100 dollars is 2.4%; 67% of all weeks (n=2,729) dip and then rise 2.4% from the low.",
       "tone": "warn",
-      "title_zh": "100 美金是金價水位造成的",
-      "detail_zh": "2010 年以後每次都從低點漲超過 100 美金，因為金價已在 1,100 以上；2010 年以前只有 1982 年做到。以現在約 4,168 的價格，100 美金只有 2.4%，隨便一週先跌後有 67% 會漲到。"
+      "title_zh": "100 美金是金價水位造成的（事後描述）",
+      "detail_zh": "事後描述（預先登記只寫 S100 會報告，不拿來跨年代比較）。2010 年以後 4 次期中選舉，從 8 週內的低點到 26 週內的高點都漲超過 100 美金，因為金價已在 1,100 以上；其中 2010、2014、2018 三次有先跌，符合「先跌再漲 100」的只有這 3 次，2022 年 8 週內沒有跌破起點（+4.13%）。2010 年以前只有 1982 年做到。以 2026-10-16 收盤約 4,168 計算，100 美金只有 2.4%；全部週數（n=2,729）裡有 67% 先跌、再從低點漲 2.4% 以上。"
     },
     {
-      "title": "Presidential elections: no better, if anything weaker",
-      "detail": "After 13 presidential elections the 26-week mean was −0.69% and dip-then-+10% happened in 15%; neither difference is resolvable.",
+      "title": "Presidential elections: not better; nothing separates",
+      "detail": "After 13 presidential elections the 26-week mean was −0.69% and dip-then-+10% happened in 15% (2 of 13). Against the same week in odd years the 26-week mean differs by −6.2 points (bound 10.8) and the +10% rate by −38.5 points (bound 38.7, just short of separating); against any week by −4.9 (bound 11.7) and −21.7 (bound 37.5). None separates.",
       "tone": "info",
-      "title_zh": "總統大選後也沒有比較好",
-      "detail_zh": "13 次總統大選後 26 週平均 −0.69%，先跌再漲 10% 只有 15%；兩者都在雜訊內。"
+      "title_zh": "總統大選後也沒有比較好，也分不出差別",
+      "detail_zh": "13 次總統大選後 26 週平均 −0.69%，先跌再漲 10% 只有 15%（2/13）。和奇數年同一週比，26 週平均差 −6.2 個百分點（界線 10.8），漲 10% 的比例差 −38.5 個百分點（界線 38.7，剛好沒分出來）；和隨便一週比，分別差 −4.9（界線 11.7）與 −21.7（界線 37.5）。都分不出差別。"
     }
   ],
   "policy_impacts": [],
   "theme": "seasonality",
-  "card_summary": "On 13 US midterms 1974–2022, gold dipped and then rose 10% from the low in 54% — the same rate as the same November week in 26 non-election years, and inside noise against any week. The '100 dollars' holds since 2010 only because gold's price level made 100 dollars small.",
-  "title_zh": "美國期中選舉後黃金「先跌再漲」：13 次裡 7 次，和其他年的 11 月一樣多；這是黃金 11 月到隔年春天的季節性，不是選舉效應",
+  "card_summary": "On 13 US midterms 1974–2022, gold dipped and then rose 10% from the low in 54% — the same rate as the same November week in 26 odd years with no regular federal election (difference 0, bound 38.7 points), and not separable from any week (difference 17, bound 37.5). The '100 dollars' since 2010 reflects gold's higher price level: 100 dollars was a small share of the price.",
+  "title_zh": "美國期中選舉後黃金「先跌再漲」：13 次裡 7 次，和奇數年（沒有例行聯邦大選）同一週一樣多，看不到選舉效應",
   "question_zh": "美國期中選舉後，黃金是否比平常更常先跌、再漲 100 美金左右？",
   "hypothesis_zh": "期中選舉投票後黃金先跌，接著上漲約 100 美金，幅度或頻率高於一般時候。",
-  "card_summary_zh": "1974–2022 年 13 次期中選舉，選後先跌再從低點漲 10% 的比例是 54%，和 26 個非選舉年同一週完全一樣，和隨便哪一週比也在雜訊內。2010 年後每次都漲超過 100 美金，是因為金價變高，100 美金變得很小。",
+  "card_summary_zh": "1974–2022 年 13 次期中選舉，選後先跌再從低點漲 10% 的比例是 54%（7/13），26 個奇數年（沒有例行聯邦大選）同一週也是 54%（差 0，界線 38.7 個百分點），和隨便哪一週比（37%，差 17、界線 37.5）也分不出差別。2010 年以後 4 次都從低點漲超過 100 美金（其中 3 次先跌），是因為金價變高，100 美金占比變小。",
   "limitations_zh": [
-    "只有 13 次期中選舉，每個比較都遠在可分辨範圍內。",
-    "用週收盤；2008 年以前看不到週內的低點。",
-    "設計前已在對話中快速看過一次結果（決策紀錄已揭露）。",
-    "每個觀察期都包含 12 月 FOMC，無法分開它的影響。"
+    "只有 13 次期中選舉，期中選舉的每個比較，差距都遠小於分得出來的門檻（最大的是 S10 對隨便一週，差 17 個百分點、門檻 37.5），只有非常大的效應才看得到。總統大選的比較另計，其中 S10 對奇數年同一週差 −38.5、門檻 38.7，貼著門檻。",
+    "全部用週收盤，看不到週內的低點；只有 2010–2022 年 4 次期中選舉用日線抽查。",
+    "設計前先快速看過 14 次期中選舉的結果（先跌再漲 10% 為 8/14），10% 這個門檻是看過之後才命名的；設計、程式與結果在同一個 commit，無法用時間戳驗證先後。",
+    "每個觀察期都包含 12 月 FOMC，無法分開它的影響。",
+    "圖中的灰帶是「隨便一週起算的單一路徑」的中間一半，不是 13 次平均線的誤差範圍。",
+    "命名：圖例與 results.json 的對照組標籤寫「non-election years」，指的是 26 個沒有例行聯邦大選的奇數年（奇數年仍可能有聯邦補選）；數字不受影響。",
+    "沒有檢驗「11 月到隔年春天的季節性」：奇數年同一週、或把 52 個 11 月合併，和隨便一週也分不出差別（事後補算，2026-11-04）。"
   ],
-  "interpretation_zh": "這個說法描述的走勢是真的，但原因不是選舉：每年 11 月起算的半年，黃金本來就常先小跌再上漲，期中選舉年和其他年一樣。「100 美金」只在金價高的年代成立。今年的投票日是 11/3（台北 11/4），不能當進出場依據。",
+  "interpretation_zh": "這份資料看不到期中選舉的額外效應：13 次期中選舉的走勢和奇數年同一週分不出差別，13 次的樣本只排除得了很大的效應。「先跌再漲 10%」在 13 次裡有 7 次（約一半）。至於是不是黃金 11 月到隔年春天的季節性，這份研究沒有檢驗，事後補算也分不出差別。「100 美金」只在金價高的年代容易成立。今年的投票日是 11/3（台北 11/4），不能當進出場依據。",
   "presentation": [
     {
       "type": "metrics",
