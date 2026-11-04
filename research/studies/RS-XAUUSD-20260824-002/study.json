@@ -1,19 +1,20 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260824-002",
-  "revision": 3,
-  "title": "CFTC positioning — 721 weeks: nothing forecasts the next week, and the positions describe the week that built them",
+  "revision": 4,
+  "title": "CFTC positioning — 721 weeks: no condition separates the next Monday–Tuesday at about 0.35pp or more, and positions line up with the week that built them",
   "market": "XAUUSD",
   "strategy": "none — CFTC positioning structure",
   "status": "confirmed",
   "created_on": "2026-08-24",
-  "question": "Two positioning hypotheses and one observation about the report's publication lag. Do the hypotheses survive, and what does the lag let us test that a normal positioning study cannot?",
-  "hypothesis": "With the official archive the sample can now see effects of about half a percentage point a week; the lag still turns the report's own timing into a placebo window.",
+  "question": "Two positioning hypotheses and one observation about the report's publication lag. Do the hypotheses survive, and what does the lag let us see that a single Tuesday-to-Tuesday return cannot?",
+  "hypothesis": "With the official archive the sample can now separate effects of roughly 0.3–0.5 percentage points a week (80% power); the publication lag still gives every hypothesis a not-tradable comparison window (the days before the report lands).",
   "headline": {
     "weeks": 721,
     "hypotheses_tested": 15,
     "resolvable_in_actionable_window": 0,
     "typical_resolution_bound_pct": 0.47,
+    "actionable_bound_range_pct": "0.30–0.39",
     "weekly_return_sd_pct": 2.252,
     "largest_actionable_effect_pct": 0.191,
     "window_correlation": -0.234,
@@ -27,44 +28,44 @@
   },
   "card_metrics": [
     "weeks",
-    "typical_resolution_bound_pct",
+    "actionable_bound_range_pct",
     "hypotheses_tested"
   ],
   "findings": [
     {
       "tone": "good",
-      "title": "The publication lag turns the report's own timing into a placebo window",
-      "detail": "A COT report is dated Tuesday and published Friday afternoon US time. Wednesday, Thursday and Friday have already traded when it lands, so nothing in the report can have caused them. Splitting the response into fwd_wed_fri (already history) and fwd_mon_tue (the only window a reader could act on) gives every hypothesis a built-in control. Almost no positioning research has one, because almost all of it reports a single Tuesday-to-Tuesday return that blends the two. This was spotted unprompted and it is the most valuable thing in the study.",
-      "title_zh": "公布時間差把報告自己的時程變成了一個對照組",
-      "detail_zh": "一份 COT 報告的資料日期是星期二，但要到星期五美國時間下午才公布。星期三、四、五在報告落地之前就已經交易完了，所以報告裡的任何東西都不可能造成那三天的走勢。把反應拆成 fwd_wed_fri（已成歷史）與 fwd_mon_tue（讀者唯一能行動的視窗），等於替每一個假設內建了一個對照組。幾乎沒有部位研究有這種對照，因為幾乎所有研究都只報告一個「星期二到星期二」的報酬，把兩者混在一起。"
+      "title": "The publication lag gives every hypothesis a not-tradable comparison window",
+      "detail": "A COT report is dated Tuesday and published Friday afternoon US time. Wednesday, Thursday and Friday have already traded when it lands, so a reader could not have traded them on the report. Splitting the response into fwd_wed_fri (already history) and fwd_mon_tue (the only window a reader could act on) gives every hypothesis a side-by-side comparison. fwd_wed_fri is not a zero-expected placebo: positions are a Tuesday snapshot, so Wed-Fri is a genuine future window relative to the snapshot, and the Friday session also contains the hours after the 15:30 ET release. Most positioning studies we know of report a single Tuesday-to-Tuesday return that blends the two (the literature was not checked here).",
+      "title_zh": "公布時間差讓每個假設多了一個「不可交易」的對照視窗",
+      "detail_zh": "一份 COT 報告的資料日期是星期二，但要到星期五美國時間下午才公布。星期三、四、五在報告落地之前就已經交易完了，所以讀者不可能依這份報告去交易那三天。把反應拆成 fwd_wed_fri（已成歷史）與 fwd_mon_tue（讀者唯一能行動的視窗），每個假設就有兩個視窗可以並排看。要注意 fwd_wed_fri 不是「預期為零」的安慰劑：部位是星期二收盤的快照，星期三到五對這個快照而言是真正的未來；而且星期五的交易日也包含了美東 15:30 公布之後的幾個小時。據我們所知，多數部位研究只報告一個「星期二到星期二」的報酬，把兩者混在一起（本研究沒有逐一查證文獻）。"
     },
     {
       "tone": "info",
-      "title": "721 weeks resolve half a point a week, and nothing reaches it",
-      "detail": "The CFTC's own archive replaces the 37-week transcription: weekly SD 2.25%, a typical bound of 0.47pp (0.30-0.39 per hypothesis in the actionable window). All fifteen hypotheses stay inside it; the largest actionable effect is +0.19pp (h01, p 0.071). The 1-2 point effects the short samples showed were noise.",
-      "title_zh": "721 週可以分辨每週約半個百分點，沒有一個假設達到",
-      "detail_zh": "改用 CFTC 官方歷史檔取代 37 週的截圖轉錄：每週報酬標準差 2.25%，可分辨門檻約 0.47 個百分點（可行動視窗裡每個假設 0.30–0.39）。十五個假設全都在門檻之內；可行動視窗最大的效果只有 +0.19 個百分點（h01，p 0.071）。短樣本時看到的 1–2 個百分點效果都是雜訊。"
+      "title": "721 weeks separate about 0.3–0.4 points in the next Monday–Tuesday, and no condition reaches it",
+      "detail": "The CFTC's own archive replaces the 37-week transcription. The 'bound' is the smallest effect separable with 80% power (2.8 x SD x sqrt(1/n1+1/n2)); below it a real effect may still exist. The typical bound is 0.47pp for the Tuesday-to-Tuesday return (weekly SD 2.25%, n=721) and 0.30-0.39pp per hypothesis for the actionable Monday-Tuesday window (SD 1.41%). All fifteen hypotheses are no_evidence; the largest actionable effect is +0.19pp (h01, 170 vs 550 weeks, p 0.071). A rough 95% upper limit on the actionable effects reaches about +0.43pp (h01), so effects below roughly 0.35-0.45pp are not excluded. The 1-2 point effects the 31- and 37-week samples showed did not reappear at 721 weeks. h05 is the mirror of h03 (371 + 350 = 721 weeks, exactly opposite effects), so there are 14 distinct tests, not 15.",
+      "title_zh": "721 週可以分辨下週一、二約 0.3–0.4 個百分點，沒有一個假設達到",
+      "detail_zh": "改用 CFTC 官方歷史檔取代 37 週的截圖轉錄。「門檻」是 80% 檢定力下能分辨的最小效果（2.8 × 標準差 × √(1/n1+1/n2)），低於門檻不代表沒有效果。週二到週二報酬的典型門檻約 0.47 個百分點（每週標準差 2.25%，n=721）；可行動的週一、二視窗標準差 1.41%，每個假設門檻 0.30–0.39。十五個假設全部是 no_evidence，可行動視窗最大的效果是 +0.19 個百分點（h01，條件 170 週對其餘 550 週，p 0.071）。可行動視窗效果的粗略 95% 上緣最高約 +0.43（h01），所以約 0.35–0.45 個百分點以下的效果無法排除。短樣本（31、37 週）時看到的 1–2 個百分點效果在 721 週裡沒有再出現。另外 h05 是 h03 的鏡像（371 + 350 = 721 週，效果正好相反），實際上是 14 個獨立檢定，不是 15 個。"
     },
     {
-      "tone": "warn",
-      "title": "What a report seems to say about the days before it does not carry to the days after",
-      "detail": "Across fifteen hypotheses the already-happened and actionable effects correlate at -0.234 and agree in sign 7 of 15 times. Of the five largest historical effects, three flip sign after publication and two shrink to a fifth to a third.",
-      "title_zh": "報告對公布前那幾天「好像說了什麼」，到公布後就不成立",
-      "detail_zh": "十五個假設裡，「已發生視窗」與「可行動視窗」效果的相關係數是 -0.234，正負號一致 15 個裡 7 個。歷史效果最大的五個假設，三個在公布後翻號，兩個縮到五分之一到三分之一。"
+      "tone": "info",
+      "title": "Both windows' effects sit inside the noise, so we cannot tell whether anything carries over",
+      "detail": "In the already-history window all fifteen hypotheses are also no_evidence (largest -0.268pp, h04, p 0.0715; bounds 0.355-0.471). Across the fifteen, the two windows' effects correlate -0.234 (n=15, 95% interval about -0.67 to +0.32, which includes zero and positive values; -0.305 with the h05 mirror removed, n=14, a post-hoc recomputation) and agree in sign 7 of 15 (chance gives 7.5). The history-window effect is larger in 10 of 15 (chance 7.5; binomial two-sided p about 0.30, post-hoc). The three sign flips among the five largest history effects compare two sets of effects that are each inside the noise, so they show neither carry-over nor its absence.",
+      "title_zh": "兩個視窗的效果都在雜訊之內，分不出有沒有延續",
+      "detail_zh": "在「已成歷史」視窗，十五個假設也全部是 no_evidence（最大 -0.268 個百分點，h04，p 0.0715；門檻 0.355–0.471）。十五個假設裡，兩個視窗效果的相關係數 -0.234（n=15，95% 區間約 -0.67 到 +0.32，包含 0 也包含正值；排除鏡像的 h05 後 -0.305，n=14，事後補算），正負號一致 7/15（隨機期望 7.5）；歷史視窗效果較大的有 10/15（隨機期望 7.5；二項檢定雙尾 p 約 0.30，事後補算）。歷史效果最大的五個假設裡有三個翻號，但這是兩組各自都在雜訊內的效果在比較，既不能說有延續，也不能說沒有。"
     },
     {
       "tone": "good",
-      "title": "Positioning describes the week that built it",
-      "detail": "Producer/merchant short changes correlate 0.372 with the same week's price move (shorts added in up weeks, +0.85%; covered in down weeks, -0.52%); managed-money net changes 0.544. Against the next Monday-Tuesday, managed money is -0.056. The hedging mechanism withdrawn on 2026-08-24 for lack of support (0.062 on 31 weeks) is supported at this length.",
-      "title_zh": "部位反映的是建立它的那一週",
-      "detail_zh": "生產商／貿易商空單的週變化，與同一週價格變動的相關係數是 0.372（上漲週加空單，平均 +0.85%；下跌週回補，-0.52%）；管理基金淨部位變化是 0.544。對下週一、二則只有 -0.056。2026-08-24 因缺乏支持而收回的避險機制（31 週時只有 0.062），在這個長度下得到支持。"
+      "title": "Positioning lines up with the week that built it (a post-hoc check)",
+      "detail": "Producer/merchant short changes correlate 0.372 with the same week's price move (n=720, 95% interval 0.31 to 0.43): in the weeks producer shorts rose, gold moved +0.85% on average the same week (n=350, ±0.22); in the weeks they fell, -0.52% (n=370, ±0.23). Managed-money net changes correlate 0.544 (0.49 to 0.59) with the same week's move, a clear but partial link (R-squared about 0.30). Against the next Monday-Tuesday, managed money is -0.056 (-0.13 to +0.02), not separable from zero. This is consistent with the hedging mechanism proposed after seeing revision 1 and withdrawn on 2026-08-24 (0.062 on 31 weeks, hand-computed; the program recomputes 0.061). Revision 3 tests it with the frozen definition on new data, but the 721 weeks include the 37 weeks that produced it. It does not separate 'producers hedge into strength' from other readings: futures are zero-sum and producer short changes correlate 0.66 with managed-money net changes (post hoc), so producers may simply be the counterparty.",
+      "title_zh": "部位與建立它的那一週同向（事後補做的檢查）",
+      "detail_zh": "生產商／貿易商空單的週變化，與同一週價格變動的相關係數是 0.372（n=720，95% 區間 0.31 到 0.43）：生產商空單增加的那些週，同週金價平均 +0.85%（n=350，±0.22）；空單減少的那些週，同週金價平均 -0.52%（n=370，±0.23）。管理基金淨部位變化與同週價格的相關係數是 0.544（0.49 到 0.59），關係明顯但只解釋一部分（R² 約 0.30）。對下週一、二則是 -0.056（-0.13 到 +0.02），分不出和 0 的差別。這與 2026-08-24 看完第 1 版結果後才提出、當天又收回的避險機制（31 週時 0.062，為手算；程式重算為 0.061）方向一致。第 3 版是用凍結的定義在新增資料上檢定，但 721 週內含當初產生這個機制的 37 週。它也無法區分「生產商在漲勢中避險」和其他解釋：期貨是零和的，生產商空單變化與管理基金淨部位變化的相關係數是 0.66（事後補算），生產商也可能只是對手方。"
     },
     {
       "tone": "info",
       "title": "The two stated hypotheses",
-      "detail": "Producer shorts falling did not precede a rise: -0.18pp Tuesday to Tuesday (95% interval -0.51 to +0.15), -0.04 in the actionable window. Retail long while managed money goes short is now testable (170 weeks): +0.19pp the next Monday-Tuesday, p 0.071, inside its 0.35 bound.",
+      "detail": "Hypothesis 2 (producer shorts falling means less hedging, so the next week rises) and hypothesis 1 (retail long while managed money short, then 'a rise, then a fall', two halves). Producer shorts falling: no evidence of a rise; -0.18pp Tuesday to Tuesday (371 vs 350 weeks, 95% interval -0.51 to +0.15), -0.04 in the actionable window (-0.25 to +0.16). Retail (CFTC nonreportable positions, often read as retail) long while managed money goes short is now testable (170 vs 550 weeks): +0.19pp the next Monday-Tuesday, p 0.071, inside its 0.35 bound; the 'then a fall' half was not tested.",
       "title_zh": "兩個原始假設",
-      "detail_zh": "生產商空單減少之後並沒有上漲：週二到週二 -0.18 個百分點（95% 區間 -0.51 到 +0.15），可行動視窗 -0.04。散戶做多、管理基金做空的組合現在可以檢定（170 週）：之後的週一、二 +0.19 個百分點，p 0.071，仍在 0.35 的門檻之內。"
+      "detail_zh": "生產商空單減少之後，沒看到上漲的證據：週二到週二 -0.18 個百分點（371 週對 350 週，95% 區間 -0.51 到 +0.15），可行動視窗 -0.04（-0.25 到 +0.16）。散戶（CFTC 的非申報部位，常被當作散戶）做多、管理基金做空的組合現在可以檢定（170 週對其餘 550 週）：之後的週一、二 +0.19 個百分點，p 0.071，仍在 0.35 的門檻之內；「之後下跌」那一半沒有檢定。"
     },
     {
       "tone": "good",
@@ -76,15 +77,24 @@
   ],
   "policy_impacts": [],
   "theme": "market_structure",
-  "card_summary": "CFTC positioning on 721 weeks of the official archive: no condition forecasts the next Monday–Tuesday, and positioning tracks the week it was built in.",
-  "question_zh": "兩個關於 CFTC 部位的假設，加上一個關於「報告公布時間差」的觀察。這些假設站得住嗎？以及——這個時間差讓我們能檢定什麼，是一般部位研究做不到的？",
+  "card_summary": "CFTC positioning on 721 weeks of the official archive: none of 15 conditions separates the next Monday–Tuesday at about 0.35pp or more (smaller effects not excluded); positioning lines up with the week it was built in.",
+  "question_zh": "兩個關於 CFTC 部位的假設，加上一個關於「報告公布時間差」的觀察。這些假設站得住嗎？以及——這個時間差讓我們能檢定什麼，是只看「星期二到星期二」單一報酬時看不到的？",
+  "card_summary_zh": "721 週 CFTC：15 個條件在約 0.35 個百分點以上都分不出對下週一、二的影響（更小的效果無法排除）；持倉與建立它的那一週同向。",
   "limitations_zh": [
     "週資料：只存在於一週之內、或只在特定市況才出現的效果，按週切分看不到。",
     "價格資料自 2012-12 起，2006–2012 的部位沒有對應報酬，未納入；限制樣本的是價格，不是部位資料。",
     "分位數門檻只用有價格的期間計算。",
-    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。"
+    "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。",
+    "「門檻」（smallest_resolvable）是 80% 檢定力下的最小可偵測效果（2.8 × σ × √(1/n1+1/n2)），不是「低於它就沒有效果」；判定 resolvable 還要求 p ≤ 0.05，比一般顯著性檢定更嚴。週二到週二的典型門檻 0.47 不是可行動視窗的門檻（0.30–0.39）。",
+    "15 個假設裡 h05（空單增加）是 h03（空單減少）的補集（兩者條件週數相加正好 721），效果互為正負，跨假設的相關係數與正負號計數把同一件事算了兩次；排除 h05 後相關係數為 -0.305（n=14，事後補算）。",
+    "h01 的原始說法是「先漲、之後下跌」，只檢定了「漲」那一半；h12 的 claim 寫「之後波動較大」，但程式檢定的是帶正負號的平均差，漲跌會互相抵消，沒有檢定波動大小。",
+    "每週視窗固定用報告日 +3 天、+7 天計算；721 週中有 8 週報告日是星期一，視窗因此錯開一天。美國政府停擺期間報告延後公布的週，其 fwd_mon_tue 在公布時已是歷史（日期未用資料核對，序列沒有公布日欄位）。星期一報告日佔 1.1%（8/721）；停擺延後的週數沒有核對，受影響週數的比例未知，不應當作約 1–2%。這會讓少數週的視窗錯位，需重跑才能修正。",
+    "fwd_wed_fri 以星期五的交易日收盤計算，包含美東 15:30 公布之後的幾個小時，不是完全「公布之前」。",
+    "沒有預先登記：15 個假設的定義自第 1 版起凍結（第 3 版只改說明文字、資料路徑與起始日期，另新增 producer_mechanism），但未正式登記，且 721 週包含當初產生這些假設的 37 週。避險機制（producer_mechanism）、跨視窗相關係數、正負號一致數、「最大五個效果」這幾種讀法，都是看完結果後才加入或改寫的探索性讀法，已無法從紀錄確認先後。",
+    "Public 的 results.json 與 analysis.py 仍帶著第 3 版程式的舊措辭：`method.publication_lag` 把 fwd_wed_fri 稱為 placebo 視窗、各假設的 `placebo.reading` 寫「關係主要在部位建立的那段行情，不在其後」或「可行動視窗至少一樣大」、analysis.py 說明還寫 31 週、880 週。`placebo.reading` 是依 |效果| 大小自動貼上的標籤，不代表分得出差別；兩個視窗的效果都在雜訊之內。以本頁文字為準。",
+    "「散戶」在 CFTC 資料裡是非申報部位（Nonreportable，低於申報門檻的小型交易者），常被當作散戶，但並不等同。"
   ],
-  "interpretation_zh": "這份研究最好的部分一直是一個設計：COT 報告的資料日期是星期二、公布卻在星期五下午，星期三到星期五的走勢在報告存在之前就已經發生。把反應拆成「已成歷史」與「唯一能行動」兩個視窗，每一個假設都自帶一個安慰劑對照組。\n\n前兩版只有 31、37 週，可分辨門檻約 4 個百分點，結論只能是「看不見」。第 3 版改用 CFTC 官方的分類期貨歷史檔，721 週有價格的資料，門檻降到約 0.47 個百分點——這一次，如果部位真的能預測下一週，樣本是看得到的。結果是沒有：十五個假設在可行動視窗的效果全都在門檻之內，最大的只有 0.19 個百分點。短樣本時那些 1–2 個百分點的效果，在完整紀錄裡都消失了。兩個視窗的效果相關係數是 -0.234，報告對公布前那幾天看似有的關係，到了公布後並不延續。\n\n真正站得住的是另一件事：部位描述的是建立它的那一週。生產商與貿易商在金價上漲的週加空單、下跌的週回補（相關係數 0.372），管理基金幾乎跟著價格走（0.544），但對下週一、二的預測力接近零（-0.056）。2026-08-24 曾提出、又因為只有 0.062 而收回的避險機制，在 721 週下得到支持——當初收回是對的，因為那時候的資料撐不起它；現在撐得起了。\n\n實務上的讀法：週報裡的 CFTC 部位可以用來描述「上週誰在做什麼」，不能用來推「下週會怎麼走」。這份研究不改變任何正式策略、風險設定或進場檢查。",
+  "interpretation_zh": "這份研究的設計重點是：COT 報告的資料日期是星期二、公布卻在星期五下午，星期三到星期五的走勢在讀者拿到報告之前就已經發生。把反應拆成「已成歷史」與「唯一能行動」兩個視窗，每一個假設就有一個不可交易的視窗可以並排比較。要注意這個視窗不是「預期為零」的安慰劑：部位是星期二的快照，星期三到五對快照而言是真正的未來。\n\n前兩版只有 31、37 週，可分辨門檻約 4 個百分點，結論只能是「看不見」。第 3 版改用 CFTC 官方的分類期貨歷史檔，721 週有價格的資料，週二到週二的典型門檻約 0.47 個百分點、可行動視窗每個假設 0.30–0.39（80% 檢定力的最小可偵測效果）。結果是十五個假設在可行動視窗全部分不出效果，最大的點估計 0.19 個百分點；但粗略的 95% 上緣最高到約 +0.43，所以約 0.35–0.45 個百分點以下的效果無法排除，更小的真實效果仍可能存在。短樣本時那些 1–2 個百分點的效果，在 721 週裡沒有再出現。已成歷史視窗的十五個效果也全都在門檻內，兩個視窗的效果相關係數 -0.234（n=15，95% 區間約 -0.67 到 +0.32），兩個視窗都分不出效果，也就分不出兩者之間有沒有延續。另外 h05 是 h03 的鏡像，實際是 14 個獨立檢定。\n\n看得出來的是另一件事：部位與建立它的那一週同向（這是事後補做的檢查）。生產商與貿易商在金價上漲的週加空單、下跌的週回補（相關係數 0.372，n=720，區間 0.31–0.43），管理基金與價格同向的程度更高（0.544，R² 約 0.30），但對下週一、二分不出關係（-0.056，區間 -0.13 到 +0.02）。這與 2026-08-24 看完第 1 版結果後才提出、又因 31 週只有 0.062 而收回的避險機制方向一致；但本研究無法區分「生產商在漲勢中避險」與「生產商只是管理基金的對手方」（兩者空單／淨部位變化的相關係數 0.66，事後補算）。\n\n實務上的讀法：週報裡的 CFTC 部位可以描述「上週誰在做什麼」；本研究在這個樣本與這些條件下，分不出它對下一個週一、二有預測力。這份研究不改變任何正式策略、風險設定或進場檢查。",
   "presentation": [
     {
       "type": "metrics",
@@ -93,7 +103,7 @@
         "weeks",
         "hypotheses_tested",
         "resolvable_in_actionable_window",
-        "typical_resolution_bound_pct"
+        "actionable_bound_range_pct"
       ]
     },
     {
@@ -104,11 +114,13 @@
       "type": "table",
       "source": "hypotheses",
       "title": "All Fifteen Hypotheses, Both Windows 全部十五個假設 × 兩個視窗",
-      "takeaway_zh": "橫向比較兩個效果欄：fwd_wed_fri 是報告公布前就走完的行情，fwd_mon_tue 是讀者唯一能行動的視窗。721 週下每個假設的可行動效果都小於門檻欄（約 0.3–0.4 個百分點），兩欄的相關係數 -0.234。",
+      "takeaway_zh": "橫向比較兩個視窗的效果、門檻與 p：fwd_wed_fri 是報告公布前就走完的行情（不可交易），fwd_mon_tue 是讀者唯一能行動的視窗。兩個視窗的效果都在各自門檻之內（已成歷史視窗門檻 0.355–0.471，可行動視窗 0.30–0.39；門檻是 80% 檢定力的最小可偵測效果，低於它不代表沒有效果）。兩欄的相關係數 -0.234（n=15，95% 區間約 -0.67 到 +0.32）。h05 是 h03 的鏡像。",
       "columns": [
         "id",
         "condition_weeks",
         "windows.fwd_wed_fri_pct.effect_pct",
+        "windows.fwd_wed_fri_pct.smallest_resolvable_pct",
+        "windows.fwd_wed_fri_pct.bootstrap_p_two_sided",
         "windows.fwd_mon_tue_pct.effect_pct",
         "windows.fwd_mon_tue_pct.smallest_resolvable_pct",
         "windows.fwd_mon_tue_pct.bootstrap_p_two_sided",

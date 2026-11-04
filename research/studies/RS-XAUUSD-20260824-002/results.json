@@ -836,5 +836,48 @@
         "reading": "the relationship is mostly with the move the positions were built during, not with what came after"
       }
     }
-  ]
+  ],
+  "power": {
+    "weeks": 721,
+    "weekly_return_sd_pct": 2.252,
+    "typical_smallest_resolvable_pct": 0.47,
+    "reading": "With 721 weeks split in two, only differences of roughly this size per week can be separated from noise. Most real positioning effects are far smaller, so the expected outcome of this study is bounds rather than findings.",
+    "unlock": "This run uses the CFTC's own disaggregated futures-only archive. The remaining limit is the price history (FX_IDC daily from 2012-12), not the positioning data, which goes back to 2006-06."
+  },
+  "producer_mechanism": {
+    "producer_short_chg_vs_concurrent": 0.372,
+    "mm_net_chg_vs_concurrent": 0.544,
+    "mm_net_chg_vs_fwd_mon_tue": -0.056,
+    "concurrent_move_when_shorts_rise_pct": 0.85,
+    "concurrent_move_when_shorts_fall_pct": -0.52,
+    "falls_minus_rises": {
+      "fwd_wed_fri_pct": {
+        "diff_pct": -0.139,
+        "se": 0.126,
+        "ci95": [
+          -0.39,
+          0.11
+        ]
+      },
+      "fwd_mon_tue_pct": {
+        "diff_pct": -0.044,
+        "se": 0.105,
+        "ci95": [
+          -0.25,
+          0.16
+        ]
+      },
+      "fwd_week_pct": {
+        "diff_pct": -0.179,
+        "se": 0.167,
+        "ci95": [
+          -0.51,
+          0.15
+        ]
+      }
+    }
+  },
+  "actionable_window_verdicts": {
+    "no_evidence": 15
+  }
 }
