@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """RS-XAUUSD-20260823-001 — how the daily range accumulates across the Taipei day.
 
-RS-XAUUSD-20260819-001 found one surviving regularity: daily extremes cluster at 09:00 and
-21:00-23:00 Taipei and avoid 04:00. That result answers *when an extreme forms*. It does not
+RS-XAUUSD-20260819-001 found that daily extremes cluster at 23:00 Taipei under both
+definitions of an extreme and at 22:00 only marginally (09:00, 21:00 and 04:00 depend on the
+definition). That result answers *when an extreme forms*. It does not
 answer the question asked at the chart, which is *how much of today's move is already
 behind me* — and that question is answerable without any directional claim.
 
