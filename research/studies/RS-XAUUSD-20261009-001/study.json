@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261009-001",
-  "revision": 2,
-  "title": "S1 V3.9 since the live push began — outside its history, and neither the market nor the entry context explains it",
+  "revision": 3,
+  "title": "S1 V3.9 since the live push began — outside its history; gold's net fall and the entry contexts tested do not account for it",
   "market": "XAUUSD",
   "strategy": {
     "id": "S1-AweWithBB",
@@ -11,7 +11,7 @@
   "status": "confirmed",
   "created_on": "2026-10-09",
   "question": "The 31 S1 V3.9 Strategy Tester trades entered since 2026-08-16 did worse than anything earlier in the 2026-10-09 export. Is that outside the strategy's own history, does gold's direction or volatility explain it, does any entry context explain it, and what changed in how trades end? Answered under the section 5 contract, with item 11 included because the question is one of degradation.",
-  "hypothesis": "If the decline were a long-only strategy meeting a falling market, the market-drift fit and the trend-regime split would account for it and the shift-share would show it as mix. The null being tested against is that it is a window the strategy's own history already contains.",
+  "hypothesis": "If the decline were a long-only strategy meeting a falling market, the market-drift fit and the trend-regime split would account for it and the shift-share would show it as mix. The null being tested against is that it is a window the strategy's own history already contains. This is a post hoc exploration, not a pre-registered test: the window was picked after the 2026-10-09 reconciliation showed it was worse than every earlier one, and the five design rules in the decision log were set in the same session. Every subset and threshold beyond those five rules was chosen while looking at the data.",
   "headline": {
     "live_trades": 31,
     "live_win_rate_pct": 32.26,
@@ -40,37 +40,37 @@
     {
       "tone": "warn",
       "title": "The live window is outside the strategy's own history",
-      "detail": "Win rate 32.26% (n=31) against 55.56% (n=315), PF 0.661 against 1.92. None of 285 earlier 31-trade windows was as bad; the worst returned -1.5% against -3.67%. All 10 non-overlapping earlier blocks were positive.",
+      "detail": "Win rate 32.26% (10/31, 95% CI 18.6-49.9) against 55.56% (175/315, CI 50.0-60.9); the 23.3-point gap is larger than the 18.3-point smallest gap separable at 95% (Fisher p 0.014, added post hoc). PF 0.661 against 1.92. None of 285 earlier 31-trade windows was as bad; the worst returned -1.5% against -3.67% (windows overlap, so this is a description, not a test). All 10 non-overlapping earlier blocks were positive.",
       "title_zh": "上線後這段已超出策略自己的歷史範圍",
-      "detail_zh": "勝率 32.26%（n=31），歷史 55.56%（n=315）；獲利因子 0.661 對 1.92。之前 285 個連續 31 筆窗口沒有一個這麼差，最差的是 -1.5%，這次是 -3.67%。互不重疊的 10 段全部是正報酬。"
+      "detail_zh": "勝率 32.26%（10/31，95% 區間 18.6–49.9），歷史 55.56%（175/315，區間 50.0–60.9）；差 23.3 個百分點，大於 95% 下能分辨的最小差距 18.3 點（Fisher p=0.014，事後補算）。獲利因子 0.661 對 1.92。之前 285 個連續 31 筆窗口沒有一個這麼差，最差的是 -1.5%，這次是 -3.67%（窗口互相重疊，這是描述，不是檢定）。互不重疊的 10 段全部是正報酬。"
     },
     {
       "tone": "warn",
-      "title": "A falling gold price does not explain it",
-      "detail": "Gold fell 5.33% over the window; across earlier windows that drift predicts +4.46% (R² 0.283). 58 earlier windows saw gold fall as much and the worst still returned +1.95%. S1 historically did best after gold had fallen.",
-      "title_zh": "金價下跌不能解釋",
-      "detail_zh": "這段期間金價跌 5.33%。依歷史窗口的關係，這樣的跌幅應該對應 +4.46%（R² 0.283）。歷史上有 58 個窗口金價跌得一樣多，最差的仍然賺 +1.95%。S1 歷史上反而是在金價跌過之後表現最好。"
+      "title": "Gold's net fall does not account for it",
+      "detail": "Gold's daily close fell 5.33% over the window (4376 to 4143; the last daily bar is 2026-10-02 although the last exit is 2026-10-09, and gold first rose about 6.4% to 2026-08-25 then fell about 11.1%; only the net head-to-tail change is controlled, not the path). Across earlier windows that net drift predicts +4.46% (R² 0.283; a naive 95% prediction interval is about -1.8 to +10.7, recomputed post hoc, and too narrow because windows overlap). 58 earlier windows saw gold fall as much and the worst still returned +1.95%. Historically S1 was not worse after gold had fallen: win rate 59.4% (38/64) after falling against 53.2% (91/171) after rising, no difference seen (Fisher p 0.46, post hoc).",
+      "title_zh": "金價的淨跌幅解釋不了",
+      "detail_zh": "這段期間金價日收盤從 4376 到 4143，跌 5.33%（價格資料只到 2026-10-02，最後一筆出場是 10-09；中間先漲約 6.4% 到 08-25 再跌約 11.1%，這裡只控制了頭尾淨變動，沒有控制路徑）。依歷史窗口的關係，這樣的淨跌幅對應 +4.46%（R² 0.283；天真的 95% 預測區間約 -1.8 到 +10.7，事後補算，窗口重疊所以偏窄）。歷史上有 58 個窗口金價跌得一樣多，最差的仍然賺 +1.95%。歷史上金價跌過之後並沒有比較差：跌勢組勝率 59.4%（38/64），漲勢組 53.2%（91/171），看不出差別（Fisher p=0.46，事後補算）。"
     },
     {
       "tone": "info",
-      "title": "No entry context isolates it — the decline is inside every group",
-      "detail": "Shift-share over gold's 20-session trend, 4H RSI state, session, Bollinger zone and 30m ATR tercile puts the whole change inside the groups, none in the mix. Volatility rose slightly, but the highest-ATR tercile was historically S1's best. The study supports no entry filter.",
-      "title_zh": "沒有任何進場條件能把它切出來：每一組裡面都變差了",
-      "detail_zh": "把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，變化全部來自各組內部，不是組合轉向較差的組。波動略升，但歷史上 ATR 最高的一組反而是 S1 最好的。這份研究不支持任何進場過濾條件。"
+      "title": "The entry contexts tested do not isolate it — the decline shows up inside each group",
+      "detail": "Shift-share over gold's 20-session trend, 4H RSI state, session, Bollinger zone and 30m ATR tercile, recomputed post hoc on the 29 live trades that have context (results.json still holds the 31-trade version, which keeps the 2 trades without context as an 'unknown' group and distorts the ATR row; rerun pending): within-group change is -0.31 to -0.35 points of a -0.33 change (96-106%), mix -0.013 to +0.019. Every live cell holds 0-22 trades. Volatility: median 30m ATR 0.2714% to 0.2921% of price, but 0 of the 29 live trades fall in the reference lowest ATR tercile (about 8e-6 if the distribution were unchanged), so that group has no live within-change. The highest-ATR tercile was not worse historically (58.1% n=105 against 52.9% n=104, no difference seen, Fisher p 0.49). The study gives no basis for an entry filter.",
+      "title_zh": "測過的進場條件都切不出來：每一組裡面都變差了",
+      "detail_zh": "把金價 20 日趨勢、4H RSI 狀態、盤別、布林位置、30 分鐘 ATR 分組做 shift-share，事後補算並排除 2 筆沒有市況資料的交易（用 29 筆；results.json 仍是 31 筆版本，把這 2 筆當成 unknown 組，ATR 那列被扭曲，待重跑）：組內變化 -0.31 到 -0.35 個百分點，佔總變化 -0.33 的 96–106%，組合轉移 -0.013 到 +0.019。每個上線後的格子只有 0–22 筆。波動：30 分鐘 ATR 中位數從 0.2714% 到 0.2921%，但 29 筆裡有 0 筆落在參考期最低的 ATR 三分位（分布沒變的話機率約 8e-6），所以那一組算不出上線後的組內變化。歷史上 ATR 最高一組沒有比較差（58.1% n=105 對中組 52.9% n=104，看不出差別，Fisher p=0.49）。這份研究沒有給任何進場過濾條件的依據。"
     },
     {
-      "tone": "warn",
-      "title": "What changed is how trades end",
-      "detail": "TP1 exits fell from 146 of 315 to 9 of 31; clean stop-outs rose from 13.0% to 25.8% of trades and false breakouts from 15.2% to 19.4%, and more losers first went half way to TP1 (37.1% to 47.6%, n=21 live losers). Revision 2: revision 1 could not see false breakouts and gave clean stop-outs 27.3% to 41.9%.",
-      "title_zh": "變的是交易怎麼結束",
-      "detail_zh": "打到 TP1 的比例從 146/315 降到 9/31；正常停損從 13.0% 升到 25.8%、假突破從 15.2% 升到 19.4%。虧損單裡先走到 TP1 一半（+0.25%）再回頭的比例從 37.1% 升到 47.6%（上線後只有 21 筆虧損單，僅供描述）。第 2 版修正：第 1 版分不出假突破，曾寫成正常停損 27.3% → 41.9%。"
+      "tone": "info",
+      "title": "How trades ended: fewer winners; no single loss type separately moved",
+      "detail": "The firm change is that fewer trades won (finding 1). Descriptively: TP1 exits 146/315 (46.3%) to 9/31 (29.0%, CI 16.1-46.6, Fisher p 0.087); clean stop-outs 41/315 (13.0%) to 8/31 (25.8%, CI 13.7-43.2, p 0.061); false breakouts 48/315 (15.2%) to 6/31 (19.4%, CI 9.2-36.3, p 0.60); losers that first went +0.25% in favour 52/140 (37.1%) to 10/21 (47.6%, CI 28.3-67.6, p 0.47). None of these single-category changes was separable from noise at n=31 (CIs and p added post hoc; the +0.25% threshold was chosen after seeing the data). Revision 2: revision 1 could not see false breakouts and gave clean stop-outs 27.3% to 41.9%.",
+      "title_zh": "交易怎麼結束：贏的變少；單一種虧損類型的變化都分不出來",
+      "detail_zh": "確定的只有「贏的變少」（見第 1 點）。以下是描述：打到 TP1 的比例 146/315（46.3%）→ 9/31（29.0%，區間 16.1–46.6，Fisher p=0.087）；正常停損 41/315（13.0%）→ 8/31（25.8%，區間 13.7–43.2，p=0.061）；假突破 48/315（15.2%）→ 6/31（19.4%，區間 9.2–36.3，p=0.60）；虧損單先走到 +0.25% 再回頭的比例 52/140（37.1%）→ 10/21（47.6%，區間 28.3–67.6，p=0.47）。n=31 時這些單項變化都分不出來（區間與 p 為事後補算；+0.25% 門檻是看過資料後選的）。第 2 版修正：第 1 版分不出假突破，曾寫成正常停損 27.3% → 41.9%。"
     },
     {
       "tone": "info",
       "title": "Cause not established",
-      "detail": "One window, chosen after it looked bad; permutation p 0.008 is optimistic for that reason. The data cannot separate an intraday regime change no context measure captures from an unusually bad run. The section 5.1 item 11 flag is degraded.",
+      "detail": "One window, chosen after it looked bad; permutation p 0.008 is optimistic for that reason. There is no pre-registration for this study; the forward check PREREG-20261009-001 was registered after it. Every analysis beyond the five design rules is exploratory. The data cannot separate an intraday regime change no context measure captures from an unusually bad run. The section 5.1 item 11 flag is degraded.",
       "title_zh": "原因沒有確定",
-      "detail_zh": "這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。"
+      "detail_zh": "這是一段「看起來很差之後才被挑出來」的窗口，所以排列檢定 p=0.008 偏樂觀。這份研究本身沒有預先登記（PREREG-20261009-001 是研究完成後才登記的前瞻檢驗）；除了決策 1–5，所有分析都屬探索性。資料無法區分「黃金盤中走勢型態改變（現有指標都沒抓到）」和「一段特別差的運氣」。§5.1 第 11 項的時間穩定性判定為 degraded。"
     }
   ],
   "policy_impacts": [
@@ -84,17 +84,21 @@
     }
   ],
   "theme": "strategy_diagnostics",
-  "card_summary": "S1's live window is worse than every earlier one, and a falling gold price does not explain it.",
-  "title_zh": "S1 V3.9 上線推播後的表現：超出自身歷史，而且市況與進場條件都解釋不了",
+  "card_summary": "S1's live window is worse than every earlier one (picked after it looked bad, so p is optimistic); gold's net fall does not account for it.",
+  "title_zh": "S1 V3.9 上線推播後的表現：超出自身歷史，金價淨跌幅與測過的進場條件都解釋不了",
   "question_zh": "S1 V3.9 自 2026-08-16（Telegram 推播開始）以來的 31 筆回測交易，比匯出檔裡任何更早的時段都差。這是否超出策略自己的歷史範圍？金價方向或波動能否解釋？進場時的市況能否解釋？交易的結束方式變了什麼？依研究規格 §5 標準格式回答，並因為問題本身是「是否衰退」而納入 §5.1 第 11 項。",
-  "card_summary_zh": "S1 上線後這段比歷史上任何一段都差，而且不是金價下跌造成的。",
+  "card_summary_zh": "S1 上線後這段比歷史上任何一段都差（看起來很差之後才挑出來，p 偏樂觀）；金價的淨跌幅解釋不了。",
   "limitations_zh": [
     "這是策略回測的交易，不是帳戶實際成交",
     "上線後只有一段窗口，而且是事後挑出來的",
     "價格匯出只到 2026-10-03，之後 2 筆交易沒有市況資料",
-    "30 分鐘價格由兩份匯出拼接；重疊處有 49 根收盤價不同，最大差 0.396"
+    "30 分鐘價格由兩份匯出拼接；重疊處有 49 根收盤價不同，最大差 0.396",
+    "這份研究沒有預先登記；除了 5 條設計規則，其他分析都是同一工作階段看資料時決定的（探索性）",
+    "results.json（第 2 版）的 shift-share 與金價趨勢表仍把 2 筆沒有市況資料的交易當成 unknown 組，ATR 那列被扭曲；文字改用事後重算的 29 筆版本，results.json 待重跑",
+    "金價漂移只算頭尾淨變動，終點是 2026-10-02 日收盤（最後一筆出場是 10-09）；窗口內金價先漲約 6.4% 再跌約 11.1%，路徑沒有控制",
+    "Outcome Mix 表的 n 與 MFE 欄位只算虧損單（參考期 140、上線後 21）"
   ],
-  "interpretation_zh": "S1 V3.9 從 2026-08-16 開始推播後的 31 筆回測交易，勝率 32.26%、獲利因子 0.661，合計 -3.67%。歷史上 285 個連續 31 筆窗口**沒有一個這麼差**，最差的是 -1.5%。\n\n最直覺的解釋是「只做多的策略剛好遇到跌勢」，但資料不支持：這段期間金價跌 5.33%，依歷史關係 S1 應該還能賺 4.46%；歷史上金價跌得一樣多的 58 個窗口，最差也賺 1.95%。S1 過去反而是在金價跌過之後表現最好。\n\n按金價趨勢、4H RSI、盤別、布林位置、波動度分組，**每一組裡面都一樣變差**，所以找不到任何能把爛單切掉的進場條件。真正變的是交易怎麼結束：打到 TP1 的比例下降、正常停損增加，而且有更多單先往目標走一半才回頭停損。\n\n⚠️ 這段窗口是「看起來很差」之後才挑出來分析的，統計上偏樂觀；31 筆也只是一段樣本。原因沒有確定，所以採取的做法是預先登記一個前瞻檢驗：接下來 31 筆如果又比歷史最差窗口還差，就停止建議 S1，而不是現在就改策略。",
+  "interpretation_zh": "S1 V3.9 從 2026-08-16 開始推播後的 31 筆回測交易，勝率 32.26%（10/31，區間 18.6–49.9）、獲利因子 0.661，合計 -3.67%。歷史上 285 個連續 31 筆窗口**沒有一個這麼差**，最差的是 -1.5%（窗口重疊，這是描述）。\n\n最直覺的解釋是「只做多的策略剛好遇到跌勢」，但金價的淨跌幅解釋不了：這段期間金價日收盤跌 5.33%（只到 10-02，中間先漲約 6.4% 再跌約 11.1%，路徑沒有控制），依歷史關係 S1 應該還能賺 4.46%；歷史上金價跌得一樣多的 58 個窗口，最差也賺 1.95%。歷史上金價跌過之後並沒有比較差（跌勢組 59.4% n=64，漲勢組 53.2% n=171，看不出差別）。\n\n按金價趨勢、4H RSI、盤別、布林位置、波動度分組（事後補算，排除 2 筆沒有市況資料的交易，用 29 筆），變化有 96–106% 在各組內部，組合轉移的部分很小（-0.013 到 +0.019 個百分點），所以測過的 5 個條件都切不出來；每個上線後的格子只有 0–22 筆。確定的只有「贏的變少」；TP1 比例下降（p=0.087）、正常停損上升（p=0.061）、假突破、先走到 +0.25% 再回頭（21 筆虧損單，p=0.47）這些單項變化，在 n=31 時都分不出來。\n\n⚠️ 這份研究沒有預先登記，窗口是「看起來很差」之後才挑出來分析的，統計上偏樂觀；31 筆也只是一段樣本。原因沒有確定，所以在研究完成後登記了一個前瞻檢驗：接下來 31 筆如果又比歷史最差窗口還差，就停止建議 S1，而不是現在就改策略。",
   "presentation": [
     {
       "type": "metrics",
@@ -119,23 +123,27 @@
       "title": "Live Window vs History 上線後 vs 歷史",
       "takeaway_zh": "每個點是一段連續 31 筆交易的合計報酬。上線前 285 段只有 8 段為負，最差 -1.5%；上線後這段 -3.67%。互不重疊的 10 段全部為正。",
       "chart_file": "rolling_31_return.png",
-      "table_source": "decline.rolling_windows",
+      "table_source": "decline",
       "table_title": "Rolling 31-Trade Windows",
-      "columns": []
+      "record_keys": [
+        "rolling_windows"
+      ]
     },
     {
       "type": "evidence_pair",
       "title": "Gold Drift Control 金價方向對照",
-      "takeaway_zh": "橫軸是窗口期間金價漲跌，縱軸是 S1 該窗口報酬。金價漲跌只解釋 R²=0.283；這次金價跌 5.33%，依歷史關係應該 +4.46%，實際 -3.67%，殘差比歷史上所有窗口都低。",
+      "takeaway_zh": "橫軸是窗口期間金價頭尾淨漲跌（上線後這段只算到 10-02），縱軸是 S1 該窗口報酬。淨漲跌只解釋 R²=0.283；這次金價跌 5.33%，依歷史關係應該 +4.46%，實際 -3.67%，殘差比歷史上所有窗口都低。窗口內路徑（先漲約 6.4% 再跌約 11.1%）沒有控制。",
       "chart_file": "window_vs_gold_drift.png",
-      "table_source": "decline.market_control",
+      "table_source": "decline",
       "table_title": "Market Control",
-      "columns": []
+      "record_keys": [
+        "market_control"
+      ]
     },
     {
       "type": "evidence_pair",
       "title": "Gold Trend at Entry 進場時的金價趨勢",
-      "takeaway_zh": "依進場前 20 日金價漲跌分三組。歷史上 S1 在金價跌過之後反而最好；上線後跌勢、漲勢都輸，所以不是「遇到跌勢」造成的。各組上線後樣本很小，只能看方向。",
+      "takeaway_zh": "依進場前 20 日金價漲跌分三組。歷史上跌勢後並沒有比較差（59.4% n=64 對漲勢 53.2% n=171，看不出差別）；上線後跌勢、漲勢都輸，所以測過的金價趨勢解釋不了。各組上線後樣本很小（13／6／10 筆），只能看方向；表中只列三個趨勢組，2 筆沒有市況資料的交易不納入比較（results.json 仍有一個 unknown 組，事後重算的 29 筆版本已排除，results.json 待重跑）。",
       "chart_file": "return_by_gold_trend.png",
       "table_source": "decline.shift_share.gold_trend_20d.groups",
       "table_title": "By Gold 20-Session Trend",
@@ -146,13 +154,18 @@
         "live.n",
         "live.win_rate_pct",
         "live.avg_return_pct"
+      ],
+      "record_keys": [
+        "falling (<-2%)",
+        "flat (±2%)",
+        "rising (>+2%)"
       ]
     },
     {
       "type": "table",
       "source": "decline.shift_share",
       "title": "Shift-Share 變化來源分解",
-      "takeaway_zh": "每一列把「每筆平均報酬的變化」拆成「同一類交易變差」（within）和「交易組合轉向較差的類別」（mix）。五個維度都是 within 幾乎等於全部變化，代表沒有任何一個條件能把爛單切出來。",
+      "takeaway_zh": "每一列把「每筆平均報酬的變化」拆成「同一類交易變差」（within）和「交易組合轉向較差的類別」（mix）。⚠️ 這張表是 results.json 的 31 筆版本，把 2 筆沒有市況資料的交易當成 unknown 組，ATR 那一列（within -0.4075、mix +0.0837）是錯的。事後重算（排除 2 筆，用 29 筆，results.json 待重跑）：金價趨勢 within -0.3508／mix +0.0188；4H RSI -0.3307／-0.0013；盤別 -0.3195／-0.0125；布林位置 -0.3334／+0.0015；ATR -0.3149／-0.0121（變化約 -0.33）。組內變化佔 96–106%，測過的 5 個條件都切不出來。這個分解本身沒有區間（組內、組合都沒有誤差界線），各格上線後只有 0–22 筆，只能看方向。",
       "columns": [
         "delta_mean_return_pct",
         "within_pct_points",
@@ -163,7 +176,7 @@
     {
       "type": "evidence_pair",
       "title": "How Trades End 交易怎麼結束",
-      "takeaway_zh": "上線前勝出 55.6%、正常停損 13.0%、假突破 15.2%；上線後勝出 32.3%、正常停損 25.8%、假突破 19.4%。",
+      "takeaway_zh": "上線前勝出 55.6%、正常停損 13.0%、假突破 15.2%；上線後勝出 32.3%、正常停損 25.8%（8/31）、假突破 19.4%（6/31）。確定的只有贏的變少；單項虧損類型的變化在 n=31 都分不出來（正常停損 p=0.061、假突破 p=0.60）。表中 n、median mfe、share reaching 0.25pct mfe 只算虧損單（參考期 140、上線後 21）。",
       "chart_file": "fail_mix_shift.png",
       "table_source": "decline.fail_mix",
       "table_title": "Outcome Mix",
@@ -172,7 +185,7 @@
     {
       "type": "evidence_pair",
       "title": "Temporal Stability 時間穩定性",
-      "takeaway_zh": "前 70% 交易勝率 57.44%，後 30% 44.23%，依固定規則判定為 degraded。2026 第二季起逐季下滑。",
+      "takeaway_zh": "前 70% 交易勝率 57.44%，後 30% 44.23%，依固定規則判定為 degraded。2026 第二季起逐季下滑（48.9% n=47、43.6% n=55、20.0% n=5）；2026Q4 只有 5 筆（區間 3.6–62.4），只能看方向。",
       "chart_file": "quarterly_stability.png",
       "table_source": "temporal_stability.by_period",
       "table_title": "By Quarter",
@@ -211,7 +224,7 @@
       "type": "table",
       "source": "decline.monthly",
       "title": "Monthly 逐月",
-      "takeaway_zh": "S1 回測每月表現與同月金價漲跌。2026 年 8 月金價漲 9.7%，S1 卻打平。",
+      "takeaway_zh": "S1 回測每月表現與同月金價漲跌。2026 年 8 月 17 筆合計打平，但其中上線前 11 筆 +2.00%、上線後 6 筆 -2.00%；這個月金價 +9.7% 大多發生在上線之前（08-14 收 4376，08-31 收 4448，上線後約 +1.6%），所以不能拿來說明上線期間金價大漲。",
       "columns": [
         "n",
         "win_rate_pct",
