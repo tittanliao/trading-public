@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261103-001",
-  "revision": 1,
+  "revision": 2,
   "title": "Gold and the CPI surprise (32 releases 2024-2026): moves lean the pre-registered way (hot core CPI, weaker gold) but the evidence is marginal and fragile; simple rules that trade after the release are not distinguishable from zero after costs",
   "market": "XAUUSD",
   "strategy": "none — gold around US CPI releases, by surprise",
@@ -58,6 +58,13 @@
       "detail": "Entries and exits at 30m closes, USD per oz after costs (1.5 / 3.0 round trip). B follow first bar: 33 trades, mean 0.34 / -1.16 (bound 7.08), worst -42.8; C surprise after 30m: 21 trades, mean 2.84 / 1.34 (bound 8.73), worst -26.1; D surprise at release upper bound: 21 trades, mean 6.95 / 5.45 (bound 9.0), worst -50.7. Rule D assumes a fill at the 08:30:00 open and is not executable.",
       "title_zh": "公布後才進場的規則：扣成本後分不出賺賠",
       "detail_zh": "以 30 分鐘 K 棒收盤進出，每盎司美金，扣來回成本 1.5／3.0：B 跟第一根 K 棒方向（33 次，平均 0.34／-1.16，界線 7.08，最差 -42.8）；C 公布 30 分鐘後順著數據（21 次，平均 2.84／1.34，界線 8.73，最差 -26.1）；D 公布瞬間順著數據（21 次；假設能成交，實際做不到；平均 6.95／5.45，界線 9.0，最差 -50.7）。都分不出賺賠。"
+    },
+    {
+      "title": "Win/loss counts and best/worst trades (post hoc, from the per-release events)",
+      "tone": "info",
+      "detail": "Computed after the results were seen, from the per-release `events` in results.json (entry at the first-bar close, exit at the 4-hour close, 3 USD cost per ounce; rule D enters at the release open and exits at the 30m close). Rule B (33 releases): 16 wins, 17 losses, best +51.4 (2025-10-24), worst -42.8. Rule C (21): 9 wins, 12 losses, best +51.4, worst -26.1. Rule D (21, not executable): 13 wins, 8 losses, best +50.8 (2026-10-14), worst -50.7. 4-hour direction: of 8 hot core releases 5 fell; of 13 cool releases 9 rose. Single best trades are outliers and say nothing about an edge.",
+      "title_zh": "賺賠次數與最好／最慘單筆（事後由逐筆 events 計算）",
+      "detail_zh": "以下是看到結果之後，由 results.json 的逐筆 events 事後計算（第一根 K 棒收盤進場、4 小時後出場、每盎司成本 3 美金；規則 D 在公布瞬間進場、30 分鐘後出場）。規則 B（33 次）：賺 16 次、賠 17 次，最好 +51.4（2025-10-24），最慘 -42.8。規則 C（21 次）：賺 9 次、賠 12 次，最好 +51.4，最慘 -26.1。規則 D（21 次，現實做不到）：賺 13 次、賠 8 次，最好 +50.8（2026-10-14），最慘 -50.7。4 小時方向：核心高於預期 8 次中 5 次下跌；低於預期 13 次中 9 次上漲。最好的單筆是個別極端值，不代表有優勢。"
     }
   ],
   "policy_impacts": [],
@@ -76,7 +83,8 @@
     "規則的百分比結果未扣成本；美金結果已扣成本。",
     "2025-12-18 沒有月增率（政府停擺後只公布兩個月合計），不列入。",
     "不是完全盲測：每次的黃金反應已在 RS-XAUUSD-20261102-002 公開，執行者也記得部分 2024–2025 的數據好壞。",
-    "只是描述與一般規則回測，不構成交易建議。"
+    "只是描述與一般規則回測，不構成交易建議。",
+    "第 2 版（2026-11-04）：只改文字，更正預期值出處用語並新增事後計算的賺賠次數與最好／最慘單筆；results.json 數字未變。"
   ],
   "interpretation_zh": "方向偏向預先登記的假設：核心 CPI 高於預期時黃金偏跌、低於預期偏漲。但只有 32 次，證據很薄：預先登記的 30 分鐘斜率剛好越過界線，4 小時差距只越過常態界線（t 界線過不了），拿掉一兩筆就會變；30 分鐘與收盤的分組差距分不出來。另外，公布 30 分鐘後才順著數據或第一根 K 棒進場，扣成本後平均賺賠分不出來；就算假設在公布瞬間成交（實際做不到），也分不出來；樣本小、界線寬（約 ±7–9 美金），這代表看不出優勢，不代表確定沒有優勢。這份研究描述歷史反應，不構成交易建議。",
   "presentation": [
