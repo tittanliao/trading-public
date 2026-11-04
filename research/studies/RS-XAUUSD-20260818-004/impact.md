@@ -8,17 +8,18 @@
 
 "Setting S1 and S2 aside, can Python find better alpha in the 30-minute data?"
 
-No directional alpha. 26 features across 6 horizons, searched on the training period only;
-the shortlist fixed there dies in validation, with two sign flips and block-bootstrap
-p-values from 0.13 to 0.83. The largest information coefficient anywhere in the scan is
-0.04, and the short-horizon patterns that do exist are worth less than the spread.
+No directional feature survived validation. 26 features across 6 horizons were searched on the
+training period only; five hand-entered candidates were validated, with two sign flips and
+block-bootstrap p-values from 0.14 to 0.83 for the rest. The largest information coefficient in
+the scan is 0.04. The other 151 cells were never validated, and the validation period holds only
+about 160 independent windows, so small effects cannot be ruled out. The short-horizon patterns
+are unvalidated and their spreads are below the lowest cost level (0.010%).
 
-That is not a failure of effort. It is a measurement of what this data can support, and it
-is worth having in writing, because the next idea that arrives will look better than it is.
+This study was not pre-registered; the volatility analysis was added mid-study (post-hoc).
 
 ## The thing that is forecastable
 
-Volatility, by more than an order of magnitude, and it holds out of sample:
+Volatility ranks far higher than any directional feature (range vs signed return — not the same yardstick), and it holds out of sample (TRAIN is in-sample):
 
 | | TRAIN | VALID | HOLDOUT |
 |---|---|---|---|
@@ -26,43 +27,36 @@ Volatility, by more than an order of magnitude, and it holds out of sample:
 | ATR(14) × hour factor | **0.684** | **0.684** | **0.571** |
 | Best directional feature | 0.040 | fails | — |
 
-The hour-of-day factor spans 3.2× trough to peak — 04:00–05:00 Taipei runs at about 0.47×
-a normal bar, 21:00–22:00 at about 1.51× — and its shape rank-correlates 0.924 between
+The hour-of-day factor (median true range ÷ prior 14-bar ATR, by Taipei open hour) spans 3.28×
+trough to peak — 05:00 is the trough at 0.461, 21:00 the peak at 1.513 — and its shape rank-correlates 0.924 between
 TRAIN and VALID and 0.863 between TRAIN and HOLDOUT.
 
-## Why that is worth nothing here, and it matters
-
-The obvious use is stop placement or position sizing. Both were tested and both fail:
+## What the volatility applications showed
 
 | Application | S1 | S2 |
 |---|---|---|
-| Volatility-scaled stop, best of 7 multiples | 91% of baseline | 93% |
-| Volatility-targeted sizing, best of 6 exponents | 100% | 101% |
+| Volatility-targeted sizing, best of 6 exponents (in-sample) | 100.3% (about 97.0–103.7%) | 101.4% (about 96.4–107.6%) |
+| Volatility-scaled stop | **simulation invalid, do not cite** | **simulation invalid, do not cite** |
 
-compared at equal volatility over the period, which is the alignment this project settled
-on in `RS-XAUUSD-20260818-001` revision 3.
+Sizing is compared on the per-trade mean/sd ratio relative to baseline; intervals are a post-hoc
+bootstrap and cover 100%, so we saw no difference. The stop simulation keeps the original exit
+when the new stop is wider (325/472 S1 trades at k=3.0), so the earlier 91% / 93% say nothing
+about volatility-scaled stops; a full-path re-simulation is needed.
 
-The reason is a single fact worth carrying: **R per trade has almost the same dispersion in
-every volatility tercile** — S1 1.48 / 1.29 / 1.60, S2 1.66 / 1.78 / 1.65. A fixed-percentage
-stop combined with fixed-fractional risk already expresses every trade in
-volatility-normalised units. The forecast has nothing left to correct.
-
-That one mechanism explains three results across two studies: this study's sizing failure,
-this study's stop failure, and `RS-XAUUSD-20260818-002`'s finding that ATR at entry
-separates nothing.
+Post-hoc observation: R dispersion did not separate across forecast-volatility terciles (S1 sd
+1.48 / 1.29 / 1.60, S2 1.66 / 1.78 / 1.65, intervals overlap). Candidate reasons, none tested:
+fixed-percentage stops and targets put about 92% / 92% of trades on three fixed R values (94% / 93% within
+0.05R), so sd tracks hit rates; or the fixed stop already acts as a normalised unit (which sits uneasily with the
+15.2× spread in volatility units). Any link to `RS-XAUUSD-20260818-002` is conjecture.
 
 ## What to do with this
 
-**Do not** build a volatility filter, a volatility-scaled stop, or a volatility-targeted
-sizing rule for S1 or S2. The risk framework already does that work.
+**Do not** treat the sizing result as evidence for a volatility rule: we saw no difference, which
+is not proof of none. **Do not** cite the stop figures; the stop question is open.
 
-**Do** note that the existing framework is better than it looks. A fixed percentage stop
-looks crude next to an ATR stop; in R space it is doing the same job with fewer moving
-parts and no estimation error.
-
-**Do not** reach for the next bar-level directional feature on this dataset. Twenty-six
-were tried under a protocol that could have detected an effect this data does not contain.
-The bound is on the data, not on the feature list.
+**Do not** assume the next bar-level directional feature will work: five candidates were
+validated and none survived, with about 160 independent windows of power. That bounds what
+this protocol could detect, not what the data contain.
 
 ## Where alpha could still be
 
@@ -75,6 +69,6 @@ Recorded as directions, not claims — none tested here:
 - **Longer horizons.** Everything here tops out at a 24-hour forward return. Weekly and
   monthly structure is a different question on a different sample size.
 
-The honest summary is that direction at 30 minutes is efficient to the limit of what 32
-months of one instrument can resolve, and the effort is better spent on the one open
-prospective test (`PREREG-20260818-001`) than on another feature.
+The honest summary is that this protocol saw no direction at 30 minutes in 32 months of one
+instrument, with limited power; whether to spend effort on another feature or on the open
+prospective test (`PREREG-20260818-001`) is a separate decision.
