@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -77,7 +78,7 @@ def permutation_p(frame: pd.DataFrame, observed: float, trials: int = 20000,
         a = [w for w, f in zip(wins, flags) if f]
         b = [w for w, f in zip(wins, flags) if not f]
         gap = 100 * sum(a) / len(a) - 100 * sum(b) / len(b)
-        if gap >= observed:
+        if gap >= observed - 1e-9:
             hits += 1
     return round(hits / trials, 4)
 
@@ -97,6 +98,10 @@ def measure(frame: pd.DataFrame) -> dict:
     above = valid[valid["bb_zone"] == "above_upper"]
     rest = valid[valid["bb_zone"] != "above_upper"]
     gap = round(win_rate(above) - win_rate(rest), 2)
+    # Review fix: the permutation compares against the UNROUNDED observed gap (same formula as the
+    # shuffled draws), not the 2-decimal display value, which dropped the observed tie.
+    gap_exact = (100 * (above["net_pnl_usd"] > 0).mean()
+                 - 100 * (rest["net_pnl_usd"] > 0).mean())
     return {
         "trades_joined": int(len(valid)),
         "above_upper_n": int(len(above)),
@@ -108,7 +113,7 @@ def measure(frame: pd.DataFrame) -> dict:
         "smallest_resolvable_gap_pct_points": resolvable_gap(
             len(above), len(rest), win_rate(valid)),
         "clears_resolution_bound": bool(gap > resolvable_gap(len(above), len(rest), win_rate(valid))),
-        "permutation_p": permutation_p(valid, gap),
+        "permutation_p": permutation_p(valid, gap_exact),
         "mean_return_above_pct": round(float(above["return_pct"].mean()), 4),
         "mean_return_rest_pct": round(float(rest["return_pct"].mean()), 4),
         "share_of_trades_kept_pct": round(100 * len(above) / len(valid), 2),
@@ -130,7 +135,10 @@ def main() -> None:
             "change": ("one line in the join: the bb lookup's timestamps are shifted forward "
                        "one bar, so a backward asof at entry_time sees the last bar that had "
                        "actually closed"),
-            "everything_else": "same runner, same shared toolkit, same inputs, same screens",
+            "everything_else": ("a new runner (this file), not the originals' runner; same shared toolkit "
+                                "(compute_bb, bb_zone), same trade export and bars, same band convention; "
+                                "the screens are re-defined as documented in README (one-sided "
+                                "two-group permutation, bound constant 2.802, zone win rates)"),
             "permutation_trials": 20000,
             "random_seed": 20260901,
         },
@@ -148,10 +156,11 @@ def main() -> None:
         "above_upper_win_rate_pct": round(b["above_upper_win_rate_pct"]
                                           - a["above_upper_win_rate_pct"], 2),
         "still_clears_bound": b["clears_resolution_bound"],
-        "permutation_p_published": a["permutation_p"],
+        "permutation_p_rerun_fill_bar_one_sided": a["permutation_p"],
         "permutation_p_corrected": b["permutation_p"],
     }
     result["schema_version"] = 1
+    result["generated_at"] = datetime.now().astimezone().replace(microsecond=0).isoformat()
     result["study_id"] = "RS-XAUUSD-20260901-001"
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "results.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",

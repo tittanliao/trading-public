@@ -61,7 +61,7 @@
     "win_rate_gap_pct_points": 9.26,
     "smallest_resolvable_gap_pct_points": 20.28,
     "clears_resolution_bound": false,
-    "permutation_p": 0.0748,
+    "permutation_p": 0.1286,
     "mean_return_above_pct": 0.2443,
     "mean_return_rest_pct": 0.1806,
     "share_of_trades_kept_pct": 11.23,
@@ -93,14 +93,14 @@
     "above_upper_n": -29,
     "above_upper_win_rate_pct": -9.02,
     "still_clears_bound": false,
-    "permutation_p_published": 0.0003,
-    "permutation_p_corrected": 0.0748
+    "permutation_p_rerun_fill_bar_one_sided": 0.0003,
+    "permutation_p_corrected": 0.1286
   },
   "entry_times_on_a_bar_timestamp": 472,
   "entry_times_total": 472,
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20260901-001",
-  "generated_at": "2026-09-01T00:06:13+08:00",
+  "generated_at": "2026-11-04T13:50:16+08:00",
   "strategy": "S1 AweWithBB V3.9",
   "method": {
     "verifies": [
@@ -108,7 +108,7 @@
       "RS-XAUUSD-20260824-006"
     ],
     "change": "one line in the join: the bb lookup's timestamps are shifted forward one bar, so a backward asof at entry_time sees the last bar that had actually closed",
-    "everything_else": "same runner, same shared toolkit, same inputs, same screens",
+    "everything_else": "a new runner (this file), not the originals' runner; same shared toolkit (compute_bb, bb_zone), same trade export and bars, same band convention; the screens are re-defined as documented in README (one-sided two-group permutation, bound constant 2.802, zone win rates)",
     "permutation_trials": 20000,
     "random_seed": 20260901
   }
