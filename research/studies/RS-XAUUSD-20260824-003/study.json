@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20260824-003",
-  "revision": 2,
-  "title": "Three stated claims tested on 274 weeks — one is circular, one measures the period, one buys win rate with return",
+  "revision": 3,
+  "title": "Three stated claims tested on 274 weeks — one is circular, one measures the period, one raises in-sample win rate by a gap 274 weeks cannot separate from chance, with no visible gain in return",
   "market": "XAUUSD",
   "strategy": "none — selection methodology tested on CFTC positioning",
   "status": "confirmed",
   "created_on": "2026-08-24",
   "question": "An objection was raised to repeated findings of no significance and proposed a different standard: a condition above 50% win rate is alpha, and several conditions agreeing is alpha. With the CFTC history downloaded, is the standard testable, and what does it produce?",
-  "hypothesis": "Sample size was never the whole disagreement. Two of the three claims fail for reasons visible in the data rather than in a p-value, and the third produces exactly the effect it promises while losing money.",
+  "hypothesis": "Sample size was never the whole disagreement. Two of the three claims fail for reasons visible in how the numbers are built (a window that contains the condition; a baseline that moves between periods), and the third shows a higher in-sample win rate that 274 weeks cannot separate from chance, with no visible gain in return.",
   "headline": {
     "usable_weeks": 274,
     "cftc_weeks_downloaded": 503,
@@ -38,42 +38,42 @@
       "title": "The sample objection was fair and is now removed",
       "detail": "The CFTC disaggregated history was downloaded with permission: 503 gold weeks from 2017, verified against their 31 screenshots at 279 of 279 field-values. Joined to the daily series it gives 274 usable weeks against the 31 that made the previous study unanswerable. The binding constraint is now the price history starting 2021-05, not the positioning data.",
       "title_zh": "關於樣本不足的異議是合理的，而它現在被解除了",
-      "detail_zh": "CFTC 分類持倉歷史已在取得許可後下載：2017 年起的 503 個黃金週資料，並與先前 31 張截圖比對，279 個欄位值全部相符。與日線序列合併後得到 274 個可用週，相對於先前那份研究只有 31 週、因而無法回答任何問題。現在的限制條件變成價格歷史從 2021-05 才開始，而不是部位資料。"
+      "detail_zh": "CFTC 分類持倉歷史已在取得許可後下載：2017 年起的 503 個黃金週資料，並與先前 31 張截圖比對，研究當時記錄為 279 個欄位值全部相符（G0 審查另抽查 31 週 × 20 欄 = 620 個值，0 個不符；279 這個計數沒有被重現）。與日線序列合併後得到 274 個可用週，相對於先前那份研究只有 31 週、因而無法回答任何問題。現在的限制條件變成價格歷史從 2021-05 才開始，而不是部位資料。"
     },
     {
       "tone": "warn",
       "title": "The Monday sweep gap is 30.1 points and it is circular",
-      "detail": "Weeks where Monday broke Friday's low finished Mon+Tue positive 34.13% of the time against 64.19% otherwise. But whether Monday broke the low is not knowable until Monday has closed, and the measured return includes Monday. Evaluating the condition at Monday's close and measuring Tuesday alone leaves a gap of 1.35 points. The 30-point version asks whether a down Monday was down.",
+      "detail": "Weeks where Monday broke Friday's low (n=126) finished Mon+Tue positive 34.13% of the time against 64.19% otherwise (n=148); gap -30.06 points, 95% interval about -41 to -19 (post-hoc recomputation). But whether Monday broke the low is not knowable until Monday has closed, and the measured return includes Monday. Evaluating the condition at Monday's close and measuring Tuesday alone (a check added after seeing the first result) gives a gap of 1.35 points (50.0% vs 48.65%, 95% interval about -10.5 to +13.2, post hoc): the interval is wide enough that a moderate effect either way is not ruled out, so the honest reading is that no separation was seen. Caveat: in 31 of the 274 weeks Monday has no daily bar (US holidays, so 'Monday' is Tuesday) and in 1 week Tuesday has none; in those 32 weeks the Tuesday-only return is set to 0 and counted as a loss, which pulls both win rates down. Excluding them gives 56.76% (n=111) vs 54.96% (n=131), gap 1.79 (post hoc recomputation; results.json pending rerun), again no separation seen. The claim's actual shape, broke the low and closed up (n=31), has a Tuesday win rate of 48.39% against 50.53% for broke the low and closed down (n=95); no separation seen. This group also contains the zero-return holiday weeks (15 of the 126 weeks that broke the low); excluding them gives 50.0% (n=30) vs 59.26% (n=81), gap -9.3 (95% interval about -30 to +12, post hoc), still no separation seen, and the sign is opposite to the claim.",
       "title_zh": "週一掃低的差距有 30 個百分點，而且它是循環論證",
-      "detail_zh": "在「週一跌破上週五低點」的那些週，週一加週二收正的比例是 34.13%，其餘週是 64.19%。但「週一有沒有跌破低點」要等週一收完才知道，而被量測的報酬又包含了週一。改成在週一收盤時判定條件、只量測週二，差距只剩 1.35 個百分點。那個 30 點的版本問的是「一個下跌的週一是不是下跌了」。"
+      "detail_zh": "在「週一跌破上週五低點」的那些週（n=126），週一加週二收正的比例是 34.13%，其餘週（n=148）是 64.19%；差 −30.06 個百分點，95% 區間約 −41 到 −19（事後補算）。但「週一有沒有跌破低點」要等週一收完才知道，而被量測的報酬又包含了週一。改成在週一收盤時判定條件、只量測週二（這個版本是看到第一版結果後才加的檢查），差距是 1.35 個百分點（50.0% 對 48.65%，95% 區間約 −10.5 到 +13.2，事後補算）。區間很寬，排除不了任一方向的中等大小效果，所以只能說沒看到差別。注意：274 週裡有 31 週週一沒有日線（美國假日，「週一」其實是週二）、1 週週二沒有日線，這 32 週的週二報酬被設為 0 並算成輸，把兩邊勝率都往下壓；排除後是 56.76%（n=111）對 54.96%（n=131），差 1.79（事後補算，results.json 待重跑），一樣沒看到差別。主張真正的形狀「跌破低點且週一收漲」（n=31），週二勝率 48.39%，對照「跌破且週一收跌」（n=95）的 50.53%，也沒看到差別。這一組同樣含假日週的 0 報酬（跌破的 126 週裡有 15 週，事後補算）；排除後是 50.0%（n=30）對 59.26%（n=81），差 −9.3（95% 區間約 −30 到 +12），仍沒看到差別，方向與主張相反。"
     },
     {
       "tone": "warn",
-      "title": "A 50% threshold measures the period, not the condition",
-      "detail": "The Mon+Tue baseline win rate is 45.99% in the first half of the sample and 54.74% in the second — an 8.75-point shift as gold moved from range to trend. The same 50% line therefore means 'beats the market' in one period and 'loses to it' in the other. Of 182 comparable conditions, two cleared 50% in the first half while 80% of all conditions cleared it in the second, and the win rate of a condition in one half correlates with its win rate in the other at -0.077.",
-      "title_zh": "50% 這條線量的是這段期間，不是這個條件",
-      "detail_zh": "週一加週二的基準勝率，在樣本前半是 45.99%、後半是 54.74%——8.75 個百分點的位移，對應黃金從盤整轉為趨勢。因此同樣一條 50% 的線，在一段期間代表「贏過市場」，在另一段代表「輸給市場」。在 182 個可比較的條件中，前半只有 2 個超過 50%，而後半有 79.7% 的條件都超過；一個條件在前半的勝率與它在後半的勝率，相關係數是 −0.077。"
+      "title": "A 50% threshold is compared against a baseline that moved between halves; the conditions' halves do not line up",
+      "detail": "The Mon+Tue baseline win rate is 45.99% in the first half of the sample (n=137, 95% interval 37.9 to 54.3) and 54.74% in the second (n=137, 46.4 to 62.8), a shift of 8.75 points whose own 95% interval is about -3.0 to +20.6 (post hoc), so the shift is itself not separable from zero in 137 weeks per half. It may reflect gold moving from range to trend; that was not tested. Even so, on the point estimates the same 50% line sits below the baseline in one half and above it in the other (both halves' baseline intervals include 50%), so it is unlikely to mean the same thing in both; the methodological point, compare against the same-period baseline, does not depend on this. Of 182 comparable conditions, 2 cleared 50% in the first half (these two select exactly the same weeks in both halves, so they are one condition) while 145 (79.7%) cleared it in the second; the 182 conditions select only 118 distinct sets of weeks (post hoc), because many add a component that is true every week, e.g. retail net > 0 and open interest > 0 hold in every week of both halves; the win rate of a condition in one half correlates with its win rate in the other at -0.077. The 182 conditions overlap heavily (pairs share components), so the effective sample is smaller than 182; even counting them as independent, the 95% interval for the correlation is about -0.22 to +0.07, so the evidence is that a first-half win rate was not seen to predict the second-half one. Method note: the median and quartile thresholds were computed inside each half, not carried from the first half to the second, so this is not a strict out-of-sample test.",
+      "title_zh": "50% 這條線要跟同期基準比；而前後半段的條件勝率對不起來",
+      "detail_zh": "週一加週二的基準勝率，在樣本前半是 45.99%（n=137，95% 區間 37.9 到 54.3）、後半是 54.74%（n=137，46.4 到 62.8），位移 8.75 個百分點；這個位移本身的 95% 區間約 −3.0 到 +20.6（事後補算），每半段只有 137 週，分不出它和 0 的差別。也許反映黃金從盤整轉為趨勢，但這點沒有檢驗。即使如此，以點估計來看，同一條 50% 的線在一半期間落在基準之下、另一半落在基準之上（兩段基準的區間都包含 50%），不太可能在兩段代表同一件事；要跟同期基準比的方法論結論不受影響。在 182 個可比較的條件中，前半有 2 個超過 50%（這 2 個在兩個半段挑出的週完全相同，其實是同一個條件），後半有 145 個（79.7%）超過；一個條件在前半的勝率與它在後半的勝率，相關係數是 −0.077。182 個條件高度重疊（配對條件共用元件），有效樣本比 182 小；即使當成互相獨立，相關係數的 95% 區間也約是 −0.22 到 +0.07，所以只能說沒看到前半勝率能預測後半勝率。事後補算：182 個條件實際上只挑出 118 組不同的週（許多條件加上的元件每週都成立，例如散戶淨部位與未平倉量「大於 0」在兩個半段每週都成立）；去重後前半超過 50% 的有 1 個、後半 95/118 = 80.5%，相關係數 −0.143（Fisher 95% 區間約 −0.32 到 +0.04），讀法不變。方法備註：中位數與四分位門檻是在各半段內部計算，不是由前半訂好再套到後半，所以這不是嚴格的樣本外檢驗。"
     },
     {
-      "tone": "good",
-      "title": "Consensus does what the claim said it would, and it costs money",
-      "detail": "Five of six positioning votes agreeing gives a 62.5% win rate against 48.8% — a genuine 13.7-point gap, and it survives a walk-forward reconstruction with every median computed from prior weeks only. It also earns -0.046% per week against +0.084%. It wins more often and smaller: +0.83% per win against +1.27%, -1.51% per loss against -1.04%, a payoff ratio of 0.55 against 1.22. Taking 11.7% of the opportunities captures -7.8% of the total return.",
-      "title_zh": "共識確實做到了它宣稱的事，而且它要花錢買",
-      "detail_zh": "六個部位投票中有五個同時成立時，勝率是 62.5%，對照 48.76%——確實是 13.74 個百分點的真實差距，而且在「每個中位數都只用先前資料計算」的前推重建下仍然存在。但它同時是每週 −0.046% 對 +0.084%。它贏得比較頻繁，卻贏得比較小：平均每次獲利 +0.83% 對 +1.27%，平均每次虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。承接其中 11.7% 的機會，拿到的是總報酬的 −7.8%。"
+      "tone": "warn",
+      "title": "Consensus shows a higher in-sample win rate that 274 weeks cannot separate from chance, and no visible gain in return",
+      "detail": "Five or more of six positioning votes agreeing (31 weeks with five votes and 1 with six, n=32; the six votes and the 5-or-more cutoff were chosen by the executor, and no record shows the cutoff was fixed before the by-vote table was seen) gives a 62.5% win rate (95% interval 45.3 to 77.1) against 48.76% for the other 242 weeks. The 13.74-point gap has a 95% interval of about -4.2 to +31.7 and an exact permutation p of about 0.19 (post-hoc recomputation; results.json says 0.135 because it compared permuted gaps against a rounded observed gap, results.json pending rerun), so the data do not separate it from chance. Mean weekly return is -0.046% against +0.084%: a gap of -0.13 points, 95% interval about -0.69 to +0.44, permutation p about 0.66 (post hoc; not tested in the original run). Without the single worst consensus week (-3.37%) the consensus mean is +0.061%. So no evidence was seen that consensus weeks earn more or less. Descriptively the consensus weeks have +0.83% per win against +1.27% and -1.51% per loss against -1.04%, a payoff ratio of 0.55 against 1.22. The 32 weeks (11.7% of 274) sum to -1.47 against 18.80 for all weeks; these are simple sums of weekly percentages, not compounded returns.",
+      "title_zh": "共識組的樣本內勝率較高，但 274 週分不出它與運氣的差別，報酬也沒有變好",
+      "detail_zh": "六個部位投票中有五個以上同時成立時（5 票 31 週、6 票 1 週，共 n=32；六個投票的定義與「5 票以上」的切點都是執行者選的，沒有紀錄顯示切點是在看到依票數的表格之前就定好的），勝率 62.5%（95% 區間 45.3 到 77.1），其餘 242 週是 48.76%。13.74 個百分點的差距，95% 區間約 −4.2 到 +31.7，精確置換檢定 p 約 0.19（事後重算；results.json 寫 0.135，因為它拿四捨五入後的觀察值去比較置換結果，results.json 待重跑），資料分不出它與運氣的差別。平均週報酬是 −0.046% 對 +0.084%：差 −0.13 個百分點，95% 區間約 −0.69 到 +0.44，置換 p 約 0.66（事後補算；原本沒有檢定）。拿掉共識組裡最差的一週（−3.37%），共識組平均變成 +0.061%。所以沒看到共識週賺得比較多或比較少。描述上，共識組平均每次獲利 +0.83% 對 +1.27%，平均每次虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。這 32 週（274 週的 11.7%）的每週百分比加總是 −1.47，全部週是 18.80；這是每週百分比的單純加總，不是複利報酬。"
     },
     {
       "tone": "info",
-      "title": "Win rate and expectancy are different quantities, demonstrated a third way",
-      "detail": "RS-XAUUSD-20260818-001 bought 88.6% win rate with a take-profit overlay and paid for it in return. RS-XAUUSD-20260823-002 bought 79.6% by refusing entries and paid the same way. This study buys 62.5% by requiring positioning consensus and pays again. Three different mechanisms, one arithmetic: a rule that raises win rate by being more selective or by cutting winners short has to be judged in return, and each time it has been, it lost.",
-      "title_zh": "勝率與期望值是不同的量，這是第三種示範方式",
-      "detail_zh": "RS-XAUUSD-20260818-001 用停利覆蓋買到 88.6% 的勝率，代價付在報酬上。RS-XAUUSD-20260823-002 用拒絕進場買到 79.6%，付出同樣的代價。這份研究用「要求部位共識」買到 62.5%，再付一次。三種不同的機制，同一套算術：任何靠更挑剔、或靠把獲利提早了結來拉高勝率的規則，都必須用報酬來評判；而每一次這樣評判時，它都是輸的。"
+      "title": "Win rate and expectancy are different quantities; here a win-rate gap shows up with no gain in return",
+      "detail": "RS-XAUUSD-20260818-001 bought 88.6% win rate with a take-profit overlay and reported paying for it in return; RS-XAUUSD-20260823-002 bought 79.6% by refusing entries and reported the same. In this study the consensus rule is associated with a higher in-sample win rate (62.5%) and no visible gain in return (mean -0.046% against +0.084%), but neither gap is separable from chance here (previous finding), so this study is consistent with the earlier two without adding a third confirmed demonstration. The point that stands is methodological: a rule that raises win rate by being more selective has to be judged on return, not on win rate.",
+      "title_zh": "勝率與期望值是不同的量；這裡看到的是勝率較高、報酬沒有跟著變好",
+      "detail_zh": "RS-XAUUSD-20260818-001 用停利覆蓋買到 88.6% 的勝率，並報告代價付在報酬上。RS-XAUUSD-20260823-002 用拒絕進場買到 79.6%，也報告同樣的代價。這份研究裡，共識規則的樣本內勝率較高（62.5%），報酬沒有看到變好（平均 −0.046% 對 +0.084%），但兩個差距在這裡都分不出與運氣的差別（見上一條），所以這份研究與前兩份一致，但不能算第三次確認的示範。站得住的是方法論：靠更挑剔來拉高勝率的規則，必須用報酬評判，不能只看勝率。"
     },
     {
       "tone": "warn",
       "title": "The walk-forward version looks better, which is a reason for caution rather than confidence",
-      "detail": "Recomputing the votes with only prior data gives 63.2% against 49.3% on 19 weeks, and a positive mean-return gap of +0.157% where the full-sample version was negative. A restriction that improves a result is the opposite of the usual direction. Its permutation p values are 0.24 for the win-rate gap and 0.68 for the return gap, so the honest reading is that 19 weeks cannot separate the two selections.",
+      "detail": "Recomputing the votes with only prior data gives 63.16% against 49.33% on 19 weeks (95% interval for the 13.83-point gap about -8.8 to +36.5), and a positive mean-return gap of +0.157% where the full-sample version was negative. A restriction that improves a result is the opposite of the usual direction. The permutation p is about 0.34 for the win-rate gap (post-hoc exact recomputation; results.json says 0.2395 because of the same rounding issue, pending rerun) and 0.68 for the return gap, so the honest reading is that 19 weeks cannot separate the two selections.",
       "title_zh": "前推版本看起來更好，而這是該警惕的理由，不是該有信心的理由",
-      "detail_zh": "只用先前資料重算投票，得到 19 週的 63.16% 對 49.33%，而且平均報酬差變成 +0.157%——全樣本版本原本是負的。一個「限制更多」的做法反而讓結果變好，方向與常理相反。它的置換檢定 p 值在勝率差上是 0.24、在報酬差上是 0.68，所以誠實的讀法是：19 週分辨不出這兩種選法的差別。"
+      "detail_zh": "只用先前資料重算投票，得到 19 週的 63.16% 對 49.33%（13.83 個百分點差距的 95% 區間約 −8.8 到 +36.5），而且平均報酬差變成 +0.157%——全樣本版本原本是負的。一個「限制更多」的做法反而讓結果變好，方向與常理相反。置換檢定 p 值在勝率差上約是 0.34（事後精確重算；results.json 寫 0.2395，同樣是四捨五入造成，待重跑），報酬差上是 0.68，所以誠實的讀法是：19 週分辨不出這兩種選法的差別。"
     },
     {
       "tone": "warn",
@@ -85,16 +85,24 @@
   ],
   "policy_impacts": [],
   "theme": "methodology",
-  "card_summary": "Testing a win-rate selection rule on 274 weeks: what it picks, and what it costs.",
+  "card_summary": "Testing a win-rate selection rule on 274 weeks: what it picks, and whether the picks pay.",
   "question_zh": "有人對「一再得到不顯著」提出異議，並提議改用另一套標準：勝率高於 50% 的條件就是 alpha，而多個條件同時成立也是 alpha。在 CFTC 完整歷史下載之後，這套標準可不可以被檢定？檢定出來又是什麼？",
+  "card_summary_zh": "用勝率挑週的規則：週一掃低是循環論證、50% 要跟同期基準比、共識組勝率較高但分不出差別、報酬也沒變好。",
   "limitations_zh": [
     "可用週數為 274，限制來自價格歷史自 2021-05 起，而非部位資料（後者有 503 週）。",
-    "週序列由 CFTC 官方歷史與 31 張截圖交叉驗證，279 個欄位值全部相符；重疊區間之外沒有第二來源。",
-    "共識規則的前推版本僅有 19 週，其置換檢定 p 值為 0.24（勝率差）與 0.68（報酬差），無法與全樣本版本區分。",
+    "週序列由 CFTC 官方歷史與 31 張截圖交叉驗證，研究記錄為 279 個欄位值全部相符（G0 另抽查 31 週 × 20 欄 = 620 個值，0 個不符；279 這個計數沒有被重現）；重疊區間之外沒有第二來源。",
+    "共識規則的前推版本僅有 19 週，其置換檢定 p 值約 0.34（勝率差；事後精確重算，results.json 寫 0.24）與 0.68（報酬差），無法與全樣本版本區分。",
     "本研究不改變任何正式策略邏輯、實際風險設定或現行進場檢查表。",
-    "results.json 的 `claim_1_monday_sweep.reading` 敘述欄寫 29.8 點與 1.7 點，與同一物件的計算欄位（30.06 與 1.35）不符。該欄為分析程式產生，未重跑分析故未修改；本頁以計算欄位為準。"
+    "results.json 的 `claim_1_monday_sweep.reading` 寫 29.8 點與 1.7 點，與同一物件的計算欄位（30.06 與 1.35）不符；`claim_2_fifty_percent_rule.reading` 寫「基準位移 9.2 點」，計算欄位是 8.75；`claim_3_consensus.reading` 寫「勝率差距是真的，撐過前推重建；平均報酬差為負：訊號贏得更頻繁但贏得較小、輸得較大」，這正是 revision 3 已移除的說法（勝率差距 95% 區間 −4.2 到 +31.7、分不出與運氣的差別；報酬差區間 −0.69 到 +0.44，沒有看到賠錢）；`limitations[0]` 寫 273 週，實際 274。這些字串由分析程式產生，未重跑故未修改；本頁以計算欄位為準。",
+    "檢定方式（視窗、半段切法、六個投票的定義、5 票以上的切點、前推版本、乾淨版本）都由執行者自行設定，沒有事前登記，屬事後探索；乾淨版與前推版是看到第一版結果之後才加的。沒有紀錄顯示「5 票以上」的切點是在看到依票數的表格之前決定的。",
+    "results.json 的置換檢定 p 值（0.135、0.2395）拿四捨五入後的觀察差距去比較未四捨五入的置換差距，因此偏小；本頁的 0.19 與 0.34 是事後用精確超幾何分布重算，results.json 待重跑。報酬差的 p 值（0.68）與本頁的 0.66（全樣本，事後補算）沒有這個問題。",
+    "週一沒有日線的 31 週（美國假日）與週二沒有日線的 1 週，週二報酬被設為 0 並算成輸，使乾淨版勝率偏低（排除後 56.76%／54.96%，事後補算，results.json 待重跑）；這 31 週的「週一跌破上週五低點」實際看的是週二的低點。",
+    "條件門檻（中位數、四分位）在各半段內部計算，不是由前半訂好再套到後半；182 個條件高度重疊：只有 118 組不同的週（事後補算；例如散戶淨部位與未平倉量「大於 0」每週都成立，所以加上它們的組合等於原條件），其中前半超過 50% 的兩個選出的週完全相同，有效條件數遠小於 182。去重後後半 95/118 = 80.5%、相關 −0.143（區間約 −0.32 到 +0.04），讀法不變。",
+    "報酬欄的 total 是每週百分比的單純加總，不是複利；headline 與卡片的 `_pct` 鍵（如 consensus_win_rate_gap_pct）在勝率差上單位是百分點，不是報酬百分比。",
+    "Public 頁面上 analysis.py 開頭的說明文字（docstring）是較早一次執行的數字與說法，與本頁不一致：273 週、64.5% 對 48.3%、「真實的 16 點差距、撐過前推重建」、「賺得比較少」、「4% 的總報酬」，以本頁為準。定案前還有一版共識組平均報酬是 +0.022%（本頁 −0.046%），當時的樣本或投票定義何處不同沒有紀錄。該檔也因 `DAILY.relative_to(ROOT)` 在照 reproduction_inputs.json 擺好輸入時會丟 ValueError，現況無法直接重現；日線輸入必須固定在 git 540562d 的版本（sha 3669b2b4…），否則會讀到 2013 至 2026-10 的較長序列而變成另一份研究。",
+    "各比例沒有誤差界線的地方，本頁文字中的 95% 區間是 G0 審查後用常態近似或 Wilson 區間事後補算，不在 results.json 裡。"
   ],
-  "interpretation_zh": "這份研究是對一個具體提案的正面回應：「勝率超過 50% 就是 alpha，多個條件同時成立也是 alpha」。兩個部分都被實際檢定了，而兩個都失敗——但失敗的方式不一樣，值得分開記住。\n\n第一部分之所以失敗，是因為 50% 這個門檻並不是一個固定的參照點。同一批資料的前半基準勝率是 45.99%、後半是 54.74%。在前半，超過 50% 的條件只有 2 個（182 個裡）；在後半，79.7% 的條件都超過 50%。換句話說，這條線在後半幾乎篩不掉任何東西，而在前半幾乎篩掉所有東西——它量的是那段期間黃金漲不漲，不是那個條件好不好。決定性的數字是 −0.077：一個條件在前半的勝率，對它在後半的勝率完全沒有預測力。\n\n第二部分則是以另一種方式失敗——它其實成立了，然後代價出現在別的地方。五個投票同時成立確實帶來 13.74 個百分點的勝率提升，而且撐過了前推重建。但同一批交易的平均週報酬是 −0.046%，對照其餘的 +0.084%。原因在賠率：平均獲利 0.83% 對 1.27%，平均虧損 −1.51% 對 −1.04%，賠率 0.55 對 1.22。它贏得更常，但每次贏得更少、輸得更多。這是本計畫第三次以完全不同的機制得到同一個結論：勝率可以用報酬買到，而買的人通常沒有意識到自己在付錢。\n\n第二項發現的循環論證則是另一種完全不同的錯誤，值得單獨看：用「週一是否跌破低點」當條件、卻量測「包含週一在內」的報酬，差距是 30 個百分點；把條件移到週一收盤、只量週二，差距剩 1.35 個百分點。同一個想法、同一批資料，差別只在條件有沒有嚴格地早於它所預測的視窗。第七項發現則記錄了一個更難防的錯誤：numpy 布林的 + 是邏輯 OR，使六個投票的加總塌縮成 0 或 1。它之所以被抓到，只是因為結果荒謬到不可能忽視。\n\n（附記：本研究的發現敘述原本有數個數字與 results.json 的計算欄位不符——循環版本寫 33.6%／63.6%、差距 29.8 點，基準勝率寫 45.6%／54.3%，前半超過 50% 的條件寫 1 個，平均虧損寫 −1.45%／−1.05%——已於 revision 2 全部更正為計算欄位的值：34.13%／64.19%、30.06 點、45.99%／54.74%、2 個、−1.51%／−1.04%。所有結論不變。另外 results.json 的 `reading` 敘述欄仍寫著 29.8 點與 1.7 點，該欄由分析程式產生，未重跑不予手動修改；本頁一律以計算欄位為準。）",
+  "interpretation_zh": "這份研究是對一個具體提案的回應：「勝率超過 50% 就是 alpha，多個條件同時成立也是 alpha」。檢定方式（視窗、半段切法、六個投票、5 票以上的切點）都是執行者看資料時自己定的，沒有事前登記，屬於事後探索。\n\n第一部分：50% 這個門檻不是固定參照點。前半基準勝率是 45.99%、後半是 54.74%（各 n=137；位移本身的區間 −3.0 到 +20.6，分不出與 0 的差別；為何位移，例如盤整轉趨勢，沒有檢驗）。前半超過 50% 的條件有 2 個（其實是同一個條件，182 個裡），後半有 79.7% 超過 50%。一個條件在前半的勝率與在後半的勝率相關 −0.077；182 個條件高度重疊（只有 118 組不同的週，事後補算），有效樣本更小，即使當成獨立，區間也是 −0.22 到 +0.07。所以只能說沒看到前半勝率預測後半勝率，並且 50% 這條線應該跟同期基準比較。\n\n第二部分：五票以上的共識組，樣本內勝率 62.5%（n=32）對 48.76%（n=242），差 13.74 個百分點，95% 區間約 −4.2 到 +31.7，精確置換 p 約 0.19，前推版（n=19）p 約 0.34，兩者都分不出與運氣的差別（事後重算；results.json 的 0.135、0.24 待重跑）。平均報酬 −0.046% 對 +0.084%，差 −0.13，區間 −0.69 到 +0.44，p 約 0.66；拿掉最差的一週後共識組平均是 +0.061%，前推版的報酬差還是正的（+0.157）。證據只支持「沒看到共識週的報酬比較好」，不支持「共識賠錢」。賠率 0.55 對 1.22 是描述，不是已確認的因果。\n\n第一項主張的循環論證是另一類錯誤：用「週一是否跌破低點」當條件、卻量測「包含週一」的報酬，差 −30.06 個百分點（區間 −41 到 −19）；把條件移到週一收盤、只量週二，差距剩 1.35（區間 −10.5 到 +13.2，沒看到差別）。這個週二版本是看到第一版結果後才加的。另外 32 週（美國假日等）的週二報酬被設為 0 並算成輸，排除後兩邊勝率是 56.76%／54.96%（事後補算）。第七項發現記錄 numpy 布林的 + 是邏輯 OR，使投票加總塌縮，因結果荒謬才被抓到。\n\n（附記：revision 2 把發現敘述的數字更正為 results.json 計算欄位的值（34.13%／64.19%、30.06 點、45.99%／54.74%、2 個、−1.51%／−1.04%）。revision 3 是 G0 獨立審查第 1 輪後的文字修正：移除「真實差距」「撐過前推」「共識賠錢」等超出數據的說法，補上樣本數與區間。results.json 的 `reading` 欄與 p 值計算有已知問題，見限制，需重跑才能修。）",
   "presentation": [
     {
       "type": "metrics",
@@ -133,7 +141,7 @@
       "type": "table",
       "source": "claims_under_test.claim_1_monday_sweep.clean_version",
       "title": "Claim 1, Clean Version 同一個條件，改在週一收盤判定、只量週二",
-      "takeaway_zh": "50.0% 對 48.65%——差距剩 1.35 個百分點。同一個想法、同一批資料，唯一的差別是條件嚴格早於它所預測的視窗。30 點裡有 28.7 點是量測方式造出來的。",
+      "takeaway_zh": "50.0% 對 48.65%（n=126／148）——差距剩 1.35 個百分點，95% 區間約 −10.5 到 +13.2（事後補算），沒看到差別，也排除不了中等大小的效果。同一批資料，唯一的差別是條件嚴格早於它所預測的視窗；整個 30 點差距都來自量測方式（−30.06 → +1.35；兩個版本量的報酬視窗不同，這種拆解只是約略）。注意 32 週（週一或週二沒有日線）的報酬被設為 0 並算成輸；排除後 56.76% 對 54.96%（n=111／131），差 1.79，一樣沒看到差別（事後補算）。",
       "record_keys": [
         "broke",
         "did_not_break"
@@ -160,13 +168,14 @@
         "selected_in_first_half",
         "still_over_50_in_second",
         "correlation_train_vs_test_win_rate"
-      ]
+      ],
+      "takeaway_zh": "每半段 n=137。基準勝率 45.99% → 54.74%，位移 8.75，區間約 −3.0 到 +20.6（事後補算）。前半超過 50% 的 2 個條件選出的週完全相同（等於 1 個條件），它在後半是 66.67%（n=18，Wilson 區間約 43.7 到 83.7），後半基準是 54.74%，分不出差別。182 個條件只有 118 組不同的週（事後補算），去重後後半 80.5%、相關 −0.143（區間約 −0.32 到 +0.04）。條件門檻在各半段內部計算，不是嚴格的樣本外檢驗。"
     },
     {
       "type": "table",
       "source": "claims_under_test.claim_3_consensus.by_vote_count",
       "title": "Claim 3: By Number of Votes Agreeing 依同時成立的投票數",
-      "takeaway_zh": "勝率並不隨投票數單調上升（47.62／51.43／47.42／48.08／61.29），但真正的重點在 mean % 這一欄：勝率最高的 5 票那一格，平均報酬是全表唯一為負的 −0.0798%。賠率欄解釋了原因——0.545，全表最差。",
+      "takeaway_zh": "勝率並不隨投票數單調上升（47.62／51.43／47.42／48.08／61.29）。mean % 這一欄：5 票那一格是 −0.0798%（n=31，全表最低），2 票那一格也是負的（−0.0123%）。賠率欄：5 票 0.545，全表最低。0 票（n=2）與 6 票（n=1）因為 n<8 未列出，各列 n 加起來是 271，不是 274。每列只有幾十週，沒有誤差界線，不能單獨解讀。",
       "columns": [
         "n",
         "win_rate_pct",
@@ -181,7 +190,7 @@
       "type": "table",
       "source": "claims_under_test.claim_3_consensus.five_or_more",
       "title": "Claim 3: Five or More Votes 五票以上 vs 其餘",
-      "takeaway_zh": "勝率 62.5% 對 48.76%，確實是 13.74 個百分點的真實提升。但平均週報酬是 −0.046% 對 +0.084%，賠率 0.551 對 1.215。這條規則做到了它宣稱的事，代價付在報酬上。",
+      "takeaway_zh": "勝率 62.5%（n=32，95% 區間 45.3 到 77.1）對 48.76%（n=242）：差 13.74 個百分點，區間約 −4.2 到 +31.7，精確置換 p 約 0.19（事後重算），分不出差別。平均週報酬 −0.046% 對 +0.084%：差 −0.13，區間約 −0.69 到 +0.44，p 約 0.66，沒看到共識週報酬比較好；拿掉最差的一週（−3.37%）後共識組平均是 +0.061%。賠率 0.551 對 1.215 是描述。total 欄是每週百分比的單純加總，不是複利。",
       "record_keys": [
         "condition",
         "other"
@@ -200,7 +209,7 @@
       "type": "table",
       "source": "claims_under_test.claim_3_consensus.five_or_more_walk_forward",
       "title": "Claim 3: Walk-Forward Reconstruction 前推重建（中位數僅用先前資料）",
-      "takeaway_zh": "限制更多，結果反而更好（63.16% 對 49.33%，報酬差轉正）——這個方向與常理相反，是該警惕而非該有信心的訊號。只有 19 週，置換 p 值 0.24 與 0.68，兩種選法分辨不出來。",
+      "takeaway_zh": "限制更多，結果看起來更好（63.16% 對 49.33%，報酬差轉正）——方向與常理相反，是該警惕而非該有信心的訊號。只有 19 週，置換 p 值約 0.34（事後精確重算，results.json 寫 0.24）與 0.68，兩種選法分辨不出來。",
       "record_keys": [
         "condition",
         "other"
