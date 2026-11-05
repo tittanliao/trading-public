@@ -14,6 +14,7 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -82,13 +83,19 @@ def load_fred(series: str) -> pd.Series:
 def build_frame() -> pd.DataFrame:
     gold = load_gold()
     cpi, ff, gs10, tips = (load_fred(s) for s in ("CPIAUCSL", "FEDFUNDS", "GS10", "DFII10"))
-    f = pd.DataFrame({"gold": gold})
+    # Every shift and rolling window below counts calendar months, so the frame is built on the complete month
+    # grid. A month a source did not publish (CPIAUCSL 2025-10: no data was collected during the US government
+    # shutdown) stays NaN instead of being dropped, which would turn "12 rows" into 13 months.
+    grid = pd.period_range(gold.index.min(), gold.index.max(), freq="M")
+    f = pd.DataFrame({"gold": gold.reindex(grid)})
     # CPI for month t is published in month t+1: at month-end t only CPI(t-1) is known.
-    f["cpi"] = cpi.shift(1).reindex(f.index)
-    f["fedfunds"] = ff.reindex(f.index)
-    f["gs10"] = gs10.reindex(f.index)
-    f["tips10"] = tips.reindex(f.index)
-    f = f.dropna(subset=["gold", "cpi", "fedfunds", "gs10"])
+    f["cpi"] = cpi.reindex(pd.period_range(cpi.index.min(), cpi.index.max(), freq="M")).shift(1).reindex(grid)
+    f["fedfunds"] = ff.reindex(grid)
+    f["gs10"] = gs10.reindex(grid)
+    f["tips10"] = tips.reindex(grid)
+    # Sample ends: first and last month with every input present, as before. Months inside stay (NaN if missing).
+    ok = f[["gold", "cpi", "fedfunds", "gs10"]].notna().all(axis=1)
+    f = f.loc[ok.idxmax(): ok[::-1].idxmax()].copy()
     f["cpi_yoy"] = (f["cpi"] / f["cpi"].shift(12) - 1) * 100
     f["real_short"] = f["fedfunds"] - f["cpi_yoy"]
     f["real_10y_expost"] = f["gs10"] - f["cpi_yoy"]
@@ -97,8 +104,8 @@ def build_frame() -> pd.DataFrame:
     f["fed_6m"] = f["fedfunds"] - f["fedfunds"].shift(6)
     f["gold_real"] = f["gold"] / f["cpi"]
     f["gold_real_pct"] = [
-        100.0 * (f["gold_real"].iloc[: i + 1] <= f["gold_real"].iloc[i]).mean()
-        if f.index[i] >= pd.Period(PCT_FROM, "M") else np.nan
+        100.0 * (f["gold_real"].iloc[: i + 1].dropna() <= f["gold_real"].iloc[i]).mean()
+        if f.index[i] >= pd.Period(PCT_FROM, "M") and pd.notna(f["gold_real"].iloc[i]) else np.nan
         for i in range(len(f))
     ]
     f["dd_ath"] = (f["gold"] / f["gold"].cummax() - 1) * 100
@@ -106,7 +113,9 @@ def build_frame() -> pd.DataFrame:
     for h in HORIZONS:
         f[f"fwd{h}"] = (f["gold"].shift(-h) / f["gold"] - 1) * 100
         f[f"fwd{h}_real"] = ((f["gold"].shift(-h) / f["cpi"].shift(-h)) / f["gold_real"] - 1) * 100
-    return f.dropna(subset=["cpi_yoy"])
+    # Drop the leading months without a CPI y/y; a missing month inside the sample stays as a NaN row so the
+    # calendar spacing survives for the shifts and rolling windows in the functions below.
+    return f.loc[f["cpi_yoy"].first_valid_index():]
 
 
 def runs(mask: pd.Series) -> int:
@@ -115,7 +124,8 @@ def runs(mask: pd.Series) -> int:
 
 
 def bucket_stats(f: pd.DataFrame, mask: pd.Series) -> dict:
-    out = {"months": int(mask.sum()), "runs": runs(mask)}
+    # A month a source did not publish is skipped when counting runs, not read as the end of one.
+    out = {"months": int(mask.sum()), "runs": runs(mask[f["cpi_yoy"].notna()])}
     for h in HORIZONS:
         for kind in ("", "_real"):
             col = f"fwd{h}{kind}"
@@ -286,7 +296,7 @@ def main() -> int:
                         "min_gap_months": ANALOG_GAP, "exclude_last_months": ANALOG_EXCLUDE_LAST},
         },
         "coverage": {"first_month": month(f.index[0].to_timestamp()), "last_month": month(f.index[-1].to_timestamp()),
-                     "months": int(len(f))},
+                     "months": int(f["cpi_yoy"].notna().sum())},
         "part_a_regimes": regimes(f),
         "part_b_expensive": expensive(f),
         "part_c_comovement": {k: v for k, v in co.items() if k != "series"},

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T14:48:27+08:00",
+  "generated_at": "2026-11-05T08:01:46+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2029,7 +2029,7 @@
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261027-001",
-          "says_zh": "實質短率 > 2% 12 個月中位數 −0.85%（差 −7.08，門檻 20.11）；11 組都分不出來"
+          "says_zh": "實質短率 > 2% 12 個月中位數 −0.85%（差 −7.09，門檻 20.04）；11 組都分不出來"
         }
       ]
     },
@@ -2039,7 +2039,7 @@
       "kind": "reference",
       "strength": "moderate",
       "statement_zh": "黃金的漲跌仍跟實質利率反向，但價格水準 2022 年起開始偏離實質利率關係，2023 年起超出誤差帶（探索性）",
-      "detail_zh": "12 個月變化的 36 個月相關係數 −0.72（2026-09）。但照 2006–2021 年的關係（R² 0.76），TIPS 2.64% 對應金價約 1,126，實際 4,287，高 281%；那段期間最大偏離只有 41%（探索性）。",
+      "detail_zh": "12 個月變化的 36 個月相關係數 −0.73（2026-09）。但照 2006–2021 年的關係（R² 0.76），TIPS 2.64% 對應金價約 1,126，實際 4,287，高 281%；那段期間最大偏離只有 41%（探索性）。",
       "how_to_use_zh": "看實質利率接下來的方向，不要用水準估「合理金價」；偏離的原因本研究沒有檢驗（常見解釋是央行買盤，未驗證）。",
       "policy_ref": null,
       "prereg_ref": null,
@@ -2051,7 +2051,7 @@
       "evidence": [
         {
           "study_id": "RS-XAUUSD-20261027-001",
-          "says_zh": "相關 −0.72；偏離 2021-12 −13% → 2023-10 +84% → 2026-09 +281%"
+          "says_zh": "相關 −0.73；偏離 2021-12 −13% → 2023-10 +84% → 2026-09 +281%"
         }
       ]
     },
@@ -3531,7 +3531,7 @@
       "id": "RS-XAUUSD-20261027-001",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 3,
+      "revision": 4,
       "theme": "market_structure",
       "title": "Gold against real rates, nominal rates and CPI since 1971 — no regime could be told apart for the next year at about 20-point resolution; since 2023 the price level sits beyond the error band of the 2006-2021 real-rate relation (exploratory); gold is near its most expensive ever in CPI terms",
       "title_zh": "黃金與實質利率、名目利率、CPI（1971 年起）：在約 20 個百分點的解析度內，分不出任何環境對下一年的差別；2023 年起價格水準超出實質利率關係的誤差帶（探索性）；扣通膨後接近史上最貴",
@@ -3699,7 +3699,7 @@
     {
       "id": "RS-XAUUSD-20261104-001",
       "market": "XAUUSD",
-      "status": "progress",
+      "status": "confirmed",
       "revision": 4,
       "theme": "event",
       "title": "Does gold fall with US stock crashes? 207 days with the S&P 500 down 2% or more, 2008-2026: gold's same-day return is not distinguishable from ordinary days, and VIX-jump crash days are not distinguishable from the other crash days (pre-registered)",
@@ -3715,7 +3715,7 @@
     {
       "id": "RS-XAUUSD-20261104-002",
       "market": "XAUUSD",
-      "status": "progress",
+      "status": "confirmed",
       "revision": 5,
       "theme": "event",
       "title": "Gold around FOMC rate decisions (FX_IDC 30m, existing data 2024-2026): first 30m and 1h range multiple vs the same ET bars on nearby ordinary weekdays, 1h direction, and press-conference bar vs statement bar (pre-registered, amended twice before any result)",

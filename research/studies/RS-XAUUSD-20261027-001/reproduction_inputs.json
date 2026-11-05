@@ -7,6 +7,30 @@
       "sha256": "574b4b9c1b632b11600d4bc0ca1f71e381c737ae7c3c6f341b8f4b66f0c4355f",
       "size_bytes": 174189,
       "role": "price_1w"
+    },
+    "local-inputs/CPIAUCSL.csv": {
+      "original_filename": "CPIAUCSL.csv",
+      "sha256": "8556b710094027fa4724641d48be620cc37c04abfa15a0c496378cf1146c1549",
+      "size_bytes": 17763,
+      "role": "fred_cpiaucsl"
+    },
+    "local-inputs/FEDFUNDS.csv": {
+      "original_filename": "FEDFUNDS.csv",
+      "sha256": "74680b2d09bb28f90fb30c1c09e93ac2d443de1b7345ba5a9112b3eca9be0a25",
+      "size_bytes": 13959,
+      "role": "fred_fedfunds"
+    },
+    "local-inputs/GS10.csv": {
+      "original_filename": "GS10.csv",
+      "sha256": "40323f225e613a19a4eec7eef20523dec10764de21c70cd1416a7379fb7f13b6",
+      "size_bytes": 14206,
+      "role": "fred_gs10"
+    },
+    "local-inputs/DFII10_20261027.csv": {
+      "original_filename": "DFII10_20261027.csv",
+      "sha256": "3e3fcde1ea3e2c54ffb68701a3ed89f5757753d3225b7537c1a00ff85f7f45b0",
+      "size_bytes": 99351,
+      "role": "fred_dfii10"
     }
   }
 }

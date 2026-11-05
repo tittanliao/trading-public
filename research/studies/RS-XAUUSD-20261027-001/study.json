@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261027-001",
-  "revision": 3,
+  "revision": 4,
   "title": "Gold against real rates, nominal rates and CPI since 1971 — no regime could be told apart for the next year at about 20-point resolution; since 2023 the price level sits beyond the error band of the 2006-2021 real-rate relation (exploratory); gold is near its most expensive ever in CPI terms",
   "market": "XAUUSD",
   "strategy": "none",
@@ -12,11 +12,11 @@
   "headline": {
     "regimes_separating_n": 0,
     "regime_buckets_n": 11,
-    "gold_real_pct_now": 98.82,
-    "corr36_now": -0.716,
+    "gold_real_pct_now": 98.97,
+    "corr36_now": -0.734,
     "level_gap_now_pct": 280.7,
-    "real_short_now_pct": 0.04,
-    "cpi_yoy_now_pct": 3.71,
+    "real_short_now_pct": 0.4,
+    "cpi_yoy_now_pct": 3.35,
     "tips10_now_pct": 2.64
   },
   "card_metrics": [
@@ -28,16 +28,16 @@
     {
       "tone": "warn",
       "title": "No rate or CPI regime could be told apart for gold's next 12 or 24 months",
-      "detail": "11 buckets, 668 months; none separated, at a resolution of 16-23 points at 12 months (larger at 24 months). Real short rate above 2%: 12-month mean +4.66% (median −0.85%; 233 months, 12 runs), 7.08 points below the all-month mean of +11.74%, bound 20.11. 0-2%: mean +26.38% (median +19.03%; 176 months, 167 with a 12-month outcome), 14.64 points above, bound 22.85. Hiking had the higher point estimate than cutting (12-month mean +21.66%, n=172 vs +9.21%, n=166, the opposite of the textbook) but the two could not be told apart; the bounds shown are each group against all months, and a head-to-head bound is larger. Post-hoc breakdown (not in the design, not in results.json): the hiking-over-cutting reversal comes from the 1970s; from 1980 on, hiking +3.94% (n=116) vs cutting +7.63% (n=135), the textbook direction. The real-short-rate reversal does not go away: from 1980 on, real short rate rising by more than 1 point +8.12% (n=150) vs falling by more than 1 point +4.44% (n=156), and 0-2% +13.52% (n=120) vs below 0 +5.79% (n=206), the same direction as the full sample (these gaps of 3-8 points are well under the full-sample resolution of about 20 points, and a subsample resolves less, so they could not be told apart either). The largest |effect| / bound is 0.64 (real short rate 0-2%, nominal 12-month: +14.64 / 22.85; 0.65 in real 12-month terms): this sample cannot separate differences smaller than about 20 points, which is not evidence of no effect.",
+      "detail": "11 buckets, 668 months; none separated, at a resolution of 16-23 points at 12 months (larger at 24 months). Real short rate above 2%: 12-month mean +4.63% (median −0.85%; 233 months, 12 runs), 7.09 points below the all-month mean of +11.72%, bound 20.04. 0-2%: mean +26.26% (median +18.58%; 177 months, 168 with a 12-month outcome), 14.54 points above, bound 22.72. Hiking had the higher point estimate than cutting (12-month mean +21.66%, n=172 vs +9.10%, n=166, the opposite of the textbook) but the two could not be told apart; the bounds shown are each group against all months, and a head-to-head bound is larger. Post-hoc breakdown (not in the design, not in results.json): the hiking-over-cutting reversal comes from the 1970s; from 1980 on, hiking +3.94% (n=116) vs cutting +7.50% (n=135), the textbook direction. The real-short-rate reversal does not go away: from 1980 on, real short rate rising by more than 1 point +8.12% (n=150) vs falling by more than 1 point +4.50% (n=157), and 0-2% +13.46% (n=121) vs below 0 +5.79% (n=206), the same direction as the full sample (these gaps of 3-8 points are well under the full-sample resolution of about 20 points, and a subsample resolves less, so they could not be told apart either). The largest |effect| / bound is 0.64 (real short rate 0-2%, nominal 12-month: +14.54 / 22.72; 0.66 in real 12-month terms): this sample cannot separate differences smaller than about 20 points, which is not evidence of no effect.",
       "title_zh": "分不出任何利率或通膨環境對黃金接下來 12 或 24 個月的差別",
-      "detail_zh": "11 個分組、668 個月，沒有一組分得出來；12 個月的門檻 16–23 個百分點，24 個月更大。實質短率 > 2%：12 個月平均 +4.66%（中位數 −0.85%；233 個月、12 段），比全體平均 +11.74% 低 7.08 個百分點，門檻 20.11。0–2%：平均 +26.38%（中位數 +19.03%；176 個月，其中 167 個有 12 個月結果），高 14.64 個百分點，門檻 22.85。升息期點估計比降息期高（12 個月平均 +21.66%，n=172，對 +9.21%，n=166），跟教科書相反，但兩組分不出差別；附的門檻是各組對全體，兩組互比的門檻更大。事後補算（不在設計內，不在 results.json）：「升息期比降息期高」這個相反來自 1970 年代；1980 年起，升息期 +3.94%（n=116）、降息期 +7.63%（n=135），方向就翻回教科書。但實質短率那一組的相反沒有消失：1980 年起實質短率一年升 > 1 點 +8.12%（n=150）對降 > 1 點 +4.44%（n=156），0–2% +13.52%（n=120）對 < 0 的 +5.79%（n=206），方向和全期一樣（差 3–8 個百分點，遠小於全期約 20 點的解析度，子樣本更小、解析度更差，所以同樣分不出來）。最大的 |差|／門檻是 0.64（實質短率 0–2%，名目 12 個月：+14.64／22.85；實質 12 個月為 0.65）：這份樣本分辨不出小於約 20 個百分點的差別，不等於沒有差別。"
+      "detail_zh": "11 個分組、668 個月，沒有一組分得出來；12 個月的門檻 16–23 個百分點，24 個月更大。實質短率 > 2%：12 個月平均 +4.63%（中位數 −0.85%；233 個月、12 段），比全體平均 +11.72% 低 7.09 個百分點，門檻 20.04。0–2%：平均 +26.26%（中位數 +18.58%；177 個月，其中 168 個有 12 個月結果），高 14.54 個百分點，門檻 22.72。升息期點估計比降息期高（12 個月平均 +21.66%，n=172，對 +9.10%，n=166），跟教科書相反，但兩組分不出差別；附的門檻是各組對全體，兩組互比的門檻更大。事後補算（不在設計內，不在 results.json）：「升息期比降息期高」這個相反來自 1970 年代；1980 年起，升息期 +3.94%（n=116）、降息期 +7.50%（n=135），方向就翻回教科書。但實質短率那一組的相反沒有消失：1980 年起實質短率一年升 > 1 點 +8.12%（n=150）對降 > 1 點 +4.50%（n=157），0–2% +13.46%（n=121）對 < 0 的 +5.79%（n=206），方向和全期一樣（差 3–8 個百分點，遠小於全期約 20 點的解析度，子樣本更小、解析度更差，所以同樣分不出來）。最大的 |差|／門檻是 0.64（實質短率 0–2%，名目 12 個月：+14.54／22.72；實質 12 個月為 0.66）：這份樣本分辨不出小於約 20 個百分點的差別，不等於沒有差別。"
     },
     {
       "tone": "info",
       "title": "Year-on-year, gold still moves against the real rate",
-      "detail": "36-month correlation of 12-month gold change with 12-month change in the 10-year real rate: -0.716 at 2026-09 (about 3 independent years, since the 12-month changes overlap; this series ranged from -0.92 to +0.76 historically and was positive in 23% of months). Full sample -0.455 (656 months; 12-month block bootstrap 95% range about -0.60 to -0.29, post-hoc recomputation). By decade (about 10 independent years each, error roughly ±0.6): 1990s -0.08 and 2000s 0.067 could not be told apart from zero; 2010s −0.70. Contemporaneous: it describes, it does not predict (K-MAC-002).",
+      "detail": "36-month correlation of 12-month gold change with 12-month change in the 10-year real rate: -0.734 at 2026-09 (about 3 independent years, since the 12-month changes overlap; this series ranged from -0.92 to +0.76 historically and was positive in 23% of months). Full sample -0.456 (657 months; 12-month block bootstrap 95% range about -0.60 to -0.29, post-hoc recomputation). By decade (about 10 independent years each, error roughly ±0.6): 1990s -0.08 and 2000s 0.067 could not be told apart from zero; 2010s −0.70. Contemporaneous: it describes, it does not predict (K-MAC-002).",
       "title_zh": "按年變化來看，黃金仍然和實質利率反向",
-      "detail_zh": "黃金 12 個月漲跌 對 10 年實質利率 12 個月變化，36 個月滾動相關係數：2026-09 為 -0.716（12 個月變化互相重疊，約只有 3 個獨立年份；這條序列歷史上從 -0.92 到 +0.76 都出現過，23% 的月份是正的）。全期 -0.455（656 個月；12 個月區塊 bootstrap 95% 範圍約 -0.60～-0.29，事後補算）。各年代（各約 10 個獨立年份，誤差約 ±0.6）：1990 年代 -0.08、2000 年代 0.067 分不出和 0 的差別；2010 年代 −0.70。這是同期關係，只能描述，不能預測（K-MAC-002）。"
+      "detail_zh": "黃金 12 個月漲跌 對 10 年實質利率 12 個月變化，36 個月滾動相關係數：2026-09 為 -0.734（12 個月變化互相重疊，約只有 3 個獨立年份；這條序列歷史上從 -0.92 到 +0.76 都出現過，23% 的月份是正的）。全期 -0.456（657 個月；12 個月區塊 bootstrap 95% 範圍約 -0.60～-0.29，事後補算）。各年代（各約 10 個獨立年份，誤差約 ±0.6）：1990 年代 -0.08、2000 年代 0.067 分不出和 0 的差別；2010 年代 −0.70。這是同期關係，只能描述，不能預測（K-MAC-002）。"
     },
     {
       "tone": "warn",
@@ -48,17 +48,17 @@
     },
     {
       "tone": "warn",
-      "title": "Gold is at the 98.8th percentile of its own CPI-adjusted history; past entries above the 90th went both ways",
-      "detail": "Gold/CPI percentile (past-only) 98.8 at 2026-09 (100 in 2026-01 and 2026-02; the month-end high and the gold/CPI high are both 2026-02). Five episodes (runs at least 24 months apart; 14 contiguous runs in all) above the 90th since 1975: 24 months later in real terms −33.7% (1975), +154.8% (1978, into 1980), +15.2% (2008), −13.3% (2016), +20.5% (2019). All months above the 90th: 24-month real median +2.11% (145 months, about 6 independent), effect −4.17 against a bound of 55.04.",
-      "title_zh": "扣掉通膨後，黃金在自己歷史的第 98.8 百分位；過去進入前 10% 之後兩種結果都有",
-      "detail_zh": "金價÷CPI 的百分位（只用過去資料）2026-09 為 98.8（2026-01 與 2026-02 都是 100；月收盤高點與金價÷CPI 高點都在 2026-02）。1975 年起 5 次進入前 10%（相隔至少 24 個月才算一次；連續月份共 14 段），24 個月後實質報酬：1975 −33.7%、1978 +154.8%（漲到 1980 高點）、2008 +15.2%、2016 −13.3%、2019 +20.5%。所有在前 10% 的月份，24 個月實質中位數 +2.11%（145 個月，約 6 個獨立樣本），差 −4.17，門檻 55.04。"
+      "title": "Gold is at the 99.0th percentile of its own CPI-adjusted history; past entries above the 90th went both ways",
+      "detail": "Gold/CPI percentile (past-only) 99.0 at 2026-09 (100 in 2026-01 and 2026-02; the month-end high and the gold/CPI high are both 2026-02). Five episodes (runs at least 24 months apart; 14 contiguous runs in all) above the 90th since 1975: 24 months later in real terms −33.7% (1975), +154.8% (1978, into 1980), +15.2% (2008), −13.3% (2016), +20.5% (2019). All months above the 90th: 24-month real median +2.11% (145 months, about 6 independent), effect −4.49 against a bound of 54.85.",
+      "title_zh": "扣掉通膨後，黃金在自己歷史的第 99.0 百分位；過去進入前 10% 之後兩種結果都有",
+      "detail_zh": "金價÷CPI 的百分位（只用過去資料）2026-09 為 99.0（2026-01 與 2026-02 都是 100；月收盤高點與金價÷CPI 高點都在 2026-02）。1975 年起 5 次進入前 10%（相隔至少 24 個月才算一次；連續月份共 14 段），24 個月後實質報酬：1975 −33.7%、1978 +154.8%（漲到 1980 高點）、2008 +15.2%、2016 −13.3%、2019 +20.5%。所有在前 10% 的月份，24 個月實質中位數 +2.11%（145 個月，約 6 個獨立樣本），差 −4.49，門檻 54.85。"
     },
     {
       "tone": "info",
       "title": "The five months most like now: two up, three down a year later",
-      "detail": "Now (2026-09): gold/CPI percentile 98.8, −18.8% from the month-end high, real short rate +0.04% (Fed funds 3.75, CPI 3.71% = August CPI, the latest published at the 2026-09 month-end), real short rate −1.55 points over 12 months, Fed flat over 6 months, gold +24.3% over 12 months. Nearest: 2020-02 (12 months +9.4%), 2016-07 (−6.0%), 2010-03 (+29.2%), 1987-11 (−12.5%), 2012-03 (−4.3%, 24 months −22.5%). Five samples, a reminder not a forecast.",
+      "detail": "Now (2026-09): gold/CPI percentile 99.0, −18.8% from the month-end high, real short rate +0.40% (Fed funds 3.75, CPI 3.35% = August CPI, the latest published at the 2026-09 month-end), real short rate −0.88 points over 12 months, Fed flat over 6 months, gold +14.0% over 12 months. Nearest: 2019-12 (12 months +24.2%), 2017-12 (−1.7%), 2014-06 (−10.7%), 2012-03 (−4.3%, 24 months −22.5%), 2009-12 (+28.7%). Five samples, a reminder not a forecast.",
       "title_zh": "跟現在最像的 5 個月：一年後 2 次漲、3 次跌",
-      "detail_zh": "現在（2026-09）：金價÷CPI 第 98.8 百分位、離月收盤高點 −18.8%、實質短率 +0.04%（聯邦基金 3.75%、CPI 3.71%，是 8 月 CPI，即 2026-09 月底已公布的最新值）、實質短率一年降 1.55 個百分點、聯準會近 6 個月持平、黃金一年 +24.3%。最像的：2020-02（12 個月 +9.4%）、2016-07（−6.0%）、2010-03（+29.2%）、1987-11（−12.5%）、2012-03（−4.3%，24 個月 −22.5%）。只有 5 個樣本，是提醒不是預測。"
+      "detail_zh": "現在（2026-09）：金價÷CPI 第 99.0 百分位、離月收盤高點 −18.8%、實質短率 +0.40%（聯邦基金 3.75%、CPI 3.35%，是 8 月 CPI，即 2026-09 月底已公布的最新值）、實質短率一年降 0.88 個百分點、聯準會近 6 個月持平、黃金一年 +14.0%。最像的：2019-12（12 個月 +24.2%）、2017-12（−1.7%）、2014-06（−10.7%）、2012-03（−4.3%，24 個月 −22.5%）、2009-12（+28.7%）。只有 5 個樣本，是提醒不是預測。"
     }
   ],
   "policy_impacts": [],
@@ -70,13 +70,14 @@
   "card_summary_zh": "在約 20 個百分點的解析度內，分不出任何利率或通膨環境對黃金下一年的差別；同期漲跌仍跟實質利率反向；2022 年起價格水準開始偏離 2006–2021 的實質利率關係，2023 年起超出誤差帶（探索性）；扣通膨後接近史上最貴。",
   "limitations_zh": [
     "月資料；視窗重疊，每組 12 個月約 14–36 個獨立觀察，24 個月約 7–18 個。",
-    "2003 年前用事後實質利率（10 年公債 − CPI 年增率），之後用 TIPS，兩者不是同一種量法。設計登記的換接點是 2004，程式實際從 2003-01 換，使 2003 年的 12 個月變化有拼接造成的假跳動（改用 2004 重算：全期相關 -0.451、2000 年代 0.069、最近 36 個月 -0.716 不變）。",
+    "2003 年前用事後實質利率（10 年公債 − CPI 年增率），之後用 TIPS，兩者不是同一種量法。設計登記的換接點是 2004，程式實際從 2003-01 換，使 2003 年的 12 個月變化有拼接造成的假跳動（改用 2004 重算：全期相關 -0.452、2000 年代 0.069、最近 36 個月 -0.734 不變）。",
     "價格水準偏離那一段是看過資料後才加的，屬探索性；R² 因趨勢與自相關而偏高，表中月份是手選的。",
     "相關係數的抽樣誤差很大（36 個月滾動相關約只有 3 個獨立年份）；排除 1970 年代的拆解、區塊 bootstrap、殘差檢定都是看過結果後補算的，不在 results.json（Public 的 analysis.py 不會產生）。",
     "門檻是各組對全體，不是兩組互比。",
-    "相似月份只有 5 個，標準化用了全期資料。"
+    "相似月份只有 5 個，標準化用了全期資料。",
+    "1980 年 1 月與 2026 年的 CPI 調整後金價對照（CPI-U，另以 PCE 物價指數做敏感度）是看過結果後補算的描述，不在設計內也不在 results.json，放在本研究 analysis 資料夾（post_hoc_1980.py 與其輸出）；1980 年高點 850 是倫敦下午定盤價（二手來源），不是盤中高點。"
   ],
-  "interpretation_zh": "在約 20 個百分點的解析度內，利率和通膨的環境分不出黃金明年的差別：每一個分組都在門檻內；有些點估計和教科書相反：升息期高於降息期，這主要來自 1970 年代（事後補算）；實質短率上升期高於下降期的點估計在 1980 年後仍在（+8.12% 對 +4.44%），但同樣分不出來。這不等於沒有效果，只是這份樣本測不出來。能描述的是兩件事。第一，同期來看，實質利率上升的那一年黃金通常比較弱（36 個月相關 −0.72，約 3 個獨立年份，歷史範圍 −0.92～+0.76；全期 −0.455）；2 月到 9 月 10 年 TIPS 從 1.82% 升到 2.64%，和這次回檔同期發生。如果你能判斷實質利率接下來的方向，這個關係才有用；本研究沒有檢驗方向本身能不能預測，水準更不能預測。第二（探索性）：金價水準 2022 年起開始偏離 2006–2021 的關係，2023 年起超出誤差帶（約 ±41%）；2026-09 照那個關係約 1,100，實際高出近 3 倍。原因本研究沒有檢驗；常見的解釋是央行買盤，如果真是如此，買盤減弱就是風險。扣通膨後黃金在歷史第 98.8 百分位，過去在這個位置之後兩年，結果從 −34% 到 +155% 都有。",
+  "interpretation_zh": "在約 20 個百分點的解析度內，利率和通膨的環境分不出黃金明年的差別：每一個分組都在門檻內；有些點估計和教科書相反：升息期高於降息期，這主要來自 1970 年代（事後補算）；實質短率上升期高於下降期的點估計在 1980 年後仍在（+8.12% 對 +4.50%），但同樣分不出來。這不等於沒有效果，只是這份樣本測不出來。能描述的是兩件事。第一，同期來看，實質利率上升的那一年黃金通常比較弱（36 個月相關 −0.73，約 3 個獨立年份，歷史範圍 −0.92～+0.76；全期 −0.456）；2 月到 9 月 10 年 TIPS 從 1.82% 升到 2.64%，和這次回檔同期發生。如果你能判斷實質利率接下來的方向，這個關係才有用；本研究沒有檢驗方向本身能不能預測，水準更不能預測。第二（探索性）：金價水準 2022 年起開始偏離 2006–2021 的關係，2023 年起超出誤差帶（約 ±41%）；2026-09 照那個關係約 1,100，實際高出近 3 倍。原因本研究沒有檢驗；常見的解釋是央行買盤，如果真是如此，買盤減弱就是風險。扣通膨後黃金在歷史第 99.0 百分位，過去在這個位置之後兩年，結果從 −34% 到 +155% 都有。",
   "presentation": [
     {
       "type": "metrics",
