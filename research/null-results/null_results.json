@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 81,
+    "studies": 82,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -249,6 +249,19 @@
       "reason": "None. Research only; no account, holding or rule changes.",
       "status": "confirmed",
       "created_on": "2026-11-05"
+    },
+    {
+      "entry_id": "RS-TX-20261106-001",
+      "study_id": "RS-TX-20261106-001",
+      "kind": "study",
+      "family": "none — staged buying of pullbacks from the 252-session high on TAIEX (descriptive)",
+      "origin": "programme",
+      "claim": "TAIEX: staged buying after a big rally, held 3 months / 6 months / 1 year (1998-2026)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-11-06"
     },
     {
       "entry_id": "RS-XAUUSD-20260727-001",

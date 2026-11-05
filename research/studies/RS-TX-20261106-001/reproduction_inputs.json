@@ -1,0 +1,12 @@
+{
+  "study_id": "RS-TX-20261106-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/TWII_1d_to_2026-11-05.csv": {
+      "original_filename": "TWII_1d_to_2026-11-05.csv",
+      "sha256": "980bd3fe8ab26e71749f5b571a88b31f8ce7f57137d78a70f4b2c9dc710aabbd",
+      "size_bytes": 572839,
+      "role": "price_1d_TAIEX"
+    }
+  }
+}
