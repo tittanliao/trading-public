@@ -781,6 +781,8 @@ def video_block(key: str, value: str) -> str:
             f'src="https://www.youtube-nocookie.com/embed/{attr(v["id"])}" title="{attr(v["title"])}" '
             'allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>'
             f'<p><a href="https://youtu.be/{attr(v["id"])}">在 YouTube 觀看：{esc(v["title"])} ↗</a></p>')
+        if v.get("next_research"):
+            parts.append(f'<p class="video-next"><strong>下一個研究方向：</strong>{esc(v["next_research"])}</p>')
     if shorts:
         items = "".join(f'<li><a href="https://youtube.com/shorts/{attr(v["id"])}">{esc(v["title"])} ↗</a></li>' for v in shorts)
         parts.append(f"<p>一分鐘重點（Shorts）：</p><ul>{items}</ul>")
@@ -793,7 +795,9 @@ def home_youtube_card() -> str:
     longs = [v for v in y["videos"] if v["kind"] == "long"]
     if not longs:
         return ""
-    items = "".join(f'<li><a href="https://youtu.be/{attr(v["id"])}">{esc(v["title"])} ↗</a></li>' for v in longs)
+    items = "".join(f'<li><a href="https://youtu.be/{attr(v["id"])}">{esc(v["title"])} ↗</a>'
+                    + (f'<br><strong>下一個研究方向：</strong>{esc(v["next_research"])}' if v.get("next_research") else "")
+                    + "</li>" for v in longs)
     return ('<section class="block-section"><h2>YouTube 頻道</h2>'
             f'<p>用影片講週報與研究：<a href="{attr(y["channel"])}">{esc(y["channel_name"])} ↗</a></p>'
             f'<ul>{items}</ul></section>')
@@ -1699,6 +1703,7 @@ def study_page(study_id: str) -> str:
 # still had to scroll sideways to see columns that would have fit easily. Horizontal
 # scrolling is now a genuinely-too-narrow fallback, not the normal reading mode.
 STYLE_CSS = """.video-embed{position:relative;padding-top:56.25%;margin:12px 0}.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
+.video-next{font-size:1rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
 
 /* weekly reader format */
 .weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
