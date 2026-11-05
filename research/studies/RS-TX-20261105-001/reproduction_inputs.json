@@ -1,0 +1,24 @@
+{
+  "study_id": "RS-TX-20261105-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/TAIFEX_DLY_MXF1!, 1D.csv": {
+      "original_filename": "TAIFEX_DLY_MXF1!, 1D.csv",
+      "sha256": "9228ba40db820c17e294fe62540c5b83a4809f84d40e704eec172d553a6ddc9b",
+      "size_bytes": 139338,
+      "role": "price_1d_MXF_crosscheck"
+    },
+    "local-inputs/TWII_1d.csv": {
+      "original_filename": "TWII_1d.csv",
+      "sha256": "16ae10690ac6c00246b906e6783921718ceef139b143341864eb6cb268a73b23",
+      "size_bytes": 571962,
+      "role": "price_1d_TAIEX_pinned_check"
+    },
+    "local-inputs/TWII_1d_to_2026-11-05.csv": {
+      "original_filename": "TWII_1d_to_2026-11-05.csv",
+      "sha256": "980bd3fe8ab26e71749f5b571a88b31f8ce7f57137d78a70f4b2c9dc710aabbd",
+      "size_bytes": 572839,
+      "role": "price_1d_TAIEX"
+    }
+  }
+}

@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 80,
+    "studies": 81,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -236,6 +236,19 @@
       "reason": "None. Research only; no account, holding or rule changes.",
       "status": "confirmed",
       "created_on": "2026-10-18"
+    },
+    {
+      "entry_id": "RS-TX-20261105-001",
+      "study_id": "RS-TX-20261105-001",
+      "kind": "study",
+      "family": "none — Fibonacci retracement of the 252-session high on TAIEX (descriptive)",
+      "origin": "programme",
+      "claim": "TAIEX: buying the first touch of a Fibonacci retracement of the one-year high (1998-2026)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-11-05"
     },
     {
       "entry_id": "RS-XAUUSD-20260727-001",
