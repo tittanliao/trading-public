@@ -4,22 +4,6 @@
  "channel_name": "半導體大叔的黃金筆記",
  "videos": [
   {
-   "id": "t4nTF4YQxC4",
-   "kind": "long",
-   "title": "EP02｜期中選舉後黃金先跌再漲？13 次逐年拆解＋總統大選年對照｜黃金筆記",
-   "published": "2026-11-02",
-   "study": "RS-XAUUSD-20261019-001",
-   "week": null
-  },
-  {
-   "id": "HT1yt9xWoG0",
-   "kind": "long",
-   "title": "EP01｜黃金跌了 26%，55 年只有 6 次：跌破 25% 買進，一年後賠還是賺？｜黃金筆記",
-   "published": "2026-11-02",
-   "study": null,
-   "week": null
-  },
-  {
    "id": "bVHpi4TswAs",
    "kind": "long",
    "title": "2026W45｜金價跌破今年低點：近四週走勢、CFTC、下週 6 個價位｜黃金筆記",
@@ -28,43 +12,11 @@
    "week": "2026-W45"
   },
   {
-   "id": "VyWs5ktMWE8",
-   "kind": "short",
-   "title": "總統大選年，黃金反而最弱？13 次數據",
-   "published": "2026-11-02 18:00",
-   "study": "RS-XAUUSD-20261019-001",
-   "week": null
-  },
-  {
    "id": "vrcDBulHRi4",
    "kind": "short",
    "title": "聽到黃金說法，先問這 3 個問題",
    "published": "2026-11-02 18:00",
    "study": "RS-XAUUSD-20261019-001",
-   "week": null
-  },
-  {
-   "id": "dgz70NFpdgk",
-   "kind": "short",
-   "title": "黃金大跌 55 年只有 6 次，現在像哪一種？",
-   "published": "2026-11-02",
-   "study": null,
-   "week": null
-  },
-  {
-   "id": "KBv3ttvSyZI",
-   "kind": "short",
-   "title": "黃金跌了 25% 就是便宜嗎？55 年數據",
-   "published": "2026-11-02",
-   "study": null,
-   "week": null
-  },
-  {
-   "id": "EdSLHInTtpE",
-   "kind": "short",
-   "title": "黃金大跌後，要等幾年才回本？",
-   "published": "2026-11-02",
-   "study": null,
    "week": null
   },
   {
@@ -105,6 +57,22 @@
    "title": "非農公布後半小時，黃金動幾美金？今年 5 次超過 60 #非農 #黃金 #shorts",
    "published": "2026-11-05",
    "study": "RS-XAUUSD-20261102-001",
+   "week": null
+  },
+  {
+   "id": "HU0G32aaIqQ",
+   "kind": "long",
+   "title": "EP01｜黃金 55 年大跌只有 6 次，這次機會來了嗎？前 5 次：2 次大賺、3 次還在虧｜黃金筆記",
+   "published": "2026-11-05 08:05",
+   "study": null,
+   "week": null
+  },
+  {
+   "id": "s3D4tSOIoh4",
+   "kind": "short",
+   "title": "黃金 55 年大跌只有 6 次，機會來了嗎？跌破那週買進，2 次大賺、3 次還在虧 #黃金 #金價 #shorts",
+   "published": "2026-11-05 08:05",
+   "study": null,
    "week": null
   }
  ]
