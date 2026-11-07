@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-TX-20261105-001",
-  "revision": 1,
+  "revision": 2,
   "title": "TAIEX: buying the first touch of a Fibonacci retracement of the one-year high (1998-2026)",
   "market": "TX",
   "strategy": "none — Fibonacci retracement of the 252-session high on TAIEX (descriptive)",
@@ -10,21 +10,21 @@
   "question": "When TAIEX has risen at least 20% into its 252-session high, does buying the first touch of the 0.236-0.786 retracement levels get back to the high before breaking lower more often than geometry predicts, and does it beat buying on any day?",
   "hypothesis": "Descriptive test of a popular chart rule; expected outcome unknown. Small samples per layer (3-26).",
   "headline": {
-    "sessions": 7190,
-    "data_end": "2026-11-05",
+    "sessions": 7191,
+    "data_end": "2026-11-06",
     "n_0236": 26,
-    "n_0382": 12,
-    "n_05": 12,
+    "n_0382": 13,
+    "n_05": 13,
     "n_0618": 4,
     "n_0786": 3,
     "wr_vs_L_0236_pct": 80.0,
     "wr_vs_L_0382_pct": 58.33,
     "wr_vs_L_05_pct": 58.33,
-    "wr_vs_next_0382_pct": 8.33,
+    "wr_vs_next_0382_pct": 7.69,
     "up250_0382_pct": 50.0,
-    "up250_any_day_pct": 69.12,
-    "now_close": 41574.72,
-    "now_retracement": 0.3561
+    "up250_any_day_pct": 69.13,
+    "now_close": 39701.64,
+    "now_retracement": 0.4356
   },
   "card_metrics": [
     "wr_vs_L_0382_pct",
@@ -42,17 +42,17 @@
     },
     {
       "tone": "info",
-      "title": "0.382: 1 of 12 got back to the high before 0.5, but plain geometry gives only about 21%",
-      "detail": "1/12 (8.33%) vs a random-walk benchmark of 21.27% (Wilson [1.49, 35.39]; episode bootstrap [0.0, 23.08]). The gap sits inside the interval and does not show 0.382 is specially weak. Close version 0/10 (Wilson [0.0, 27.75]; the bootstrap collapses to 0-0): it includes 2024-08-05, whose close (19,831) was already below the 0.5 layer (20,196), a structural loss; the 0.618 close-version row has 2011-08-05 (close 7,853 below the 0.786 layer 7,929) likewise.",
-      "title_zh": "碰到 0.382 之後，12 次只有 1 次沒先跌到 0.5；但單靠幾何距離，基準本來就只有約 21%",
-      "detail_zh": "1/12（8.33%）對隨機漫步基準 21.27%；Wilson [1.49, 35.39]、行情段重抽樣 [0.0, 23.08]，差距在區間內，不代表 0.382 特別弱。收盤版 0/10（重抽樣退化成 0–0，改看 Wilson [0.0, 27.75]），其中含 2024-08-05 這一筆：收盤 19,831 已低於 0.5 層 20,196，進場當下就在停損之下，結構必輸；收盤版 0.618 層也有 2011-08-05（收盤 7,853 低於 0.786 層 7,929）。"
+      "title": "0.382: 1 of 13 got back to the high before 0.5, but plain geometry gives only about 20%",
+      "detail": "1/13 (7.69%) vs a random-walk benchmark of 20.11% (Wilson [1.37, 33.31]; episode bootstrap [0.0, 21.43]). The gap sits inside the interval and does not show 0.382 is specially weak. Close version 0/10 (Wilson [0.0, 27.75]; the bootstrap collapses to 0-0): it includes 2024-08-05, whose close (19,831) was already below the 0.5 layer (20,196), a structural loss; the 0.618 close-version row has 2011-08-05 (close 7,853 below the 0.786 layer 7,929) likewise.",
+      "title_zh": "碰到 0.382 之後，13 次只有 1 次沒先跌到 0.5；但單靠幾何距離，基準本來就只有約 20%",
+      "detail_zh": "1/13（7.69%）對隨機漫步基準 20.11%；Wilson [1.37, 33.31]、行情段重抽樣 [0.0, 21.43]，差距在區間內，不代表 0.382 特別弱。收盤版 0/10（重抽樣退化成 0–0，改看 Wilson [0.0, 27.75]），其中含 2024-08-05 這一筆：收盤 19,831 已低於 0.5 層 20,196，進場當下就在停損之下，結構必輸；收盤版 0.618 層也有 2011-08-05（收盤 7,853 低於 0.786 層 7,929）。"
     },
     {
       "tone": "info",
       "title": "A year later Fib buys trail any day, but they match the closest control: the position after a big rally, not the Fib level",
-      "detail": "Up after 250 sessions: 0.236 58.33%, 0.382 50.0%, 0.5 58.33% vs any day 69.12% (n=6,688). Closest control (same distance below the high and the rise condition holds, C2): 58.43% / 50.77% / 51.02%, almost the same as Fib. So the lag behind any day comes from buying a pullback after a big rally, not from the Fib price itself; the 11-19 point gap is below the sample's resolution (about +/-25 pp). Mean return 1.359% / -0.582% / 2.273% vs 9.386% are point estimates with no interval.",
+      "detail": "Up after 250 sessions: 0.236 58.33%, 0.382 50.0%, 0.5 58.33% vs any day 69.13% (n=6,689). Closest control (same distance below the high and the rise condition holds, C2): 58.43% / 50.77% / 51.02%, almost the same as Fib. So the lag behind any day comes from buying a pullback after a big rally, not from the Fib price itself; the 11-19 point gap is below the sample's resolution (about +/-25 pp). Mean return 1.359% / -0.582% / 2.273% vs 9.392% are point estimates with no interval.",
       "title_zh": "一年後 Fib 價位買進落後平常日，但跟最貼近的對照組差不多：差在大漲後回檔這個位置，不是 Fib 價位本身",
-      "detail_zh": "250 個交易日後上漲比例：0.236 58.33%、0.382 50.0%、0.5 58.33%，平常日 69.12%（n=6,688）。最貼近的對照組（同距離且漲幅條件成立，C2）：58.43%／50.77%／51.02%，和 Fib 幾乎一樣。所以落後平常日來自大漲後回檔的位置，不是 Fib 價位本身；差距（約 11–19 個百分點）小於本樣本可分辨的範圍（約 ±25 個百分點）。平均報酬 1.359%／-0.582%／2.273% 對 9.386%是單點估計、無區間。"
+      "detail_zh": "250 個交易日後上漲比例：0.236 58.33%、0.382 50.0%、0.5 58.33%，平常日 69.13%（n=6,689）。最貼近的對照組（同距離且漲幅條件成立，C2）：58.43%／50.77%／51.02%，和 Fib 幾乎一樣。所以落後平常日來自大漲後回檔的位置，不是 Fib 價位本身；差距（約 11–19 個百分點）小於本樣本可分辨的範圍（約 ±25 個百分點）。平均報酬 1.359%／-0.582%／2.273% 對 9.392%是單點估計、無區間。"
     }
   ],
   "policy_impacts": [],
@@ -61,19 +61,19 @@
   "title_zh": "台股大漲後回檔，買進費波那契第一次觸價有用嗎？1998–2026 加權指數",
   "question_zh": "加權指數相對 252 個交易日高點已漲 20% 以上時，買進 0.236–0.786 各回檔層的第一次觸價，是否比隨機漫步的幾何機率更常先回到前高、再跌破下一層？一年後是否比隨便哪一天買進更好？",
   "hypothesis_zh": "描述性檢驗一個流行的看圖規則，沒有預設方向；每一層樣本很少（3–26 筆）。",
-  "card_summary_zh": "台股漲 20% 以上後，買進費波那契回檔層第一次觸價：0.382 層先回前高再跌破 L 的比例 58.33%（n=12），和隨機漫步基準 60.63% 差不多；一年後上漲比例 50.0%，低於平常日的 69.12%，但和同距離對照組（50.77%）幾乎一樣，差在「大漲後回檔」這個位置，不是費波那契價位本身。每層樣本只有 3–26 筆，分辨力約 ±25 個百分點。",
+  "card_summary_zh": "台股漲 20% 以上後，買進費波那契回檔層第一次觸價：0.382 層先回前高再跌破 L 的比例 58.33%（n=12），和隨機漫步基準 60.63% 差不多；一年後上漲比例 50.0%，低於平常日的 69.13%，但和同距離對照組（50.77%）幾乎一樣，差在「大漲後回檔」這個位置，不是費波那契價位本身。每層樣本只有 3–26 筆，分辨力約 ±25 個百分點。",
   "limitations_zh": [
-    "這個題目是在 2026 年下跌開始之後才提出的；現在這段行情（2026-11-02 觸發 0.236 層、仍未定）不在統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
-    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 61.5%（n=13）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
+    "這個題目是在 2026 年下跌開始之後才提出的。現在這段行情的觸發（0.236 層 2026-11-02；0.382 層 2026-11-06 跳空開盤、0.5 層同日盤中）只有已分勝負的部分進入勝率統計（0.236、0.382 對下一層都已判負），其餘仍未定、不進分母；固定持有還沒到期，不在持有統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
+    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 57.1%（n=14）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
     "隨機漫步基準不含漂移，台股長期上漲，真實基準會更高；所以「Fib 勝率 vs 基準」的比較對 Fib 已偏寬，基準是偏低的。",
     "加權指數是價格指數，不含股息（約每年 3–4%），長期持有的絕對報酬被低估；Fib 與對照組都是純價格，彼此比較是公平的。",
     "觸發之間高度重疊：同一段行情的 60–250 日持有共用同一條價格路徑；以行情段為單位的重抽樣才是誠實的區間，Wilson 偏樂觀。",
     "日線無法排出盤中高低先後；同天兩邊都碰到算負，並逐筆列出。",
     "現貨指數不能直接交易；成本採加權指數 ETF／個股慣例，台指期／小台的成本與基差不同。",
-    "2026-11-05 這一列下載時是暫定值（成交量 0）。",
+    "資料檔 TWII_1d_to_2026-11-06.csv 在 2026-11-07（週六）取得，最後一列 2026-11-06 成交量非 0，視為收盤定值；與先前 11-05 版在 7,190 個共同日期的開高低收完全相同（只有 2026-11-05 的成交量由 0 補上）。",
     "只是描述，不是因果。"
   ],
-  "interpretation_zh": "1998–2026 年加權指數相對 252 日高點漲幅達 20% 以上的情況下，買在 0.236、0.382、0.5 各層第一次觸價，先回到前高再跌破 L 的比例（80.0%、58.33%、58.33%）都落在隨機漫步基準的重抽樣區間內，看不出費波那契價位比純粹的幾何距離更有力。一年後上漲比例（58.33%、50.0%、58.33%）低於平常日的 69.12%，但和「離高點同樣距離、同樣大漲後」的對照組差不多，所以落後來自「大漲後回檔」這個位置，不是某個費波那契價位。每層只有 3–26 筆、行情段彼此重疊，這個樣本分辨不了大約 25 個百分點以內的差別；前後期也不穩定（0.236 層 1998–2012 為 16.7%、2013–2026 為 61.5%）。目前這段上升（L 2025-11-21 → H 2026-10-06）的 0.236 層已在 2026-11-02 觸價，2026-11-05 收盤 41,574.72，回檔比例 0.356，不在統計內。這份研究只描述歷史，不是因果，也不構成交易建議。",
+  "interpretation_zh": "1998–2026 年加權指數相對 252 日高點漲幅達 20% 以上的情況下，買在 0.236、0.382、0.5 各層第一次觸價，先回到前高再跌破 L 的比例（80.0%、58.33%、58.33%）都落在隨機漫步基準的重抽樣區間內，看不出費波那契價位比純粹的幾何距離更有力。一年後上漲比例（58.33%、50.0%、58.33%）低於平常日的 69.13%，但和「離高點同樣距離、同樣大漲後」的對照組差不多，所以落後來自「大漲後回檔」這個位置，不是某個費波那契價位。每層只有 3–26 筆、行情段彼此重疊，這個樣本分辨不了大約 25 個百分點以內的差別；前後期也不穩定（0.236 層 1998–2012 為 16.7%、2013–2026 為 57.1%）。目前這段上升（L 2025-11-21 → H 2026-10-06）的 0.236 層已在 2026-11-02 觸價，0.382 層（2026-11-06 跳空開盤，成交 38,916）與 0.5 層（同日盤中 38,182）也已觸價；2026-11-06 收盤 39,701.64，回檔比例 0.436。0.236 與 0.382 對下一層已判負、進入勝率統計，其餘仍未定；固定持有還沒到期，不在持有統計內。這份研究只描述歷史，不是因果，也不構成交易建議。",
   "presentation": [
     {
       "type": "metrics",
@@ -99,7 +99,7 @@
     {
       "type": "metric_table",
       "source": "now",
-      "title": "目前位置（2026-11-05，資料定義的 L→H）",
+      "title": "目前位置（2026-11-06，資料定義的 L→H）",
       "keys": [
         "close",
         "H",

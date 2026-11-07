@@ -14,10 +14,10 @@
       "size_bytes": 571962,
       "role": "price_1d_TAIEX_pinned_check"
     },
-    "local-inputs/TWII_1d_to_2026-11-05.csv": {
-      "original_filename": "TWII_1d_to_2026-11-05.csv",
-      "sha256": "980bd3fe8ab26e71749f5b571a88b31f8ce7f57137d78a70f4b2c9dc710aabbd",
-      "size_bytes": 572839,
+    "local-inputs/TWII_1d_to_2026-11-06.csv": {
+      "original_filename": "TWII_1d_to_2026-11-06.csv",
+      "sha256": "1d4a0621408c5afa509d9a22455c0cb395ed33897da4df08a4a53455a120205a",
+      "size_bytes": 572920,
       "role": "price_1d_TAIEX"
     }
   }

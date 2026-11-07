@@ -40,18 +40,18 @@ BOOT = 2000
 SEED = 20261105
 
 LIMITATIONS_ZH = [
-    "這個題目是在 2026 年下跌開始之後才提出的；現在這段行情（2026-11-02 觸發 0.236 層、仍未定）不在統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
-    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 61.5%（n=13）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
+    "這個題目是在 2026 年下跌開始之後才提出的。現在這段行情的觸發（0.236 層 2026-11-02；0.382 層 2026-11-06 跳空開盤、0.5 層同日盤中）只有已分勝負的部分進入勝率統計（0.236、0.382 對下一層都已判負），其餘仍未定、不進分母；固定持有還沒到期，不在持有統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
+    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 57.1%（n=14）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
     "隨機漫步基準不含漂移，台股長期上漲，真實基準會更高；所以「Fib 勝率 vs 基準」的比較對 Fib 已偏寬，基準是偏低的。",
     "加權指數是價格指數，不含股息（約每年 3–4%），長期持有的絕對報酬被低估；Fib 與對照組都是純價格，彼此比較是公平的。",
     "觸發之間高度重疊：同一段行情的 60–250 日持有共用同一條價格路徑；以行情段為單位的重抽樣才是誠實的區間，Wilson 偏樂觀。",
     "日線無法排出盤中高低先後；同天兩邊都碰到算負，並逐筆列出。",
     "現貨指數不能直接交易；成本採加權指數 ETF／個股慣例，台指期／小台的成本與基差不同。",
-    "2026-11-05 這一列下載時是暫定值（成交量 0）。",
+    "資料檔 TWII_1d_to_2026-11-06.csv 在 2026-11-07（週六）取得，最後一列 2026-11-06 成交量非 0，視為收盤定值；與先前 11-05 版在 7,190 個共同日期的開高低收完全相同（只有 2026-11-05 的成交量由 0 補上）。",
     "只是描述，不是因果。",
 ]
 
-PRIMARY_CSV = "local-inputs/TWII_1d_to_2026-11-05.csv"
+PRIMARY_CSV = "local-inputs/TWII_1d_to_2026-11-06.csv"
 PINNED_CSV = "local-inputs/TWII_1d.csv"
 MXF_CSV = "local-inputs/TAIFEX_DLY_MXF1!, 1D.csv"
 
@@ -62,7 +62,8 @@ def load(path: Path) -> pd.DataFrame:
     if "time" in df.columns:
         df = df.rename(columns={"time": "date"})
     df["date"] = pd.to_datetime(df["date"].astype(str).str[:10])
-    return df[["date", "open", "high", "low", "close"]].sort_values("date").reset_index(drop=True)
+    cols = ["date", "open", "high", "low", "close"] + (["volume"] if "volume" in df.columns else [])
+    return df[cols].sort_values("date").reset_index(drop=True)
 
 
 def wilson(k: int, n: int) -> list | None:
@@ -378,7 +379,9 @@ def now_row(df: pd.DataFrame, trigs: list[dict]) -> dict:
                        "retracement_of_close": round((h - c) / (h - l2), 4)}
     return {
         "alt_anchor_twii_grid": alt_grid,
-        "as_of": dates[t], "close": round(c, 2), "close_provisional_note": "volume 0 on this row at download; OHLC may be revised",
+        "as_of": dates[t], "close": round(c, 2),
+        **({"close_provisional_note": "volume 0 on this row at download; OHLC may be revised"}
+           if "volume" in df.columns and float(df["volume"].iloc[t]) == 0 else {}),
         "window": f"{dates[t - WINDOW + 1]} .. {dates[t]} (252 sessions incl. latest)",
         "H": round(h, 2), "H_date": dates[int(iH[t])], "L": round(l, 2), "L_date": dates[int(iL[t])],
         "rise_pct": round(100 * (h / l - 1), 2), "range_pts": round(h - l, 1),
@@ -512,7 +515,7 @@ def write_readme(payload: dict, path: Path) -> None:
     w(f"- 資料：Yahoo `^TWII` 日線（價格指數，不含股息），{payload['data_period']['start']} ～ {payload['data_period']['end']}，"
       f"{payload['coverage']['twii_sessions']:,} 個交易日；第一個可計算日 {payload['coverage']['first_eligible']}（需先有 252 日）。"
       f"新下載檔與既有 `TWII_1d.csv` 在 {payload['coverage']['refreshed_vs_pinned_shared_dates']:,} 個共同日期完全相同（最大差 {payload['coverage']['refreshed_vs_pinned_max_abs_diff']}）。")
-    w(f"- 生成時間：{payload['generated_at']}。最後一列 2026-11-05 下載時成交量為 0，視為暫定值，主要用於「現在位置」；它也進入平常日 C0／同距離 C1 的最後一筆前向報酬，以及 1 筆未定交易的判斷，影響小於 0.01 個百分點。\n")
+    w(f"- 生成時間：{payload['generated_at']}。2026-11-07 以週五收盤重跑（設計、參數、規則不變，只換資料截止日）；新舊對照見 `refresh_20261106.md`。\n")
     w("## 方法（每個數字怎麼來）\n")
     w("1. **H／L**：第 t 天看「前 252 個已收盤交易日」（t−252 … t−1，不含當天）。H = 窗口內最高的日最高價；L = 窗口內、H 那天以前（含）的最低日最低價，也就是這段上升的起點。漲幅 = H ÷ L − 1。")
     w("2. **只在漲幅夠大時算**：主版本漲幅 ≥ 20%；敏感度 ≥ 30%、≥ 50%。")
@@ -521,7 +524,7 @@ def write_readme(payload: dict, path: Path) -> None:
       "**此「首次碰到」規則是在第一輪結果出來後更正的**：凍結設計的字面是「first day t with low_t ≤ level_f」，會讓 H 之後早已跌破的層在舊 H 離開窗口時一次全觸發；更正後以研究原意 first touch 為準。"
       "修正前後的規則與數字（修正前 250 日上漲比例 65.5／63.2／72.2／69.2／72.7%，修正後 58.3／50.0／58.3／50.0／33.3%）見 `decision_log.md`「Changes after results」第 1 點。")
     w("5. **進場（收盤版）**：第一次收盤 ≤ 該層，以收盤價買。")
-    w("6. **勝負（a）**：買進後，哪個先發生：最高價回到 H（勝）；或最低價跌破停損（負）。停損兩種：**下一層**（0.236→0.382 … 0.786→L）、**L**。同一天兩者都碰到算負（0 次）。資料結束還沒分勝負的叫「未定」，不進分母。")
+    w("6. **勝負（a）**：買進後，哪個先發生：最高價回到 H（勝）；或最低價跌破停損（負）。停損兩種：**下一層**（0.236→0.382 … 0.786→L）、**L**。同一天兩者都碰到算負（0 次）；觸價版進場當天的最低價若已低於停損，也算負（持有 0 天）。資料結束還沒分勝負的叫「未定」，不進分母。")
     w("7. **隨機漫步基準**：如果價格完全沒有方向、像丟銅板一樣走，先碰到 H 的機率 =（進場價 − 停損）÷（H − 停損）。這只是幾何距離，任何價位都有。勝率要高過它才算 Fib 層有額外作用。**此基準不含漂移（台股長期上漲，真實基準應更高），所以這個比較對 Fib 已偏寬。**")
     w(f"8. **固定持有（b）**：第 t 天買、第 t+N 天收盤賣，N = 20／60／120／250 交易日。上漲比例 = 報酬 > 0 的比例。淨額扣來回成本 {COST*100:.3f}%（證交稅 0.3% + 手續費 0.1425%×2，沿用 RS-TX-20261018-001 加權指數慣例）。")
     w("9. **買後最大回檔（c）**：從進場那天到第 t+N 天之間最低的日最低價，比進場價低多少（點數、%）。")
@@ -536,7 +539,9 @@ def write_readme(payload: dict, path: Path) -> None:
         x = lay[str(f)]; a = x["race_next_layer"]; b = x["race_L"]
         w(f"| {f} | {x['n_triggers']} | {x['n_episodes']} | {fmt(a['win_rate_pct'],1,True)}（{a['wins']}/{a['n_resolved']}） | {fmt(a['random_walk_benchmark_pct'],1,True)} | {race_ci_txt(a)} | "
           f"{fmt(b['win_rate_pct'],1,True)}（{b['wins']}/{b['n_resolved']}） | {fmt(b['random_walk_benchmark_pct'],1,True)} | {race_ci_txt(b)} | {fmt(b['median_days_to_win'],0)} |")
-    w("\n未定：0.236 層 1 筆（2026-11-02 觸發，仍在進行）。同天兩邊都碰到：0 筆。")
+    _open = [f"{next(f for f in RATIOS if round(f, 2) == x['ratio'])} 層（{x['date']} 觸發；" + "、".join(n for n, k in (("對下一層", "race_next"), ("對 L", "race_L")) if x[k] == "open") + "）"
+             for x in payload["triggers_20pct_touch"] if x["race_next"] == "open" or x["race_L"] == "open"]
+    w("\n未定：" + ("、".join(_open) if _open else "0 筆") + "，仍在進行。同天兩邊都碰到：0 筆。")
     w("區間欄標 * 的是「重抽樣退化」：該格全部都輸時，重抽樣只會得到 0–0%，看起來像確定是 0%，所以改列 Wilson 95%（例：0/3 = 0–56%、0/10 = 0–28%）。\n")
     lc = T["20pct"]["close"]["layers"]
     w("收盤版（收盤跌破才買）：")
@@ -610,7 +615,7 @@ def write_readme(payload: dict, path: Path) -> None:
     w("\nMXF 是期貨連續月，換月跳空與正逆價差會讓 H、L 與觸發日不同；只當方向一致性的檢查，不是第二份樣本。\n")
 
     w("## 現在位置\n")
-    w(f"- 截至 {now['as_of']} 收盤 {now['close']:,.2f}（暫定值）。窗口 {now['window']}。")
+    w(f"- 截至 {now['as_of']} 收盤 {now['close']:,.2f}。窗口 {now['window']}。")
     w(f"- 資料算出的上升段：L {now['L']:,.2f}（{now['L_date']}）→ H {now['H']:,.2f}（{now['H_date']}），漲 {now['rise_pct']}%，區間 {now['range_pts']:,.0f} 點。")
     w(f"- 收盤離 H {now['close_vs_H_pts']:,.0f} 點（{now['close_vs_H_pct']}%），回檔比例 {now['retracement_of_close']:.3f}；H 之後最低 {now['lowest_low_since_H']:,.2f}（回檔 {now['retracement_of_low']:.3f}）。")
     w("\n| 層 | 加權（資料定義 L=2025-11-21） | 收盤 − 該層 | 加權（另一種畫法 L=2025-12-29） | 收盤 − 該層 |")
@@ -624,7 +629,7 @@ def write_readme(payload: dict, path: Path) -> None:
     w("\n## 已知限制\n")
     for x in payload["limitations_zh"]:
         w(f"- {x}")
-    w("- 每層次數少：0.382 與 0.5 各 12 次（10–11 段行情），0.618 只有 4 次、0.786 只有 3 次；重抽樣區間寬 40–60 個百分點，能分辨的差距大約 ±25 個百分點以上。")
+    w(f"- 每層次數少：0.382 {lay['0.382']['n_triggers']} 次（{lay['0.382']['n_episodes']} 段行情）、0.5 {lay['0.5']['n_triggers']} 次（{lay['0.5']['n_episodes']} 段），0.618 只有 {lay['0.618']['n_triggers']} 次、0.786 只有 {lay['0.786']['n_triggers']} 次；重抽樣區間寬 40–60 個百分點，能分辨的差距大約 ±25 個百分點以上。")
     w("- 窗口滾動時 L 會變（舊低點離開 252 日窗口），各層價位跟著變；這是照「每天看過去 252 日」的定義，已逐筆標記。")
     w("\n## 來源\n")
     w("見 `source_manifest.json`（SHA-256、大小、下載方法）。設計與變更見 `decision_log.md`。")
@@ -649,7 +654,8 @@ def main() -> int:
         return 2
 
     # The backtest excludes the latest (provisional) session from outcome windows only by construction:
-    # holds/races need later sessions; triggers on the last day are listed as open.
+    # holds/races need later sessions; a touch-version trigger whose entry-day low already breaks the stop is a loss (0 days);
+    # a trigger on the last day that is not decided is left open (not in the denominator).
     res, trigs, _ = run_engine(df, "TWII", rng)
     mxf = load(m)
     res_mxf, trigs_mxf, _ = run_engine(mxf, "MXF1!", rng, thresholds=[PRIMARY_THR])
@@ -710,7 +716,7 @@ def main() -> int:
             "Triggers overlap: holds of 60-250 sessions from different layers and setups share the same market path; episode-cluster bootstrap is the honest interval, Wilson is optimistic.",
             "Daily bars cannot order intraday high/low; same-day ambiguities are counted as losses and listed.",
             "The cash index cannot be traded directly; costs use the TAIEX ETF/stock convention. TX/MXF futures costs and basis differ.",
-            "The 2026-11-05 row was provisional at download (volume 0).",
+            "Data refreshed 2026-11-07 to the 2026-11-06 close (TWII_1d_to_2026-11-06.csv); OHLC identical to the earlier 2026-11-05 file on all 7,190 shared dates (only the 2026-11-05 volume filled in).",
             "Descriptive, not causal; no parameter was tuned, but the question was asked after the 2026 decline began.",
         ],
         "limitations_zh": LIMITATIONS_ZH,
@@ -740,13 +746,13 @@ def main() -> int:
     }
     findings = [
         {"tone": "info", "title": "Fib win rates match plain geometry",
-         "detail": f"Back to the prior high before the rally low: 0.236 {headline['wr_vs_L_0236_pct']}% (n={g('0.236','race_L')['n_resolved']}, random-walk {g('0.236','race_L')['random_walk_benchmark_pct']}%), 0.382 {headline['wr_vs_L_0382_pct']}% (n=12, {g('0.382','race_L')['random_walk_benchmark_pct']}%), 0.5 {headline['wr_vs_L_05_pct']}% (n=12, {g('0.5','race_L')['random_walk_benchmark_pct']}%). Every gap is inside the episode-bootstrap interval (0.618 and 0.786 have only 4 and 3 triggers: no conclusion).",
+         "detail": f"Back to the prior high before the rally low: 0.236 {headline['wr_vs_L_0236_pct']}% (n={g('0.236','race_L')['n_resolved']}, random-walk {g('0.236','race_L')['random_walk_benchmark_pct']}%), 0.382 {headline['wr_vs_L_0382_pct']}% (n={g('0.382','race_L')['n_resolved']}, {g('0.382','race_L')['random_walk_benchmark_pct']}%), 0.5 {headline['wr_vs_L_05_pct']}% (n={g('0.5','race_L')['n_resolved']}, {g('0.5','race_L')['random_walk_benchmark_pct']}%). Every gap is inside the episode-bootstrap interval (0.618 and 0.786 have only 4 and 3 triggers: no conclusion).",
          "title_zh": "Fib 層的勝率，跟丟銅板的幾何機率差不多",
-         "detail_zh": f"買進後先回前高、再跌破 L 之前：0.236 {headline['wr_vs_L_0236_pct']}%（n={g('0.236','race_L')['n_resolved']}，隨機漫步 {g('0.236','race_L')['random_walk_benchmark_pct']}%）、0.382 {headline['wr_vs_L_0382_pct']}%（n=12，{g('0.382','race_L')['random_walk_benchmark_pct']}%）、0.5 {headline['wr_vs_L_05_pct']}%（n=12，{g('0.5','race_L')['random_walk_benchmark_pct']}%）。差距都在重抽樣區間內（0.618、0.786 只有 4、3 筆，不下結論）。"},
-        {"tone": "info", "title": "0.382: 1 of 12 got back to the high before 0.5, but plain geometry gives only about 21%",
-         "detail": f"{g('0.382','race_next_layer')['wins']}/{g('0.382','race_next_layer')['n_resolved']} ({headline['wr_vs_next_0382_pct']}%) vs a random-walk benchmark of {g('0.382','race_next_layer')['random_walk_benchmark_pct']}% (Wilson {g('0.382','race_next_layer')['win_rate_wilson95_pct']}; episode bootstrap {g('0.382','race_next_layer')['win_rate_episode_bootstrap95_pct']}). The gap sits inside the interval and does not show 0.382 is specially weak. Close version 0/10 (Wilson {gc('0.382','race_next_layer')['win_rate_wilson95_pct']}; the bootstrap collapses to 0-0): it includes 2024-08-05, whose close (19,831) was already below the 0.5 layer (20,196), a structural loss; the 0.618 close-version row has 2011-08-05 (close 7,853 below the 0.786 layer 7,929) likewise.",
-         "title_zh": "碰到 0.382 之後，12 次只有 1 次沒先跌到 0.5；但單靠幾何距離，基準本來就只有約 21%",
-         "detail_zh": f"{g('0.382','race_next_layer')['wins']}/{g('0.382','race_next_layer')['n_resolved']}（{headline['wr_vs_next_0382_pct']}%）對隨機漫步基準 {g('0.382','race_next_layer')['random_walk_benchmark_pct']}%；Wilson {g('0.382','race_next_layer')['win_rate_wilson95_pct']}、行情段重抽樣 {g('0.382','race_next_layer')['win_rate_episode_bootstrap95_pct']}，差距在區間內，不代表 0.382 特別弱。收盤版 0/10（重抽樣退化成 0–0，改看 Wilson {gc('0.382','race_next_layer')['win_rate_wilson95_pct']}），其中含 2024-08-05 這一筆：收盤 19,831 已低於 0.5 層 20,196，進場當下就在停損之下，結構必輸；收盤版 0.618 層也有 2011-08-05（收盤 7,853 低於 0.786 層 7,929）。"},
+         "detail_zh": f"買進後先回前高、再跌破 L 之前：0.236 {headline['wr_vs_L_0236_pct']}%（n={g('0.236','race_L')['n_resolved']}，隨機漫步 {g('0.236','race_L')['random_walk_benchmark_pct']}%）、0.382 {headline['wr_vs_L_0382_pct']}%（n={g('0.382','race_L')['n_resolved']}，{g('0.382','race_L')['random_walk_benchmark_pct']}%）、0.5 {headline['wr_vs_L_05_pct']}%（n={g('0.5','race_L')['n_resolved']}，{g('0.5','race_L')['random_walk_benchmark_pct']}%）。差距都在重抽樣區間內（0.618、0.786 只有 4、3 筆，不下結論）。"},
+        {"tone": "info", "title": f"0.382: {g('0.382','race_next_layer')['wins']} of {g('0.382','race_next_layer')['n_resolved']} got back to the high before 0.5, but plain geometry gives only about {round(g('0.382','race_next_layer')['random_walk_benchmark_pct'])}%",
+         "detail": f"{g('0.382','race_next_layer')['wins']}/{g('0.382','race_next_layer')['n_resolved']} ({headline['wr_vs_next_0382_pct']}%) vs a random-walk benchmark of {g('0.382','race_next_layer')['random_walk_benchmark_pct']}% (Wilson {g('0.382','race_next_layer')['win_rate_wilson95_pct']}; episode bootstrap {g('0.382','race_next_layer')['win_rate_episode_bootstrap95_pct']}). The gap sits inside the interval and does not show 0.382 is specially weak. Close version {gc('0.382','race_next_layer')['wins']}/{gc('0.382','race_next_layer')['n_resolved']} (Wilson {gc('0.382','race_next_layer')['win_rate_wilson95_pct']}; the bootstrap collapses to 0-0): it includes 2024-08-05, whose close (19,831) was already below the 0.5 layer (20,196), a structural loss; the 0.618 close-version row has 2011-08-05 (close 7,853 below the 0.786 layer 7,929) likewise.",
+         "title_zh": f"碰到 0.382 之後，{g('0.382','race_next_layer')['n_resolved']} 次只有 {g('0.382','race_next_layer')['wins']} 次沒先跌到 0.5；但單靠幾何距離，基準本來就只有約 {round(g('0.382','race_next_layer')['random_walk_benchmark_pct'])}%",
+         "detail_zh": f"{g('0.382','race_next_layer')['wins']}/{g('0.382','race_next_layer')['n_resolved']}（{headline['wr_vs_next_0382_pct']}%）對隨機漫步基準 {g('0.382','race_next_layer')['random_walk_benchmark_pct']}%；Wilson {g('0.382','race_next_layer')['win_rate_wilson95_pct']}、行情段重抽樣 {g('0.382','race_next_layer')['win_rate_episode_bootstrap95_pct']}，差距在區間內，不代表 0.382 特別弱。收盤版 {gc('0.382','race_next_layer')['wins']}/{gc('0.382','race_next_layer')['n_resolved']}（重抽樣退化成 0–0，改看 Wilson {gc('0.382','race_next_layer')['win_rate_wilson95_pct']}），其中含 2024-08-05 這一筆：收盤 19,831 已低於 0.5 層 20,196，進場當下就在停損之下，結構必輸；收盤版 0.618 層也有 2011-08-05（收盤 7,853 低於 0.786 層 7,929）。"},
         {"tone": "info", "title": "A year later Fib buys trail any day, but they match the closest control: the position after a big rally, not the Fib level",
          "detail": f"Up after 250 sessions: 0.236 {g('0.236','holds')['250']['up_pct']}%, 0.382 {headline['up250_0382_pct']}%, 0.5 {g('0.5','holds')['250']['up_pct']}% vs any day {b250['up_pct']}% (n={b250['n']:,}). Closest control (same distance below the high and the rise condition holds, C2): {c2('0.236')}% / {c2('0.382')}% / {c2('0.5')}%, almost the same as Fib. So the lag behind any day comes from buying a pullback after a big rally, not from the Fib price itself; the 11-19 point gap is below the sample's resolution (about +/-25 pp). Mean return {g('0.236','holds')['250']['mean_pct']}% / {g('0.382','holds')['250']['mean_pct']}% / {g('0.5','holds')['250']['mean_pct']}% vs {b250['mean_pct']}% are point estimates with no interval.",
          "title_zh": "一年後 Fib 價位買進落後平常日，但跟最貼近的對照組差不多：差在大漲後回檔這個位置，不是 Fib 價位本身",
@@ -756,13 +762,13 @@ def main() -> int:
         "schema_version": 1, "study_id": STUDY_ID, "generated_at": generated,
         "timezone_assumptions": "Daily bars on the Taiwan exchange calendar (Asia/Taipei dates). MXF1! is the TradingView TAIFEX mini-TAIEX continuous front month, daily session as exported.",
         "coverage": f"TWII {payload['data_period']['start']} .. {payload['data_period']['end']}; MXF {res_mxf['first_eligible_date']} eligible .. {res_mxf['last_date']}",
-        "acquisition": {"new_data_downloaded": True, "downloaded_on": "2026-11-05 23:32 Asia/Taipei",
+        "acquisition": {"new_data_downloaded": True, "downloaded_on": "2026-11-07 16:19 Asia/Taipei; first refresh 2026-11-05 23:32",
                         "method": "yfinance 1.4.1 in ~/.venvs/trading-research: Ticker('^TWII').history(period='max', interval='1d', auto_adjust=False); columns date,open,high,low,close,volume",
-                        "authorised_by": "research request 2026-11-05 (refresh TWII to the latest close via Yahoo)"},
+                        "authorised_by": "research request 2026-11-05 (refresh TWII to the latest close via Yahoo); rerun 2026-11-07 to the 2026-11-06 close"},
         "sources": [
-            {"role": "price_1d_TAIEX", "source_system": "Yahoo Finance ^TWII via yfinance 1.4.1, downloaded 2026-11-05",
+            {"role": "price_1d_TAIEX", "source_system": "Yahoo Finance ^TWII daily (TWII_1d_to_2026-11-06.csv, downloaded 2026-11-07)",
              "locator": args.primary, "sha256": sha(p), "size_bytes": p.stat().st_size, "immutable": True,
-             "observed": "rows 1997-07-02 .. 2026-11-05; last row volume 0 (provisional)", "privacy": "public_market_data"},
+             "observed": f"rows {payload['data_period']['start']} .. {payload['data_period']['end']}; OHLC identical to TWII_1d_to_2026-11-05.csv on its 7,190 dates (only the 2026-11-05 volume filled in)", "privacy": "public_market_data"},
             {"role": "price_1d_TAIEX_pinned_check", "source_system": "Yahoo Finance via yfinance 1.4.1, fetched 2026-10-18 (pinned by RS-TX-20261018-*)",
              "locator": args.pinned, "sha256": sha(q), "size_bytes": q.stat().st_size, "immutable": True,
              "observed": "rows 1997-07-02 .. 2026-10-16; pinned by other studies and never modified by this study (hence immutable); used only to verify the refreshed file", "privacy": "public_market_data"},

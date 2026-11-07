@@ -1,20 +1,19 @@
 {
   "now": {
-    "as_of": "2026-11-05",
-    "close": 41574.72,
-    "close_provisional_note": "volume 0 on this row at download; OHLC may be revised",
-    "window": "2025-10-21 .. 2026-11-05 (252 sessions incl. latest)",
+    "as_of": "2026-11-06",
+    "close": 39701.64,
+    "window": "2025-10-22 .. 2026-11-06 (252 sessions incl. latest)",
     "H": 49968.92,
     "H_date": "2026-10-06",
     "L": 26395.98,
     "L_date": "2025-11-21",
     "rise_pct": 89.31,
     "range_pts": 23572.9,
-    "close_vs_H_pct": -16.8,
-    "close_vs_H_pts": -8394.2,
-    "retracement_of_close": 0.3561,
-    "lowest_low_since_H": 41513.57,
-    "retracement_of_low": 0.3587,
+    "close_vs_H_pct": -20.55,
+    "close_vs_H_pts": -10267.3,
+    "retracement_of_close": 0.4356,
+    "lowest_low_since_H": 37837.05,
+    "retracement_of_low": 0.5147,
     "levels": {
       "0.236": 44405.7,
       "0.382": 40964.1,
@@ -23,24 +22,34 @@
       "0.786": 31440.6
     },
     "close_minus_level_pts": {
-      "0.236": -2831.0,
-      "0.382": 610.6,
-      "0.5": 3392.2,
-      "0.618": 6173.9,
-      "0.786": 10134.1
+      "0.236": -4704.1,
+      "0.382": -1262.5,
+      "0.5": 1519.1,
+      "0.618": 4300.8,
+      "0.786": 8261.0
     },
     "close_minus_level_pct": {
-      "0.236": -6.38,
-      "0.382": 1.49,
-      "0.5": 8.88,
-      "0.618": 17.44,
-      "0.786": 32.23
+      "0.236": -10.59,
+      "0.382": -3.08,
+      "0.5": 3.98,
+      "0.618": 12.15,
+      "0.786": 26.28
     },
     "current_setup_touch_triggers": [
       {
         "ratio": 0.236,
         "date": "2026-11-02",
         "fill": 44405.7
+      },
+      {
+        "ratio": 0.382,
+        "date": "2026-11-06",
+        "fill": 38915.8
+      },
+      {
+        "ratio": 0.5,
+        "date": "2026-11-06",
+        "fill": 38182.5
       }
     ],
     "alt_anchor_twii_grid": {
@@ -57,61 +66,61 @@
         "0.786": 33169.3
       },
       "close_minus_level_pts": {
-        "0.236": -3350.1,
-        "0.382": -229.5,
-        "0.5": 2292.6,
-        "0.618": 4814.6,
-        "0.786": 8405.4
+        "0.236": -5223.2,
+        "0.382": -2102.6,
+        "0.5": 419.5,
+        "0.618": 2941.5,
+        "0.786": 6532.3
       },
-      "retracement_of_close": 0.3927
+      "retracement_of_close": 0.4804
     }
   },
   "strategy_version": "none (descriptive pattern test)",
   "results": {
     "label": "TWII",
     "first_eligible_date": "1998-07-16",
-    "last_date": "2026-11-05",
-    "sessions": 7190,
+    "last_date": "2026-11-06",
+    "sessions": 7191,
     "baseline_any_day": {
       "20": {
-        "n": 6918,
-        "up_pct": 57.78,
+        "n": 6919,
+        "up_pct": 57.77,
         "up_net_pct": 53.45,
-        "mean_pct": 0.723,
-        "median_pct": 1.069,
-        "mean_net_pct": 0.138,
-        "p10_pct": -6.702,
-        "p90_pct": 7.832
+        "mean_pct": 0.72,
+        "median_pct": 1.067,
+        "mean_net_pct": 0.135,
+        "p10_pct": -6.708,
+        "p90_pct": 7.831
       },
       "60": {
-        "n": 6878,
-        "up_pct": 62.55,
-        "up_net_pct": 60.19,
-        "mean_pct": 2.325,
-        "median_pct": 2.605,
-        "mean_net_pct": 1.74,
-        "p10_pct": -12.247,
+        "n": 6879,
+        "up_pct": 62.54,
+        "up_net_pct": 60.18,
+        "mean_pct": 2.323,
+        "median_pct": 2.604,
+        "mean_net_pct": 1.738,
+        "p10_pct": -12.246,
         "p90_pct": 15.317
       },
       "120": {
-        "n": 6818,
-        "up_pct": 66.49,
-        "up_net_pct": 64.56,
-        "mean_pct": 4.831,
-        "median_pct": 4.537,
-        "mean_net_pct": 4.246,
-        "p10_pct": -15.757,
-        "p90_pct": 25.267
+        "n": 6819,
+        "up_pct": 66.48,
+        "up_net_pct": 64.55,
+        "mean_pct": 4.83,
+        "median_pct": 4.534,
+        "mean_net_pct": 4.245,
+        "p10_pct": -15.755,
+        "p90_pct": 25.266
       },
       "250": {
-        "n": 6688,
-        "up_pct": 69.12,
+        "n": 6689,
+        "up_pct": 69.13,
         "up_net_pct": 67.96,
-        "mean_pct": 9.386,
+        "mean_pct": 9.392,
         "median_pct": 9.236,
-        "mean_net_pct": 8.801,
+        "mean_net_pct": 8.807,
         "p10_pct": -19.453,
-        "p90_pct": 37.44
+        "p90_pct": 37.46
       }
     },
     "by_threshold": {
@@ -149,32 +158,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 37.4,
-                "n_resolved": 25,
+                "random_walk_benchmark_pct": 37.43,
+                "n_resolved": 26,
                 "wins": 10,
-                "losses": 15,
-                "open": 1,
+                "losses": 16,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 40.0,
+                "win_rate_pct": 38.46,
                 "win_rate_wilson95_pct": [
-                  23.4,
-                  59.26
+                  22.43,
+                  57.47
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  20.0,
-                  60.89
+                  19.23,
+                  59.26
                 ],
                 "median_days_to_win": 39.5,
-                "median_days_to_loss": 11.0,
+                "median_days_to_loss": 9.5,
                 "avg_win_pct": 7.79,
-                "avg_loss_pct": -4.48,
+                "avg_loss_pct": -4.684,
                 "first_per_episode": {
-                  "n_resolved": 22,
+                  "n_resolved": 23,
                   "wins": 9,
-                  "win_rate_pct": 40.91,
+                  "win_rate_pct": 39.13,
                   "win_rate_wilson95_pct": [
-                    23.26,
-                    61.27
+                    22.16,
+                    59.21
                   ]
                 }
               },
@@ -249,13 +258,13 @@
                     80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.04,
-                    "mean_pct": 2.253,
+                    "up_pct": 65.02,
+                    "mean_pct": 2.248,
                     "triggers_matched": 25
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 57.86,
-                    "mean_pct": 1.346,
+                    "up_pct": 57.83,
+                    "mean_pct": 1.339,
                     "triggers_matched": 25
                   }
                 },
@@ -349,17 +358,17 @@
                 },
                 "until_race_L": {
                   "n": 26,
-                  "median_pct": -6.83,
+                  "median_pct": -8.19,
                   "worst_pct": -35.97
                 }
               }
             },
             "0.382": {
-              "n_triggers": 12,
-              "n_episodes": 10,
+              "n_triggers": 13,
+              "n_episodes": 11,
               "triggers_in_multi_trigger_episodes": 4,
-              "gap_fills": 5,
-              "triggers_after_L_rolled": 6,
+              "gap_fills": 6,
+              "triggers_after_L_rolled": 7,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
@@ -370,35 +379,36 @@
                 "2013": 1,
                 "2020": 1,
                 "2022": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 21.27,
-                "n_resolved": 12,
+                "random_walk_benchmark_pct": 20.11,
+                "n_resolved": 13,
                 "wins": 1,
-                "losses": 11,
+                "losses": 12,
                 "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 8.33,
+                "win_rate_pct": 7.69,
                 "win_rate_wilson95_pct": [
-                  1.49,
-                  35.39
+                  1.37,
+                  33.31
                 ],
                 "win_rate_episode_bootstrap95_pct": [
                   0.0,
-                  23.08
+                  21.43
                 ],
                 "median_days_to_win": 22.0,
                 "median_days_to_loss": 2.0,
                 "avg_win_pct": 9.215,
-                "avg_loss_pct": -3.645,
+                "avg_loss_pct": -3.498,
                 "first_per_episode": {
-                  "n_resolved": 10,
+                  "n_resolved": 11,
                   "wins": 1,
-                  "win_rate_pct": 10.0,
+                  "win_rate_pct": 9.09,
                   "win_rate_wilson95_pct": [
-                    1.79,
-                    40.42
+                    1.62,
+                    37.74
                   ]
                 }
               },
@@ -407,7 +417,7 @@
                 "n_resolved": 12,
                 "wins": 7,
                 "losses": 5,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 58.33,
                 "win_rate_wilson95_pct": [
@@ -415,8 +425,8 @@
                   80.67
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  29.93,
-                  84.62
+                  27.27,
+                  83.33
                 ],
                 "median_days_to_win": 113.0,
                 "median_days_to_loss": 133.0,
@@ -473,13 +483,13 @@
                     85.71
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.18,
-                    "mean_pct": 2.079,
+                    "up_pct": 62.13,
+                    "mean_pct": 2.068,
                     "triggers_matched": 12
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 56.88,
-                    "mean_pct": 0.834,
+                    "up_pct": 56.81,
+                    "mean_pct": 0.82,
                     "triggers_matched": 12
                   }
                 },
@@ -572,18 +582,18 @@
                   "share_deeper_than_10pct": 66.67
                 },
                 "until_race_L": {
-                  "n": 12,
-                  "median_pct": -14.46,
+                  "n": 13,
+                  "median_pct": -12.69,
                   "worst_pct": -30.82
                 }
               }
             },
             "0.5": {
-              "n_triggers": 12,
-              "n_episodes": 11,
+              "n_triggers": 13,
+              "n_episodes": 12,
               "triggers_in_multi_trigger_episodes": 2,
               "gap_fills": 3,
-              "triggers_after_L_rolled": 7,
+              "triggers_after_L_rolled": 8,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
@@ -595,14 +605,15 @@
                 "2013": 1,
                 "2020": 1,
                 "2022": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 18.89,
                 "n_resolved": 12,
                 "wins": 3,
                 "losses": 9,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 25.0,
                 "win_rate_wilson95_pct": [
@@ -632,7 +643,7 @@
                 "n_resolved": 12,
                 "wins": 7,
                 "losses": 5,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 58.33,
                 "win_rate_wilson95_pct": [
@@ -698,13 +709,13 @@
                     84.62
                   ],
                   "control_same_distance": {
-                    "up_pct": 60.89,
-                    "mean_pct": 1.487,
+                    "up_pct": 60.86,
+                    "mean_pct": 1.482,
                     "triggers_matched": 12
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 55.1,
-                    "mean_pct": -0.637,
+                    "up_pct": 55.07,
+                    "mean_pct": -0.644,
                     "triggers_matched": 12
                   }
                 },
@@ -745,7 +756,7 @@
                   "mean_pts": 323.8,
                   "up_episode_bootstrap95_pct": [
                     33.33,
-                    81.82
+                    83.33
                   ],
                   "control_same_distance": {
                     "up_pct": 70.05,
@@ -797,8 +808,8 @@
                   "share_deeper_than_10pct": 66.67
                 },
                 "until_race_L": {
-                  "n": 12,
-                  "median_pct": -11.99,
+                  "n": 13,
+                  "median_pct": -10.58,
                   "worst_pct": -28.03
                 }
               }
@@ -1273,32 +1284,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 30.65,
-                "n_resolved": 24,
+                "random_walk_benchmark_pct": 30.46,
+                "n_resolved": 25,
                 "wins": 10,
-                "losses": 14,
-                "open": 1,
+                "losses": 15,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 41.67,
+                "win_rate_pct": 40.0,
                 "win_rate_wilson95_pct": [
-                  24.47,
-                  61.17
+                  23.4,
+                  59.26
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  21.74,
-                  62.5
+                  20.83,
+                  60.02
                 ],
                 "median_days_to_win": 36.5,
                 "median_days_to_loss": 11.0,
                 "avg_win_pct": 8.758,
-                "avg_loss_pct": -3.85,
+                "avg_loss_pct": -3.954,
                 "first_per_episode": {
-                  "n_resolved": 22,
+                  "n_resolved": 23,
                   "wins": 10,
-                  "win_rate_pct": 45.45,
+                  "win_rate_pct": 43.48,
                   "win_rate_wilson95_pct": [
-                    26.92,
-                    65.34
+                    25.63,
+                    63.19
                   ]
                 }
               },
@@ -1315,8 +1326,8 @@
                   90.76
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  62.5,
-                  95.45
+                  60.87,
+                  92.59
                 ],
                 "median_days_to_win": 87.0,
                 "median_days_to_loss": 144.0,
@@ -1344,8 +1355,8 @@
                   "p90_pct": 8.208,
                   "mean_pts": 353.0,
                   "up_episode_bootstrap95_pct": [
-                    36.36,
-                    72.74
+                    36.0,
+                    72.73
                   ],
                   "control_same_distance": {
                     "up_pct": 62.85,
@@ -1369,17 +1380,17 @@
                   "p90_pct": 10.768,
                   "mean_pts": 520.5,
                   "up_episode_bootstrap95_pct": [
-                    36.35,
+                    38.46,
                     79.17
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.8,
-                    "mean_pct": 2.487,
+                    "up_pct": 65.77,
+                    "mean_pct": 2.481,
                     "triggers_matched": 24
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 58.41,
-                    "mean_pct": 1.454,
+                    "up_pct": 58.38,
+                    "mean_pct": 1.447,
                     "triggers_matched": 24
                   }
                 },
@@ -1394,8 +1405,8 @@
                   "p90_pct": 16.905,
                   "mean_pts": 421.4,
                   "up_episode_bootstrap95_pct": [
-                    47.83,
-                    82.61
+                    47.82,
+                    82.63
                   ],
                   "control_same_distance": {
                     "up_pct": 68.24,
@@ -1419,7 +1430,7 @@
                   "p90_pct": 21.148,
                   "mean_pts": 228.3,
                   "up_episode_bootstrap95_pct": [
-                    42.29,
+                    42.86,
                     78.26
                   ],
                   "control_same_distance": {
@@ -1473,17 +1484,17 @@
                 },
                 "until_race_L": {
                   "n": 25,
-                  "median_pct": -7.0,
+                  "median_pct": -8.77,
                   "worst_pct": -35.79
                 }
               }
             },
             "0.382": {
-              "n_triggers": 10,
-              "n_episodes": 10,
+              "n_triggers": 11,
+              "n_episodes": 11,
               "triggers_in_multi_trigger_episodes": 0,
               "gap_fills": 0,
-              "triggers_after_L_rolled": 5,
+              "triggers_after_L_rolled": 6,
               "by_year": {
                 "1999": 1,
                 "2002": 1,
@@ -1493,14 +1504,15 @@
                 "2011": 1,
                 "2013": 1,
                 "2022": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 12.16,
                 "n_resolved": 10,
                 "wins": 0,
                 "losses": 10,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 0.0,
                 "win_rate_wilson95_pct": [
@@ -1530,7 +1542,7 @@
                 "n_resolved": 10,
                 "wins": 7,
                 "losses": 3,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 70.0,
                 "win_rate_wilson95_pct": [
@@ -1596,13 +1608,13 @@
                     80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.76,
-                    "mean_pct": 2.013,
+                    "up_pct": 62.73,
+                    "mean_pct": 2.007,
                     "triggers_matched": 10
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 57.8,
-                    "mean_pct": 0.252,
+                    "up_pct": 57.76,
+                    "mean_pct": 0.244,
                     "triggers_matched": 10
                   }
                 },
@@ -1695,8 +1707,8 @@
                   "share_deeper_than_10pct": 70.0
                 },
                 "until_race_L": {
-                  "n": 10,
-                  "median_pct": -11.16,
+                  "n": 11,
+                  "median_pct": -10.23,
                   "worst_pct": -24.93
                 }
               }
@@ -1730,7 +1742,7 @@
                   64.58
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  0.0,
+                  11.11,
                   66.67
                 ],
                 "median_days_to_win": 79.0,
@@ -1818,13 +1830,13 @@
                     88.89
                   ],
                   "control_same_distance": {
-                    "up_pct": 59.45,
-                    "mean_pct": 1.076,
+                    "up_pct": 59.43,
+                    "mean_pct": 1.072,
                     "triggers_matched": 9
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 52.36,
-                    "mean_pct": -1.48,
+                    "up_pct": 52.34,
+                    "mean_pct": -1.485,
                     "triggers_matched": 9
                   }
                 },
@@ -2391,32 +2403,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 37.52,
-                "n_resolved": 16,
+                "random_walk_benchmark_pct": 37.56,
+                "n_resolved": 17,
                 "wins": 6,
-                "losses": 10,
-                "open": 1,
+                "losses": 11,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 37.5,
+                "win_rate_pct": 35.29,
                 "win_rate_wilson95_pct": [
-                  18.48,
-                  61.36
+                  17.31,
+                  58.7
                 ],
                 "win_rate_episode_bootstrap95_pct": [
                   12.5,
-                  62.5
+                  58.82
                 ],
                 "median_days_to_win": 61.5,
                 "median_days_to_loss": 11.0,
                 "avg_win_pct": 10.043,
-                "avg_loss_pct": -5.299,
+                "avg_loss_pct": -5.522,
                 "first_per_episode": {
-                  "n_resolved": 15,
+                  "n_resolved": 16,
                   "wins": 6,
-                  "win_rate_pct": 40.0,
+                  "win_rate_pct": 37.5,
                   "win_rate_wilson95_pct": [
-                    19.82,
-                    64.25
+                    18.48,
+                    61.36
                   ]
                 }
               },
@@ -2491,13 +2503,13 @@
                     81.25
                   ],
                   "control_same_distance": {
-                    "up_pct": 66.07,
-                    "mean_pct": 2.7,
+                    "up_pct": 66.03,
+                    "mean_pct": 2.692,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 64.16,
-                    "mean_pct": 3.62,
+                    "up_pct": 64.08,
+                    "mean_pct": 3.601,
                     "triggers_matched": 16
                   }
                 },
@@ -2537,7 +2549,7 @@
                   "p90_pct": 28.756,
                   "mean_pts": 1.6,
                   "up_episode_bootstrap95_pct": [
-                    21.43,
+                    21.39,
                     73.33
                   ],
                   "control_same_distance": {
@@ -2591,17 +2603,17 @@
                 },
                 "until_race_L": {
                   "n": 17,
-                  "median_pct": -11.07,
+                  "median_pct": -13.73,
                   "worst_pct": -35.97
                 }
               }
             },
             "0.382": {
-              "n_triggers": 8,
-              "n_episodes": 7,
+              "n_triggers": 9,
+              "n_episodes": 8,
               "triggers_in_multi_trigger_episodes": 2,
-              "gap_fills": 4,
-              "triggers_after_L_rolled": 3,
+              "gap_fills": 5,
+              "triggers_after_L_rolled": 4,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
@@ -2609,35 +2621,36 @@
                 "2006": 1,
                 "2007": 2,
                 "2011": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 21.44,
-                "n_resolved": 8,
+                "random_walk_benchmark_pct": 19.74,
+                "n_resolved": 9,
                 "wins": 0,
-                "losses": 8,
+                "losses": 9,
                 "open": 0,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 0.0,
                 "win_rate_wilson95_pct": [
                   0.0,
-                  32.44
+                  29.91
                 ],
                 "win_rate_episode_bootstrap95_pct": [
                   0.0,
                   0.0
                 ],
                 "median_days_to_win": null,
-                "median_days_to_loss": 2.5,
+                "median_days_to_loss": 2.0,
                 "avg_win_pct": null,
-                "avg_loss_pct": -4.21,
+                "avg_loss_pct": -3.952,
                 "first_per_episode": {
-                  "n_resolved": 7,
+                  "n_resolved": 8,
                   "wins": 0,
                   "win_rate_pct": 0.0,
                   "win_rate_wilson95_pct": [
                     0.0,
-                    35.43
+                    32.44
                   ]
                 }
               },
@@ -2646,7 +2659,7 @@
                 "n_resolved": 8,
                 "wins": 5,
                 "losses": 3,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 62.5,
                 "win_rate_wilson95_pct": [
@@ -2654,8 +2667,8 @@
                   86.32
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  28.57,
-                  87.5
+                  30.0,
+                  88.89
                 ],
                 "median_days_to_win": 122.0,
                 "median_days_to_loss": 138.0,
@@ -2683,8 +2696,8 @@
                   "p90_pct": 7.759,
                   "mean_pts": 386.4,
                   "up_episode_bootstrap95_pct": [
-                    25.0,
-                    90.0
+                    14.29,
+                    91.87
                   ],
                   "control_same_distance": {
                     "up_pct": 55.21,
@@ -2708,17 +2721,17 @@
                   "p90_pct": 7.383,
                   "mean_pts": 163.9,
                   "up_episode_bootstrap95_pct": [
-                    25.0,
-                    90.0
+                    28.57,
+                    91.87
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.21,
-                    "mean_pct": 2.13,
+                    "up_pct": 62.19,
+                    "mean_pct": 2.125,
                     "triggers_matched": 8
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 62.47,
-                    "mean_pct": 1.98,
+                    "up_pct": 62.42,
+                    "mean_pct": 1.969,
                     "triggers_matched": 8
                   }
                 },
@@ -2733,8 +2746,8 @@
                   "p90_pct": 14.565,
                   "mean_pts": 244.3,
                   "up_episode_bootstrap95_pct": [
-                    14.29,
-                    77.78
+                    22.22,
+                    85.71
                   ],
                   "control_same_distance": {
                     "up_pct": 66.54,
@@ -2759,7 +2772,7 @@
                   "mean_pts": -538.1,
                   "up_episode_bootstrap95_pct": [
                     12.5,
-                    66.79
+                    66.67
                   ],
                   "control_same_distance": {
                     "up_pct": 70.25,
@@ -2811,18 +2824,18 @@
                   "share_deeper_than_10pct": 75.0
                 },
                 "until_race_L": {
-                  "n": 8,
-                  "median_pct": -17.03,
+                  "n": 9,
+                  "median_pct": -16.54,
                   "worst_pct": -30.82
                 }
               }
             },
             "0.5": {
-              "n_triggers": 9,
-              "n_episodes": 8,
+              "n_triggers": 10,
+              "n_episodes": 9,
               "triggers_in_multi_trigger_episodes": 2,
               "gap_fills": 3,
-              "triggers_after_L_rolled": 4,
+              "triggers_after_L_rolled": 5,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
@@ -2831,14 +2844,15 @@
                 "2006": 1,
                 "2007": 2,
                 "2011": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 18.83,
                 "n_resolved": 9,
                 "wins": 2,
                 "losses": 7,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 22.22,
                 "win_rate_wilson95_pct": [
@@ -2847,7 +2861,7 @@
                 ],
                 "win_rate_episode_bootstrap95_pct": [
                   0.0,
-                  45.45
+                  45.47
                 ],
                 "median_days_to_win": 74.0,
                 "median_days_to_loss": 47.0,
@@ -2868,7 +2882,7 @@
                 "n_resolved": 9,
                 "wins": 6,
                 "losses": 3,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 66.67,
                 "win_rate_wilson95_pct": [
@@ -2876,8 +2890,8 @@
                   87.94
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  37.5,
-                  88.89
+                  37.47,
+                  90.0
                 ],
                 "median_days_to_win": 185.5,
                 "median_days_to_loss": 136.0,
@@ -2905,8 +2919,8 @@
                   "p90_pct": 12.287,
                   "mean_pts": 519.5,
                   "up_episode_bootstrap95_pct": [
-                    25.0,
-                    100.0
+                    33.33,
+                    90.91
                   ],
                   "control_same_distance": {
                     "up_pct": 53.59,
@@ -2931,7 +2945,7 @@
                   "mean_pts": 474.2,
                   "up_episode_bootstrap95_pct": [
                     33.33,
-                    90.91
+                    100.0
                   ],
                   "control_same_distance": {
                     "up_pct": 60.17,
@@ -3033,8 +3047,8 @@
                   "share_deeper_than_10pct": 66.67
                 },
                 "until_race_L": {
-                  "n": 9,
-                  "median_pct": -13.89,
+                  "n": 10,
+                  "median_pct": -10.3,
                   "worst_pct": -28.03
                 }
               }
@@ -3483,32 +3497,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 32.24,
-                "n_resolved": 16,
+                "random_walk_benchmark_pct": 31.87,
+                "n_resolved": 17,
                 "wins": 6,
-                "losses": 10,
-                "open": 1,
+                "losses": 11,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 37.5,
+                "win_rate_pct": 35.29,
                 "win_rate_wilson95_pct": [
-                  18.48,
-                  61.36
+                  17.31,
+                  58.7
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  14.29,
-                  64.3
+                  11.76,
+                  62.5
                 ],
                 "median_days_to_win": 44.5,
                 "median_days_to_loss": 11.0,
                 "avg_win_pct": 10.728,
-                "avg_loss_pct": -4.51,
+                "avg_loss_pct": -4.592,
                 "first_per_episode": {
-                  "n_resolved": 15,
+                  "n_resolved": 16,
                   "wins": 6,
-                  "win_rate_pct": 40.0,
+                  "win_rate_pct": 37.5,
                   "win_rate_wilson95_pct": [
-                    19.82,
-                    64.25
+                    18.48,
+                    61.36
                   ]
                 }
               },
@@ -3525,7 +3539,7 @@
                   89.82
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  55.56,
+                  53.33,
                   93.75
                 ],
                 "median_days_to_win": 101.5,
@@ -3554,7 +3568,7 @@
                   "p90_pct": 8.653,
                   "mean_pts": 431.8,
                   "up_episode_bootstrap95_pct": [
-                    20.0,
+                    22.22,
                     66.67
                   ],
                   "control_same_distance": {
@@ -3580,16 +3594,16 @@
                   "mean_pts": 704.2,
                   "up_episode_bootstrap95_pct": [
                     31.25,
-                    81.25
+                    80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 66.59,
-                    "mean_pct": 2.894,
+                    "up_pct": 66.56,
+                    "mean_pct": 2.888,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 65.81,
-                    "mean_pct": 3.815,
+                    "up_pct": 65.74,
+                    "mean_pct": 3.8,
                     "triggers_matched": 16
                   }
                 },
@@ -3605,7 +3619,7 @@
                   "mean_pts": 552.8,
                   "up_episode_bootstrap95_pct": [
                     35.71,
-                    81.25
+                    85.71
                   ],
                   "control_same_distance": {
                     "up_pct": 69.65,
@@ -3683,17 +3697,17 @@
                 },
                 "until_race_L": {
                   "n": 17,
-                  "median_pct": -11.4,
+                  "median_pct": -12.63,
                   "worst_pct": -35.79
                 }
               }
             },
             "0.382": {
-              "n_triggers": 8,
-              "n_episodes": 8,
+              "n_triggers": 9,
+              "n_episodes": 9,
               "triggers_in_multi_trigger_episodes": 0,
               "gap_fills": 0,
-              "triggers_after_L_rolled": 3,
+              "triggers_after_L_rolled": 4,
               "by_year": {
                 "1999": 1,
                 "2002": 1,
@@ -3701,14 +3715,15 @@
                 "2006": 1,
                 "2007": 2,
                 "2011": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 11.26,
                 "n_resolved": 8,
                 "wins": 0,
                 "losses": 8,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 0.0,
                 "win_rate_wilson95_pct": [
@@ -3738,7 +3753,7 @@
                 "n_resolved": 8,
                 "wins": 6,
                 "losses": 2,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 75.0,
                 "win_rate_wilson95_pct": [
@@ -3746,7 +3761,7 @@
                   92.85
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  37.5,
+                  42.86,
                   100.0
                 ],
                 "median_days_to_win": 187.0,
@@ -3903,8 +3918,8 @@
                   "share_deeper_than_10pct": 75.0
                 },
                 "until_race_L": {
-                  "n": 8,
-                  "median_pct": -11.48,
+                  "n": 9,
+                  "median_pct": -10.23,
                   "worst_pct": -24.93
                 }
               }
@@ -4571,32 +4586,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 37.79,
-                "n_resolved": 9,
+                "random_walk_benchmark_pct": 37.84,
+                "n_resolved": 10,
                 "wins": 3,
-                "losses": 6,
-                "open": 1,
+                "losses": 7,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 33.33,
+                "win_rate_pct": 30.0,
                 "win_rate_wilson95_pct": [
-                  12.06,
-                  64.58
+                  10.78,
+                  60.32
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  6.96,
-                  71.43
+                  0.0,
+                  66.67
                 ],
                 "median_days_to_win": 46.0,
-                "median_days_to_loss": 9.5,
+                "median_days_to_loss": 8.0,
                 "avg_win_pct": 12.692,
-                "avg_loss_pct": -6.322,
+                "avg_loss_pct": -6.526,
                 "first_per_episode": {
-                  "n_resolved": 8,
+                  "n_resolved": 9,
                   "wins": 3,
-                  "win_rate_pct": 37.5,
+                  "win_rate_pct": 33.33,
                   "win_rate_wilson95_pct": [
-                    13.68,
-                    69.43
+                    12.06,
+                    64.58
                   ]
                 }
               },
@@ -4667,17 +4682,17 @@
                   "p90_pct": 10.25,
                   "mean_pts": 687.7,
                   "up_episode_bootstrap95_pct": [
-                    22.22,
-                    100.0
+                    20.0,
+                    87.5
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.04,
-                    "mean_pct": 2.9,
+                    "up_pct": 64.98,
+                    "mean_pct": 2.889,
                     "triggers_matched": 9
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 58.82,
-                    "mean_pct": 3.838,
+                    "up_pct": 58.65,
+                    "mean_pct": 3.798,
                     "triggers_matched": 9
                   }
                 },
@@ -4693,7 +4708,7 @@
                   "mean_pts": -232.7,
                   "up_episode_bootstrap95_pct": [
                     14.29,
-                    77.78
+                    85.71
                   ],
                   "control_same_distance": {
                     "up_pct": 70.81,
@@ -4717,8 +4732,8 @@
                   "p90_pct": 9.319,
                   "mean_pts": -638.8,
                   "up_episode_bootstrap95_pct": [
-                    10.0,
-                    85.71
+                    9.09,
+                    75.0
                   ],
                   "control_same_distance": {
                     "up_pct": 63.27,
@@ -4771,51 +4786,52 @@
                 },
                 "until_race_L": {
                   "n": 10,
-                  "median_pct": -12.4,
+                  "median_pct": -14.26,
                   "worst_pct": -35.97
                 }
               }
             },
             "0.382": {
-              "n_triggers": 5,
-              "n_episodes": 4,
+              "n_triggers": 6,
+              "n_episodes": 5,
               "triggers_in_multi_trigger_episodes": 2,
-              "gap_fills": 3,
-              "triggers_after_L_rolled": 2,
+              "gap_fills": 4,
+              "triggers_after_L_rolled": 3,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
                 "2002": 1,
                 "2007": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 20.28,
-                "n_resolved": 5,
+                "random_walk_benchmark_pct": 17.93,
+                "n_resolved": 6,
                 "wins": 0,
-                "losses": 5,
+                "losses": 6,
                 "open": 0,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 0.0,
                 "win_rate_wilson95_pct": [
                   0.0,
-                  43.45
+                  39.03
                 ],
                 "win_rate_episode_bootstrap95_pct": [
                   0.0,
                   0.0
                 ],
                 "median_days_to_win": null,
-                "median_days_to_loss": 2.0,
+                "median_days_to_loss": 1.5,
                 "avg_win_pct": null,
-                "avg_loss_pct": -4.723,
+                "avg_loss_pct": -4.25,
                 "first_per_episode": {
-                  "n_resolved": 4,
+                  "n_resolved": 5,
                   "wins": 0,
                   "win_rate_pct": 0.0,
                   "win_rate_wilson95_pct": [
                     0.0,
-                    48.99
+                    43.45
                   ]
                 }
               },
@@ -4824,7 +4840,7 @@
                 "n_resolved": 5,
                 "wins": 4,
                 "losses": 1,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 80.0,
                 "win_rate_wilson95_pct": [
@@ -4989,32 +5005,33 @@
                   "share_deeper_than_10pct": 80.0
                 },
                 "until_race_L": {
-                  "n": 5,
-                  "median_pct": -17.52,
+                  "n": 6,
+                  "median_pct": -12.87,
                   "worst_pct": -30.82
                 }
               }
             },
             "0.5": {
-              "n_triggers": 6,
-              "n_episodes": 5,
+              "n_triggers": 7,
+              "n_episodes": 6,
               "triggers_in_multi_trigger_episodes": 2,
               "gap_fills": 2,
-              "triggers_after_L_rolled": 3,
+              "triggers_after_L_rolled": 4,
               "by_year": {
                 "1999": 1,
                 "2000": 1,
                 "2002": 1,
                 "2004": 1,
                 "2007": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 18.81,
                 "n_resolved": 6,
                 "wins": 2,
                 "losses": 4,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 33.33,
                 "win_rate_wilson95_pct": [
@@ -5044,7 +5061,7 @@
                 "n_resolved": 6,
                 "wins": 5,
                 "losses": 1,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 83.33,
                 "win_rate_wilson95_pct": [
@@ -5156,7 +5173,7 @@
                   "p90_pct": 15.708,
                   "mean_pts": 260.4,
                   "up_episode_bootstrap95_pct": [
-                    37.4,
+                    33.33,
                     100.0
                   ],
                   "control_same_distance": {
@@ -5209,8 +5226,8 @@
                   "share_deeper_than_10pct": 66.67
                 },
                 "until_race_L": {
-                  "n": 6,
-                  "median_pct": -10.5,
+                  "n": 7,
+                  "median_pct": -6.7,
                   "worst_pct": -28.03
                 }
               }
@@ -5570,32 +5587,32 @@
                 "2026": 2
               },
               "race_next_layer": {
-                "random_walk_benchmark_pct": 33.92,
-                "n_resolved": 9,
+                "random_walk_benchmark_pct": 33.13,
+                "n_resolved": 10,
                 "wins": 3,
-                "losses": 6,
-                "open": 1,
+                "losses": 7,
+                "open": 0,
                 "ambiguous_counted_as_loss": 0,
-                "win_rate_pct": 33.33,
+                "win_rate_pct": 30.0,
                 "win_rate_wilson95_pct": [
-                  12.06,
-                  64.58
+                  10.78,
+                  60.32
                 ],
                 "win_rate_episode_bootstrap95_pct": [
-                  8.33,
+                  0.0,
                   66.67
                 ],
                 "median_days_to_win": 40.0,
-                "median_days_to_loss": 9.5,
+                "median_days_to_loss": 8.0,
                 "avg_win_pct": 13.421,
-                "avg_loss_pct": -5.653,
+                "avg_loss_pct": -5.619,
                 "first_per_episode": {
-                  "n_resolved": 8,
+                  "n_resolved": 9,
                   "wins": 3,
-                  "win_rate_pct": 37.5,
+                  "win_rate_pct": 33.33,
                   "win_rate_wilson95_pct": [
-                    13.68,
-                    69.43
+                    12.06,
+                    64.58
                   ]
                 }
               },
@@ -5666,17 +5683,17 @@
                   "p90_pct": 10.716,
                   "mean_pts": 703.0,
                   "up_episode_bootstrap95_pct": [
-                    20.0,
+                    22.22,
                     87.5
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.34,
-                    "mean_pct": 3.095,
+                    "up_pct": 65.31,
+                    "mean_pct": 3.088,
                     "triggers_matched": 9
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 59.26,
-                    "mean_pct": 3.898,
+                    "up_pct": 59.15,
+                    "mean_pct": 3.871,
                     "triggers_matched": 9
                   }
                 },
@@ -5692,7 +5709,7 @@
                   "mean_pts": -140.4,
                   "up_episode_bootstrap95_pct": [
                     14.29,
-                    85.71
+                    77.78
                   ],
                   "control_same_distance": {
                     "up_pct": 70.65,
@@ -5770,30 +5787,31 @@
                 },
                 "until_race_L": {
                   "n": 10,
-                  "median_pct": -11.87,
+                  "median_pct": -13.1,
                   "worst_pct": -35.79
                 }
               }
             },
             "0.382": {
-              "n_triggers": 5,
-              "n_episodes": 5,
+              "n_triggers": 6,
+              "n_episodes": 6,
               "triggers_in_multi_trigger_episodes": 0,
               "gap_fills": 0,
-              "triggers_after_L_rolled": 2,
+              "triggers_after_L_rolled": 3,
               "by_year": {
                 "1999": 1,
                 "2002": 1,
                 "2004": 1,
                 "2007": 1,
-                "2024": 1
+                "2024": 1,
+                "2026": 1
               },
               "race_next_layer": {
                 "random_walk_benchmark_pct": 9.03,
                 "n_resolved": 5,
                 "wins": 0,
                 "losses": 5,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 0.0,
                 "win_rate_wilson95_pct": [
@@ -5823,7 +5841,7 @@
                 "n_resolved": 5,
                 "wins": 5,
                 "losses": 0,
-                "open": 0,
+                "open": 1,
                 "ambiguous_counted_as_loss": 0,
                 "win_rate_pct": 100.0,
                 "win_rate_wilson95_pct": [
@@ -5988,8 +6006,8 @@
                   "share_deeper_than_10pct": 80.0
                 },
                 "until_race_L": {
-                  "n": 5,
-                  "median_pct": -10.23,
+                  "n": 6,
+                  "median_pct": -9.12,
                   "worst_pct": -24.93
                 }
               }
@@ -6549,7 +6567,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-TX-20261105-001",
-  "generated_at": "2026-11-05T23:51:48+08:00",
+  "generated_at": "2026-11-07T21:27:16+08:00",
   "method": {
     "window_sessions": 252,
     "window_rule": "H = max high of sessions t-252..t-1; L = min low of that window on or before H's date",
@@ -6613,18 +6631,18 @@
   "instrument": "TAIEX (^TWII) daily, price index",
   "data_period": {
     "start": "1997-07-02",
-    "end": "2026-11-05"
+    "end": "2026-11-06"
   },
   "limitations": [
     "TAIEX price index: no dividends (about 3-4% a year), so absolute long-hold returns understate a holder; Fib vs control comparisons are like for like.",
     "Triggers overlap: holds of 60-250 sessions from different layers and setups share the same market path; episode-cluster bootstrap is the honest interval, Wilson is optimistic.",
     "Daily bars cannot order intraday high/low; same-day ambiguities are counted as losses and listed.",
     "The cash index cannot be traded directly; costs use the TAIEX ETF/stock convention. TX/MXF futures costs and basis differ.",
-    "The 2026-11-05 row was provisional at download (volume 0).",
+    "Data refreshed 2026-11-07 to the 2026-11-06 close (TWII_1d_to_2026-11-06.csv); OHLC identical to the earlier 2026-11-05 file on all 7,190 shared dates (only the 2026-11-05 volume filled in).",
     "Descriptive, not causal; no parameter was tuned, but the question was asked after the 2026 decline began."
   ],
   "coverage": {
-    "twii_sessions": 7190,
+    "twii_sessions": 7191,
     "first_eligible": "1998-07-16",
     "refreshed_vs_pinned_max_abs_diff": 0.0,
     "refreshed_vs_pinned_shared_dates": 7178
@@ -6636,8 +6654,8 @@
         "win_rate_pct": 16.67
       },
       "2013-2026": {
-        "n": 13,
-        "win_rate_pct": 61.54
+        "n": 14,
+        "win_rate_pct": 57.14
       },
       "1998-2012_up250": {
         "n": 12,
@@ -6654,7 +6672,7 @@
         "win_rate_pct": 12.5
       },
       "2013-2026": {
-        "n": 4,
+        "n": 5,
         "win_rate_pct": 0.0
       },
       "1998-2012_up250": {
@@ -6957,11 +6975,13 @@
     {
       "episode_low_date": "2025-09-26",
       "layers": [
-        0.236
+        0.236,
+        0.382,
+        0.5
       ],
       "first": "2026-11-02",
       "setups": 1,
-      "triggers": 1
+      "triggers": 3
     }
   ],
   "cross_check_mxf": {
@@ -7053,7 +7073,7 @@
                   ],
                   "win_rate_episode_bootstrap95_pct": [
                     35.29,
-                    82.35
+                    81.25
                   ],
                   "median_days_to_win": 21.5,
                   "median_days_to_loss": 8.0,
@@ -7082,7 +7102,7 @@
                     96.71
                   ],
                   "win_rate_episode_bootstrap95_pct": [
-                    70.59,
+                    71.43,
                     100.0
                   ],
                   "median_days_to_win": 24.0,
@@ -7576,7 +7596,7 @@
                     "p90_pct": 12.462,
                     "mean_pts": 772.7,
                     "up_episode_bootstrap95_pct": [
-                      16.67,
+                      33.33,
                       100.0
                     ],
                     "control_same_distance": {
@@ -8158,8 +8178,8 @@
                     76.79
                   ],
                   "win_rate_episode_bootstrap95_pct": [
-                    28.57,
-                    80.0
+                    27.27,
+                    78.57
                   ],
                   "median_days_to_win": 22.0,
                   "median_days_to_loss": 6.5,
@@ -8188,7 +8208,7 @@
                     95.67
                   ],
                   "win_rate_episode_bootstrap95_pct": [
-                    61.54,
+                    63.64,
                     100.0
                   ],
                   "median_days_to_win": 34.0,
@@ -9309,8 +9329,8 @@
                     80.67
                   ],
                   "win_rate_episode_bootstrap95_pct": [
-                    25.0,
-                    85.71
+                    27.27,
+                    84.62
                   ],
                   "median_days_to_win": 23.0,
                   "median_days_to_loss": 21.0,
@@ -10371,7 +10391,7 @@
                   ],
                   "win_rate_episode_bootstrap95_pct": [
                     25.0,
-                    81.82
+                    83.33
                   ],
                   "median_days_to_win": 28.0,
                   "median_days_to_loss": 21.0,
@@ -12646,13 +12666,57 @@
       "gap_fill": false,
       "dist_from_H_pct": -11.13,
       "L_rolled_since_H": true,
+      "race_next": "loss",
+      "race_L": "open",
+      "ret_20_pct": null,
+      "ret_60_pct": null,
+      "ret_120_pct": null,
+      "ret_250_pct": null,
+      "mae_pct_until_race_L": -14.79
+    },
+    {
+      "ratio": 0.38,
+      "episode": "2025-09-26",
+      "date": "2026-11-06",
+      "H": 49968.92,
+      "H_date": "2026-10-06",
+      "L": 26395.98,
+      "L_date": "2025-11-21",
+      "rise_pct": 89.31,
+      "level": 40964.06,
+      "fill": 38915.76,
+      "gap_fill": true,
+      "dist_from_H_pct": -22.12,
+      "L_rolled_since_H": true,
+      "race_next": "loss",
+      "race_L": "open",
+      "ret_20_pct": null,
+      "ret_60_pct": null,
+      "ret_120_pct": null,
+      "ret_250_pct": null,
+      "mae_pct_until_race_L": -2.77
+    },
+    {
+      "ratio": 0.5,
+      "episode": "2025-09-26",
+      "date": "2026-11-06",
+      "H": 49968.92,
+      "H_date": "2026-10-06",
+      "L": 26395.98,
+      "L_date": "2025-11-21",
+      "rise_pct": 89.31,
+      "level": 38182.45,
+      "fill": 38182.45,
+      "gap_fill": false,
+      "dist_from_H_pct": -23.59,
+      "L_rolled_since_H": true,
       "race_next": "open",
       "race_L": "open",
       "ret_20_pct": null,
       "ret_60_pct": null,
       "ret_120_pct": null,
       "ret_250_pct": null,
-      "mae_pct_until_race_L": -6.51
+      "mae_pct_until_race_L": -0.9
     }
   ],
   "triggers_20pct_close": [
@@ -13792,24 +13856,46 @@
       "gap_fill": false,
       "dist_from_H_pct": -13.33,
       "L_rolled_since_H": true,
+      "race_next": "loss",
+      "race_L": "open",
+      "ret_20_pct": null,
+      "ret_60_pct": null,
+      "ret_120_pct": null,
+      "ret_250_pct": null,
+      "mae_pct_until_race_L": -12.63
+    },
+    {
+      "ratio": 0.38,
+      "episode": "2025-09-26",
+      "date": "2026-11-06",
+      "H": 49968.92,
+      "H_date": "2026-10-06",
+      "L": 26395.98,
+      "L_date": "2025-11-21",
+      "rise_pct": 89.31,
+      "level": 40964.06,
+      "fill": 39701.64,
+      "gap_fill": false,
+      "dist_from_H_pct": -20.55,
+      "L_rolled_since_H": true,
       "race_next": "open",
       "race_L": "open",
       "ret_20_pct": null,
       "ret_60_pct": null,
       "ret_120_pct": null,
       "ret_250_pct": null,
-      "mae_pct_until_race_L": -4.14
+      "mae_pct_until_race_L": 0.0
     }
   ],
   "limitations_zh": [
-    "這個題目是在 2026 年下跌開始之後才提出的；現在這段行情（2026-11-02 觸發 0.236 層、仍未定）不在統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
-    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 61.5%（n=13）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
+    "這個題目是在 2026 年下跌開始之後才提出的。現在這段行情的觸發（0.236 層 2026-11-02；0.382 層 2026-11-06 跳空開盤、0.5 層同日盤中）只有已分勝負的部分進入勝率統計（0.236、0.382 對下一層都已判負），其餘仍未定、不進分母；固定持有還沒到期，不在持有統計內。研究本身沒有調參，但題目的選擇時機有事後性。",
+    "前後期不穩定：0.236 層「先回前高 vs 下一層」1998–2012 為 16.7%（n=12）、2013–2026 為 57.1%（n=14）；250 日上漲比例 41.7% → 75.0%。早期樣本被 2000、2007–08、2011 空頭主導，不能當成穩定規律。",
     "隨機漫步基準不含漂移，台股長期上漲，真實基準會更高；所以「Fib 勝率 vs 基準」的比較對 Fib 已偏寬，基準是偏低的。",
     "加權指數是價格指數，不含股息（約每年 3–4%），長期持有的絕對報酬被低估；Fib 與對照組都是純價格，彼此比較是公平的。",
     "觸發之間高度重疊：同一段行情的 60–250 日持有共用同一條價格路徑；以行情段為單位的重抽樣才是誠實的區間，Wilson 偏樂觀。",
     "日線無法排出盤中高低先後；同天兩邊都碰到算負，並逐筆列出。",
     "現貨指數不能直接交易；成本採加權指數 ETF／個股慣例，台指期／小台的成本與基差不同。",
-    "2026-11-05 這一列下載時是暫定值（成交量 0）。",
+    "資料檔 TWII_1d_to_2026-11-06.csv 在 2026-11-07（週六）取得，最後一列 2026-11-06 成交量非 0，視為收盤定值；與先前 11-05 版在 7,190 個共同日期的開高低收完全相同（只有 2026-11-05 的成交量由 0 補上）。",
     "只是描述，不是因果。"
   ]
 }
