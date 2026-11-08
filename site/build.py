@@ -306,6 +306,7 @@ def routes() -> list[str]:
         "xauusd/weekly",
         *(["xauusd/dashboard"] if has_dashboard() else []),
         *(["tools/github"] if has_github_scan() else []),
+        *(["youtube"] if has_youtube() else []),
         *(["strategies/performance"] if has_performance() else []),
         *(f"xauusd/weekly/{w}" for w in weekly_weeks()),
         *(f"xauusd/weekly/{w}/perspectives/{p['producer']}"
@@ -795,15 +796,157 @@ def video_block(key: str, value: str) -> str:
 
 def home_youtube_card() -> str:
     y = youtube_data()
-    longs = [v for v in y["videos"] if v["kind"] == "long"]
+    longs = sorted((v for v in y["videos"] if v["kind"] == "long"), key=_video_sort_key, reverse=True)
     if not longs:
         return ""
     items = "".join(f'<li><a href="https://youtu.be/{attr(v["id"])}">{esc(v["title"])} ↗</a>'
+                    f' <span class="muted">{esc(_video_date_label(v))}</span>'
                     + (f'<br><strong>下一個研究方向：</strong>{esc(v["next_research"])}' if v.get("next_research") else "")
-                    + "</li>" for v in longs)
+                    + "</li>" for v in longs[:3])
     return ('<section class="block-section"><h2>YouTube 頻道</h2>'
             f'<p>用影片講週報與研究：<a href="{attr(y["channel"])}">{esc(y["channel_name"])} ↗</a></p>'
-            f'<ul>{items}</ul></section>')
+            f'<ul>{items}</ul><p class="more"><a href="youtube/">看全部影片（{len(longs)} 支）→</a></p></section>')
+
+
+# /youtube/: every public video, grouped by the series code at the start of its title.
+VIDEO_SERIES = [
+    ("weekly", "週報", re.compile(r"^\d{4}W\d{2}｜")),
+    ("ep", "研究 EP", re.compile(r"^EP\d+｜")),
+    ("sp", "事件 SP", re.compile(r"^SP\d+｜")),
+    ("tx", "台股 TX", re.compile(r"^TX\d+｜")),
+]
+VIDEO_PAGE_LIMIT = 6
+_WEEKDAYS_ZH = "一二三四五六日"
+
+
+def _video_sort_key(v: dict) -> str:
+    m = re.match(r"(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}))?", str(v.get("published", "")))
+    return f"{m.group(1)} {m.group(2) or '00:00'}" if m else ""
+
+
+def _video_date_label(v: dict) -> str:
+    key = _video_sort_key(v)
+    if not key:
+        return ""
+    d = date.fromisoformat(key[:10])
+    return f"{d.month}/{d.day}（{_WEEKDAYS_ZH[d.weekday()]}）"
+
+
+def youtube_page() -> str:
+    y = youtube_data()
+    videos = [v for v in y["videos"] if v.get("status", "public") == "public"]
+    longs = sorted((v for v in videos if v["kind"] == "long"), key=_video_sort_key, reverse=True)
+    shorts = sorted((v for v in videos if v["kind"] != "long"), key=_video_sort_key, reverse=True)
+    # A Short belongs to the long video it was cut from: same weekly edition, same study,
+    # or the same release slot. Anything left over is listed in its own Shorts group.
+    attached: dict[str, list[dict]] = {v["id"]: [] for v in longs}
+    loose = []
+    for sv in shorts:
+        parent = next((v for v in longs if sv.get("week") and v.get("week") == sv["week"]), None) \
+            or next((v for v in longs if sv.get("study") and v.get("study") == sv["study"]), None) \
+            or next((v for v in longs if _video_sort_key(v) and _video_sort_key(v) == _video_sort_key(sv)), None)
+        (attached[parent["id"]] if parent else loose).append(sv)
+    weeks = set(weekly_weeks())
+    groups: dict[str, list[dict]] = {key: [] for key, _, _ in VIDEO_SERIES}
+    groups["other"] = []
+    for v in longs:
+        key = next((k for k, _, rx in VIDEO_SERIES if rx.match(v["title"])), "other")
+        groups[key].append(v)
+    labels = {k: label for k, label, _ in VIDEO_SERIES} | {"other": "其他影片", "shorts": "Shorts 短影音"}
+    groups["shorts"] = loose
+
+    def card(v: dict) -> str:
+        is_long = v["kind"] == "long"
+        url = f'https://youtu.be/{v["id"]}' if is_long else f'https://youtube.com/shorts/{v["id"]}'
+        links = []
+        if v.get("week") in weeks:
+            links.append(f'<a href="../xauusd/weekly/{attr(v["week"])}/">看週報全文 →</a>')
+        if v.get("study") in PUBLISHED_STUDIES:
+            links.append(f'<a href="../research/studies/{attr(v["study"])}/">看研究頁 →</a>')
+        parts = [f'<article class="yt-card"><p class="yt-date">{esc(_video_date_label(v))}</p>',
+                 f'<h3><a href="{attr(url)}">{esc(v["title"])} ↗</a></h3>']
+        if v.get("next_research"):
+            parts.append(f'<p class="yt-next"><strong>下一個研究方向：</strong>{esc(v["next_research"])}</p>')
+        subs = attached.get(v["id"], [])
+        if subs:
+            items = "".join(f'<li><a href="https://youtube.com/shorts/{attr(s["id"])}">{esc(s["title"])} ↗</a></li>' for s in subs)
+            parts.append(f'<details class="yt-shorts"><summary>一分鐘重點 Shorts（{len(subs)}）</summary><ul>{items}</ul></details>')
+        if links:
+            parts.append(f'<p class="yt-links">{"　".join(links)}</p>')
+        parts.append("</article>")
+        return "".join(parts)
+
+    sections, buttons = [], []
+    for key in [k for k, _, _ in VIDEO_SERIES] + ["other", "shorts"]:
+        items = groups[key]
+        if not items:
+            continue
+        buttons.append(f'<button type="button" data-filter="{key}">{esc(labels[key])}（{len(items)}）</button>')
+        more = (f'<button type="button" class="yt-more" hidden>顯示更多（再 {len(items) - VIDEO_PAGE_LIMIT} 支）</button>'
+                if len(items) > VIDEO_PAGE_LIMIT else "")
+        sections.append(f'<section class="yt-group" data-group="{key}"><h2>{esc(labels[key])}'
+                        f' <span class="muted">{len(items)} 支</span></h2>'
+                        f'<div class="yt-grid">{"".join(card(v) for v in items)}</div>{more}</section>')
+    total = sum(len(g) for g in groups.values())
+    body = f"""
+<h1>YouTube 影片</h1>
+<p class="lede">頻道「{esc(y.get("channel_name", "YouTube"))}」所有公開影片，依系列分組、新的在前；有對應週報或研究的，卡片下方可直接點過去看完整內容。
+<a href="{attr(y.get("channel", ""))}">前往頻道首頁 ↗</a></p>
+<div class="filter-bar" id="yt-filter">
+  <button type="button" data-filter="all" class="active">全部（{total}）</button>
+  {"".join(buttons)}
+  <input type="search" id="yt-search" placeholder="搜尋標題、研究方向…" aria-label="搜尋影片">
+</div>
+<p class="empty-note" id="yt-empty" hidden>找不到符合的影片。</p>
+{"".join(sections)}
+<script>
+(function () {{
+  var LIMIT = {VIDEO_PAGE_LIMIT};
+  var groups = Array.prototype.slice.call(document.querySelectorAll(".yt-group"));
+  var buttons = document.querySelectorAll("#yt-filter button");
+  var search = document.getElementById("yt-search");
+  var empty = document.getElementById("yt-empty");
+  var active = "all";
+  function apply() {{
+    var q = search.value.trim().toLowerCase(), shown = 0;
+    groups.forEach(function (g) {{
+      var cards = Array.prototype.slice.call(g.querySelectorAll(".yt-card"));
+      var more = g.querySelector(".yt-more");
+      var expanded = g.getAttribute("data-expanded") === "1" || q !== "";
+      var hits = 0;
+      cards.forEach(function (c) {{
+        var ok = q === "" || c.textContent.toLowerCase().indexOf(q) !== -1;
+        if (ok) hits++;
+        c.hidden = !ok || (!expanded && hits > LIMIT);
+      }});
+      g.hidden = !(active === "all" || active === g.getAttribute("data-group")) || hits === 0;
+      if (more) more.hidden = expanded || hits <= LIMIT;
+      if (!g.hidden) shown += hits;
+    }});
+    empty.hidden = shown !== 0;
+  }}
+  buttons.forEach(function (btn) {{
+    btn.addEventListener("click", function () {{
+      buttons.forEach(function (b) {{ b.classList.remove("active"); }});
+      btn.classList.add("active");
+      active = btn.getAttribute("data-filter");
+      apply();
+    }});
+  }});
+  groups.forEach(function (g) {{
+    var more = g.querySelector(".yt-more");
+    if (more) more.addEventListener("click", function () {{ g.setAttribute("data-expanded", "1"); apply(); }});
+  }});
+  search.addEventListener("input", apply);
+  apply();
+}})();
+</script>
+"""
+    return document("YouTube 影片", f"{y.get('channel_name', 'YouTube')}：週報、研究與事件影片，依系列分組。", 1, body)
+
+
+def has_youtube() -> bool:
+    return bool(youtube_data().get("videos"))
 
 
 def sitemap_xml() -> str:
@@ -824,7 +967,7 @@ def nav(depth: int) -> str:
         ("Research", f"{prefix}research/"),
         *([("策略績效", f"{prefix}strategies/performance/")] if has_performance() else []),
         *([("GitHub 月報", f"{prefix}tools/github/")] if has_github_scan() else []),
-        *([("YouTube", youtube_data()["channel"])] if youtube_data().get("channel") else []),
+        *([("YouTube", f"{prefix}youtube/")] if has_youtube() else []),
     ]
     items = "".join(f'<a href="{attr(href)}">{label}</a>' for label, href in links)
     return f'<nav class="nav"><a class="brand" href="{attr(f"{prefix}index.html" if depth else "index.html")}">{SITE_NAME}</a><div class="nav-links">{items}</div></nav>'
@@ -1707,6 +1850,25 @@ def study_page(study_id: str) -> str:
 # scrolling is now a genuinely-too-narrow fallback, not the normal reading mode.
 STYLE_CSS = """.video-embed{position:relative;padding-top:56.25%;margin:12px 0}.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
 .video-next{font-size:1rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
+/* /youtube/ */
+.yt-group h2 .muted{font-size:.82rem;font-weight:400;}
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.yt-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;overflow-wrap:anywhere;}
+.yt-card:hover{border-color:var(--line2);}
+.yt-card[hidden],.yt-group[hidden]{display:none;}
+.yt-date{margin:0;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums;}
+.yt-card h3{margin:.3em 0 .5em;font-size:.97rem;line-height:1.5;}
+.yt-card h3 a{color:var(--text);text-decoration:none;}
+.yt-card h3 a:hover{color:var(--cyan);text-decoration:underline;}
+.yt-next{margin:.5em 0;font-size:.88rem;color:var(--muted);border-left:3px solid var(--warn);padding-left:10px;}
+.yt-next strong{color:var(--text);}
+.yt-shorts{margin:.5em 0;font-size:.86rem;}
+.yt-shorts summary{cursor:pointer;color:var(--muted);}
+.yt-shorts ul{margin:.4em 0 0;padding-left:1.1em;} .yt-shorts li{margin:.3em 0;}
+.yt-links{margin:.6em 0 0;font-size:.88rem;}
+.yt-more{margin-top:12px;background:var(--panel);border:1px solid var(--line);color:var(--cyan);padding:7px 16px;border-radius:20px;cursor:pointer;font-family:inherit;font-size:.88rem;}
+.yt-more:hover{border-color:var(--cyan);}
+@media (max-width:640px){.yt-grid{grid-template-columns:1fr;}}
 
 /* weekly reader format */
 .weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
@@ -1774,7 +1936,7 @@ footer.shell{padding:22px 24px 44px;color:var(--muted);font-size:.82rem;border-t
 
 .nav{display:flex;align-items:center;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
 .nav .brand{color:var(--text);font-weight:700;text-decoration:none;letter-spacing:.01em;}
-.nav-links{display:flex;gap:18px;font-size:.92rem;}
+.nav-links{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;min-width:0;}
 .nav-links a{color:var(--muted);text-decoration:none;}
 .nav-links a:hover{color:var(--cyan);}
 
@@ -2222,6 +2384,8 @@ def generated_pages() -> dict[str, str]:
         pages["xauusd/dashboard/index.html"] = dashboard_page()
     if has_github_scan():
         pages["tools/github/index.html"] = github_scan_page()
+    if has_youtube():
+        pages["youtube/index.html"] = youtube_page()
     if has_performance():
         pages["strategies/performance/index.html"] = performance_page()
     for week in weekly_weeks():

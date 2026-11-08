@@ -1,5 +1,24 @@
 .video-embed{position:relative;padding-top:56.25%;margin:12px 0}.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
 .video-next{font-size:1rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
+/* /youtube/ */
+.yt-group h2 .muted{font-size:.82rem;font-weight:400;}
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.yt-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;overflow-wrap:anywhere;}
+.yt-card:hover{border-color:var(--line2);}
+.yt-card[hidden],.yt-group[hidden]{display:none;}
+.yt-date{margin:0;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums;}
+.yt-card h3{margin:.3em 0 .5em;font-size:.97rem;line-height:1.5;}
+.yt-card h3 a{color:var(--text);text-decoration:none;}
+.yt-card h3 a:hover{color:var(--cyan);text-decoration:underline;}
+.yt-next{margin:.5em 0;font-size:.88rem;color:var(--muted);border-left:3px solid var(--warn);padding-left:10px;}
+.yt-next strong{color:var(--text);}
+.yt-shorts{margin:.5em 0;font-size:.86rem;}
+.yt-shorts summary{cursor:pointer;color:var(--muted);}
+.yt-shorts ul{margin:.4em 0 0;padding-left:1.1em;} .yt-shorts li{margin:.3em 0;}
+.yt-links{margin:.6em 0 0;font-size:.88rem;}
+.yt-more{margin-top:12px;background:var(--panel);border:1px solid var(--line);color:var(--cyan);padding:7px 16px;border-radius:20px;cursor:pointer;font-family:inherit;font-size:.88rem;}
+.yt-more:hover{border-color:var(--cyan);}
+@media (max-width:640px){.yt-grid{grid-template-columns:1fr;}}
 
 /* weekly reader format */
 .weekly-action{font-size:1.05rem;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;max-width:78ch;}
@@ -67,7 +86,7 @@ footer.shell{padding:22px 24px 44px;color:var(--muted);font-size:.82rem;border-t
 
 .nav{display:flex;align-items:center;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
 .nav .brand{color:var(--text);font-weight:700;text-decoration:none;letter-spacing:.01em;}
-.nav-links{display:flex;gap:18px;font-size:.92rem;}
+.nav-links{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;min-width:0;}
 .nav-links a{color:var(--muted);text-decoration:none;}
 .nav-links a:hover{color:var(--cyan);}
 
