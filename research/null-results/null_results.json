@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 82,
+    "studies": 83,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -262,6 +262,19 @@
       "reason": "None. Research only; no account, holding or rule changes.",
       "status": "confirmed",
       "created_on": "2026-11-06"
+    },
+    {
+      "entry_id": "RS-TX-20261108-001",
+      "study_id": "RS-TX-20261108-001",
+      "kind": "study",
+      "family": "none — TAIEX after the National Financial Stabilization Fund announces entry (descriptive event study)",
+      "origin": "programme",
+      "claim": "TAIEX after the National Stabilization Fund steps in: 9 entries 2000-2025, held 5 to 250 sessions",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None. Research only; no account, holding or rule changes.",
+      "status": "confirmed",
+      "created_on": "2026-11-08"
     },
     {
       "entry_id": "RS-XAUUSD-20260727-001",

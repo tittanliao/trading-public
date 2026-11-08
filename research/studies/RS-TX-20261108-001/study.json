@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261108-001",
+  "revision": 1,
+  "title": "TAIEX after the National Stabilization Fund steps in: 9 entries 2000-2025, held 5 to 250 sessions",
+  "market": "TX",
+  "strategy": "none — TAIEX after the National Financial Stabilization Fund announces entry (descriptive event study)",
+  "status": "confirmed",
+  "created_on": "2026-11-08",
+  "question": "After the National Financial Stabilization Fund officially enters, how often is TAIEX higher 5/20/60/120/250 sessions after the entry-day close, against any day and days with a similar 20-session fall?",
+  "hypothesis": "Descriptive; expected outcome unknown. 9 completed events.",
+  "headline": {
+    "sessions": 7191,
+    "data_end": "2026-11-06",
+    "n_events_complete": 9,
+    "nsf_win_5_pct": 88.89,
+    "anyday_win_5_pct": 55.27,
+    "same_win_5_pct": 62.28,
+    "nsf_median_5_pct": 4.455,
+    "nsf_win_20_pct": 66.67,
+    "anyday_win_20_pct": 57.26,
+    "same_win_20_pct": 66.13,
+    "nsf_median_20_pct": 4.289,
+    "nsf_win_60_pct": 55.56,
+    "anyday_win_60_pct": 61.24,
+    "same_win_60_pct": 60.3,
+    "nsf_median_60_pct": 2.908,
+    "nsf_win_120_pct": 55.56,
+    "anyday_win_120_pct": 64.88,
+    "same_win_120_pct": 74.38,
+    "nsf_median_120_pct": 1.018,
+    "nsf_win_250_pct": 77.78,
+    "anyday_win_250_pct": 66.99,
+    "same_win_250_pct": 65.31,
+    "nsf_median_250_pct": 17.269,
+    "nsf_worst_250_pct": -38.121
+  },
+  "card_metrics": [
+    "nsf_win_20_pct",
+    "nsf_win_60_pct",
+    "nsf_win_250_pct",
+    "same_win_250_pct"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Win rate by hold (entry-day close)",
+      "detail": "5: 8/9 = 88.89% (Wilson [56.5, 98.01]), median 4.455%, any day 55.27%, same distance 62.28% (分不出); 20: 6/9 = 66.67% (Wilson [35.42, 87.94]), median 4.289%, any day 57.26%, same distance 66.13% (分不出); 60: 5/9 = 55.56% (Wilson [26.67, 81.12]), median 2.908%, any day 61.24%, same distance 60.3% (分不出); 120: 5/9 = 55.56% (Wilson [26.67, 81.12]), median 1.018%, any day 64.88%, same distance 74.38% (分不出); 250: 7/9 = 77.78% (Wilson [45.26, 93.68]), median 17.269%, any day 66.99%, same distance 65.31% (分不出)",
+      "title_zh": "9 次進場：一週 8 次收高（隔天才買 7 次）、一個月 6 次、3 個月與半年各 5 次、一年 7 次",
+      "detail_zh": "勝率（Wilson 95%）：5 日 88.89%（56.5–98.0）、20 日 66.67%（35.4–87.9）、60 日 55.56%、120 日 55.56%（26.7–81.1）、250 日 77.78%（45.3–93.7），n=9。平常日 55.27／57.26／61.24／64.88／66.99%；同距離 62.28／66.13／60.30／74.38／65.31%；各持有期與同距離都分不出（n=9 要 9 次全賺才分得出）。一年最差 −38.12%（2000-10），中位數 +17.27%。一年 7/9、一個月 6/9 換成隔天才買仍不變；一週 8/9 對進場日敏感，隔天才買是 7/9。20 日 6/9 非完全盲測（凍結前已看過第 1–8 次一個月後漲跌）。"
+    },
+    {
+      "tone": "warn",
+      "title": "Bad cases: both 2000 entries lost a third within a year; 2008 fell another 27.5% first",
+      "detail": "250-session returns 2000-03 −33.19%, 2000-10 −38.12%; 2008-09 lowest close −27.51% below entry (−31.50% if bought 9/19) before ending +30.19%.",
+      "title_zh": "壞的那幾次：2000 年兩次一年後都跌三成以上；2008 年進場後又跌 27.5%",
+      "detail_zh": "250 日報酬 2000-03 −33.19%、2000-10 −38.12%；2008-09 期間最低收盤比進場低 27.51%（隔天 9/19 才買是 31.50%），一年後 +30.19%。"
+    },
+    {
+      "tone": "info",
+      "title": "Now: 10th entry announced 2026-11-06 after the close, executes from 2026-11-09",
+      "detail": "Pre-entry 20-session fall −20.31% (deeper than 8 of 9 past entries; 2020 was −26.17%). Close 2026-11-06 39,701.64, −20.55% from the 252-session high. No forward data yet.",
+      "title_zh": "現在：第 10 次於 2026-11-06 盤後宣布，11-09 起執行",
+      "detail_zh": "進場前 20 日跌 20.31%（比過去 9 次裡 8 次深，只淺於 2020 年 −26.17%）。11-06 收盤 39,701.64，距一年盤中高點 −20.55%（收盤高點為 −20.31%）。後續報酬尚無資料。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Nine fund entries since 2000: win rate and worst case by hold, against any day and same-distance days.",
+  "title_zh": "國安基金進場後，加權指數怎麼走（2000–2025，9 次；持有 5 到 250 個交易日）",
+  "question_zh": "國安基金官方決議進場後，從進場日收盤起抱 5／20／60／120／250 個交易日，加權指數收高的比例是多少？和平常日、和進場前 20 日跌幅相近的日子比如何？",
+  "hypothesis_zh": "描述性事件研究，沒有預設方向；2000–2025 年 9 次完成事件。",
+  "card_summary_zh": "國安基金 9 次進場：抱一年 7 次收高（77.8%，中位數 +17.3%）、一個月 6 次；一年的勝率和平常日（67.0%）、進場前跌幅相近的日子（65.3%）分不出來；2000 年兩次一年後都跌三成以上。",
+  "limitations_zh": [
+    "n=9，一次 11 個百分點；250 日只有 8 段獨立期間",
+    "描述性：混合大跌後反彈與基金買盤，非因果",
+    "價格指數不含股息、成本",
+    "第 4 次日期來源衝突（9/18 或 9/19）"
+  ],
+  "interpretation_zh": "2000–2025 年國安基金 9 次正式進場，從進場日收盤起抱一年，加權指數收高 7 次（77.8%），中位數 +17.27%；抱一個月 6 次（66.7%），抱三個月與半年各 5 次（55.6%）。平常任一天買進抱一年收高的比例是 66.99%，進場前 20 日跌幅相近的日子是 65.31%。和跌幅相近的日子比，每個持有期都分不出來（n=9 大多要 9 次全賺才分得出，半年連全賺也不夠）；和平常日比，只有一週勉強分得出（8/9 對 55.27%，單尾 p=0.04），隔天才買是 7/9 就分不出（p=0.15），一個月到一年都分不出。壞的情況很重：2000 年兩次一年後分別跌 33.19% 與 38.12%，2008 年進場後最低收盤再比進場低 27.51%。基金都在大跌後進場，結果混合了大跌後的一般反彈與基金買盤，不是因果。第 10 次於 2026-11-06 盤後宣布、11-09 起執行，進場前 20 日跌 20.31%，後續報酬尚無資料。這份研究只描述歷史，不構成交易建議。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "n_events_complete",
+        "nsf_win_20_pct",
+        "nsf_win_250_pct",
+        "nsf_median_250_pct",
+        "anyday_win_250_pct",
+        "same_win_250_pct",
+        "nsf_worst_250_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "charts",
+      "source": "charts",
+      "title": "Chart 圖表"
+    },
+    {
+      "type": "table",
+      "source": "summary_primary",
+      "title": "9 次進場：依持有交易日的勝率與報酬（進場日收盤）",
+      "columns": [
+        "n",
+        "wins",
+        "win_pct",
+        "median_ret_pct",
+        "best_ret_pct",
+        "worst_ret_pct",
+        "worst_lowest_close_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "baseline_any_day",
+      "title": "對照一：平常任一天買進",
+      "columns": [
+        "n",
+        "win_pct",
+        "median_ret_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "control_same_distance",
+      "title": "對照二：進場前 20 日跌幅相近的日子（9 次平均）",
+      "columns": [
+        "n_events_used",
+        "win_pct",
+        "mean_ret_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "tests",
+      "title": "和對照比：單尾二項檢定",
+      "columns": [
+        "p_tail_vs_any_day",
+        "verdict_vs_any_day",
+        "p_tail_vs_same_distance",
+        "verdict_vs_same_distance",
+        "wins_needed_to_separate_from_same_distance"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "now",
+      "title": "現在：第 10 次（2026-11-06 盤後宣布，11-09 起執行）",
+      "keys": [
+        "data_end",
+        "last_close",
+        "pre20_for_entry_2026_11_09_pct",
+        "high_252_intraday",
+        "high_252_date",
+        "last_close_vs_high_252_pct"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": true
+  }
+}

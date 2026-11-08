@@ -1,0 +1,1740 @@
+{
+  "now": {
+    "event": {
+      "n": "10",
+      "announce_date": "2026-11-06",
+      "announce_timing": "after_close_14:30",
+      "entry_official": "2026-11-09",
+      "entry_viewer": "2026-11-09",
+      "period_end": "",
+      "event_zh": "美國期中選舉後AI投資疑慮、費半重挫",
+      "in_data": "no_future",
+      "source_period": "https://ec.ltn.com.tw/article/paper/1777463",
+      "source_announce": "https://news.cnyes.com/news/id/6650445",
+      "checked_on": "2026-11-08",
+      "note": "131st ad-hoc meeting 2026-11-06 14:30 (after the 13:30 close); executes from Monday 2026-11-09; no post-entry data yet; entry date follows ltn/wiki '11-09 onward' (cnyes text also says 'immediately' but first trading day after Friday close is 11-09)"
+    },
+    "data_end": "2026-11-06",
+    "last_close": 39701.64,
+    "pre20_for_entry_2026_11_09_pct": -20.31,
+    "pre20_history_sorted": [
+      [
+        -26.17,
+        7
+      ],
+      [
+        -18.81,
+        2
+      ],
+      [
+        -18.23,
+        9
+      ],
+      [
+        -17.61,
+        4
+      ],
+      [
+        -13.94,
+        3
+      ],
+      [
+        -13.4,
+        6
+      ],
+      [
+        -13.23,
+        1
+      ],
+      [
+        -13.07,
+        8
+      ],
+      [
+        -4.82,
+        5
+      ]
+    ],
+    "high_252_intraday": 49968.92,
+    "high_252_date": "2026-10-06",
+    "last_close_vs_high_252_pct": -20.55,
+    "note": "Entry close on 2026-11-09 not yet known; every forward number for event 10 is pending."
+  },
+  "strategy_version": "none (descriptive event study)",
+  "tests": {
+    "5": {
+      "p_tail_vs_same_distance": 0.0909,
+      "p_tail_vs_any_day": 0.0399,
+      "wins_needed_to_separate_from_same_distance": 9,
+      "wins_needed_to_separate_from_any_day": 8,
+      "verdict_vs_same_distance": "分不出",
+      "verdict_vs_any_day": "分得出"
+    },
+    "20": {
+      "p_tail_vs_same_distance": 0.6371,
+      "p_tail_vs_any_day": 0.4149,
+      "wins_needed_to_separate_from_same_distance": 9,
+      "wins_needed_to_separate_from_any_day": 9,
+      "verdict_vs_same_distance": "分不出",
+      "verdict_vs_any_day": "分不出"
+    },
+    "60": {
+      "p_tail_vs_same_distance": 0.7397,
+      "p_tail_vs_any_day": 0.7588,
+      "wins_needed_to_separate_from_same_distance": 9,
+      "wins_needed_to_separate_from_any_day": 9,
+      "verdict_vs_same_distance": "分不出",
+      "verdict_vs_any_day": "分不出"
+    },
+    "120": {
+      "p_tail_vs_same_distance": 0.9461,
+      "p_tail_vs_any_day": 0.8262,
+      "wins_needed_to_separate_from_same_distance": null,
+      "wins_needed_to_separate_from_any_day": 9,
+      "verdict_vs_same_distance": "分不出",
+      "verdict_vs_any_day": "分不出"
+    },
+    "250": {
+      "p_tail_vs_same_distance": 0.3445,
+      "p_tail_vs_any_day": 0.3852,
+      "wins_needed_to_separate_from_same_distance": 9,
+      "wins_needed_to_separate_from_any_day": 9,
+      "verdict_vs_same_distance": "分不出",
+      "verdict_vs_any_day": "分不出"
+    }
+  },
+  "schema_version": 1,
+  "study_id": "RS-TX-20261108-001",
+  "generated_at": "2026-11-08T10:08:33+08:00",
+  "method": {
+    "entry": "TWII close on the first day of the official operating period (E)",
+    "viewer_variant": "first session strictly after the announcement date",
+    "holds_sessions": [
+      5,
+      20,
+      60,
+      120,
+      250
+    ],
+    "win": "C[E+h]/C[E]-1 > 0 (price index, no dividends, no costs)",
+    "pre20": "C[i-1]/C[i-21]-1",
+    "same_distance": "|D-D_event| <= band, bands [0.02, 0.03, 0.05, 0.08] first with >= 50 sessions; exclude +/-20 sessions of any entry; equal-weight mean over events",
+    "interval": "Wilson 95%",
+    "test": "exact one-sided binomial tail P(X>=k)"
+  },
+  "charts": [
+    {
+      "file": "win_rate_by_hold.png",
+      "section": "performance",
+      "caption": "Win rate by hold: after fund entry vs same 20-session fall vs any day (Wilson 95% whiskers)"
+    },
+    {
+      "file": "event_paths.png",
+      "section": "performance",
+      "caption": "Each of the 9 fund entries: TAIEX change vs entry close, first 250 sessions"
+    }
+  ],
+  "limitations": [
+    "n = 9 completed events; one event moves a win rate by 11 pp.",
+    "The fund enters after sharp falls; the outcome mixes the fund's buying with ordinary rebounds after selloffs. Not causal.",
+    "Price index without dividends; no costs.",
+    "Event 4 date conflicts across sources (2008-09-18 vs 09-19); viewer variant covers it.",
+    "Yahoo ^TWII closes; no second-vendor cross-check in this study (RS-TX-20261105-001 cross-checked the same file against MXF)."
+  ],
+  "coverage": {
+    "first": "1997-07-02",
+    "last": "2026-11-06",
+    "sessions": 7191,
+    "source": "local-inputs/TWII_1d_to_2026-11-06.csv",
+    "sha256": "1d4a0621408c5afa509d9a22455c0cb395ed33897da4df08a4a53455a120205a",
+    "bytes": 572920
+  },
+  "events": [
+    {
+      "n": "1",
+      "announce_date": "2000-03-15",
+      "announce_timing": "unknown",
+      "entry_official": "2000-03-16",
+      "entry_viewer": "2000-03-16",
+      "period_end": "2000-03-20",
+      "event_zh": "首次政黨輪替",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://zh.wikipedia.org/zh-tw/國家金融安定基金",
+      "checked_on": "2026-11-08",
+      "note": ""
+    },
+    {
+      "n": "2",
+      "announce_date": "2000-10-02",
+      "announce_timing": "unknown",
+      "entry_official": "2000-10-03",
+      "entry_viewer": "2000-10-03",
+      "period_end": "2000-11-15",
+      "event_zh": "網路泡沫、以巴衝突、核四停建",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://zh.wikipedia.org/zh-tw/國家金融安定基金",
+      "checked_on": "2026-11-08",
+      "note": ""
+    },
+    {
+      "n": "3",
+      "announce_date": "2004-05-19",
+      "announce_timing": "unknown",
+      "entry_official": "2004-05-20",
+      "entry_viewer": "2004-05-20",
+      "period_end": "2004-06-01",
+      "event_zh": "319槍擊案後政局",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://zh.wikipedia.org/zh-tw/國家金融安定基金",
+      "checked_on": "2026-11-08",
+      "note": "not 2004-03-22: period 2004-05-20..06-01 per PTS and technews"
+    },
+    {
+      "n": "4",
+      "announce_date": "2008-09-18",
+      "announce_timing": "unknown",
+      "entry_official": "2008-09-18",
+      "entry_viewer": "2008-09-19",
+      "period_end": "2008-12-17",
+      "event_zh": "金融海嘯",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://finance.technews.tw/2025/04/08/support/",
+      "checked_on": "2026-11-08",
+      "note": "conflict: PTS/商周 period starts 09-18; Wikipedia 啟動 09-19 and technews start 09-19. Official = 09-18 (period start); viewer variant = 09-19"
+    },
+    {
+      "n": "5",
+      "announce_date": "2011-12-20",
+      "announce_timing": "unknown",
+      "entry_official": "2011-12-21",
+      "entry_viewer": "2011-12-21",
+      "period_end": "2012-04-20",
+      "event_zh": "歐債風暴",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://zh.wikipedia.org/zh-tw/國家金融安定基金",
+      "checked_on": "2026-11-08",
+      "note": ""
+    },
+    {
+      "n": "6",
+      "announce_date": "2015-08-25",
+      "announce_timing": "morning_intraday",
+      "entry_official": "2015-08-25",
+      "entry_viewer": "2015-08-26",
+      "period_end": "2016-04-12",
+      "event_zh": "全球股災、人民幣貶值",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://www.storm.mg/article/63546",
+      "checked_on": "2026-11-08",
+      "note": "committee met the morning of 08-25 (Storm Media); viewer variant = next session"
+    },
+    {
+      "n": "7",
+      "announce_date": "2020-03-19",
+      "announce_timing": "unknown",
+      "entry_official": "2020-03-20",
+      "entry_viewer": "2020-03-20",
+      "period_end": "2020-10-12",
+      "event_zh": "新冠疫情",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://zh.wikipedia.org/zh-tw/國家金融安定基金",
+      "checked_on": "2026-11-08",
+      "note": ""
+    },
+    {
+      "n": "8",
+      "announce_date": "2022-07-12",
+      "announce_timing": "evening",
+      "entry_official": "2022-07-13",
+      "entry_viewer": "2022-07-13",
+      "period_end": "2023-04-13",
+      "event_zh": "通膨與升息、俄烏戰爭",
+      "in_data": "yes",
+      "source_period": "https://news.pts.org.tw/article/632082",
+      "source_announce": "https://finance.technews.tw/2022/07/13/5-reasons-for-the-national-security-fund-to-support-the-market/",
+      "checked_on": "2026-11-08",
+      "note": "113th ad-hoc meeting 07-12 evening; Wikipedia lists 啟動 07-13"
+    },
+    {
+      "n": "9",
+      "announce_date": "2025-04-08",
+      "announce_timing": "after_close",
+      "entry_official": "2025-04-09",
+      "entry_viewer": "2025-04-09",
+      "period_end": "2026-01-12",
+      "event_zh": "川普關稅",
+      "in_data": "yes",
+      "source_period": "https://finance.technews.tw/2025/04/08/support/",
+      "source_announce": "https://finance.technews.tw/2025/04/08/support/",
+      "checked_on": "2026-11-08",
+      "note": "period end 2026-01-12 per Wikipedia and LTN"
+    },
+    {
+      "n": "10",
+      "announce_date": "2026-11-06",
+      "announce_timing": "after_close_14:30",
+      "entry_official": "2026-11-09",
+      "entry_viewer": "2026-11-09",
+      "period_end": "",
+      "event_zh": "美國期中選舉後AI投資疑慮、費半重挫",
+      "in_data": "no_future",
+      "source_period": "https://ec.ltn.com.tw/article/paper/1777463",
+      "source_announce": "https://news.cnyes.com/news/id/6650445",
+      "checked_on": "2026-11-08",
+      "note": "131st ad-hoc meeting 2026-11-06 14:30 (after the 13:30 close); executes from Monday 2026-11-09; no post-entry data yet; entry date follows ltn/wiki '11-09 onward' (cnyes text also says 'immediately' but first trading day after Friday close is 11-09)"
+    }
+  ],
+  "per_event_primary": [
+    {
+      "n": 1,
+      "event_zh": "首次政黨輪替",
+      "announce_date": "2000-03-15",
+      "entry_date": "2000-03-16",
+      "entry_close": 8682.76,
+      "pre20_pct": -13.23,
+      "holds": {
+        "5": {
+          "exit_date": "2000-03-23",
+          "exit_close": 9533.87,
+          "ret_pct": 9.802,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.69,
+          "max_drawdown_pct": -2.593
+        },
+        "20": {
+          "exit_date": "2000-04-17",
+          "exit_close": 8993.68,
+          "ret_pct": 3.581,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.69,
+          "max_drawdown_pct": -11.707
+        },
+        "60": {
+          "exit_date": "2000-06-14",
+          "exit_close": 8935.23,
+          "ret_pct": 2.908,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.833,
+          "max_drawdown_pct": -18.027
+        },
+        "120": {
+          "exit_date": "2000-09-07",
+          "exit_close": 7430.93,
+          "ret_pct": -14.417,
+          "win": false,
+          "lowest_close_vs_entry_pct": -14.543,
+          "max_drawdown_pct": -27.156
+        },
+        "250": {
+          "exit_date": "2001-03-23",
+          "exit_close": 5800.55,
+          "ret_pct": -33.195,
+          "win": false,
+          "lowest_close_vs_entry_pct": -46.853,
+          "max_drawdown_pct": -54.697
+        }
+      }
+    },
+    {
+      "n": 2,
+      "event_zh": "網路泡沫、以巴衝突、核四停建",
+      "announce_date": "2000-10-02",
+      "entry_date": "2000-10-03",
+      "entry_close": 6143.44,
+      "pre20_pct": -18.81,
+      "holds": {
+        "5": {
+          "exit_date": "2000-10-11",
+          "exit_close": 6040.55,
+          "ret_pct": -1.675,
+          "win": false,
+          "lowest_close_vs_entry_pct": -2.369,
+          "max_drawdown_pct": -4.928
+        },
+        "20": {
+          "exit_date": "2000-11-01",
+          "exit_close": 5425.02,
+          "ret_pct": -11.694,
+          "win": false,
+          "lowest_close_vs_entry_pct": -17.289,
+          "max_drawdown_pct": -20.026
+        },
+        "60": {
+          "exit_date": "2000-12-28",
+          "exit_close": 4797.14,
+          "ret_pct": -21.914,
+          "win": false,
+          "lowest_close_vs_entry_pct": -24.885,
+          "max_drawdown_pct": -27.371
+        },
+        "120": {
+          "exit_date": "2001-04-03",
+          "exit_close": 5446.82,
+          "ret_pct": -11.339,
+          "win": false,
+          "lowest_close_vs_entry_pct": -24.885,
+          "max_drawdown_pct": -27.371
+        },
+        "250": {
+          "exit_date": "2001-10-12",
+          "exit_close": 3801.5,
+          "ret_pct": -38.121,
+          "win": false,
+          "lowest_close_vs_entry_pct": -43.903,
+          "max_drawdown_pct": -45.76
+        }
+      }
+    },
+    {
+      "n": 3,
+      "event_zh": "319槍擊案後政局",
+      "announce_date": "2004-05-19",
+      "entry_date": "2004-05-20",
+      "entry_close": 5815.33,
+      "pre20_pct": -13.94,
+      "holds": {
+        "5": {
+          "exit_date": "2004-05-27",
+          "exit_close": 6033.05,
+          "ret_pct": 3.744,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -0.383
+        },
+        "20": {
+          "exit_date": "2004-06-17",
+          "exit_close": 5664.35,
+          "ret_pct": -2.596,
+          "win": false,
+          "lowest_close_vs_entry_pct": -4.388,
+          "max_drawdown_pct": -9.403
+        },
+        "60": {
+          "exit_date": "2004-08-13",
+          "exit_close": 5389.93,
+          "ret_pct": -7.315,
+          "win": false,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        },
+        "120": {
+          "exit_date": "2004-11-11",
+          "exit_close": 5874.52,
+          "ret_pct": 1.018,
+          "win": true,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        },
+        "250": {
+          "exit_date": "2005-05-25",
+          "exit_close": 5888.53,
+          "ret_pct": 1.259,
+          "win": true,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        }
+      }
+    },
+    {
+      "n": 4,
+      "event_zh": "金融海嘯",
+      "announce_date": "2008-09-18",
+      "entry_date": "2008-09-18",
+      "entry_close": 5641.95,
+      "pre20_pct": -17.61,
+      "holds": {
+        "5": {
+          "exit_date": "2008-09-25",
+          "exit_close": 6060.83,
+          "ret_pct": 7.424,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.963
+        },
+        "20": {
+          "exit_date": "2008-10-20",
+          "exit_close": 4931.84,
+          "ret_pct": -12.586,
+          "win": false,
+          "lowest_close_vs_entry_pct": -12.586,
+          "max_drawdown_pct": -20.225
+        },
+        "60": {
+          "exit_date": "2008-12-15",
+          "exit_close": 4613.72,
+          "ret_pct": -18.225,
+          "win": false,
+          "lowest_close_vs_entry_pct": -27.509,
+          "max_drawdown_pct": -33.844
+        },
+        "120": {
+          "exit_date": "2009-03-20",
+          "exit_close": 4961.62,
+          "ret_pct": -12.058,
+          "win": false,
+          "lowest_close_vs_entry_pct": -27.509,
+          "max_drawdown_pct": -33.844
+        },
+        "250": {
+          "exit_date": "2009-09-25",
+          "exit_close": 7345.22,
+          "ret_pct": 30.189,
+          "win": true,
+          "lowest_close_vs_entry_pct": -27.509,
+          "max_drawdown_pct": -33.844
+        }
+      }
+    },
+    {
+      "n": 5,
+      "event_zh": "歐債風暴",
+      "announce_date": "2011-12-20",
+      "entry_date": "2011-12-21",
+      "entry_close": 6966.48,
+      "pre20_pct": -4.82,
+      "holds": {
+        "5": {
+          "exit_date": "2011-12-28",
+          "exit_close": 7056.67,
+          "ret_pct": 1.295,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -0.76
+        },
+        "20": {
+          "exit_date": "2012-01-30",
+          "exit_close": 7407.41,
+          "ret_pct": 6.329,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -1.177
+        },
+        "60": {
+          "exit_date": "2012-03-28",
+          "exit_close": 8038.07,
+          "ret_pct": 15.382,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -2.959
+        },
+        "120": {
+          "exit_date": "2012-06-22",
+          "exit_close": 7222.05,
+          "ret_pct": 3.669,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.031,
+          "max_drawdown_pct": -15.341
+        },
+        "250": {
+          "exit_date": "2012-12-25",
+          "exit_close": 7636.57,
+          "ret_pct": 9.619,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.031,
+          "max_drawdown_pct": -15.341
+        }
+      }
+    },
+    {
+      "n": 6,
+      "event_zh": "全球股災、人民幣貶值",
+      "announce_date": "2015-08-25",
+      "entry_date": "2015-08-25",
+      "entry_close": 7675.64,
+      "pre20_pct": -13.4,
+      "holds": {
+        "5": {
+          "exit_date": "2015-09-01",
+          "exit_close": 8017.56,
+          "ret_pct": 4.455,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.925
+        },
+        "20": {
+          "exit_date": "2015-09-22",
+          "exit_close": 8365.92,
+          "ret_pct": 8.993,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -2.304
+        },
+        "60": {
+          "exit_date": "2015-11-20",
+          "exit_close": 8465.45,
+          "ret_pct": 10.29,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -6.341
+        },
+        "120": {
+          "exit_date": "2016-02-24",
+          "exit_close": 8282.86,
+          "ret_pct": 7.911,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.152,
+          "max_drawdown_pct": -13.47
+        },
+        "250": {
+          "exit_date": "2016-09-01",
+          "exit_close": 9001.15,
+          "ret_pct": 17.269,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.152,
+          "max_drawdown_pct": -13.47
+        }
+      }
+    },
+    {
+      "n": 7,
+      "event_zh": "新冠疫情",
+      "announce_date": "2020-03-19",
+      "entry_date": "2020-03-20",
+      "entry_close": 9234.09,
+      "pre20_pct": -26.17,
+      "holds": {
+        "5": {
+          "exit_date": "2020-03-27",
+          "exit_close": 9698.92,
+          "ret_pct": 5.034,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "20": {
+          "exit_date": "2020-04-21",
+          "exit_close": 10288.42,
+          "ret_pct": 11.418,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "60": {
+          "exit_date": "2020-06-17",
+          "exit_close": 11534.59,
+          "ret_pct": 24.913,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "120": {
+          "exit_date": "2020-09-11",
+          "exit_close": 12675.95,
+          "ret_pct": 37.273,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -4.581
+        },
+        "250": {
+          "exit_date": "2021-03-30",
+          "exit_close": 16554.9,
+          "ret_pct": 79.28,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -6.286
+        }
+      }
+    },
+    {
+      "n": 8,
+      "event_zh": "通膨與升息、俄烏戰爭",
+      "announce_date": "2022-07-12",
+      "entry_date": "2022-07-13",
+      "entry_close": 14324.68,
+      "pre20_pct": -13.07,
+      "holds": {
+        "5": {
+          "exit_date": "2022-07-20",
+          "exit_close": 14733.22,
+          "ret_pct": 2.852,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -0.174
+        },
+        "20": {
+          "exit_date": "2022-08-10",
+          "exit_close": 14939.02,
+          "ret_pct": 4.289,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.986
+        },
+        "60": {
+          "exit_date": "2022-10-06",
+          "exit_close": 13892.05,
+          "ret_pct": -3.02,
+          "win": false,
+          "lowest_close_vs_entry_pct": -7.15,
+          "max_drawdown_pct": -13.999
+        },
+        "120": {
+          "exit_date": "2022-12-30",
+          "exit_close": 14137.69,
+          "ret_pct": -1.305,
+          "win": false,
+          "lowest_close_vs_entry_pct": -11.578,
+          "max_drawdown_pct": -18.101
+        },
+        "250": {
+          "exit_date": "2023-07-25",
+          "exit_close": 17198.89,
+          "ret_pct": 20.065,
+          "win": true,
+          "lowest_close_vs_entry_pct": -11.578,
+          "max_drawdown_pct": -18.101
+        }
+      }
+    },
+    {
+      "n": 9,
+      "event_zh": "川普關稅",
+      "announce_date": "2025-04-08",
+      "entry_date": "2025-04-09",
+      "entry_close": 17391.76,
+      "pre20_pct": -18.23,
+      "holds": {
+        "5": {
+          "exit_date": "2025-04-16",
+          "exit_close": 19468.0,
+          "ret_pct": 11.938,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.962
+        },
+        "20": {
+          "exit_date": "2025-05-08",
+          "exit_close": 20543.4,
+          "ret_pct": 18.121,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "60": {
+          "exit_date": "2025-07-04",
+          "exit_close": 22547.5,
+          "ret_pct": 29.645,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "120": {
+          "exit_date": "2025-09-26",
+          "exit_close": 25580.32,
+          "ret_pct": 47.083,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "250": {
+          "exit_date": "2026-04-20",
+          "exit_close": 36958.8,
+          "ret_pct": 112.508,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -10.424
+        }
+      }
+    }
+  ],
+  "per_event_viewer_variant": [
+    {
+      "n": 1,
+      "event_zh": "首次政黨輪替",
+      "announce_date": "2000-03-15",
+      "entry_date": "2000-03-16",
+      "entry_close": 8682.76,
+      "pre20_pct": -13.23,
+      "holds": {
+        "5": {
+          "exit_date": "2000-03-23",
+          "exit_close": 9533.87,
+          "ret_pct": 9.802,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.69,
+          "max_drawdown_pct": -2.593
+        },
+        "20": {
+          "exit_date": "2000-04-17",
+          "exit_close": 8993.68,
+          "ret_pct": 3.581,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.69,
+          "max_drawdown_pct": -11.707
+        },
+        "60": {
+          "exit_date": "2000-06-14",
+          "exit_close": 8935.23,
+          "ret_pct": 2.908,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.833,
+          "max_drawdown_pct": -18.027
+        },
+        "120": {
+          "exit_date": "2000-09-07",
+          "exit_close": 7430.93,
+          "ret_pct": -14.417,
+          "win": false,
+          "lowest_close_vs_entry_pct": -14.543,
+          "max_drawdown_pct": -27.156
+        },
+        "250": {
+          "exit_date": "2001-03-23",
+          "exit_close": 5800.55,
+          "ret_pct": -33.195,
+          "win": false,
+          "lowest_close_vs_entry_pct": -46.853,
+          "max_drawdown_pct": -54.697
+        }
+      }
+    },
+    {
+      "n": 2,
+      "event_zh": "網路泡沫、以巴衝突、核四停建",
+      "announce_date": "2000-10-02",
+      "entry_date": "2000-10-03",
+      "entry_close": 6143.44,
+      "pre20_pct": -18.81,
+      "holds": {
+        "5": {
+          "exit_date": "2000-10-11",
+          "exit_close": 6040.55,
+          "ret_pct": -1.675,
+          "win": false,
+          "lowest_close_vs_entry_pct": -2.369,
+          "max_drawdown_pct": -4.928
+        },
+        "20": {
+          "exit_date": "2000-11-01",
+          "exit_close": 5425.02,
+          "ret_pct": -11.694,
+          "win": false,
+          "lowest_close_vs_entry_pct": -17.289,
+          "max_drawdown_pct": -20.026
+        },
+        "60": {
+          "exit_date": "2000-12-28",
+          "exit_close": 4797.14,
+          "ret_pct": -21.914,
+          "win": false,
+          "lowest_close_vs_entry_pct": -24.885,
+          "max_drawdown_pct": -27.371
+        },
+        "120": {
+          "exit_date": "2001-04-03",
+          "exit_close": 5446.82,
+          "ret_pct": -11.339,
+          "win": false,
+          "lowest_close_vs_entry_pct": -24.885,
+          "max_drawdown_pct": -27.371
+        },
+        "250": {
+          "exit_date": "2001-10-12",
+          "exit_close": 3801.5,
+          "ret_pct": -38.121,
+          "win": false,
+          "lowest_close_vs_entry_pct": -43.903,
+          "max_drawdown_pct": -45.76
+        }
+      }
+    },
+    {
+      "n": 3,
+      "event_zh": "319槍擊案後政局",
+      "announce_date": "2004-05-19",
+      "entry_date": "2004-05-20",
+      "entry_close": 5815.33,
+      "pre20_pct": -13.94,
+      "holds": {
+        "5": {
+          "exit_date": "2004-05-27",
+          "exit_close": 6033.05,
+          "ret_pct": 3.744,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -0.383
+        },
+        "20": {
+          "exit_date": "2004-06-17",
+          "exit_close": 5664.35,
+          "ret_pct": -2.596,
+          "win": false,
+          "lowest_close_vs_entry_pct": -4.388,
+          "max_drawdown_pct": -9.403
+        },
+        "60": {
+          "exit_date": "2004-08-13",
+          "exit_close": 5389.93,
+          "ret_pct": -7.315,
+          "win": false,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        },
+        "120": {
+          "exit_date": "2004-11-11",
+          "exit_close": 5874.52,
+          "ret_pct": 1.018,
+          "win": true,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        },
+        "250": {
+          "exit_date": "2005-05-25",
+          "exit_close": 5888.53,
+          "ret_pct": 1.259,
+          "win": true,
+          "lowest_close_vs_entry_pct": -8.571,
+          "max_drawdown_pct": -13.367
+        }
+      }
+    },
+    {
+      "n": 4,
+      "event_zh": "金融海嘯",
+      "announce_date": "2008-09-18",
+      "entry_date": "2008-09-19",
+      "entry_close": 5970.38,
+      "pre20_pct": -18.45,
+      "holds": {
+        "5": {
+          "exit_date": "2008-09-26",
+          "exit_close": 5929.63,
+          "ret_pct": -0.683,
+          "win": false,
+          "lowest_close_vs_entry_pct": -0.683,
+          "max_drawdown_pct": -4.086
+        },
+        "20": {
+          "exit_date": "2008-10-21",
+          "exit_close": 4942.72,
+          "ret_pct": -17.213,
+          "win": false,
+          "lowest_close_vs_entry_pct": -17.395,
+          "max_drawdown_pct": -20.225
+        },
+        "60": {
+          "exit_date": "2008-12-16",
+          "exit_close": 4616.89,
+          "ret_pct": -22.67,
+          "win": false,
+          "lowest_close_vs_entry_pct": -31.496,
+          "max_drawdown_pct": -33.844
+        },
+        "120": {
+          "exit_date": "2009-03-23",
+          "exit_close": 5124.18,
+          "ret_pct": -14.173,
+          "win": false,
+          "lowest_close_vs_entry_pct": -31.496,
+          "max_drawdown_pct": -33.844
+        },
+        "250": {
+          "exit_date": "2009-09-28",
+          "exit_close": 7284.61,
+          "ret_pct": 22.013,
+          "win": true,
+          "lowest_close_vs_entry_pct": -31.496,
+          "max_drawdown_pct": -33.844
+        }
+      }
+    },
+    {
+      "n": 5,
+      "event_zh": "歐債風暴",
+      "announce_date": "2011-12-20",
+      "entry_date": "2011-12-21",
+      "entry_close": 6966.48,
+      "pre20_pct": -4.82,
+      "holds": {
+        "5": {
+          "exit_date": "2011-12-28",
+          "exit_close": 7056.67,
+          "ret_pct": 1.295,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -0.76
+        },
+        "20": {
+          "exit_date": "2012-01-30",
+          "exit_close": 7407.41,
+          "ret_pct": 6.329,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -1.177
+        },
+        "60": {
+          "exit_date": "2012-03-28",
+          "exit_close": 8038.07,
+          "ret_pct": 15.382,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.002,
+          "max_drawdown_pct": -2.959
+        },
+        "120": {
+          "exit_date": "2012-06-22",
+          "exit_close": 7222.05,
+          "ret_pct": 3.669,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.031,
+          "max_drawdown_pct": -15.341
+        },
+        "250": {
+          "exit_date": "2012-12-25",
+          "exit_close": 7636.57,
+          "ret_pct": 9.619,
+          "win": true,
+          "lowest_close_vs_entry_pct": -1.031,
+          "max_drawdown_pct": -15.341
+        }
+      }
+    },
+    {
+      "n": 6,
+      "event_zh": "全球股災、人民幣貶值",
+      "announce_date": "2015-08-25",
+      "entry_date": "2015-08-26",
+      "entry_close": 7715.59,
+      "pre20_pct": -10.57,
+      "holds": {
+        "5": {
+          "exit_date": "2015-09-02",
+          "exit_close": 8035.29,
+          "ret_pct": 4.144,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.925
+        },
+        "20": {
+          "exit_date": "2015-09-23",
+          "exit_close": 8193.42,
+          "ret_pct": 6.193,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -3.176
+        },
+        "60": {
+          "exit_date": "2015-11-23",
+          "exit_close": 8485.73,
+          "ret_pct": 9.982,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -6.341
+        },
+        "120": {
+          "exit_date": "2016-02-25",
+          "exit_close": 8365.86,
+          "ret_pct": 8.428,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.669,
+          "max_drawdown_pct": -13.47
+        },
+        "250": {
+          "exit_date": "2016-09-02",
+          "exit_close": 8987.55,
+          "ret_pct": 16.486,
+          "win": true,
+          "lowest_close_vs_entry_pct": -0.669,
+          "max_drawdown_pct": -13.47
+        }
+      }
+    },
+    {
+      "n": 7,
+      "event_zh": "新冠疫情",
+      "announce_date": "2020-03-19",
+      "entry_date": "2020-03-20",
+      "entry_close": 9234.09,
+      "pre20_pct": -26.17,
+      "holds": {
+        "5": {
+          "exit_date": "2020-03-27",
+          "exit_close": 9698.92,
+          "ret_pct": 5.034,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "20": {
+          "exit_date": "2020-04-21",
+          "exit_close": 10288.42,
+          "ret_pct": 11.418,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "60": {
+          "exit_date": "2020-06-17",
+          "exit_close": 11534.59,
+          "ret_pct": 24.913,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -3.726
+        },
+        "120": {
+          "exit_date": "2020-09-11",
+          "exit_close": 12675.95,
+          "ret_pct": 37.273,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -4.581
+        },
+        "250": {
+          "exit_date": "2021-03-30",
+          "exit_close": 16554.9,
+          "ret_pct": 79.28,
+          "win": true,
+          "lowest_close_vs_entry_pct": -3.726,
+          "max_drawdown_pct": -6.286
+        }
+      }
+    },
+    {
+      "n": 8,
+      "event_zh": "通膨與升息、俄烏戰爭",
+      "announce_date": "2022-07-12",
+      "entry_date": "2022-07-13",
+      "entry_close": 14324.68,
+      "pre20_pct": -13.07,
+      "holds": {
+        "5": {
+          "exit_date": "2022-07-20",
+          "exit_close": 14733.22,
+          "ret_pct": 2.852,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -0.174
+        },
+        "20": {
+          "exit_date": "2022-08-10",
+          "exit_close": 14939.02,
+          "ret_pct": 4.289,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.986
+        },
+        "60": {
+          "exit_date": "2022-10-06",
+          "exit_close": 13892.05,
+          "ret_pct": -3.02,
+          "win": false,
+          "lowest_close_vs_entry_pct": -7.15,
+          "max_drawdown_pct": -13.999
+        },
+        "120": {
+          "exit_date": "2022-12-30",
+          "exit_close": 14137.69,
+          "ret_pct": -1.305,
+          "win": false,
+          "lowest_close_vs_entry_pct": -11.578,
+          "max_drawdown_pct": -18.101
+        },
+        "250": {
+          "exit_date": "2023-07-25",
+          "exit_close": 17198.89,
+          "ret_pct": 20.065,
+          "win": true,
+          "lowest_close_vs_entry_pct": -11.578,
+          "max_drawdown_pct": -18.101
+        }
+      }
+    },
+    {
+      "n": 9,
+      "event_zh": "川普關稅",
+      "announce_date": "2025-04-08",
+      "entry_date": "2025-04-09",
+      "entry_close": 17391.76,
+      "pre20_pct": -18.23,
+      "holds": {
+        "5": {
+          "exit_date": "2025-04-16",
+          "exit_close": 19468.0,
+          "ret_pct": 11.938,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -1.962
+        },
+        "20": {
+          "exit_date": "2025-05-08",
+          "exit_close": 20543.4,
+          "ret_pct": 18.121,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "60": {
+          "exit_date": "2025-07-04",
+          "exit_close": 22547.5,
+          "ret_pct": 29.645,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "120": {
+          "exit_date": "2025-09-26",
+          "exit_close": 25580.32,
+          "ret_pct": 47.083,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -5.359
+        },
+        "250": {
+          "exit_date": "2026-04-20",
+          "exit_close": 36958.8,
+          "ret_pct": 112.508,
+          "win": true,
+          "lowest_close_vs_entry_pct": 0.0,
+          "max_drawdown_pct": -10.424
+        }
+      }
+    }
+  ],
+  "summary_primary": {
+    "5": {
+      "n": 9,
+      "wins": 8,
+      "win_pct": 88.89,
+      "wilson95": [
+        56.5,
+        98.01
+      ],
+      "mean_ret_pct": 4.985,
+      "median_ret_pct": 4.455,
+      "best_ret_pct": 11.938,
+      "worst_ret_pct": -1.675,
+      "worst_lowest_close_pct": -3.726,
+      "worst_max_drawdown_pct": -4.928
+    },
+    "20": {
+      "n": 9,
+      "wins": 6,
+      "win_pct": 66.67,
+      "wilson95": [
+        35.42,
+        87.94
+      ],
+      "mean_ret_pct": 2.873,
+      "median_ret_pct": 4.289,
+      "best_ret_pct": 18.121,
+      "worst_ret_pct": -12.586,
+      "worst_lowest_close_pct": -17.289,
+      "worst_max_drawdown_pct": -20.225
+    },
+    "60": {
+      "n": 9,
+      "wins": 5,
+      "win_pct": 55.56,
+      "wilson95": [
+        26.67,
+        81.12
+      ],
+      "mean_ret_pct": 3.629,
+      "median_ret_pct": 2.908,
+      "best_ret_pct": 29.645,
+      "worst_ret_pct": -21.914,
+      "worst_lowest_close_pct": -27.509,
+      "worst_max_drawdown_pct": -33.844
+    },
+    "120": {
+      "n": 9,
+      "wins": 5,
+      "win_pct": 55.56,
+      "wilson95": [
+        26.67,
+        81.12
+      ],
+      "mean_ret_pct": 6.426,
+      "median_ret_pct": 1.018,
+      "best_ret_pct": 47.083,
+      "worst_ret_pct": -14.417,
+      "worst_lowest_close_pct": -27.509,
+      "worst_max_drawdown_pct": -33.844
+    },
+    "250": {
+      "n": 9,
+      "wins": 7,
+      "win_pct": 77.78,
+      "wilson95": [
+        45.26,
+        93.68
+      ],
+      "mean_ret_pct": 22.097,
+      "median_ret_pct": 17.269,
+      "best_ret_pct": 112.508,
+      "worst_ret_pct": -38.121,
+      "worst_lowest_close_pct": -46.853,
+      "worst_max_drawdown_pct": -54.697
+    }
+  },
+  "summary_viewer_variant": {
+    "5": {
+      "n": 9,
+      "wins": 7,
+      "win_pct": 77.78,
+      "wilson95": [
+        45.26,
+        93.68
+      ],
+      "mean_ret_pct": 4.05,
+      "median_ret_pct": 3.744,
+      "best_ret_pct": 11.938,
+      "worst_ret_pct": -1.675,
+      "worst_lowest_close_pct": -3.726,
+      "worst_max_drawdown_pct": -4.928
+    },
+    "20": {
+      "n": 9,
+      "wins": 6,
+      "win_pct": 66.67,
+      "wilson95": [
+        35.42,
+        87.94
+      ],
+      "mean_ret_pct": 2.048,
+      "median_ret_pct": 4.289,
+      "best_ret_pct": 18.121,
+      "worst_ret_pct": -17.213,
+      "worst_lowest_close_pct": -17.395,
+      "worst_max_drawdown_pct": -20.225
+    },
+    "60": {
+      "n": 9,
+      "wins": 5,
+      "win_pct": 55.56,
+      "wilson95": [
+        26.67,
+        81.12
+      ],
+      "mean_ret_pct": 3.101,
+      "median_ret_pct": 2.908,
+      "best_ret_pct": 29.645,
+      "worst_ret_pct": -22.67,
+      "worst_lowest_close_pct": -31.496,
+      "worst_max_drawdown_pct": -33.844
+    },
+    "120": {
+      "n": 9,
+      "wins": 5,
+      "win_pct": 55.56,
+      "wilson95": [
+        26.67,
+        81.12
+      ],
+      "mean_ret_pct": 6.249,
+      "median_ret_pct": 1.018,
+      "best_ret_pct": 47.083,
+      "worst_ret_pct": -14.417,
+      "worst_lowest_close_pct": -31.496,
+      "worst_max_drawdown_pct": -33.844
+    },
+    "250": {
+      "n": 9,
+      "wins": 7,
+      "win_pct": 77.78,
+      "wilson95": [
+        45.26,
+        93.68
+      ],
+      "mean_ret_pct": 21.102,
+      "median_ret_pct": 16.486,
+      "best_ret_pct": 112.508,
+      "worst_ret_pct": -38.121,
+      "worst_lowest_close_pct": -46.853,
+      "worst_max_drawdown_pct": -54.697
+    }
+  },
+  "baseline_any_day": {
+    "5": {
+      "n": 7186,
+      "win_pct": 55.27,
+      "mean_ret_pct": 0.157,
+      "median_ret_pct": 0.322
+    },
+    "20": {
+      "n": 7171,
+      "win_pct": 57.26,
+      "mean_ret_pct": 0.647,
+      "median_ret_pct": 1.005
+    },
+    "60": {
+      "n": 7131,
+      "win_pct": 61.24,
+      "mean_ret_pct": 2.033,
+      "median_ret_pct": 2.458
+    },
+    "120": {
+      "n": 7071,
+      "win_pct": 64.88,
+      "mean_ret_pct": 4.336,
+      "median_ret_pct": 4.195
+    },
+    "250": {
+      "n": 6941,
+      "win_pct": 66.99,
+      "mean_ret_pct": 8.481,
+      "median_ret_pct": 8.764
+    }
+  },
+  "control_same_distance": {
+    "5": {
+      "per_event": [
+        {
+          "n_event": 1,
+          "band_pp": 2.0,
+          "n_days": 137,
+          "win_pct": 59.12,
+          "mean_ret_pct": 0.968
+        },
+        {
+          "n_event": 2,
+          "band_pp": 5.0,
+          "n_days": 88,
+          "win_pct": 68.18,
+          "mean_ret_pct": 2.57
+        },
+        {
+          "n_event": 3,
+          "band_pp": 2.0,
+          "n_days": 125,
+          "win_pct": 62.4,
+          "mean_ret_pct": 1.304
+        },
+        {
+          "n_event": 4,
+          "band_pp": 3.0,
+          "n_days": 62,
+          "win_pct": 70.97,
+          "mean_ret_pct": 2.671
+        },
+        {
+          "n_event": 5,
+          "band_pp": 2.0,
+          "n_days": 964,
+          "win_pct": 53.84,
+          "mean_ret_pct": 0.105
+        },
+        {
+          "n_event": 6,
+          "band_pp": 2.0,
+          "n_days": 138,
+          "win_pct": 59.42,
+          "mean_ret_pct": 1.025
+        },
+        {
+          "n_event": 7,
+          "band_pp": 8.0,
+          "n_days": 25,
+          "win_pct": 64.0,
+          "mean_ret_pct": 3.822
+        },
+        {
+          "n_event": 8,
+          "band_pp": 2.0,
+          "n_days": 140,
+          "win_pct": 57.86,
+          "mean_ret_pct": 0.863
+        },
+        {
+          "n_event": 9,
+          "band_pp": 3.0,
+          "n_days": 51,
+          "win_pct": 64.71,
+          "mean_ret_pct": 2.322
+        }
+      ],
+      "win_pct": 62.28,
+      "mean_ret_pct": 1.739,
+      "n_events_used": 9
+    },
+    "20": {
+      "per_event": [
+        {
+          "n_event": 1,
+          "band_pp": 2.0,
+          "n_days": 137,
+          "win_pct": 64.96,
+          "mean_ret_pct": 2.388
+        },
+        {
+          "n_event": 2,
+          "band_pp": 5.0,
+          "n_days": 88,
+          "win_pct": 67.05,
+          "mean_ret_pct": 4.685
+        },
+        {
+          "n_event": 3,
+          "band_pp": 2.0,
+          "n_days": 125,
+          "win_pct": 64.0,
+          "mean_ret_pct": 2.766
+        },
+        {
+          "n_event": 4,
+          "band_pp": 3.0,
+          "n_days": 62,
+          "win_pct": 70.97,
+          "mean_ret_pct": 5.403
+        },
+        {
+          "n_event": 5,
+          "band_pp": 2.0,
+          "n_days": 961,
+          "win_pct": 54.94,
+          "mean_ret_pct": 0.574
+        },
+        {
+          "n_event": 6,
+          "band_pp": 2.0,
+          "n_days": 138,
+          "win_pct": 65.22,
+          "mean_ret_pct": 2.648
+        },
+        {
+          "n_event": 7,
+          "band_pp": 8.0,
+          "n_days": 25,
+          "win_pct": 68.0,
+          "mean_ret_pct": 5.344
+        },
+        {
+          "n_event": 8,
+          "band_pp": 2.0,
+          "n_days": 140,
+          "win_pct": 63.57,
+          "mean_ret_pct": 2.229
+        },
+        {
+          "n_event": 9,
+          "band_pp": 3.0,
+          "n_days": 51,
+          "win_pct": 76.47,
+          "mean_ret_pct": 5.841
+        }
+      ],
+      "win_pct": 66.13,
+      "mean_ret_pct": 3.542,
+      "n_events_used": 9
+    },
+    "60": {
+      "per_event": [
+        {
+          "n_event": 1,
+          "band_pp": 2.0,
+          "n_days": 137,
+          "win_pct": 59.85,
+          "mean_ret_pct": 1.895
+        },
+        {
+          "n_event": 2,
+          "band_pp": 5.0,
+          "n_days": 88,
+          "win_pct": 60.23,
+          "mean_ret_pct": 9.943
+        },
+        {
+          "n_event": 3,
+          "band_pp": 2.0,
+          "n_days": 125,
+          "win_pct": 55.2,
+          "mean_ret_pct": 0.753
+        },
+        {
+          "n_event": 4,
+          "band_pp": 3.0,
+          "n_days": 62,
+          "win_pct": 59.68,
+          "mean_ret_pct": 8.878
+        },
+        {
+          "n_event": 5,
+          "band_pp": 2.0,
+          "n_days": 961,
+          "win_pct": 61.71,
+          "mean_ret_pct": 1.485
+        },
+        {
+          "n_event": 6,
+          "band_pp": 2.0,
+          "n_days": 138,
+          "win_pct": 57.97,
+          "mean_ret_pct": 1.273
+        },
+        {
+          "n_event": 7,
+          "band_pp": 8.0,
+          "n_days": 25,
+          "win_pct": 68.0,
+          "mean_ret_pct": 25.119
+        },
+        {
+          "n_event": 8,
+          "band_pp": 2.0,
+          "n_days": 140,
+          "win_pct": 59.29,
+          "mean_ret_pct": 2.251
+        },
+        {
+          "n_event": 9,
+          "band_pp": 3.0,
+          "n_days": 51,
+          "win_pct": 60.78,
+          "mean_ret_pct": 11.141
+        }
+      ],
+      "win_pct": 60.3,
+      "mean_ret_pct": 6.971,
+      "n_events_used": 9
+    },
+    "120": {
+      "per_event": [
+        {
+          "n_event": 1,
+          "band_pp": 2.0,
+          "n_days": 135,
+          "win_pct": 68.15,
+          "mean_ret_pct": 5.793
+        },
+        {
+          "n_event": 2,
+          "band_pp": 5.0,
+          "n_days": 87,
+          "win_pct": 79.31,
+          "mean_ret_pct": 19.605
+        },
+        {
+          "n_event": 3,
+          "band_pp": 2.0,
+          "n_days": 123,
+          "win_pct": 69.92,
+          "mean_ret_pct": 4.817
+        },
+        {
+          "n_event": 4,
+          "band_pp": 3.0,
+          "n_days": 61,
+          "win_pct": 77.05,
+          "mean_ret_pct": 18.705
+        },
+        {
+          "n_event": 5,
+          "band_pp": 2.0,
+          "n_days": 958,
+          "win_pct": 63.88,
+          "mean_ret_pct": 3.222
+        },
+        {
+          "n_event": 6,
+          "band_pp": 2.0,
+          "n_days": 136,
+          "win_pct": 67.65,
+          "mean_ret_pct": 5.458
+        },
+        {
+          "n_event": 7,
+          "band_pp": 8.0,
+          "n_days": 25,
+          "win_pct": 96.0,
+          "mean_ret_pct": 48.673
+        },
+        {
+          "n_event": 8,
+          "band_pp": 2.0,
+          "n_days": 139,
+          "win_pct": 69.06,
+          "mean_ret_pct": 6.231
+        },
+        {
+          "n_event": 9,
+          "band_pp": 3.0,
+          "n_days": 51,
+          "win_pct": 78.43,
+          "mean_ret_pct": 24.256
+        }
+      ],
+      "win_pct": 74.38,
+      "mean_ret_pct": 15.196,
+      "n_events_used": 9
+    },
+    "250": {
+      "per_event": [
+        {
+          "n_event": 1,
+          "band_pp": 2.0,
+          "n_days": 135,
+          "win_pct": 60.74,
+          "mean_ret_pct": 10.19
+        },
+        {
+          "n_event": 2,
+          "band_pp": 5.0,
+          "n_days": 87,
+          "win_pct": 64.37,
+          "mean_ret_pct": 10.785
+        },
+        {
+          "n_event": 3,
+          "band_pp": 2.0,
+          "n_days": 123,
+          "win_pct": 56.91,
+          "mean_ret_pct": 9.278
+        },
+        {
+          "n_event": 4,
+          "band_pp": 3.0,
+          "n_days": 61,
+          "win_pct": 62.3,
+          "mean_ret_pct": 8.112
+        },
+        {
+          "n_event": 5,
+          "band_pp": 2.0,
+          "n_days": 946,
+          "win_pct": 67.34,
+          "mean_ret_pct": 7.113
+        },
+        {
+          "n_event": 6,
+          "band_pp": 2.0,
+          "n_days": 136,
+          "win_pct": 61.03,
+          "mean_ret_pct": 10.653
+        },
+        {
+          "n_event": 7,
+          "band_pp": 8.0,
+          "n_days": 25,
+          "win_pct": 88.0,
+          "mean_ret_pct": 25.416
+        },
+        {
+          "n_event": 8,
+          "band_pp": 2.0,
+          "n_days": 139,
+          "win_pct": 60.43,
+          "mean_ret_pct": 10.224
+        },
+        {
+          "n_event": 9,
+          "band_pp": 3.0,
+          "n_days": 51,
+          "win_pct": 66.67,
+          "mean_ret_pct": 10.232
+        }
+      ],
+      "win_pct": 65.31,
+      "mean_ret_pct": 11.334,
+      "n_events_used": 9
+    }
+  },
+  "clusters": {
+    "note": "Events 1 (2000-03-16) and 2 (2000-10-03) are 135 sessions apart: their 250-session windows overlap, so h=250 has 9 events but 8 independent windows.",
+    "sessions_between_1_and_2": 137
+  }
+}
