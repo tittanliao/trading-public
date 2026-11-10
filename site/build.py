@@ -770,7 +770,7 @@ def youtube_data() -> dict:
     return load_json(path) if path.is_file() else {"videos": []}
 
 
-def video_block(key: str, value: str) -> str:
+def video_block(key: str, value: str, extra_class: str = "") -> str:
     """Embed the channel's long videos made from this page (study id or weekly edition); list its Shorts."""
     y = youtube_data()
     vids = [v for v in y["videos"] if v.get(key) == value]
@@ -778,7 +778,8 @@ def video_block(key: str, value: str) -> str:
         return ""
     longs = [v for v in vids if v["kind"] == "long"]
     shorts = [v for v in vids if v["kind"] == "short"]
-    parts = ['<section class="block-section video-section"><h2>影片 Video</h2>']
+    classes = " ".join(c for c in ("block-section", "video-section", extra_class) if c)
+    parts = [f'<section class="{classes}"><h2>影片 Video</h2>']
     for v in longs:
         parts.append(
             '<div class="video-embed"><iframe loading="lazy" '
@@ -2390,16 +2391,23 @@ def generated_pages() -> dict[str, str]:
         pages["strategies/performance/index.html"] = performance_page()
     for week in weekly_weeks():
         page = weekly_report_page(week)
-        block = video_block("week", week)
-        if block and "</h1>" in page:
-            page = page.replace("</h1>", "</h1>\n" + block, 1)
-        pages[f"xauusd/weekly/{week}/index.html"] = page
+        pages[f"xauusd/weekly/{week}/index.html"] = video_at_bottom(page, video_block("week", week, "reading-rail"))
         for perspective in weekly_perspectives(week):
             producer = perspective["producer"]
             pages[f"xauusd/weekly/{week}/perspectives/{producer}/index.html"] = weekly_perspective_page(week, producer)
     for sid in PUBLISHED_STUDIES:
         pages[f"research/studies/{sid}/index.html"] = study_page(sid)
     return pages
+
+
+def video_at_bottom(page: str, block: str) -> str:
+    """Weekly page: the video block sits at the bottom of <main>, above the closing disclaimer when the page has one."""
+    end = page.rfind("</main>")
+    if not block or end < 0:
+        return page
+    at = page.rfind('<section class="block-section reading-rail"><p class="disclaimer">', 0, end)
+    at = at if at >= 0 else end
+    return page[:at] + block + "\n" + page[at:]
 
 
 def assets() -> dict[str, str]:
