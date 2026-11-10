@@ -6,6 +6,10 @@ weekly closes since 1970; does a week that meets an add-on condition (accelerati
 deep, back above the 20-week MA) have a better forward return than an ordinary week in a decline?
 
     python3.12 scripts/research/build_gold_addon_timing.py [--dry-run]
+
+Revision 4 (2026-11-11) adds one post-hoc supplementary table, `post_hoc_supplementary_2008_avg_cost_path`: the
+2008 plan's running average cost week by week (approved 2026-11-10 for that table only). It is not a new test and
+changes no other field; it lays out the path to the week-26 average costs already in `plans`.
 """
 
 from __future__ import annotations
@@ -14,6 +18,7 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -35,6 +40,8 @@ EPISODE_GAP = 13
 PLAN_WEEKS, PLAN_VALUE_AT = 26, (26, 52)
 # The five weeks gold's close first fell 25% below its all-time-high close (RS-XAUUSD-20261026-001, part A).
 EVENT_STARTS = ("1973-11-12", "1975-09-15", "1980-03-03", "2008-10-20", "2013-04-15")
+# Post-hoc supplementary table (revision 4): the 2008 episode laid out week by week. Not a design parameter.
+SUPPLEMENT_START = "2008-10-20"
 
 
 def r(value, digits=2):
@@ -98,21 +105,75 @@ def compare(f: pd.DataFrame, mask: pd.Series, base_mask: pd.Series) -> dict:
     return out
 
 
-def plan(f: pd.DataFrame, start: pd.Timestamp, extra: str | None) -> dict:
+def buys(f: pd.DataFrame, start: pd.Timestamp, extra: str | None) -> tuple[int, list[tuple[int, int, float, float]]]:
+    """The plan's weekly buys: 1 lot at each weekly close for PLAN_WEEKS weeks from `start`, plus 1 extra lot in
+    weeks where `extra` is true. Returns the start row and, per week, (row, lots bought, cumulative lots,
+    cumulative cost). `plan` and the post-hoc 2008 table both read this one loop."""
     c = f["close"]
     i0 = c.index.get_loc(start)
     end = min(i0 + PLAN_WEEKS, len(c))
     lots = cost = 0.0
+    path = []
     for i in range(i0, end):
         n = 1 + (1 if extra and bool(f[extra].iloc[i]) else 0)
         lots += n
         cost += n * c.iloc[i]
+        path.append((i, n, lots, cost))
+    return i0, path
+
+
+def plan(f: pd.DataFrame, start: pd.Timestamp, extra: str | None) -> dict:
+    c = f["close"]
+    i0, path = buys(f, start, extra)
+    _, _, lots, cost = path[-1]
     out = {"lots": int(lots), "avg_cost": r(cost / lots)}
     for h in PLAN_VALUE_AT:
         j = i0 + h
         out[f"return_at_{h}w_pct"] = r((c.iloc[j] * lots / cost - 1) * 100) if j < len(c) else None
         out[f"pnl_at_{h}w_lot_equiv"] = r((c.iloc[j] * lots - cost) / c.iloc[i0]) if j < len(c) else None
     return out
+
+
+def avg_cost_path(f: pd.DataFrame, start: str, published: dict) -> dict:
+    """Post-hoc supplementary table (revision 4, approved 2026-11-10): the running average cost of the
+    1-lot-a-week plan and of the plan plus 1 extra lot in C1 weeks, week by week, for the episode starting at
+    `start`. Same buys as `plan`; the last row must equal the published week-26 average costs in `plans`."""
+    c = f["close"]
+    ts = pd.Timestamp(start)
+    _, base = buys(f, ts, None)
+    _, plus = buys(f, ts, "C1_accelerating_fall")
+    rows = []
+    for week, ((i, _, lots_b, cost_b), (_, n, lots_p, cost_p)) in enumerate(zip(base, plus), 1):
+        avg_b, avg_p = r(cost_b / lots_b), r(cost_p / lots_p)
+        rows.append({"week": week, "week_of": c.index[i].date().isoformat(), "close": r(c.iloc[i]),
+                     "c1_extra_lot": n == 2, "avg_cost_base_1_per_week": avg_b, "avg_cost_plus_C1": avg_p,
+                     "base_minus_plus_C1": r(avg_b - avg_p)})
+    last = rows[-1]
+    if (last["avg_cost_base_1_per_week"], last["avg_cost_plus_C1"]) != (
+            published["base_1_per_week"]["avg_cost"], published["plus_C1"]["avg_cost"]):
+        raise SystemExit("post-hoc 2008 table: last row does not match the plan's published average costs")
+    avg_b, avg_p, gap = last["avg_cost_base_1_per_week"], last["avg_cost_plus_C1"], last["base_minus_plus_C1"]
+    return {
+        "label": (f"Post-hoc supplementary table (revision 4, added 2026-11-11). Not a new test and not a registered "
+                  f"metric: it lays out, week by week, how the {ts.year} plan reached the week-26 average costs already "
+                  f"in `plans` ({avg_b:,.2f} vs {avg_p:,.2f}, difference {gap:,.2f}; start {ts.date().isoformat()}). "
+                  f"One episode, one path, no error bound. No conclusion, rule or parameter changed."),
+        "label_zh": (f"事後補充（修訂 4，2026-11-11 加入）：不是新檢定，也不是登記指標；只是把 `plans` 裡已發布的 "
+                     f"{ts.year} 那次（起點 {ts.date().isoformat()}）第 26 週均價（{avg_b:,.2f}／{avg_p:,.2f}，"
+                     f"差 {gap:,.2f}）的過程逐週攤開。只有這一次、一條路徑，沒有誤差界線；結論、規則、參數都沒有改。"),
+        "start": ts.date().isoformat(),
+        "weeks": len(rows),
+        "columns": {
+            "week": "1 = the start week",
+            "week_of": "Monday stamp of the weekly bar",
+            "close": "that week's close (USD per ounce), the buy price",
+            "c1_extra_lot": "C1 (accelerating fall) true that week, so the plus-C1 plan bought 2 lots instead of 1",
+            "avg_cost_base_1_per_week": "running average cost, 1 lot every week",
+            "avg_cost_plus_C1": "running average cost, 1 lot every week plus 1 extra lot in C1 weeks",
+            "base_minus_plus_C1": "avg_cost_base_1_per_week − avg_cost_plus_C1, of the two rounded values (USD per ounce, a price difference)",
+        },
+        "rows": rows,
+    }
 
 
 def main() -> int:
@@ -138,6 +199,7 @@ def main() -> int:
             ts = f.index[f.index.get_indexer([ts], method="nearest")[0]]
         plans.append({"start": ts.date().isoformat(), "base_1_per_week": plan(f, ts, None),
                       "plus_C1": plan(f, ts, "C1_accelerating_fall"), "plus_C2": plan(f, ts, "C2_rebound_start")})
+    supplement = avg_cost_path(f, SUPPLEMENT_START, next(p for p in plans if p["start"] == SUPPLEMENT_START))
 
     last = f.iloc[-1]
     payload = {
@@ -162,6 +224,7 @@ def main() -> int:
         "now": {"week": f.index[-1].date().isoformat(), "close": r(last["close"]), "dd_pct": r(last["dd"] * 100),
                 "r4_pct": r(last["r4"] * 100), "ma20": r(last["ma20"]),
                 **{c: bool(last[c]) for c in conds}},
+        "post_hoc_supplementary_2008_avg_cost_path": supplement,
         "charts": [],
     }
     if args.dry_run:

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "RS-XAUUSD-20261027-003",
-  "revision": 3,
+  "revision": 4,
   "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing could be told apart from an ordinary decline week; in 5 past episodes (5 paths, no bound) extra lots on accelerating-fall weeks gave a slightly lower average cost, and so a slightly higher return at the same exit price, with more lots",
   "market": "XAUUSD",
   "strategy": "none",
@@ -70,6 +70,21 @@
     {
       "type": "interpretation",
       "source": "interpretation_zh"
+    },
+    {
+      "type": "table",
+      "title": "Post-hoc Supplement 事後補充：2008 那次逐週平均買價",
+      "takeaway_zh": "事後補充（修訂 4 加入；不是新檢定，也不是登記指標）：把已發布的 2008 那次（起點 2008-10-20）第 26 週均價 862.45 對 850.71（差 11.74 美元（每盎司金價），也就是重點發現裡 2008 均價低 1.36%）逐週攤開，結論、規則、參數都沒有改。close＝當週收盤，也就是買價；c1 extra lot＝那週跌勢加速，加碼版買 2 口；avg cost base 1 per week＝每週 1 口的平均買價；avg cost plus C1＝跌勢加速週多買 1 口的平均買價；base minus plus C1＝兩個均價（四捨五入到分）相減。只有這一次、一條路徑，沒有誤差界線。中途的數字（例如第 19 週差 15.20）只是這條路徑的過程，登記比較的是第 26 週。",
+      "source": "post_hoc_supplementary_2008_avg_cost_path.rows",
+      "columns": [
+        "week",
+        "week_of",
+        "close",
+        "c1_extra_lot",
+        "avg_cost_base_1_per_week",
+        "avg_cost_plus_C1",
+        "base_minus_plus_C1"
+      ]
     },
     {
       "type": "limitations",

@@ -576,7 +576,7 @@
   "strategy_version": "none — weekly gold accumulation, timing of an extra lot",
   "schema_version": 1,
   "study_id": "RS-XAUUSD-20261027-003",
-  "generated_at": "2026-10-27T20:55:38+08:00",
+  "generated_at": "2026-11-11T00:20:58+08:00",
   "method": {
     "design": "research/studies/RS-XAUUSD-20261027-003/decision_log.md (fixed 2026-10-27 before any outcome)",
     "context": "weekly close <= -10% from the all-time-high close",
@@ -601,5 +601,256 @@
     "last_week": "2026-10-19",
     "weeks": 2962,
     "context_weeks": 2215
+  },
+  "post_hoc_supplementary_2008_avg_cost_path": {
+    "label": "Post-hoc supplementary table (revision 4, added 2026-11-11). Not a new test and not a registered metric: it lays out, week by week, how the 2008 plan reached the week-26 average costs already in `plans` (862.45 vs 850.71, difference 11.74; start 2008-10-20). One episode, one path, no error bound. No conclusion, rule or parameter changed.",
+    "label_zh": "事後補充（修訂 4，2026-11-11 加入）：不是新檢定，也不是登記指標；只是把 `plans` 裡已發布的 2008 那次（起點 2008-10-20）第 26 週均價（862.45／850.71，差 11.74）的過程逐週攤開。只有這一次、一條路徑，沒有誤差界線；結論、規則、參數都沒有改。",
+    "start": "2008-10-20",
+    "weeks": 26,
+    "columns": {
+      "week": "1 = the start week",
+      "week_of": "Monday stamp of the weekly bar",
+      "close": "that week's close (USD per ounce), the buy price",
+      "c1_extra_lot": "C1 (accelerating fall) true that week, so the plus-C1 plan bought 2 lots instead of 1",
+      "avg_cost_base_1_per_week": "running average cost, 1 lot every week",
+      "avg_cost_plus_C1": "running average cost, 1 lot every week plus 1 extra lot in C1 weeks",
+      "base_minus_plus_C1": "avg_cost_base_1_per_week − avg_cost_plus_C1, of the two rounded values (USD per ounce, a price difference)"
+    },
+    "rows": [
+      {
+        "week": 1,
+        "week_of": "2008-10-20",
+        "close": 735.3,
+        "c1_extra_lot": true,
+        "avg_cost_base_1_per_week": 735.3,
+        "avg_cost_plus_C1": 735.3,
+        "base_minus_plus_C1": 0.0
+      },
+      {
+        "week": 2,
+        "week_of": "2008-10-27",
+        "close": 725.05,
+        "c1_extra_lot": true,
+        "avg_cost_base_1_per_week": 730.17,
+        "avg_cost_plus_C1": 730.17,
+        "base_minus_plus_C1": 0.0
+      },
+      {
+        "week": 3,
+        "week_of": "2008-11-03",
+        "close": 737.45,
+        "c1_extra_lot": true,
+        "avg_cost_base_1_per_week": 732.6,
+        "avg_cost_plus_C1": 732.6,
+        "base_minus_plus_C1": 0.0
+      },
+      {
+        "week": 4,
+        "week_of": "2008-11-10",
+        "close": 742.55,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 735.09,
+        "avg_cost_plus_C1": 734.02,
+        "base_minus_plus_C1": 1.07
+      },
+      {
+        "week": 5,
+        "week_of": "2008-11-17",
+        "close": 800.0,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 748.07,
+        "avg_cost_plus_C1": 742.27,
+        "base_minus_plus_C1": 5.8
+      },
+      {
+        "week": 6,
+        "week_of": "2008-11-24",
+        "close": 817.5,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 759.64,
+        "avg_cost_plus_C1": 750.63,
+        "base_minus_plus_C1": 9.01
+      },
+      {
+        "week": 7,
+        "week_of": "2008-12-01",
+        "close": 757.4,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 759.32,
+        "avg_cost_plus_C1": 751.3,
+        "base_minus_plus_C1": 8.02
+      },
+      {
+        "week": 8,
+        "week_of": "2008-12-08",
+        "close": 821.95,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 767.15,
+        "avg_cost_plus_C1": 757.73,
+        "base_minus_plus_C1": 9.42
+      },
+      {
+        "week": 9,
+        "week_of": "2008-12-15",
+        "close": 838.35,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 775.06,
+        "avg_cost_plus_C1": 764.45,
+        "base_minus_plus_C1": 10.61
+      },
+      {
+        "week": 10,
+        "week_of": "2008-12-22",
+        "close": 869.65,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 784.52,
+        "avg_cost_plus_C1": 772.54,
+        "base_minus_plus_C1": 11.98
+      },
+      {
+        "week": 11,
+        "week_of": "2008-12-29",
+        "close": 876.55,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 792.89,
+        "avg_cost_plus_C1": 779.97,
+        "base_minus_plus_C1": 12.92
+      },
+      {
+        "week": 12,
+        "week_of": "2009-01-05",
+        "close": 853.45,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 797.93,
+        "avg_cost_plus_C1": 784.87,
+        "base_minus_plus_C1": 13.06
+      },
+      {
+        "week": 13,
+        "week_of": "2009-01-12",
+        "close": 843.35,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 801.43,
+        "avg_cost_plus_C1": 788.52,
+        "base_minus_plus_C1": 12.91
+      },
+      {
+        "week": 14,
+        "week_of": "2009-01-19",
+        "close": 899.4,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 808.43,
+        "avg_cost_plus_C1": 795.04,
+        "base_minus_plus_C1": 13.39
+      },
+      {
+        "week": 15,
+        "week_of": "2009-01-26",
+        "close": 927.75,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 816.38,
+        "avg_cost_plus_C1": 802.42,
+        "base_minus_plus_C1": 13.96
+      },
+      {
+        "week": 16,
+        "week_of": "2009-02-02",
+        "close": 911.55,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 822.33,
+        "avg_cost_plus_C1": 808.16,
+        "base_minus_plus_C1": 14.17
+      },
+      {
+        "week": 17,
+        "week_of": "2009-02-09",
+        "close": 942.1,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 829.37,
+        "avg_cost_plus_C1": 814.86,
+        "base_minus_plus_C1": 14.51
+      },
+      {
+        "week": 18,
+        "week_of": "2009-02-16",
+        "close": 993.3,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 838.48,
+        "avg_cost_plus_C1": 823.35,
+        "base_minus_plus_C1": 15.13
+      },
+      {
+        "week": 19,
+        "week_of": "2009-02-23",
+        "close": 945.15,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 844.09,
+        "avg_cost_plus_C1": 828.89,
+        "base_minus_plus_C1": 15.2
+      },
+      {
+        "week": 20,
+        "week_of": "2009-03-02",
+        "close": 937.35,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 848.76,
+        "avg_cost_plus_C1": 833.61,
+        "base_minus_plus_C1": 15.15
+      },
+      {
+        "week": 21,
+        "week_of": "2009-03-09",
+        "close": 928.2,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 852.54,
+        "avg_cost_plus_C1": 837.55,
+        "base_minus_plus_C1": 14.99
+      },
+      {
+        "week": 22,
+        "week_of": "2009-03-16",
+        "close": 952.85,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 857.1,
+        "avg_cost_plus_C1": 842.16,
+        "base_minus_plus_C1": 14.94
+      },
+      {
+        "week": 23,
+        "week_of": "2009-03-23",
+        "close": 923.05,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 859.97,
+        "avg_cost_plus_C1": 845.27,
+        "base_minus_plus_C1": 14.7
+      },
+      {
+        "week": 24,
+        "week_of": "2009-03-30",
+        "close": 893.9,
+        "c1_extra_lot": false,
+        "avg_cost_base_1_per_week": 861.38,
+        "avg_cost_plus_C1": 847.07,
+        "base_minus_plus_C1": 14.31
+      },
+      {
+        "week": 25,
+        "week_of": "2009-04-06",
+        "close": 881.65,
+        "c1_extra_lot": true,
+        "avg_cost_base_1_per_week": 862.19,
+        "avg_cost_plus_C1": 849.46,
+        "base_minus_plus_C1": 12.73
+      },
+      {
+        "week": 26,
+        "week_of": "2009-04-13",
+        "close": 868.9,
+        "c1_extra_lot": true,
+        "avg_cost_base_1_per_week": 862.45,
+        "avg_cost_plus_C1": 850.71,
+        "base_minus_plus_C1": 11.74
+      }
+    ]
   }
 }
