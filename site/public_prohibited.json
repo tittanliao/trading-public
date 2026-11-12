@@ -1,5 +1,5 @@
 {
- "about": "What must never appear in the Public repository. site/check.py scans every text file of the repository with this list; the publish gates in the private workspace scan what they are about to export with a byte-identical copy (config/public_prohibited.json there). Change both copies in the same round.",
+ "about": "What must never appear in the Public repository. site/check.py scans every text file of the repository with this list; the publish gates in the private workspace scan what they are about to export with a byte-identical copy (config/public_prohibited.json there). `weekly_summary_never` is the list of kinds a published weekly summary must never carry; the weekly publish gate there runs one check per entry and stops when an entry has no check. Change both copies in the same round.",
  "tokens": [
   "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
   "journal_locator", "input_set_id", "ledger_run_id", "resource_key",
@@ -16,6 +16,15 @@
    "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.(?:com|net|org|tw|io|me|edu|gov)\\b"},
   {"id": "account_money", "label": "account balance, position size or real profit and loss", "show_match": true,
    "regex": "(?:帳戶餘額|帳戶淨值|帳戶權益|我的部位|實單(?:[虧賺]|損益|獲利|虧損))[^。\\n<]{0,24}\\d|(?<![流買進跌湧注撤殺退轉投納列計])(?:入金|出金)(?![價市融屬礦銀條幣飾店庫磚塊])[^。\\n<]{0,12}\\d|持有\\s*\\d[\\d.]*\\s*[手口]"}
+ ],
+ "weekly_summary_never": [
+  {"id": "private_paths", "label": "absolute or private paths"},
+  {"id": "input_set_ids", "label": "input-set and run IDs"},
+  {"id": "report_hashes", "label": "report hashes"},
+  {"id": "journal_state", "label": "journal or position state"},
+  {"id": "raw_csv", "label": "raw or source CSV"},
+  {"id": "credentials", "label": "credentials"},
+  {"id": "decision_log", "label": "private decision logs"}
  ],
  "allow": [
   {"path": "site/public_prohibited.json", "rules": ["*"], "why": "this list"},
