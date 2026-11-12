@@ -17,6 +17,7 @@ import json
 import re
 import subprocess
 import sys
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -406,20 +407,18 @@ def check_null_results(errors: list[str]) -> None:
     registry = json.loads((ROOT / "research/null-results/null_results.json").read_text(encoding="utf-8"))
     totals = registry.get("totals", {})
     hypotheses = [e for e in registry.get("entries", []) if e.get("kind") == "hypothesis"]
-    if len(hypotheses) != 63 or totals.get("hypotheses") != 63:
-        errors.append(f"expected 63 hypotheses, found {len(hypotheses)}")
-    # 2026-10-09: RS-XAUUSD-20260824-002 revision 3 (721 weeks) makes its h01 testable: 60/2 -> 61/1.
-    expected = {"no_evidence": 61, "underpowered": 1, "below_cost": 1}
-    if totals.get("by_verdict") != expected:
-        errors.append(f"verdict totals mismatch: expected {expected}, got {totals.get('by_verdict')}")
-    # 2026-09-05 independent audit finding 2: the two checks above are fixed constants, so
-    # they stay green even when the file is stale relative to the studies actually
-    # published here — which it was (39/102 entries here vs Private's live 46/109) for
-    # some number of days with nothing catching it. This can only be checked from inside
-    # Public, so it cross-references what Public itself already has: every published study
-    # directory must have a `kind: study` entry in the null registry, and that entry's
-    # `status` must match the study's own `study.json` — the exact drift that let two
-    # superseded studies keep reading `confirmed` here after they were downgraded.
+    # The totals are what the reader page prints; they have to be the entries counted.
+    if totals.get("hypotheses") != len(hypotheses):
+        errors.append(f"totals say {totals.get('hypotheses')} hypotheses, the file has {len(hypotheses)}")
+    by_verdict = dict(Counter(e.get("verdict") for e in hypotheses))
+    if totals.get("by_verdict") != by_verdict:
+        errors.append(f"verdict totals mismatch: the entries give {by_verdict}, totals say {totals.get('by_verdict')}")
+    # Totals that agree with the entries say nothing about the file being stale relative to
+    # the studies published here. That can only be checked from inside Public, against what
+    # Public itself already has: every published study directory must have a `kind: study`
+    # entry in the null registry, and that entry's `status` must match the study's own
+    # `study.json` — the drift that let two superseded studies keep reading `confirmed`
+    # here after they were downgraded.
     by_id = {e["study_id"]: e for e in registry.get("entries", []) if e.get("kind") == "study"}
     for study_dir in sorted((ROOT / "research/studies").iterdir()):
         if not study_dir.is_dir():
