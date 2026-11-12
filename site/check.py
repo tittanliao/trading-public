@@ -10,9 +10,11 @@ section the spec requires. Both are now failures, not observations.
 """
 from __future__ import annotations
 
+import fnmatch
 import html
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -30,13 +32,19 @@ RETIRED_PAGES = [
     ROOT / "xauusd/index.html", ROOT / "v1/index.html", ROOT / "zh/index.html",
 ]
 
-PRIVATE_TOKENS = (
-    "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
-    "journal_locator", "input_set_id", "ledger_run_id", ".docx", ".gdoc",
-    "private_provenance", "owner",
-)
+# What must never appear anywhere in this repository: words that only private material
+# carries, and value shapes (a key, a broker account number, a path on a local machine, an
+# email address, an account balance or position size). The list is a data file so the
+# publish gates in the private workspace read a byte-identical copy; `allow` in it names
+# the few files that may carry one of the words, each with its reason.
+PROHIBITED = json.loads((Path(__file__).resolve().parent / "public_prohibited.json").read_text(encoding="utf-8"))
+PROHIBITED_PATTERNS = [(rule["id"], rule["label"], re.compile(rule["regex"]), rule["show_match"])
+                       for rule in PROHIBITED["patterns"]]
+# Files that are not text. Anything else that cannot be read as UTF-8 fails the check: a
+# new kind of file is either scanned or listed here on purpose.
+BINARY_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".woff", ".woff2"}
 
-# 2026-09-06 independent review (Codex). PRIVATE_TOKENS above matches the *names* of
+# 2026-09-06 independent review (Codex). The word list above matches the *names* of
 # private fields, so it does not catch a private identifier or the fact of a private state
 # written out in prose -- exactly how the W37 aggregate reached this site twice:
 # scripts/xauusd_weekly/publish_public_summary.py's `--check` gate in trading-private
@@ -204,7 +212,7 @@ READER_BODY_LIMIT = 3000
 
 
 def check_reader_edition(week: str, page: Path, text: str, summary: dict, errors: list[str]) -> None:
-    """Reader-format editions (owner decision 2026-10-10): the sections, the chart, and a body
+    """Reader-format editions (decided 2026-10-10): the sections, the chart, and a body
     short enough to read — everything outside the folded details counts toward the limit."""
     headings = READER_HEADINGS + (["市場消息"] if summary.get("news_digest") else [])
     for heading in headings:
@@ -283,41 +291,57 @@ def check_account_figures(errors: list[str]) -> None:
                     )
 
 
-def check_privacy(errors: list[str]) -> None:
-    scanned = list(GENERATED_PAGES)
-    scanned += [ROOT / "xauusd/weekly" / w / "summary.json" for w in weekly_weeks()]
-    scanned += [path for week in weekly_weeks()
-                for path in (ROOT / "xauusd/weekly" / week / "perspectives").glob("*.json")]
-    # Pages serves the whole repository, so a queued or superseded study's evidence package
-    # is as public as a published one — scan every package present, not just PUBLISHED_STUDIES.
-    # impact.md was once missing from this list, which is how a private token reached five
-    # published packages. Listing files by name kept failing the same way: helper modules
-    # copied beside analysis.py (toolkits, harnesses) were never scanned and carried private
-    # wording for weeks (found 2026-10-09). So every text file in a package is scanned, plus
-    # the null-result registry and the backlog.
-    for d in sorted((ROOT / "research/studies").iterdir()):
-        if d.is_dir():
-            scanned += [path for path in sorted(d.glob("*")) if path.suffix in {".py", ".json", ".md"}]
-    scanned += [ROOT / "research/null-results/null_results.json", ROOT / "research/backlog/backlog.json",
-                ROOT / "research/overview/overview.json"]
-    for path in scanned:
-        if not path.is_file():
+def repository_files() -> list[Path]:
+    """Every file Git publishes from this checkout: tracked files plus new ones not ignored."""
+    listed = subprocess.run(["git", "-C", str(ROOT), "ls-files", "-z", "-co", "--exclude-standard"],
+                            capture_output=True, text=True)
+    if listed.returncode == 0:
+        names = [name for name in listed.stdout.split("\0") if name]
+    else:  # not a Git checkout: everything on disk
+        names = [str(path.relative_to(ROOT)) for path in ROOT.rglob("*")
+                 if path.is_file() and not {".git", "__pycache__"} & set(path.parts)]
+    return [ROOT / name for name in sorted(names) if (ROOT / name).is_file()]
+
+
+def prohibited_in(text: str, name: str) -> list[str]:
+    """Hits of the shared list in one file's text; `name` is the path used by `allow`."""
+    allowed = {rule for entry in PROHIBITED["allow"] if fnmatch.fnmatch(name, entry["path"])
+               for rule in entry["rules"]}
+    if "*" in allowed:
+        return []
+    lowered = text.lower()
+    found = [f"prohibited token '{token}' in {name}" for token in PROHIBITED["tokens"]
+             if token in lowered and token not in allowed]
+    for rule, label, pattern, show_match in PROHIBITED_PATTERNS:
+        if rule in allowed:
             continue
-        text = path.read_text(encoding="utf-8").lower()
-        for token in PRIVATE_TOKENS:
-            if token in text:
-                errors.append(f"prohibited token '{token}' in {path.relative_to(ROOT)}")
-        # A weekly summary/perspective JSON is walked field-by-field for identifier shapes
-        # and journal/state prose; study packages are plain-text scanned above only.
-        if path.suffix == ".json" and (
-            path.name == "summary.json" or path.parent.name == "perspectives"
-            or "/perspectives/" in str(path.relative_to(ROOT))
-        ):
+        for match in pattern.finditer(text):
+            found.append(f"{label} in {name}" + (f": {match.group(0)[:60]!r}" if show_match else ""))
+    return found
+
+
+def check_privacy(errors: list[str]) -> None:
+    # Pages serves the whole repository, so the whole repository is scanned. Until
+    # 2026-11-12 this walked a list of pages and packages; every file left off that list
+    # (the video list, the tool report data, the dashboard body, the channel log) was
+    # never looked at, and each time one leaked the fix was one more line in the list.
+    for path in repository_files():
+        name = str(path.relative_to(ROOT))
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            if path.suffix.lower() not in BINARY_SUFFIXES:
+                errors.append(f"{name} is not UTF-8 text and not a listed binary type, so it cannot be scanned")
+            continue
+        errors.extend(prohibited_in(text, name))
+        # A weekly summary/perspective JSON is also walked field-by-field for identifier
+        # shapes and journal/state prose.
+        if path.suffix == ".json" and (path.name == "summary.json" or "perspectives" in path.parts):
             try:
-                document = json.loads(path.read_text(encoding="utf-8"))
+                document = json.loads(text)
             except json.JSONDecodeError:
                 continue
-            scan_public_json_for_leaks(document, str(path.relative_to(ROOT)), "", errors)
+            scan_public_json_for_leaks(document, name, "", errors)
 
 
 def check_null_results(errors: list[str]) -> None:

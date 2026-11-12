@@ -204,7 +204,7 @@ def github_scan_page() -> str:
 
 
 # S1/S2 backtest performance (QuantStats), built in trading-private (scripts/research/strategy_performance.py)
-# from the owner's TradingView Strategy Tester exports and published here as data.json. Absent -> no route.
+# from the account holder's TradingView Strategy Tester exports and published here as data.json. Absent -> no route.
 PERFORMANCE_DIR = ROOT / "strategies/performance"
 
 
@@ -760,7 +760,7 @@ def render_block(block: dict, study: dict, results: dict) -> str:
 
 SITE_NAME = "Trading Research"
 SITE_URL = "https://tittanliao.github.io/trading-public/"
-# Google Search Console ownership token (public by design; 2026-11-02).
+# Google Search Console site-verification token (public by design; 2026-11-02).
 GOOGLE_SITE_VERIFICATION = "R0rIHVMBqObQBnuGRKDUHgtiQzJN85kWQ6PT1xoaDZo"
 
 
@@ -1120,7 +1120,7 @@ def _price_band(low: float, high: float) -> str:
 
 
 def weekly_reader_page(week: str, s: dict) -> str:
-    """Reader format (owner decision 2026-10-10: 「字太多」). One page to read — conclusion, the
+    """Reader format (decided 2026-10-10: 「字太多」). One page to read — conclusion, the
     key-level chart, scenarios, what to watch, S1/S2, events, last week — and every derivation,
     comparison and limitation one click away under 展開看細節. Editions before the format keep
     weekly_report_page's layout unchanged."""
@@ -1188,7 +1188,7 @@ def weekly_reader_page(week: str, s: dict) -> str:
             '</details></section>'
         )
 
-    # Owner request 2026-11-01: the week's event dates and when to be flat, at the top of the page.
+    # Requested 2026-11-01: the week's event dates and when to be flat, at the top of the page.
     next_week = ""
     if r.get("next_week"):
         wd = "一二三四五六日"

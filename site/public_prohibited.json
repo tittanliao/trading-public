@@ -1,0 +1,27 @@
+{
+ "about": "What must never appear in the Public repository. site/check.py scans every text file of the repository with this list; the publish gates in the private workspace scan what they are about to export with a byte-identical copy (config/public_prohibited.json there). Change both copies in the same round.",
+ "tokens": [
+  "/users/", "googledrive", "reports/xauusd/weekly", "state/xauusd", "data/xauusd",
+  "journal_locator", "input_set_id", "ledger_run_id", "resource_key",
+  ".docx", ".gdoc", "private_provenance", "owner"
+ ],
+ "patterns": [
+  {"id": "credential", "label": "key or password", "show_match": false,
+   "regex": "\\b\\d{8,10}:[A-Za-z0-9_-]{30,}|\\bgh[pousr]_[A-Za-z0-9]{30,}|\\bgithub_pat_[A-Za-z0-9_]{20,}|\\bsk-[A-Za-z0-9_-]{20,}|\\bAIza[0-9A-Za-z_-]{35}\\b|\\bxox[abprs]-[A-Za-z0-9-]{10,}|\\bAKIA[0-9A-Z]{16}\\b|BEGIN [A-Z ]*PRIVATE KEY|(?i:\\b(?:api[_-]?key|secret[_-]?key|client[_-]?secret|access[_-]?token|refresh[_-]?token|password|passwd)\\b[\"']?\\s*[:=]\\s*[\"']?[A-Za-z0-9_./+-]{8,})|(?i:\\bbearer\\s+[A-Za-z0-9._-]{16,})"},
+  {"id": "broker_account", "label": "broker account number", "show_match": true,
+   "regex": "\\bD?U\\d{7,8}\\b|(?:帳號|帳戶號碼)\\s*[:：#]?\\s*[A-Za-z]{0,3}\\d{5,}"},
+  {"id": "local_path", "label": "path on a local machine", "show_match": true,
+   "regex": "/Users/[A-Za-z]|/home/[a-z][\\w.-]*/|~/(?:Downloads|Library|Data1|Desktop|Documents|\\.config|\\.claude|\\.ssh)\\b|\\b[A-Za-z]:\\\\{1,2}Users\\\\"},
+  {"id": "email", "label": "email address", "show_match": true,
+   "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.(?:com|net|org|tw|io|me|edu|gov)\\b"},
+  {"id": "account_money", "label": "account balance, position size or real profit and loss", "show_match": true,
+   "regex": "(?:帳戶餘額|帳戶淨值|帳戶權益|我的部位|實單(?:[虧賺]|損益|獲利|虧損))[^。\\n<]{0,24}\\d|(?<![流買進跌湧注撤殺退轉投納列計])(?:入金|出金)(?![價市融屬礦銀條幣飾店庫磚塊])[^。\\n<]{0,12}\\d|持有\\s*\\d[\\d.]*\\s*[手口]"}
+ ],
+ "allow": [
+  {"path": "site/public_prohibited.json", "rules": ["*"], "why": "this list"},
+  {"path": "xauusd/dashboard/LICENSE-lightweight-charts.txt", "rules": ["owner"], "why": "third-party licence text"},
+  {"path": "xauusd/dashboard/lightweight-charts-*.js", "rules": ["owner"], "why": "third-party library carrying its licence text"},
+  {"path": ".gitignore", "rules": [".docx"], "why": "the rule that keeps such files out"},
+  {"path": "AGENTS.md", "rules": ["private_provenance"], "why": "the rule that names the field which must stay private"}
+ ]
+}
