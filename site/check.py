@@ -11,6 +11,7 @@ section the spec requires. Both are now failures, not observations.
 from __future__ import annotations
 
 import fnmatch
+import hashlib
 import html
 import json
 import re
@@ -595,6 +596,28 @@ def check_analysis_reproducibility(errors: list[str]) -> None:
             )
 
 
+RESULTS_FINGERPRINTS = "research/results_fingerprints.json"
+
+
+def check_results_fingerprints(errors: list[str]) -> None:
+    """A published results.json must be the file whose SHA-256 was recorded when it was exported.
+    A number changed here by hand, or by a tool that left no record, fails."""
+    try:
+        recorded = json.loads((ROOT / RESULTS_FINGERPRINTS).read_text(encoding="utf-8"))["studies"]
+    except (OSError, ValueError, KeyError):
+        errors.append(f"{RESULTS_FINGERPRINTS} is missing or unreadable")
+        return
+    published = {path.parent.name: path for path in (ROOT / "research/studies").glob("*/results.json")}
+    for sid, path in sorted(published.items()):
+        if sid not in recorded:
+            errors.append(f"{sid}: results.json has no recorded fingerprint in {RESULTS_FINGERPRINTS}")
+        elif hashlib.sha256(path.read_bytes()).hexdigest() != recorded[sid]:
+            errors.append(f"{sid}: results.json is not the exported file "
+                          f"(its fingerprint differs from {RESULTS_FINGERPRINTS})")
+    for sid in sorted(set(recorded) - set(published)):
+        errors.append(f"{RESULTS_FINGERPRINTS} lists {sid}, which has no results.json")
+
+
 def check_study_order(errors: list[str]) -> None:
     """Interpretation and limitations belong before the evidence links, not after."""
     for sid in PUBLISHED_STUDIES:
@@ -651,7 +674,8 @@ def main() -> int:
     errors: list[str] = []
     for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections, check_release_times,
                check_backlog, check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
-               check_table_columns, check_analysis_reproducibility, check_study_order, check_overview):
+               check_table_columns, check_analysis_reproducibility, check_results_fingerprints, check_study_order,
+               check_overview):
         fn(errors)
     print(json.dumps({
         "routes checked": len(GENERATED_PAGES),
