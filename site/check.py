@@ -16,8 +16,10 @@ import json
 import re
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build import PUBLISHED_STUDIES, QUEUED_STUDIES, SUPERSEDED_STUDIES, routes, weekly_weeks, weekly_perspectives  # noqa: E402
@@ -266,6 +268,61 @@ def check_weekly_sections(errors: list[str]) -> None:
                 errors.append(f"{week}/{producer} perspective has no independence disclosure")
             if not path.is_file():
                 errors.append(f"{week}/{producer} perspective has no source JSON")
+
+
+RELEASE_TIMES = json.loads((Path(__file__).resolve().parent / "us_release_times.json").read_text(encoding="utf-8"))
+CLOCK_RE = re.compile(r"(?<!\d)(\d{1,2}):(\d{2})(?!\d)")
+
+
+def named_release(name: object) -> dict | None:
+    """The US data release an event name refers to. A deadline before it, or a note that
+    there is none this week, is not the release."""
+    text = str(name or "").lower()
+    if any(marker in text for marker in RELEASE_TIMES["not_the_release"]):
+        return None
+    for release in RELEASE_TIMES["releases"]:
+        words = [word.lower() for word in release["words"] if word.lower() in text]
+        if words and all(word.lower() in text for word in release.get("with", [])) \
+                and not all(re.search(r"無\s*" + re.escape(word), text) for word in words):
+            return release
+    return None
+
+
+def check_release_times(errors: list[str]) -> None:
+    """A weekly summary gives US release times in Taipei time. Each one is converted back to
+    US Eastern time (daylight saving included) and compared with site/us_release_times.json,
+    so a time that is internally consistent but wrong does not pass."""
+    eastern, local = ZoneInfo(RELEASE_TIMES["timezone"]), ZoneInfo(RELEASE_TIMES["report_timezone"])
+    for week in weekly_weeks():
+        path = ROOT / "xauusd/weekly" / week / "summary.json"
+        if not path.is_file():
+            continue
+        summary = json.loads(path.read_text(encoding="utf-8"))
+        stated = []
+        for entry in summary.get("event_risk") or []:
+            release = named_release(entry.get("name"))
+            try:
+                moment = datetime.fromisoformat(str(entry.get("scheduled_at")))
+            except ValueError:
+                continue
+            if release and moment.tzinfo:
+                stated.append((release, moment, f"event_risk {entry.get('name')!r}"))
+        for row in (summary.get("reader") or {}).get("next_week") or []:
+            said = str(row.get("stay_out_zh") or "")
+            if any(phrase in said for phrase in RELEASE_TIMES["stay_out_must_not_say"]):
+                errors.append(f"{week} event table {row.get('event_zh')!r}: the stay-out says {said!r}")
+            release = named_release(row.get("event_zh"))
+            for hour, minute in CLOCK_RE.findall(str(row.get("time_zh") or "")) if release else []:
+                try:
+                    moment = datetime.fromisoformat(f"{row.get('date')}T{int(hour):02d}:{minute}:00")
+                except ValueError:
+                    continue
+                stated.append((release, moment.replace(tzinfo=local), f"event table {row.get('event_zh')!r}"))
+        for release, moment, where in stated:
+            there = moment.astimezone(eastern)
+            if there.strftime("%H:%M") != release["time"] or there.weekday() > 4:
+                errors.append(f"{week} {where} is at {there:%a %H:%M} US Eastern; "
+                              f"{release['label']} is released at {release['time']} on a weekday")
 
 
 # The real account size. It reached the live site inside a published analysis.py even
@@ -592,7 +649,7 @@ def check_overview(errors: list[str]) -> None:
 
 def main() -> int:
     errors: list[str] = []
-    for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections,
+    for fn in (check_routes, check_retired, check_links_and_images, check_weekly_sections, check_release_times,
                check_backlog, check_charts, check_privacy, check_account_figures, check_null_results, check_tables, check_presentation_blocks,
                check_table_columns, check_analysis_reproducibility, check_study_order, check_overview):
         fn(errors)

@@ -1,0 +1,28 @@
+{
+ "schema_version": 1,
+ "about": "Scheduled release times of the US data that moves gold, in US Eastern time. A weekly report states them in Taipei time; the checks convert each one back (daylight saving included) and compare. Two readers: the report check and the publish gate in the private workspace (config/us_release_times.json there), and site/check.py in the Public repository with a byte-identical copy. When an agency moves a release, change both copies in the same round as the report that cites it.",
+ "timezone": "America/New_York",
+ "report_timezone": "Asia/Taipei",
+ "releases": [
+  {"id": "cpi", "label": "CPI", "time": "08:30", "must_list": true,
+   "words": ["CPI", "消費者物價"],
+   "source": "https://www.bls.gov/schedule/news_release/cpi.htm"},
+  {"id": "nfp", "label": "非農就業", "time": "08:30", "must_list": true,
+   "words": ["NFP", "非農", "就業報告", "Employment Situation"],
+   "source": "https://www.bls.gov/schedule/news_release/empsit.htm"},
+  {"id": "pce", "label": "PCE", "time": "08:30", "must_list": true,
+   "words": ["PCE", "個人所得"],
+   "source": "https://www.bea.gov/news/schedule"},
+  {"id": "fomc_statement", "label": "FOMC 聲明", "time": "14:00", "must_list": true,
+   "words": ["利率決議", "聲明"], "with": ["FOMC"],
+   "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"},
+  {"id": "ppi", "label": "PPI", "time": "08:30", "must_list": false,
+   "words": ["PPI", "生產者物價"],
+   "source": "https://www.bls.gov/schedule/news_release/ppi.htm"},
+  {"id": "fomc_minutes", "label": "FOMC 會議紀要", "time": "14:00", "must_list": false,
+   "words": ["紀要", "minutes"], "with": ["FOMC"],
+   "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"}
+ ],
+ "not_the_release": ["前平倉", "期限", "靜默期"],
+ "stay_out_must_not_say": ["可正常進場", "正常進場", "照常進場", "可進場", "可以進場", "不需避開", "無需避開", "不用避開", "不必避開"]
+}
