@@ -1,0 +1,1969 @@
+{
+  "now": {
+    "data_end": "2026-11-12",
+    "last_close": 43091.87,
+    "last_change_pct": -2.63,
+    "prev_close": 44257.15,
+    "day1_qualifies_primary": true,
+    "day2_needed_close_primary": 43953.71,
+    "day2_known": false,
+    "note": "The session after data_end is not in the data; whether the pair qualifies is decided only from the exchange close of that session."
+  },
+  "strategy_version": null,
+  "schema_version": 1,
+  "study_id": "RS-TX-20261113-001",
+  "generated_at": "2026-11-13T20:02:22+08:00",
+  "method": {
+    "event": "Day1 close-to-close <= -D%, Day2 (next session) close-to-close >= +U%",
+    "primary_D_U": [
+      2.5,
+      2.0
+    ],
+    "robustness_D_U": [
+      [
+        2.0,
+        1.5
+      ],
+      [
+        3.0,
+        2.5
+      ]
+    ],
+    "cluster_gap_sessions": 20,
+    "forward_return": "close[Day2 + h] / close[Day2] - 1, h in sessions",
+    "horizons": [
+      5,
+      20,
+      60,
+      250
+    ],
+    "intervals": "Wilson 95% for shares; percentile bootstrap (10,000 resamples of events, seed 20261113) for medians",
+    "baseline": "every session with a measurable forward window (unconditional)",
+    "contrast": "Day1 <= -D% and Day2 < +U% (fell, did not bounce), same clustering"
+  },
+  "baseline": {
+    "5": {
+      "n": 7311,
+      "up": 4034,
+      "up_pct": 55.18,
+      "up_wilson95": [
+        54.03,
+        56.31
+      ],
+      "median_pct": 0.32,
+      "median_boot95": [
+        0.24,
+        0.38
+      ],
+      "mean_pct": 0.15,
+      "p10_pct": -3.6,
+      "p25_pct": -1.44,
+      "p75_pct": 1.88,
+      "p90_pct": 3.55,
+      "min_pct": -16.7,
+      "min_day2_date": "2020-03-12",
+      "max_pct": 20.1,
+      "neg_n": 3276,
+      "neg_median_pct": -1.69
+    },
+    "20": {
+      "n": 7296,
+      "up": 4169,
+      "up_pct": 57.14,
+      "up_wilson95": [
+        56.0,
+        58.27
+      ],
+      "median_pct": 0.96,
+      "median_boot95": [
+        0.81,
+        1.14
+      ],
+      "mean_pct": 0.63,
+      "p10_pct": -6.98,
+      "p25_pct": -2.86,
+      "p75_pct": 4.18,
+      "p90_pct": 7.86,
+      "min_pct": -27.95,
+      "min_day2_date": "2008-09-25",
+      "max_pct": 29.49,
+      "neg_n": 3127,
+      "neg_median_pct": -3.6
+    },
+    "60": {
+      "n": 7256,
+      "up": 4419,
+      "up_pct": 60.9,
+      "up_wilson95": [
+        59.77,
+        62.02
+      ],
+      "median_pct": 2.4,
+      "median_boot95": [
+        2.16,
+        2.62
+      ],
+      "mean_pct": 1.98,
+      "p10_pct": -12.72,
+      "p25_pct": -4.22,
+      "p75_pct": 8.08,
+      "p90_pct": 15.04,
+      "min_pct": -41.28,
+      "min_day2_date": "2008-08-26",
+      "max_pct": 59.08,
+      "neg_n": 2837,
+      "neg_median_pct": -6.92
+    },
+    "250": {
+      "n": 7066,
+      "up": 4726,
+      "up_pct": 66.88,
+      "up_wilson95": [
+        65.78,
+        67.97
+      ],
+      "median_pct": 8.45,
+      "median_boot95": [
+        8.07,
+        8.86
+      ],
+      "mean_pct": 8.31,
+      "p10_pct": -20.81,
+      "p25_pct": -6.07,
+      "p75_pct": 18.92,
+      "p90_pct": 35.98,
+      "min_pct": -54.25,
+      "min_day2_date": "2007-10-26",
+      "max_pct": 116.59,
+      "neg_n": 2340,
+      "neg_median_pct": -13.3
+    }
+  },
+  "limitations": [
+    "TAIEX is a price index without dividends; absolute long-hold returns understate a holder, but event and baseline are both price-only.",
+    "Events are clustered (20 sessions) so 5- and 20-session windows do not overlap; 60- and 250-session windows of different events can still overlap, so those intervals are optimistic.",
+    "Descriptive only; no causal claim. Thresholds were set so that the 2026-11-12 fall qualifies, registered before any count was computed.",
+    "Small samples: the share and median carry their n and interval; a difference inside the interval is 'cannot be separated', not 'no difference'."
+  ],
+  "coverage": {
+    "first": "1997-07-02",
+    "last": "2026-11-12",
+    "sessions": 7317
+  },
+  "primary": {
+    "label": "-2.5% then +2.0%",
+    "n": 28,
+    "by_horizon": {
+      "5": {
+        "n": 27,
+        "up": 13,
+        "up_pct": 48.15,
+        "up_wilson95": [
+          30.74,
+          66.01
+        ],
+        "median_pct": -0.27,
+        "median_boot95": [
+          -1.69,
+          4.45
+        ],
+        "mean_pct": 0.85,
+        "p10_pct": -5.35,
+        "p25_pct": -2.47,
+        "p75_pct": 4.79,
+        "p90_pct": 8.9,
+        "min_pct": -10.71,
+        "min_day2_date": "2025-04-01",
+        "max_pct": 9.94,
+        "neg_n": 14,
+        "neg_median_pct": -2.47
+      },
+      "20": {
+        "n": 27,
+        "up": 13,
+        "up_pct": 48.15,
+        "up_wilson95": [
+          30.74,
+          66.01
+        ],
+        "median_pct": -0.12,
+        "median_boot95": [
+          -2.31,
+          3.32
+        ],
+        "mean_pct": -0.13,
+        "p10_pct": -9.05,
+        "p25_pct": -3.21,
+        "p75_pct": 6.02,
+        "p90_pct": 7.99,
+        "min_pct": -17.21,
+        "min_day2_date": "2008-09-19",
+        "max_pct": 11.42,
+        "neg_n": 14,
+        "neg_median_pct": -3.21
+      },
+      "60": {
+        "n": 27,
+        "up": 18,
+        "up_pct": 66.67,
+        "up_wilson95": [
+          47.82,
+          81.36
+        ],
+        "median_pct": 2.02,
+        "median_boot95": [
+          -3.0,
+          7.46
+        ],
+        "mean_pct": 2.0,
+        "p10_pct": -17.83,
+        "p25_pct": -4.27,
+        "p75_pct": 9.85,
+        "p90_pct": 18.75,
+        "min_pct": -37.14,
+        "min_day2_date": "2000-09-02",
+        "max_pct": 35.29,
+        "neg_n": 9,
+        "neg_median_pct": -14.94
+      },
+      "250": {
+        "n": 25,
+        "up": 15,
+        "up_pct": 60.0,
+        "up_wilson95": [
+          40.74,
+          76.6
+        ],
+        "median_pct": 8.6,
+        "median_boot95": [
+          -7.56,
+          19.39
+        ],
+        "mean_pct": 8.59,
+        "p10_pct": -33.17,
+        "p25_pct": -10.24,
+        "p75_pct": 21.22,
+        "p90_pct": 59.64,
+        "min_pct": -43.11,
+        "min_day2_date": "2000-09-02",
+        "max_pct": 79.28,
+        "neg_n": 10,
+        "neg_median_pct": -22.83
+      }
+    },
+    "below_day1_close": {
+      "20": {
+        "n": 27,
+        "hits": 17,
+        "pct": 62.96,
+        "wilson95": [
+          44.23,
+          78.47
+        ]
+      },
+      "60": {
+        "n": 27,
+        "hits": 22,
+        "pct": 81.48,
+        "wilson95": [
+          63.3,
+          91.82
+        ]
+      }
+    },
+    "raw_triggers": 35
+  },
+  "contrast": {
+    "label": "-2.5% then < +2.0%",
+    "n": 100,
+    "by_horizon": {
+      "5": {
+        "n": 100,
+        "up": 57,
+        "up_pct": 57.0,
+        "up_wilson95": [
+          47.22,
+          66.27
+        ],
+        "median_pct": 0.9,
+        "median_boot95": [
+          -0.11,
+          1.45
+        ],
+        "mean_pct": 0.81,
+        "p10_pct": -4.18,
+        "p25_pct": -1.46,
+        "p75_pct": 3.12,
+        "p90_pct": 5.44,
+        "min_pct": -14.21,
+        "min_day2_date": "2020-03-10",
+        "max_pct": 16.64,
+        "neg_n": 43,
+        "neg_median_pct": -1.71
+      },
+      "20": {
+        "n": 99,
+        "up": 61,
+        "up_pct": 61.62,
+        "up_wilson95": [
+          51.77,
+          70.59
+        ],
+        "median_pct": 1.24,
+        "median_boot95": [
+          0.09,
+          2.76
+        ],
+        "mean_pct": 1.27,
+        "p10_pct": -8.16,
+        "p25_pct": -3.72,
+        "p75_pct": 5.11,
+        "p90_pct": 11.46,
+        "min_pct": -18.74,
+        "min_day2_date": "2008-10-01",
+        "max_pct": 20.4,
+        "neg_n": 38,
+        "neg_median_pct": -4.94
+      },
+      "60": {
+        "n": 99,
+        "up": 62,
+        "up_pct": 62.63,
+        "up_wilson95": [
+          52.79,
+          71.52
+        ],
+        "median_pct": 4.32,
+        "median_boot95": [
+          0.6,
+          5.88
+        ],
+        "mean_pct": 3.01,
+        "p10_pct": -15.65,
+        "p25_pct": -5.68,
+        "p75_pct": 9.97,
+        "p90_pct": 18.15,
+        "min_pct": -36.41,
+        "min_day2_date": "2008-08-19",
+        "max_pct": 55.35,
+        "neg_n": 37,
+        "neg_median_pct": -10.34
+      },
+      "250": {
+        "n": 96,
+        "up": 61,
+        "up_pct": 63.54,
+        "up_wilson95": [
+          53.57,
+          72.48
+        ],
+        "median_pct": 8.1,
+        "median_boot95": [
+          1.79,
+          13.86
+        ],
+        "mean_pct": 9.15,
+        "p10_pct": -31.57,
+        "p25_pct": -8.39,
+        "p75_pct": 22.97,
+        "p90_pct": 48.05,
+        "min_pct": -51.81,
+        "min_day2_date": "2007-10-23",
+        "max_pct": 99.37,
+        "neg_n": 35,
+        "neg_median_pct": -16.67
+      }
+    },
+    "below_day1_close": {
+      "20": {
+        "n": 99,
+        "hits": 84,
+        "pct": 84.85,
+        "wilson95": [
+          76.5,
+          90.6
+        ]
+      },
+      "60": {
+        "n": 99,
+        "hits": 89,
+        "pct": 89.9,
+        "wilson95": [
+          82.4,
+          94.42
+        ]
+      }
+    },
+    "raw_triggers": 240
+  },
+  "robustness": {
+    "2.0_1.5": {
+      "label": "-2.0% then +1.5%",
+      "n": 51,
+      "by_horizon": {
+        "5": {
+          "n": 50,
+          "up": 26,
+          "up_pct": 52.0,
+          "up_wilson95": [
+            38.51,
+            65.2
+          ],
+          "median_pct": 0.84,
+          "median_boot95": [
+            -1.01,
+            2.28
+          ],
+          "mean_pct": 0.93,
+          "p10_pct": -4.16,
+          "p25_pct": -2.21,
+          "p75_pct": 4.45,
+          "p90_pct": 7.33,
+          "min_pct": -10.71,
+          "min_day2_date": "2025-04-01",
+          "max_pct": 9.46,
+          "neg_n": 24,
+          "neg_median_pct": -2.33
+        },
+        "20": {
+          "n": 50,
+          "up": 27,
+          "up_pct": 54.0,
+          "up_wilson95": [
+            40.4,
+            67.03
+          ],
+          "median_pct": 2.21,
+          "median_boot95": [
+            -2.15,
+            5.4
+          ],
+          "mean_pct": 1.58,
+          "p10_pct": -7.96,
+          "p25_pct": -3.81,
+          "p75_pct": 7.09,
+          "p90_pct": 11.53,
+          "min_pct": -18.63,
+          "min_day2_date": "2001-08-27",
+          "max_pct": 26.1,
+          "neg_n": 23,
+          "neg_median_pct": -4.65
+        },
+        "60": {
+          "n": 50,
+          "up": 33,
+          "up_pct": 66.0,
+          "up_wilson95": [
+            52.15,
+            77.56
+          ],
+          "median_pct": 3.08,
+          "median_boot95": [
+            0.64,
+            6.7
+          ],
+          "mean_pct": 3.4,
+          "p10_pct": -17.85,
+          "p25_pct": -6.07,
+          "p75_pct": 13.63,
+          "p90_pct": 21.73,
+          "min_pct": -37.14,
+          "min_day2_date": "2000-09-02",
+          "max_pct": 54.57,
+          "neg_n": 17,
+          "neg_median_pct": -15.84
+        },
+        "250": {
+          "n": 48,
+          "up": 31,
+          "up_pct": 64.58,
+          "up_wilson95": [
+            50.44,
+            76.57
+          ],
+          "median_pct": 9.64,
+          "median_boot95": [
+            0.11,
+            17.69
+          ],
+          "mean_pct": 8.13,
+          "p10_pct": -35.21,
+          "p25_pct": -8.52,
+          "p75_pct": 21.33,
+          "p90_pct": 43.41,
+          "min_pct": -51.81,
+          "min_day2_date": "2007-10-23",
+          "max_pct": 84.2,
+          "neg_n": 17,
+          "neg_median_pct": -22.92
+        }
+      },
+      "below_day1_close": {
+        "20": {
+          "n": 50,
+          "hits": 33,
+          "pct": 66.0,
+          "wilson95": [
+            52.15,
+            77.56
+          ]
+        },
+        "60": {
+          "n": 50,
+          "hits": 39,
+          "pct": 78.0,
+          "wilson95": [
+            64.76,
+            87.25
+          ]
+        }
+      },
+      "raw_triggers": 77
+    },
+    "3.0_2.5": {
+      "label": "-3.0% then +2.5%",
+      "n": 16,
+      "by_horizon": {
+        "5": {
+          "n": 15,
+          "up": 10,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            41.71,
+            84.82
+          ],
+          "median_pct": 4.45,
+          "median_boot95": [
+            -1.69,
+            5.08
+          ],
+          "mean_pct": 2.06,
+          "p10_pct": -5.68,
+          "p25_pct": -0.98,
+          "p75_pct": 5.18,
+          "p90_pct": 8.17,
+          "min_pct": -10.71,
+          "min_day2_date": "2025-04-01",
+          "max_pct": 9.94,
+          "neg_n": 5,
+          "neg_median_pct": -4.03
+        },
+        "20": {
+          "n": 15,
+          "up": 10,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            41.71,
+            84.82
+          ],
+          "median_pct": 3.32,
+          "median_boot95": [
+            -1.76,
+            7.76
+          ],
+          "mean_pct": 3.02,
+          "p10_pct": -2.89,
+          "p25_pct": -1.46,
+          "p75_pct": 6.95,
+          "p90_pct": 8.7,
+          "min_pct": -6.67,
+          "min_day2_date": "1997-09-03",
+          "max_pct": 11.42,
+          "neg_n": 5,
+          "neg_median_pct": -2.31
+        },
+        "60": {
+          "n": 15,
+          "up": 13,
+          "up_pct": 86.67,
+          "up_wilson95": [
+            62.12,
+            96.26
+          ],
+          "median_pct": 10.29,
+          "median_boot95": [
+            1.04,
+            17.55
+          ],
+          "mean_pct": 9.85,
+          "p10_pct": -2.17,
+          "p25_pct": 1.81,
+          "p75_pct": 17.28,
+          "p90_pct": 23.17,
+          "min_pct": -17.84,
+          "min_day2_date": "1997-09-03",
+          "max_pct": 35.29,
+          "neg_n": 2,
+          "neg_median_pct": -10.92
+        },
+        "250": {
+          "n": 13,
+          "up": 7,
+          "up_pct": 53.85,
+          "up_wilson95": [
+            29.14,
+            76.79
+          ],
+          "median_pct": 11.84,
+          "median_boot95": [
+            -10.24,
+            21.22
+          ],
+          "mean_pct": 14.68,
+          "p10_pct": -24.68,
+          "p25_pct": -10.24,
+          "p75_pct": 21.22,
+          "p90_pct": 70.35,
+          "min_pct": -28.31,
+          "min_day2_date": "2000-10-20",
+          "max_pct": 79.28,
+          "neg_n": 6,
+          "neg_median_pct": -14.99
+        }
+      },
+      "below_day1_close": {
+        "20": {
+          "n": 15,
+          "hits": 6,
+          "pct": 40.0,
+          "wilson95": [
+            19.82,
+            64.25
+          ]
+        },
+        "60": {
+          "n": 15,
+          "hits": 9,
+          "pct": 60.0,
+          "wilson95": [
+            35.75,
+            80.18
+          ]
+        }
+      },
+      "raw_triggers": 18
+    }
+  },
+  "halves": {
+    "1997_2011": {
+      "label": "1997_2011",
+      "n": 17,
+      "by_horizon": {
+        "5": {
+          "n": 17,
+          "up": 8,
+          "up_pct": 47.06,
+          "up_wilson95": [
+            26.17,
+            69.04
+          ],
+          "median_pct": -0.68,
+          "median_boot95": [
+            -4.03,
+            7.27
+          ],
+          "mean_pct": 1.33,
+          "p10_pct": -5.35,
+          "p25_pct": -4.03,
+          "p75_pct": 7.27,
+          "p90_pct": 9.43,
+          "min_pct": -7.49,
+          "min_day2_date": "2002-09-17",
+          "max_pct": 9.94,
+          "neg_n": 9,
+          "neg_median_pct": -4.03
+        },
+        "20": {
+          "n": 17,
+          "up": 7,
+          "up_pct": 41.18,
+          "up_wilson95": [
+            21.61,
+            63.99
+          ],
+          "median_pct": -1.15,
+          "median_boot95": [
+            -6.67,
+            5.9
+          ],
+          "mean_pct": -1.63,
+          "p10_pct": -12.22,
+          "p25_pct": -6.67,
+          "p75_pct": 5.9,
+          "p90_pct": 7.2,
+          "min_pct": -17.21,
+          "min_day2_date": "2008-09-19",
+          "max_pct": 8.25,
+          "neg_n": 10,
+          "neg_median_pct": -5.16
+        },
+        "60": {
+          "n": 17,
+          "up": 10,
+          "up_pct": 58.82,
+          "up_wilson95": [
+            36.01,
+            78.39
+          ],
+          "median_pct": 0.7,
+          "median_boot95": [
+            -14.94,
+            9.4
+          ],
+          "mean_pct": -1.63,
+          "p10_pct": -19.77,
+          "p25_pct": -14.94,
+          "p75_pct": 9.4,
+          "p90_pct": 17.23,
+          "min_pct": -37.14,
+          "min_day2_date": "2000-09-02",
+          "max_pct": 20.56,
+          "neg_n": 7,
+          "neg_median_pct": -17.82
+        },
+        "250": {
+          "n": 17,
+          "up": 8,
+          "up_pct": 47.06,
+          "up_wilson95": [
+            26.17,
+            69.04
+          ],
+          "median_pct": -6.69,
+          "median_boot95": [
+            -25.92,
+            21.22
+          ],
+          "mean_pct": -0.27,
+          "p10_pct": -37.95,
+          "p25_pct": -25.92,
+          "p75_pct": 21.22,
+          "p90_pct": 33.02,
+          "min_pct": -43.11,
+          "min_day2_date": "2000-09-02",
+          "max_pct": 69.48,
+          "neg_n": 9,
+          "neg_median_pct": -25.92
+        }
+      },
+      "below_day1_close": {
+        "20": {
+          "n": 17,
+          "hits": 10,
+          "pct": 58.82,
+          "wilson95": [
+            36.01,
+            78.39
+          ]
+        },
+        "60": {
+          "n": 17,
+          "hits": 15,
+          "pct": 88.24,
+          "wilson95": [
+            65.66,
+            96.71
+          ]
+        }
+      },
+      "note": "descriptive split registered before results; not a conclusion"
+    },
+    "2012_2026": {
+      "label": "2012_2026",
+      "n": 11,
+      "by_horizon": {
+        "5": {
+          "n": 10,
+          "up": 5,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            23.66,
+            76.34
+          ],
+          "median_pct": 0.22,
+          "median_boot95": [
+            -1.26,
+            3.46
+          ],
+          "mean_pct": 0.05,
+          "p10_pct": -2.61,
+          "p25_pct": -1.2,
+          "p75_pct": 2.71,
+          "p90_pct": 4.51,
+          "min_pct": -10.71,
+          "min_day2_date": "2025-04-01",
+          "max_pct": 5.03,
+          "neg_n": 5,
+          "neg_median_pct": -1.26
+        },
+        "20": {
+          "n": 10,
+          "up": 6,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            31.27,
+            83.18
+          ],
+          "median_pct": 2.37,
+          "median_boot95": [
+            -2.65,
+            7.2
+          ],
+          "mean_pct": 2.4,
+          "p10_pct": -3.17,
+          "p25_pct": -2.27,
+          "p75_pct": 6.04,
+          "p90_pct": 9.24,
+          "min_pct": -3.27,
+          "min_day2_date": "2026-03-05",
+          "max_pct": 11.42,
+          "neg_n": 4,
+          "neg_median_pct": -2.74
+        },
+        "60": {
+          "n": 10,
+          "up": 8,
+          "up_pct": 80.0,
+          "up_wilson95": [
+            49.02,
+            94.33
+          ],
+          "median_pct": 5.34,
+          "median_boot95": [
+            0.03,
+            15.51
+          ],
+          "mean_pct": 8.16,
+          "p10_pct": -4.72,
+          "p25_pct": 2.16,
+          "p75_pct": 9.39,
+          "p90_pct": 25.95,
+          "min_pct": -6.36,
+          "min_day2_date": "2022-07-07",
+          "max_pct": 35.29,
+          "neg_n": 2,
+          "neg_median_pct": -5.45
+        },
+        "250": {
+          "n": 8,
+          "up": 7,
+          "up_pct": 87.5,
+          "up_wilson95": [
+            52.91,
+            97.76
+          ],
+          "median_pct": 17.15,
+          "median_boot95": [
+            3.45,
+            70.56
+          ],
+          "mean_pct": 27.43,
+          "p10_pct": 2.34,
+          "p25_pct": 10.38,
+          "p75_pct": 32.19,
+          "p90_pct": 73.18,
+          "min_pct": -0.26,
+          "min_day2_date": "2021-05-18",
+          "max_pct": 79.28,
+          "neg_n": 1,
+          "neg_median_pct": -0.26
+        }
+      },
+      "below_day1_close": {
+        "20": {
+          "n": 10,
+          "hits": 7,
+          "pct": 70.0,
+          "wilson95": [
+            39.68,
+            89.22
+          ]
+        },
+        "60": {
+          "n": 10,
+          "hits": 7,
+          "pct": 70.0,
+          "wilson95": [
+            39.68,
+            89.22
+          ]
+        }
+      },
+      "note": "descriptive split registered before results; not a conclusion"
+    }
+  },
+  "events_primary": [
+    {
+      "day1": "1997-09-02",
+      "day2": "1997-09-03",
+      "day1_pct": -3.09,
+      "day2_pct": 2.7,
+      "day2_close": 9460.76,
+      "fwd5_pct": -4.03,
+      "fwd20_pct": -6.67,
+      "fwd60_pct": -17.84,
+      "fwd250_pct": -19.74
+    },
+    {
+      "day1": "1997-10-20",
+      "day2": "1997-10-21",
+      "day1_pct": -3.96,
+      "day2_pct": 5.7,
+      "day2_close": 7734.05,
+      "fwd5_pct": -6.78,
+      "fwd20_pct": -1.15,
+      "fwd60_pct": 0.57,
+      "fwd250_pct": -7.56
+    },
+    {
+      "day1": "1997-12-01",
+      "day2": "1997-12-02",
+      "day1_pct": -5.09,
+      "day2_pct": 3.77,
+      "day2_close": 7679.53,
+      "fwd5_pct": 9.41,
+      "fwd20_pct": 5.9,
+      "fwd60_pct": 17.55,
+      "fwd250_pct": -6.69
+    },
+    {
+      "day1": "1998-09-01",
+      "day2": "1998-09-02",
+      "day1_pct": -3.28,
+      "day2_pct": 2.16,
+      "day2_close": 6471.68,
+      "fwd5_pct": 7.27,
+      "fwd20_pct": 6.78,
+      "fwd60_pct": 14.04,
+      "fwd250_pct": 8.6
+    },
+    {
+      "day1": "1998-10-02",
+      "day2": "1998-10-03",
+      "day1_pct": -3.97,
+      "day2_pct": 2.86,
+      "day2_close": 6619.97,
+      "fwd5_pct": 4.54,
+      "fwd20_pct": 8.25,
+      "fwd60_pct": 1.04,
+      "fwd250_pct": 21.22
+    },
+    {
+      "day1": "1998-11-25",
+      "day2": "1998-11-26",
+      "day1_pct": -2.99,
+      "day2_pct": 2.28,
+      "day2_close": 7377.86,
+      "fwd5_pct": -3.22,
+      "fwd20_pct": -9.34,
+      "fwd60_pct": -14.94,
+      "fwd250_pct": 1.24
+    },
+    {
+      "day1": "1999-11-26",
+      "day2": "1999-11-29",
+      "day1_pct": -3.91,
+      "day2_pct": 3.01,
+      "day2_close": 7823.9,
+      "fwd5_pct": 1.8,
+      "fwd20_pct": 3.32,
+      "fwd60_pct": 20.56,
+      "fwd250_pct": -25.92
+    },
+    {
+      "day1": "2000-03-20",
+      "day2": "2000-03-21",
+      "day1_pct": -2.59,
+      "day2_pct": 5.49,
+      "day2_close": 9004.48,
+      "fwd5_pct": 9.46,
+      "fwd20_pct": -0.12,
+      "fwd60_pct": 0.7,
+      "fwd250_pct": -36.4
+    },
+    {
+      "day1": "2000-07-04",
+      "day2": "2000-07-05",
+      "day1_pct": -2.96,
+      "day2_pct": 4.58,
+      "day2_close": 8421.74,
+      "fwd5_pct": -4.3,
+      "fwd20_pct": -3.64,
+      "fwd60_pct": -17.82,
+      "fwd250_pct": -40.28
+    },
+    {
+      "day1": "2000-09-01",
+      "day2": "2000-09-02",
+      "day1_pct": -2.59,
+      "day2_pct": 3.88,
+      "day2_close": 7707.59,
+      "fwd5_pct": -4.41,
+      "fwd20_pct": -16.55,
+      "fwd60_pct": -37.14,
+      "fwd250_pct": -43.11
+    },
+    {
+      "day1": "2000-10-19",
+      "day2": "2000-10-20",
+      "day1_pct": -6.46,
+      "day2_pct": 6.37,
+      "day2_close": 5404.78,
+      "fwd5_pct": 9.94,
+      "fwd20_pct": 6.15,
+      "fwd60_pct": -4.0,
+      "fwd250_pct": -28.31
+    },
+    {
+      "day1": "2000-11-20",
+      "day2": "2000-11-21",
+      "day1_pct": -6.23,
+      "day2_pct": 5.32,
+      "day2_close": 5103.0,
+      "fwd5_pct": 5.08,
+      "fwd20_pct": 0.61,
+      "fwd60_pct": 17.02,
+      "fwd250_pct": -10.24
+    },
+    {
+      "day1": "2001-07-24",
+      "day2": "2001-07-25",
+      "day1_pct": -2.68,
+      "day2_pct": 2.37,
+      "day2_close": 4136.39,
+      "fwd5_pct": 8.55,
+      "fwd20_pct": 7.82,
+      "fwd60_pct": -3.0,
+      "fwd250_pct": 18.97
+    },
+    {
+      "day1": "2002-09-16",
+      "day2": "2002-09-17",
+      "day1_pct": -2.69,
+      "day2_pct": 3.96,
+      "day2_close": 4633.86,
+      "fwd5_pct": -7.49,
+      "fwd20_pct": -8.86,
+      "fwd60_pct": 1.41,
+      "fwd250_pct": 24.1
+    },
+    {
+      "day1": "2003-03-17",
+      "day2": "2003-03-18",
+      "day1_pct": -2.64,
+      "day2_pct": 4.17,
+      "day2_close": 4539.72,
+      "fwd5_pct": -0.9,
+      "fwd20_pct": -1.15,
+      "fwd60_pct": 7.46,
+      "fwd250_pct": 44.9
+    },
+    {
+      "day1": "2008-09-18",
+      "day2": "2008-09-19",
+      "day1_pct": -2.74,
+      "day2_pct": 5.82,
+      "day2_close": 5970.38,
+      "fwd5_pct": -0.68,
+      "fwd20_pct": -17.21,
+      "fwd60_pct": -22.67,
+      "fwd250_pct": 25.1
+    },
+    {
+      "day1": "2008-12-12",
+      "day2": "2008-12-15",
+      "day1_pct": -3.74,
+      "day2_pct": 2.96,
+      "day2_close": 4613.72,
+      "fwd5_pct": -1.69,
+      "fwd20_pct": -1.76,
+      "fwd60_pct": 9.4,
+      "fwd250_pct": 69.48
+    },
+    {
+      "day1": "2015-08-24",
+      "day2": "2015-08-25",
+      "day1_pct": -4.84,
+      "day2_pct": 3.58,
+      "day2_close": 7675.64,
+      "fwd5_pct": 4.45,
+      "fwd20_pct": 8.99,
+      "fwd60_pct": 10.29,
+      "fwd250_pct": 18.15
+    },
+    {
+      "day1": "2016-11-09",
+      "day2": "2016-11-10",
+      "day1_pct": -2.98,
+      "day2_pct": 2.34,
+      "day2_close": 9152.18,
+      "fwd5_pct": -1.71,
+      "fwd20_pct": 2.44,
+      "fwd60_pct": 6.1,
+      "fwd250_pct": 16.15
+    },
+    {
+      "day1": "2018-10-11",
+      "day2": "2018-10-12",
+      "day1_pct": -6.31,
+      "day2_pct": 2.44,
+      "day2_close": 10045.81,
+      "fwd5_pct": -1.26,
+      "fwd20_pct": -2.15,
+      "fwd60_pct": -4.53,
+      "fwd250_pct": 12.69
+    },
+    {
+      "day1": "2020-03-19",
+      "day2": "2020-03-20",
+      "day1_pct": -5.83,
+      "day2_pct": 6.37,
+      "day2_close": 9234.09,
+      "fwd5_pct": 5.03,
+      "fwd20_pct": 11.42,
+      "fwd60_pct": 24.91,
+      "fwd250_pct": 79.28
+    },
+    {
+      "day1": "2021-05-17",
+      "day2": "2021-05-18",
+      "day1_pct": -2.99,
+      "day2_pct": 5.16,
+      "day2_close": 16145.98,
+      "fwd5_pct": 2.79,
+      "fwd20_pct": 7.2,
+      "fwd60_pct": 6.7,
+      "fwd250_pct": -0.26
+    },
+    {
+      "day1": "2022-07-06",
+      "day2": "2022-07-07",
+      "day1_pct": -2.53,
+      "day2_pct": 2.51,
+      "day2_close": 14336.27,
+      "fwd5_pct": 0.71,
+      "fwd20_pct": 2.55,
+      "fwd60_pct": -6.36,
+      "fwd250_pct": 19.39
+    },
+    {
+      "day1": "2024-07-22",
+      "day2": "2024-07-23",
+      "day1_pct": -2.68,
+      "day2_pct": 2.76,
+      "day2_close": 22871.84,
+      "fwd5_pct": -1.0,
+      "fwd20_pct": -3.16,
+      "fwd60_pct": 2.02,
+      "fwd250_pct": 3.45
+    },
+    {
+      "day1": "2025-03-31",
+      "day2": "2025-04-01",
+      "day1_pct": -4.2,
+      "day2_pct": 2.82,
+      "day2_close": 21280.17,
+      "fwd5_pct": -10.71,
+      "fwd20_pct": -2.31,
+      "fwd60_pct": 4.59,
+      "fwd250_pct": 70.56
+    },
+    {
+      "day1": "2026-03-04",
+      "day2": "2026-03-05",
+      "day1_pct": -4.35,
+      "day2_pct": 2.57,
+      "day2_close": 33672.94,
+      "fwd5_pct": -0.27,
+      "fwd20_pct": -3.27,
+      "fwd60_pct": 35.29,
+      "fwd250_pct": null
+    },
+    {
+      "day1": "2026-06-08",
+      "day2": "2026-06-09",
+      "day1_pct": -3.48,
+      "day2_pct": 2.76,
+      "day2_close": 44704.44,
+      "fwd5_pct": 2.47,
+      "fwd20_pct": 2.3,
+      "fwd60_pct": 2.58,
+      "fwd250_pct": null
+    },
+    {
+      "day1": "2026-11-06",
+      "day2": "2026-11-09",
+      "day1_pct": -4.51,
+      "day2_pct": 4.94,
+      "day2_close": 41661.7,
+      "fwd5_pct": null,
+      "fwd20_pct": null,
+      "fwd60_pct": null,
+      "fwd250_pct": null
+    }
+  ],
+  "posthoc_rev2": {
+    "label": "事後補看（revision 2, 2026-11-13）：不是事先登記的分析，不能當結論",
+    "data_end": "2026-11-12",
+    "denominators": {
+      "note": "Each share is up/n for its horizon; an event enters a horizon only when its Day 2 has h later sessions in the data.",
+      "primary": {
+        "events": 28,
+        "5": {
+          "n": 27,
+          "up": 13,
+          "without_window_day2": [
+            "2026-11-09"
+          ]
+        },
+        "20": {
+          "n": 27,
+          "up": 13,
+          "without_window_day2": [
+            "2026-11-09"
+          ]
+        },
+        "60": {
+          "n": 27,
+          "up": 18,
+          "without_window_day2": [
+            "2026-11-09"
+          ]
+        },
+        "250": {
+          "n": 25,
+          "up": 15,
+          "without_window_day2": [
+            "2026-03-05",
+            "2026-06-09",
+            "2026-11-09"
+          ]
+        }
+      },
+      "contrast": {
+        "events": 100,
+        "5": {
+          "n": 100,
+          "up": 57,
+          "without_window_day2": []
+        },
+        "20": {
+          "n": 99,
+          "up": 61,
+          "without_window_day2": [
+            "2026-10-16"
+          ]
+        },
+        "60": {
+          "n": 99,
+          "up": 62,
+          "without_window_day2": [
+            "2026-10-16"
+          ]
+        },
+        "250": {
+          "n": 96,
+          "up": 61,
+          "without_window_day2": [
+            "2025-11-19",
+            "2026-06-11",
+            "2026-07-20",
+            "2026-10-16"
+          ]
+        }
+      },
+      "baseline": {
+        "5": 7311,
+        "20": 7296,
+        "60": 7256,
+        "250": 7066
+      }
+    },
+    "below_day1_close": {
+      "20": {
+        "n": 27,
+        "ever_below_within": {
+          "hits": 17,
+          "pct": 62.96,
+          "wilson95": [
+            44.23,
+            78.47
+          ],
+          "registered": true
+        },
+        "still_below_on_last_day": {
+          "hits": 7,
+          "pct": 25.93,
+          "wilson95": [
+            13.17,
+            44.68
+          ],
+          "registered": false,
+          "day2_dates": [
+            "1997-09-03",
+            "1998-11-26",
+            "2000-09-02",
+            "2002-09-17",
+            "2008-09-19",
+            "2024-07-23",
+            "2026-03-05"
+          ]
+        }
+      },
+      "60": {
+        "n": 27,
+        "ever_below_within": {
+          "hits": 22,
+          "pct": 81.48,
+          "wilson95": [
+            63.3,
+            91.82
+          ],
+          "registered": true
+        },
+        "still_below_on_last_day": {
+          "hits": 8,
+          "pct": 29.63,
+          "wilson95": [
+            15.85,
+            48.48
+          ],
+          "registered": false,
+          "day2_dates": [
+            "1997-09-03",
+            "1998-11-26",
+            "2000-07-05",
+            "2000-09-02",
+            "2001-07-25",
+            "2008-09-19",
+            "2018-10-12",
+            "2022-07-07"
+          ]
+        }
+      }
+    },
+    "both_moves_4pct": {
+      "note": "Raw triggers with Day 1 <= -4% and Day 2 >= +4% (post hoc; too few for any share).",
+      "rows": [
+        {
+          "day1": "2000-10-19",
+          "day1_pct": -6.46,
+          "day2": "2000-10-20",
+          "day2_pct": 6.37,
+          "day2_close": 5404.78,
+          "clustered_event": true,
+          "event_day2": "2000-10-20",
+          "fwd20_pct": 6.15,
+          "fwd60_pct": -4.0,
+          "below_day1_within20": false
+        },
+        {
+          "day1": "2000-11-20",
+          "day1_pct": -6.23,
+          "day2": "2000-11-21",
+          "day2_pct": 5.32,
+          "day2_close": 5103.0,
+          "clustered_event": true,
+          "event_day2": "2000-11-21",
+          "fwd20_pct": 0.61,
+          "fwd60_pct": 17.02,
+          "below_day1_within20": false
+        },
+        {
+          "day1": "2020-03-19",
+          "day1_pct": -5.83,
+          "day2": "2020-03-20",
+          "day2_pct": 6.37,
+          "day2_close": 9234.09,
+          "clustered_event": true,
+          "event_day2": "2020-03-20",
+          "fwd20_pct": 11.42,
+          "fwd60_pct": 24.91,
+          "below_day1_within20": false
+        },
+        {
+          "day1": "2025-04-09",
+          "day1_pct": -5.79,
+          "day2": "2025-04-10",
+          "day2_pct": 9.25,
+          "day2_close": 19000.03,
+          "clustered_event": false,
+          "event_day2": "2025-04-01",
+          "fwd20_pct": 10.08,
+          "fwd60_pct": 18.05,
+          "below_day1_within20": false
+        },
+        {
+          "day1": "2026-11-06",
+          "day1_pct": -4.51,
+          "day2": "2026-11-09",
+          "day2_pct": 4.94,
+          "day2_close": 41661.7,
+          "clustered_event": true,
+          "event_day2": "2026-11-09",
+          "fwd20_pct": null,
+          "fwd60_pct": null,
+          "below_day1_within20": null
+        }
+      ]
+    },
+    "repeat_runs": {
+      "note": "Runs of the registered 20-session clustering that contain >= 2 raw triggers (post hoc).",
+      "raw_triggers": 35,
+      "runs": 28,
+      "rows": [
+        {
+          "triggers": [
+            {
+              "day1": "1998-09-01",
+              "day1_pct": -3.28,
+              "day2": "1998-09-02",
+              "day2_pct": 2.16,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "1998-09-03",
+              "day1_pct": -3.4,
+              "day2": "1998-09-04",
+              "day2_pct": 3.39,
+              "sessions_after_first_day2": 2
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": 6.78,
+            "fwd60_pct": 14.04
+          },
+          "from_last_day2": {
+            "fwd20_pct": 5.74,
+            "fwd60_pct": 13.14
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2000-09-01",
+              "day1_pct": -2.59,
+              "day2": "2000-09-02",
+              "day2_pct": 3.88,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2000-09-19",
+              "day1_pct": -2.54,
+              "day2": "2000-09-20",
+              "day2_pct": 2.16,
+              "sessions_after_first_day2": 13
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": -16.55,
+            "fwd60_pct": -37.14
+          },
+          "from_last_day2": {
+            "fwd20_pct": -17.12,
+            "fwd60_pct": -24.85
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2020-03-19",
+              "day1_pct": -5.83,
+              "day2": "2020-03-20",
+              "day2_pct": 6.37,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2020-03-23",
+              "day1_pct": -3.73,
+              "day2": "2020-03-24",
+              "day2_pct": 4.45,
+              "sessions_after_first_day2": 2
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": 11.42,
+            "fwd60_pct": 24.91
+          },
+          "from_last_day2": {
+            "fwd20_pct": 11.64,
+            "fwd60_pct": 24.38
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2022-07-06",
+              "day1_pct": -2.53,
+              "day2": "2022-07-07",
+              "day2_pct": 2.51,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2022-07-12",
+              "day1_pct": -2.72,
+              "day2": "2022-07-13",
+              "day2_pct": 2.68,
+              "sessions_after_first_day2": 4
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": 2.55,
+            "fwd60_pct": -6.36
+          },
+          "from_last_day2": {
+            "fwd20_pct": 4.29,
+            "fwd60_pct": -3.02
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2024-07-22",
+              "day1_pct": -2.68,
+              "day2": "2024-07-23",
+              "day2_pct": 2.76,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2024-08-05",
+              "day1_pct": -8.35,
+              "day2": "2024-08-06",
+              "day2_pct": 3.38,
+              "sessions_after_first_day2": 8
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": -3.16,
+            "fwd60_pct": 2.02
+          },
+          "from_last_day2": {
+            "fwd20_pct": 7.76,
+            "fwd60_pct": 12.71
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2025-03-31",
+              "day1_pct": -4.2,
+              "day2": "2025-04-01",
+              "day2_pct": 2.82,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2025-04-09",
+              "day1_pct": -5.79,
+              "day2": "2025-04-10",
+              "day2_pct": 9.25,
+              "sessions_after_first_day2": 5
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": -2.31,
+            "fwd60_pct": 4.59
+          },
+          "from_last_day2": {
+            "fwd20_pct": 10.08,
+            "fwd60_pct": 18.05
+          }
+        },
+        {
+          "triggers": [
+            {
+              "day1": "2026-03-04",
+              "day1_pct": -4.35,
+              "day2": "2026-03-05",
+              "day2_pct": 2.57,
+              "sessions_after_first_day2": 0
+            },
+            {
+              "day1": "2026-03-09",
+              "day1_pct": -4.43,
+              "day2": "2026-03-10",
+              "day2_pct": 2.06,
+              "sessions_after_first_day2": 3
+            }
+          ],
+          "from_first_day2": {
+            "fwd20_pct": -3.27,
+            "fwd60_pct": 35.29
+          },
+          "from_last_day2": {
+            "fwd20_pct": 6.38,
+            "fwd60_pct": 37.53
+          }
+        }
+      ]
+    },
+    "since_2001": {
+      "note": "Events with Day 2 in 2001 or later (TWSE stopped Saturday sessions in 2001); baseline = every session from 2001 on.",
+      "n_events": 16,
+      "by_horizon": {
+        "5": {
+          "n": 15,
+          "up": 6,
+          "up_pct": 40.0,
+          "up_wilson95": [
+            19.82,
+            64.25
+          ],
+          "median_pct": -0.68
+        },
+        "20": {
+          "n": 15,
+          "up": 7,
+          "up_pct": 46.67,
+          "up_wilson95": [
+            24.81,
+            69.88
+          ],
+          "median_pct": -1.15
+        },
+        "60": {
+          "n": 15,
+          "up": 11,
+          "up_pct": 73.33,
+          "up_wilson95": [
+            48.05,
+            89.1
+          ],
+          "median_pct": 4.59
+        },
+        "250": {
+          "n": 13,
+          "up": 12,
+          "up_pct": 92.31,
+          "up_wilson95": [
+            66.69,
+            98.63
+          ],
+          "median_pct": 19.39
+        }
+      },
+      "baseline": {
+        "5": {
+          "n": 6359,
+          "up": 3582,
+          "up_pct": 56.33,
+          "up_wilson95": [
+            55.11,
+            57.54
+          ],
+          "median_pct": 0.37
+        },
+        "20": {
+          "n": 6344,
+          "up": 3727,
+          "up_pct": 58.75,
+          "up_wilson95": [
+            57.53,
+            59.95
+          ],
+          "median_pct": 1.18
+        },
+        "60": {
+          "n": 6304,
+          "up": 4041,
+          "up_pct": 64.1,
+          "up_wilson95": [
+            62.91,
+            65.28
+          ],
+          "median_pct": 2.83
+        },
+        "250": {
+          "n": 6114,
+          "up": 4386,
+          "up_pct": 71.74,
+          "up_wilson95": [
+            70.59,
+            72.85
+          ],
+          "median_pct": 9.6
+        }
+      },
+      "below_day1_within20": 11,
+      "below_day1_within20_n": 15
+    },
+    "day20_line_split": {
+      "note": "Post hoc, not pre-registered; asked by a viewer at the channel's test screening. Events with a 60-session window, split by whether the 20th-session close is still below the Day 1 (crash-day) close. Counts only; n=7 and n=20 are too small to compare the two groups.",
+      "registered": false,
+      "source": "viewer test-screening question (2026-11-13)",
+      "below_on_day20": {
+        "n": 7,
+        "higher_than_day2_at_60": 3,
+        "up_from_day20_to_day60": 3,
+        "below_day1_on_day60": 4,
+        "rows": [
+          {
+            "day1": "1997-09-02",
+            "day2": "1997-09-03",
+            "fwd20_pct": -6.67,
+            "fwd60_pct": -17.84,
+            "fwd20_to_60_pct": -11.96,
+            "below_day1_on_day60": true
+          },
+          {
+            "day1": "1998-11-25",
+            "day2": "1998-11-26",
+            "fwd20_pct": -9.34,
+            "fwd60_pct": -14.94,
+            "fwd20_to_60_pct": -6.18,
+            "below_day1_on_day60": true
+          },
+          {
+            "day1": "2000-09-01",
+            "day2": "2000-09-02",
+            "fwd20_pct": -16.55,
+            "fwd60_pct": -37.14,
+            "fwd20_to_60_pct": -24.67,
+            "below_day1_on_day60": true
+          },
+          {
+            "day1": "2002-09-16",
+            "day2": "2002-09-17",
+            "fwd20_pct": -8.86,
+            "fwd60_pct": 1.41,
+            "fwd20_to_60_pct": 11.27,
+            "below_day1_on_day60": false
+          },
+          {
+            "day1": "2008-09-18",
+            "day2": "2008-09-19",
+            "fwd20_pct": -17.21,
+            "fwd60_pct": -22.67,
+            "fwd20_to_60_pct": -6.59,
+            "below_day1_on_day60": true
+          },
+          {
+            "day1": "2024-07-22",
+            "day2": "2024-07-23",
+            "fwd20_pct": -3.16,
+            "fwd60_pct": 2.02,
+            "fwd20_to_60_pct": 5.35,
+            "below_day1_on_day60": false
+          },
+          {
+            "day1": "2026-03-04",
+            "day2": "2026-03-05",
+            "fwd20_pct": -3.27,
+            "fwd60_pct": 35.29,
+            "fwd20_to_60_pct": 39.86,
+            "below_day1_on_day60": false
+          }
+        ]
+      },
+      "not_below_on_day20": {
+        "n": 20,
+        "higher_than_day2_at_60": 15,
+        "up_from_day20_to_day60": 13,
+        "below_day1_on_day60": 4
+      }
+    },
+    "calendar": {
+      "readme_zh": "revision 1 用的 Yahoo ^TWII 沒有任何週六的列，但證交所 2001 年以前週六也開盤，所以那段的「連續兩個交易日」不一定真的連續。revision 2 用證交所官方「每日市場成交資訊」（FMTQIK，含每天的加權指數收盤）核對 1997-07-02 到 2026-11-12 的每一個交易日：兩邊同一天都有的 7,192 天，收盤差距最大 72.00 點，超過 0.5 點的 3 天改用證交所收盤：1999-01-25（Yahoo 6,032.15／證交所 6,033.21）、2000-01-07（Yahoo 8,849.87／證交所 8,845.47）、2000-10-23（Yahoo 5,608.95／證交所 5,680.95）；補進 Yahoo 缺的證交所交易日 125 天（1997 年 22 天、1998 年 25 天、1999 年 25 天、2000 年 26 天、2006 年 1 天、2007 年 4 天、2009 年 4 天、2010 年 1 天、2012 年 4 天、2013 年 2 天、2014 年 1 天、2016 年 3 天、2017 年 3 天、2018 年 2 天、2019 年 1 天、2021 年 1 天；週一 2 天、週二 1 天、週三 1 天、週六 121 天），收盤用證交所的數字；拿掉 Yahoo 有、證交所那天沒開盤的列：2001-09-18、2014-07-23、2016-07-08。合併後共 7,317 個交易日，事件、基準、對照組都在這份日曆上重算，定義不變。",
+      "limitations_zh": [
+        "補進的交易日只有收盤（證交所這份資料不給開高低），本研究只用收盤，不受影響。",
+        "交易日曆以證交所為準；同一天兩邊都有的，收盤沿用 Yahoo，只有差距超過門檻的那幾天改用證交所收盤（列在上面）。"
+      ],
+      "report": {
+        "yahoo_rows": 7195,
+        "twse_sessions_in_range": 7317,
+        "merged_rows": 7317,
+        "range": [
+          "1997-07-02",
+          "2026-11-12"
+        ],
+        "inserted_twse_only": [
+          "1997-07-05",
+          "1997-07-12",
+          "1997-07-19",
+          "1997-07-26",
+          "1997-08-02",
+          "1997-08-09",
+          "1997-08-16",
+          "1997-08-23",
+          "1997-08-30",
+          "1997-09-06",
+          "1997-09-13",
+          "1997-09-20",
+          "1997-09-27",
+          "1997-10-04",
+          "1997-10-18",
+          "1997-11-08",
+          "1997-11-15",
+          "1997-11-22",
+          "1997-12-06",
+          "1997-12-13",
+          "1997-12-20",
+          "1997-12-27",
+          "1998-01-03",
+          "1998-01-17",
+          "1998-02-07",
+          "1998-02-21",
+          "1998-03-07",
+          "1998-03-21",
+          "1998-04-04",
+          "1998-04-18",
+          "1998-05-02",
+          "1998-05-16",
+          "1998-06-06",
+          "1998-06-20",
+          "1998-07-04",
+          "1998-07-18",
+          "1998-08-01",
+          "1998-08-15",
+          "1998-08-29",
+          "1998-09-05",
+          "1998-09-19",
+          "1998-10-03",
+          "1998-10-17",
+          "1998-10-31",
+          "1998-11-07",
+          "1998-11-21",
+          "1998-12-19",
+          "1999-01-16",
+          "1999-01-30",
+          "1999-02-06",
+          "1999-02-20",
+          "1999-03-06",
+          "1999-03-20",
+          "1999-04-03",
+          "1999-04-17",
+          "1999-05-15",
+          "1999-05-29",
+          "1999-06-05",
+          "1999-07-03",
+          "1999-07-17",
+          "1999-07-31",
+          "1999-08-07",
+          "1999-08-21",
+          "1999-09-04",
+          "1999-09-18",
+          "1999-10-02",
+          "1999-10-16",
+          "1999-10-30",
+          "1999-11-06",
+          "1999-11-20",
+          "1999-12-04",
+          "1999-12-18",
+          "2000-01-15",
+          "2000-01-29",
+          "2000-02-19",
+          "2000-03-04",
+          "2000-04-01",
+          "2000-04-08",
+          "2000-04-15",
+          "2000-04-29",
+          "2000-05-06",
+          "2000-05-20",
+          "2000-06-03",
+          "2000-06-17",
+          "2000-07-15",
+          "2000-07-29",
+          "2000-08-05",
+          "2000-08-19",
+          "2000-09-02",
+          "2000-09-16",
+          "2000-09-30",
+          "2000-10-07",
+          "2000-10-21",
+          "2000-11-04",
+          "2000-11-18",
+          "2000-12-02",
+          "2000-12-16",
+          "2000-12-30",
+          "2006-10-14",
+          "2007-03-03",
+          "2007-04-14",
+          "2007-06-23",
+          "2007-09-29",
+          "2009-01-10",
+          "2009-01-17",
+          "2009-04-01",
+          "2009-06-06",
+          "2010-02-06",
+          "2012-01-02",
+          "2012-02-04",
+          "2012-03-03",
+          "2012-12-22",
+          "2013-02-23",
+          "2013-09-14",
+          "2014-12-27",
+          "2016-01-30",
+          "2016-06-04",
+          "2016-09-10",
+          "2017-02-18",
+          "2017-06-03",
+          "2017-09-30",
+          "2018-03-31",
+          "2018-12-22",
+          "2019-09-09",
+          "2021-04-06"
+        ],
+        "inserted_by_year": {
+          "1997": 22,
+          "1998": 25,
+          "1999": 25,
+          "2000": 26,
+          "2006": 1,
+          "2007": 4,
+          "2009": 4,
+          "2010": 1,
+          "2012": 4,
+          "2013": 2,
+          "2014": 1,
+          "2016": 3,
+          "2017": 3,
+          "2018": 2,
+          "2019": 1,
+          "2021": 1
+        },
+        "inserted_by_weekday": {
+          "Mon": 2,
+          "Tue": 1,
+          "Wed": 1,
+          "Sat": 121
+        },
+        "dropped_yahoo_only": [
+          "2001-09-18",
+          "2014-07-23",
+          "2016-07-08"
+        ],
+        "shared": 7192,
+        "close_diff_abs_max": 71.9998,
+        "close_diff_over_tol": [
+          {
+            "date": "1999-01-25",
+            "yahoo": 6032.15,
+            "twse": 6033.21,
+            "diff": -1.06
+          },
+          {
+            "date": "2000-01-07",
+            "yahoo": 8849.87,
+            "twse": 8845.47,
+            "diff": 4.4
+          },
+          {
+            "date": "2000-10-23",
+            "yahoo": 5608.95,
+            "twse": 5680.95,
+            "diff": -72.0
+          }
+        ],
+        "tol_points": 0.5
+      }
+    },
+    "next_session_exchange_close": {
+      "date": "2026-11-13",
+      "twse_close": 43675.12,
+      "change_pct": 1.35,
+      "day2_needed_close_primary": 43953.71,
+      "meets_day2": false,
+      "in_study_data": false,
+      "note": "Exchange-published close of the next session; not in the study data (the Yahoo row for that date is not final)."
+    }
+  }
+}

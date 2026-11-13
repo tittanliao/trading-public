@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 83,
+    "studies": 84,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -262,6 +262,19 @@
       "reason": "None. Research only; no account, holding or rule changes.",
       "status": "confirmed",
       "created_on": "2026-11-06"
+    },
+    {
+      "entry_id": "RS-TX-20261113-001",
+      "study_id": "RS-TX-20261113-001",
+      "kind": "study",
+      "family": "none — descriptive event study on the TAIEX cash index",
+      "origin": "programme",
+      "claim": "TAIEX: a one-day fall of at least 2.5% followed the next session by a rise of at least 2.0% — what the index did over the following 5, 20, 60 and 250 sessions (1997-2026, pre-registered)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None (descriptive).",
+      "status": "confirmed",
+      "created_on": "2026-11-13"
     },
     {
       "entry_id": "RS-TX-20261108-001",

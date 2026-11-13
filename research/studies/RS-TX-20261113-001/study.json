@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261113-001",
+  "revision": 2,
+  "title": "TAIEX: a one-day fall of at least 2.5% followed the next session by a rise of at least 2.0% — what the index did over the following 5, 20, 60 and 250 sessions (1997-2026, pre-registered)",
+  "market": "TX",
+  "strategy": "none — descriptive event study on the TAIEX cash index",
+  "status": "confirmed",
+  "created_on": "2026-11-13",
+  "question": "After TAIEX falls at least 2.5% close-to-close in one session and rises at least 2.0% close-to-close the next session, how often is the index higher 5, 20, 60 and 250 sessions after the rebound close, and by how much (median), compared with every session in the same history?",
+  "hypothesis": "Pre-registered 2026-11-13 11:5x Asia/Taipei, before any result was computed. No direction is assumed. Expected sample: a few dozen raw triggers, fewer after clustering. The long-run drift of TAIEX means the unconditional baseline is itself above 50% at every horizon; the finding is the difference, not the level. Revision 2 (2026-11-13 evening): same registered definitions rerun on the TWSE trading calendar (Saturday sessions before 2001 restored), after both G0 reviews of revision 1.",
+  "headline": {
+    "sessions": 7317,
+    "data_end": "2026-11-12",
+    "calendar": "TWSE (Yahoo ^TWII closes; 125 missing TWSE sessions inserted, 3 non-sessions removed, 3 closes replaced by TWSE)",
+    "raw_triggers": 35,
+    "n_events": 28,
+    "up5_pct": 48.15,
+    "up20_pct": 48.15,
+    "up60_pct": 66.67,
+    "up250_pct": 60.0,
+    "up5_n": 27,
+    "up20_n": 27,
+    "up60_n": 27,
+    "up250_n": 25,
+    "median5_pct": -0.27,
+    "median20_pct": -0.12,
+    "median60_pct": 2.02,
+    "median250_pct": 8.6,
+    "up5_baseline_pct": 55.18,
+    "up20_baseline_pct": 57.14,
+    "up60_baseline_pct": 60.9,
+    "up250_baseline_pct": 66.88,
+    "below_day1_within20_pct": 62.96,
+    "below_day1_within60_pct": 81.48,
+    "contrast_n": 100,
+    "contrast_up5_pct": 57.0,
+    "contrast_up5_n": 100,
+    "contrast_up20_pct": 61.62,
+    "contrast_up20_n": 99,
+    "contrast_up60_pct": 62.63,
+    "contrast_up60_n": 99,
+    "now_data_end": "2026-11-12",
+    "now_last_change_pct": -2.63
+  },
+  "card_metrics": [
+    "n_events",
+    "up60_pct",
+    "up60_baseline_pct",
+    "below_day1_within20_pct",
+    "up20_pct",
+    "up20_baseline_pct"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "60 sessions after the rebound close the index was higher 18 of 27 times (66.67%), median +2.02%; the any-day baseline is 60.9% / +2.40%",
+      "detail": "n=27 of 28 clustered events 1997-2026 (35 raw triggers; the 2026-11-09 event has no window yet), on the TWSE trading calendar. Wilson 47.82-81.36; median bootstrap -3.00 to +7.46. The baseline sits inside the interval: 60-session outcomes after this pattern cannot be separated from any day.",
+      "title_zh": "反彈日收盤後 60 個交易日，27 次有 18 次更高（66.67%），中位數 +2.02%；平常日基準 60.9%／+2.40%",
+      "detail_zh": "1997–2026 併群後 28 筆事件（原始觸發 35 次），其中 27 筆能看 60 日（2026-11-09 這筆還沒有）；以證交所交易日曆計算。Wilson 區間 47.82–81.36，中位數重抽樣區間 −3.00 到 +7.46，基準落在區間內：60 日結果跟平常日分不出來。"
+    },
+    {
+      "tone": "warn",
+      "title": "Within the next 20 sessions the close fell back below the crash-day close at least once 17 of 27 times (62.96%); on the 20th session it was still below 7 of 27 times (post hoc)",
+      "detail": "Registered: ever below within 20 sessions 17/27 (Wilson 44.23-78.47), within 60 sessions 22/27 (63.30-91.82). Post hoc: still below on the 20th session 7/27 (25.93%). No baseline was registered for this measure, so it shows a dip back is common, not that it is more likely than usual. Five and twenty sessions after the rebound the index was higher 13/27 (48.15%) both times, against baselines 55.18% and 57.14%; inside the intervals. The 'fell, did not bounce' contrast was higher 57/100 at 5 sessions and 61/99 at 20 sessions: the next-day bounce does not show a better month (cannot be separated).",
+      "title_zh": "反彈之後 20 個交易日內，27 次有 17 次（62.96%）曾經有一天收盤跌回大跌那天的收盤以下；到第 20 天還在下面的是 7 次（事後補看）",
+      "detail_zh": "登記的指標：20 日內曾經跌回 17/27（Wilson 44.23–78.47），60 日內 22/27（63.30–91.82）。事後補看：第 20 天收盤仍在下面 7/27（25.93%）。這個指標沒有登記平常日基準，只能說跌回去不罕見，不能說比平常更容易。反彈後 5 日、20 日更高都是 13/27（48.15%），平常日 55.18%、57.14%，在區間內。「大跌但隔天沒大漲」的對照組 5 日 57/100、20 日 61/99 更高：隔天大漲看不出讓接下來一個月更好（兩組分不出來）。"
+    },
+    {
+      "tone": "info",
+      "title": "A year later: 15 of 25 higher (60.0%), median +8.60%, but the 10 losers lost a median 22.83% (9 of the 10 in 1997-2000)",
+      "detail": "Baseline 66.88% / +8.45%; Wilson 40.74-76.60, inside the interval. 1997-2011 half 47.06% (8/17), 2012-2026 half 87.5% (7/8): a registered descriptive split, not a conclusion. Neighbouring thresholds at 250 sessions: -2.0/+1.5 64.58% (31/48); -3.0/+2.5 53.85% (7/13). At 60 sessions: 66.0% (33/50) and 86.67% (13/15).",
+      "title_zh": "一年後：25 次有 15 次更高（60.0%），中位數 +8.60%；但輸的 10 次中位數 −22.83%（其中 9 次在 1997–2000）",
+      "detail_zh": "平常日基準 66.88%／+8.45%；Wilson 40.74–76.60，基準在區間內。前半 1997–2011 為 47.06%（8/17）、後半 2012–2026 為 87.5%（7/8）：登記過的描述性切分，不能當結論。鄰近門檻 250 日：−2.0／+1.5 為 64.58%（31/48），−3.0／+2.5 為 53.85%（7/13）；60 日分別為 66.0%（33/50）、86.67%（13/15）。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "After a one-day fall of 2.5%+ and a next-day rise of 2.0%+ on TAIEX (28 events 1997-2026, TWSE calendar), the index was higher 60 sessions later 18 of 27 times (baseline 60.9%), and closed back below the crash-day close at least once within 20 sessions 17 of 27 times; nothing separates from any day.",
+  "title_zh": "台股一天跌 2.5% 以上、隔天漲 2.0% 以上，之後 5／20／60／250 個交易日怎麼走？1997–2026 加權指數",
+  "question_zh": "加權指數某日收盤跌 ≥ 2.5%、下一個交易日收盤漲 ≥ 2.0% 之後，反彈日收盤起算 5、20、60、250 個交易日後更高的比例與中位數報酬是多少？跟同一段歷史的每一天比起來如何？",
+  "hypothesis_zh": "2026-11-13 11:5x（台北時間）在算任何結果之前登記。不預設方向。預期樣本：原始觸發幾十次，併群後更少。加權指數長期向上，平常日基準本身在每個期間都高於 50%，所以要看的是跟基準的差距，不是比例本身。revision 2（2026-11-13 晚間）：兩份 G0 審查看過 revision 1 之後，同一套登記定義改用證交所交易日曆（補回 2001 年以前的週六交易日）重跑。",
+  "card_summary_zh": "台股一天跌 2.5% 以上、隔天漲 2.0% 以上（1997–2026 併群後 28 筆，證交所交易日曆）：反彈日之後 60 個交易日，27 次有 18 次更高（平常日 60.9%）；20 個交易日內 27 次有 17 次曾經跌回大跌那天的收盤以下；各期間都跟平常日分不出來。",
+  "limitations_zh": [
+    "加權指數是價格指數，不含股息；事件組與基準都是純價格，彼此比較公平。",
+    "能看 60 日的事件只有 27 筆，Wilson 區間約 34 個百分點寬；60 日的結果大約要差 17 個百分點以上才分得出來。",
+    "不同事件的 60 日、250 日窗口在 1997–2000、2008 彼此重疊，這兩個期間的區間偏樂觀。",
+    "交易日曆：Yahoo 的加權指數資料沒有任何週六，但證交所 2001 年以前週六也開盤（之後也有少數補班的週六）。revision 2 用證交所「每日市場成交資訊」逐日核對：補進 125 個缺的交易日（收盤用證交所數字），拿掉 3 天證交所沒開盤的列（2001-09-18、2014-07-23、2016-07-08），3 天收盤改用證交所數字（差最多的是 2000-10-23，72 點）。事件因此改變：多了 1998-10-02／03，2000-09-01 那筆的第 2 天變成週六 2000-09-02，2000-04-17／18 不再成立；27 筆變 28 筆。",
+    "2026-11-06／11-09 這一組（−4.51%／+4.94%）是表中最新一筆（還沒有事後報酬）。證交所公告 2026-11-13 收盤 43,675.12（+1.35%），沒到第 2 天門檻 43,953.71，所以 11-12／11-13 不成立；這一天還沒放進研究資料（20:01 時 Yahoo 該列成交量仍為 0，未定稿）。",
+    "門檻是為了讓 2026-11-12 的 −2.63% 符合而定的，在算任何數字之前登記；兩個鄰近門檻同時登記。",
+    "看過審查之後才加的事後補看（最後一天還在下面、跌漲都 ≥ 4%、同段重複觸發、只看 2001 年以後）在 results.json 與 README 都標明，不能當結論。",
+    "只是描述；題目是在 11-12 大跌之後才問的，題目時機有事後性，分析本身沒有。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是買賣訊號。登記的主分析裡，反彈日之後 5、20、60、250 個交易日更高的比例，跟同一段歷史的平常日比都在 Wilson 區間之內，分不出差別；隔天大漲的這一組，跟「大跌但隔天沒大漲」的對照組也分不出來。另外，反彈之後 20 個交易日內，27 次有 17 次曾經跌回大跌那天的收盤以下，跌回去不罕見；但這個指標沒有登記平常日基準，不能說比平常更容易。標明「事後補看」的表格都是看過結果之後才加的，不是事先登記的分析，不能當結論。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "n_events",
+        "raw_triggers",
+        "up60_pct",
+        "up60_baseline_pct",
+        "up20_pct",
+        "up20_baseline_pct",
+        "below_day1_within20_pct",
+        "median60_pct",
+        "median250_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "primary.by_horizon",
+      "title": "登記的主分析：跌 ≥ 2.5%、隔天漲 ≥ 2.0%（併群後 28 筆），反彈日收盤後 h 個交易日",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95",
+        "neg_n",
+        "neg_median_pct",
+        "min_pct",
+        "min_day2_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "baseline",
+      "title": "基準：同一段歷史的每一個交易日",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "contrast.by_horizon",
+      "title": "對照組：跌 ≥ 2.5%、隔天沒有漲到 2.0%（併群後 100 筆）",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "primary.below_day1_close",
+      "title": "登記的指標：h 個交易日內曾經收盤跌回大跌那天的收盤以下（沒有登記平常日基準）",
+      "columns": [
+        "n",
+        "hits",
+        "pct",
+        "wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "halves.1997_2011.by_horizon",
+      "title": "登記的描述性切分：1997–2011（不能當結論）",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "up_wilson95",
+        "median_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "halves.2012_2026.by_horizon",
+      "title": "登記的描述性切分：2012–2026（不能當結論）",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "up_wilson95",
+        "median_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "events_primary",
+      "title": "28 筆事件逐筆（反彈日收盤起算的報酬 %）",
+      "columns": [
+        "day2",
+        "day1",
+        "day1_pct",
+        "day2_pct",
+        "day2_close",
+        "fwd5_pct",
+        "fwd20_pct",
+        "fwd60_pct",
+        "fwd250_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "posthoc_rev2.below_day1_close",
+      "title": "事後補看（非事先登記）：曾經跌回 vs 最後一天還在下面",
+      "takeaway_zh": "「曾經跌回」是登記的指標；「最後一天還在大跌日收盤以下」是看過 revision 1 結果之後才加的事後補看，不能當結論。"
+    },
+    {
+      "type": "table",
+      "source": "posthoc_rev2.day20_line_split.below_on_day20.rows",
+      "title": "事後補看（非事先登記，來自觀眾試聽的提問）：第 20 天收盤仍在大跌日收盤以下的 7 次，後來到第 60 天",
+      "columns": [
+        "day2",
+        "day1",
+        "fwd20_pct",
+        "fwd60_pct",
+        "fwd20_to_60_pct",
+        "below_day1_on_day60"
+      ],
+      "takeaway_zh": "事後補看、非事先登記。這 7 次裡，60 日後比反彈日收盤高的有 3 次，第 20 到 60 天上漲的 3 次，第 60 天仍在大跌日收盤以下的 4 次；第 20 天不在下面的 20 次分別是 15、13、4 次。n=7 與 n=20 太小，不做兩組比較。"
+    },
+    {
+      "type": "table",
+      "source": "posthoc_rev2.both_moves_4pct.rows",
+      "title": "事後補看（非事先登記）：跌、漲都 ≥ 4% 的原始觸發",
+      "columns": [
+        "day2",
+        "day1",
+        "day1_pct",
+        "day2_pct",
+        "clustered_event",
+        "event_day2",
+        "fwd20_pct",
+        "fwd60_pct",
+        "below_day1_within20"
+      ],
+      "takeaway_zh": "次數太少，不算比例，只逐筆列出。"
+    },
+    {
+      "type": "metric_table",
+      "source": "now",
+      "title": "現在：資料最後一天",
+      "keys": [
+        "data_end",
+        "last_close",
+        "last_change_pct",
+        "day1_qualifies_primary",
+        "day2_needed_close_primary"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "posthoc_rev2.next_session_exchange_close",
+      "title": "下一個交易日的證交所收盤（未放進研究資料）",
+      "keys": [
+        "date",
+        "twse_close",
+        "change_pct",
+        "day2_needed_close_primary",
+        "meets_day2",
+        "in_study_data"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
