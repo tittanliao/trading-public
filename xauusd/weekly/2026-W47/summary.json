@@ -1,0 +1,727 @@
+{
+  "schema_version": "1.0",
+  "market": "XAUUSD",
+  "forecast_week": "2026-W47",
+  "edition": "Sun",
+  "published_at": "2026-11-14T16:11:44+08:00",
+  "publication_mode": "single_source",
+  "confidence": "medium",
+  "source_count": 1,
+  "source_producers": [
+    "claude"
+  ],
+  "source_fingerprint": "00a39f598129ebf6e68a24062011b0d7c627a810605ed82083eb5f40dc9f6294",
+  "data_cutoff": "2026-11-13T21:30:00+00:00",
+  "market_summary": "W46 收 3883.89，週開 4069.99，開收 −4.57%，收在週區間由下往上 10.6% 處；振幅 295.98 點，是 2026-08-17 那週以來最大。週一高 4148.60（台北週二凌晨）、日收 4140.06；週二 10 月 CPI 月增 0.4%（預期 0.3%），Fed 理事 Waller 同日表示傾向 12 月升 1 碼、不排除 2 碼，金價日跌 2.61%；週三收破 4,000；週四盤中 3852.62，是 2025-10-03 以來最低，週一日收到週四日收三天跌 6.37%；週四、週五日收 3876.46、3883.89 仍在 10/30 日收 3875.19 之上。價格低於 4h EMA50 3992.83、1d EMA50 4122.46；日收在 1d 布林下軌 3855.28 上方 28.61 點。DXY 週收 103.410（+1.11%），是 2025-03-24 那週以來最高。",
+  "four_week_overview": [
+    {
+      "week": "2026-W43",
+      "open": 4163.6,
+      "high": 4190.38,
+      "low": 3975.792,
+      "close": 3995.38,
+      "change_pct": -4.04,
+      "change": "-4.04%",
+      "range_points": 214.59,
+      "note": "週四跌破雙底，週五跌破 4,000"
+    },
+    {
+      "week": "2026-W44",
+      "open": 3992.6,
+      "high": 4083.41,
+      "low": 3870.255,
+      "close": 3875.19,
+      "change_pct": -2.94,
+      "change": "-2.94%",
+      "range_points": 213.16,
+      "note": "FOMC 後到 4083 回落，週五收破年內低點"
+    },
+    {
+      "week": "2026-W45",
+      "open": 3874.3,
+      "high": 4146.99,
+      "low": 3874.3,
+      "close": 4069.99,
+      "change_pct": 5.05,
+      "change": "+5.05%",
+      "range_points": 272.69,
+      "note": "選後反彈到 4147，非農後回落收 4070（上週匯出的週收；本週匯出的 W45 週收為 4069.63）"
+    },
+    {
+      "week": "2026-W46",
+      "open": 4069.99,
+      "high": 4148.6,
+      "low": 3852.62,
+      "close": 3883.89,
+      "change_pct": -4.57,
+      "change": "-4.57%",
+      "range_points": 295.98,
+      "note": "CPI 高於預期後三天跌 6.37%，週四盤中 3852.62 為 2025-10-03 以來最低；日收守在 3875.19 之上"
+    }
+  ],
+  "scenario_comparison": [
+    {
+      "producer": "claude",
+      "scenarios": [
+        {
+          "direction": "neutral",
+          "probability": 40
+        },
+        {
+          "direction": "bearish",
+          "probability": 35
+        },
+        {
+          "direction": "bullish",
+          "probability": 25
+        }
+      ]
+    }
+  ],
+  "adopted_scenarios": [
+    {
+      "direction": "range",
+      "probability": 40,
+      "conditions": "價格在年內低點帶 3852.35–3875.19 與週五高點帶 3916.81–3924.30 之間往復，沒有 4h 收盤站上 3924.30，也沒有 4h 收盤跌破 3852.35。",
+      "invalidation": "4h 收盤站上 3924.30，或 4h 收盤跌破 3852.35。",
+      "targets": "區間內往復：上看 3916.81–3924.30 的反應，下看 3852.35–3875.19。",
+      "summary_zh": "在 3852–3924 之間整理，等零售銷售與 FOMC 會議紀要",
+      "trigger_price": null
+    },
+    {
+      "direction": "bearish",
+      "probability": 35,
+      "conditions": "4h 收盤跌破 3852.35（週四低點、2026 年盤中最低）。",
+      "invalidation": "觸發後 4h 收盤站回 3875.19（年內低點帶上緣）之上。",
+      "targets": "第一目標 3819.32–3838.22（2025 年 10 月日線低點）；第二目標 3807.26（週布林下軌，計算值）。",
+      "summary_zh": "4h 收破 3852，看 3819–3838（去年十月低點）",
+      "trigger_price": 3852.35
+    },
+    {
+      "direction": "bullish",
+      "probability": 25,
+      "conditions": "4h 收盤站上 3924.30（週四急跌前最後一根 4h 的低點、向下缺口上緣）。",
+      "invalidation": "觸發後 4h 收盤跌回 3916.81（週五高點帶下緣）之下。",
+      "targets": "第一目標 3953.91–3972.39（未回補缺口與 4h 布林中軌）；第二目標 3981.90–4000.48（4h EMA50 與 4,000 關卡）。",
+      "summary_zh": "4h 收上 3924，看 3954–3972，再看 3982–4000",
+      "trigger_price": 3924.3
+    }
+  ],
+  "agreements": [
+    "單一來源，不構成跨模型共識。另一 producer 暫停中，本預測週只有 Claude 一份合格報告，故本次為 single_source。",
+    "本報告為 v2：與 v1 同一封存輸入集；v2 依固定提問覆核修正 24 項（8 項駁回）。關鍵價位、觸發價、劇本機率與策略等級未變。",
+    "W46 週開 4069.99、高 4148.60、低 3852.62、收 3883.89，開收 −4.57%；週二 CPI 高於預期後，週一日收 4140.06 到週四日收 3876.46 三天跌 6.37%；週四盤中 3852.62 是 2025-10-03 以來最低，週四、週五日收仍在 10/30 日收 3875.19 之上。",
+    "CFTC：2026-11-10 那期因聯邦假日延到台北 11/17（二）04:30 公布；本期沿用 2026-11-03（與上週同一期）：Managed Money 淨多 103,614（−1,948）；未平倉 399,169（+2,359）。這一期在選後反彈與本週下跌之前。僅作背景描述。"
+  ],
+  "disagreements": [
+    "本次無跨 producer 分歧可記錄：僅一份合格報告。此欄記為不適用，而非「無分歧」。"
+  ],
+  "key_levels": [
+    {
+      "label": "年內低點帶",
+      "value": "3852.35–3875.19",
+      "basis": "實際成交價：週四 11/12 23:00 那根 4h 低 3852.35（本週與 2026 年盤中最低；日線／週線匯出記 3852.62）；週五 11/13 23:00 那根 4h 低 3867.30（週五最低；日線匯出記 3867.761）；10/30 日線低 3870.255、日收 3875.19（2026 年最低日收）。 帶寬 22.84 點，約 0.70 根 4h ATR（32.77，最近 14 根 4h 真實區間的簡單平均）。週四日收 3876.46、週五日收 3883.89 都在 10/30 日收 3875.19 之上：盤中破了前低，日收沒破。計算值 1d 布林下軌 3855.28 在帶內。週收 3883.89 在帶上緣上方 8.70 點（以 ATR 衡量帶寬是執行者選定的描述方式，未經核准，下同）。",
+      "low": 3852.35,
+      "high": 3875.19,
+      "role": "support",
+      "use_zh": "4h 收在帶內或之上先觀望；4h 收破 3852.35 看下一帶"
+    },
+    {
+      "label": "週五高點帶",
+      "value": "3916.81–3924.30",
+      "basis": "實際成交價：週五 11/13 11:00 那根 4h 高 3923.135（週四急跌後的最高）、07:00 那根高 3916.81；週四 11/12 15:00 那根 4h 低 3924.30（急跌前最後一根的低點，也是 4h 向下缺口 3887.589–3924.30 的上緣）。 帶寬 7.49 點，約 0.23 根 4h ATR。週五 07:00、11:00 兩根 4h 進到帶內但收在 3915.64、3900.50，沒能收上；急跌後最高的 4h 收盤 3915.64 在帶下緣之下 1.17 點。計算值 1h EMA50 3922.00、1h 布林上軌 3919.09 在帶內。",
+      "low": 3916.81,
+      "high": 3924.3,
+      "role": "resistance",
+      "use_zh": "到這裡不追多；4h 收上 3924.30 才算反彈成立"
+    },
+    {
+      "label": "週四缺口",
+      "value": "3953.91–3972.39",
+      "basis": "實際成交價：週四 11/12 15:00 那根 4h 高 3972.39、收 3953.91；4h 向下缺口 3955.606–3962.26（11/12 11:00 那根低 3962.26、19:00 那根高 3955.606）在帶內，逐根重算到最後一根 4h 仍未回補。 帶寬 18.48 點，約 0.56 根 4h ATR。計算值 4h 布林中軌 3954.93 在帶內下緣。（判斷）週四急跌的起跌區，反彈到這裡會先遇到未回補缺口。",
+      "low": 3953.91,
+      "high": 3972.39,
+      "role": "resistance",
+      "use_zh": "反彈第一目標；到這裡看 4h 反應"
+    },
+    {
+      "label": "4,000 關卡",
+      "value": "3981.90–4000.48",
+      "basis": "實際成交價：11/12 03:00 那根 4h 低 3981.90；11/12 07:00 那根高 4000.48（週四最高，日線同）；11/11 23:00、11/12 03:00 兩根收 3987.23、3987.24；週三日收 3987.70。 帶寬 18.58 點，約 0.57 根 4h ATR。計算值 4h EMA50 3992.83 在帶內。4h 向下缺口 3990.99–4010.34 的下緣在帶內，已回補到 4000.48。週三收破 4,000 後，週四只回到 4000.48 就再跌。",
+      "low": 3981.9,
+      "high": 4000.48,
+      "role": "resistance",
+      "use_zh": "反彈第二目標；4h EMA50 在帶內"
+    },
+    {
+      "label": "CPI 夜低點",
+      "value": "4010.34–4036.84",
+      "basis": "實際成交價：11/10 23:00 那根 4h（CPI 當晚）低 4013.20、收 4027.14；11/11 03:00 那根高 4036.84、收 4032.03；11/11 19:00 那根低 4010.34、收 4015.30。 帶寬 26.50 點，約 0.81 根 4h ATR。計算值 1d 布林中軌 4023.91 在帶內。上週報告的支撐 4026.04–4036.95（非農低點，邊界是 11/6 的價位、本週未重算）落在這裡；週三 19:00 那根 4h 收 4015.30 收破它，之後沒有 4h 收回。（判斷）跌破後轉為壓力。",
+      "low": 4010.34,
+      "high": 4036.84,
+      "role": "resistance",
+      "use_zh": "上週支撐已跌破；回到這裡視為壓力"
+    },
+    {
+      "label": "去年十月低點",
+      "value": "3819.32–3838.22",
+      "basis": "實際成交價：2025-10-03 日線低 3838.22、2025-10-02 日線低 3819.32，是本週低點 3852.62 下方最近的兩個日線低點（再往下是 2025-09-30 低 3793.28）。邊界是 13 個月前的價位。 帶寬 18.90 點，約 0.58 根 4h ATR。計算值 4h 布林下軌 3822.94 在帶內；週布林下軌 3807.26 在帶下緣之下 12.06 點。本週日線低點 3852.62 是 2025-10-03 以來最低，所以下方最近的參考只能取自去年。",
+      "low": 3819.32,
+      "high": 3838.22,
+      "role": "support",
+      "use_zh": "破 3852.35 後的第一目標；到這裡不追空"
+    }
+  ],
+  "strategy_plan": [
+    {
+      "strategy": "S1 V3.9",
+      "stance": "wait",
+      "entry": "條件式，且要求 live 正式 V3.9 訊號：等 30m 收盤站上 30m 布林上軌。目前上軌 3893.13，距最後收盤 3883.98 為 9.15 點。做多是逆勢（價格在 30m、1h、4h、1d 的 EMA50 與 EMA200 之下）；在 3893 附近成交，TP1 約 3918 落在週五高點帶下緣，TP2 約 3980.5 要穿過兩個壓力帶（判斷）。條件式預評等級 B（執行者把量表延伸用於尚無訊號時，未經核准）。零售銷售、FOMC 會議紀要前後 30 分鐘不新進場（執行者建議）。S1 正在預註冊前測，觸及停損門檻即暫停推薦。",
+      "stop": "固定停損：成交價下方 25 點；TP1 1R、TP2 3.5R。",
+      "risk": "固定口數與固定停損（細節見密碼頁）；同時只持一個部位。",
+      "summary_zh": "B 級：逆勢突破；TP1 約 3918，就在週五高點帶下緣"
+    },
+    {
+      "strategy": "S2 V3.2",
+      "stance": "wait",
+      "entry": "等待價格回到 3852.35–3875.19 年內低點帶並出現正式 V3.2 訊號；帶上緣在週收 3883.89 下方 8.70 點。這個帶在週四晚上、週五晚上各被測試一次，都收回（4h 低 3852.35、3867.30）。在 3870 附近成交，停損約 3845（週四低點下方 7.35 點）；若在帶上緣 3875 成交，停損 3850 只比週四低點低 2.35 點。做多是逆勢。條件式預評等級 B（執行者把量表延伸用於尚無訊號時，未經核准；在支撐區等訊號是執行者的用法）。",
+      "stop": "固定停損：成交價下方 25 點；TP1 2R、TP2 4R。",
+      "risk": "固定口數與固定停損（細節見密碼頁）；同時只持一個部位；S2 每週上限 2 次。",
+      "summary_zh": "B 級：3852–3875 等訊號；停損落在週四低點下方 2–7 點"
+    }
+  ],
+  "event_risk": [
+    {
+      "name": "Fed 理事 Barr 演說（AI 與金融穩定，米蘭）",
+      "scheduled_at": "2026-11-16T18:00:00+08:00",
+      "handling": "Fed 官方行事曆（美東 5:00 a.m.）。主題為金融穩定（判斷：對利率預期影響小）。"
+    },
+    {
+      "name": "Fed 主席 Warsh 開場致詞（舊金山聯儲生產力與就業會議）",
+      "scheduled_at": "2026-11-17T01:00:00+08:00",
+      "handling": "Fed 官方行事曆（美東 11/16 12:00）。前後 30 分鐘不新進場（執行者建議）。"
+    },
+    {
+      "name": "CFTC 持倉報告延後公布（2026-11-10 那期）",
+      "scheduled_at": "2026-11-17T04:30:00+08:00",
+      "handling": "CFTC 發布時程：聯邦假日延後。資料時點變動，不是價格事件（判斷）。"
+    },
+    {
+      "name": "美國 10 月零售銷售（Advance Monthly Retail Sales）",
+      "scheduled_at": "2026-11-17T21:30:00+08:00",
+      "handling": "Census 排程。前後 30 分鐘不新進場，持倉先評估（執行者建議）。"
+    },
+    {
+      "name": "Fed 理事 Waller 演說（支付）",
+      "scheduled_at": "2026-11-17T22:10:00+08:00",
+      "handling": "Fed 官方行事曆。主題為支付；問答若觸及利率仍可能有反應（判斷）。"
+    },
+    {
+      "name": "Nvidia 第三季財報與電話會議（執行長辭職後第一次）",
+      "scheduled_at": "2026-11-18T05:20:00+08:00",
+      "handling": "SEC 8-K 新聞稿（美西 11/17 約 13:20）。股市事件，本週風險情緒的主要變數（判斷）。"
+    },
+    {
+      "name": "美國 10 月新屋開工（New Residential Construction）",
+      "scheduled_at": "2026-11-18T21:30:00+08:00",
+      "handling": "Census 排程。次級數據，對金價影響通常有限（判斷）。"
+    },
+    {
+      "name": "Fed 理事 Barr 演說（社區發展投資）",
+      "scheduled_at": "2026-11-19T02:35:00+08:00",
+      "handling": "Fed 官方行事曆；在會議紀要前 25 分鐘。"
+    },
+    {
+      "name": "FOMC 會議紀要（10 月 27–28 日會議）",
+      "scheduled_at": "2026-11-19T03:00:00+08:00",
+      "handling": "Fed 官方行事曆（美東 11/18 14:00）。前後 30 分鐘不新進場，持倉先評估（執行者建議）。本週沒有 FOMC 會議，下一次是 12/8–9。"
+    },
+    {
+      "name": "Fed 副主席 Jefferson 座談（經濟衝擊）",
+      "scheduled_at": "2026-11-19T22:25:00+08:00",
+      "handling": "Fed 官方行事曆（座談）。"
+    },
+    {
+      "name": "Fed 理事 Barr 座談（AI）",
+      "scheduled_at": "2026-11-20T03:15:00+08:00",
+      "handling": "Fed 官方行事曆（座談）。"
+    },
+    {
+      "name": "費城聯儲活動：Money Marketeers 演說（講者未列名）",
+      "scheduled_at": "2026-11-20T07:30:00+08:00",
+      "handling": "費城聯儲活動頁（美東 11/19 18:30），未列講者。其他有投票權的地區聯儲未列本週主席談話。"
+    },
+    {
+      "name": "Fed 理事 Waller 歡迎致詞",
+      "scheduled_at": "2026-11-20T21:25:00+08:00",
+      "handling": "Fed 官方行事曆。"
+    },
+    {
+      "name": "Fed 理事 Cook 演說（全球脈絡下的美國經濟，聖地牙哥）",
+      "scheduled_at": "2026-11-21T01:15:00+08:00",
+      "handling": "Fed 官方行事曆；在週末全平之前不到 3 小時。"
+    },
+    {
+      "name": "週末全平（POLICY 規則 4）",
+      "scheduled_at": "2026-11-21T04:00:00+08:00",
+      "handling": "週六 04:00 前全部平倉，不留倉過週末（交易規則 4）。"
+    },
+    {
+      "name": "CFTC 持倉報告（2026-11-17 那期，照常公布）",
+      "scheduled_at": "2026-11-21T04:30:00+08:00",
+      "handling": "CFTC 發布時程，照常公布；在週末全平之後。再下一期（11/24）延到 11/30。"
+    }
+  ],
+  "recommendation": {
+    "stance": "wait",
+    "summary": "觀望。等 3852–3875 年內低點帶的 4h 收盤表態，不預先進場；4h 收上 3924 才看反彈，4h 收破 3852 看 3819–3838。整理 40%、續跌 35%、反彈 25%。重要日期：11/17 01:00 Warsh、04:30 CFTC 延後公布、21:30 零售銷售；11/19 03:00 FOMC 會議紀要；週六 04:00 前全部平倉。所有 Entry／SL 都是條件式，必須等 live TradingView 出現正式訊號。本期為單一來源。",
+    "invalidation": "4h 收盤站上 3924.30，或 4h 收盤跌破 3852.35——任一發生即脫離整理劇本，屆時以 live 結構重新評估。"
+  },
+  "evidence_limits": [
+    "本期僅一份合格報告（另一 producer 暫停中），為單一來源；方向判斷沒有交叉檢驗。",
+    "本報告的覆核由同一個模型在無建構記憶的情況下執行，不是獨立檢驗：範圍僅限可比對的契約遵循，不涵蓋判斷。覆核修正 24 項（8 項駁回）；價位、觸發價、機率與等級未變。",
+    "CFTC 本週沒有新一期（11/10 那期延到台北 11/17 公布）；沿用的 11/03 那期到週五收盤已落後 10 天，看不到本週下跌期間的部位。CFTC 部位與各角色年初至今圖僅作背景描述，不作方向訊號。",
+    "市場消息摘要以自己的文字寫成，「未確認」表示只找到評論或二手來源；新聞不作為價位、機率或進場條件。",
+    "事件行事曆（Fed、Census、BLS、CFTC、SEC）於 2026-11-14 查閱，未存頁面快照：已查閱、未存證。Fed 頁面未標時區，依慣例以美東計。",
+    "價位圖的成交量分布以 COMEX 微型黃金期貨（MGC）成交量換算現貨價位，只作參考；過去研究顯示成交量無法區分 S1／S2 的勝負。",
+    "策略績效為 2026-10-09 匯出的回測，距今 36 天；只作背景，不是進場依據。",
+    "GVZ、10 年期公債殖利率、通膨預期與 VIX 的 TradingView 資料自 2026-06-18 起未更新，本報告未使用。",
+    "來源比較共 10 組：6 組 similar、4 組 review（XAUUSD 4h／日線／週線、DXY 日線）；review 組最新收盤差 21.2–24.7 bps，比上週大。所有計算價一律採 TradingView 人工匯出。"
+  ],
+  "disclaimer": "研究證據，非投資建議。所有 Entry／SL 皆為條件式，實際執行前必須以 live TradingView 重新確認訊號與價格；最終決定屬於帳戶擁有者。",
+  "cftc_evidence": {
+    "report_date": "2026-11-03",
+    "file": "cftc-2026-11-03.png",
+    "note": "本週沒有新一期：2026-11-10 那期因美國聯邦假日延到美東 11/16（一）15:30＝台北 11/17（二）04:30 公布（CFTC 發布時程頁）。本報告沿用 2026-11-03（週二持倉）當期，與上週是同一期、同一張圖，在 11/4 選後反彈與本週 CPI 後下跌之前。可對照本圖核對：未平倉 399,169（+2,359）；Managed Money 多 122,283（−225）、空 18,669（+1,723）、價差 44,727（+4,225），淨多 103,614；Swap Dealers 空 215,291（−10,989）；散戶（Nonreportable）淨多 25,354（−3,819）。以上僅作描述，不作方向訊號。Commitments of Traders 由 cftc.gov 免費公布，屬美國公有領域資料；本圖只含部位統計，不含任何帳戶、持倉或身分資訊。"
+  },
+  "reader": {
+    "headline_zh": "CPI 高於預期、Fed 理事不排除 12 月升 2 碼；同週金價三天跌 6.4%，盤中 3852 創 13 個月低；週收 3884，日收未破 3875。",
+    "action_zh": "觀望：等 3852–3875 的 4h 收盤表態，不預先進場",
+    "watch_zh": [
+      "3852–3875 年內低點帶：4h 收盤守不守得住",
+      "3917–3924 週五高點帶：4h 能否收上",
+      "週二 21:30 零售銷售；週四 03:00 FOMC 會議紀要"
+    ],
+    "last_week_zh": [
+      "週一 07:00 4h 收上 4118 觸發反彈劇本，15:00 收破 4105 即失效；週二凌晨仍見 4148.60",
+      "週二 CPI 月增 0.4% 高於預期、Waller 提升 2 碼的可能，金價日跌 2.6%",
+      "週三 4h 收破 4026，下跌劇本觸發；週四低 3852，兩個目標都到"
+    ],
+    "cftc_zh": "本週沒有新資料：11/10 那期因聯邦假日延到台北 11/17（二）04:30 公布。沿用 11/3：大戶淨多 10.4 萬，在本週下跌之前。",
+    "next_week": [
+      {
+        "date": "2026-11-17",
+        "time_zh": "01:00",
+        "event_zh": "Fed 主席 Warsh 開場致詞",
+        "stay_out_zh": "建議前後 30 分鐘不新進場"
+      },
+      {
+        "date": "2026-11-17",
+        "time_zh": "04:30",
+        "event_zh": "CFTC 11/10 報告延後公布",
+        "stay_out_zh": "只更新部位資料，不是進場依據"
+      },
+      {
+        "date": "2026-11-17",
+        "time_zh": "21:30",
+        "event_zh": "美國 10 月零售銷售",
+        "stay_out_zh": "建議前後 30 分鐘不新進場，持倉先評估"
+      },
+      {
+        "date": "2026-11-19",
+        "time_zh": "03:00",
+        "event_zh": "FOMC 10 月會議紀要",
+        "stay_out_zh": "建議前後 30 分鐘不新進場，持倉先評估"
+      },
+      {
+        "date": "2026-11-21",
+        "time_zh": "04:00",
+        "event_zh": "週末全平",
+        "stay_out_zh": "04:00 前全部平倉（規則 4）"
+      }
+    ]
+  },
+  "levels_chart": {
+    "file": "levels.png"
+  },
+  "cftc_roles_chart": {
+    "file": "cftc_roles.png"
+  },
+  "news_digest": {
+    "window_start": "2026-11-07",
+    "window_end": "2026-11-13",
+    "items": [
+      {
+        "id": "N-20261110-01",
+        "date": "2026-11-10",
+        "category": "fed_macro",
+        "summary_zh": "10 月 CPI 月增 0.4%（預期 0.3%）、核心 0.3%（預期 0.2%）；BLS 未公布年增率。",
+        "reaction_zh": "10 年期殖利率單日升逾 14bp；12 月期金跌 84.3 美元（−2.05%）收 4,030.2",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "BLS",
+            "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+          },
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-10-2026/"
+          }
+        ]
+      },
+      {
+        "id": "N-20261110-02",
+        "date": "2026-11-10",
+        "category": "fed_macro",
+        "summary_zh": "Waller：傾向 12 月升 1 碼，核心 CPI 約 0.3% 或更高應考慮 2 碼；Logan：至少再升 2 次。",
+        "reaction_zh": "核心 CPI 正好 0.3%；到 11/13 市場看 12 月升 2 碼的機率 12%、升 1 碼 88%",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "Federal Reserve",
+            "url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm"
+          },
+          {
+            "publisher": "Dallas Fed",
+            "url": "https://www.dallasfed.org/news/speeches/logan/2026/lkl261110"
+          },
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-13-2026/"
+          }
+        ]
+      },
+      {
+        "id": "N-20261112-01",
+        "date": "2026-11-12",
+        "category": "us_equity_ai",
+        "summary_zh": "Nvidia 宣布執行長黃仁勳辭職並退出董事會，即日生效；財務長 Kress 暫代，11/17 公布財報。",
+        "reaction_zh": "Nvidia 週五盤中跌逾 4%、一週約 −12%，市值收在 4 兆美元以下",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "SEC（Nvidia 8-K 新聞稿）",
+            "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm"
+          },
+          {
+            "publisher": "Yahoo Finance",
+            "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-ppi-141451558.html"
+          }
+        ]
+      },
+      {
+        "id": "N-20261112-02",
+        "date": "2026-11-12",
+        "category": "gold",
+        "summary_zh": "金價週二到週四連跌三天、創 52 週新低；報導歸因 CPI 後美元反彈與美債殖利率急升。",
+        "reaction_zh": "12 月期金週五收 3,886.3（+1.0），一週跌約 4%；美元指數 103.38，2025 年 4 月以來最高",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-13-2026/"
+          },
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-10-2026/"
+          }
+        ]
+      },
+      {
+        "id": "N-20261113-01",
+        "date": "2026-11-13",
+        "category": "fed_macro",
+        "summary_zh": "10 月 PPI 月增 0.3%（預期 0.4%）；年增 6.5%（預期 6.6%），2022 年 11 月來最大。",
+        "reaction_zh": "2 年期殖利率 4.872%、一週 +35.2bp；10 年期 5.152%、一週 +29.4bp",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "BLS",
+            "url": "https://www.bls.gov/news.release/ppi.nr0.htm"
+          },
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-13-2026/"
+          },
+          {
+            "publisher": "Yahoo Finance",
+            "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-ppi-141451558.html"
+          }
+        ]
+      },
+      {
+        "id": "N-20261113-02",
+        "date": "2026-11-13",
+        "category": "us_equity_ai",
+        "summary_zh": "美股一週收高：S&P 500 +2.51%、Nasdaq +2.27%、道瓊 +2.07%。",
+        "reaction_zh": "週五 S&P 500 −0.40% 收 7,562、Nasdaq −0.91% 收 25,136",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "Investrade",
+            "url": "https://investrade.com/market-review-november-13-2026/"
+          }
+        ]
+      },
+      {
+        "id": "N-20261113-03",
+        "date": "2026-11-13",
+        "category": "taiwan",
+        "summary_zh": "台股一週漲 3,973 點（+10.01%）收 43,675.12；外資週賣超縮到 967.87 億元。",
+        "reaction_zh": "前一週外資賣超 5,243.76 億元；本週投信買超 1,118.95 億元、三大法人合計賣超 270.38 億元",
+        "confirmed": true,
+        "sources": [
+          {
+            "publisher": "臺灣證券交易所（市場成交資訊）",
+            "url": "https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?date=20261113&response=json"
+          },
+          {
+            "publisher": "臺灣證券交易所（三大法人週報 11/09–11/13）",
+            "url": "https://www.twse.com.tw/rwd/zh/fund/BFI82U?type=week&weekDate=20261109&response=json"
+          },
+          {
+            "publisher": "臺灣證券交易所（三大法人週報 11/02–11/06）",
+            "url": "https://www.twse.com.tw/rwd/zh/fund/BFI82U?type=week&weekDate=20261102&response=json"
+          }
+        ]
+      }
+    ],
+    "timeline_3m": [
+      {
+        "id": "N-20261029-02",
+        "date": "2026-10-29",
+        "category": "us_equity_ai",
+        "summary_zh": "Alphabet 財報不如預期、自由現金流轉負，股價跌約 12%；微軟雲端成長獲買盤。"
+      },
+      {
+        "id": "N-20261030-01",
+        "date": "2026-10-30",
+        "category": "gold",
+        "summary_zh": "金價跌破 3,900，2026 年新低，距 1 月高點約 −30%；白銀同日跌約 6%。"
+      },
+      {
+        "id": "N-20261030-02",
+        "date": "2026-10-30",
+        "category": "taiwan",
+        "summary_zh": "台股跌破半年線；外資 10 月賣超近 9,943 億元，單月紀錄。"
+      },
+      {
+        "id": "N-20261104-01",
+        "date": "2026-11-04",
+        "category": "fed_macro",
+        "summary_zh": "期中選舉民主黨拿下參眾兩院；川普表示接受結果，市場預期國會分治、舉債放緩。"
+      },
+      {
+        "id": "N-20261104-02",
+        "date": "2026-11-04",
+        "category": "geopolitics_oil",
+        "summary_zh": "市場押注選後較快達成美伊協議，油價戰爭溢價快速消退；協議本身尚未證實。"
+      },
+      {
+        "id": "N-20261105-01",
+        "date": "2026-11-05",
+        "category": "us_equity_ai",
+        "summary_zh": "AI 與晶片股重挫，市場擔心民主黨國會收緊 AI 規範、放慢資料中心審批。"
+      },
+      {
+        "id": "N-20261106-01",
+        "date": "2026-11-06",
+        "category": "fed_macro",
+        "summary_zh": "10 月非農就業增加 16.5 萬，遠高於預期約 6.5 萬；失業率降到 4.1%，12 月升息預期升溫。"
+      },
+      {
+        "id": "N-20261106-02",
+        "date": "2026-11-06",
+        "category": "taiwan",
+        "summary_zh": "台股跟著 AI 股連日重挫，外資連續賣超；11/6 盤中一度跌逾 3,700 點，史上最大盤中跌點。"
+      }
+    ],
+    "themes_6m": [
+      {
+        "id": "T-IRAN-OIL",
+        "title_zh": "伊朗衝突與油價",
+        "since": "2026-02-28",
+        "status_zh": "Brent 週收約 95.8、一週跌約 2.5%，連兩週收在 100 美元之下。",
+        "as_of": "2026-11-13"
+      },
+      {
+        "id": "T-FED-HIKE",
+        "title_zh": "Fed 重回升息與高殖利率",
+        "since": "2026-06-17",
+        "status_zh": "10 月 CPI 月增 0.4% 高於預期，Waller 提 12 月升 2 碼的可能；2 年期殖利率一週 +35bp。",
+        "as_of": "2026-11-13"
+      },
+      {
+        "id": "T-AI-CAPEX",
+        "title_zh": "AI 支出與回收疑慮",
+        "since": "2026-06-05",
+        "status_zh": "美股反彈、Nasdaq 週漲 2.3%；Nvidia 執行長黃仁勳辭職，股價一週約 −12%，11/17 財報。",
+        "as_of": "2026-11-13"
+      },
+      {
+        "id": "T-GOLD-DOWN",
+        "title_zh": "黃金從 1 月高點回落",
+        "since": "2026-01-29",
+        "status_zh": "CPI 後連跌三天、創 52 週新低，週收約 3,884、一週跌約 4.6%，距 1 月高點約 −31%。",
+        "as_of": "2026-11-13"
+      },
+      {
+        "id": "T-TW-OUTFLOW",
+        "title_zh": "外資賣台股、台幣走貶",
+        "since": "2026-10-06",
+        "status_zh": "台股一週漲 10%、收 43,675；外資賣超縮到約 968 億元，台幣週收約 32.94。",
+        "as_of": "2026-11-13"
+      }
+    ],
+    "weekly_change": [
+      {
+        "asset_zh": "黃金（COMEX 期貨）",
+        "symbol": "GC=F",
+        "close": 3886.3,
+        "close_date": "2026-11-13",
+        "change": -4.63,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "S&P 500",
+        "symbol": "^GSPC",
+        "close": 7561.6699,
+        "close_date": "2026-11-13",
+        "change": 2.51,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "Nasdaq",
+        "symbol": "^IXIC",
+        "close": 25136.2695,
+        "close_date": "2026-11-13",
+        "change": 2.27,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "加權指數",
+        "symbol": "^TWII",
+        "close": 43675.1211,
+        "close_date": "2026-11-13",
+        "change": 10.01,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "Brent 原油",
+        "symbol": "BZ=F",
+        "close": 95.84,
+        "close_date": "2026-11-13",
+        "change": -2.52,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "美 10 年期殖利率",
+        "symbol": "^TNX",
+        "close": 5.154,
+        "close_date": "2026-11-13",
+        "change": 29.5,
+        "unit": "bp"
+      },
+      {
+        "asset_zh": "美元指數",
+        "symbol": "DX-Y.NYB",
+        "close": 103.41,
+        "close_date": "2026-11-13",
+        "change": 1.09,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "美元／台幣",
+        "symbol": "TWD=X",
+        "close": 32.939,
+        "close_date": "2026-11-13",
+        "change": -0.51,
+        "unit": "pct"
+      },
+      {
+        "asset_zh": "VIX",
+        "symbol": "^VIX",
+        "close": 19.3,
+        "close_date": "2026-11-13",
+        "change": -24.73,
+        "unit": "pct"
+      }
+    ],
+    "weekly_change_provider": "Yahoo Finance 日收盤（yfinance）",
+    "sentiment": "risk_on",
+    "sentiment_zh": "偏風險：美股、台股上漲、VIX 回落；升息預期推高美元與殖利率",
+    "top_zh": [
+      "CPI 月增 0.4% 高於預期，Waller 提 12 月升 2 碼的可能；金價一週跌約 4.6%",
+      "Nvidia 執行長黃仁勳辭職、股價一週約 −12%；美股仍週漲約 2.5%",
+      "台股一週漲 10% 收 43,675；外資賣超由 5,244 億縮到 968 億元"
+    ]
+  },
+  "strategy_performance": {
+    "as_of": "2026-10-09",
+    "days_since_export": 36,
+    "rows": [
+      {
+        "name": "S1 V3.9",
+        "export_date": "2026-10-09",
+        "trades": 346,
+        "win_rate_pct": 53.47,
+        "net_return_pct": 61.04,
+        "profit_factor": 1.75,
+        "max_drawdown_pct": 4.67,
+        "sharpe": 3.05,
+        "ytd_year": 2026,
+        "ytd_pct": 22.46,
+        "gold_ytd_pct": -2.87,
+        "last_months": [
+          {
+            "month": "2026-08",
+            "pct": 0.0,
+            "gold_pct": 10.06
+          },
+          {
+            "month": "2026-09",
+            "pct": -0.1,
+            "gold_pct": -6.45
+          },
+          {
+            "month": "2026-10",
+            "pct": -1.57,
+            "gold_pct": 0.8
+          }
+        ]
+      },
+      {
+        "name": "S2 V3.2",
+        "export_date": "2026-10-09",
+        "trades": 130,
+        "win_rate_pct": 41.54,
+        "net_return_pct": 51.54,
+        "profit_factor": 1.67,
+        "max_drawdown_pct": 12.79,
+        "sharpe": 1.79,
+        "ytd_year": 2026,
+        "ytd_pct": 1.21,
+        "gold_ytd_pct": -2.87,
+        "last_months": [
+          {
+            "month": "2026-08",
+            "pct": 2.0,
+            "gold_pct": 10.06
+          },
+          {
+            "month": "2026-09",
+            "pct": -5.0,
+            "gold_pct": -6.45
+          },
+          {
+            "month": "2026-10",
+            "pct": -1.0,
+            "gold_pct": 0.8
+          }
+        ]
+      }
+    ],
+    "page_url": "https://tittanliao.github.io/trading-public/strategies/performance/",
+    "note_zh": "TradingView 回測匯出（固定部位、不複利）；只在重新匯出時更新，不是訊號。"
+  }
+}
