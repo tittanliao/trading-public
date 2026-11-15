@@ -5,7 +5,7 @@
   "title": "Gold around FOMC rate decisions (FX_IDC 30m, existing data 2024-2026): first 30m and 1h range multiple vs the same ET bars on nearby ordinary weekdays, 1h direction, and press-conference bar vs statement bar (pre-registered, amended twice before any result)",
   "market": "XAUUSD",
   "strategy": "none — gold around FOMC statements and press conferences",
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-11-04",
   "question": "In the first 30 minutes and first hour after an FOMC statement (14:00 ET), how much larger is gold's range than in the same ET bars on nearby ordinary weekdays; is the 1-hour move biased up or down; and is the press-conference bar (14:30-15:00 ET) larger than the statement bar (14:00-14:30 ET), beyond the normal difference between those two bars?",
   "hypothesis": "Pre-registered, two-sided tests. Expected directions: (P1) range multiple above 1 at 30m and 1h; (P2) no expected direction; (P3) no expected direction (common saying: the press conference moves gold more than the statement).",

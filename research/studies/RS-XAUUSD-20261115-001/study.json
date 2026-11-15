@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261115-001",
+  "revision": 1,
+  "title": "XAUUSD from the mid-December close to the last close before Lunar New Year — 18 daily windows 2009–2026 already seen (discovery) and 28 weekly windows 1981–2008 registered before computing (validation)",
+  "market": "XAUUSD",
+  "strategy": "none — descriptive calendar-window study on spot gold",
+  "status": "confirmed",
+  "created_on": "2026-11-15",
+  "question": "How often did XAUUSD close higher on the last trading day before Lunar New Year than at the close on (or last trading day before) 15 December, and by how much? Does the share seen on 2009–2026 daily data carry over to 1981–2008 weekly data, against holding for the same length from any start in the same years?",
+  "hypothesis": "Pre-registered and committed 2026-11-15 21:13:51 Asia/Taipei (82f29d5), before the runner was written. The daily 2009–2026 windows were already seen (14 of 18 up, EP06 v3 on 2026-11-05) and are discovery only. The 1981–2008 weekly windows have not been computed. No direction is assumed for them; gold fell for much of 1981–2001, so the baseline itself may sit below 50%.",
+  "headline": {
+    "discovery_years": "2009-2026",
+    "discovery_n": 18,
+    "discovery_up": 14,
+    "discovery_share_up_pct": 77.778,
+    "discovery_share_up_wilson95_pct": [
+      54.785,
+      90.999
+    ],
+    "discovery_median_pct": 4.965,
+    "discovery_baseline_hold_trading_days": 35,
+    "discovery_baseline_share_up_pct": 56.478,
+    "validation_years": "1981-2008",
+    "validation_n": 28,
+    "validation_up": 13,
+    "validation_share_up_pct": 46.429,
+    "validation_share_up_wilson95_pct": [
+      29.532,
+      64.187
+    ],
+    "validation_median_pct": -0.27,
+    "validation_baseline_hold_weeks": 7,
+    "validation_baseline_share_up_pct": 48.335,
+    "validation_verdict": "沒有延續",
+    "weekly_rule_same_sign_years_2009_2026": 17,
+    "data_version_sign_changes": 0
+  },
+  "card_metrics": [
+    "discovery_up",
+    "discovery_n",
+    "discovery_baseline_share_up_pct",
+    "validation_up",
+    "validation_n",
+    "validation_baseline_share_up_pct",
+    "validation_verdict"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "2009–2026: 14 of 18 windows up (77.8%), median +4.96% — seen before registration, so not a test",
+      "detail": "Daily bars, buy the close on or before 15 December, sell the last close before Lunar New Year; 35 trading days in the middle window. Median +4.96% (25th–75th percentile +0.33% to +6.91%). Wilson 95% 54.8–91.0%. Holding any 35 trading days from any start in 2008-12 to 2026-02 was up 56.5% of the time (median +0.91%); the interval contains that baseline, so even read as a test it would be 分不出. Down years: 2010, 2011, 2013, 2021. Registered 1-December start: 12 of 18 up (Wilson 43.7–83.7%), median +1.25%; the 14 depends on the start date.",
+      "title_zh": "2009–2026 年：18 次裡 14 次漲（77.8%），中位數 +4.96%；登記前已經看過，不是檢驗",
+      "detail_zh": "日線，12 月 15 日（遇假日用前一個交易日）收盤買、春節前最後一個交易日收盤賣；每段長度的中位數是 35 個交易日。中位數 +4.96%（25–75 分位 +0.33% 到 +6.91%）。Wilson 95% 區間 54.8–91.0%。同一段期間（2008-12 到 2026-02）任一天起抱 35 個交易日，56.5% 是漲的（中位數 +0.91%），落在區間內，所以就算當檢驗也分不出來。跌的年份：2010、2011、2013、2021。事先登記的另一個起點（12 月 1 日收盤買）：18 次漲 12 次（66.7%，Wilson 43.7–83.7%），中位數 +1.25%，跌的年份變成 2010、2011、2012、2013、2014、2024；14 次這個數字會隨起點變動。"
+    },
+    {
+      "tone": "warn",
+      "title": "Registered check, 1981–2008: 13 of 28 up (46.4%) against 48.3% for any 7 weeks — did not carry over",
+      "detail": "Weekly bars (each end up to four trading days from the daily rule), computed for the first time after the registration commit. Wilson 95% 29.5–64.2%; median -0.27% against -0.19% for any 7 weeks. By decade (descriptive, not a conclusion): 1981-1990 4 of 10 (Wilson 16.8–68.7%); 1991-2000 4 of 10 (Wilson 16.8–68.7%); 2001-2008 5 of 8 (Wilson 30.6–86.3%). Starting on 1 December instead: 14 of 28 (Wilson 32.6–67.4%).",
+      "title_zh": "事先登記的檢驗 1981–2008 年：28 次裡 13 次漲（46.4%），同期任意抱 7 週是 48.3%：沒有延續",
+      "detail_zh": "週線（每一端最多跟日線規則差四個交易日），登記提交之後才第一次算。Wilson 95% 區間 29.5–64.2%；中位數 -0.27%，同期任意 7 週是 -0.19%。分三個年代（只是描述，不能當結論）：1981-1990 年 10 次漲 4 次（16.8–68.7%）；1991-2000 年 10 次漲 4 次（16.8–68.7%）；2001-2008 年 8 次漲 5 次（30.6–86.3%）。改從 12 月 1 日起算：28 次漲 14 次（32.6–67.4%）。「沒有延續」是說沒有比同期任意抱 7 週好，不是說比較差（46.4% 對 48.3%）。"
+    },
+    {
+      "tone": "info",
+      "title": "Downside: 5 of 18 windows fell more than 3% below the start on the way (Wilson 12.5–50.9%; deepest -5.43%, 2010); 9 of 28 in 1981–2008 (Wilson 17.9–50.7%)",
+      "detail": "Worst window 2009–2026 -3.12% (2011); 1981–2008 -10.32% (1988), deepest weekly-close dip -11.34% (1988). Dip = lowest close after the start up to the end, against the start close.",
+      "title_zh": "壞的一面：2009–2026 年 18 次裡 5 次中途跌破起點 3% 以上（12.5–50.9%；最深 -5.43%，2010 年）；1981–2008 年 28 次裡 9 次（17.9–50.7%）",
+      "detail_zh": "最差的一段：2009–2026 年 -3.12%（2011 年）；1981–2008 年 -10.32%（1988 年），週收盤最深回落 -11.34%（1988 年）。中途回落＝起點之後到終點之間最低的收盤，相對起點收盤。"
+    },
+    {
+      "tone": "info",
+      "title": "Both parts of the window: 12 of 18 up from mid-December to year end and 12 of 18 from year end to the holiday (2009–2026); 16 and 14 of 28 in 1981–2008",
+      "detail": "Medians 2009–2026 +2.14% and +2.81%; 1981–2008 +0.39% and -0.08%. The second part is mostly January, which the month study RS-MULTI-20260901-001 already covers. Wilson 95%: 2009–2026 43.7–83.7% and 43.7–83.7%; 1981–2008 39.1–73.5% and 32.6–67.4%. Each period's interval contains the other's share: the two periods cannot be separated on either part.",
+      "title_zh": "拆成兩段：2009–2026 年 12 月中到年底 18 次漲 12 次、年底到春節前 18 次漲 12 次；1981–2008 年 28 次分別漲 16、14 次",
+      "detail_zh": "中位數：2009–2026 年 +2.14%、+2.81%；1981–2008 年 +0.39%、-0.08%。後段大多是一月，月份研究 RS-MULTI-20260901-001 已經涵蓋。區間：2009–2026 年 43.7–83.7%、43.7–83.7%；1981–2008 年 39.1–73.5%、32.6–67.4%；各自的區間都包含對方的比例，兩個時期在兩段上都分不出。"
+    },
+    {
+      "tone": "info",
+      "title": "Data checks: provider revisions and the TradingView FX_IDC feed change the sign of no window they can be checked on (FX_IDC covers 13 of 46; no second source for weekly bars before 2013); the weekly rule disagrees with the daily rule in 1 of 18 years",
+      "detail": "Daily snapshot vs the earlier fetch: 18 windows, same signs, mean difference 0.02 points. Against FX_IDC 2014–2026: 13 windows, same signs, mean 0.13, largest 1.10 (2026). Weekly versions: identical on every validation bar. Weekly rule on 2009–2026: 13 of 18 up against 14 daily, sign differs in 2012, mean difference 1.47 points.",
+      "title_zh": "資料檢查：資料商改舊資料、換成 TradingView 資料，在查得到的段落都沒有改變漲跌（TradingView 只能對 2014–2026 的 13 段；2013 年前的週線沒有第二來源）；週線規則跟日線規則 18 年裡 1 年方向不同",
+      "detail_zh": "日線新舊兩版：18 段漲跌全同，報酬平均差 0.02 個百分點。對 TradingView FX_IDC（2014–2026）：13 段漲跌全同，平均差 0.13、最大 1.10（2026 年）。週線新舊兩版：驗證用到的每一根都一樣。週線規則套在 2009–2026：18 次漲 13 次（日線 14 次），2012 年方向不同，平均差 1.47 個百分點。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Gold from the mid-December close to the last close before Lunar New Year: 2009–2026 daily 14 of 18 up (77.8%, Wilson 54.8–91.0%; seen before registration; any-35-day baseline 56.5%); registered 1981–2008 weekly check 13 of 28 up (46.4%, Wilson 29.5–64.2%) against 48.3% for any 7 weeks — did not carry over.",
+  "title_zh": "黃金 12 月中收盤買、抱到春節前：2009–2026 年 18 次漲 14 次（登記前已看過）；事先登記的 1981–2008 年檢驗 28 次漲 13 次，沒有延續",
+  "question_zh": "前一年 12 月 15 日收盤（遇假日用前一個交易日）買黃金、春節前最後一個交易日收盤賣，漲的比例和幅度是多少？2009–2026 年日線看到的比例，在 1981–2008 年週線上有沒有延續？跟同一段期間任一天起抱同樣長度比起來如何？",
+  "hypothesis_zh": "2026-11-15 21:13:51（台北）登記並提交 82f29d5，之後才寫程式。2009–2026 年日線 18 段在 2026-11-05 已經被 EP06 影片稿算過（14 次漲），只當發現；1981–2008 年週線 28 段還沒有人算過，是檢驗。不預設方向；1981–2001 年黃金多半在跌，基準本身可能低於五成。",
+  "card_summary_zh": "12 月 15 日收盤到春節前最後一個交易日：2009–2026 年日線 18 次漲 14 次（77.8%，Wilson 54.8–91.0%；登記前已看過，不是檢驗），中位數 +4.96%（25–75 分位 +0.33% 到 +6.91%）；同期任一天起抱 35 個交易日 56.5% 漲。事先登記的 1981–2008 年週線檢驗 28 次漲 13 次（46.4%，29.5–64.2%），同期任意 7 週 48.3% 漲：沒有延續。",
+  "limitations_zh": [
+    "2009–2026 這 18 段在登記前已經被影片稿算過，只能當發現；當時有沒有試過別的起點，沒有紀錄。",
+    "驗證用週線：每一端最多跟日線規則差四個交易日；2009–2026 用週線重算，18 年裡 1 年方向不同。",
+    "資料商兩次抓取之間改過舊資料（週線最多 9.3%、日線最多 1.8%）；本研究用到的段落漲跌都沒變。",
+    "2013 年以前的週收盤沒有第二個獨立來源可以對；TradingView 對照只涵蓋 2014–2026 日線。",
+    "登記時已知月份研究的週線一月（1981–2026 合併，n=46，60.9% 漲）比日線 2009–2026（n=18，66.7%）數字低，沒有檢驗差別；這和本研究的後段重疊。",
+    "基準（同期任一天起抱同樣長度）彼此重疊，沒有區間；判定是拿一個區間和一個數字比。",
+    "這是描述性研究：一段日曆期間不是原因、不是訊號、也不是預測。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是買賣訊號。2009–2026 年 18 次漲 14 次是真的紀錄，但它是登記前就看過的那一段，而且區間（54.8–91.0%）包含同期任一天起抱 35 個交易日的 56.5%，分不出來；往前到 1981–2008 年，事先登記的 28 次只有 13 次漲，同期任意抱 7 週是 48.3%，判定為沒有延續。研究沒有檢驗原因，不說這段期間為什麼好或不好。「沒有延續」是說沒有比同期任意抱 7 週好，不是說比較差（46.4% 對 48.3% 分不出）。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "discovery_up",
+        "discovery_n",
+        "discovery_share_up_pct",
+        "discovery_baseline_share_up_pct",
+        "validation_up",
+        "validation_n",
+        "validation_share_up_pct",
+        "validation_baseline_share_up_pct",
+        "validation_verdict"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "metric_table",
+      "source": "discovery.baseline",
+      "title": "發現（2009–2026）的基準：2008-12 到 2026-02 任一天起抱 35 個交易日",
+      "keys": [
+        "hold_bars",
+        "start_bars",
+        "share_up_pct",
+        "median_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "validation.baseline",
+      "title": "驗證（1981–2008）的基準：同期任一週起抱 7 週",
+      "keys": [
+        "hold_bars",
+        "start_bars",
+        "share_up_pct",
+        "median_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "discovery.windows",
+      "title": "發現：2009–2026 年日線每一段（登記前已看過）",
+      "columns": [
+        "year",
+        "lunar_new_year",
+        "start_close_date",
+        "start_close",
+        "end_close_date",
+        "end_close",
+        "return_pct",
+        "length_bars",
+        "dip_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "validation.windows",
+      "title": "驗證：1981–2008 年週線每一段（登記後才算；起點、終點是那一週的週五）",
+      "columns": [
+        "year",
+        "lunar_new_year",
+        "start_close_date",
+        "start_close",
+        "end_close_date",
+        "end_close",
+        "return_pct",
+        "length_bars",
+        "dip_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "next_window",
+      "title": "下一段（只有日期，不預測）",
+      "keys": [
+        "start_date",
+        "start_weekday",
+        "lunar_new_year",
+        "lunar_new_year_weekday",
+        "end_rule"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

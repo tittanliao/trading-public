@@ -1,0 +1,42 @@
+{
+  "study_id": "RS-XAUUSD-20261115-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/price_1d_xauusd.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "bef47ff673c07b4a447d2eb557842a7bdb5d9a1dbdc201e00a1a2473e84b021f",
+      "size_bytes": 325103,
+      "role": "price_1d_xauusd"
+    },
+    "local-inputs/price_1wk_xauusd.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "e75d8f807a0d48daeaad9fe93e2243cec74df6a84876b5503009016e3d19a999",
+      "size_bytes": 174390,
+      "role": "price_1wk_xauusd"
+    },
+    "local-inputs/price_1d_xauusd_v38dea7b.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "a3b4b6e5a925162cabd189c46599e7eecbcf941e3e3ab9fc53a56ecd66270cdd",
+      "size_bytes": 314864,
+      "role": "price_1d_xauusd_v38dea7b"
+    },
+    "local-inputs/price_1wk_xauusd_v38dea7b.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "d7c260504e74f71625e3a18e9bb9687c549e95e4de798cc50eb5ee8efc9dc62f",
+      "size_bytes": 173726,
+      "role": "price_1wk_xauusd_v38dea7b"
+    },
+    "local-inputs/price_1d_fxidc_frozen.csv": {
+      "original_filename": "FX_IDC_XAUUSD_1D.csv",
+      "sha256": "4e2d2105732d715755f401b46e00f1682bef6e3f64e7a6194fc02bbf73377797",
+      "size_bytes": 142367,
+      "role": "price_1d_fxidc_frozen"
+    },
+    "local-inputs/calendar_lunar_new_year.csv": {
+      "original_filename": "lunar_new_year_hko_1981-2027.csv",
+      "sha256": "d1c442c7e1eac4460f390220a90306874df5eb9c07dc584cdbf976b718844245",
+      "size_bytes": 8220,
+      "role": "calendar_lunar_new_year"
+    }
+  }
+}

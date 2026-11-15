@@ -5,7 +5,7 @@
   "title": "Does gold fall with US stock crashes? 207 days with the S&P 500 down 2% or more, 2008-2026: gold's same-day return is not distinguishable from ordinary days, and VIX-jump crash days are not distinguishable from the other crash days (pre-registered)",
   "market": "XAUUSD",
   "strategy": "none — gold around S&P 500 single-day crashes",
-  "status": "progress",
+  "status": "confirmed",
   "created_on": "2026-11-04",
   "question": "When the S&P 500 falls 2% or more in one day, how does gold move that day, the next day, and over 5 and 20 days, compared with ordinary days; and do crash days on which VIX jumps 20% or more differ from the other crash days?",
   "hypothesis": "Pre-registered, two-sided tests. Expected directions: (P1) gold's same-day return on crash days is below its mean on non-crash days; (P2) VIX-jump crash days are below other crash days.",
