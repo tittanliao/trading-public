@@ -1,0 +1,48 @@
+{
+  "study_id": "RS-XAUUSD-20261116-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/price_1d_xauusd.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "bef47ff673c07b4a447d2eb557842a7bdb5d9a1dbdc201e00a1a2473e84b021f",
+      "size_bytes": 325103,
+      "role": "price_1d_xauusd"
+    },
+    "local-inputs/price_1wk_xauusd.csv": {
+      "original_filename": "XAUUSD_1wk.csv",
+      "sha256": "e75d8f807a0d48daeaad9fe93e2243cec74df6a84876b5503009016e3d19a999",
+      "size_bytes": 174390,
+      "role": "price_1wk_xauusd"
+    },
+    "local-inputs/price_1d_xauusd_v38dea7b.csv": {
+      "original_filename": "XAUUSD_1d.csv",
+      "sha256": "a3b4b6e5a925162cabd189c46599e7eecbcf941e3e3ab9fc53a56ecd66270cdd",
+      "size_bytes": 314864,
+      "role": "price_1d_xauusd_v38dea7b"
+    },
+    "local-inputs/price_1d_fxidc_frozen.csv": {
+      "original_filename": "FX_IDC_XAUUSD_1D.csv",
+      "sha256": "4e2d2105732d715755f401b46e00f1682bef6e3f64e7a6194fc02bbf73377797",
+      "size_bytes": 142367,
+      "role": "price_1d_fxidc_frozen"
+    },
+    "local-inputs/calendar_lunar_new_year.csv": {
+      "original_filename": "lunar_new_year_hko_1981-2027.csv",
+      "sha256": "d1c442c7e1eac4460f390220a90306874df5eb9c07dc584cdbf976b718844245",
+      "size_bytes": 8220,
+      "role": "calendar_lunar_new_year"
+    },
+    "local-inputs/published_results_rs_xauusd_20261115_001.csv": {
+      "original_filename": "results.json",
+      "sha256": "ebcb548c4b0fb996b01b151b4cc5543f4f4e452e515771651f7bcb7e8681da03",
+      "size_bytes": 52758,
+      "role": "published_results_rs_xauusd_20261115_001"
+    },
+    "local-inputs/bot_gold_passbook_twd.csv": {
+      "original_filename": "bot_gold_passbook_twd_2025-11-17_2026-11-16.csv",
+      "sha256": "c96d8f33ac55a338d8ddde15c76bae048aea96126eb085a0f0547581d30e8b75",
+      "size_bytes": 5149,
+      "role": "bot_gold_passbook_twd"
+    }
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "schema_version": 1,
+  "id": "RS-XAUUSD-20261116-001",
+  "revision": 1,
+  "title": "XAUUSD calendar windows by start and exit: 6 starts (1 October to 15 December) × 5 exits (before Lunar New Year to end of March), daily 2009–2026 and weekly 1981–2008, with 1×/2×/10× and the Bank of Taiwan passbook spread (pre-registered)",
+  "market": "XAUUSD",
+  "strategy": "none — descriptive calendar-window study on spot gold",
+  "status": "confirmed",
+  "created_on": "2026-11-16",
+  "question": "For gold bought at the close on (or before) 1 Oct, 15 Oct, 1 Nov, 15 Nov, 1 Dec or 15 Dec and sold at the last close before Lunar New Year, the 5th or 10th trading day after it, or the last close of February or March: how often was it up, and what were the best, median, worst result and the deepest dip on the way, on daily 2009–2026 and weekly 1981–2008? What do 2× and 10× and the passbook spread do to the mid-December cells?",
+  "hypothesis": "None about any cell: descriptive grid, pre-registered before any of the 24 new cells per sample was computed (registered and committed 2026-11-16 13:44:27 Asia/Taipei, commit c2d37f5, before the runner was written). The (12-15, before LNY) and (12-01, before LNY) cells are already published in RS-XAUUSD-20261115-001 and serve as the control; month-level statistics of October–March were known from RS-MULTI-20260901-001.",
+  "headline": {
+    "pooled_dec15_before_lny_up": 27,
+    "pooled_n": 46,
+    "pooled_dec15_before_lny_share_up_pct": 58.696,
+    "pooled_dec15_before_lny_share_up_wilson95_pct": [
+      44.339,
+      71.711
+    ],
+    "pooled_dec15_before_lny_median_pct": 1.3807290582292464,
+    "daily_dec15_before_lny_up": 14,
+    "daily_n": 18,
+    "daily_dec15_before_lny_median_pct": 4.964866821668945,
+    "weekly_dec15_before_lny_up": 13,
+    "weekly_n": 28,
+    "weekly_dec15_before_lny_median_pct": -0.2698636927392861,
+    "daily_grid_up_range": [
+      10,
+      15
+    ],
+    "daily_grid_median_range_pct": [
+      1.2538587365418796,
+      7.413189092232675
+    ],
+    "weekly_grid_up_range": [
+      11,
+      15
+    ],
+    "weekly_grid_median_range_pct": [
+      -2.4852388138663195,
+      0.8791991834421475
+    ],
+    "spearman_medians": -0.14616240266963293,
+    "spearman_share_up": -0.14111048234218437,
+    "daily_dec15_mar_end_up": 14,
+    "daily_dec15_mar_end_median_pct": 6.361508321982989,
+    "x10_daily_dec15_before_lny_half_margin_years": [
+      2010
+    ],
+    "x10_daily_dec15_mar_end_half_margin_years": [
+      2010,
+      2013,
+      2021
+    ],
+    "x10_weekly_dec15_before_lny_margin_gone_years": [
+      1988
+    ],
+    "x10_weekly_dec15_mar_end_margin_gone_years": [
+      1981,
+      1982,
+      1985,
+      1988,
+      1989,
+      1990
+    ],
+    "passbook_spread_pct": 1.1132623426911903,
+    "daily_dec15_before_lny_net_median_pct": 3.796332486287346,
+    "daily_dec15_before_lny_net_up": 11,
+    "controls_all_pass": true
+  },
+  "card_metrics": [
+    "pooled_dec15_before_lny_up",
+    "pooled_n",
+    "pooled_dec15_before_lny_share_up_wilson95_pct",
+    "daily_grid_up_range",
+    "weekly_grid_up_range",
+    "spearman_medians"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "46 winters, 15 December to the last close before Lunar New Year: 27 up (58.7%, Wilson 44.3–71.7%), median +1.38%",
+      "detail": "Daily 2009–2026 14 of 18 (median +4.96%) and weekly 1981–2008 13 of 28 (median −0.27%), the published RS-XAUUSD-20261115-001 cell reproduced exactly (every per-year return within 1e-9 points). Best +16.03% (2026), worst −10.32% (1988), deepest dip on the way −11.34% (1988). Pooled mixes daily and weekly windows.",
+      "title_zh": "46 個冬天、12 月 15 日到春節前最後一個交易日：27 次漲（58.7%，Wilson 44.3–71.7%），中位數 +1.38%",
+      "detail_zh": "日線 2009–2026 年 18 次漲 14 次（中位數 +4.96%）、週線 1981–2008 年 28 次漲 13 次（中位數 −0.27%），和已發布研究 RS-XAUUSD-20261115-001 逐年一致（每年報酬差在 1e-9 個百分點內）。最好 +16.03%（2026 年）、最差 −10.32%（1988 年）、中途最深 −11.34%（1988 年）。46 次是日線和週線合在一起。"
+    },
+    {
+      "tone": "info",
+      "title": "2009–2026, all 30 start × exit cells: 10 to 15 of 18 up, every median positive (+1.25% to +7.41%); 1981–2008: 11 to 15 of 28 up, medians −2.49% to +0.88%",
+      "detail": "Longer holds have wider best and worst results and deeper dips by construction (for the same start a later exit can only keep or deepen the dip); this is not a seasonal finding and is not monotone across cells (before LNY, daily 2009–2026: worst −4.71% from 10-15, −8.71% from 12-01). The deepest dips from 1 and 15 October (−18.25%, −16.16%) are one episode, window 2009 (October 2008); the weekly −33.12% is the 1981 window. In 2009–2026 holding any stretch of the same length was up 56–68% of the time (per-cell baseline); with 18 windows per cell (about ±18 points) the study cannot split a cell's share between the period's rise and the season. 12-15 × before LNY: in 2009–2026 two cells have a higher share up and nine the same; in 1981–2008 nine are higher.",
+      "title_zh": "2009–2026 年 30 格全部列出：每格 18 次漲 10 到 15 次，中位數全部是正的（+1.25% 到 +7.41%）；1981–2008 年每格 28 次漲 11 到 15 次，中位數 −2.49% 到 +0.88%",
+      "detail_zh": "抱得越久，最好、最差和中途最深本來就比較大（同一個起點抱更久，中途最深只會一樣或更深），這是算法本身，不是季節的發現，格與格之間也不是一路單調（春節前出場，日線 2009–2026 年：10/15 起最差 −4.71%、12/1 起 −8.71%）。10/1、10/15 起日線最深 −18.25%、−16.16% 都是同一次：2009 年那段（2008 年 10 月崩跌）；週線最深 −33.12% 是 1981 年那一段。這 18 年金價本來就在漲：同一段期間隨便哪天買、抱一樣久，也有 56–68% 是漲的。每格只有 18 次（區間大約正負 18 個百分點），季節和大趨勢各占多少分不出來。12/15 × 春節前：2009–2026 年比它漲得更常的有 2 格、一樣的有 9 格；1981–2008 年比它高的有 9 格。"
+    },
+    {
+      "tone": "warn",
+      "title": "The ordering of cells did not carry over: Spearman of the 30 medians between the two periods −0.15, of the shares up −0.14",
+      "detail": "The 2009–2026 top cells by share up (12-15 → 10th trading day after LNY and → end of February, 15 of 18) were 12 and 14 of 28 in 1981–2008; the top median (10-01 → end of March, +7.41%) was −1.79% there. The study does not pick a best cell.",
+      "title_zh": "格子的排名沒有延續：兩段時期 30 格中位數的排名相關 −0.15、漲的比例 −0.14",
+      "detail_zh": "2009–2026 年漲得最常的兩格（12/15 → 春節後第 10 個交易日、→ 2 月底，18 次漲 15 次），在 1981–2008 年是 28 次漲 12 次、14 次；中位數最高的一格（10/1 → 3 月底，+7.41%）在 1981–2008 年是 −1.79%。本研究不挑最好的一格。"
+    },
+    {
+      "tone": "warn",
+      "title": "10× on closes only: 12-15 → before LNY loses half the margin in 1 of 18 years (2010, −54.3%) and 6 of 28 in 1981–2008 (Friday closes only), all of it in 1988 (−113%); 12-15 → end of March loses half the margin in 3 of 18 (deepest −92.9%, 2021) and in 10 of 28 in 1981–2008 (Friday closes only), all of it in 6 of those 28",
+      "detail": "Full notional 10× the money put up, closes only (intraday lows are deeper), no interest, fees or spread. 1981 on the before-LNY cell reaches −99.96% of the margin on a weekly close (weekly closes only; it may well have been wiped out between Fridays). 2× is 2 × the gold move: 2009–2026 median +9.93% and deepest −10.86% before LNY; it is not a 2× leveraged ETF's NAV (daily rebalancing, fees, futures, TWD).",
+      "title_zh": "10 倍（只看收盤）：12/15 → 春節前，2009–2026 年 18 年裡 1 年中途虧掉保證金一半以上（2010 年，−54.3%），1981–2008 年（只看週五收盤）28 年裡 6 年，1988 年虧光（−113%）；12/15 → 3 月底，2009–2026 年 3 年過半（最深 −92.9%，2021 年），1981–2008 年（只看週五收盤）28 年裡 10 年過半、其中 6 年虧光",
+      "detail_zh": "假設全額 10 倍、只看收盤（盤中最低更深，實際斷頭更早）、不含利息手續費價差。春節前那一格的 1981 年，週收盤已經虧到保證金的 −99.96%（週線看不到週中，實際可能已經虧光）。2 倍＝金價漲跌 × 2：2009–2026 年春節前中位數 +9.93%、中途最深 −10.86%；不是正二的真實淨值（每日再平衡、管理費、期貨、台幣匯率）。"
+    },
+    {
+      "tone": "info",
+      "title": "Bank of Taiwan passbook, one buy and one sell: 1.11% (2026-11-16; 1.05–1.12% over the past year); 12-15 → before LNY median +4.96% becomes +3.80%, and 14 of 18 up becomes 11",
+      "detail": "Net = (1 + r)(1 − s) − 1 with the 2026-11-16 ratio at both ends; XAUUSD stands in for the TWD gold price (USD/TWD ignored). Turned to losses: 2014, 2022, 2024. 1981–2008 median −0.27% → −1.38%; pooled 46 +1.38% → +0.25% (27 → 23 up).",
+      "title_zh": "台灣銀行黃金存摺一買一賣差 1.11%（2026-11-16；過去一年 1.05–1.12%）；12/15 → 春節前中位數 +4.96% 變 +3.80%，18 次漲 14 次變 11 次",
+      "detail_zh": "扣價差＝(1＋報酬)×(1−價差)−1，兩端都用 2026-11-16 的買賣比例；用 XAUUSD 代替台幣金價（美元兌台幣沒算）。由漲變跌：2014、2022、2024 年。1981–2008 年中位數 −0.27% 變 −1.38%；46 個冬天 +1.38% 變 +0.25%（漲 27 次變 23 次）。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Gold by start (1 Oct–15 Dec) and exit (before Lunar New Year–end of March): 46 winters from 15 December to before LNY, 27 up (Wilson 44.3–71.7%); 2009–2026 every cell 10–15 of 18 up, 1981–2008 11–15 of 28; the ordering of cells did not carry over (Spearman −0.15).",
+  "title_zh": "黃金起點 × 出場：10/1 到 12/15 六個起點、春節前到 3 月底五個出場；2009–2026 年日線與 1981–2008 年週線，加 1／2／10 倍與台銀黃金存摺價差（事先登記）",
+  "question_zh": "前一年 10/1、10/15、11/1、11/15、12/1、12/15 收盤（遇假日用前一個交易日）買黃金，在春節前最後一個交易日、春節後第 5、第 10 個交易日、2 月最後一個交易日或 3 月最後一個交易日收盤賣：2009–2026 年日線和 1981–2008 年週線，各漲幾次，最好、中位數、最差和中途最深是多少？12 月中起點放大 2 倍、10 倍和扣掉黃金存摺價差後又是多少？",
+  "hypothesis_zh": "任何一格都沒有假說：這是描述，2026-11-16 13:44:27（台北）登記並提交 c2d37f5，之後才寫程式；每個樣本 30 格裡有 24 格，就 EP06 和研究檔案所見，登記前沒有算過。12/15、12/1 × 春節前兩格已在 RS-XAUUSD-20261115-001 發布，當對照用；10 月到 3 月各月份的統計已從 RS-MULTI-20260901-001 知道。",
+  "card_summary_zh": "黃金起點（10/1 到 12/15）× 出場（春節前到 3 月底）：12/15 到春節前 46 個冬天漲 27 次（58.7%，Wilson 44.3–71.7%）；2009–2026 年每格 18 次漲 10 到 15 次、1981–2008 年每格 28 次漲 11 到 15 次；兩段時期格子的排名沒有延續（中位數排名相關 −0.15）。",
+  "limitations_zh": [
+    "只是描述：30 格之間不做檢定；各格共用同一批年份、天數重疊，看起來最好的一格有一部分是運氣，不是建議。",
+    "12/15、12/1 × 春節前兩格在登記前已發布；10 月到 3 月各月份的統計在登記前已從月份研究 RS-MULTI-20260901-001 知道。",
+    "1981–2008 用週收盤：每一端最多比日線規則早 4 個交易日，週與週之間的低點看不到。週線規則套在 2009–2026 年：540 段裡 32 段漲跌和日線規則不同，報酬差平均 1.28、最大 10.46 個百分點，每格漲的次數差 −2 到 +2 次（weekly_rule_check_2009_2026），所以前 28 年任何一格中位數的正負號不能讀。",
+    "事後補算、不能當結論：2009–2026 年只有 2 格（12/15 → 春節後第 10 個交易日、→ 2 月底）的 Wilson 下緣高過自己的基準（60.8% 對 57.8%、59.7%），30 格彼此重疊、沒有做多重比較校正；1981–2008 年沒有一格高過（post_hoc_baseline_check）。",
+    "46 個冬天是日線 18 段和週線 28 段合在一起。",
+    "放大倍數只是收盤到收盤乘 k：沒有盤中低點、利息、手續費、價差；2 倍不是正二的淨值。",
+    "黃金存摺價差只用一天的台銀牌價、兩端相同，並用 XAUUSD 代替台幣金價（沒算匯率）；一年牌價是從網頁轉成文字抄錄，不是原始檔。",
+    "季節性的公開說法講的是實體需求，不是價格研究；本研究沒有檢驗原因。",
+    "2013 年以前的週收盤沒有第二個獨立來源可以對。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是買賣訊號。46 個冬天裡 12/15 到春節前漲 27 次是真的紀錄，但區間 44.3–71.7% 包含五成；2009–2026 年每一格都多半是漲的，但這 18 年金價本來就在漲：同一段期間隨便哪天買、抱一樣久，也有 56–68% 是漲的；每格只有 18 次（區間大約正負 18 個百分點），季節和大趨勢各占多少分不出來。1981–2008 年每一格 28 次漲 11 到 15 次，四成到五成多，每一格的區間都包含五成。哪一格在近 18 年最好，在前 28 年並不最好，所以本研究不挑一格當答案。研究沒有檢驗原因；實體需求的說法只是市場常見的說法。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "pooled_dec15_before_lny_up",
+        "pooled_n",
+        "pooled_dec15_before_lny_share_up_pct",
+        "pooled_dec15_before_lny_share_up_wilson95_pct",
+        "pooled_dec15_before_lny_median_pct",
+        "daily_grid_up_range",
+        "weekly_grid_up_range",
+        "spearman_medians",
+        "spearman_share_up",
+        "passbook_spread_pct",
+        "daily_dec15_before_lny_net_median_pct",
+        "daily_dec15_before_lny_net_up",
+        "controls_all_pass"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "controls",
+      "title": "對照：已發布研究 RS-XAUUSD-20261115-001 的兩格必須逐年重現，過了才讀其他格",
+      "takeaway_zh": "12/15 × 春節前：日線和週線每一年的報酬與日期，都要和已發布的結果一致（差距在 1e-9 個百分點內）；12/1 × 春節前：漲的次數和中位數要一致；12/15 × 春節前 46 個冬天合併要是 27 次漲。任何一項不過，研究就停下來、不讀其他格。結果全部通過。",
+      "columns": [
+        "n",
+        "up",
+        "published_up",
+        "max_abs_diff_pct_points",
+        "same_dates",
+        "pass"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.10-01",
+      "title": "日線 2009–2026（18 個冬天）：10/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ],
+      "takeaway_zh": "每一列是一個出場：before lny＝春節前最後一個交易日；lny plus 5、lny plus 10＝春節後第 5、第 10 個交易日；feb end、mar end＝2 月、3 月最後一個交易日。起點用該日（遇假日用前一個交易日）的收盤。up＝漲的年數；share up %＝漲的比例，後面是 Wilson 95% 區間；best、worst、deepest dip 是這 18 個年份裡最好、最差、中途收盤最深的報酬，後面的 year 是發生那一年；baseline share up % 是同一段期間隨便哪天買、抱一樣久，漲的比例（描述，不是檢定）。30 格全部列出，沒有挑格，格與格之間也沒有做比較檢定。"
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.10-15",
+      "title": "日線 2009–2026（18 個冬天）：10/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.11-01",
+      "title": "日線 2009–2026（18 個冬天）：11/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.11-15",
+      "title": "日線 2009–2026（18 個冬天）：11/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.12-01",
+      "title": "日線 2009–2026（18 個冬天）：12/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.daily_2009_2026.12-15",
+      "title": "日線 2009–2026（18 個冬天）：12/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.10-01",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：10/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ],
+      "takeaway_zh": "1981–2008 年只有週線：起點和出場都是那一週的週五收盤，週與週之間的低點看不到，出場日最多比日線規則早 4 個交易日。欄位意義同上；每格 28 個冬天。這 30 格同樣只是描述。"
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.10-15",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：10/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.11-01",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：11/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.11-15",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：11/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.12-01",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：12/1 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "grid.weekly_1981_2008.12-15",
+      "title": "週線 1981–2008（28 個冬天，只看週五收盤）：12/15 起買，五個出場",
+      "columns": [
+        "summary.n",
+        "summary.up",
+        "summary.share_up_pct",
+        "summary.share_up_wilson95_pct",
+        "summary.median_pct",
+        "summary.best_pct",
+        "summary.best_year",
+        "summary.worst_pct",
+        "summary.worst_year",
+        "summary.deepest_dip_pct",
+        "summary.deepest_dip_year",
+        "baseline.share_up_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "leverage.12-15|before_lny.daily_2009_2026",
+      "title": "放大倍數 1／2／10 倍：12/15 起買 → 春節前最後一個交易日，日線 2009–2026",
+      "columns": [
+        "multiple",
+        "n",
+        "best_pct",
+        "best_year",
+        "median_pct",
+        "worst_pct",
+        "worst_year",
+        "deepest_dip_pct",
+        "deepest_dip_year"
+      ],
+      "takeaway_zh": "multiple＝放大倍數 k：報酬和中途最深都是黃金漲跌的 k 倍；10 倍假設全額 10 倍、保證金 1/10，只看收盤（盤中最低更深）、不含利息、手續費、價差，所以中途收盤跌 5% 就虧掉保證金一半、跌 10% 就虧光。2 倍是金價漲跌乘 2，不是正二的真實淨值。表中的數字是沒有封頂的算術值，低於 −100% 表示保證金已經虧光（封頂在 −100% 的版本在 results.json 的 capped 欄）。"
+    },
+    {
+      "type": "table",
+      "source": "leverage.12-15|before_lny.weekly_1981_2008",
+      "title": "放大倍數 1／2／10 倍：12/15 起買 → 春節前最後一個交易日，週線 1981–2008，只看週五收盤",
+      "columns": [
+        "multiple",
+        "n",
+        "best_pct",
+        "best_year",
+        "median_pct",
+        "worst_pct",
+        "worst_year",
+        "deepest_dip_pct",
+        "deepest_dip_year"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "leverage.12-15|mar_end.daily_2009_2026",
+      "title": "放大倍數 1／2／10 倍：12/15 起買 → 3 月最後一個交易日，日線 2009–2026",
+      "columns": [
+        "multiple",
+        "n",
+        "best_pct",
+        "best_year",
+        "median_pct",
+        "worst_pct",
+        "worst_year",
+        "deepest_dip_pct",
+        "deepest_dip_year"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "leverage.12-15|mar_end.weekly_1981_2008",
+      "title": "放大倍數 1／2／10 倍：12/15 起買 → 3 月最後一個交易日，週線 1981–2008，只看週五收盤",
+      "columns": [
+        "multiple",
+        "n",
+        "best_pct",
+        "best_year",
+        "median_pct",
+        "worst_pct",
+        "worst_year",
+        "deepest_dip_pct",
+        "deepest_dip_year"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "headline",
+      "title": "10 倍（只看收盤）的年份：日線中途虧掉保證金一半以上；週線（只看週五收盤）虧光",
+      "keys": [
+        "x10_daily_dec15_before_lny_half_margin_years",
+        "x10_daily_dec15_mar_end_half_margin_years",
+        "x10_weekly_dec15_before_lny_margin_gone_years",
+        "x10_weekly_dec15_mar_end_margin_gone_years"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "passbook",
+      "title": "台灣銀行黃金存摺的一買一賣價差（這裡只放算出的價差、出處網址和查證日）",
+      "keys": [
+        "quote_date",
+        "quote_time",
+        "spread_pct",
+        "history_rows",
+        "history_from",
+        "history_to",
+        "history_spread_min_pct",
+        "history_spread_median_pct",
+        "history_spread_max_pct",
+        "source"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "passbook_net",
+      "title": "扣掉一買一賣價差之後：12/15 起買 → 春節前最後一個交易日",
+      "takeaway_zh": "淨報酬＝(1＋報酬)×(1−價差)−1，兩端都用 2026-11-16 的買賣比例，並用 XAUUSD 的報酬代替台幣金價（美元兌台幣沒算）。逐日牌價是從網頁轉成文字抄錄、不是原始檔，所以不放進公開資料。",
+      "columns": [
+        "n",
+        "gross_up",
+        "net_up",
+        "gross_median_pct",
+        "net_median_pct",
+        "net_best_pct",
+        "net_best_year",
+        "net_worst_pct",
+        "net_worst_year",
+        "turned_down_years"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "cross_cell.rank_of_dec15_before_lny",
+      "title": "12/15 × 春節前這一格在 30 格中的名次（比它高、一樣、比它低的格數）",
+      "takeaway_zh": "只是描述它排在哪裡，不是檢定。share_up＝按漲的比例排，median＝按中位數排。",
+      "columns": [
+        "share_up.above",
+        "share_up.equal",
+        "share_up.below",
+        "median.above",
+        "median.equal",
+        "median.below"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "cross_cell.top_cells.daily_2009_2026.share_up",
+      "title": "2009–2026 年日線漲的比例最高的格，在 1981–2008 年週線的成績",
+      "takeaway_zh": "只為了看排名有沒有延續，不是在挑最好的一格：前面（up、n、share up %、median）是 2009–2026 年日線，other 開頭的欄位是同一格在 1981–2008 年週線的結果。兩段時期 30 格中位數的排名相關是 −0.15、漲的比例是 −0.14。",
+      "columns": [
+        "start",
+        "exit",
+        "up",
+        "n",
+        "share_up_pct",
+        "median_pct",
+        "other_up",
+        "other_n",
+        "other_share_up_pct",
+        "other_median_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "cross_cell.top_cells.daily_2009_2026.median",
+      "title": "2009–2026 年日線中位數最高的格，在 1981–2008 年週線的成績",
+      "columns": [
+        "start",
+        "exit",
+        "up",
+        "n",
+        "share_up_pct",
+        "median_pct",
+        "other_up",
+        "other_n",
+        "other_share_up_pct",
+        "other_median_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "post_hoc_baseline_check.by_sample.daily_2009_2026.which",
+      "title": "事後補算、不能當結論：Wilson 下緣高過自己基準的格（2009–2026 年日線）",
+      "takeaway_zh": "這不是事先登記的檢驗：30 格彼此重疊、沒有多重比較校正。1981–2008 年週線 30 格沒有一格的 Wilson 下緣高過自己的基準。",
+      "columns": [
+        "start",
+        "exit",
+        "up",
+        "n",
+        "wilson_low_pct",
+        "baseline_share_up_pct",
+        "other_up",
+        "other_n",
+        "other_baseline_share_up_pct"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "weekly_rule_check_2009_2026",
+      "title": "週線規則套在 2009–2026 年，和日線規則的差距（1981–2008 年的表靠週線規則）",
+      "keys": [
+        "windows",
+        "mean_abs_diff_pct_points",
+        "max_abs_diff_pct_points"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "next_window",
+      "title": "下一輪（2027 年）：只有日期，不預測",
+      "keys": [
+        "lunar_new_year",
+        "lunar_new_year_weekday",
+        "note"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "next_window.starts",
+      "title": "2027 年這一輪的六個起點日期（遇週末用前一個平日，假日沒扣）",
+      "columns": [
+        "date",
+        "weekday"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "next_window.exits",
+      "title": "2027 年這一輪的五個出場日期（平日日曆，假日沒扣）",
+      "columns": [
+        "date",
+        "weekday"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "context_sources",
+      "title": "市場常見的說法：世界黃金協會文章（只列網址、日期和原文一句）",
+      "takeaway_zh": "這些是對實體需求的評論，不是價格研究，也沒有說這幾週金價會漲；本研究沒有檢驗它們。",
+      "columns": [
+        "published",
+        "publisher",
+        "topic",
+        "url",
+        "quote",
+        "retrieved"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

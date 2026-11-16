@@ -37,6 +37,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # and has been exported. The migration that created it is finished; this is now simply
 # the published set.
 PUBLISHED_STUDIES = [
+    "RS-XAUUSD-20261116-001",
     "RS-XAUUSD-20261115-001",
     "RS-TX-20261113-001",
     "RS-TX-20261108-001",

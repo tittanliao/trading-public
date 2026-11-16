@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T21:34:46+08:00",
+  "generated_at": "2026-11-16T14:29:07+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 85,
+    "studies": 86,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2233,6 +2233,19 @@
       "reason": "None (descriptive). Gold from the mid-December close to the last close before Lunar New Year: 2009-2026 daily 14 of 18 up (seen before registration; any-35-trading-day baseline 56.5%, inside the Wilson 54.8-91.0); the registered 1981-2008 weekly check 13 of 28 up (Wilson 29.5-64.2) against 48.3% for any 7 weeks: did not carry over. The registered 1-December start gives 12 of 18.",
       "status": "confirmed",
       "created_on": "2026-11-15"
+    },
+    {
+      "entry_id": "RS-XAUUSD-20261116-001",
+      "study_id": "RS-XAUUSD-20261116-001",
+      "kind": "study",
+      "family": "none — descriptive calendar-window study on spot gold",
+      "origin": "programme",
+      "claim": "XAUUSD calendar windows by start and exit: 6 starts (1 October to 15 December) × 5 exits (before Lunar New Year to end of March), daily 2009–2026 and weekly 1981–2008, with 1×/2×/10× and the Bank of Taiwan passbook spread (pre-registered)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None (descriptive). Gold bought at the close on one of six start dates (1 October to 15 December) and sold at one of five exits (before Lunar New Year to end of March): 15 December to before Lunar New Year, 46 winters, 27 up (58.7%, Wilson 44.3-71.7%); 2009-2026 every one of the 30 cells 10-15 of 18 up (per-cell baselines 56-68%), 1981-2008 11-15 of 28; the ordering of cells did not carry over (Spearman of the medians -0.15). No cell is tested or picked.",
+      "status": "confirmed",
+      "created_on": "2026-11-16"
     }
   ],
   "generated_by": "trading-private research pipeline"
