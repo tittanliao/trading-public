@@ -1,17 +1,18 @@
 {
   "now": {
-    "as_of": "2026-11-06",
-    "close": 39701.64,
-    "window": "2025-10-22 .. 2026-11-06 (252 sessions incl. latest)",
+    "as_of": "2026-11-18",
+    "close": 40194.91,
+    "close_provisional_note": "volume 0 on this row at download; OHLC may be revised",
+    "window": "2025-11-04 .. 2026-11-18 (252 sessions incl. latest)",
     "H": 49968.92,
     "H_date": "2026-10-06",
     "L": 26395.98,
     "L_date": "2025-11-21",
     "rise_pct": 89.31,
     "range_pts": 23572.9,
-    "close_vs_H_pct": -20.55,
-    "close_vs_H_pts": -10267.3,
-    "retracement_of_close": 0.4356,
+    "close_vs_H_pct": -19.56,
+    "close_vs_H_pts": -9774.0,
+    "retracement_of_close": 0.4146,
     "lowest_low_since_H": 37837.05,
     "retracement_of_low": 0.5147,
     "levels": {
@@ -22,18 +23,18 @@
       "0.786": 31440.6
     },
     "close_minus_level_pts": {
-      "0.236": -4704.1,
-      "0.382": -1262.5,
-      "0.5": 1519.1,
-      "0.618": 4300.8,
-      "0.786": 8261.0
+      "0.236": -4210.8,
+      "0.382": -769.2,
+      "0.5": 2012.4,
+      "0.618": 4794.1,
+      "0.786": 8754.3
     },
     "close_minus_level_pct": {
-      "0.236": -10.59,
-      "0.382": -3.08,
-      "0.5": 3.98,
-      "0.618": 12.15,
-      "0.786": 26.28
+      "0.236": -9.48,
+      "0.382": -1.88,
+      "0.5": 5.27,
+      "0.618": 13.54,
+      "0.786": 27.84
     },
     "current_setup_touch_triggers": [
       {
@@ -66,61 +67,61 @@
         "0.786": 33169.3
       },
       "close_minus_level_pts": {
-        "0.236": -5223.2,
-        "0.382": -2102.6,
-        "0.5": 419.5,
-        "0.618": 2941.5,
-        "0.786": 6532.3
+        "0.236": -4729.9,
+        "0.382": -1609.3,
+        "0.5": 912.8,
+        "0.618": 3434.8,
+        "0.786": 7025.6
       },
-      "retracement_of_close": 0.4804
+      "retracement_of_close": 0.4573
     }
   },
   "strategy_version": "none (descriptive pattern test)",
   "results": {
     "label": "TWII",
     "first_eligible_date": "1998-07-16",
-    "last_date": "2026-11-06",
-    "sessions": 7191,
+    "last_date": "2026-11-18",
+    "sessions": 7199,
     "baseline_any_day": {
       "20": {
-        "n": 6919,
-        "up_pct": 57.77,
-        "up_net_pct": 53.45,
-        "mean_pct": 0.72,
-        "median_pct": 1.067,
-        "mean_net_pct": 0.135,
-        "p10_pct": -6.708,
-        "p90_pct": 7.831
+        "n": 6927,
+        "up_pct": 57.7,
+        "up_net_pct": 53.39,
+        "mean_pct": 0.704,
+        "median_pct": 1.053,
+        "mean_net_pct": 0.119,
+        "p10_pct": -6.758,
+        "p90_pct": 7.823
       },
       "60": {
-        "n": 6879,
-        "up_pct": 62.54,
-        "up_net_pct": 60.18,
-        "mean_pct": 2.323,
-        "median_pct": 2.604,
-        "mean_net_pct": 1.738,
-        "p10_pct": -12.246,
-        "p90_pct": 15.317
+        "n": 6887,
+        "up_pct": 62.47,
+        "up_net_pct": 60.11,
+        "mean_pct": 2.312,
+        "median_pct": 2.59,
+        "mean_net_pct": 1.727,
+        "p10_pct": -12.235,
+        "p90_pct": 15.308
       },
       "120": {
-        "n": 6819,
-        "up_pct": 66.48,
-        "up_net_pct": 64.55,
-        "mean_pct": 4.83,
+        "n": 6827,
+        "up_pct": 66.46,
+        "up_net_pct": 64.54,
+        "mean_pct": 4.826,
         "median_pct": 4.534,
-        "mean_net_pct": 4.245,
-        "p10_pct": -15.755,
-        "p90_pct": 25.266
+        "mean_net_pct": 4.241,
+        "p10_pct": -15.741,
+        "p90_pct": 25.241
       },
       "250": {
-        "n": 6689,
-        "up_pct": 69.13,
-        "up_net_pct": 67.96,
-        "mean_pct": 9.392,
-        "median_pct": 9.236,
-        "mean_net_pct": 8.807,
-        "p10_pct": -19.453,
-        "p90_pct": 37.46
+        "n": 6697,
+        "up_pct": 69.17,
+        "up_net_pct": 68.0,
+        "mean_pct": 9.44,
+        "median_pct": 9.257,
+        "mean_net_pct": 8.855,
+        "p10_pct": -19.451,
+        "p90_pct": 37.634
       }
     },
     "by_threshold": {
@@ -233,13 +234,13 @@
                     78.26
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.35,
-                    "mean_pct": 0.901,
+                    "up_pct": 62.26,
+                    "mean_pct": 0.881,
                     "triggers_matched": 25
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 57.58,
-                    "mean_pct": 0.397,
+                    "up_pct": 57.45,
+                    "mean_pct": 0.366,
                     "triggers_matched": 25
                   }
                 },
@@ -258,13 +259,13 @@
                     80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.02,
-                    "mean_pct": 2.248,
+                    "up_pct": 64.77,
+                    "mean_pct": 2.211,
                     "triggers_matched": 25
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 57.83,
-                    "mean_pct": 1.339,
+                    "up_pct": 57.48,
+                    "mean_pct": 1.287,
                     "triggers_matched": 25
                   }
                 },
@@ -283,13 +284,13 @@
                     83.33
                   ],
                   "control_same_distance": {
-                    "up_pct": 67.91,
-                    "mean_pct": 3.561,
+                    "up_pct": 67.96,
+                    "mean_pct": 3.568,
                     "triggers_matched": 24
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 63.66,
-                    "mean_pct": 2.348,
+                    "up_pct": 63.75,
+                    "mean_pct": 2.359,
                     "triggers_matched": 24
                   }
                 },
@@ -458,13 +459,13 @@
                     100.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 60.35,
-                    "mean_pct": 0.936,
+                    "up_pct": 60.34,
+                    "mean_pct": 0.934,
                     "triggers_matched": 12
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 59.2,
-                    "mean_pct": 0.803,
+                    "up_pct": 59.18,
+                    "mean_pct": 0.799,
                     "triggers_matched": 12
                   }
                 },
@@ -483,13 +484,13 @@
                     85.71
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.13,
-                    "mean_pct": 2.068,
+                    "up_pct": 62.09,
+                    "mean_pct": 2.061,
                     "triggers_matched": 12
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 56.81,
-                    "mean_pct": 0.82,
+                    "up_pct": 56.75,
+                    "mean_pct": 0.81,
                     "triggers_matched": 12
                   }
                 },
@@ -1359,13 +1360,13 @@
                     72.73
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.85,
-                    "mean_pct": 1.02,
+                    "up_pct": 62.76,
+                    "mean_pct": 0.999,
                     "triggers_matched": 24
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 58.6,
-                    "mean_pct": 0.566,
+                    "up_pct": 58.48,
+                    "mean_pct": 0.534,
                     "triggers_matched": 24
                   }
                 },
@@ -1384,13 +1385,13 @@
                     79.17
                   ],
                   "control_same_distance": {
-                    "up_pct": 65.77,
-                    "mean_pct": 2.481,
+                    "up_pct": 65.54,
+                    "mean_pct": 2.45,
                     "triggers_matched": 24
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 58.38,
-                    "mean_pct": 1.447,
+                    "up_pct": 58.07,
+                    "mean_pct": 1.403,
                     "triggers_matched": 24
                   }
                 },
@@ -1409,13 +1410,13 @@
                     82.63
                   ],
                   "control_same_distance": {
-                    "up_pct": 68.24,
-                    "mean_pct": 3.459,
+                    "up_pct": 68.29,
+                    "mean_pct": 3.466,
                     "triggers_matched": 23
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 63.19,
-                    "mean_pct": 1.789,
+                    "up_pct": 63.27,
+                    "mean_pct": 1.801,
                     "triggers_matched": 23
                   }
                 },
@@ -1608,13 +1609,13 @@
                     80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 62.73,
-                    "mean_pct": 2.007,
+                    "up_pct": 62.67,
+                    "mean_pct": 1.997,
                     "triggers_matched": 10
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 57.76,
-                    "mean_pct": 0.244,
+                    "up_pct": 57.68,
+                    "mean_pct": 0.231,
                     "triggers_matched": 10
                   }
                 },
@@ -2478,13 +2479,13 @@
                     73.33
                   ],
                   "control_same_distance": {
-                    "up_pct": 64.83,
-                    "mean_pct": 1.199,
+                    "up_pct": 64.71,
+                    "mean_pct": 1.173,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 65.3,
-                    "mean_pct": 1.609,
+                    "up_pct": 65.05,
+                    "mean_pct": 1.552,
                     "triggers_matched": 16
                   }
                 },
@@ -2503,13 +2504,13 @@
                     81.25
                   ],
                   "control_same_distance": {
-                    "up_pct": 66.03,
-                    "mean_pct": 2.692,
+                    "up_pct": 65.79,
+                    "mean_pct": 2.657,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 64.08,
-                    "mean_pct": 3.601,
+                    "up_pct": 63.59,
+                    "mean_pct": 3.516,
                     "triggers_matched": 16
                   }
                 },
@@ -2528,13 +2529,13 @@
                     81.25
                   ],
                   "control_same_distance": {
-                    "up_pct": 69.02,
-                    "mean_pct": 3.602,
+                    "up_pct": 69.05,
+                    "mean_pct": 3.606,
                     "triggers_matched": 15
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 63.39,
-                    "mean_pct": 4.33,
+                    "up_pct": 63.48,
+                    "mean_pct": 4.339,
                     "triggers_matched": 15
                   }
                 },
@@ -3572,13 +3573,13 @@
                     66.67
                   ],
                   "control_same_distance": {
-                    "up_pct": 63.99,
-                    "mean_pct": 1.257,
+                    "up_pct": 63.89,
+                    "mean_pct": 1.233,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 65.87,
-                    "mean_pct": 1.827,
+                    "up_pct": 65.64,
+                    "mean_pct": 1.775,
                     "triggers_matched": 16
                   }
                 },
@@ -3597,13 +3598,13 @@
                     80.0
                   ],
                   "control_same_distance": {
-                    "up_pct": 66.56,
-                    "mean_pct": 2.888,
+                    "up_pct": 66.38,
+                    "mean_pct": 2.862,
                     "triggers_matched": 16
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 65.74,
-                    "mean_pct": 3.8,
+                    "up_pct": 65.38,
+                    "mean_pct": 3.739,
                     "triggers_matched": 16
                   }
                 },
@@ -3622,13 +3623,13 @@
                     85.71
                   ],
                   "control_same_distance": {
-                    "up_pct": 69.65,
-                    "mean_pct": 3.608,
+                    "up_pct": 69.67,
+                    "mean_pct": 3.611,
                     "triggers_matched": 15
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 65.65,
-                    "mean_pct": 4.225,
+                    "up_pct": 65.72,
+                    "mean_pct": 4.232,
                     "triggers_matched": 15
                   }
                 },
@@ -4686,13 +4687,13 @@
                     87.5
                   ],
                   "control_same_distance": {
-                    "up_pct": 64.98,
-                    "mean_pct": 2.889,
+                    "up_pct": 64.96,
+                    "mean_pct": 2.886,
                     "triggers_matched": 9
                   },
                   "control_same_distance_and_rise": {
-                    "up_pct": 58.65,
-                    "mean_pct": 3.798,
+                    "up_pct": 58.6,
+                    "mean_pct": 3.785,
                     "triggers_matched": 9
                   }
                 },
@@ -6567,7 +6568,7 @@
   },
   "schema_version": 1,
   "study_id": "RS-TX-20261105-001",
-  "generated_at": "2026-11-07T21:27:16+08:00",
+  "generated_at": "2026-11-18T15:55:37+08:00",
   "method": {
     "window_sessions": 252,
     "window_rule": "H = max high of sessions t-252..t-1; L = min low of that window on or before H's date",
@@ -6631,18 +6632,18 @@
   "instrument": "TAIEX (^TWII) daily, price index",
   "data_period": {
     "start": "1997-07-02",
-    "end": "2026-11-06"
+    "end": "2026-11-18"
   },
   "limitations": [
     "TAIEX price index: no dividends (about 3-4% a year), so absolute long-hold returns understate a holder; Fib vs control comparisons are like for like.",
     "Triggers overlap: holds of 60-250 sessions from different layers and setups share the same market path; episode-cluster bootstrap is the honest interval, Wilson is optimistic.",
     "Daily bars cannot order intraday high/low; same-day ambiguities are counted as losses and listed.",
     "The cash index cannot be traded directly; costs use the TAIEX ETF/stock convention. TX/MXF futures costs and basis differ.",
-    "Data refreshed 2026-11-07 to the 2026-11-06 close (TWII_1d_to_2026-11-06.csv); OHLC identical to the earlier 2026-11-05 file on all 7,190 shared dates (only the 2026-11-05 volume filled in).",
+    "Data refreshed 2026-11-18 to the 2026-11-18 close (TWII_1d_to_2026-11-18.csv); the last row has volume 0 (provisional, to be confirmed 2026-11-19); OHLC and volume identical to the 2026-11-06 file on all 7,191 shared dates and to the 2026-11-12 file on all 7,195.",
     "Descriptive, not causal; no parameter was tuned, but the question was asked after the 2026 decline began."
   ],
   "coverage": {
-    "twii_sessions": 7191,
+    "twii_sessions": 7199,
     "first_eligible": "1998-07-16",
     "refreshed_vs_pinned_max_abs_diff": 0.0,
     "refreshed_vs_pinned_shared_dates": 7178
@@ -13884,7 +13885,7 @@
       "ret_60_pct": null,
       "ret_120_pct": null,
       "ret_250_pct": null,
-      "mae_pct_until_race_L": 0.0
+      "mae_pct_until_race_L": -1.11
     }
   ],
   "limitations_zh": [
@@ -13895,7 +13896,7 @@
     "觸發之間高度重疊：同一段行情的 60–250 日持有共用同一條價格路徑；以行情段為單位的重抽樣才是誠實的區間，Wilson 偏樂觀。",
     "日線無法排出盤中高低先後；同天兩邊都碰到算負，並逐筆列出。",
     "現貨指數不能直接交易；成本採加權指數 ETF／個股慣例，台指期／小台的成本與基差不同。",
-    "資料檔 TWII_1d_to_2026-11-06.csv 在 2026-11-07（週六）取得，最後一列 2026-11-06 成交量非 0，視為收盤定值；與先前 11-05 版在 7,190 個共同日期的開高低收完全相同（只有 2026-11-05 的成交量由 0 補上）。",
+    "資料檔 TWII_1d_to_2026-11-18.csv 在 2026-11-18（週三）盤後取得，最後一列 2026-11-18 成交量為 0，是暫定值（待 11/19 確認，開高低收可能微調）；與 11-06 版在 7,191 個共同日期、與 11-12 版在 7,195 個共同日期的開高低收與成交量完全相同。",
     "只是描述，不是因果。"
   ]
 }
