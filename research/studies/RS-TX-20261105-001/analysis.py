@@ -47,11 +47,11 @@ LIMITATIONS_ZH = [
     "觸發之間高度重疊：同一段行情的 60–250 日持有共用同一條價格路徑；以行情段為單位的重抽樣才是誠實的區間，Wilson 偏樂觀。",
     "日線無法排出盤中高低先後；同天兩邊都碰到算負，並逐筆列出。",
     "現貨指數不能直接交易；成本採加權指數 ETF／個股慣例，台指期／小台的成本與基差不同。",
-    "資料檔 TWII_1d_to_2026-11-18.csv 在 2026-11-18（週三）盤後取得，最後一列 2026-11-18 成交量為 0，是暫定值（待 11/19 確認，開高低收可能微調）；與 11-06 版在 7,191 個共同日期、與 11-12 版在 7,195 個共同日期的開高低收與成交量完全相同。",
+    "資料檔 TWII_1d_to_2026-11-20.csv 在 2026-11-20（週五）盤後取得，最後一列 2026-11-20 的成交量在 Yahoo 還是 0；這一列與 11/17–11/19 的開高低收已和證交所「發行量加權股價指數歷史資料」逐列比對，到小數兩位相同。與 11-18 版在 7,199 個共同日期的開高低收完全相同（11-18 那一列的成交量由 0 補成實際值，其餘成交量相同）。",
     "只是描述，不是因果。",
 ]
 
-PRIMARY_CSV = "local-inputs/TWII_1d_to_2026-11-18.csv"
+PRIMARY_CSV = "local-inputs/TWII_1d_to_2026-11-20.csv"
 PINNED_CSV = "local-inputs/TWII_1d.csv"
 MXF_CSV = "local-inputs/TAIFEX_DLY_MXF1!, 1D.csv"
 
@@ -380,7 +380,7 @@ def now_row(df: pd.DataFrame, trigs: list[dict]) -> dict:
     return {
         "alt_anchor_twii_grid": alt_grid,
         "as_of": dates[t], "close": round(c, 2),
-        **({"close_provisional_note": "volume 0 on this row at download; OHLC may be revised"}
+        **({"close_provisional_note": "volume 0 on this row at download (Yahoo); OHLC checked against the TWSE daily index table on the download day"}
            if "volume" in df.columns and float(df["volume"].iloc[t]) == 0 else {}),
         "window": f"{dates[t - WINDOW + 1]} .. {dates[t]} (252 sessions incl. latest)",
         "H": round(h, 2), "H_date": dates[int(iH[t])], "L": round(l, 2), "L_date": dates[int(iL[t])],
@@ -515,7 +515,7 @@ def write_readme(payload: dict, path: Path) -> None:
     w(f"- 資料：Yahoo `^TWII` 日線（價格指數，不含股息），{payload['data_period']['start']} ～ {payload['data_period']['end']}，"
       f"{payload['coverage']['twii_sessions']:,} 個交易日；第一個可計算日 {payload['coverage']['first_eligible']}（需先有 252 日）。"
       f"新下載檔與既有 `TWII_1d.csv` 在 {payload['coverage']['refreshed_vs_pinned_shared_dates']:,} 個共同日期完全相同（最大差 {payload['coverage']['refreshed_vs_pinned_max_abs_diff']}）。")
-    w(f"- 生成時間：{payload['generated_at']}。2026-11-18 以當日收盤重跑（設計、參數、規則不變，只換資料截止日；11/18 成交量為 0，暫定值，待 11/19 確認）；新舊對照見 `refresh_20261106.md`、`refresh_20261118.md`。\n")
+    w(f"- 生成時間：{payload['generated_at']}。2026-11-20 以當日收盤重跑（設計、參數、規則不變，只換資料截止日；11/20 這一列 Yahoo 成交量為 0，開高低收已對過證交所）；新舊對照見 `refresh_20261106.md`、`refresh_20261118.md`、`refresh_20261120.md`。\n")
     w("## 方法（每個數字怎麼來）\n")
     w("1. **H／L**：第 t 天看「前 252 個已收盤交易日」（t−252 … t−1，不含當天）。H = 窗口內最高的日最高價；L = 窗口內、H 那天以前（含）的最低日最低價，也就是這段上升的起點。漲幅 = H ÷ L − 1。")
     w("2. **只在漲幅夠大時算**：主版本漲幅 ≥ 20%；敏感度 ≥ 30%、≥ 50%。")
@@ -617,7 +617,7 @@ def write_readme(payload: dict, path: Path) -> None:
     w("## 現在位置\n")
     w(f"- 截至 {now['as_of']} 收盤 {now['close']:,.2f}。窗口 {now['window']}。")
     if "close_provisional_note" in now:
-        w(f"- **暫定值**：{now['as_of']} 這一列成交量為 0，開高低收可能微調，待下一個交易日確認；用到「現在」的數字前要先確認。")
+        w(f"- {now['as_of']} 這一列在 Yahoo 的成交量還是 0；開高低收已在下載當天和證交所的指數歷史資料比對，相同。")
     w(f"- 資料算出的上升段：L {now['L']:,.2f}（{now['L_date']}）→ H {now['H']:,.2f}（{now['H_date']}），漲 {now['rise_pct']}%，區間 {now['range_pts']:,.0f} 點。")
     w(f"- 收盤離 H {now['close_vs_H_pts']:,.0f} 點（{now['close_vs_H_pct']}%），回檔比例 {now['retracement_of_close']:.3f}；H 之後最低 {now['lowest_low_since_H']:,.2f}（回檔 {now['retracement_of_low']:.3f}）。")
     w("\n| 層 | 加權（資料定義 L=2025-11-21） | 收盤 − 該層 | 加權（另一種畫法 L=2025-12-29） | 收盤 − 該層 |")
@@ -718,7 +718,7 @@ def main() -> int:
             "Triggers overlap: holds of 60-250 sessions from different layers and setups share the same market path; episode-cluster bootstrap is the honest interval, Wilson is optimistic.",
             "Daily bars cannot order intraday high/low; same-day ambiguities are counted as losses and listed.",
             "The cash index cannot be traded directly; costs use the TAIEX ETF/stock convention. TX/MXF futures costs and basis differ.",
-            "Data refreshed 2026-11-18 to the 2026-11-18 close (TWII_1d_to_2026-11-18.csv); the last row has volume 0 (provisional, to be confirmed 2026-11-19); OHLC and volume identical to the 2026-11-06 file on all 7,191 shared dates and to the 2026-11-12 file on all 7,195.",
+            "Data refreshed 2026-11-20 to the 2026-11-20 close (TWII_1d_to_2026-11-20.csv); the last row has volume 0 at Yahoo, and its OHLC (and the three rows before it) equal the TWSE daily index table to two decimals; OHLC identical to the 2026-11-18 file on all 7,199 shared dates.",
             "Descriptive, not causal; no parameter was tuned, but the question was asked after the 2026 decline began.",
         ],
         "limitations_zh": LIMITATIONS_ZH,
@@ -764,13 +764,13 @@ def main() -> int:
         "schema_version": 1, "study_id": STUDY_ID, "generated_at": generated,
         "timezone_assumptions": "Daily bars on the Taiwan exchange calendar (Asia/Taipei dates). MXF1! is the TradingView TAIFEX mini-TAIEX continuous front month, daily session as exported.",
         "coverage": f"TWII {payload['data_period']['start']} .. {payload['data_period']['end']}; MXF {res_mxf['first_eligible_date']} eligible .. {res_mxf['last_date']}",
-        "acquisition": {"new_data_downloaded": True, "downloaded_on": "2026-11-18 15:5x Asia/Taipei (after the close); earlier refreshes 2026-11-05 23:32, 2026-11-07 16:19",
-                        "method": "yfinance 1.4.1 in ~/.venvs/trading-research: Ticker('^TWII').history(period='max', interval='1d', auto_adjust=False); columns date,open,high,low,close,volume",
-                        "authorised_by": "research request 2026-11-05 (refresh TWII to the latest close via Yahoo); reruns 2026-11-07 to the 2026-11-06 close and 2026-11-18 to the 2026-11-18 close"},
+        "acquisition": {"new_data_downloaded": True, "downloaded_on": "2026-11-20 19:0x Asia/Taipei (after the close); earlier refreshes 2026-11-05 23:32, 2026-11-07 16:19, 2026-11-18 15:5x",
+                        "method": "yfinance 1.4.1 in ~/.venvs/trading-research: Ticker('^TWII').history(start='1997-01-01', end='2026-11-21', interval='1d', auto_adjust=False); columns date,open,high,low,close,volume",
+                        "authorised_by": "research request 2026-11-05 (refresh TWII to the latest close via Yahoo); reruns 2026-11-07 to the 2026-11-06 close, 2026-11-18 to the 2026-11-18 close and 2026-11-20 to the 2026-11-20 close"},
         "sources": [
-            {"role": "price_1d_TAIEX", "source_system": "Yahoo Finance ^TWII daily (TWII_1d_to_2026-11-18.csv, downloaded 2026-11-18)",
+            {"role": "price_1d_TAIEX", "source_system": "Yahoo Finance ^TWII daily (TWII_1d_to_2026-11-20.csv, downloaded 2026-11-20)",
              "locator": args.primary, "sha256": sha(p), "size_bytes": p.stat().st_size, "immutable": True,
-             "observed": f"rows {payload['data_period']['start']} .. {payload['data_period']['end']}; OHLC and volume identical to TWII_1d_to_2026-11-06.csv on its 7,191 dates; last row 2026-11-18 has volume 0 (provisional, to be confirmed 2026-11-19)", "privacy": "public_market_data"},
+             "observed": f"rows {payload['data_period']['start']} .. {payload['data_period']['end']}; OHLC identical to TWII_1d_to_2026-11-18.csv on its 7,199 dates; last row 2026-11-20 has volume 0 at Yahoo, OHLC equal to the TWSE daily index table", "privacy": "public_market_data"},
             {"role": "price_1d_TAIEX_pinned_check", "source_system": "Yahoo Finance via yfinance 1.4.1, fetched 2026-10-18 (pinned by RS-TX-20261018-*)",
              "locator": args.pinned, "sha256": sha(q), "size_bytes": q.stat().st_size, "immutable": True,
              "observed": "rows 1997-07-02 .. 2026-10-16; pinned by other studies and never modified by this study (hence immutable); used only to verify the refreshed file", "privacy": "public_market_data"},
