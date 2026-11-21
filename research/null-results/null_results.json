@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T14:29:07+08:00",
+  "generated_at": "2026-11-21T23:44:06+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 86,
+    "studies": 87,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2246,6 +2246,19 @@
       "reason": "None (descriptive). Gold bought at the close on one of six start dates (1 October to 15 December) and sold at one of five exits (before Lunar New Year to end of March): 15 December to before Lunar New Year, 46 winters, 27 up (58.7%, Wilson 44.3-71.7%); 2009-2026 every one of the 30 cells 10-15 of 18 up (per-cell baselines 56-68%), 1981-2008 11-15 of 28; the ordering of cells did not carry over (Spearman of the medians -0.15). No cell is tested or picked.",
       "status": "confirmed",
       "created_on": "2026-11-16"
+    },
+    {
+      "entry_id": "RS-TX-20261121-001",
+      "study_id": "RS-TX-20261121-001",
+      "kind": "study",
+      "family": "none — descriptive event study on the TAIEX cash index",
+      "origin": "programme",
+      "claim": "TAIEX after a week down 10% or more, and after the close first fell 20% below its peak — what came next over 20/60/120/240 sessions, how much deeper and how long (1997-2026, pre-registered; weekly 8/10/12%, peak 15/20/25%)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None (descriptive). TAIEX week down 10%+: 8 events, higher 20/60/120/240 sessions later 4/4/4/5 of 8, 7 of 8 closed at least 5% lower within 20 sessions; close 20% below the one-year closing high: 11 events, higher 120 sessions after the cross 8 of 11, all regained the high (median 509 sessions from the high). Every cell's any-session baseline is inside its Wilson interval.",
+      "status": "confirmed",
+      "created_on": "2026-11-21"
     }
   ],
   "generated_by": "trading-private research pipeline"

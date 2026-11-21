@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261121-001",
+  "revision": 1,
+  "title": "TAIEX after a week down 10% or more, and after the close first fell 20% below its peak — what came next over 20/60/120/240 sessions, how much deeper and how long (1997-2026, pre-registered; weekly 8/10/12%, peak 15/20/25%)",
+  "market": "TX",
+  "strategy": "none — descriptive event study on the TAIEX cash index",
+  "status": "confirmed",
+  "created_on": "2026-11-21",
+  "question": "A: after a trading week in which TAIEX fell at least 10% (also 8%, 12%) week close to week close, how often was it higher 20/60/120/240 sessions later and how far below the entry did it go within 240 sessions? B: after the close first fell at least 20% (also 15%, 25%) below its all-time closing high (also its one-year closing high), how much deeper did it fall, for how many sessions, what were the 20/60/120/240-session returns from the cross, and how long until the high was regained?",
+  "hypothesis": "Pre-registered 2026-11-21 23:1x Asia/Taipei, before any forward return was computed. No direction is assumed. Expected sample: a handful of events per threshold (under ten at the primary thresholds), so results are reported as counts with every event listed; the long-run drift of TAIEX makes the any-day baseline itself above 50%.",
+  "headline": {
+    "data_end": "2026-11-20",
+    "sessions": 7323,
+    "a_events": 8,
+    "a_episodes": 5,
+    "a_up20": 4,
+    "a_up60": 4,
+    "a_up120": 4,
+    "a_up240": 5,
+    "a_median240_pct": 14.03,
+    "a_lower_within20": 7,
+    "a_low240_median_pct": -17.29,
+    "a_low240_deepest_pct": -47.96,
+    "b1y_events": 11,
+    "b1y_up120": 8,
+    "b1y_median120_pct": 7.62,
+    "b_alltime_events": 5,
+    "b_all_recovered": true,
+    "b1y_median_sessions_high_to_recovery": 509.0,
+    "b_deepest_pct": -66.22,
+    "now_drawdown_pct": -27.68,
+    "now_last_week_pct": -17.5,
+    "baseline_up120_pct": 64.46,
+    "baseline_up240_pct": 65.85
+  },
+  "card_metrics": [
+    "a_events",
+    "a_up240",
+    "b1y_events",
+    "b1y_up120",
+    "now_drawdown_pct",
+    "a_lower_within20"
+  ],
+  "findings": [
+    {
+      "tone": "good",
+      "title": "After the close first fell 20% below its one-year closing high (11 times since 1997), the index was higher 120 sessions later 8 times (median +7.6%), and every one of the 11 later regained that high",
+      "detail": "20/60/240 sessions: 8/11, 7/11, 7/11. Any-session baseline at 120 sessions 64.46% (Wilson 43.44-90.25 contains it: cannot be separated). Regaining the high took a median 509 sessions from the high, from 114 (2020) to 4,303 (2000-2017). Neighbouring thresholds 15% / 25%: 9/15 and 7/9 at 120 sessions.",
+      "title_zh": "一年內最高收盤跌破兩成（1997 年以來 11 次）：跌破那天收盤起 120 個交易日後 8 次比較高（中位數 +7.6%），而且 11 次後來全部回到原高點",
+      "detail_zh": "20／60／240 日：8/11、7/11、7/11。平常日 120 日 64.46%，在 Wilson 43.44–90.25 之內：分不出。回到高點從高點起中位數 509 個交易日，最快 114（2020）、最慢 4,303（2000→2017）。鄰近門檻 15%／25%：120 日 9/15、7/9。"
+    },
+    {
+      "tone": "info",
+      "title": "After a week down 10% or more (8 events, 5 market episodes, 1997-2026), the index was higher 240 sessions later 5 of 8 times (median +14.0%); at 20, 60 and 120 sessions 4 of 8",
+      "detail": "Baseline 65.85% at 240 sessions inside Wilson 30.57-86.32. 8% threshold: 8/15 (median +1.4%); 12%: 2/3. Episode-first only: 3/5.",
+      "title_zh": "單週跌一成以上（8 次、5 段行情）：240 個交易日後 8 次有 5 次比較高（中位數 +14.0%）；20、60、120 日都是 4/8",
+      "detail_zh": "平常日 240 日 65.85%，在 Wilson 30.57–86.32 之內。8% 門檻 8/15（中位數 +1.4%）、12% 門檻 2/3；每段行情只算第一個 3/5。"
+    },
+    {
+      "tone": "warn",
+      "title": "7 of the 8 big-fall weeks were followed within 20 sessions by a close at least 5% below the entry; the lowest close within 240 sessions was a median 17.3% below entry, deepest 48.0% (2000-04-15)",
+      "detail": "Worst 240-session returns: -35.9% (A, 2000-04-15), -45.7% (B one-year, 2007-12-17). Deepest fall from a high: -66.2% (2000-02-17 to 2001-10-03), 17.3 years to regain it.",
+      "title_zh": "週跌一成的 8 次裡有 7 次，之後 20 個交易日內收盤又比進場低 5% 以上；240 日內最低收盤中位數 −17.3%，最深 −48.0%（2000-04-15）",
+      "detail_zh": "240 日最差：A −35.9%（2000-04-15）、B 一年版 −45.7%（2007-12-17）。從高點最深 −66.2%（2000-02-17 → 2001-10-03），回到高點 17.3 年。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "TAIEX closing 20% below its one-year closing high: 11 times since 1997, higher 120 sessions after the cross 8 times; a week down 10% or more: 8 times, higher 240 sessions later 5 times, but 7 of them saw a close at least 5% lower within 20 sessions. No cell separates from any day.",
+  "title_zh": "台股單週跌一成以上、收盤從高點跌破兩成之後，20／60／120／240 個交易日怎麼走？1997–2026 加權指數（事先登記）",
+  "question_zh": "加權指數單週收盤跌一成以上（另看 8%、12%）、或收盤第一次比高點低兩成以上（另看 15%、25%；高點分資料內最高收盤與一年內最高收盤）之後，20／60／120／240 個交易日後比較高的次數、之後又跌多深、多久回到高點？",
+  "hypothesis_zh": "2026-11-21 23:1x（台北時間）在算任何事後報酬之前登記並單獨提交。不預設方向。預期每個門檻只有個位數到十幾次事件，所以直接報次數、逐筆列出；加權指數長期向上，平常日本身就有過半會漲。",
+  "card_summary_zh": "一年內高點跌破兩成 11 次，跌破那天起 120 個交易日後 8 次比較高；週跌一成 8 次，240 日後 5 次比較高，但其中 7 次一個月內還有更低的收盤。",
+  "limitations_zh": [
+    "加權指數是價格指數，不含股息、不含交易成本；只描述、不是因果。",
+    "每格只有 3–16 次事件（主門檻 5–11 次），Wilson 區間約 47–65 個百分點寬；每一格的平常日比例都在區間內。",
+    "「資料內最高收盤」從 1997-07-02 算起，1990 年的高點不在資料裡；17.3 年回到的是 2000-02-17 的 10,202.20。上週 −17.5% 是 1997 年 7 月以來最大的一週跌幅；再往前，1990 年有一週 −22.4%（審查者用證交所 1990–1997 資料事後補算，不在研究資料裡），所以不能說「史上最大」。",
+    "週跌一成的 8 次擠在少數幾年：4 次在 1999–2001 年、2 次在 2008 年，彼此的 240 日窗口重疊（5 段行情）；資料內最高版的 5 次也全部在一年高點版的 11 次裡，不是 16 次獨立事件。",
+    "交易日曆：2001 年以前週六有交易，週收盤用證交所的週六收盤；登記前已看過的週跌幅清單（Yahoo 日曆，沒有週六）有三週不同。審查者事後補算（不能當結論）：只用 Yahoo 日曆時，週跌一成是 7 次、240 日 5/7、20 日內再低 6/7；一年高點跌破兩成仍是 120 日 8/11、全部回到高點。",
+    "2026-11-16 收盤 41,040.08 已由研究審對過證交所 2026 年 11 月 FMTQIK；results.json 裡「只有 Yahoo」的舊說法等 revision 2 重跑時一起改。",
+    "一年高點用 252 個交易日；2001 年以前有週六交易，252 個交易日不到一個日曆年。",
+    "對觀眾的說法限制：這次是第 12 次跌破一年高點兩成，不在歷史 11 次裡；這次的跌破日是 2026-11-06（收盤 39,701.64），到 11-20 又比那天低 9.2%，歷史 11 次是從跌破那天算，不能把今天當成跌破日。「全部回到高點」要改講花多久（從高點算，最快約半年、中位數約兩年、最慢 17 年）。週跌一成要講 20／60／120／240 日四個持有期（4、4、4、5 次），不能只講最好看的 240 日；上週那週和 11-06 那週算同一次（兩週內兩個跌一成的週，1997 年以來第一次）。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是買賣訊號。每一格的次數，和同一段歷史任何一天起算的比例比，都在 Wilson 區間之內，分不出差別；台股長期往上，放越久本來就越容易比較高。單週大跌之後，多數在一個月內還有更低的收盤；從高點跌破兩成之後，通常還會再跌一段（一年高點版中位數再跌 10.7%）。歷史上的高點後來都有回去，但這一項因為現在指數高於 2025 年以前所有高點，本來就會成立；有資訊的是花多久：從高點算中位數 509 個交易日（約兩年），最快 2020 年約半年，最慢 2000 年那次 17 年。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "a_events",
+        "a_up20",
+        "a_up60",
+        "a_up120",
+        "a_up240",
+        "a_lower_within20",
+        "a_low240_median_pct",
+        "b1y_events",
+        "b1y_up120",
+        "b1y_median120_pct",
+        "b_alltime_events",
+        "b1y_median_sessions_high_to_recovery",
+        "b_deepest_pct",
+        "now_drawdown_pct",
+        "now_last_week_pct"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "A.10.history",
+      "title": "A 單週跌 ≥ 10%：8 個歷史事件（從事件週收盤算的報酬 %；low = 之後 N 個交易日內最低收盤相對事件週收盤）",
+      "columns": [
+        "entry_date",
+        "week_change",
+        "entry_close",
+        "ret20",
+        "ret60",
+        "ret120",
+        "ret240",
+        "low20",
+        "low60",
+        "low240",
+        "low240_session",
+        "episode_id"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "A.10.summary",
+      "title": "A 單週跌 ≥ 10%：各持有期彙總（平常日欄位只供研究審查）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "max",
+        "up_wilson95",
+        "baseline_up_pct",
+        "baseline_median"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "A.10.now",
+      "title": "A 現在（不進統計）：2026-11-06 那週，11-20 那週併入",
+      "columns": [
+        "entry_date",
+        "week_change",
+        "entry_close",
+        "weeks_absorbed",
+        "low_so_far",
+        "low_so_far_session",
+        "sessions_after_entry_available"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "A.8.summary",
+      "title": "A 鄰近門檻：單週跌 ≥ 8%（15 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "A.12.summary",
+      "title": "A 鄰近門檻：單週跌 ≥ 12%（3 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.one_year.20.history",
+      "title": "B 一年內最高收盤跌破 −20%：11 個歷史事件（報酬從跌破日收盤算 %）",
+      "columns": [
+        "high_date",
+        "high_close",
+        "cross_date",
+        "cross_close",
+        "low_date",
+        "low_vs_high",
+        "low_vs_cross",
+        "sessions_cross_to_low",
+        "ret20",
+        "ret60",
+        "ret120",
+        "ret240",
+        "recovery_date",
+        "sessions_high_to_recovery",
+        "years_high_to_recovery"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.one_year.20.summary",
+      "title": "B 一年內最高收盤跌破 −20%：各持有期彙總",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95",
+        "baseline_up_pct",
+        "baseline_median"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.all_time.20.history",
+      "title": "B 資料內最高收盤跌破 −20%：5 個歷史事件（全部也在一年高點版的 11 次裡）",
+      "columns": [
+        "high_date",
+        "high_close",
+        "cross_date",
+        "low_date",
+        "low_vs_high",
+        "low_vs_cross",
+        "sessions_cross_to_low",
+        "ret20",
+        "ret60",
+        "ret120",
+        "ret240",
+        "recovery_date",
+        "years_high_to_recovery"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.all_time.20.summary",
+      "title": "B 資料內最高收盤跌破 −20%：各持有期彙總",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.one_year.15.summary",
+      "title": "B 鄰近門檻：一年高點跌破 −15%",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.one_year.25.summary",
+      "title": "B 鄰近門檻：一年高點跌破 −25%",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median",
+        "min",
+        "min_event",
+        "up_wilson95"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "B.one_year.20.now",
+      "title": "B 現在（不進統計，最低是至今）",
+      "columns": [
+        "high_date",
+        "high_close",
+        "cross_date",
+        "cross_close",
+        "low_date",
+        "low_vs_high",
+        "low_vs_cross",
+        "sessions_after_cross_available"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "largest_weekly_falls_top15",
+      "title": "資料裡跌最多的 15 週（證交所交易日曆）",
+      "columns": [
+        "date",
+        "change",
+        "prev_close_date"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "now_state",
+      "title": "現在：資料最後一天",
+      "keys": [
+        "last_date",
+        "last_close",
+        "all_time_high_date",
+        "all_time_high_close",
+        "drawdown_from_all_time_high",
+        "last_week_change",
+        "last_week_prev_close_date"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

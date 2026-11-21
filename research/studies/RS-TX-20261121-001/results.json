@@ -1,0 +1,4190 @@
+{
+  "strategy_version": null,
+  "schema_version": 1,
+  "study_id": "RS-TX-20261121-001",
+  "generated_at": "2026-11-21T23:18:37+08:00",
+  "method": {
+    "horizons_sessions": [
+      20,
+      60,
+      120,
+      240
+    ],
+    "A_thresholds_pct": [
+      8.0,
+      10.0,
+      12.0
+    ],
+    "A_primary_pct": 10.0,
+    "A_join_gap_sessions": 20,
+    "A_episode_gap_sessions": 240,
+    "A_low_window_sessions": 240,
+    "B_thresholds_pct": [
+      15.0,
+      20.0,
+      25.0
+    ],
+    "B_primary_pct": 20.0,
+    "B_one_year_sessions": 252,
+    "week": "ISO calendar week; close of its last session vs the last close before it",
+    "up": "forward return > 0",
+    "interval": "Wilson 95% for up shares",
+    "calendar_tolerance_points": 0.5,
+    "price": "close only, price index without dividends"
+  },
+  "limitations": [
+    "Price index without dividends (event and baseline both price only).",
+    "The all-time high is the highest close since 1997-07-02 (data start); the 1990 peak is not in the data.",
+    "Few events per threshold; shares are reported as counts with Wilson intervals; no significance test.",
+    "Forward windows of events within 240 sessions overlap (counted once per episode in the episode-first table).",
+    "2026-11-16 close is Yahoo only (not checked against the exchange); 2026-11-17..20 checked by RS-TX-20261105-001 rev 4."
+  ],
+  "coverage": {
+    "yahoo_rows": 7201,
+    "twse_file_last_date": "2026-11-13",
+    "yahoo_rows_kept": 7193,
+    "closes_replaced_by_twse": [
+      "1999-01-25",
+      "2000-01-07",
+      "2000-10-23"
+    ],
+    "twse_sessions_inserted": 125,
+    "twse_inserted_saturdays": 121,
+    "yahoo_rows_dropped_not_twse_session": [
+      "2001-09-18",
+      "2014-07-23",
+      "2016-07-08"
+    ],
+    "yahoo_rows_appended_after_twse_file": [
+      "2026-11-16",
+      "2026-11-17",
+      "2026-11-18",
+      "2026-11-19",
+      "2026-11-20"
+    ],
+    "max_abs_close_diff_shared": 72.0,
+    "sessions": 7323,
+    "first_date": "1997-07-02",
+    "last_date": "2026-11-20"
+  },
+  "A": {
+    "8": {
+      "threshold_pct": 8.0,
+      "qualifying_weeks": 18,
+      "events": 15,
+      "episodes": 11,
+      "history": [
+        {
+          "entry_date": "1997-10-18",
+          "entry_close": 7618.45,
+          "prev_week_close_date": "1997-10-09",
+          "prev_week_close": 8461.87,
+          "week_change": -9.97,
+          "weeks_absorbed": [
+            {
+              "date": "1997-10-18",
+              "change": -9.97
+            }
+          ],
+          "largest_week_fall": -9.97,
+          "largest_week_date": "1997-10-18",
+          "id": "1997-10-18",
+          "sessions_after_entry_available": 7235,
+          "ret20": -1.66,
+          "ret60": 4.56,
+          "ret120": 18.68,
+          "ret240": -15.16,
+          "low20": -6.94,
+          "low20_session": 8,
+          "low60": -6.94,
+          "low60_session": 8,
+          "low240": -17.94,
+          "low240_session": 239,
+          "low240_date": "1998-09-03",
+          "low_so_far": -17.94,
+          "low_so_far_session": 239,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "1997-10-18"
+        },
+        {
+          "entry_date": "1999-07-17",
+          "entry_close": 7366.23,
+          "prev_week_close_date": "1999-07-09",
+          "prev_week_close": 8550.27,
+          "week_change": -13.85,
+          "weeks_absorbed": [
+            {
+              "date": "1999-07-17",
+              "change": -13.85
+            }
+          ],
+          "largest_week_fall": -13.85,
+          "largest_week_date": "1999-07-17",
+          "id": "1999-07-17",
+          "sessions_after_entry_available": 6765,
+          "ret20": -1.87,
+          "ret60": 1.84,
+          "ret120": 8.64,
+          "ret240": 21.57,
+          "low20": -7.37,
+          "low20_session": 16,
+          "low60": -7.37,
+          "low60_session": 16,
+          "low240": -7.37,
+          "low240_session": 16,
+          "low240_date": "1999-08-06",
+          "low_so_far": -7.37,
+          "low_so_far_session": 16,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "1999-07-17"
+        },
+        {
+          "entry_date": "2000-04-15",
+          "entry_close": 8866.8,
+          "prev_week_close_date": "2000-04-08",
+          "prev_week_close": 9934.57,
+          "week_change": -10.75,
+          "weeks_absorbed": [
+            {
+              "date": "2000-04-15",
+              "change": -10.75
+            }
+          ],
+          "largest_week_fall": -10.75,
+          "largest_week_date": "2000-04-15",
+          "id": "2000-04-15",
+          "sessions_after_entry_available": 6568,
+          "ret20": -5.83,
+          "ret60": -9.18,
+          "ret120": -22.41,
+          "ret240": -35.94,
+          "low20": -5.83,
+          "low20_session": 20,
+          "low60": -9.18,
+          "low60_session": 60,
+          "low240": -47.96,
+          "low240_session": 195,
+          "low240_date": "2000-12-27",
+          "low_so_far": -47.96,
+          "low_so_far_session": 195,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "1999-07-17"
+        },
+        {
+          "entry_date": "2000-11-18",
+          "entry_close": 5167.35,
+          "prev_week_close_date": "2000-11-10",
+          "prev_week_close": 6088.74,
+          "week_change": -15.13,
+          "weeks_absorbed": [
+            {
+              "date": "2000-11-18",
+              "change": -15.13
+            }
+          ],
+          "largest_week_fall": -15.13,
+          "largest_week_date": "2000-11-18",
+          "id": "2000-11-18",
+          "sessions_after_entry_available": 6402,
+          "ret20": 2.96,
+          "ret60": 17.0,
+          "ret120": -1.65,
+          "ret240": -20.2,
+          "low20": -6.23,
+          "low20_session": 1,
+          "low60": -10.7,
+          "low60_session": 29,
+          "low240": -33.31,
+          "low240_session": 214,
+          "low240_date": "2001-10-03",
+          "low_so_far": -33.31,
+          "low_so_far_session": 214,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2000-11-18"
+        },
+        {
+          "entry_date": "2001-09-14",
+          "entry_close": 3774.62,
+          "prev_week_close_date": "2001-09-07",
+          "prev_week_close": 4302.16,
+          "week_change": -12.26,
+          "weeks_absorbed": [
+            {
+              "date": "2001-09-14",
+              "change": -12.26
+            }
+          ],
+          "largest_week_fall": -12.26,
+          "largest_week_date": "2001-09-14",
+          "id": "2001-09-14",
+          "sessions_after_entry_available": 6198,
+          "ret20": 0.97,
+          "ret60": 43.26,
+          "ret120": 60.52,
+          "ret240": 20.1,
+          "low20": -8.7,
+          "low20_session": 10,
+          "low60": -8.7,
+          "low60_session": 10,
+          "low240": -8.7,
+          "low240_session": 10,
+          "low240_date": "2001-10-03",
+          "low_so_far": -8.7,
+          "low_so_far_session": 10,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2000-11-18"
+        },
+        {
+          "entry_date": "2003-04-25",
+          "entry_close": 4233.54,
+          "prev_week_close_date": "2003-04-18",
+          "prev_week_close": 4658.3,
+          "week_change": -9.12,
+          "weeks_absorbed": [
+            {
+              "date": "2003-04-25",
+              "change": -9.12
+            }
+          ],
+          "largest_week_fall": -9.12,
+          "largest_week_date": "2003-04-25",
+          "id": "2003-04-25",
+          "sessions_after_entry_available": 5803,
+          "ret20": 5.48,
+          "ret60": 24.27,
+          "ret120": 42.57,
+          "ret240": 60.1,
+          "low20": -2.22,
+          "low20_session": 1,
+          "low60": -2.22,
+          "low60_session": 1,
+          "low240": -2.22,
+          "low240_session": 1,
+          "low240_date": "2003-04-28",
+          "low_so_far": -2.22,
+          "low_so_far_session": 1,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2003-04-25"
+        },
+        {
+          "entry_date": "2004-03-26",
+          "entry_close": 6132.62,
+          "prev_week_close_date": "2004-03-19",
+          "prev_week_close": 6815.09,
+          "week_change": -10.01,
+          "weeks_absorbed": [
+            {
+              "date": "2004-03-26",
+              "change": -10.01
+            }
+          ],
+          "largest_week_fall": -10.01,
+          "largest_week_date": "2004-03-26",
+          "id": "2004-03-26",
+          "sessions_after_entry_available": 5574,
+          "ret20": 10.04,
+          "ret60": -9.19,
+          "ret120": -4.26,
+          "ret240": -1.13,
+          "low20": 5.57,
+          "low20_session": 1,
+          "low60": -10.59,
+          "low60_session": 36,
+          "low240": -13.3,
+          "low240_session": 92,
+          "low240_date": "2004-08-04",
+          "low_so_far": -13.3,
+          "low_so_far_session": 92,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2003-04-25"
+        },
+        {
+          "entry_date": "2004-04-30",
+          "entry_close": 6117.81,
+          "prev_week_close_date": "2004-04-23",
+          "prev_week_close": 6748.1,
+          "week_change": -9.34,
+          "weeks_absorbed": [
+            {
+              "date": "2004-04-30",
+              "change": -9.34
+            }
+          ],
+          "largest_week_fall": -9.34,
+          "largest_week_date": "2004-04-30",
+          "id": "2004-04-30",
+          "sessions_after_entry_available": 5549,
+          "ret20": 0.32,
+          "ret60": -12.85,
+          "ret120": -5.24,
+          "ret240": -6.94,
+          "low20": -10.38,
+          "low20_session": 11,
+          "low60": -12.95,
+          "low60_session": 56,
+          "low240": -13.09,
+          "low240_session": 67,
+          "low240_date": "2004-08-04",
+          "low_so_far": -13.09,
+          "low_so_far_session": 67,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2004-04-30"
+        },
+        {
+          "entry_date": "2007-08-17",
+          "entry_close": 8090.29,
+          "prev_week_close_date": "2007-08-10",
+          "prev_week_close": 8931.31,
+          "week_change": -9.42,
+          "weeks_absorbed": [
+            {
+              "date": "2007-08-17",
+              "change": -9.42
+            }
+          ],
+          "largest_week_fall": -9.42,
+          "largest_week_date": "2007-08-17",
+          "id": "2007-08-17",
+          "sessions_after_entry_available": 4730,
+          "ret20": 11.64,
+          "ret60": 10.54,
+          "ret120": -2.64,
+          "ret240": -13.17,
+          "low20": 4.81,
+          "low20_session": 2,
+          "low60": 4.81,
+          "low60_session": 2,
+          "low240": -17.05,
+          "low240_session": 225,
+          "low240_date": "2008-07-16",
+          "low_so_far": -17.05,
+          "low_so_far_session": 225,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2007-08-17"
+        },
+        {
+          "entry_date": "2008-09-05",
+          "entry_close": 6307.28,
+          "prev_week_close_date": "2008-08-29",
+          "prev_week_close": 7046.11,
+          "week_change": -10.49,
+          "weeks_absorbed": [
+            {
+              "date": "2008-09-05",
+              "change": -10.49
+            }
+          ],
+          "largest_week_fall": -10.49,
+          "largest_week_date": "2008-09-05",
+          "id": "2008-09-05",
+          "sessions_after_entry_available": 4469,
+          "ret20": -12.71,
+          "ret60": -30.92,
+          "ret120": -26.48,
+          "ret240": 7.96,
+          "low20": -12.71,
+          "low20_session": 20,
+          "low60": -35.16,
+          "low60_session": 52,
+          "low240": -35.16,
+          "low240_session": 52,
+          "low240_date": "2008-11-20",
+          "low_so_far": -35.16,
+          "low_so_far_session": 52,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2008-09-05"
+        },
+        {
+          "entry_date": "2008-10-09",
+          "entry_close": 5130.71,
+          "prev_week_close_date": "2008-10-03",
+          "prev_week_close": 5742.23,
+          "week_change": -10.65,
+          "weeks_absorbed": [
+            {
+              "date": "2008-10-09",
+              "change": -10.65
+            }
+          ],
+          "largest_week_fall": -10.65,
+          "largest_week_date": "2008-10-09",
+          "id": "2008-10-09",
+          "sessions_after_entry_available": 4446,
+          "ret20": -7.57,
+          "ret60": -7.86,
+          "ret120": 8.7,
+          "ret240": 43.16,
+          "low20": -14.89,
+          "low20_session": 11,
+          "low60": -20.29,
+          "low60_session": 29,
+          "low240": -20.29,
+          "low240_session": 29,
+          "low240_date": "2008-11-20",
+          "low_so_far": -20.29,
+          "low_so_far_session": 29,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2008-09-05"
+        },
+        {
+          "entry_date": "2011-08-05",
+          "entry_close": 7853.13,
+          "prev_week_close_date": "2011-07-29",
+          "prev_week_close": 8644.18,
+          "week_change": -9.15,
+          "weeks_absorbed": [
+            {
+              "date": "2011-08-05",
+              "change": -9.15
+            }
+          ],
+          "largest_week_fall": -9.15,
+          "largest_week_date": "2011-08-05",
+          "id": "2011-08-05",
+          "sessions_after_entry_available": 3742,
+          "ret20": -1.22,
+          "ret60": -2.94,
+          "ret120": -2.56,
+          "ret240": -10.5,
+          "low20": -6.88,
+          "low20_session": 11,
+          "low60": -12.43,
+          "low60_session": 35,
+          "low240": -15.53,
+          "low240_session": 94,
+          "low240_date": "2011-12-19",
+          "low_so_far": -15.53,
+          "low_so_far_session": 94,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2011-08-05"
+        },
+        {
+          "entry_date": "2020-03-13",
+          "entry_close": 10128.87,
+          "prev_week_close_date": "2020-03-06",
+          "prev_week_close": 11321.81,
+          "week_change": -10.54,
+          "weeks_absorbed": [
+            {
+              "date": "2020-03-13",
+              "change": -10.54
+            },
+            {
+              "date": "2020-03-20",
+              "change": -8.83
+            }
+          ],
+          "largest_week_fall": -10.54,
+          "largest_week_date": "2020-03-13",
+          "id": "2020-03-13",
+          "sessions_after_entry_available": 1628,
+          "ret20": 2.01,
+          "ret60": 15.71,
+          "ret120": 24.77,
+          "ret240": 56.51,
+          "low20": -14.29,
+          "low20_session": 4,
+          "low60": -14.29,
+          "low60_session": 4,
+          "low240": -14.29,
+          "low240_session": 4,
+          "low240_date": "2020-03-19",
+          "low_so_far": -14.29,
+          "low_so_far_session": 4,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2020-03-13"
+        },
+        {
+          "entry_date": "2021-05-14",
+          "entry_close": 15827.09,
+          "prev_week_close_date": "2021-05-07",
+          "prev_week_close": 17285.0,
+          "week_change": -8.43,
+          "weeks_absorbed": [
+            {
+              "date": "2021-05-14",
+              "change": -8.43
+            }
+          ],
+          "largest_week_fall": -8.43,
+          "largest_week_date": "2021-05-14",
+          "id": "2021-05-14",
+          "sessions_after_entry_available": 1343,
+          "ret20": 8.76,
+          "ret60": 10.48,
+          "ret120": 7.91,
+          "ret240": 1.4,
+          "low20": -2.99,
+          "low20_session": 1,
+          "low60": -2.99,
+          "low60_session": 1,
+          "low240": -2.99,
+          "low240_session": 1,
+          "low240_date": "2021-05-17",
+          "low_so_far": -2.99,
+          "low_so_far_session": 1,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2021-05-14"
+        },
+        {
+          "entry_date": "2025-04-11",
+          "entry_close": 19528.77,
+          "prev_week_close_date": "2025-04-02",
+          "prev_week_close": 21298.22,
+          "week_change": -8.31,
+          "weeks_absorbed": [
+            {
+              "date": "2025-04-11",
+              "change": -8.31
+            }
+          ],
+          "largest_week_fall": -8.31,
+          "largest_week_date": "2025-04-11",
+          "id": "2025-04-11",
+          "sessions_after_entry_available": 394,
+          "ret20": 8.2,
+          "ret60": 14.51,
+          "ret120": 33.05,
+          "ret240": 78.0,
+          "low20": -3.77,
+          "low20_session": 7,
+          "low60": -3.77,
+          "low60_session": 7,
+          "low240": -3.77,
+          "low240_session": 7,
+          "low240_date": "2025-04-22",
+          "low_so_far": -3.77,
+          "low_so_far_session": 7,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2025-04-11"
+        }
+      ],
+      "now": [
+        {
+          "entry_date": "2026-11-06",
+          "entry_close": 39701.64,
+          "prev_week_close_date": "2026-10-30",
+          "prev_week_close": 45211.83,
+          "week_change": -12.19,
+          "weeks_absorbed": [
+            {
+              "date": "2026-11-06",
+              "change": -12.19
+            },
+            {
+              "date": "2026-11-20",
+              "change": -17.5
+            }
+          ],
+          "largest_week_fall": -17.5,
+          "largest_week_date": "2026-11-20",
+          "id": "2026-11-06",
+          "sessions_after_entry_available": 10,
+          "ret20": null,
+          "ret60": null,
+          "ret120": null,
+          "ret240": null,
+          "low20": null,
+          "low20_session": null,
+          "low60": null,
+          "low60_session": null,
+          "low240": null,
+          "low240_session": null,
+          "low_so_far": -9.24,
+          "low_so_far_session": 10,
+          "status": "now"
+        }
+      ],
+      "summary": {
+        "20": {
+          "n": 15,
+          "up": 9,
+          "down": 6,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            35.75,
+            80.18
+          ],
+          "median": 0.97,
+          "min": -12.71,
+          "min_event": "2008-09-05",
+          "max": 11.64,
+          "max_event": "2007-08-17",
+          "baseline_up_pct": 57.1,
+          "baseline_median": 0.95,
+          "baseline_inside_interval": true
+        },
+        "60": {
+          "n": 15,
+          "up": 9,
+          "down": 6,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            35.75,
+            80.18
+          ],
+          "median": 4.56,
+          "min": -30.92,
+          "min_event": "2008-09-05",
+          "max": 43.26,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 60.86,
+          "baseline_median": 2.39,
+          "baseline_inside_interval": true
+        },
+        "120": {
+          "n": 15,
+          "up": 8,
+          "down": 7,
+          "up_pct": 53.33,
+          "up_wilson95": [
+            30.12,
+            75.19
+          ],
+          "median": 7.91,
+          "min": -26.48,
+          "min_event": "2008-09-05",
+          "max": 60.52,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 64.46,
+          "baseline_median": 4.07,
+          "baseline_inside_interval": true
+        },
+        "240": {
+          "n": 15,
+          "up": 8,
+          "down": 7,
+          "up_pct": 53.33,
+          "up_wilson95": [
+            30.12,
+            75.19
+          ],
+          "median": 1.4,
+          "min": -35.94,
+          "min_event": "2000-04-15",
+          "max": 78.0,
+          "max_event": "2025-04-11",
+          "baseline_up_pct": 65.85,
+          "baseline_median": 7.91,
+          "baseline_inside_interval": true
+        }
+      },
+      "summary_episode_first_only": {
+        "20": {
+          "n": 11,
+          "up": 7,
+          "down": 4,
+          "up_pct": 63.64,
+          "up_wilson95": [
+            35.38,
+            84.83
+          ],
+          "median": 2.01,
+          "min": -12.71,
+          "min_event": "2008-09-05",
+          "max": 11.64,
+          "max_event": "2007-08-17"
+        },
+        "60": {
+          "n": 11,
+          "up": 8,
+          "down": 3,
+          "up_pct": 72.73,
+          "up_wilson95": [
+            43.44,
+            90.25
+          ],
+          "median": 10.48,
+          "min": -30.92,
+          "min_event": "2008-09-05",
+          "max": 24.27,
+          "max_event": "2003-04-25"
+        },
+        "120": {
+          "n": 11,
+          "up": 6,
+          "down": 5,
+          "up_pct": 54.55,
+          "up_wilson95": [
+            28.01,
+            78.73
+          ],
+          "median": 7.91,
+          "min": -26.48,
+          "min_event": "2008-09-05",
+          "max": 42.57,
+          "max_event": "2003-04-25"
+        },
+        "240": {
+          "n": 11,
+          "up": 6,
+          "down": 5,
+          "up_pct": 54.55,
+          "up_wilson95": [
+            28.01,
+            78.73
+          ],
+          "median": 1.4,
+          "min": -20.2,
+          "min_event": "2000-11-18",
+          "max": 78.0,
+          "max_event": "2025-04-11"
+        }
+      },
+      "low240_summary": {
+        "n": 15,
+        "median": -14.29,
+        "deepest": -47.96,
+        "deepest_event": "2000-04-15",
+        "count_at_or_below_minus10": 10,
+        "count_at_or_below_minus20": 4,
+        "count_no_lower_close": 0,
+        "baseline_median": -9.55
+      }
+    },
+    "10": {
+      "threshold_pct": 10.0,
+      "qualifying_weeks": 10,
+      "events": 8,
+      "episodes": 5,
+      "history": [
+        {
+          "entry_date": "1999-07-17",
+          "entry_close": 7366.23,
+          "prev_week_close_date": "1999-07-09",
+          "prev_week_close": 8550.27,
+          "week_change": -13.85,
+          "weeks_absorbed": [
+            {
+              "date": "1999-07-17",
+              "change": -13.85
+            }
+          ],
+          "largest_week_fall": -13.85,
+          "largest_week_date": "1999-07-17",
+          "id": "1999-07-17",
+          "sessions_after_entry_available": 6765,
+          "ret20": -1.87,
+          "ret60": 1.84,
+          "ret120": 8.64,
+          "ret240": 21.57,
+          "low20": -7.37,
+          "low20_session": 16,
+          "low60": -7.37,
+          "low60_session": 16,
+          "low240": -7.37,
+          "low240_session": 16,
+          "low240_date": "1999-08-06",
+          "low_so_far": -7.37,
+          "low_so_far_session": 16,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "1999-07-17"
+        },
+        {
+          "entry_date": "2000-04-15",
+          "entry_close": 8866.8,
+          "prev_week_close_date": "2000-04-08",
+          "prev_week_close": 9934.57,
+          "week_change": -10.75,
+          "weeks_absorbed": [
+            {
+              "date": "2000-04-15",
+              "change": -10.75
+            }
+          ],
+          "largest_week_fall": -10.75,
+          "largest_week_date": "2000-04-15",
+          "id": "2000-04-15",
+          "sessions_after_entry_available": 6568,
+          "ret20": -5.83,
+          "ret60": -9.18,
+          "ret120": -22.41,
+          "ret240": -35.94,
+          "low20": -5.83,
+          "low20_session": 20,
+          "low60": -9.18,
+          "low60_session": 60,
+          "low240": -47.96,
+          "low240_session": 195,
+          "low240_date": "2000-12-27",
+          "low_so_far": -47.96,
+          "low_so_far_session": 195,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "1999-07-17"
+        },
+        {
+          "entry_date": "2000-11-18",
+          "entry_close": 5167.35,
+          "prev_week_close_date": "2000-11-10",
+          "prev_week_close": 6088.74,
+          "week_change": -15.13,
+          "weeks_absorbed": [
+            {
+              "date": "2000-11-18",
+              "change": -15.13
+            }
+          ],
+          "largest_week_fall": -15.13,
+          "largest_week_date": "2000-11-18",
+          "id": "2000-11-18",
+          "sessions_after_entry_available": 6402,
+          "ret20": 2.96,
+          "ret60": 17.0,
+          "ret120": -1.65,
+          "ret240": -20.2,
+          "low20": -6.23,
+          "low20_session": 1,
+          "low60": -10.7,
+          "low60_session": 29,
+          "low240": -33.31,
+          "low240_session": 214,
+          "low240_date": "2001-10-03",
+          "low_so_far": -33.31,
+          "low_so_far_session": 214,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2000-11-18"
+        },
+        {
+          "entry_date": "2001-09-14",
+          "entry_close": 3774.62,
+          "prev_week_close_date": "2001-09-07",
+          "prev_week_close": 4302.16,
+          "week_change": -12.26,
+          "weeks_absorbed": [
+            {
+              "date": "2001-09-14",
+              "change": -12.26
+            }
+          ],
+          "largest_week_fall": -12.26,
+          "largest_week_date": "2001-09-14",
+          "id": "2001-09-14",
+          "sessions_after_entry_available": 6198,
+          "ret20": 0.97,
+          "ret60": 43.26,
+          "ret120": 60.52,
+          "ret240": 20.1,
+          "low20": -8.7,
+          "low20_session": 10,
+          "low60": -8.7,
+          "low60_session": 10,
+          "low240": -8.7,
+          "low240_session": 10,
+          "low240_date": "2001-10-03",
+          "low_so_far": -8.7,
+          "low_so_far_session": 10,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2000-11-18"
+        },
+        {
+          "entry_date": "2004-03-26",
+          "entry_close": 6132.62,
+          "prev_week_close_date": "2004-03-19",
+          "prev_week_close": 6815.09,
+          "week_change": -10.01,
+          "weeks_absorbed": [
+            {
+              "date": "2004-03-26",
+              "change": -10.01
+            }
+          ],
+          "largest_week_fall": -10.01,
+          "largest_week_date": "2004-03-26",
+          "id": "2004-03-26",
+          "sessions_after_entry_available": 5574,
+          "ret20": 10.04,
+          "ret60": -9.19,
+          "ret120": -4.26,
+          "ret240": -1.13,
+          "low20": 5.57,
+          "low20_session": 1,
+          "low60": -10.59,
+          "low60_session": 36,
+          "low240": -13.3,
+          "low240_session": 92,
+          "low240_date": "2004-08-04",
+          "low_so_far": -13.3,
+          "low_so_far_session": 92,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2004-03-26"
+        },
+        {
+          "entry_date": "2008-09-05",
+          "entry_close": 6307.28,
+          "prev_week_close_date": "2008-08-29",
+          "prev_week_close": 7046.11,
+          "week_change": -10.49,
+          "weeks_absorbed": [
+            {
+              "date": "2008-09-05",
+              "change": -10.49
+            }
+          ],
+          "largest_week_fall": -10.49,
+          "largest_week_date": "2008-09-05",
+          "id": "2008-09-05",
+          "sessions_after_entry_available": 4469,
+          "ret20": -12.71,
+          "ret60": -30.92,
+          "ret120": -26.48,
+          "ret240": 7.96,
+          "low20": -12.71,
+          "low20_session": 20,
+          "low60": -35.16,
+          "low60_session": 52,
+          "low240": -35.16,
+          "low240_session": 52,
+          "low240_date": "2008-11-20",
+          "low_so_far": -35.16,
+          "low_so_far_session": 52,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2008-09-05"
+        },
+        {
+          "entry_date": "2008-10-09",
+          "entry_close": 5130.71,
+          "prev_week_close_date": "2008-10-03",
+          "prev_week_close": 5742.23,
+          "week_change": -10.65,
+          "weeks_absorbed": [
+            {
+              "date": "2008-10-09",
+              "change": -10.65
+            }
+          ],
+          "largest_week_fall": -10.65,
+          "largest_week_date": "2008-10-09",
+          "id": "2008-10-09",
+          "sessions_after_entry_available": 4446,
+          "ret20": -7.57,
+          "ret60": -7.86,
+          "ret120": 8.7,
+          "ret240": 43.16,
+          "low20": -14.89,
+          "low20_session": 11,
+          "low60": -20.29,
+          "low60_session": 29,
+          "low240": -20.29,
+          "low240_session": 29,
+          "low240_date": "2008-11-20",
+          "low_so_far": -20.29,
+          "low_so_far_session": 29,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2008-09-05"
+        },
+        {
+          "entry_date": "2020-03-13",
+          "entry_close": 10128.87,
+          "prev_week_close_date": "2020-03-06",
+          "prev_week_close": 11321.81,
+          "week_change": -10.54,
+          "weeks_absorbed": [
+            {
+              "date": "2020-03-13",
+              "change": -10.54
+            }
+          ],
+          "largest_week_fall": -10.54,
+          "largest_week_date": "2020-03-13",
+          "id": "2020-03-13",
+          "sessions_after_entry_available": 1628,
+          "ret20": 2.01,
+          "ret60": 15.71,
+          "ret120": 24.77,
+          "ret240": 56.51,
+          "low20": -14.29,
+          "low20_session": 4,
+          "low60": -14.29,
+          "low60_session": 4,
+          "low240": -14.29,
+          "low240_session": 4,
+          "low240_date": "2020-03-19",
+          "low_so_far": -14.29,
+          "low_so_far_session": 4,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2020-03-13"
+        }
+      ],
+      "now": [
+        {
+          "entry_date": "2026-11-06",
+          "entry_close": 39701.64,
+          "prev_week_close_date": "2026-10-30",
+          "prev_week_close": 45211.83,
+          "week_change": -12.19,
+          "weeks_absorbed": [
+            {
+              "date": "2026-11-06",
+              "change": -12.19
+            },
+            {
+              "date": "2026-11-20",
+              "change": -17.5
+            }
+          ],
+          "largest_week_fall": -17.5,
+          "largest_week_date": "2026-11-20",
+          "id": "2026-11-06",
+          "sessions_after_entry_available": 10,
+          "ret20": null,
+          "ret60": null,
+          "ret120": null,
+          "ret240": null,
+          "low20": null,
+          "low20_session": null,
+          "low60": null,
+          "low60_session": null,
+          "low240": null,
+          "low240_session": null,
+          "low_so_far": -9.24,
+          "low_so_far_session": 10,
+          "status": "now"
+        }
+      ],
+      "summary": {
+        "20": {
+          "n": 8,
+          "up": 4,
+          "down": 4,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            21.52,
+            78.48
+          ],
+          "median": -0.45,
+          "min": -12.71,
+          "min_event": "2008-09-05",
+          "max": 10.04,
+          "max_event": "2004-03-26",
+          "baseline_up_pct": 57.1,
+          "baseline_median": 0.95,
+          "baseline_inside_interval": true
+        },
+        "60": {
+          "n": 8,
+          "up": 4,
+          "down": 4,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            21.52,
+            78.48
+          ],
+          "median": -3.01,
+          "min": -30.92,
+          "min_event": "2008-09-05",
+          "max": 43.26,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 60.86,
+          "baseline_median": 2.39,
+          "baseline_inside_interval": true
+        },
+        "120": {
+          "n": 8,
+          "up": 4,
+          "down": 4,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            21.52,
+            78.48
+          ],
+          "median": 3.5,
+          "min": -26.48,
+          "min_event": "2008-09-05",
+          "max": 60.52,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 64.46,
+          "baseline_median": 4.07,
+          "baseline_inside_interval": true
+        },
+        "240": {
+          "n": 8,
+          "up": 5,
+          "down": 3,
+          "up_pct": 62.5,
+          "up_wilson95": [
+            30.57,
+            86.32
+          ],
+          "median": 14.03,
+          "min": -35.94,
+          "min_event": "2000-04-15",
+          "max": 56.51,
+          "max_event": "2020-03-13",
+          "baseline_up_pct": 65.85,
+          "baseline_median": 7.91,
+          "baseline_inside_interval": true
+        }
+      },
+      "summary_episode_first_only": {
+        "20": {
+          "n": 5,
+          "up": 3,
+          "down": 2,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            23.07,
+            88.24
+          ],
+          "median": 2.01,
+          "min": -12.71,
+          "min_event": "2008-09-05",
+          "max": 10.04,
+          "max_event": "2004-03-26"
+        },
+        "60": {
+          "n": 5,
+          "up": 3,
+          "down": 2,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            23.07,
+            88.24
+          ],
+          "median": 1.84,
+          "min": -30.92,
+          "min_event": "2008-09-05",
+          "max": 17.0,
+          "max_event": "2000-11-18"
+        },
+        "120": {
+          "n": 5,
+          "up": 2,
+          "down": 3,
+          "up_pct": 40.0,
+          "up_wilson95": [
+            11.76,
+            76.93
+          ],
+          "median": -1.65,
+          "min": -26.48,
+          "min_event": "2008-09-05",
+          "max": 24.77,
+          "max_event": "2020-03-13"
+        },
+        "240": {
+          "n": 5,
+          "up": 3,
+          "down": 2,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            23.07,
+            88.24
+          ],
+          "median": 7.96,
+          "min": -20.2,
+          "min_event": "2000-11-18",
+          "max": 56.51,
+          "max_event": "2020-03-13"
+        }
+      },
+      "low240_summary": {
+        "n": 8,
+        "median": -17.29,
+        "deepest": -47.96,
+        "deepest_event": "2000-04-15",
+        "count_at_or_below_minus10": 6,
+        "count_at_or_below_minus20": 4,
+        "count_no_lower_close": 0,
+        "baseline_median": -9.55
+      }
+    },
+    "12": {
+      "threshold_pct": 12.0,
+      "qualifying_weeks": 5,
+      "events": 3,
+      "episodes": 2,
+      "history": [
+        {
+          "entry_date": "1999-07-17",
+          "entry_close": 7366.23,
+          "prev_week_close_date": "1999-07-09",
+          "prev_week_close": 8550.27,
+          "week_change": -13.85,
+          "weeks_absorbed": [
+            {
+              "date": "1999-07-17",
+              "change": -13.85
+            }
+          ],
+          "largest_week_fall": -13.85,
+          "largest_week_date": "1999-07-17",
+          "id": "1999-07-17",
+          "sessions_after_entry_available": 6765,
+          "ret20": -1.87,
+          "ret60": 1.84,
+          "ret120": 8.64,
+          "ret240": 21.57,
+          "low20": -7.37,
+          "low20_session": 16,
+          "low60": -7.37,
+          "low60_session": 16,
+          "low240": -7.37,
+          "low240_session": 16,
+          "low240_date": "1999-08-06",
+          "low_so_far": -7.37,
+          "low_so_far_session": 16,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "1999-07-17"
+        },
+        {
+          "entry_date": "2000-11-18",
+          "entry_close": 5167.35,
+          "prev_week_close_date": "2000-11-10",
+          "prev_week_close": 6088.74,
+          "week_change": -15.13,
+          "weeks_absorbed": [
+            {
+              "date": "2000-11-18",
+              "change": -15.13
+            }
+          ],
+          "largest_week_fall": -15.13,
+          "largest_week_date": "2000-11-18",
+          "id": "2000-11-18",
+          "sessions_after_entry_available": 6402,
+          "ret20": 2.96,
+          "ret60": 17.0,
+          "ret120": -1.65,
+          "ret240": -20.2,
+          "low20": -6.23,
+          "low20_session": 1,
+          "low60": -10.7,
+          "low60_session": 29,
+          "low240": -33.31,
+          "low240_session": 214,
+          "low240_date": "2001-10-03",
+          "low_so_far": -33.31,
+          "low_so_far_session": 214,
+          "status": "history",
+          "episode_first": true,
+          "episode_id": "2000-11-18"
+        },
+        {
+          "entry_date": "2001-09-14",
+          "entry_close": 3774.62,
+          "prev_week_close_date": "2001-09-07",
+          "prev_week_close": 4302.16,
+          "week_change": -12.26,
+          "weeks_absorbed": [
+            {
+              "date": "2001-09-14",
+              "change": -12.26
+            }
+          ],
+          "largest_week_fall": -12.26,
+          "largest_week_date": "2001-09-14",
+          "id": "2001-09-14",
+          "sessions_after_entry_available": 6198,
+          "ret20": 0.97,
+          "ret60": 43.26,
+          "ret120": 60.52,
+          "ret240": 20.1,
+          "low20": -8.7,
+          "low20_session": 10,
+          "low60": -8.7,
+          "low60_session": 10,
+          "low240": -8.7,
+          "low240_session": 10,
+          "low240_date": "2001-10-03",
+          "low_so_far": -8.7,
+          "low_so_far_session": 10,
+          "status": "history",
+          "episode_first": false,
+          "episode_id": "2000-11-18"
+        }
+      ],
+      "now": [
+        {
+          "entry_date": "2026-11-06",
+          "entry_close": 39701.64,
+          "prev_week_close_date": "2026-10-30",
+          "prev_week_close": 45211.83,
+          "week_change": -12.19,
+          "weeks_absorbed": [
+            {
+              "date": "2026-11-06",
+              "change": -12.19
+            },
+            {
+              "date": "2026-11-20",
+              "change": -17.5
+            }
+          ],
+          "largest_week_fall": -17.5,
+          "largest_week_date": "2026-11-20",
+          "id": "2026-11-06",
+          "sessions_after_entry_available": 10,
+          "ret20": null,
+          "ret60": null,
+          "ret120": null,
+          "ret240": null,
+          "low20": null,
+          "low20_session": null,
+          "low60": null,
+          "low60_session": null,
+          "low240": null,
+          "low240_session": null,
+          "low_so_far": -9.24,
+          "low_so_far_session": 10,
+          "status": "now"
+        }
+      ],
+      "summary": {
+        "20": {
+          "n": 3,
+          "up": 2,
+          "down": 1,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            20.77,
+            93.85
+          ],
+          "median": 0.97,
+          "min": -1.87,
+          "min_event": "1999-07-17",
+          "max": 2.96,
+          "max_event": "2000-11-18",
+          "baseline_up_pct": 57.1,
+          "baseline_median": 0.95,
+          "baseline_inside_interval": true
+        },
+        "60": {
+          "n": 3,
+          "up": 3,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            43.85,
+            100.0
+          ],
+          "median": 17.0,
+          "min": 1.84,
+          "min_event": "1999-07-17",
+          "max": 43.26,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 60.86,
+          "baseline_median": 2.39,
+          "baseline_inside_interval": true
+        },
+        "120": {
+          "n": 3,
+          "up": 2,
+          "down": 1,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            20.77,
+            93.85
+          ],
+          "median": 8.64,
+          "min": -1.65,
+          "min_event": "2000-11-18",
+          "max": 60.52,
+          "max_event": "2001-09-14",
+          "baseline_up_pct": 64.46,
+          "baseline_median": 4.07,
+          "baseline_inside_interval": true
+        },
+        "240": {
+          "n": 3,
+          "up": 2,
+          "down": 1,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            20.77,
+            93.85
+          ],
+          "median": 20.1,
+          "min": -20.2,
+          "min_event": "2000-11-18",
+          "max": 21.57,
+          "max_event": "1999-07-17",
+          "baseline_up_pct": 65.85,
+          "baseline_median": 7.91,
+          "baseline_inside_interval": true
+        }
+      },
+      "summary_episode_first_only": {
+        "20": {
+          "n": 2,
+          "up": 1,
+          "down": 1,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            9.45,
+            90.55
+          ],
+          "median": 0.54,
+          "min": -1.87,
+          "min_event": "1999-07-17",
+          "max": 2.96,
+          "max_event": "2000-11-18"
+        },
+        "60": {
+          "n": 2,
+          "up": 2,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            34.24,
+            100.0
+          ],
+          "median": 9.42,
+          "min": 1.84,
+          "min_event": "1999-07-17",
+          "max": 17.0,
+          "max_event": "2000-11-18"
+        },
+        "120": {
+          "n": 2,
+          "up": 1,
+          "down": 1,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            9.45,
+            90.55
+          ],
+          "median": 3.5,
+          "min": -1.65,
+          "min_event": "2000-11-18",
+          "max": 8.64,
+          "max_event": "1999-07-17"
+        },
+        "240": {
+          "n": 2,
+          "up": 1,
+          "down": 1,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            9.45,
+            90.55
+          ],
+          "median": 0.69,
+          "min": -20.2,
+          "min_event": "2000-11-18",
+          "max": 21.57,
+          "max_event": "1999-07-17"
+        }
+      },
+      "low240_summary": {
+        "n": 3,
+        "median": -8.7,
+        "deepest": -33.31,
+        "deepest_event": "2000-11-18",
+        "count_at_or_below_minus10": 1,
+        "count_at_or_below_minus20": 1,
+        "count_no_lower_close": 0,
+        "baseline_median": -9.55
+      }
+    }
+  },
+  "B": {
+    "all_time": {
+      "15": {
+        "version": "all_time",
+        "threshold_pct": 15.0,
+        "events": 7,
+        "history": [
+          {
+            "id": "1997-10-02",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-02",
+            "cross_close": 8504.66,
+            "cross_drawdown": -15.94,
+            "sessions_high_to_cross": 29,
+            "episode_end_date": "2000-02-11",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -35.63,
+            "sessions_cross_to_low": 366,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 632,
+            "sessions_after_cross_available": 7247,
+            "years_high_to_recovery": 2.46,
+            "ret20": -16.64,
+            "ret60": -4.85,
+            "ret120": 6.36,
+            "ret240": -14.51,
+            "status": "history"
+          },
+          {
+            "id": "2000-03-15",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-03-15",
+            "cross_close": 8640.03,
+            "cross_drawdown": -15.31,
+            "sessions_high_to_cross": 20,
+            "episode_end_date": "2017-06-05",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -60.11,
+            "sessions_cross_to_low": 403,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4283,
+            "sessions_after_cross_available": 6591,
+            "years_high_to_recovery": 17.3,
+            "ret20": 14.71,
+            "ret60": 2.82,
+            "ret120": -4.99,
+            "ret240": -31.34,
+            "status": "history"
+          },
+          {
+            "id": "2018-10-25",
+            "high_date": "2018-01-23",
+            "high_close": 11253.11,
+            "cross_date": "2018-10-25",
+            "cross_close": 9520.79,
+            "cross_drawdown": -15.39,
+            "sessions_high_to_cross": 184,
+            "episode_end_date": "2019-10-22",
+            "low_date": "2019-01-04",
+            "low_close": 9382.51,
+            "low_vs_high": -16.62,
+            "low_vs_cross": -1.45,
+            "sessions_cross_to_low": 50,
+            "sessions_high_to_low": 234,
+            "recovery_date": "2019-10-22",
+            "sessions_high_to_recovery": 423,
+            "sessions_cross_to_recovery": 239,
+            "sessions_after_cross_available": 1961,
+            "years_high_to_recovery": 1.74,
+            "ret20": 2.04,
+            "ret60": 3.31,
+            "ret120": 14.9,
+            "ret240": 18.05,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-13",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-13",
+            "cross_close": 10128.87,
+            "cross_drawdown": -16.84,
+            "sessions_high_to_cross": 35,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": -14.29,
+            "sessions_cross_to_low": 4,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 79,
+            "sessions_after_cross_available": 1628,
+            "years_high_to_recovery": 0.48,
+            "ret20": 2.01,
+            "ret60": 15.71,
+            "ret120": 24.77,
+            "ret240": 56.51,
+            "status": "history"
+          },
+          {
+            "id": "2022-05-12",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-05-12",
+            "cross_close": 15616.68,
+            "cross_drawdown": -15.71,
+            "sessions_high_to_cross": 81,
+            "episode_end_date": "2024-02-15",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -18.89,
+            "sessions_cross_to_low": 115,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 428,
+            "sessions_after_cross_available": 1100,
+            "years_high_to_recovery": 2.11,
+            "ret20": 5.4,
+            "ret60": -3.72,
+            "ret120": -16.52,
+            "ret240": 0.71,
+            "status": "history"
+          },
+          {
+            "id": "2024-08-05",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2024-08-05",
+            "cross_close": 19830.88,
+            "cross_drawdown": -18.69,
+            "sessions_high_to_cross": 15,
+            "episode_end_date": "2025-08-18",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": -12.3,
+            "sessions_cross_to_low": 161,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 252,
+            "sessions_after_cross_available": 557,
+            "years_high_to_recovery": 1.1,
+            "ret20": 12.12,
+            "ret60": 15.81,
+            "ret120": 17.58,
+            "ret240": 18.72,
+            "status": "history"
+          },
+          {
+            "id": "2026-07-29",
+            "high_date": "2026-06-22",
+            "high_close": 47741.51,
+            "cross_date": "2026-07-29",
+            "cross_close": 40039.18,
+            "cross_drawdown": -16.13,
+            "sessions_high_to_cross": 26,
+            "episode_end_date": "2026-09-22",
+            "low_date": "2026-07-30",
+            "low_close": 39933.3,
+            "low_vs_high": -16.36,
+            "low_vs_cross": -0.26,
+            "sessions_cross_to_low": 1,
+            "sessions_high_to_low": 27,
+            "recovery_date": "2026-09-22",
+            "sessions_high_to_recovery": 65,
+            "sessions_cross_to_recovery": 39,
+            "sessions_after_cross_available": 77,
+            "years_high_to_recovery": 0.25,
+            "ret20": 14.47,
+            "ret60": 17.47,
+            "ret120": null,
+            "ret240": null,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-05",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-05",
+            "cross_close": 41574.72,
+            "cross_drawdown": -16.55,
+            "sessions_high_to_cross": 19,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": -13.33,
+            "sessions_cross_to_low": 11,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 11,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 7,
+            "up": 6,
+            "down": 1,
+            "up_pct": 85.71,
+            "up_wilson95": [
+              48.69,
+              97.43
+            ],
+            "median": 5.4,
+            "min": -16.64,
+            "min_event": "1997-10-02",
+            "max": 14.71,
+            "max_event": "2000-03-15",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 7,
+            "up": 5,
+            "down": 2,
+            "up_pct": 71.43,
+            "up_wilson95": [
+              35.89,
+              91.78
+            ],
+            "median": 3.31,
+            "min": -4.85,
+            "min_event": "1997-10-02",
+            "max": 17.47,
+            "max_event": "2026-07-29",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 6,
+            "up": 4,
+            "down": 2,
+            "up_pct": 66.67,
+            "up_wilson95": [
+              30.0,
+              90.32
+            ],
+            "median": 10.63,
+            "min": -16.52,
+            "min_event": "2022-05-12",
+            "max": 24.77,
+            "max_event": "2020-03-13",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 6,
+            "up": 4,
+            "down": 2,
+            "up_pct": 66.67,
+            "up_wilson95": [
+              30.0,
+              90.32
+            ],
+            "median": 9.38,
+            "min": -31.34,
+            "min_event": "2000-03-15",
+            "max": 56.51,
+            "max_event": "2020-03-13",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 7,
+          "median_low_vs_high": -28.72,
+          "median_low_vs_cross": -14.29,
+          "median_sessions_cross_to_low": 115.0,
+          "median_sessions_high_to_recovery": 423.0,
+          "deepest": -66.22,
+          "deepest_event": "2000-03-15"
+        }
+      },
+      "20": {
+        "version": "all_time",
+        "threshold_pct": 20.0,
+        "events": 5,
+        "history": [
+          {
+            "id": "1997-10-16",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-16",
+            "cross_close": 7997.81,
+            "cross_drawdown": -20.95,
+            "sessions_high_to_cross": 39,
+            "episode_end_date": "2000-02-11",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -31.55,
+            "sessions_cross_to_low": 356,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 622,
+            "sessions_after_cross_available": 7237,
+            "years_high_to_recovery": 2.46,
+            "ret20": -5.54,
+            "ret60": 2.02,
+            "ret120": 13.64,
+            "ret240": -19.08,
+            "status": "history"
+          },
+          {
+            "id": "2000-06-29",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-06-29",
+            "cross_close": 8120.89,
+            "cross_drawdown": -20.4,
+            "sessions_high_to_cross": 100,
+            "episode_end_date": "2017-06-05",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -57.56,
+            "sessions_cross_to_low": 323,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4203,
+            "sessions_after_cross_available": 6511,
+            "years_high_to_recovery": 17.3,
+            "ret20": -1.96,
+            "ret60": -13.15,
+            "ret120": -35.02,
+            "ret240": -37.83,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-16",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-16",
+            "cross_close": 9717.77,
+            "cross_drawdown": -20.21,
+            "sessions_high_to_cross": 36,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": -10.67,
+            "sessions_cross_to_low": 3,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 78,
+            "sessions_after_cross_available": 1627,
+            "years_high_to_recovery": 0.48,
+            "ret20": 7.51,
+            "ret60": 18.71,
+            "ret120": 29.67,
+            "ret240": 63.74,
+            "status": "history"
+          },
+          {
+            "id": "2022-07-01",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-07-01",
+            "cross_close": 14343.08,
+            "cross_drawdown": -22.58,
+            "sessions_high_to_cross": 116,
+            "episode_end_date": "2024-02-15",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -11.69,
+            "sessions_cross_to_low": 80,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 393,
+            "sessions_after_cross_available": 1065,
+            "years_high_to_recovery": 2.11,
+            "ret20": 4.58,
+            "ret60": -3.94,
+            "ret120": -1.21,
+            "ret240": 18.12,
+            "status": "history"
+          },
+          {
+            "id": "2025-04-07",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2025-04-07",
+            "cross_close": 19232.35,
+            "cross_drawdown": -21.15,
+            "sessions_high_to_cross": 174,
+            "episode_end_date": "2025-08-18",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": -9.57,
+            "sessions_cross_to_low": 2,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 93,
+            "sessions_after_cross_available": 398,
+            "years_high_to_recovery": 1.1,
+            "ret20": 6.71,
+            "ret60": 17.39,
+            "ret120": 36.21,
+            "ret240": 64.95,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-06",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-06",
+            "cross_close": 39701.64,
+            "cross_drawdown": -20.31,
+            "sessions_high_to_cross": 20,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": -9.24,
+            "sessions_cross_to_low": 10,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 10,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 4.58,
+            "min": -5.54,
+            "min_event": "1997-10-16",
+            "max": 7.51,
+            "max_event": "2020-03-16",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 2.02,
+            "min": -13.15,
+            "min_event": "2000-06-29",
+            "max": 18.71,
+            "max_event": "2020-03-16",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 13.64,
+            "min": -35.02,
+            "min_event": "2000-06-29",
+            "max": 36.21,
+            "max_event": "2025-04-07",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 18.12,
+            "min": -37.83,
+            "min_event": "2000-06-29",
+            "max": 64.95,
+            "max_event": "2025-04-07",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 5,
+          "median_low_vs_high": -31.63,
+          "median_low_vs_cross": -11.69,
+          "median_sessions_cross_to_low": 80.0,
+          "median_sessions_high_to_recovery": 509.0,
+          "deepest": -66.22,
+          "deepest_event": "2000-06-29"
+        }
+      },
+      "25": {
+        "version": "all_time",
+        "threshold_pct": 25.0,
+        "events": 5,
+        "history": [
+          {
+            "id": "1997-10-20",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-20",
+            "cross_close": 7316.78,
+            "cross_drawdown": -27.68,
+            "sessions_high_to_cross": 42,
+            "episode_end_date": "2000-02-11",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -25.17,
+            "sessions_cross_to_low": 353,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 619,
+            "sessions_after_cross_available": 7234,
+            "years_high_to_recovery": 2.46,
+            "ret20": 5.11,
+            "ret60": 7.09,
+            "ret120": 23.18,
+            "ret240": -7.67,
+            "status": "history"
+          },
+          {
+            "id": "2000-08-30",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-08-30",
+            "cross_close": 7543.96,
+            "cross_drawdown": -26.06,
+            "sessions_high_to_cross": 147,
+            "episode_end_date": "2017-06-05",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -54.32,
+            "sessions_cross_to_low": 276,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4156,
+            "sessions_after_cross_available": 6464,
+            "years_high_to_recovery": 17.3,
+            "ret20": -10.54,
+            "ret60": -27.7,
+            "ret120": -21.96,
+            "ret240": -40.16,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-19",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-19",
+            "cross_close": 8681.34,
+            "cross_drawdown": -28.72,
+            "sessions_high_to_cross": 39,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 75,
+            "sessions_after_cross_available": 1624,
+            "years_high_to_recovery": 0.48,
+            "ret20": 21.95,
+            "ret60": 32.6,
+            "ret120": 46.2,
+            "ret240": 87.18,
+            "status": "history"
+          },
+          {
+            "id": "2022-09-26",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-09-26",
+            "cross_close": 13778.19,
+            "cross_drawdown": -25.63,
+            "sessions_high_to_cross": 176,
+            "episode_end_date": "2024-02-15",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -8.07,
+            "sessions_cross_to_low": 20,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 333,
+            "sessions_after_cross_available": 1005,
+            "years_high_to_recovery": 2.11,
+            "ret20": -8.07,
+            "ret60": 2.84,
+            "ret120": 14.45,
+            "ret240": 18.63,
+            "status": "history"
+          },
+          {
+            "id": "2025-04-09",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2025-04-09",
+            "cross_close": 17391.76,
+            "cross_drawdown": -28.69,
+            "sessions_high_to_cross": 176,
+            "episode_end_date": "2025-08-18",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 91,
+            "sessions_after_cross_available": 396,
+            "years_high_to_recovery": 1.1,
+            "ret20": 18.12,
+            "ret60": 29.64,
+            "ret120": 47.08,
+            "ret240": 87.29,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-20",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-20",
+            "cross_close": 36033.29,
+            "cross_drawdown": -27.68,
+            "sessions_high_to_cross": 30,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 0,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 5.11,
+            "min": -10.54,
+            "min_event": "2000-08-30",
+            "max": 21.95,
+            "max_event": "2020-03-19",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 5,
+            "up": 4,
+            "down": 1,
+            "up_pct": 80.0,
+            "up_wilson95": [
+              37.55,
+              96.38
+            ],
+            "median": 7.09,
+            "min": -27.7,
+            "min_event": "2000-08-30",
+            "max": 32.6,
+            "max_event": "2020-03-19",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 5,
+            "up": 4,
+            "down": 1,
+            "up_pct": 80.0,
+            "up_wilson95": [
+              37.55,
+              96.38
+            ],
+            "median": 23.18,
+            "min": -21.96,
+            "min_event": "2000-08-30",
+            "max": 47.08,
+            "max_event": "2025-04-09",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 5,
+            "up": 3,
+            "down": 2,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              23.07,
+              88.24
+            ],
+            "median": 18.63,
+            "min": -40.16,
+            "min_event": "2000-08-30",
+            "max": 87.29,
+            "max_event": "2025-04-09",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 5,
+          "median_low_vs_high": -31.63,
+          "median_low_vs_cross": -8.07,
+          "median_sessions_cross_to_low": 20.0,
+          "median_sessions_high_to_recovery": 509.0,
+          "deepest": -66.22,
+          "deepest_event": "2000-08-30"
+        }
+      }
+    },
+    "one_year": {
+      "15": {
+        "version": "one_year",
+        "threshold_pct": 15.0,
+        "events": 16,
+        "history": [
+          {
+            "id": "1997-10-02",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-02",
+            "cross_close": 8504.66,
+            "cross_drawdown": -15.94,
+            "sessions_high_to_cross": 29,
+            "episode_end_date": "1999-06-16",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -35.63,
+            "sessions_cross_to_low": 366,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 632,
+            "sessions_after_cross_available": 7247,
+            "years_high_to_recovery": 2.46,
+            "ret20": -16.64,
+            "ret60": -4.85,
+            "ret120": 6.36,
+            "ret240": -14.51,
+            "status": "history"
+          },
+          {
+            "id": "1999-08-02",
+            "high_date": "1999-06-22",
+            "high_close": 8608.91,
+            "cross_date": "1999-08-02",
+            "cross_close": 7195.94,
+            "cross_drawdown": -16.41,
+            "sessions_high_to_cross": 31,
+            "episode_end_date": "2000-01-04",
+            "low_date": "1999-08-06",
+            "low_close": 6823.52,
+            "low_vs_high": -20.74,
+            "low_vs_cross": -5.18,
+            "sessions_cross_to_low": 4,
+            "sessions_high_to_low": 35,
+            "recovery_date": "2000-01-04",
+            "sessions_high_to_recovery": 144,
+            "sessions_cross_to_recovery": 113,
+            "sessions_after_cross_available": 6753,
+            "years_high_to_recovery": 0.54,
+            "ret20": 12.53,
+            "ret60": 6.38,
+            "ret120": 26.56,
+            "ret240": 17.07,
+            "status": "history"
+          },
+          {
+            "id": "2000-03-15",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-03-15",
+            "cross_close": 8640.03,
+            "cross_drawdown": -15.31,
+            "sessions_high_to_cross": 20,
+            "episode_end_date": "2002-03-06",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -60.11,
+            "sessions_cross_to_low": 403,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4283,
+            "sessions_after_cross_available": 6591,
+            "years_high_to_recovery": 17.3,
+            "ret20": 14.71,
+            "ret60": 2.82,
+            "ret120": -4.99,
+            "ret240": -31.34,
+            "status": "history"
+          },
+          {
+            "id": "2002-05-21",
+            "high_date": "2002-04-22",
+            "high_close": 6462.3,
+            "cross_date": "2002-05-21",
+            "cross_close": 5443.18,
+            "cross_drawdown": -15.77,
+            "sessions_high_to_cross": 20,
+            "episode_end_date": "2003-07-28",
+            "low_date": "2002-10-11",
+            "low_close": 3850.04,
+            "low_vs_high": -40.42,
+            "low_vs_cross": -29.27,
+            "sessions_cross_to_low": 101,
+            "sessions_high_to_low": 121,
+            "recovery_date": "2004-02-09",
+            "sessions_high_to_recovery": 448,
+            "sessions_cross_to_recovery": 428,
+            "sessions_after_cross_available": 6036,
+            "years_high_to_recovery": 1.8,
+            "ret20": 1.71,
+            "ret60": -11.49,
+            "ret120": -12.59,
+            "ret240": -21.44,
+            "status": "history"
+          },
+          {
+            "id": "2004-05-05",
+            "high_date": "2004-03-04",
+            "high_close": 7034.1,
+            "cross_date": "2004-05-05",
+            "cross_close": 5854.23,
+            "cross_drawdown": -16.77,
+            "sessions_high_to_cross": 44,
+            "episode_end_date": "2005-06-16",
+            "low_date": "2004-08-04",
+            "low_close": 5316.87,
+            "low_vs_high": -24.41,
+            "low_vs_cross": -9.18,
+            "sessions_cross_to_low": 64,
+            "sessions_high_to_low": 108,
+            "recovery_date": "2006-04-19",
+            "sessions_high_to_recovery": 528,
+            "sessions_cross_to_recovery": 484,
+            "sessions_after_cross_available": 5546,
+            "years_high_to_recovery": 2.12,
+            "ret20": 0.37,
+            "ret60": -8.62,
+            "ret120": -3.47,
+            "ret240": -1.64,
+            "status": "history"
+          },
+          {
+            "id": "2006-06-08",
+            "high_date": "2006-05-08",
+            "high_close": 7474.05,
+            "cross_date": "2006-06-08",
+            "cross_close": 6331.81,
+            "cross_drawdown": -15.28,
+            "sessions_high_to_cross": 22,
+            "episode_end_date": "2006-11-27",
+            "low_date": "2006-07-17",
+            "low_close": 6257.8,
+            "low_vs_high": -16.27,
+            "low_vs_cross": -1.17,
+            "sessions_cross_to_low": 27,
+            "sessions_high_to_low": 49,
+            "recovery_date": "2006-11-27",
+            "sessions_high_to_recovery": 142,
+            "sessions_cross_to_recovery": 120,
+            "sessions_after_cross_available": 5028,
+            "years_high_to_recovery": 0.56,
+            "ret20": 5.17,
+            "ret60": 4.42,
+            "ret120": 18.42,
+            "ret240": 28.82,
+            "status": "history"
+          },
+          {
+            "id": "2007-08-16",
+            "high_date": "2007-07-24",
+            "high_close": 9744.06,
+            "cross_date": "2007-08-16",
+            "cross_close": 8201.37,
+            "cross_drawdown": -15.83,
+            "sessions_high_to_cross": 17,
+            "episode_end_date": "2007-10-29",
+            "low_date": "2007-08-17",
+            "low_close": 8090.29,
+            "low_vs_high": -16.97,
+            "low_vs_cross": -1.35,
+            "sessions_cross_to_low": 1,
+            "sessions_high_to_low": 18,
+            "recovery_date": "2007-10-29",
+            "sessions_high_to_recovery": 66,
+            "sessions_cross_to_recovery": 49,
+            "sessions_after_cross_available": 4731,
+            "years_high_to_recovery": 0.27,
+            "ret20": 8.85,
+            "ret60": 6.41,
+            "ret120": -4.1,
+            "ret240": -14.33,
+            "status": "history"
+          },
+          {
+            "id": "2007-11-28",
+            "high_date": "2007-10-29",
+            "high_close": 9809.88,
+            "cross_date": "2007-11-28",
+            "cross_close": 8276.26,
+            "cross_drawdown": -15.63,
+            "sessions_high_to_cross": 22,
+            "episode_end_date": "2009-09-04",
+            "low_date": "2008-11-20",
+            "low_close": 4089.93,
+            "low_vs_high": -58.31,
+            "low_vs_cross": -50.58,
+            "sessions_cross_to_low": 243,
+            "sessions_high_to_low": 265,
+            "recovery_date": "2015-04-24",
+            "sessions_high_to_recovery": 1858,
+            "sessions_cross_to_recovery": 1836,
+            "sessions_after_cross_available": 4660,
+            "years_high_to_recovery": 7.49,
+            "ret20": -1.45,
+            "ret60": -0.16,
+            "ret120": 4.71,
+            "ret240": -46.35,
+            "status": "history"
+          },
+          {
+            "id": "2010-05-25",
+            "high_date": "2010-01-15",
+            "high_close": 8356.89,
+            "cross_date": "2010-05-25",
+            "cross_close": 7086.37,
+            "cross_drawdown": -15.2,
+            "sessions_high_to_cross": 85,
+            "episode_end_date": "2010-11-01",
+            "low_date": "2010-06-09",
+            "low_close": 7071.67,
+            "low_vs_high": -15.38,
+            "low_vs_cross": -0.21,
+            "sessions_cross_to_low": 11,
+            "sessions_high_to_low": 96,
+            "recovery_date": "2010-11-01",
+            "sessions_high_to_recovery": 197,
+            "sessions_cross_to_recovery": 112,
+            "sessions_after_cross_available": 4042,
+            "years_high_to_recovery": 0.79,
+            "ret20": 7.0,
+            "ret60": 11.82,
+            "ret120": 19.06,
+            "ret240": 27.48,
+            "status": "history"
+          },
+          {
+            "id": "2011-08-08",
+            "high_date": "2011-01-28",
+            "high_close": 9145.35,
+            "cross_date": "2011-08-08",
+            "cross_close": 7552.8,
+            "cross_drawdown": -17.41,
+            "sessions_high_to_cross": 125,
+            "episode_end_date": "2013-04-30",
+            "low_date": "2011-12-19",
+            "low_close": 6633.33,
+            "low_vs_high": -27.47,
+            "low_vs_cross": -12.17,
+            "sessions_cross_to_low": 93,
+            "sessions_high_to_low": 218,
+            "recovery_date": "2014-06-09",
+            "sessions_high_to_recovery": 826,
+            "sessions_cross_to_recovery": 701,
+            "sessions_after_cross_available": 3741,
+            "years_high_to_recovery": 3.36,
+            "ret20": -0.02,
+            "ret60": 0.6,
+            "ret120": 1.62,
+            "ret240": -7.21,
+            "status": "history"
+          },
+          {
+            "id": "2015-08-06",
+            "high_date": "2015-04-27",
+            "high_close": 9973.12,
+            "cross_date": "2015-08-06",
+            "cross_close": 8449.56,
+            "cross_drawdown": -15.28,
+            "sessions_high_to_cross": 70,
+            "episode_end_date": "2016-07-21",
+            "low_date": "2015-08-24",
+            "low_close": 7410.34,
+            "low_vs_high": -25.7,
+            "low_vs_cross": -12.3,
+            "sessions_cross_to_low": 12,
+            "sessions_high_to_low": 82,
+            "recovery_date": "2017-05-11",
+            "sessions_high_to_recovery": 499,
+            "sessions_cross_to_recovery": 429,
+            "sessions_after_cross_available": 2753,
+            "years_high_to_recovery": 2.04,
+            "ret20": -4.18,
+            "ret60": 3.12,
+            "ret120": -7.1,
+            "ret240": 6.33,
+            "status": "history"
+          },
+          {
+            "id": "2018-10-25",
+            "high_date": "2018-01-23",
+            "high_close": 11253.11,
+            "cross_date": "2018-10-25",
+            "cross_close": 9520.79,
+            "cross_drawdown": -15.39,
+            "sessions_high_to_cross": 184,
+            "episode_end_date": "2019-10-15",
+            "low_date": "2019-01-04",
+            "low_close": 9382.51,
+            "low_vs_high": -16.62,
+            "low_vs_cross": -1.45,
+            "sessions_cross_to_low": 50,
+            "sessions_high_to_low": 234,
+            "recovery_date": "2019-10-22",
+            "sessions_high_to_recovery": 423,
+            "sessions_cross_to_recovery": 239,
+            "sessions_after_cross_available": 1961,
+            "years_high_to_recovery": 1.74,
+            "ret20": 2.04,
+            "ret60": 3.31,
+            "ret120": 14.9,
+            "ret240": 18.05,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-13",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-13",
+            "cross_close": 10128.87,
+            "cross_drawdown": -16.84,
+            "sessions_high_to_cross": 35,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": -14.29,
+            "sessions_cross_to_low": 4,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 79,
+            "sessions_after_cross_available": 1628,
+            "years_high_to_recovery": 0.48,
+            "ret20": 2.01,
+            "ret60": 15.71,
+            "ret120": 24.77,
+            "ret240": 56.51,
+            "status": "history"
+          },
+          {
+            "id": "2022-05-12",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-05-12",
+            "cross_close": 15616.68,
+            "cross_drawdown": -15.71,
+            "sessions_high_to_cross": 81,
+            "episode_end_date": "2023-06-07",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -18.89,
+            "sessions_cross_to_low": 115,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 428,
+            "sessions_after_cross_available": 1100,
+            "years_high_to_recovery": 2.11,
+            "ret20": 5.4,
+            "ret60": -3.72,
+            "ret120": -16.52,
+            "ret240": 0.71,
+            "status": "history"
+          },
+          {
+            "id": "2024-08-05",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2024-08-05",
+            "cross_close": 19830.88,
+            "cross_drawdown": -18.69,
+            "sessions_high_to_cross": 15,
+            "episode_end_date": "2025-08-07",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": -12.3,
+            "sessions_cross_to_low": 161,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 252,
+            "sessions_after_cross_available": 557,
+            "years_high_to_recovery": 1.1,
+            "ret20": 12.12,
+            "ret60": 15.81,
+            "ret120": 17.58,
+            "ret240": 18.72,
+            "status": "history"
+          },
+          {
+            "id": "2026-07-29",
+            "high_date": "2026-06-22",
+            "high_close": 47741.51,
+            "cross_date": "2026-07-29",
+            "cross_close": 40039.18,
+            "cross_drawdown": -16.13,
+            "sessions_high_to_cross": 26,
+            "episode_end_date": "2026-09-22",
+            "low_date": "2026-07-30",
+            "low_close": 39933.3,
+            "low_vs_high": -16.36,
+            "low_vs_cross": -0.26,
+            "sessions_cross_to_low": 1,
+            "sessions_high_to_low": 27,
+            "recovery_date": "2026-09-22",
+            "sessions_high_to_recovery": 65,
+            "sessions_cross_to_recovery": 39,
+            "sessions_after_cross_available": 77,
+            "years_high_to_recovery": 0.25,
+            "ret20": 14.47,
+            "ret60": 17.47,
+            "ret120": null,
+            "ret240": null,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-05",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-05",
+            "cross_close": 41574.72,
+            "cross_drawdown": -16.55,
+            "sessions_high_to_cross": 19,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": -13.33,
+            "sessions_cross_to_low": 11,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 11,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 16,
+            "up": 12,
+            "down": 4,
+            "up_pct": 75.0,
+            "up_wilson95": [
+              50.5,
+              89.82
+            ],
+            "median": 3.6,
+            "min": -16.64,
+            "min_event": "1997-10-02",
+            "max": 14.71,
+            "max_event": "2000-03-15",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 16,
+            "up": 11,
+            "down": 5,
+            "up_pct": 68.75,
+            "up_wilson95": [
+              44.4,
+              85.84
+            ],
+            "median": 3.21,
+            "min": -11.49,
+            "min_event": "2002-05-21",
+            "max": 17.47,
+            "max_event": "2026-07-29",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 15,
+            "up": 9,
+            "down": 6,
+            "up_pct": 60.0,
+            "up_wilson95": [
+              35.75,
+              80.18
+            ],
+            "median": 4.71,
+            "min": -16.52,
+            "min_event": "2022-05-12",
+            "max": 26.56,
+            "max_event": "1999-08-02",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 15,
+            "up": 8,
+            "down": 7,
+            "up_pct": 53.33,
+            "up_wilson95": [
+              30.12,
+              75.19
+            ],
+            "median": 0.71,
+            "min": -46.35,
+            "min_event": "2007-11-28",
+            "max": 56.51,
+            "max_event": "2020-03-13",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 16,
+          "median_low_vs_high": -26.59,
+          "median_low_vs_cross": -12.23,
+          "median_sessions_cross_to_low": 57.0,
+          "median_sessions_high_to_recovery": 435.5,
+          "deepest": -66.22,
+          "deepest_event": "2000-03-15"
+        }
+      },
+      "20": {
+        "version": "one_year",
+        "threshold_pct": 20.0,
+        "events": 11,
+        "history": [
+          {
+            "id": "1997-10-16",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-16",
+            "cross_close": 7997.81,
+            "cross_drawdown": -20.95,
+            "sessions_high_to_cross": 39,
+            "episode_end_date": "1999-06-16",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -31.55,
+            "sessions_cross_to_low": 356,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 622,
+            "sessions_after_cross_available": 7237,
+            "years_high_to_recovery": 2.46,
+            "ret20": -5.54,
+            "ret60": 2.02,
+            "ret120": 13.64,
+            "ret240": -19.08,
+            "status": "history"
+          },
+          {
+            "id": "1999-08-06",
+            "high_date": "1999-06-22",
+            "high_close": 8608.91,
+            "cross_date": "1999-08-06",
+            "cross_close": 6823.52,
+            "cross_drawdown": -20.74,
+            "sessions_high_to_cross": 35,
+            "episode_end_date": "2000-01-04",
+            "low_date": "1999-08-06",
+            "low_close": 6823.52,
+            "low_vs_high": -20.74,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 35,
+            "recovery_date": "2000-01-04",
+            "sessions_high_to_recovery": 144,
+            "sessions_cross_to_recovery": 109,
+            "sessions_after_cross_available": 6749,
+            "years_high_to_recovery": 0.54,
+            "ret20": 21.25,
+            "ret60": 12.86,
+            "ret120": 35.56,
+            "ret240": 21.61,
+            "status": "history"
+          },
+          {
+            "id": "2000-06-29",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-06-29",
+            "cross_close": 8120.89,
+            "cross_drawdown": -20.4,
+            "sessions_high_to_cross": 100,
+            "episode_end_date": "2002-03-06",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -57.56,
+            "sessions_cross_to_low": 323,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4203,
+            "sessions_after_cross_available": 6511,
+            "years_high_to_recovery": 17.3,
+            "ret20": -1.96,
+            "ret60": -13.15,
+            "ret120": -35.02,
+            "ret240": -37.83,
+            "status": "history"
+          },
+          {
+            "id": "2002-06-26",
+            "high_date": "2002-04-22",
+            "high_close": 6462.3,
+            "cross_date": "2002-06-26",
+            "cross_close": 5123.04,
+            "cross_drawdown": -20.72,
+            "sessions_high_to_cross": 46,
+            "episode_end_date": "2003-07-28",
+            "low_date": "2002-10-11",
+            "low_close": 3850.04,
+            "low_vs_high": -40.42,
+            "low_vs_cross": -24.85,
+            "sessions_cross_to_low": 75,
+            "sessions_high_to_low": 121,
+            "recovery_date": "2004-02-09",
+            "sessions_high_to_recovery": 448,
+            "sessions_cross_to_recovery": 402,
+            "sessions_after_cross_available": 6010,
+            "years_high_to_recovery": 1.8,
+            "ret20": -1.63,
+            "ret60": -12.33,
+            "ret120": -10.44,
+            "ret240": -4.71,
+            "status": "history"
+          },
+          {
+            "id": "2004-05-17",
+            "high_date": "2004-03-04",
+            "high_close": 7034.1,
+            "cross_date": "2004-05-17",
+            "cross_close": 5482.96,
+            "cross_drawdown": -22.05,
+            "sessions_high_to_cross": 52,
+            "episode_end_date": "2005-06-16",
+            "low_date": "2004-08-04",
+            "low_close": 5316.87,
+            "low_vs_high": -24.41,
+            "low_vs_cross": -3.03,
+            "sessions_cross_to_low": 56,
+            "sessions_high_to_low": 108,
+            "recovery_date": "2006-04-19",
+            "sessions_high_to_recovery": 528,
+            "sessions_cross_to_recovery": 476,
+            "sessions_after_cross_available": 5538,
+            "years_high_to_recovery": 2.12,
+            "ret20": 1.66,
+            "ret60": -1.63,
+            "ret120": 8.29,
+            "ret240": 8.85,
+            "status": "history"
+          },
+          {
+            "id": "2007-12-17",
+            "high_date": "2007-10-29",
+            "high_close": 9809.88,
+            "cross_date": "2007-12-17",
+            "cross_close": 7830.85,
+            "cross_drawdown": -20.17,
+            "sessions_high_to_cross": 35,
+            "episode_end_date": "2009-09-04",
+            "low_date": "2008-11-20",
+            "low_close": 4089.93,
+            "low_vs_high": -58.31,
+            "low_vs_cross": -47.77,
+            "sessions_cross_to_low": 230,
+            "sessions_high_to_low": 265,
+            "recovery_date": "2015-04-24",
+            "sessions_high_to_recovery": 1858,
+            "sessions_cross_to_recovery": 1823,
+            "sessions_after_cross_available": 4647,
+            "years_high_to_recovery": 7.49,
+            "ret20": 7.64,
+            "ret60": 6.47,
+            "ret120": 4.33,
+            "ret240": -45.66,
+            "status": "history"
+          },
+          {
+            "id": "2011-08-22",
+            "high_date": "2011-01-28",
+            "high_close": 9145.35,
+            "cross_date": "2011-08-22",
+            "cross_close": 7312.59,
+            "cross_drawdown": -20.04,
+            "sessions_high_to_cross": 135,
+            "episode_end_date": "2013-04-30",
+            "low_date": "2011-12-19",
+            "low_close": 6633.33,
+            "low_vs_high": -27.47,
+            "low_vs_cross": -9.29,
+            "sessions_cross_to_low": 83,
+            "sessions_high_to_low": 218,
+            "recovery_date": "2014-06-09",
+            "sessions_high_to_recovery": 826,
+            "sessions_cross_to_recovery": 691,
+            "sessions_after_cross_available": 3731,
+            "years_high_to_recovery": 3.36,
+            "ret20": 2.47,
+            "ret60": 1.02,
+            "ret120": 7.62,
+            "ret240": 0.1,
+            "status": "history"
+          },
+          {
+            "id": "2015-08-21",
+            "high_date": "2015-04-27",
+            "high_close": 9973.12,
+            "cross_date": "2015-08-21",
+            "cross_close": 7786.92,
+            "cross_drawdown": -21.92,
+            "sessions_high_to_cross": 81,
+            "episode_end_date": "2016-07-21",
+            "low_date": "2015-08-24",
+            "low_close": 7410.34,
+            "low_vs_high": -25.7,
+            "low_vs_cross": -4.84,
+            "sessions_cross_to_low": 1,
+            "sessions_high_to_low": 82,
+            "recovery_date": "2017-05-11",
+            "sessions_high_to_recovery": 499,
+            "sessions_cross_to_recovery": 418,
+            "sessions_after_cross_available": 2742,
+            "years_high_to_recovery": 2.04,
+            "ret20": 8.67,
+            "ret60": 7.11,
+            "ret120": 6.91,
+            "ret240": 17.49,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-16",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-16",
+            "cross_close": 9717.77,
+            "cross_drawdown": -20.21,
+            "sessions_high_to_cross": 36,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": -10.67,
+            "sessions_cross_to_low": 3,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 78,
+            "sessions_after_cross_available": 1627,
+            "years_high_to_recovery": 0.48,
+            "ret20": 7.51,
+            "ret60": 18.71,
+            "ret120": 29.67,
+            "ret240": 63.74,
+            "status": "history"
+          },
+          {
+            "id": "2022-07-01",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-07-01",
+            "cross_close": 14343.08,
+            "cross_drawdown": -22.58,
+            "sessions_high_to_cross": 116,
+            "episode_end_date": "2023-06-07",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -11.69,
+            "sessions_cross_to_low": 80,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 393,
+            "sessions_after_cross_available": 1065,
+            "years_high_to_recovery": 2.11,
+            "ret20": 4.58,
+            "ret60": -3.94,
+            "ret120": -1.21,
+            "ret240": 18.12,
+            "status": "history"
+          },
+          {
+            "id": "2025-04-07",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2025-04-07",
+            "cross_close": 19232.35,
+            "cross_drawdown": -21.15,
+            "sessions_high_to_cross": 174,
+            "episode_end_date": "2025-08-07",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": -9.57,
+            "sessions_cross_to_low": 2,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 93,
+            "sessions_after_cross_available": 398,
+            "years_high_to_recovery": 1.1,
+            "ret20": 6.71,
+            "ret60": 17.39,
+            "ret120": 36.21,
+            "ret240": 64.95,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-06",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-06",
+            "cross_close": 39701.64,
+            "cross_drawdown": -20.31,
+            "sessions_high_to_cross": 20,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": -9.24,
+            "sessions_cross_to_low": 10,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 10,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 11,
+            "up": 8,
+            "down": 3,
+            "up_pct": 72.73,
+            "up_wilson95": [
+              43.44,
+              90.25
+            ],
+            "median": 4.58,
+            "min": -5.54,
+            "min_event": "1997-10-16",
+            "max": 21.25,
+            "max_event": "1999-08-06",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 11,
+            "up": 7,
+            "down": 4,
+            "up_pct": 63.64,
+            "up_wilson95": [
+              35.38,
+              84.83
+            ],
+            "median": 2.02,
+            "min": -13.15,
+            "min_event": "2000-06-29",
+            "max": 18.71,
+            "max_event": "2020-03-16",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 11,
+            "up": 8,
+            "down": 3,
+            "up_pct": 72.73,
+            "up_wilson95": [
+              43.44,
+              90.25
+            ],
+            "median": 7.62,
+            "min": -35.02,
+            "min_event": "2000-06-29",
+            "max": 36.21,
+            "max_event": "2025-04-07",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 11,
+            "up": 7,
+            "down": 4,
+            "up_pct": 63.64,
+            "up_wilson95": [
+              35.38,
+              84.83
+            ],
+            "median": 8.85,
+            "min": -45.66,
+            "min_event": "2007-12-17",
+            "max": 64.95,
+            "max_event": "2025-04-07",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 11,
+          "median_low_vs_high": -28.72,
+          "median_low_vs_cross": -10.67,
+          "median_sessions_cross_to_low": 75.0,
+          "median_sessions_high_to_recovery": 509.0,
+          "deepest": -66.22,
+          "deepest_event": "2000-06-29"
+        }
+      },
+      "25": {
+        "version": "one_year",
+        "threshold_pct": 25.0,
+        "events": 9,
+        "history": [
+          {
+            "id": "1997-10-20",
+            "high_date": "1997-08-26",
+            "high_close": 10116.84,
+            "cross_date": "1997-10-20",
+            "cross_close": 7316.78,
+            "cross_drawdown": -27.68,
+            "sessions_high_to_cross": 42,
+            "episode_end_date": "1999-06-16",
+            "low_date": "1999-02-05",
+            "low_close": 5474.79,
+            "low_vs_high": -45.88,
+            "low_vs_cross": -25.17,
+            "sessions_cross_to_low": 353,
+            "sessions_high_to_low": 395,
+            "recovery_date": "2000-02-11",
+            "sessions_high_to_recovery": 661,
+            "sessions_cross_to_recovery": 619,
+            "sessions_after_cross_available": 7234,
+            "years_high_to_recovery": 2.46,
+            "ret20": 5.11,
+            "ret60": 7.09,
+            "ret120": 23.18,
+            "ret240": -7.67,
+            "status": "history"
+          },
+          {
+            "id": "2000-08-30",
+            "high_date": "2000-02-17",
+            "high_close": 10202.2,
+            "cross_date": "2000-08-30",
+            "cross_close": 7543.96,
+            "cross_drawdown": -26.06,
+            "sessions_high_to_cross": 147,
+            "episode_end_date": "2002-03-06",
+            "low_date": "2001-10-03",
+            "low_close": 3446.26,
+            "low_vs_high": -66.22,
+            "low_vs_cross": -54.32,
+            "sessions_cross_to_low": 276,
+            "sessions_high_to_low": 423,
+            "recovery_date": "2017-06-05",
+            "sessions_high_to_recovery": 4303,
+            "sessions_cross_to_recovery": 4156,
+            "sessions_after_cross_available": 6464,
+            "years_high_to_recovery": 17.3,
+            "ret20": -10.54,
+            "ret60": -27.7,
+            "ret120": -21.96,
+            "ret240": -40.16,
+            "status": "history"
+          },
+          {
+            "id": "2002-08-05",
+            "high_date": "2002-04-22",
+            "high_close": 6462.3,
+            "cross_date": "2002-08-05",
+            "cross_close": 4636.67,
+            "cross_drawdown": -28.25,
+            "sessions_high_to_cross": 74,
+            "episode_end_date": "2003-07-28",
+            "low_date": "2002-10-11",
+            "low_close": 3850.04,
+            "low_vs_high": -40.42,
+            "low_vs_cross": -16.97,
+            "sessions_cross_to_low": 47,
+            "sessions_high_to_low": 121,
+            "recovery_date": "2004-02-09",
+            "sessions_high_to_recovery": 448,
+            "sessions_cross_to_recovery": 374,
+            "sessions_after_cross_available": 5982,
+            "years_high_to_recovery": 1.8,
+            "ret20": 0.17,
+            "ret60": -2.97,
+            "ret120": 9.54,
+            "ret240": 14.04,
+            "status": "history"
+          },
+          {
+            "id": "2008-07-02",
+            "high_date": "2007-10-29",
+            "high_close": 9809.88,
+            "cross_date": "2008-07-02",
+            "cross_close": 7353.86,
+            "cross_drawdown": -25.04,
+            "sessions_high_to_cross": 167,
+            "episode_end_date": "2009-09-04",
+            "low_date": "2008-11-20",
+            "low_close": 4089.93,
+            "low_vs_high": -58.31,
+            "low_vs_cross": -44.38,
+            "sessions_cross_to_low": 98,
+            "sessions_high_to_low": 265,
+            "recovery_date": "2015-04-24",
+            "sessions_high_to_recovery": 1858,
+            "sessions_cross_to_recovery": 1691,
+            "sessions_after_cross_available": 4515,
+            "years_high_to_recovery": 7.49,
+            "ret20": -4.48,
+            "ret60": -17.58,
+            "ret120": -38.32,
+            "ret240": -15.27,
+            "status": "history"
+          },
+          {
+            "id": "2011-11-23",
+            "high_date": "2011-01-28",
+            "high_close": 9145.35,
+            "cross_date": "2011-11-23",
+            "cross_close": 6806.43,
+            "cross_drawdown": -25.57,
+            "sessions_high_to_cross": 200,
+            "episode_end_date": "2013-04-30",
+            "low_date": "2011-12-19",
+            "low_close": 6633.33,
+            "low_vs_high": -27.47,
+            "low_vs_cross": -2.54,
+            "sessions_cross_to_low": 18,
+            "sessions_high_to_low": 218,
+            "recovery_date": "2014-06-09",
+            "sessions_high_to_recovery": 826,
+            "sessions_cross_to_recovery": 626,
+            "sessions_after_cross_available": 3666,
+            "years_high_to_recovery": 3.36,
+            "ret20": 2.35,
+            "ret60": 16.61,
+            "ret120": 6.88,
+            "ret240": 6.41,
+            "status": "history"
+          },
+          {
+            "id": "2015-08-24",
+            "high_date": "2015-04-27",
+            "high_close": 9973.12,
+            "cross_date": "2015-08-24",
+            "cross_close": 7410.34,
+            "cross_drawdown": -25.7,
+            "sessions_high_to_cross": 82,
+            "episode_end_date": "2016-07-21",
+            "low_date": "2015-08-24",
+            "low_close": 7410.34,
+            "low_vs_high": -25.7,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 82,
+            "recovery_date": "2017-05-11",
+            "sessions_high_to_recovery": 499,
+            "sessions_cross_to_recovery": 417,
+            "sessions_after_cross_available": 2741,
+            "years_high_to_recovery": 2.04,
+            "ret20": 12.1,
+            "ret60": 14.4,
+            "ret120": 12.37,
+            "ret240": 22.94,
+            "status": "history"
+          },
+          {
+            "id": "2020-03-19",
+            "high_date": "2020-01-14",
+            "high_close": 12179.81,
+            "cross_date": "2020-03-19",
+            "cross_close": 8681.34,
+            "cross_drawdown": -28.72,
+            "sessions_high_to_cross": 39,
+            "episode_end_date": "2020-07-09",
+            "low_date": "2020-03-19",
+            "low_close": 8681.34,
+            "low_vs_high": -28.72,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 39,
+            "recovery_date": "2020-07-09",
+            "sessions_high_to_recovery": 114,
+            "sessions_cross_to_recovery": 75,
+            "sessions_after_cross_available": 1624,
+            "years_high_to_recovery": 0.48,
+            "ret20": 21.95,
+            "ret60": 32.6,
+            "ret120": 46.2,
+            "ret240": 87.18,
+            "status": "history"
+          },
+          {
+            "id": "2022-09-26",
+            "high_date": "2022-01-04",
+            "high_close": 18526.35,
+            "cross_date": "2022-09-26",
+            "cross_close": 13778.19,
+            "cross_drawdown": -25.63,
+            "sessions_high_to_cross": 176,
+            "episode_end_date": "2023-06-07",
+            "low_date": "2022-10-25",
+            "low_close": 12666.12,
+            "low_vs_high": -31.63,
+            "low_vs_cross": -8.07,
+            "sessions_cross_to_low": 20,
+            "sessions_high_to_low": 196,
+            "recovery_date": "2024-02-15",
+            "sessions_high_to_recovery": 509,
+            "sessions_cross_to_recovery": 333,
+            "sessions_after_cross_available": 1005,
+            "years_high_to_recovery": 2.11,
+            "ret20": -8.07,
+            "ret60": 2.84,
+            "ret120": 14.45,
+            "ret240": 18.63,
+            "status": "history"
+          },
+          {
+            "id": "2025-04-09",
+            "high_date": "2024-07-11",
+            "high_close": 24390.03,
+            "cross_date": "2025-04-09",
+            "cross_close": 17391.76,
+            "cross_drawdown": -28.69,
+            "sessions_high_to_cross": 176,
+            "episode_end_date": "2025-08-07",
+            "low_date": "2025-04-09",
+            "low_close": 17391.76,
+            "low_vs_high": -28.69,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 176,
+            "recovery_date": "2025-08-18",
+            "sessions_high_to_recovery": 267,
+            "sessions_cross_to_recovery": 91,
+            "sessions_after_cross_available": 396,
+            "years_high_to_recovery": 1.1,
+            "ret20": 18.12,
+            "ret60": 29.64,
+            "ret120": 47.08,
+            "ret240": 87.29,
+            "status": "history"
+          }
+        ],
+        "now": [
+          {
+            "id": "2026-11-20",
+            "high_date": "2026-10-06",
+            "high_close": 49822.55,
+            "cross_date": "2026-11-20",
+            "cross_close": 36033.29,
+            "cross_drawdown": -27.68,
+            "sessions_high_to_cross": 30,
+            "episode_end_date": null,
+            "low_date": "2026-11-20",
+            "low_close": 36033.29,
+            "low_vs_high": -27.68,
+            "low_vs_cross": 0.0,
+            "sessions_cross_to_low": 0,
+            "sessions_high_to_low": 30,
+            "recovery_date": null,
+            "sessions_high_to_recovery": null,
+            "sessions_cross_to_recovery": null,
+            "sessions_after_cross_available": 0,
+            "ret20": null,
+            "ret60": null,
+            "ret120": null,
+            "ret240": null,
+            "status": "now",
+            "low_note": "lowest close so far (episode not finished)"
+          }
+        ],
+        "summary": {
+          "20": {
+            "n": 9,
+            "up": 6,
+            "down": 3,
+            "up_pct": 66.67,
+            "up_wilson95": [
+              35.42,
+              87.94
+            ],
+            "median": 2.35,
+            "min": -10.54,
+            "min_event": "2000-08-30",
+            "max": 21.95,
+            "max_event": "2020-03-19",
+            "baseline_up_pct": 57.1,
+            "baseline_median": 0.95,
+            "baseline_inside_interval": true
+          },
+          "60": {
+            "n": 9,
+            "up": 6,
+            "down": 3,
+            "up_pct": 66.67,
+            "up_wilson95": [
+              35.42,
+              87.94
+            ],
+            "median": 7.09,
+            "min": -27.7,
+            "min_event": "2000-08-30",
+            "max": 32.6,
+            "max_event": "2020-03-19",
+            "baseline_up_pct": 60.86,
+            "baseline_median": 2.39,
+            "baseline_inside_interval": true
+          },
+          "120": {
+            "n": 9,
+            "up": 7,
+            "down": 2,
+            "up_pct": 77.78,
+            "up_wilson95": [
+              45.26,
+              93.68
+            ],
+            "median": 12.37,
+            "min": -38.32,
+            "min_event": "2008-07-02",
+            "max": 47.08,
+            "max_event": "2025-04-09",
+            "baseline_up_pct": 64.46,
+            "baseline_median": 4.07,
+            "baseline_inside_interval": true
+          },
+          "240": {
+            "n": 9,
+            "up": 6,
+            "down": 3,
+            "up_pct": 66.67,
+            "up_wilson95": [
+              35.42,
+              87.94
+            ],
+            "median": 14.04,
+            "min": -40.16,
+            "min_event": "2000-08-30",
+            "max": 87.29,
+            "max_event": "2025-04-09",
+            "baseline_up_pct": 65.85,
+            "baseline_median": 7.91,
+            "baseline_inside_interval": true
+          }
+        },
+        "depth_summary": {
+          "n": 9,
+          "median_low_vs_high": -31.63,
+          "median_low_vs_cross": -8.07,
+          "median_sessions_cross_to_low": 20.0,
+          "median_sessions_high_to_recovery": 509.0,
+          "deepest": -66.22,
+          "deepest_event": "2000-08-30"
+        }
+      }
+    }
+  },
+  "baseline_any_session": {
+    "20": {
+      "n": 7303,
+      "up_pct": 57.1,
+      "median": 0.95
+    },
+    "60": {
+      "n": 7263,
+      "up_pct": 60.86,
+      "median": 2.39
+    },
+    "120": {
+      "n": 7203,
+      "up_pct": 64.46,
+      "median": 4.07
+    },
+    "240": {
+      "n": 7083,
+      "up_pct": 65.85,
+      "median": 7.91
+    },
+    "low240": {
+      "n": 7083,
+      "median": -9.55,
+      "share_below_minus20_pct": 29.8
+    }
+  },
+  "candidates": {
+    "rule": "primary thresholds (A 10%, B 20% both versions), each horizon: up > n/2 and median > 0",
+    "positive": [
+      {
+        "study": "A",
+        "case": "week <= -10%",
+        "horizon": 240,
+        "n": 8,
+        "up": 5,
+        "median": 14.03,
+        "up_wilson95": [
+          30.57,
+          86.32
+        ],
+        "baseline_up_pct": 65.85,
+        "baseline_median": 7.91,
+        "neighbours": {
+          "8": {
+            "n": 15,
+            "up": 8,
+            "median": 1.4
+          },
+          "12": {
+            "n": 3,
+            "up": 2,
+            "median": 20.1
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "all_time high, -20%",
+        "horizon": 20,
+        "n": 5,
+        "up": 3,
+        "median": 4.58,
+        "up_wilson95": [
+          23.07,
+          88.24
+        ],
+        "baseline_up_pct": 57.1,
+        "baseline_median": 0.95,
+        "neighbours": {
+          "15": {
+            "n": 7,
+            "up": 6,
+            "median": 5.4
+          },
+          "25": {
+            "n": 5,
+            "up": 3,
+            "median": 5.11
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "all_time high, -20%",
+        "horizon": 60,
+        "n": 5,
+        "up": 3,
+        "median": 2.02,
+        "up_wilson95": [
+          23.07,
+          88.24
+        ],
+        "baseline_up_pct": 60.86,
+        "baseline_median": 2.39,
+        "neighbours": {
+          "15": {
+            "n": 7,
+            "up": 5,
+            "median": 3.31
+          },
+          "25": {
+            "n": 5,
+            "up": 4,
+            "median": 7.09
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "all_time high, -20%",
+        "horizon": 120,
+        "n": 5,
+        "up": 3,
+        "median": 13.64,
+        "up_wilson95": [
+          23.07,
+          88.24
+        ],
+        "baseline_up_pct": 64.46,
+        "baseline_median": 4.07,
+        "neighbours": {
+          "15": {
+            "n": 6,
+            "up": 4,
+            "median": 10.63
+          },
+          "25": {
+            "n": 5,
+            "up": 4,
+            "median": 23.18
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "all_time high, -20%",
+        "horizon": 240,
+        "n": 5,
+        "up": 3,
+        "median": 18.12,
+        "up_wilson95": [
+          23.07,
+          88.24
+        ],
+        "baseline_up_pct": 65.85,
+        "baseline_median": 7.91,
+        "neighbours": {
+          "15": {
+            "n": 6,
+            "up": 4,
+            "median": 9.38
+          },
+          "25": {
+            "n": 5,
+            "up": 3,
+            "median": 18.63
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "one_year high, -20%",
+        "horizon": 20,
+        "n": 11,
+        "up": 8,
+        "median": 4.58,
+        "up_wilson95": [
+          43.44,
+          90.25
+        ],
+        "baseline_up_pct": 57.1,
+        "baseline_median": 0.95,
+        "neighbours": {
+          "15": {
+            "n": 16,
+            "up": 12,
+            "median": 3.6
+          },
+          "25": {
+            "n": 9,
+            "up": 6,
+            "median": 2.35
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "one_year high, -20%",
+        "horizon": 60,
+        "n": 11,
+        "up": 7,
+        "median": 2.02,
+        "up_wilson95": [
+          35.38,
+          84.83
+        ],
+        "baseline_up_pct": 60.86,
+        "baseline_median": 2.39,
+        "neighbours": {
+          "15": {
+            "n": 16,
+            "up": 11,
+            "median": 3.21
+          },
+          "25": {
+            "n": 9,
+            "up": 6,
+            "median": 7.09
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "one_year high, -20%",
+        "horizon": 120,
+        "n": 11,
+        "up": 8,
+        "median": 7.62,
+        "up_wilson95": [
+          43.44,
+          90.25
+        ],
+        "baseline_up_pct": 64.46,
+        "baseline_median": 4.07,
+        "neighbours": {
+          "15": {
+            "n": 15,
+            "up": 9,
+            "median": 4.71
+          },
+          "25": {
+            "n": 9,
+            "up": 7,
+            "median": 12.37
+          }
+        }
+      },
+      {
+        "study": "B",
+        "case": "one_year high, -20%",
+        "horizon": 240,
+        "n": 11,
+        "up": 7,
+        "median": 8.85,
+        "up_wilson95": [
+          35.38,
+          84.83
+        ],
+        "baseline_up_pct": 65.85,
+        "baseline_median": 7.91,
+        "neighbours": {
+          "15": {
+            "n": 15,
+            "up": 8,
+            "median": 0.71
+          },
+          "25": {
+            "n": 9,
+            "up": 6,
+            "median": 14.04
+          }
+        }
+      }
+    ],
+    "worst": [
+      {
+        "study": "A",
+        "threshold": "8",
+        "smallest_return": {
+          "20": [
+            -12.71,
+            "2008-09-05"
+          ],
+          "60": [
+            -30.92,
+            "2008-09-05"
+          ],
+          "120": [
+            -26.48,
+            "2008-09-05"
+          ],
+          "240": [
+            -35.94,
+            "2000-04-15"
+          ]
+        },
+        "deepest_low240": [
+          -47.96,
+          "2000-04-15"
+        ]
+      },
+      {
+        "study": "A",
+        "threshold": "10",
+        "smallest_return": {
+          "20": [
+            -12.71,
+            "2008-09-05"
+          ],
+          "60": [
+            -30.92,
+            "2008-09-05"
+          ],
+          "120": [
+            -26.48,
+            "2008-09-05"
+          ],
+          "240": [
+            -35.94,
+            "2000-04-15"
+          ]
+        },
+        "deepest_low240": [
+          -47.96,
+          "2000-04-15"
+        ]
+      },
+      {
+        "study": "A",
+        "threshold": "12",
+        "smallest_return": {
+          "20": [
+            -1.87,
+            "1999-07-17"
+          ],
+          "60": [
+            1.84,
+            "1999-07-17"
+          ],
+          "120": [
+            -1.65,
+            "2000-11-18"
+          ],
+          "240": [
+            -20.2,
+            "2000-11-18"
+          ]
+        },
+        "deepest_low240": [
+          -33.31,
+          "2000-11-18"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "all_time",
+        "threshold": "15",
+        "smallest_return": {
+          "20": [
+            -16.64,
+            "1997-10-02"
+          ],
+          "60": [
+            -4.85,
+            "1997-10-02"
+          ],
+          "120": [
+            -16.52,
+            "2022-05-12"
+          ],
+          "240": [
+            -31.34,
+            "2000-03-15"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-03-15"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "all_time",
+        "threshold": "20",
+        "smallest_return": {
+          "20": [
+            -5.54,
+            "1997-10-16"
+          ],
+          "60": [
+            -13.15,
+            "2000-06-29"
+          ],
+          "120": [
+            -35.02,
+            "2000-06-29"
+          ],
+          "240": [
+            -37.83,
+            "2000-06-29"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-06-29"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "all_time",
+        "threshold": "25",
+        "smallest_return": {
+          "20": [
+            -10.54,
+            "2000-08-30"
+          ],
+          "60": [
+            -27.7,
+            "2000-08-30"
+          ],
+          "120": [
+            -21.96,
+            "2000-08-30"
+          ],
+          "240": [
+            -40.16,
+            "2000-08-30"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-08-30"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "one_year",
+        "threshold": "15",
+        "smallest_return": {
+          "20": [
+            -16.64,
+            "1997-10-02"
+          ],
+          "60": [
+            -11.49,
+            "2002-05-21"
+          ],
+          "120": [
+            -16.52,
+            "2022-05-12"
+          ],
+          "240": [
+            -46.35,
+            "2007-11-28"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-03-15"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "one_year",
+        "threshold": "20",
+        "smallest_return": {
+          "20": [
+            -5.54,
+            "1997-10-16"
+          ],
+          "60": [
+            -13.15,
+            "2000-06-29"
+          ],
+          "120": [
+            -35.02,
+            "2000-06-29"
+          ],
+          "240": [
+            -45.66,
+            "2007-12-17"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-06-29"
+        ]
+      },
+      {
+        "study": "B",
+        "version": "one_year",
+        "threshold": "25",
+        "smallest_return": {
+          "20": [
+            -10.54,
+            "2000-08-30"
+          ],
+          "60": [
+            -27.7,
+            "2000-08-30"
+          ],
+          "120": [
+            -38.32,
+            "2008-07-02"
+          ],
+          "240": [
+            -40.16,
+            "2000-08-30"
+          ]
+        },
+        "deepest_low_vs_high": [
+          -66.22,
+          "2000-08-30"
+        ]
+      }
+    ]
+  },
+  "largest_weekly_falls_top15": [
+    {
+      "date": "2026-11-20",
+      "change": -17.5,
+      "prev_close_date": "2026-11-13"
+    },
+    {
+      "date": "2000-11-18",
+      "change": -15.13,
+      "prev_close_date": "2000-11-10"
+    },
+    {
+      "date": "1999-07-17",
+      "change": -13.85,
+      "prev_close_date": "1999-07-09"
+    },
+    {
+      "date": "2001-09-14",
+      "change": -12.26,
+      "prev_close_date": "2001-09-07"
+    },
+    {
+      "date": "2026-11-06",
+      "change": -12.19,
+      "prev_close_date": "2026-10-30"
+    },
+    {
+      "date": "2000-04-15",
+      "change": -10.75,
+      "prev_close_date": "2000-04-08"
+    },
+    {
+      "date": "2008-10-09",
+      "change": -10.65,
+      "prev_close_date": "2008-10-03"
+    },
+    {
+      "date": "2020-03-13",
+      "change": -10.54,
+      "prev_close_date": "2020-03-06"
+    },
+    {
+      "date": "2008-09-05",
+      "change": -10.49,
+      "prev_close_date": "2008-08-29"
+    },
+    {
+      "date": "2004-03-26",
+      "change": -10.01,
+      "prev_close_date": "2004-03-19"
+    },
+    {
+      "date": "1997-10-18",
+      "change": -9.97,
+      "prev_close_date": "1997-10-09"
+    },
+    {
+      "date": "2007-08-17",
+      "change": -9.42,
+      "prev_close_date": "2007-08-10"
+    },
+    {
+      "date": "2004-04-30",
+      "change": -9.34,
+      "prev_close_date": "2004-04-23"
+    },
+    {
+      "date": "2011-08-05",
+      "change": -9.15,
+      "prev_close_date": "2011-07-29"
+    },
+    {
+      "date": "2003-04-25",
+      "change": -9.12,
+      "prev_close_date": "2003-04-18"
+    }
+  ],
+  "now_state": {
+    "last_date": "2026-11-20",
+    "last_close": 36033.29,
+    "all_time_high_date": "2026-10-06",
+    "all_time_high_close": 49822.55,
+    "drawdown_from_all_time_high": -27.68,
+    "last_week_change": -17.5,
+    "last_week_prev_close_date": "2026-11-13"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T10:10:46+08:00",
+  "generated_at": "2026-11-21T23:44:57+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -1102,6 +1102,28 @@
       ]
     },
     {
+      "id": "K-BOTH-005",
+      "topic": "both",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "S1／S2 訊號出現後，改在 15 分／5 分等回踩或突破再進場：8 條規則沒有一條同時勝過訊號當下進場與同時段隨機進場",
+      "detail_zh": "訊號後 2 小時內等四種觸發（跌破訊號 K 低點後收回、回踩中點守住、突破訊號 K 高點、突破後回測），出場固定（停損 1 倍 ATR、停利 1.5 倍、4 小時），每筆來回成本 0.35 點（假設值）。15 分訓練期 S1 訊號 123 個、S2 50 個：通過 0 條（6 條沒有證據、2 條樣本不足）。事後改從訊號當下比（僅描述）：S1 的 4 條每訊號期望值都低於直接進場，但差距在約 ±0.3R 的雜訊範圍內，不能說等待一定比較差。S2 樣本太小（可分辨 0.58–0.75R），什麼都分不出來。",
+      "how_to_use_zh": "沒有證據支持訊號出現後再等短週期回踩或突破才進場；也不是證明等待比較差（差距在雜訊範圍內）。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-01",
+      "reviewed_on": "2026-11-12",
+      "preliminary": true,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261101-002",
+          "says_zh": "8 條規則通過 0 條；S1 四條每訊號期望值都低於直接進場，但在約 ±0.3R 內（事後、僅描述）；S2 樣本不足"
+        }
+      ]
+    },
+    {
       "id": "K-PF-001",
       "topic": "portfolio",
       "kind": "reference",
@@ -1199,7 +1221,7 @@
       "kind": "reference",
       "strength": "weak",
       "statement_zh": "常見的黃金日曆說法（週一弱、週五強、月底效應、九月最差、亞洲買盤歐洲消退）在 18 年日線裡全部分不出差別",
-      "detail_zh": "用 18 年日線檢驗，全部在可分辨門檻內，週一最差已被關閉；月份效應（月初買、月底賣）48 格照研究定義都分不出差別（先前版本因門檻用錯顯示 1 格，已於重跑更正）；分不出不等於沒有。",
+      "detail_zh": "用 18 年日線檢驗，全部在可分辨門檻內，週一最差已被關閉；月份效應（月初買、月底賣）48 格照研究定義都分不出差別（先前版本因門檻用錯顯示 1 格，已於重跑更正）；12 月中抱到春節前，2009–2026 年 18 次漲 14 次（登記前已看過），但事先登記的 1981–2008 年 28 次只漲 13 次，沒有延續；分不出不等於沒有。",
       "how_to_use_zh": "沒有證據支持日曆效應；週報與判斷不要把它當依據（分不出，不等於證明沒有）。",
       "policy_ref": null,
       "prereg_ref": null,
@@ -1220,6 +1242,14 @@
         {
           "study_id": "RS-MULTI-20260901-001",
           "says_zh": "48 格重跑後為 0 格過門檻（先前版本因門檻用錯顯示 1 格）"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261115-001",
+          "says_zh": "12 月中抱到春節前：2009–2026 年 18 次漲 14 次（登記前已看過），事先登記的 1981–2008 年 28 次漲 13 次，沒有延續"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261116-001",
+          "says_zh": "（研究審查中）起點 10/1–12/15 × 出場春節前到 3 月底共 30 格：2009–2026 每格 18 次漲 10–15 次，同期任一天起抱一樣久也有 56–68% 漲；1981–2008 每格 28 次漲 11–15 次；兩段的格子排名對不起來，挑不出比較好的進出場日"
         }
       ]
     },
@@ -2296,6 +2326,98 @@
           "says_zh": "P1 差 -0.010（±0.324）分不出；P2 差 -0.252（±0.676）分不出；18 項次要檢定 2 項通過 BH，皆為 DXY 效果，平常日 -0.725"
         }
       ]
+    },
+    {
+      "id": "K-MKT-014",
+      "topic": "market",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "16 條教科書式的日內短線規則（左側摸頭底、右側追突破；15 分為主，5 分、30 分對照），扣成本後沒有一條和同時段隨機進場分得出差別；再分 8 種盤勢也沒有",
+      "detail_zh": "8 種型態 × 做多／做空共 16 條（前日高低點刺破收回、布林收回、亞洲盤極值反向、RSI 超買超賣回頭、亞洲盤突破、紐約開盤區間突破、均線回踩、唐奇安突破），出場固定（停損 1 倍 ATR、停利 1.5 倍、4 小時），每筆來回成本 0.35 點（假設值）。15 分訓練期（2025-12-24～2026-07-31）通過篩選 0 條：14 條沒有證據、2 條樣本不足；訓練期最好的一條（前日高點刺破收回做空）優勢 +0.149R，小於可分辨的 ±0.31R，30 分還是負的。再依波動、日線趨勢、當日區間已走比例分成 8 種盤勢：128 格通過 0 格（76 格沒有證據、52 格不到 30 筆）；訓練期為正且樣本夠的 33 格，保留期仍為正的 17 格（52%，丟銅板 50%）。分不出不等於證明沒用：出場只測一種，15 分只有約 10 個月、5 分約 6 個月，約 0.2R 以內的盤勢效果這份資料看不出來。",
+      "how_to_use_zh": "沒有證據支持照這些常見型態做短線，也不是證明沒用。看到「某型態在某種盤勢特別準」的說法，先問有沒有和同時段隨機進場比過。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-01",
+      "reviewed_on": "2026-11-12",
+      "preliminary": true,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261101-001",
+          "says_zh": "16 條規則通過 0 條（14 條沒有證據、2 條樣本不足）；訓練期最好的優勢 +0.149R，小於可分辨 ±0.31R"
+        },
+        {
+          "study_id": "RS-XAUUSD-20261101-004",
+          "says_zh": "16 條 × 8 種盤勢共 128 格通過 0 格（76 格沒有證據、52 格樣本不足）"
+        }
+      ]
+    },
+    {
+      "id": "K-MKT-015",
+      "topic": "market",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "非農／CPI／FOMC 公布後，逆著或順著第一根 K 進場：16 條規則沒有一條和同時段隨機進場分得出差別，其中 12 條事件太少、無法判斷",
+      "detail_zh": "30 分訓練期（2024–2025 年）：單一數據各只有 16–23 次，不到事先定的 30 次，12 條沒有進入檢定；三種數據合併的 4 條（62 次）分不出和隨機進場的差別。對照組是沒有這三種數據的交易日、同一個台北整點（初領失業金、PPI 等其他數據日仍在內）。成本用平常的 0.35 點（假設值），公布時點差通常更大，淨值偏樂觀。事後看起來最好的一條（FOMC 順向、寬出場）訓練期優勢 +0.294R、可分辨 ±0.84R，Holm 校正後 p 0.45；它是從 16 條裡事後挑出來的，不是訊號。這是「樣本不足、分不出」，不是證明沒用。",
+      "how_to_use_zh": "沒有證據支持在數據公布後順著或逆著第一根 K 進場；事件數太少，也不是證明沒用。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-01",
+      "reviewed_on": "2026-11-12",
+      "preliminary": true,
+      "evidence": [
+        {
+          "study_id": "RS-XAUUSD-20261101-003",
+          "says_zh": "16 條沒有一條和同時段隨機進場分得出差別；12 條事件數 16–23 次（不到 30）無法判斷，合併的 4 條（62 次）沒有證據"
+        }
+      ]
+    },
+    {
+      "id": "K-TX-006",
+      "topic": "tx",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "加權指數一天跌 2.5% 以上、隔天漲 2.0% 以上之後，5 到 250 個交易日收高的比例都和平常日分不出來；20 個交易日內約六成會有一天收盤跌回大跌那天的收盤以下",
+      "detail_zh": "1997–2026 證交所交易日曆（含 2001 年前的週六）併群後 28 筆事件（原始觸發 35 次）。反彈日收盤起算：5 日 13/27（48.15%）、20 日 13/27（48.15%）、60 日 18/27（66.67%，中位數 +2.02%）、250 日 15/25（60.0%，中位數 +8.60%）；平常日 55.18／57.14／60.90／66.88%，都在 Wilson 區間內（約 34 個百分點寬）。20 日內曾經收盤跌破第 1 天收盤 17/27（62.96%）、60 日內 22/27（81.48%）；第 20 天仍在下面 7/27（事後補看）。「大跌但隔天沒大漲」對照組（n=100）5／20 日為 57/100、61/99。一年後輸的 10 次中位數 −22.83%，9 次在 1997–2000。鄰近門檻（−2.0／+1.5 n=50；−3.0／+2.5 n=15）60 日為 66.0／86.67%。revision 2，G0 第 1 輪有條件通過後修正，第 2 輪未審。",
+      "how_to_use_zh": "只當描述性脈絡：可說 27 次裡 60 日後 18 次更高，但同時要說和平常日分不出、且一個月內約六成會有一天跌回大跌日收盤以下（第 20 天還在下面的約四分之一）；不是買進或賣出的證據，不構成交易建議。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-13",
+      "reviewed_on": "2026-11-13",
+      "preliminary": true,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261113-001",
+          "says_zh": "28 筆（27 筆有 60 日）：5／20／60／250 日收高 48.15／48.15／66.67／60.0%，平常日 55.18／57.14／60.90／66.88%，都分不出；20 日內曾跌破第 1 天收盤 17/27"
+        }
+      ]
+    },
+    {
+      "id": "K-TX-007",
+      "topic": "tx",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "加權指數單週跌一成以上、或從高點跌破兩成之後，後來漲跌的次數都和平常日分不出來；跌破之後通常還會再跌一段，但 1997 年以來每一次最後都回到原高點（最久 17.3 年；因為現在指數高於 2025 年以前所有高點，這一項本來就會成立；有資訊的是花多久）",
+      "detail_zh": "1997–2026 證交所交易日曆。單週跌 ≥10%：8 次（5 段行情），20／60／120／240 日更高 4/8、4/8、4/8、5/8；20 日內收盤再低 5% 以上 7/8；240 日內最低中位數 −17.3%。一年內最高收盤跌破 −20%：11 次，120 日更高 8/11（中位數 +7.6%），最低相對高點中位數 −28.7%，11 次都回到高點（中位數 509 個交易日）。平常日都在 Wilson 區間內。revision 1，研究審 G0 r1 PASS-WITH-NOTES。",
+      "how_to_use_zh": "只當描述性脈絡：講幾次裡幾次；回到高點要同時講花了多久（最快約半年、最慢 17 年）；不是買進或賣出的證據。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-21",
+      "reviewed_on": "2026-11-21",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261121-001",
+          "says_zh": "週跌 ≥10% 8 次：240 日 5/8 更高、20 日內再低 5% 以上 7/8；一年高點跌破 −20% 11 次：120 日 8/11 更高，全部回到高點"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -2347,7 +2469,6 @@
       "stale_after_days": 35,
       "refresh_zh": "TradingView 匯出 S1 V3.9 的 List of trades，放到 Downloads 告訴我",
       "blocks_zh": [
-        "S1 前瞻檢驗（PREREG-20261009-001）",
         "S1 上線表現研究",
         "季度對帳"
       ],
@@ -2368,11 +2489,9 @@
       "id": "notion_trades",
       "label_zh": "實際交易紀錄（Notion 匯出）",
       "stale_after_days": 35,
-      "refresh_zh": "Notion 交易資料庫匯出 CSV（含全部欄位）",
+      "refresh_zh": "不再更新：2026-11-17 起交易只記在 Telegram，最後一份是 2026-10-09",
       "blocks_zh": [
-        "反向單前瞻檢驗（PREREG-20261009-002）",
-        "帳戶研究",
-        "季度對帳"
+        "帳戶研究"
       ],
       "last_date": "2026-10-06"
     },
@@ -2383,9 +2502,11 @@
       "refresh_zh": "自動；超過門檻代表 TradingView 警報或接收服務可能停了",
       "blocks_zh": [
         "S2 第一根 K 檢驗（PREREG-20260818-001）",
+        "S1 前瞻檢驗（PREREG-20261117-001）",
+        "反向單前瞻檢驗（PREREG-20261117-002）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-11-03"
+      "last_date": "2026-11-19"
     },
     {
       "id": "xau_30m_long",
@@ -2408,7 +2529,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-10-30"
+      "last_date": "2026-11-13"
     },
     {
       "id": "weekly_manual_set",
@@ -2418,7 +2539,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-11-01"
+      "last_date": "2026-11-14"
     },
     {
       "id": "cftc_transcription",
@@ -2428,7 +2549,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-10-27"
+      "last_date": "2026-11-03"
     },
     {
       "id": "cftc_archive",
@@ -2671,6 +2792,38 @@
       "url": "research/studies/RS-TX-20261108-001/",
       "claims": [
         "K-TX-005"
+      ]
+    },
+    {
+      "id": "RS-TX-20261113-001",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 2,
+      "theme": "market_structure",
+      "title": "TAIEX: a one-day fall of at least 2.5% followed the next session by a rise of at least 2.0% — what the index did over the following 5, 20, 60 and 250 sessions (1997-2026, pre-registered)",
+      "title_zh": "台股一天跌 2.5% 以上、隔天漲 2.0% 以上，之後 5／20／60／250 個交易日怎麼走？1997–2026 加權指數",
+      "summary_zh": "台股一天跌 2.5% 以上、隔天漲 2.0% 以上（1997–2026 併群後 28 筆，證交所交易日曆）：反彈日之後 60 個交易日，27 次有 18 次更高（平常日 60.9%）；20 個交易日內 27 次有 17 次曾經跌回大跌那天的收盤以下；各期間都跟平常日分不出來。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261113-001/",
+      "claims": [
+        "K-TX-006"
+      ]
+    },
+    {
+      "id": "RS-TX-20261121-001",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "TAIEX after a week down 10% or more, and after the close first fell 20% below its peak — what came next over 20/60/120/240 sessions, how much deeper and how long (1997-2026, pre-registered; weekly 8/10/12%, peak 15/20/25%)",
+      "title_zh": "台股單週跌一成以上、收盤從高點跌破兩成之後，20／60／120／240 個交易日怎麼走？1997–2026 加權指數（事先登記）",
+      "summary_zh": "一年內高點跌破兩成 11 次，跌破那天起 120 個交易日後 8 次比較高；週跌一成 8 次，240 日後 5 次比較高，但其中 7 次一個月內還有更低的收盤。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261121-001/",
+      "claims": [
+        "K-TX-007"
       ]
     },
     {
@@ -3678,7 +3831,7 @@
       "id": "RS-XAUUSD-20261027-003",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 3,
+      "revision": 4,
       "theme": "market_structure",
       "title": "Adding the extra gold lot when the fall accelerates, on a rebound, when deep or back above the 20-week MA — no timing could be told apart from an ordinary decline week; in 5 past episodes (5 paths, no bound) extra lots on accelerating-fall weeks gave a slightly lower average cost, and so a slightly higher return at the same exit price, with more lots",
       "title_zh": "補倉時機：跌勢加速、開始反彈、跌深、站回 20 週線，都分不出和一般下跌週的差別；過去 5 次（5 條路徑、無界線），跌勢加速時多買的版本均價略低（同一個出場價，所以報酬率也略高），但口數較多",
@@ -3718,7 +3871,9 @@
       "superseded_by": null,
       "visibility": "private",
       "url": null,
-      "claims": []
+      "claims": [
+        "K-MKT-014"
+      ]
     },
     {
       "id": "RS-XAUUSD-20261101-002",
@@ -3732,7 +3887,9 @@
       "superseded_by": null,
       "visibility": "private",
       "url": null,
-      "claims": []
+      "claims": [
+        "K-BOTH-005"
+      ]
     },
     {
       "id": "RS-XAUUSD-20261101-003",
@@ -3746,7 +3903,9 @@
       "superseded_by": null,
       "visibility": "private",
       "url": null,
-      "claims": []
+      "claims": [
+        "K-MKT-015"
+      ]
     },
     {
       "id": "RS-XAUUSD-20261101-004",
@@ -3760,7 +3919,9 @@
       "superseded_by": null,
       "visibility": "private",
       "url": null,
-      "claims": []
+      "claims": [
+        "K-MKT-014"
+      ]
     },
     {
       "id": "RS-XAUUSD-20261102-001",
@@ -3782,11 +3943,11 @@
       "id": "RS-XAUUSD-20261102-002",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 3,
+      "revision": 4,
       "theme": "event",
-      "title": "Gold on CPI days: the first 30m range is large (22.0 vs 10.11 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
+      "title": "Gold on CPI days: the first 30m range is large (22.0 vs 10.20 points) and the 1-hour move about 2.2x a normal weekday; by the close the 2%+ share is not distinguishable from other days, and there is no detectable direction",
       "title_zh": "CPI 公布日：前 30 分鐘高低差約平常 2.2 倍、1 小時漲跌約 2.2 倍；收盤時大波動比例和平常分不出差別，方向也分不出來",
-      "summary_zh": "2008 年以來 222 次 CPI：2024 年以來 33 次，公布後第一根 30 分鐘高低差中位數 22.0 點，平常 10.11 點；1 小時漲跌 0.518% 對 0.233%。收盤時單日漲跌 2% 以上的比例 6.3% 對 6.3%，分不出差別（界線 3.3），但當天高低振幅較大（1.678% 對 1.543%）。",
+      "summary_zh": "2008 年以來 222 次 CPI：2024 年以來 33 次，公布後第一根 30 分鐘高低差中位數 22.0 點，平常 10.20 點；1 小時漲跌 0.518% 對 0.234%。收盤時單日漲跌 2% 以上的比例 6.3% 對 6.3%，分不出差別（界線 3.3），當天高低振幅只剛好過界線（1.678% 對 1.544%，差 0.134 對界線 0.1335，僅供參考）。",
       "superseded_by": null,
       "visibility": "public",
       "url": "research/studies/RS-XAUUSD-20261102-002/",
@@ -3798,7 +3959,7 @@
       "id": "RS-XAUUSD-20261103-001",
       "market": "XAUUSD",
       "status": "confirmed",
-      "revision": 2,
+      "revision": 3,
       "theme": "event",
       "title": "Gold and the CPI surprise (32 releases 2024-2026): moves lean the pre-registered way (hot core CPI, weaker gold) but the evidence is marginal and fragile; simple rules that trade after the release are not distinguishable from zero after costs",
       "title_zh": "CPI 數據好壞與黃金：方向偏向「高於預期偏跌」，但證據很薄、拿掉一兩筆就會變；公布後才進場的簡單規則，扣成本後分不出賺賠",
@@ -3842,12 +4003,39 @@
         "K-MKT-011",
         "K-MKT-012"
       ]
+    },
+    {
+      "id": "RS-XAUUSD-20261115-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "XAUUSD from the mid-December close to the last close before Lunar New Year — 18 daily windows 2009–2026 already seen (discovery) and 28 weekly windows 1981–2008 registered before computing (validation)",
+      "title_zh": "黃金 12 月中收盤買、抱到春節前：2009–2026 年 18 次漲 14 次（登記前已看過）；事先登記的 1981–2008 年檢驗 28 次漲 13 次，沒有延續",
+      "summary_zh": "12 月 15 日收盤到春節前最後一個交易日：2009–2026 年日線 18 次漲 14 次（77.8%，Wilson 54.8–91.0%；登記前已看過，不是檢驗），中位數 +4.96%（25–75 分位 +0.33% 到 +6.91%）；同期任一天起抱 35 個交易日 56.5% 漲。事先登記的 1981–2008 年週線檢驗 28 次漲 13 次（46.4%，29.5–64.2%），同期任意 7 週 48.3% 漲：沒有延續。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261115-001/",
+      "claims": [
+        "K-MKT-004"
+      ]
+    },
+    {
+      "id": "RS-XAUUSD-20261116-001",
+      "market": "XAUUSD",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "XAUUSD calendar windows by start and exit: 6 starts (1 October to 15 December) × 5 exits (before Lunar New Year to end of March), daily 2009–2026 and weekly 1981–2008, with 1×/2×/10× and the Bank of Taiwan passbook spread (pre-registered)",
+      "title_zh": "黃金起點 × 出場：10/1 到 12/15 六個起點、春節前到 3 月底五個出場；2009–2026 年日線與 1981–2008 年週線，加 1／2／10 倍與台銀黃金存摺價差（事先登記）",
+      "summary_zh": "黃金起點（10/1 到 12/15）× 出場（春節前到 3 月底）：12/15 到春節前 46 個冬天漲 27 次（58.7%，Wilson 44.3–71.7%）；2009–2026 年每格 18 次漲 10 到 15 次、1981–2008 年每格 28 次漲 11 到 15 次；兩段時期格子的排名沒有延續（中位數排名相關 −0.15）。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-XAUUSD-20261116-001/",
+      "claims": [
+        "K-MKT-004"
+      ]
     }
   ],
-  "unmapped": [
-    "RS-XAUUSD-20261101-001",
-    "RS-XAUUSD-20261101-002",
-    "RS-XAUUSD-20261101-003",
-    "RS-XAUUSD-20261101-004"
-  ]
+  "unmapped": []
 }

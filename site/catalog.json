@@ -28,6 +28,7 @@
     "/research/",
     "/research/null-results/",
     "/research/backlog/",
+    "/research/studies/RS-TX-20261121-001/",
     "/research/studies/RS-XAUUSD-20261116-001/",
     "/research/studies/RS-XAUUSD-20261115-001/",
     "/research/studies/RS-TX-20261113-001/",
@@ -118,6 +119,7 @@
     "2026-W34"
   ],
   "published_studies": [
+    "RS-TX-20261121-001",
     "RS-XAUUSD-20261116-001",
     "RS-XAUUSD-20261115-001",
     "RS-TX-20261113-001",
