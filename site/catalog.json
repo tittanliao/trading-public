@@ -22,6 +22,7 @@
     "/xauusd/weekly/2026-W45/",
     "/xauusd/weekly/2026-W46/",
     "/xauusd/weekly/2026-W47/",
+    "/xauusd/weekly/2026-W48/",
     "/xauusd/weekly/2026-W37/perspectives/claude/",
     "/xauusd/weekly/2026-W37/perspectives/codex/",
     "/overview/",
@@ -103,6 +104,7 @@
     "/research/studies/RS-TX-20260815-001/"
   ],
   "weekly_editions": [
+    "2026-W48",
     "2026-W47",
     "2026-W46",
     "2026-W45",
