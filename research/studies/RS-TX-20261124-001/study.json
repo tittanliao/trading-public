@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261124-001",
+  "revision": 1,
+  "title": "TAIEX: a day up 4% or more on trading value below 0.8x the prior 20-session average — what the index did over the next 5, 20 and 60 sessions, against up-4% days on 1.0x or more (1997-2026; definition chosen after looking, 3x3 sensitivity grid)",
+  "market": "TX",
+  "strategy": "none — descriptive event study on the TAIEX cash index",
+  "status": "confirmed",
+  "created_on": "2026-11-24",
+  "question": "On days when TAIEX closed up a lot but whole-market trading value (FMTQIK) was below its prior 20-session average, how did the index move over the next 5, 20 and 60 sessions, how far below the event close did it close within 20 sessions, and how does that compare with big up days on heavy value and with all big up days?",
+  "hypothesis": "None registered in advance. Before the primary definition (ret >= 4%, ratio < 0.8) was fixed, ret 3/4/5% x value ratio 0.8/1.0 had already been tried on the same data, so the result is descriptive and is shown next to a 3x3 sensitivity grid (ret 3/4/5% x ratio < 0.7/0.8/0.9). Expected sample: under ten primary events; no direction assumed.",
+  "headline": {
+    "data_end": "2026-11-24",
+    "sessions": 7349,
+    "primary_events": 8,
+    "primary_episodes": 8,
+    "primary_up5": 5,
+    "primary_up20": 6,
+    "primary_up60": 5,
+    "primary_median5_pct": 2.08,
+    "primary_median20_pct": 4.08,
+    "primary_median60_pct": 5.54,
+    "primary_up20_wilson95": [
+      40.93,
+      92.85
+    ],
+    "primary_dd20_at_least_5pct_below": 3,
+    "primary_dd20_at_least_10pct_below": 1,
+    "high_events": 39,
+    "high_up20": 22,
+    "high_median20_pct": 1.39,
+    "all_events": 62,
+    "all_up20": 38,
+    "all_n20": 61,
+    "all_median20_pct": 3.76,
+    "median20_diff_primary_minus_high_pct": 2.7,
+    "median20_diff_boot95": [
+      -5.82,
+      8.56
+    ],
+    "baseline_up20_pct": 57.11,
+    "baseline_median20_pct": 0.96,
+    "now_ret_pct": 8.99,
+    "now_value_ratio": 0.4411,
+    "now_return_rank": 2,
+    "now_stocks_limit_up": 335,
+    "now_stocks_up": 1053
+  },
+  "card_metrics": [
+    "primary_events",
+    "primary_up20",
+    "primary_median20_pct",
+    "high_events",
+    "high_median20_pct",
+    "now_value_ratio"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Up 4% or more on value below 0.8x: 8 days since 1997, all in different episodes; 20 sessions later 6 of 8 were higher (median +4.08%), 5 and 60 sessions later 5 of 8",
+      "detail": "Wilson 95% for 6/8: 40.93-92.85%; any-session baseline 57.11% (n=7,309) is inside. Median bootstrap 95%: -2.32 to +10.08. Worst 20-session result -3.51% (2003-02-17), worst 60-session -14.17% (2004-03-29). By limit regime: before 2015-06-01 2/4 (median +0.67%), from 2015-06-01 4/4 (+8.64%); in the same 10% period all up-4% days were higher 20 sessions later 11/11 (+10.35%), heavy value 3/3, so the 4/4 reflects the period, not low value.",
+      "title_zh": "漲 4% 以上、成交金額不到前 20 日平均 0.8 倍：1997 年以來 8 次，20 個交易日後 6 次比較高（中位數 +4.08%），5 日和 60 日後各 5 次",
+      "detail_zh": "6/8 的 Wilson 95% 是 40.93–92.85%，平常日 57.11%（n=7,309）在區間內：分不出。中位數 bootstrap 95% −2.32 到 +10.08。20 日最差 −3.51%（2003-02-17），60 日最差 −14.17%（2004-03-29）。按漲跌幅制分：7% 制 2/4（+0.67%）、10% 制 4/4（+8.64%）；同一個 10% 制時期，所有漲 ≥4% 的日子 20 日後 11/11 上漲（+10.35%）、量大 3/3，所以 4/4 反映的是那段時期，分不出是量小的關係。"
+    },
+    {
+      "tone": "warn",
+      "title": "Small value vs heavy value cannot be separated: 20-session median +4.08% (n=8) vs +1.39% (n=39), difference +2.70 points with a bootstrap 95% interval of -5.82 to +8.56",
+      "detail": "Heavy-value group (ret >= 4%, ratio >= 1.0): 20 sessions later 22/39 higher. All up-4% days: 38/61, median +3.76%. Sensitivity: ret 3/4/5% x ratio < 0.7/0.8/0.9 gives 3 to 25 events; the 20-session median of the low-value cells stays between +3.65% and +4.51%, the 60-session median moves from -3.25% to +5.68%.",
+      "title_zh": "量小和量大分不出差別：20 日中位數 +4.08%（8 次）對 +1.39%（39 次），差 +2.70 個百分點，bootstrap 95% 區間 −5.82 到 +8.56",
+      "detail_zh": "量大（漲 ≥4%、量比 ≥1.0）20 日後 22/39 比較高；漲 ≥4% 全部 38/61，中位數 +3.76%。敏感度 3×3 格事件數 3–25 次；量小各格 20 日中位數在 +3.65% 到 +4.51% 之間，60 日中位數從 −3.25% 到 +5.68%。"
+    },
+    {
+      "tone": "warn",
+      "title": "Within 20 sessions 6 of the 8 closed below the big-up close at least once; 3 by 5% or more (-12.60% 1999-07-20, -9.72% 2026-07-21, -9.45% 2003-02-17), only one by 10% or more",
+      "detail": "Closing prices only. A pre-study exploration said 3 events were 10-13% below; recomputed on FMTQIK closes it is 9.45-12.60%. Heavy-value group: 30 of 39 closed below, 5 by 10% or more.",
+      "title_zh": "8 次裡有 6 次在 20 個交易日內曾收在大漲當天收盤之下；3 次低 5% 以上（1999-07-20 −12.60%、2026-07-21 −9.72%、2003-02-17 −9.45%），低 10% 以上只有 1 次",
+      "detail_zh": "只用收盤價。研究前的探索寫「3 次低 10–13%」，用 FMTQIK 收盤重算是 9.45–12.60%。量大組 39 次裡 30 次曾收在大漲當天之下、5 次低 10% 以上。"
+    },
+    {
+      "tone": "info",
+      "title": "2026-11-24: +3,310.46 points (+8.99%), second-largest one-day rise since 1997-06-03; value 0.44x its 20-session average, lower than any of the 62 historical up-4% days (lowest 0.63)",
+      "detail": "TWSE MI_INDEX: 1,053 stocks up, 335 at limit-up; 26 down, 4 at limit-down. Share-count ratio 0.97, trade-count ratio 0.48. That locked limit-up stocks held value down is an inference, not tested; historical limit-up counts were not checked.",
+      "title_zh": "2026-11-24：漲 3,310.46 點（+8.99%），1997-06-03 以來單日漲幅第二；成交金額只有前 20 日平均的 0.44 倍，比歷史 62 個漲 4% 以上的日子都低（最低是 0.63）",
+      "detail_zh": "證交所 MI_INDEX：股票上漲 1,053 檔、漲停 335；下跌 26、跌停 4。成交股數量比 0.97、筆數量比 0.48。「量小是因為鎖漲停買不到」是推論，沒有驗證；歷史事件的漲停家數沒有查。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "TAIEX up 4% or more on trading value below 0.8x its 20-session average: 8 times since 1997, higher 20 sessions later 6 times (5 and 60 sessions: 5 each). Heavy-value up days did 22 of 39; the two cannot be separated. From 2015-06-01 the up-4% days were higher 20 sessions later 11 of 11 (5 sessions 10 of 12, 60 sessions 10 of 11). 2026-11-24 rose 8.99% on 0.44x, lower than any of the 62 earlier up-4% days.",
+  "title_zh": "加權指數大漲、成交金額卻比平常小：之後 5／20／60 個交易日怎麼走？和量大的大漲比（1997–2026；先看資料後選定義，附 3×3 敏感度表）",
+  "question_zh": "加權指數單日漲很多、但全市場成交金額比前 20 個交易日平均小的那幾天，之後 5、20、60 個交易日怎麼走、20 日內最低收在哪裡？和量大的大漲日、所有大漲日比起來有什麼不同？",
+  "hypothesis_zh": "沒有事先登記。定義確定之前，已經有人在同一份資料上試過漲幅 3%、4%、5% 和量比 0.8、1.0 倍，所以主定義（漲 ≥4%、量比 <0.8）是先看後選；結果只描述，並附 3×3 敏感度表。預期主定義不到 10 次，不預設方向。",
+  "card_summary_zh": "加權指數漲 4% 以上、成交金額不到前 20 日平均 0.8 倍：1997 年以來 8 次，20 個交易日後 6 次比較高（5 日、60 日各 5 次）；量大的大漲 39 次裡 22 次，兩組分不出差別。2015-06-01 以後漲 4% 以上的日子，20 日後 11/11 比較高（5 日 10/12、60 日 10/11）。11/24 漲 8.99%、成交金額只有 0.44 倍，比之前 62 個漲 4% 以上的日子都低。",
+  "limitations_zh": [
+    "樣本很少：主定義歷史上只有個位數次，每個比例的 Wilson 95% 區間寬達數十個百分點；中位數的 bootstrap 區間也很寬。",
+    "事件在時間上群聚：漲 ≥ 4% 的 62 天只分成 31 段行情（相隔 ≤ 20 個交易日算同一段），同一段的 20、60 日窗口幾乎重疊，獨立樣本比次數少。主定義的 8 次彼此都相隔超過 20 個交易日（8 段），但有些主定義事件旁邊 20 個交易日內還有別的大漲日、走勢共用：1999-07-20 和 1999-08-13（相差 +20 個交易日，+4.04%，量比 2.01）；2003-02-17 和 2003-03-18（相差 +20 個交易日，+4.17%，量比 1.47）；2020-03-24 和 2020-03-20（相差 -2 個交易日，+6.37%，量比 1.23）；2025-04-10 和 2025-04-23（相差 +9 個交易日，+4.50%，量比 0.87）；2026-07-21 和 2026-07-31（相差 +8 個交易日，+7.98%，量比 0.86）。",
+    "2015-06-01 起漲跌幅限制從 7% 改成 10%：之前一天最多漲 7%、漲停的意義和現在不同，前後的大漲日不能完全等同；每筆事件標了它屬於哪一制。同一時期的對照：10% 制所有漲 ≥4% 的日子，20 日後 11/11 上漲（中位數 +10.35%），量大的 3/3；7% 制所有漲 ≥4% 的日子 27/50（+1.00%）。主定義 10% 制 4/4，同時期的大漲日也都上漲，分不出是量小的關係。",
+    "週六交易日：2000 年以前的週六盤 102 天，和之後的補班週六 23 天（2006–2018）都算交易日。2000 年以前週六的量比中位數 0.92、同期平日 0.95，週六只比平日略低，對 20 日分母的影響很小；h 個交易日在日曆上也比較短。每筆事件列出量比窗口裡有幾個週六。改用只算平日的分母（前 20 個非週六交易日）重算：主定義和兩個對照組（漲 ≥4%，0.8 和 1.0 兩條線）沒有任何一天換組。敏感度表裡會跨線的有：1998-09-04（+3.39%，1.005 → 0.990，跨 1.0）、1999-07-20（+5.69%，0.720 → 0.697，跨 0.7）、2000-05-05（+3.24%，0.702 → 0.665，跨 0.7）、2000-05-16（+3.10%，1.024 → 0.981，跨 1.0）；受影響的格（漲幅門檻 × 線）：3% × 0.7、3% × 1.0、4% × 0.7、5% × 0.7，數字沒有重算進敏感度表。",
+    "先看資料、後選定義：定義確定之前，已經有人在同一份資料上試過漲幅 3%、4%、5% 和量 0.8、1.0 倍，所以主定義不是事先登記的；敏感度表就是為了讓讀者看到換門檻後結果怎麼變。",
+    "只是描述，不是預測：不推因果、不代表之後會怎麼走；也沒有扣交易成本，加權指數是價格指數不含股息。",
+    "成交金額是全市場（含 ETF、權證等，FMTQIK 的定義），不是只算股票；ETF 占比逐年變大，量比的意義前後可能不同。",
+    "20 日內最低用收盤價，盤中更低的價格沒有算進去。",
+    "量比的分母只用前 20 個交易日：前 20 天如果剛好是恐慌大量，「量小」只是相對那段大量。主定義 8 次對前 20／60／120 日平均的倍數：1999-07-20 0.72／0.81／0.94；2003-02-17 0.69／0.80／0.89；2004-03-29 0.67／0.78／0.98；2007-08-20 0.63／0.71／0.90；2020-03-24 0.78／0.96／1.06；2021-05-18 0.77／1.00／1.16；2025-04-10 0.63／0.57／0.57；2026-07-21 0.71／0.68／0.82。其中 2020-03-24 和 2021-05-18 對前 60 日接近 1 倍、對前 120 日超過 1 倍。2026-11-24 對前 20／60／120 日是 0.441／0.455／0.412 倍；成交金額 432,559,877,529 元是 2025-12-23（431,994,260,374 元）以來最低。",
+    "n ≤ 10 的中位數區間用精確列舉（不靠亂數）；n > 10 的仍是 10,000 次抽樣，換種子時邊界會移動（審查用別的種子、20,000 次：漲 ≥4% 全部組 60 日上界 +10.07，本檔 +8.78）。量小減量大的中位數差也是抽樣區間，審查用 100 個種子都包含 0。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是預測，也不是買賣訊號。加權指數漲 4% 以上、成交金額卻不到前 20 個交易日平均 0.8 倍的日子，1997 年以來 8 次，之後 5／20／60 個交易日比較高的次數是 5／6／5 次；同一段歷史任何一天起算的比例都在 Wilson 區間之內，和量大的大漲日（39 次）也分不出差別。2015 年以後這 8 次裡的 4 次全部上漲，但同一時期所有漲 4% 以上的日子 20 日後也是 11/11，反映的是那段時期，不是「量小」。壞的一面要一起看：8 次裡 6 次在 20 個交易日內曾收在大漲當天之下，最深 −12.6%（只用收盤價）。11/24 的成交金額只有平常的 0.44 倍，對前 60、120 日也只有 0.45、0.41 倍；成交股數卻接近平常（0.97 倍，ETF 占七成），所以要說「成交金額」而不是「成交量」。當天 335 檔漲停，「量小是鎖漲停買不到」只是推論，沒有驗證，也不能拿來解釋歷史事件。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "primary_events",
+        "primary_up5",
+        "primary_up20",
+        "primary_up60",
+        "primary_median20_pct",
+        "primary_dd20_at_least_5pct_below",
+        "primary_dd20_at_least_10pct_below",
+        "high_events",
+        "high_up20",
+        "high_median20_pct",
+        "median20_diff_primary_minus_high_pct",
+        "baseline_up20_pct",
+        "now_ret_pct",
+        "now_value_ratio",
+        "now_return_rank",
+        "now_stocks_limit_up"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "events_primary",
+      "title": "主定義：漲 ≥4% 且成交金額 < 前 20 日平均 0.8 倍，8 個歷史事件（報酬 % 從大漲當天收盤算；dd20＝之後 20 個交易日內最低收盤相對大漲當天）",
+      "columns": [
+        "date",
+        "ret_pct",
+        "close",
+        "value_ratio",
+        "value_ratio_60",
+        "value_ratio_120",
+        "fwd5_pct",
+        "fwd20_pct",
+        "fwd60_pct",
+        "dd20_pct",
+        "dd20_low_date",
+        "limit_regime",
+        "episode"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "groups.primary.by_horizon",
+      "title": "主定義 8 次：各持有期（中位數區間為精確 bootstrap）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95",
+        "median_le0_prob_exact",
+        "min_pct",
+        "min_date",
+        "max_pct",
+        "max_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "groups.high_volume.by_horizon",
+      "title": "對照一：漲 ≥4% 且成交金額 ≥ 1.0 倍（39 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95",
+        "min_pct",
+        "min_date",
+        "max_pct",
+        "max_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "groups.all_big_up.by_horizon",
+      "title": "對照二：漲 ≥4% 全部（62 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "up_wilson95",
+        "median_pct",
+        "median_boot95",
+        "min_pct",
+        "min_date",
+        "max_pct",
+        "max_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "baseline",
+      "title": "平常日：任何一個交易日往後算同樣天數",
+      "columns": [
+        "n",
+        "up",
+        "up_pct",
+        "median_pct",
+        "first",
+        "last"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "median_difference_primary_vs_high_volume",
+      "title": "量小減量大的中位數差（百分點；區間包含 0＝分不出）",
+      "columns": [
+        "primary_median_minus_high_volume_median_pct",
+        "boot95",
+        "smallest_resolvable_pct",
+        "effect_to_bound"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "all_big_up_by_regime.10%.by_horizon",
+      "title": "2015-06-01 起（10% 漲跌幅）：所有漲 ≥4% 的日子（12 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median_pct",
+        "min_pct",
+        "min_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "all_big_up_by_regime.7%.by_horizon",
+      "title": "2015-06-01 以前（7% 漲跌幅）：所有漲 ≥4% 的日子（50 次）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median_pct",
+        "min_pct",
+        "min_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "sensitivity",
+      "title": "敏感度：漲幅 3／4／5% × 成交金額倍數（次數、各持有期上漲次數與中位數）",
+      "columns": [
+        "ret_min_pct",
+        "ratio",
+        "n",
+        "episodes",
+        "up5",
+        "n5",
+        "median5_pct",
+        "up20",
+        "n20",
+        "median20_pct",
+        "up20_wilson95",
+        "up60",
+        "n60",
+        "median60_pct",
+        "dd20_median_pct",
+        "dd20_at_least_10pct_below"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "now",
+      "title": "2026-11-24 這一天（不進統計）",
+      "keys": [
+        "date",
+        "ret_pct",
+        "points",
+        "close",
+        "value_twd",
+        "avg20_value_twd",
+        "value_ratio",
+        "value_ratio_60",
+        "value_ratio_120",
+        "shares_ratio",
+        "trades_ratio",
+        "volume_shares",
+        "return_rank"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "now.mi_index",
+      "title": "2026-11-24 漲跌家數（證交所 MI_INDEX 股票欄）",
+      "keys": [
+        "stocks_up",
+        "stocks_limit_up",
+        "stocks_down",
+        "stocks_limit_down",
+        "stocks_unchanged",
+        "shares_etf",
+        "shares_common_stocks"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}

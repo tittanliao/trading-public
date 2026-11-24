@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T23:44:57+08:00",
+  "generated_at": "2026-11-24T19:33:06+08:00",
   "kinds": {
     "rule": {
       "label_zh": "已成規則",
@@ -2418,6 +2418,28 @@
           "says_zh": "週跌 ≥10% 8 次：240 日 5/8 更高、20 日內再低 5% 以上 7/8；一年高點跌破 −20% 11 次：120 日 8/11 更高，全部回到高點"
         }
       ]
+    },
+    {
+      "id": "K-TX-008",
+      "topic": "tx",
+      "kind": "reference",
+      "strength": "weak",
+      "statement_zh": "加權指數漲 4% 以上、成交金額卻不到前 20 日平均 0.8 倍的日子，之後 5／20／60 個交易日的漲跌次數，和量大的大漲日、和平常日都分不出來；2015 年後全部上漲是那段時期所有大漲日的共同現象，不是量小的效果",
+      "detail_zh": "1997–2026 證交所 FMTQIK。主定義 8 次（8 段行情）：5／20／60 日更高 5/8、6/8、5/8，20 日中位數 +4.08%（精確 bootstrap −2.32 到 +10.08）；20 日內收盤低 5% 以上 3/8、低 10% 以上 1/8。量大（≥1.0 倍）39 次：20 日 22/39、+1.39%；中位數差 +2.70 個百分點，區間 −5.82 到 +8.56。10% 漲跌幅時期所有漲 ≥4% 的日子 20 日 11/11（5 日 10/12、60 日 10/11）。定義是先看資料才選的，附 3×3 敏感度表。研究審 r1 改了再通過、r2 通過。",
+      "how_to_use_zh": "只當描述性脈絡：三個持有期一起講、附次數；講成交金額不要講成交量；「鎖漲停」只是對 2026-11-24 的推論。不是買進或賣出的證據。",
+      "policy_ref": null,
+      "prereg_ref": null,
+      "backlog_ref": null,
+      "supersedes": null,
+      "since": "2026-11-24",
+      "reviewed_on": "2026-11-24",
+      "preliminary": null,
+      "evidence": [
+        {
+          "study_id": "RS-TX-20261124-001",
+          "says_zh": "漲 ≥4%、成交金額 <0.8 倍 8 次：5／20／60 日 5/6/5 次更高；量大 39 次 20 日 22/39；中位數差區間包含 0"
+        }
+      ]
     }
   ],
   "preregs": [
@@ -2506,7 +2528,7 @@
         "反向單前瞻檢驗（PREREG-20261117-002）",
         "請分析的部位狀態"
       ],
-      "last_date": "2026-11-19"
+      "last_date": "2026-11-24"
     },
     {
       "id": "xau_30m_long",
@@ -2529,7 +2551,7 @@
         "CFTC 長期研究的價格",
         "週報"
       ],
-      "last_date": "2026-11-13"
+      "last_date": "2026-11-20"
     },
     {
       "id": "weekly_manual_set",
@@ -2539,7 +2561,7 @@
       "blocks_zh": [
         "週報"
       ],
-      "last_date": "2026-11-14"
+      "last_date": "2026-11-22"
     },
     {
       "id": "cftc_transcription",
@@ -2549,7 +2571,7 @@
       "blocks_zh": [
         "週報 CFTC 段落"
       ],
-      "last_date": "2026-11-03"
+      "last_date": "2026-11-17"
     },
     {
       "id": "cftc_archive",
@@ -2824,6 +2846,22 @@
       "url": "research/studies/RS-TX-20261121-001/",
       "claims": [
         "K-TX-007"
+      ]
+    },
+    {
+      "id": "RS-TX-20261124-001",
+      "market": "TX",
+      "status": "confirmed",
+      "revision": 1,
+      "theme": "market_structure",
+      "title": "TAIEX: a day up 4% or more on trading value below 0.8x the prior 20-session average — what the index did over the next 5, 20 and 60 sessions, against up-4% days on 1.0x or more (1997-2026; definition chosen after looking, 3x3 sensitivity grid)",
+      "title_zh": "加權指數大漲、成交金額卻比平常小：之後 5／20／60 個交易日怎麼走？和量大的大漲比（1997–2026；先看資料後選定義，附 3×3 敏感度表）",
+      "summary_zh": "加權指數漲 4% 以上、成交金額不到前 20 日平均 0.8 倍：1997 年以來 8 次，20 個交易日後 6 次比較高（5 日、60 日各 5 次）；量大的大漲 39 次裡 22 次，兩組分不出差別。2015-06-01 以後漲 4% 以上的日子，20 日後 11/11 比較高（5 日 10/12、60 日 10/11）。11/24 漲 8.99%、成交金額只有 0.44 倍，比之前 62 個漲 4% 以上的日子都低。",
+      "superseded_by": null,
+      "visibility": "public",
+      "url": "research/studies/RS-TX-20261124-001/",
+      "claims": [
+        "K-TX-008"
       ]
     },
     {

@@ -1,0 +1,24 @@
+{
+  "study_id": "RS-TX-20261124-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/TAIEX_FMTQIK_1997-06-02_to_2026-11-13.csv": {
+      "original_filename": "TAIEX_FMTQIK_1997-06-02_to_2026-11-13.csv",
+      "sha256": "e35548a86bc602eb8ac8caf4469dd95ce6f1ae6c911bcd52181c3c2388b45a31",
+      "size_bytes": 425859,
+      "role": "daily_value_and_close_TAIEX"
+    },
+    "local-inputs/fmtqik_2026-11.csv": {
+      "original_filename": "fmtqik_2026-11.csv",
+      "sha256": "06223c8131f2febc6f4e42f98ab44db1c7d7a12770102906a0d20782f113a490",
+      "size_bytes": 1129,
+      "role": "daily_value_and_close_TAIEX_2026-11"
+    },
+    "local-inputs/mi_index_ms_20261124.json": {
+      "original_filename": "mi_index_ms_20261124.json",
+      "sha256": "52a156d22ef34ff573f0b7cc8a730fd4d4c0a5003d6d902d5514668a47817875",
+      "size_bytes": 1716,
+      "role": "advance_decline_2026-11-24_raw"
+    }
+  }
+}

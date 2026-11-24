@@ -1,0 +1,2897 @@
+{
+  "now": {
+    "date": "2026-11-24",
+    "weekday_zh": "二",
+    "ret_pct": 8.99,
+    "ret_pct_4dp": 8.9929,
+    "points": 3310.46,
+    "close": 40122.35,
+    "prev_close": 36811.89,
+    "value_twd": 432559877529,
+    "avg20_value_twd": 980561104312,
+    "avg20_window": [
+      "2026-10-27",
+      "2026-11-23"
+    ],
+    "value_ratio": 0.4411,
+    "shares_ratio": 0.9679,
+    "trades_ratio": 0.4751,
+    "qualifies_primary": true,
+    "return_rank_since": "1997-06-03",
+    "return_rank": 2,
+    "top5_returns": [
+      {
+        "rank": 1,
+        "date": "2025-04-10",
+        "ret_pct": 9.25,
+        "points": 1608.27,
+        "value_ratio": 0.626
+      },
+      {
+        "rank": 2,
+        "date": "2026-11-24",
+        "ret_pct": 8.99,
+        "points": 3310.46,
+        "value_ratio": 0.441
+      },
+      {
+        "rank": 3,
+        "date": "2026-07-31",
+        "ret_pct": 7.98,
+        "points": 3186.45,
+        "value_ratio": 0.859
+      },
+      {
+        "rank": 4,
+        "date": "2009-04-30",
+        "ret_pct": 6.74,
+        "points": 378.51,
+        "value_ratio": 0.941
+      },
+      {
+        "rank": 5,
+        "date": "2020-03-20",
+        "ret_pct": 6.37,
+        "points": 552.75,
+        "value_ratio": 1.226
+      }
+    ],
+    "big_up_days_with_lower_or_equal_ratio": [],
+    "big_up_days_ratio_min": {
+      "date": "2025-04-10",
+      "value_ratio": 0.626
+    },
+    "forward_available": false,
+    "mi_index": {
+      "date": "2026-11-24",
+      "stocks_up": 1053,
+      "stocks_limit_up": 335,
+      "stocks_down": 26,
+      "stocks_limit_down": 4,
+      "stocks_unchanged": 6,
+      "stocks_no_trade": 1,
+      "stocks_no_comparable_price": 2,
+      "value_common_stocks_twd": 290913625214,
+      "value_etf_twd": 140119571433,
+      "shares_common_stocks": 3049390265,
+      "shares_etf": 9275466474,
+      "source_table": "漲跌證券數合計, column 股票 (not 整體市場, which includes warrants and other securities)"
+    },
+    "volume_shares": 13198964496,
+    "value_ratio_60": 0.4548,
+    "value_ratio_120": 0.412,
+    "value_ratio_weekday_only": 0.4411,
+    "lowest_value_since": {
+      "date": "2025-12-23",
+      "value_twd": 431994260374,
+      "note": "the most recent earlier session with value at or below this day's"
+    },
+    "shares_split": {
+      "etf_pct": 70.27,
+      "common_stocks_pct": 23.1,
+      "etf_value_pct": 32.39,
+      "common_stocks_value_pct": 67.25,
+      "note": "shares and value of MI_INDEX 大盤統計資訊 rows 1.一般股票 and 4.ETF over FMTQIK totals of the same day"
+    }
+  },
+  "strategy_version": null,
+  "schema_version": 1,
+  "study_id": "RS-TX-20261124-001",
+  "generated_at": "2026-11-24T19:24:22+08:00",
+  "method": {
+    "ret": "close[i] / close[i-1] - 1, consecutive TWSE sessions, FMTQIK TAIEX close",
+    "value_ratio": "value_twd[i] / mean(value_twd[i-20 .. i-1]); FMTQIK 成交金額 (whole market, TWD); day itself excluded; arithmetic mean",
+    "primary": "ret >= 4.0% and value_ratio < 0.8",
+    "contrasts": [
+      "ret >= 4.0% and value_ratio >= 1.0",
+      "ret >= 4.0% (all)"
+    ],
+    "sensitivity": {
+      "ret_min_pct": [
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ratio_below": [
+        0.7,
+        0.8,
+        0.9
+      ],
+      "also": [
+        ">= 1.0",
+        "all"
+      ]
+    },
+    "forward_return": "close[i+h] / close[i] - 1 with h sessions (rows of the file, Saturdays included)",
+    "horizons": [
+      5,
+      20,
+      60
+    ],
+    "dd20": "min(close[i+1 .. i+20]) / close[i] - 1 (closing prices only; intraday lows not in the source)",
+    "episodes": "an event within 20 sessions after the previous event joins its episode",
+    "intervals": "Wilson 95% for the up share; percentile bootstrap (10,000 resamples of events, seed 20261124) for medians and for the median difference",
+    "baseline": "every session from the 21st row on with a full forward window",
+    "historical_events": "every qualifying session before the last session in the data; none dropped, no de-clustering",
+    "definition_chosen_after_looking": "yes: the work-order author tried ret 3/4/5% x ratio 0.8/1.0 on this data before fixing ret>=4%, ratio<0.8; hence the full sensitivity grid"
+  },
+  "baseline": {
+    "5": {
+      "n": 7324,
+      "up": 4041,
+      "up_pct": 55.17,
+      "median_pct": 0.32,
+      "first": "1997-06-26",
+      "last": "2026-11-17"
+    },
+    "20": {
+      "n": 7309,
+      "up": 4174,
+      "up_pct": 57.11,
+      "median_pct": 0.96,
+      "first": "1997-06-26",
+      "last": "2026-10-27"
+    },
+    "60": {
+      "n": 7269,
+      "up": 4424,
+      "up_pct": 60.86,
+      "median_pct": 2.38,
+      "first": "1997-06-26",
+      "last": "2026-08-25"
+    },
+    "dd20": {
+      "n": 7309,
+      "median_pct": -2.37,
+      "at_least_10pct_below_pct": 10.0
+    }
+  },
+  "limitations": [
+    "樣本很少：主定義歷史上只有個位數次，每個比例的 Wilson 95% 區間寬達數十個百分點；中位數的 bootstrap 區間也很寬。",
+    "事件在時間上群聚：漲 ≥ 4% 的 62 天只分成 31 段行情（相隔 ≤ 20 個交易日算同一段），同一段的 20、60 日窗口幾乎重疊，獨立樣本比次數少。主定義的 8 次彼此都相隔超過 20 個交易日（8 段），但有些主定義事件旁邊 20 個交易日內還有別的大漲日、走勢共用：1999-07-20 和 1999-08-13（相差 +20 個交易日，+4.04%，量比 2.01）；2003-02-17 和 2003-03-18（相差 +20 個交易日，+4.17%，量比 1.47）；2020-03-24 和 2020-03-20（相差 -2 個交易日，+6.37%，量比 1.23）；2025-04-10 和 2025-04-23（相差 +9 個交易日，+4.50%，量比 0.87）；2026-07-21 和 2026-07-31（相差 +8 個交易日，+7.98%，量比 0.86）。",
+    "2015-06-01 起漲跌幅限制從 7% 改成 10%：之前一天最多漲 7%、漲停的意義和現在不同，前後的大漲日不能完全等同；每筆事件標了它屬於哪一制。同一時期的對照：10% 制所有漲 ≥4% 的日子，20 日後 11/11 上漲（中位數 +10.35%），量大的 3/3；7% 制所有漲 ≥4% 的日子 27/50（+1.00%）。主定義 10% 制 4/4，同時期的大漲日也都上漲，分不出是量小的關係。",
+    "週六交易日：2000 年以前的週六盤 102 天，和之後的補班週六 23 天（2006–2018）都算交易日。2000 年以前週六的量比中位數 0.92、同期平日 0.95，週六只比平日略低，對 20 日分母的影響很小；h 個交易日在日曆上也比較短。每筆事件列出量比窗口裡有幾個週六。改用只算平日的分母（前 20 個非週六交易日）重算：主定義和兩個對照組（漲 ≥4%，0.8 和 1.0 兩條線）沒有任何一天換組。敏感度表裡會跨線的有：1998-09-04（+3.39%，1.005 → 0.990，跨 1.0）、1999-07-20（+5.69%，0.720 → 0.697，跨 0.7）、2000-05-05（+3.24%，0.702 → 0.665，跨 0.7）、2000-05-16（+3.10%，1.024 → 0.981，跨 1.0）；受影響的格（漲幅門檻 × 線）：3% × 0.7、3% × 1.0、4% × 0.7、5% × 0.7，數字沒有重算進敏感度表。",
+    "先看資料、後選定義：定義確定之前，已經有人在同一份資料上試過漲幅 3%、4%、5% 和量 0.8、1.0 倍，所以主定義不是事先登記的；敏感度表就是為了讓讀者看到換門檻後結果怎麼變。",
+    "只是描述，不是預測：不推因果、不代表之後會怎麼走；也沒有扣交易成本，加權指數是價格指數不含股息。",
+    "成交金額是全市場（含 ETF、權證等，FMTQIK 的定義），不是只算股票；ETF 占比逐年變大，量比的意義前後可能不同。",
+    "20 日內最低用收盤價，盤中更低的價格沒有算進去。",
+    "量比的分母只用前 20 個交易日：前 20 天如果剛好是恐慌大量，「量小」只是相對那段大量。主定義 8 次對前 20／60／120 日平均的倍數：1999-07-20 0.72／0.81／0.94；2003-02-17 0.69／0.80／0.89；2004-03-29 0.67／0.78／0.98；2007-08-20 0.63／0.71／0.90；2020-03-24 0.78／0.96／1.06；2021-05-18 0.77／1.00／1.16；2025-04-10 0.63／0.57／0.57；2026-07-21 0.71／0.68／0.82。其中 2020-03-24 和 2021-05-18 對前 60 日接近 1 倍、對前 120 日超過 1 倍。2026-11-24 對前 20／60／120 日是 0.441／0.455／0.412 倍；成交金額 432,559,877,529 元是 2025-12-23（431,994,260,374 元）以來最低。",
+    "n ≤ 10 的中位數區間用精確列舉（不靠亂數）；n > 10 的仍是 10,000 次抽樣，換種子時邊界會移動（審查用別的種子、20,000 次：漲 ≥4% 全部組 60 日上界 +10.07，本檔 +8.78）。量小減量大的中位數差也是抽樣區間，審查用 100 個種子都包含 0。"
+  ],
+  "coverage": {
+    "first": "1997-06-02",
+    "last": "2026-11-24",
+    "sessions": 7349,
+    "first_with_ratio": "1997-06-26",
+    "merge": {
+      "base_sessions": 7342,
+      "update_sessions": 17,
+      "overlap_sessions": 10,
+      "overlap_identical": true,
+      "appended_sessions": 7,
+      "appended_first": "2026-11-16",
+      "appended_last": "2026-11-24",
+      "close_change_checks": 7348,
+      "close_change_mismatches": 0
+    }
+  },
+  "groups": {
+    "primary": {
+      "label": "ret >= 4.0% and value ratio < 0.8",
+      "n": 8,
+      "episodes": 8,
+      "by_horizon": {
+        "5": {
+          "n": 8,
+          "up": 5,
+          "down": 3,
+          "up_pct": 62.5,
+          "up_wilson95": [
+            30.57,
+            86.32
+          ],
+          "median_pct": 2.08,
+          "median_boot95": [
+            -5.62,
+            3.22
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.2792,
+          "mean_pct": 0.14,
+          "min_pct": -5.94,
+          "min_date": "2026-07-21",
+          "max_pct": 4.55,
+          "max_date": "2020-03-24"
+        },
+        "20": {
+          "n": 8,
+          "up": 6,
+          "down": 2,
+          "up_pct": 75.0,
+          "up_wilson95": [
+            40.93,
+            92.85
+          ],
+          "median_pct": 4.08,
+          "median_boot95": [
+            -2.32,
+            10.08
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.0301,
+          "mean_pct": 4.21,
+          "min_pct": -3.51,
+          "min_date": "2003-02-17",
+          "max_pct": 11.64,
+          "max_date": "2020-03-24"
+        },
+        "60": {
+          "n": 8,
+          "up": 5,
+          "down": 3,
+          "up_pct": 62.5,
+          "up_wilson95": [
+            30.57,
+            86.32
+          ],
+          "median_pct": 5.54,
+          "median_boot95": [
+            -7.74,
+            18.05
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.1781,
+          "mean_pct": 4.38,
+          "min_pct": -14.17,
+          "min_date": "2004-03-29",
+          "max_pct": 24.38,
+          "max_date": "2020-03-24"
+        }
+      },
+      "dd20": {
+        "n": 8,
+        "median_pct": -0.86,
+        "worst_pct": -12.6,
+        "closed_below_event_close": 6,
+        "at_least_5pct_below": 3,
+        "at_least_10pct_below": 1
+      },
+      "episode_first_only": {
+        "label": "primary, first event of each episode only",
+        "n": 8,
+        "episodes": 8,
+        "by_horizon": {
+          "5": {
+            "n": 8,
+            "up": 5,
+            "down": 3,
+            "up_pct": 62.5,
+            "up_wilson95": [
+              30.57,
+              86.32
+            ],
+            "median_pct": 2.08,
+            "median_boot95": [
+              -5.62,
+              3.22
+            ],
+            "median_boot_method": "exact enumeration",
+            "median_le0_prob_exact": 0.2792,
+            "mean_pct": 0.14,
+            "min_pct": -5.94,
+            "min_date": "2026-07-21",
+            "max_pct": 4.55,
+            "max_date": "2020-03-24"
+          },
+          "20": {
+            "n": 8,
+            "up": 6,
+            "down": 2,
+            "up_pct": 75.0,
+            "up_wilson95": [
+              40.93,
+              92.85
+            ],
+            "median_pct": 4.08,
+            "median_boot95": [
+              -2.32,
+              10.08
+            ],
+            "median_boot_method": "exact enumeration",
+            "median_le0_prob_exact": 0.0301,
+            "mean_pct": 4.21,
+            "min_pct": -3.51,
+            "min_date": "2003-02-17",
+            "max_pct": 11.64,
+            "max_date": "2020-03-24"
+          },
+          "60": {
+            "n": 8,
+            "up": 5,
+            "down": 3,
+            "up_pct": 62.5,
+            "up_wilson95": [
+              30.57,
+              86.32
+            ],
+            "median_pct": 5.54,
+            "median_boot95": [
+              -7.74,
+              18.05
+            ],
+            "median_boot_method": "exact enumeration",
+            "median_le0_prob_exact": 0.1781,
+            "mean_pct": 4.38,
+            "min_pct": -14.17,
+            "min_date": "2004-03-29",
+            "max_pct": 24.38,
+            "max_date": "2020-03-24"
+          }
+        },
+        "dd20": {
+          "n": 8,
+          "median_pct": -0.86,
+          "worst_pct": -12.6,
+          "closed_below_event_close": 6,
+          "at_least_5pct_below": 3,
+          "at_least_10pct_below": 1
+        }
+      }
+    },
+    "high_volume": {
+      "label": "ret >= 4.0% and value ratio >= 1.0",
+      "n": 39,
+      "episodes": 24,
+      "by_horizon": {
+        "5": {
+          "n": 39,
+          "up": 23,
+          "down": 16,
+          "up_pct": 58.97,
+          "up_wilson95": [
+            43.42,
+            72.92
+          ],
+          "median_pct": 1.29,
+          "median_boot95": [
+            -0.9,
+            4.18
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 1.47,
+          "min_pct": -7.52,
+          "min_date": "2000-10-06",
+          "max_pct": 14.52,
+          "max_date": "2001-12-03"
+        },
+        "20": {
+          "n": 39,
+          "up": 22,
+          "down": 17,
+          "up_pct": 56.41,
+          "up_wilson95": [
+            40.98,
+            70.7
+          ],
+          "median_pct": 1.39,
+          "median_boot95": [
+            -0.93,
+            8.25
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 3.2,
+          "min_pct": -17.21,
+          "min_date": "2008-09-19",
+          "max_pct": 20.63,
+          "max_date": "2026-04-08"
+        },
+        "60": {
+          "n": 39,
+          "up": 23,
+          "down": 16,
+          "up_pct": 58.97,
+          "up_wilson95": [
+            43.42,
+            72.92
+          ],
+          "median_pct": 5.12,
+          "median_boot95": [
+            -1.17,
+            10.07
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 4.47,
+          "min_pct": -27.55,
+          "min_date": "2002-07-12",
+          "max_pct": 48.78,
+          "max_date": "2001-10-11"
+        }
+      },
+      "dd20": {
+        "n": 39,
+        "median_pct": -1.99,
+        "worst_pct": -20.03,
+        "closed_below_event_close": 30,
+        "at_least_5pct_below": 14,
+        "at_least_10pct_below": 5
+      }
+    },
+    "all_big_up": {
+      "label": "ret >= 4.0% (any value ratio)",
+      "n": 62,
+      "episodes": 31,
+      "by_horizon": {
+        "5": {
+          "n": 62,
+          "up": 40,
+          "down": 22,
+          "up_pct": 64.52,
+          "up_wilson95": [
+            52.08,
+            75.26
+          ],
+          "median_pct": 2.38,
+          "median_boot95": [
+            0.32,
+            3.32
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 1.5,
+          "min_pct": -9.1,
+          "min_date": "2008-09-08",
+          "max_pct": 14.52,
+          "max_date": "2001-12-03"
+        },
+        "20": {
+          "n": 61,
+          "up": 38,
+          "down": 23,
+          "up_pct": 62.3,
+          "up_wilson95": [
+            49.75,
+            73.39
+          ],
+          "median_pct": 3.76,
+          "median_boot95": [
+            -0.12,
+            7.2
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 3.31,
+          "min_pct": -17.21,
+          "min_date": "2008-09-19",
+          "max_pct": 22.7,
+          "max_date": "2026-04-01"
+        },
+        "60": {
+          "n": 61,
+          "up": 38,
+          "down": 23,
+          "up_pct": 62.3,
+          "up_wilson95": [
+            49.75,
+            73.39
+          ],
+          "median_pct": 5.66,
+          "median_boot95": [
+            0.57,
+            8.78
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 5.13,
+          "min_pct": -35.31,
+          "min_date": "2008-09-08",
+          "max_pct": 48.78,
+          "max_date": "2001-10-11"
+        }
+      },
+      "dd20": {
+        "n": 61,
+        "median_pct": -1.82,
+        "worst_pct": -20.03,
+        "closed_below_event_close": 45,
+        "at_least_5pct_below": 22,
+        "at_least_10pct_below": 8
+      }
+    }
+  },
+  "median_difference_primary_vs_high_volume": {
+    "5": {
+      "primary_median_minus_high_volume_median_pct": 0.79,
+      "boot95": [
+        -6.51,
+        3.32
+      ],
+      "smallest_resolvable_pct": 4.92,
+      "effect_to_bound": 0.16,
+      "note": "percentile bootstrap, each group resampled on its own; an interval containing 0 means the two medians cannot be separated with these n; smallest_resolvable_pct = half-width of that interval"
+    },
+    "20": {
+      "primary_median_minus_high_volume_median_pct": 2.7,
+      "boot95": [
+        -5.82,
+        8.56
+      ],
+      "smallest_resolvable_pct": 7.19,
+      "effect_to_bound": 0.38,
+      "note": "percentile bootstrap, each group resampled on its own; an interval containing 0 means the two medians cannot be separated with these n; smallest_resolvable_pct = half-width of that interval"
+    },
+    "60": {
+      "primary_median_minus_high_volume_median_pct": 0.42,
+      "boot95": [
+        -12.95,
+        12.93
+      ],
+      "smallest_resolvable_pct": 12.94,
+      "effect_to_bound": 0.03,
+      "note": "percentile bootstrap, each group resampled on its own; an interval containing 0 means the two medians cannot be separated with these n; smallest_resolvable_pct = half-width of that interval"
+    }
+  },
+  "up_share_primary_vs_baseline": {
+    "5": {
+      "primary_up_pct": 62.5,
+      "baseline_up_pct": 55.17,
+      "effect_pp": 7.33,
+      "smallest_resolvable_pp": 27.87,
+      "effect_to_bound": 0.26,
+      "baseline_inside_wilson": true
+    },
+    "20": {
+      "primary_up_pct": 75.0,
+      "baseline_up_pct": 57.11,
+      "effect_pp": 17.89,
+      "smallest_resolvable_pp": 25.96,
+      "effect_to_bound": 0.69,
+      "baseline_inside_wilson": true
+    },
+    "60": {
+      "primary_up_pct": 62.5,
+      "baseline_up_pct": 60.86,
+      "effect_pp": 1.64,
+      "smallest_resolvable_pp": 27.87,
+      "effect_to_bound": 0.06,
+      "baseline_inside_wilson": true
+    }
+  },
+  "events_primary": [
+    {
+      "date": "1999-07-20",
+      "weekday_zh": "二",
+      "ret_pct": 5.69,
+      "points": 419.96,
+      "close": 7806.85,
+      "value_twd": 116040793603,
+      "avg20_value_twd": 161207565556,
+      "value_ratio": 0.72,
+      "shares_ratio": 0.815,
+      "trades_ratio": 0.778,
+      "fwd5_pct": -5.62,
+      "fwd20_pct": -2.32,
+      "fwd60_pct": -3.25,
+      "dd20_pct": -12.6,
+      "dd20_low_date": "1999-08-06",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 0.808,
+      "value_ratio_120": 0.942,
+      "value_ratio_weekday_only": 0.697,
+      "episode": 1,
+      "other_big_up_within_20": [
+        {
+          "date": "1999-08-13",
+          "sessions_from_event": 20,
+          "ret_pct": 4.04,
+          "value_ratio": 2.014
+        }
+      ]
+    },
+    {
+      "date": "2003-02-17",
+      "weekday_zh": "一",
+      "ret_pct": 4.7,
+      "points": 211.09,
+      "close": 4705.08,
+      "value_twd": 68768651010,
+      "avg20_value_twd": 99282206431,
+      "value_ratio": 0.693,
+      "shares_ratio": 0.651,
+      "trades_ratio": 0.729,
+      "fwd5_pct": -2.04,
+      "fwd20_pct": -3.51,
+      "fwd60_pct": -7.74,
+      "dd20_pct": -9.45,
+      "dd20_low_date": "2003-03-11",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.804,
+      "value_ratio_120": 0.891,
+      "value_ratio_weekday_only": 0.693,
+      "episode": 2,
+      "other_big_up_within_20": [
+        {
+          "date": "2003-03-18",
+          "sessions_from_event": 20,
+          "ret_pct": 4.17,
+          "value_ratio": 1.473
+        }
+      ]
+    },
+    {
+      "date": "2004-03-29",
+      "weekday_zh": "一",
+      "ret_pct": 5.57,
+      "points": 341.49,
+      "close": 6474.11,
+      "value_twd": 112878982895,
+      "avg20_value_twd": 168963628372,
+      "value_ratio": 0.668,
+      "shares_ratio": 0.641,
+      "trades_ratio": 0.651,
+      "fwd5_pct": 3.22,
+      "fwd20_pct": 3.65,
+      "fwd60_pct": -14.17,
+      "dd20_pct": 0.32,
+      "dd20_low_date": "2004-03-30",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.777,
+      "value_ratio_120": 0.976,
+      "value_ratio_weekday_only": 0.668,
+      "episode": 3,
+      "other_big_up_within_20": []
+    },
+    {
+      "date": "2007-08-20",
+      "weekday_zh": "一",
+      "ret_pct": 5.26,
+      "points": 425.31,
+      "close": 8515.6,
+      "value_twd": 128204707300,
+      "avg20_value_twd": 203166331359,
+      "value_ratio": 0.631,
+      "shares_ratio": 0.648,
+      "trades_ratio": 0.652,
+      "fwd5_pct": 2.38,
+      "fwd20_pct": 4.51,
+      "fwd60_pct": 4.58,
+      "dd20_pct": -0.43,
+      "dd20_low_date": "2007-08-21",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.713,
+      "value_ratio_120": 0.897,
+      "value_ratio_weekday_only": 0.631,
+      "episode": 4,
+      "other_big_up_within_20": []
+    },
+    {
+      "date": "2020-03-24",
+      "weekday_zh": "二",
+      "ret_pct": 4.45,
+      "points": 395.59,
+      "close": 9285.62,
+      "value_twd": 154892630561,
+      "avg20_value_twd": 199968146538,
+      "value_ratio": 0.775,
+      "shares_ratio": 0.766,
+      "trades_ratio": 0.836,
+      "fwd5_pct": 4.55,
+      "fwd20_pct": 11.64,
+      "fwd60_pct": 24.38,
+      "dd20_pct": 3.7,
+      "dd20_low_date": "2020-03-30",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.96,
+      "value_ratio_120": 1.06,
+      "value_ratio_weekday_only": 0.775,
+      "episode": 5,
+      "other_big_up_within_20": [
+        {
+          "date": "2020-03-20",
+          "sessions_from_event": -2,
+          "ret_pct": 6.37,
+          "value_ratio": 1.226
+        }
+      ]
+    },
+    {
+      "date": "2021-05-18",
+      "weekday_zh": "二",
+      "ret_pct": 5.16,
+      "points": 792.09,
+      "close": 16145.98,
+      "value_twd": 414681841825,
+      "avg20_value_twd": 538053234613,
+      "value_ratio": 0.771,
+      "shares_ratio": 0.745,
+      "trades_ratio": 0.712,
+      "fwd5_pct": 2.79,
+      "fwd20_pct": 7.2,
+      "fwd60_pct": 6.7,
+      "dd20_pct": -0.64,
+      "dd20_low_date": "2021-05-20",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.998,
+      "value_ratio_120": 1.158,
+      "value_ratio_weekday_only": 0.771,
+      "episode": 6,
+      "other_big_up_within_20": []
+    },
+    {
+      "date": "2025-04-10",
+      "weekday_zh": "四",
+      "ret_pct": 9.25,
+      "points": 1608.27,
+      "close": 19000.03,
+      "value_twd": 208504485334,
+      "avg20_value_twd": 332825006947,
+      "value_ratio": 0.626,
+      "shares_ratio": 0.779,
+      "trades_ratio": 0.54,
+      "fwd5_pct": 1.78,
+      "fwd20_pct": 10.08,
+      "fwd60_pct": 18.05,
+      "dd20_pct": -1.09,
+      "dd20_low_date": "2025-04-22",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.575,
+      "value_ratio_120": 0.567,
+      "value_ratio_weekday_only": 0.626,
+      "episode": 7,
+      "other_big_up_within_20": [
+        {
+          "date": "2025-04-23",
+          "sessions_from_event": 9,
+          "ret_pct": 4.5,
+          "value_ratio": 0.866
+        }
+      ]
+    },
+    {
+      "date": "2026-07-21",
+      "weekday_zh": "二",
+      "ret_pct": 4.2,
+      "points": 1783.17,
+      "close": 44232.87,
+      "value_twd": 866251695004,
+      "avg20_value_twd": 1227400518099,
+      "value_ratio": 0.706,
+      "shares_ratio": 0.742,
+      "trades_ratio": 0.605,
+      "fwd5_pct": -5.94,
+      "fwd20_pct": 2.43,
+      "fwd60_pct": 6.51,
+      "dd20_pct": -9.72,
+      "dd20_low_date": "2026-07-30",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.678,
+      "value_ratio_120": 0.82,
+      "value_ratio_weekday_only": 0.706,
+      "episode": 8,
+      "other_big_up_within_20": [
+        {
+          "date": "2026-07-31",
+          "sessions_from_event": 8,
+          "ret_pct": 7.98,
+          "value_ratio": 0.859
+        }
+      ]
+    }
+  ],
+  "events_high_volume": [
+    {
+      "date": "1997-10-21",
+      "weekday_zh": "二",
+      "ret_pct": 5.7,
+      "points": 417.27,
+      "close": 7734.05,
+      "value_twd": 128025694812,
+      "avg20_value_twd": 97342890002,
+      "value_ratio": 1.315,
+      "shares_ratio": 1.527,
+      "trades_ratio": 1.277,
+      "fwd5_pct": -6.78,
+      "fwd20_pct": -1.15,
+      "fwd60_pct": 0.57,
+      "dd20_pct": -8.33,
+      "dd20_low_date": "1997-10-29",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 3,
+      "value_ratio_60": 1.047,
+      "value_ratio_120": null,
+      "value_ratio_weekday_only": 1.282,
+      "episode": 1
+    },
+    {
+      "date": "1998-06-18",
+      "weekday_zh": "四",
+      "ret_pct": 4.04,
+      "points": 301.93,
+      "close": 7768.31,
+      "value_twd": 149212893710,
+      "avg20_value_twd": 105074805818,
+      "value_ratio": 1.42,
+      "shares_ratio": 1.478,
+      "trades_ratio": 1.405,
+      "fwd5_pct": -1.26,
+      "fwd20_pct": 1.39,
+      "fwd60_pct": -19.53,
+      "dd20_pct": -2.99,
+      "dd20_low_date": "1998-06-29",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 1,
+      "value_ratio_60": 1.347,
+      "value_ratio_120": 1.106,
+      "value_ratio_weekday_only": 1.413,
+      "episode": 2
+    },
+    {
+      "date": "1998-09-05",
+      "weekday_zh": "六",
+      "ret_pct": 4.53,
+      "points": 292.56,
+      "close": 6755.71,
+      "value_twd": 111609306352,
+      "avg20_value_twd": 76873309166,
+      "value_ratio": 1.452,
+      "shares_ratio": 1.828,
+      "trades_ratio": 1.495,
+      "fwd5_pct": 1.27,
+      "fwd20_pct": -0.79,
+      "fwd60_pct": 10.07,
+      "dd20_pct": -0.79,
+      "dd20_low_date": "1998-10-01",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.183,
+      "value_ratio_120": 1.085,
+      "value_ratio_weekday_only": 1.442,
+      "episode": 3
+    },
+    {
+      "date": "1998-10-08",
+      "weekday_zh": "四",
+      "ret_pct": 4.42,
+      "points": 295.34,
+      "close": 6970.23,
+      "value_twd": 127218593368,
+      "avg20_value_twd": 76352312286,
+      "value_ratio": 1.666,
+      "shares_ratio": 1.725,
+      "trades_ratio": 1.556,
+      "fwd5_pct": -2.44,
+      "fwd20_pct": -0.93,
+      "fwd60_pct": -7.06,
+      "dd20_pct": -2.44,
+      "dd20_low_date": "1998-10-15",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.566,
+      "value_ratio_120": 1.347,
+      "value_ratio_weekday_only": 1.654,
+      "episode": 4
+    },
+    {
+      "date": "1999-02-06",
+      "weekday_zh": "六",
+      "ret_pct": 4.3,
+      "points": 235.39,
+      "close": 5710.18,
+      "value_twd": 67581411100,
+      "avg20_value_twd": 60608240514,
+      "value_ratio": 1.115,
+      "shares_ratio": 1.332,
+      "trades_ratio": 1.225,
+      "fwd5_pct": 10.57,
+      "fwd20_pct": 13.18,
+      "fwd60_pct": 32.61,
+      "dd20_pct": 0.24,
+      "dd20_low_date": "1999-02-09",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 0.854,
+      "value_ratio_120": 0.831,
+      "value_ratio_weekday_only": 1.12,
+      "episode": 5
+    },
+    {
+      "date": "1999-02-20",
+      "weekday_zh": "六",
+      "ret_pct": 4.73,
+      "points": 274.33,
+      "close": 6072.33,
+      "value_twd": 57895442500,
+      "avg20_value_twd": 54907387178,
+      "value_ratio": 1.054,
+      "shares_ratio": 1.072,
+      "trades_ratio": 0.976,
+      "fwd5_pct": 4.05,
+      "fwd20_pct": 13.55,
+      "fwd60_pct": 23.09,
+      "dd20_pct": 1.79,
+      "dd20_low_date": "1999-02-23",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 0.788,
+      "value_ratio_120": 0.717,
+      "value_ratio_weekday_only": 1.016,
+      "episode": 5
+    },
+    {
+      "date": "1999-08-13",
+      "weekday_zh": "五",
+      "ret_pct": 4.04,
+      "points": 295.81,
+      "close": 7626.05,
+      "value_twd": 172770254672,
+      "avg20_value_twd": 85802267765,
+      "value_ratio": 2.014,
+      "shares_ratio": 1.976,
+      "trades_ratio": 1.736,
+      "fwd5_pct": 6.44,
+      "fwd20_pct": 4.55,
+      "fwd60_pct": -0.6,
+      "dd20_pct": 4.19,
+      "dd20_low_date": "1999-09-07",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.291,
+      "value_ratio_120": 1.377,
+      "value_ratio_weekday_only": 1.906,
+      "episode": 6
+    },
+    {
+      "date": "1999-08-16",
+      "weekday_zh": "一",
+      "ret_pct": 5.15,
+      "points": 392.42,
+      "close": 8018.47,
+      "value_twd": 168665163865,
+      "avg20_value_twd": 88638740819,
+      "value_ratio": 1.903,
+      "shares_ratio": 1.807,
+      "trades_ratio": 1.635,
+      "fwd5_pct": 1.68,
+      "fwd20_pct": 0.08,
+      "fwd60_pct": -6.85,
+      "dd20_pct": -0.91,
+      "dd20_low_date": "1999-09-07",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.253,
+      "value_ratio_120": 1.337,
+      "value_ratio_weekday_only": 1.824,
+      "episode": 6
+    },
+    {
+      "date": "2000-03-21",
+      "weekday_zh": "二",
+      "ret_pct": 5.49,
+      "points": 468.43,
+      "close": 9004.48,
+      "value_twd": 184613770070,
+      "avg20_value_twd": 144825480716,
+      "value_ratio": 1.275,
+      "shares_ratio": 1.245,
+      "trades_ratio": 1.184,
+      "fwd5_pct": 9.46,
+      "fwd20_pct": -0.12,
+      "fwd60_pct": 0.7,
+      "dd20_pct": -1.53,
+      "dd20_low_date": "2000-04-15",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 1,
+      "value_ratio_60": 1.01,
+      "value_ratio_120": 1.295,
+      "value_ratio_weekday_only": 1.227,
+      "episode": 7
+    },
+    {
+      "date": "2000-03-23",
+      "weekday_zh": "四",
+      "ret_pct": 5.12,
+      "points": 464.48,
+      "close": 9533.87,
+      "value_twd": 245445683937,
+      "avg20_value_twd": 147091460982,
+      "value_ratio": 1.669,
+      "shares_ratio": 1.46,
+      "trades_ratio": 1.493,
+      "fwd5_pct": 4.18,
+      "fwd20_pct": -4.5,
+      "fwd60_pct": -6.07,
+      "dd20_pct": -7.0,
+      "dd20_low_date": "2000-04-15",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 1,
+      "value_ratio_60": 1.321,
+      "value_ratio_120": 1.701,
+      "value_ratio_weekday_only": 1.653,
+      "episode": 7
+    },
+    {
+      "date": "2000-05-17",
+      "weekday_zh": "三",
+      "ret_pct": 4.1,
+      "points": 357.92,
+      "close": 9085.74,
+      "value_twd": 179671648619,
+      "avg20_value_twd": 114803100252,
+      "value_ratio": 1.565,
+      "shares_ratio": 1.63,
+      "trades_ratio": 1.444,
+      "fwd5_pct": -4.56,
+      "fwd20_pct": -2.14,
+      "fwd60_pct": -13.66,
+      "dd20_pct": -7.13,
+      "dd20_low_date": "2000-05-25",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.088,
+      "value_ratio_120": 1.047,
+      "value_ratio_weekday_only": 1.485,
+      "episode": 8
+    },
+    {
+      "date": "2000-07-05",
+      "weekday_zh": "三",
+      "ret_pct": 4.58,
+      "points": 369.2,
+      "close": 8421.74,
+      "value_twd": 100030949592,
+      "avg20_value_twd": 86580214452,
+      "value_ratio": 1.155,
+      "shares_ratio": 1.364,
+      "trades_ratio": 1.186,
+      "fwd5_pct": -4.3,
+      "fwd20_pct": -3.64,
+      "fwd60_pct": -17.82,
+      "dd20_pct": -6.19,
+      "dd20_low_date": "2000-07-25",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 1,
+      "value_ratio_60": 0.93,
+      "value_ratio_120": 0.665,
+      "value_ratio_weekday_only": 1.102,
+      "episode": 9
+    },
+    {
+      "date": "2000-10-06",
+      "weekday_zh": "五",
+      "ret_pct": 5.37,
+      "points": 324.02,
+      "close": 6353.67,
+      "value_twd": 97994365565,
+      "avg20_value_twd": 75326184078,
+      "value_ratio": 1.301,
+      "shares_ratio": 1.503,
+      "trades_ratio": 1.345,
+      "fwd5_pct": -7.52,
+      "fwd20_pct": -11.45,
+      "fwd60_pct": -24.28,
+      "dd20_pct": -20.03,
+      "dd20_low_date": "2000-10-19",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.284,
+      "value_ratio_120": 1.137,
+      "value_ratio_weekday_only": 1.287,
+      "episode": 10
+    },
+    {
+      "date": "2000-10-24",
+      "weekday_zh": "二",
+      "ret_pct": 4.18,
+      "points": 237.68,
+      "close": 5918.63,
+      "value_twd": 106829126524,
+      "avg20_value_twd": 68348264031,
+      "value_ratio": 1.563,
+      "shares_ratio": 1.485,
+      "trades_ratio": 1.518,
+      "fwd5_pct": -6.33,
+      "fwd20_pct": -12.69,
+      "fwd60_pct": -9.28,
+      "dd20_pct": -12.69,
+      "dd20_low_date": "2000-11-18",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 3,
+      "value_ratio_60": 1.385,
+      "value_ratio_120": 1.313,
+      "value_ratio_weekday_only": 1.539,
+      "episode": 10
+    },
+    {
+      "date": "2000-11-24",
+      "weekday_zh": "五",
+      "ret_pct": 5.31,
+      "points": 273.07,
+      "close": 5419.99,
+      "value_twd": 97153678091,
+      "avg20_value_twd": 78546601694,
+      "value_ratio": 1.237,
+      "shares_ratio": 1.294,
+      "trades_ratio": 1.255,
+      "fwd5_pct": -1.44,
+      "fwd20_pct": -8.71,
+      "fwd60_pct": 5.66,
+      "dd20_pct": -8.71,
+      "dd20_low_date": "2000-12-20",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.282,
+      "value_ratio_120": 1.262,
+      "value_ratio_weekday_only": 1.272,
+      "episode": 11
+    },
+    {
+      "date": "2001-01-02",
+      "weekday_zh": "二",
+      "ret_pct": 4.14,
+      "points": 196.19,
+      "close": 4935.28,
+      "value_twd": 64870815800,
+      "avg20_value_twd": 40949453414,
+      "value_ratio": 1.584,
+      "shares_ratio": 1.598,
+      "trades_ratio": 1.583,
+      "fwd5_pct": 8.93,
+      "fwd20_pct": 15.36,
+      "fwd60_pct": 11.75,
+      "dd20_pct": -0.82,
+      "dd20_low_date": "2001-01-03",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.026,
+      "value_ratio_120": 0.931,
+      "value_ratio_weekday_only": 1.536,
+      "episode": 12
+    },
+    {
+      "date": "2001-01-04",
+      "weekday_zh": "四",
+      "ret_pct": 4.93,
+      "points": 241.34,
+      "close": 5136.13,
+      "value_twd": 89357810078,
+      "avg20_value_twd": 41140579986,
+      "value_ratio": 2.172,
+      "shares_ratio": 2.134,
+      "trades_ratio": 1.814,
+      "fwd5_pct": 4.54,
+      "fwd20_pct": 13.12,
+      "fwd60_pct": 4.23,
+      "dd20_pct": 1.02,
+      "dd20_low_date": "2001-01-08",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 2,
+      "value_ratio_60": 1.425,
+      "value_ratio_120": 1.286,
+      "value_ratio_weekday_only": 1.999,
+      "episode": 12
+    },
+    {
+      "date": "2001-01-16",
+      "weekday_zh": "二",
+      "ret_pct": 5.27,
+      "points": 283.28,
+      "close": 5662.94,
+      "value_twd": 129316189346,
+      "avg20_value_twd": 64979366018,
+      "value_ratio": 1.99,
+      "shares_ratio": 1.757,
+      "trades_ratio": 1.677,
+      "fwd5_pct": 4.83,
+      "fwd20_pct": 5.07,
+      "fwd60_pct": -1.17,
+      "dd20_pct": 0.3,
+      "dd20_low_date": "2001-01-29",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 1,
+      "value_ratio_60": 1.964,
+      "value_ratio_120": 1.777,
+      "value_ratio_weekday_only": 1.993,
+      "episode": 12
+    },
+    {
+      "date": "2001-05-23",
+      "weekday_zh": "三",
+      "ret_pct": 4.38,
+      "points": 218.49,
+      "close": 5209.97,
+      "value_twd": 70278427192,
+      "avg20_value_twd": 52742925258,
+      "value_ratio": 1.332,
+      "shares_ratio": 1.361,
+      "trades_ratio": 1.317,
+      "fwd5_pct": -2.93,
+      "fwd20_pct": -3.46,
+      "fwd60_pct": -10.97,
+      "dd20_pct": -4.32,
+      "dd20_low_date": "2001-06-04",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.909,
+      "value_ratio_120": 0.858,
+      "value_ratio_weekday_only": 1.332,
+      "episode": 13
+    },
+    {
+      "date": "2001-10-11",
+      "weekday_zh": "四",
+      "ret_pct": 4.73,
+      "points": 171.0,
+      "close": 3789.93,
+      "value_twd": 51559079298,
+      "avg20_value_twd": 36152118430,
+      "value_ratio": 1.426,
+      "shares_ratio": 1.408,
+      "trades_ratio": 1.27,
+      "fwd5_pct": 0.56,
+      "fwd20_pct": 9.11,
+      "fwd60_pct": 48.78,
+      "dd20_pct": -2.03,
+      "dd20_low_date": "2001-10-15",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.153,
+      "value_ratio_120": 1.083,
+      "value_ratio_weekday_only": 1.426,
+      "episode": 14
+    },
+    {
+      "date": "2001-12-03",
+      "weekday_zh": "一",
+      "ret_pct": 4.63,
+      "points": 205.49,
+      "close": 4646.61,
+      "value_twd": 92641864108,
+      "avg20_value_twd": 87484528204,
+      "value_ratio": 1.059,
+      "shares_ratio": 0.932,
+      "trades_ratio": 0.932,
+      "fwd5_pct": 14.52,
+      "fwd20_pct": 19.47,
+      "fwd60_pct": 29.38,
+      "dd20_pct": 2.58,
+      "dd20_low_date": "2001-12-04",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.583,
+      "value_ratio_120": 1.758,
+      "value_ratio_weekday_only": 1.059,
+      "episode": 15
+    },
+    {
+      "date": "2001-12-06",
+      "weekday_zh": "四",
+      "ret_pct": 5.77,
+      "points": 284.3,
+      "close": 5208.86,
+      "value_twd": 175044771683,
+      "avg20_value_twd": 95493726960,
+      "value_ratio": 1.833,
+      "shares_ratio": 1.683,
+      "trades_ratio": 1.492,
+      "fwd5_pct": 3.81,
+      "fwd20_pct": 8.25,
+      "fwd60_pct": 16.88,
+      "dd20_pct": -1.91,
+      "dd20_low_date": "2001-12-21",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 2.79,
+      "value_ratio_120": 3.224,
+      "value_ratio_weekday_only": 1.833,
+      "episode": 15
+    },
+    {
+      "date": "2001-12-12",
+      "weekday_zh": "三",
+      "ret_pct": 5.03,
+      "points": 265.34,
+      "close": 5539.31,
+      "value_twd": 168205097022,
+      "avg20_value_twd": 116604887598,
+      "value_ratio": 1.443,
+      "shares_ratio": 1.34,
+      "trades_ratio": 1.278,
+      "fwd5_pct": -5.73,
+      "fwd20_pct": 5.99,
+      "fwd60_pct": 6.63,
+      "dd20_pct": -7.76,
+      "dd20_low_date": "2001-12-21",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 2.342,
+      "value_ratio_120": 2.899,
+      "value_ratio_weekday_only": 1.443,
+      "episode": 15
+    },
+    {
+      "date": "2002-07-12",
+      "weekday_zh": "五",
+      "ret_pct": 4.11,
+      "points": 213.91,
+      "close": 5416.5,
+      "value_twd": 88169988389,
+      "avg20_value_twd": 68019342451,
+      "value_ratio": 1.296,
+      "shares_ratio": 1.083,
+      "trades_ratio": 1.138,
+      "fwd5_pct": -4.7,
+      "fwd20_pct": -10.43,
+      "fwd60_pct": -27.55,
+      "dd20_pct": -15.58,
+      "dd20_low_date": "2002-08-06",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.147,
+      "value_ratio_120": 0.863,
+      "value_ratio_weekday_only": 1.296,
+      "episode": 16
+    },
+    {
+      "date": "2002-10-15",
+      "weekday_zh": "二",
+      "ret_pct": 5.64,
+      "points": 220.49,
+      "close": 4131.47,
+      "value_twd": 56480969527,
+      "avg20_value_twd": 47064539856,
+      "value_ratio": 1.2,
+      "shares_ratio": 1.301,
+      "trades_ratio": 1.145,
+      "fwd5_pct": 6.17,
+      "fwd20_pct": 13.19,
+      "fwd60_pct": 17.08,
+      "dd20_pct": 2.22,
+      "dd20_low_date": "2002-10-16",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.008,
+      "value_ratio_120": 0.873,
+      "value_ratio_weekday_only": 1.2,
+      "episode": 17
+    },
+    {
+      "date": "2002-10-18",
+      "weekday_zh": "五",
+      "ret_pct": 4.14,
+      "points": 177.36,
+      "close": 4458.17,
+      "value_twd": 124352649582,
+      "avg20_value_twd": 51015280287,
+      "value_ratio": 2.438,
+      "shares_ratio": 2.24,
+      "trades_ratio": 1.937,
+      "fwd5_pct": 2.38,
+      "fwd20_pct": 7.97,
+      "fwd60_pct": 11.96,
+      "dd20_pct": -1.61,
+      "dd20_low_date": "2002-10-22",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 2.178,
+      "value_ratio_120": 1.938,
+      "value_ratio_weekday_only": 2.438,
+      "episode": 17
+    },
+    {
+      "date": "2002-10-23",
+      "weekday_zh": "三",
+      "ret_pct": 4.64,
+      "points": 203.42,
+      "close": 4589.88,
+      "value_twd": 126355195376,
+      "avg20_value_twd": 60488082229,
+      "value_ratio": 2.089,
+      "shares_ratio": 1.912,
+      "trades_ratio": 1.713,
+      "fwd5_pct": -1.99,
+      "fwd20_pct": 1.39,
+      "fwd60_pct": 7.7,
+      "dd20_pct": -1.99,
+      "dd20_low_date": "2002-10-30",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 2.129,
+      "value_ratio_120": 1.955,
+      "value_ratio_weekday_only": 2.089,
+      "episode": 17
+    },
+    {
+      "date": "2003-03-18",
+      "weekday_zh": "二",
+      "ret_pct": 4.17,
+      "points": 181.73,
+      "close": 4539.72,
+      "value_twd": 72313555435,
+      "avg20_value_twd": 49091280787,
+      "value_ratio": 1.473,
+      "shares_ratio": 1.249,
+      "trades_ratio": 1.259,
+      "fwd5_pct": -0.9,
+      "fwd20_pct": -1.15,
+      "fwd60_pct": 7.46,
+      "dd20_pct": -5.03,
+      "dd20_low_date": "2003-04-02",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.969,
+      "value_ratio_120": 0.952,
+      "value_ratio_weekday_only": 1.473,
+      "episode": 18
+    },
+    {
+      "date": "2008-09-19",
+      "weekday_zh": "五",
+      "ret_pct": 5.82,
+      "points": 328.43,
+      "close": 5970.38,
+      "value_twd": 109542773738,
+      "avg20_value_twd": 88460112136,
+      "value_ratio": 1.238,
+      "shares_ratio": 1.233,
+      "trades_ratio": 1.084,
+      "fwd5_pct": -0.68,
+      "fwd20_pct": -17.21,
+      "fwd60_pct": -22.67,
+      "dd20_pct": -17.39,
+      "dd20_low_date": "2008-10-20",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.126,
+      "value_ratio_120": 0.941,
+      "value_ratio_weekday_only": 1.238,
+      "episode": 19
+    },
+    {
+      "date": "2008-10-30",
+      "weekday_zh": "四",
+      "ret_pct": 6.29,
+      "points": 277.12,
+      "close": 4683.64,
+      "value_twd": 68363637030,
+      "avg20_value_twd": 56014386127,
+      "value_ratio": 1.22,
+      "shares_ratio": 1.391,
+      "trades_ratio": 1.282,
+      "fwd5_pct": 0.22,
+      "fwd20_pct": -4.91,
+      "fwd60_pct": -9.05,
+      "dd20_pct": -12.68,
+      "dd20_low_date": "2008-11-20",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.837,
+      "value_ratio_120": 0.715,
+      "value_ratio_weekday_only": 1.22,
+      "episode": 20
+    },
+    {
+      "date": "2008-11-27",
+      "weekday_zh": "四",
+      "ret_pct": 4.26,
+      "points": 181.95,
+      "close": 4453.75,
+      "value_twd": 62611108200,
+      "avg20_value_twd": 58764842448,
+      "value_ratio": 1.065,
+      "shares_ratio": 1.117,
+      "trades_ratio": 1.049,
+      "fwd5_pct": -4.46,
+      "fwd20_pct": -0.9,
+      "fwd60_pct": -0.63,
+      "dd20_pct": -5.13,
+      "dd20_low_date": "2008-12-05",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.911,
+      "value_ratio_120": 0.749,
+      "value_ratio_weekday_only": 1.065,
+      "episode": 20
+    },
+    {
+      "date": "2008-12-08",
+      "weekday_zh": "一",
+      "ret_pct": 4.57,
+      "points": 193.26,
+      "close": 4418.33,
+      "value_twd": 64474012460,
+      "avg20_value_twd": 52488997964,
+      "value_ratio": 1.228,
+      "shares_ratio": 1.129,
+      "trades_ratio": 1.088,
+      "fwd5_pct": 4.42,
+      "fwd20_pct": 8.41,
+      "fwd60_pct": 7.73,
+      "dd20_pct": -0.28,
+      "dd20_low_date": "2008-12-23",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.997,
+      "value_ratio_120": 0.796,
+      "value_ratio_weekday_only": 1.228,
+      "episode": 20
+    },
+    {
+      "date": "2008-12-10",
+      "weekday_zh": "三",
+      "ret_pct": 4.16,
+      "points": 186.21,
+      "close": 4658.87,
+      "value_twd": 92948148633,
+      "avg20_value_twd": 54206861656,
+      "value_ratio": 1.715,
+      "shares_ratio": 1.495,
+      "trades_ratio": 1.475,
+      "fwd5_pct": -0.23,
+      "fwd20_pct": -3.35,
+      "fwd60_pct": 5.12,
+      "dd20_pct": -5.43,
+      "dd20_low_date": "2008-12-23",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.448,
+      "value_ratio_120": 1.15,
+      "value_ratio_weekday_only": 1.715,
+      "episode": 20
+    },
+    {
+      "date": "2009-04-09",
+      "weekday_zh": "四",
+      "ret_pct": 4.12,
+      "points": 224.24,
+      "close": 5667.8,
+      "value_twd": 145451252679,
+      "avg20_value_twd": 123812126899,
+      "value_ratio": 1.175,
+      "shares_ratio": 1.126,
+      "trades_ratio": 1.073,
+      "fwd5_pct": 5.81,
+      "fwd20_pct": 16.16,
+      "fwd60_pct": 17.33,
+      "dd20_pct": -1.25,
+      "dd20_low_date": "2009-04-28",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.703,
+      "value_ratio_120": 2.008,
+      "value_ratio_weekday_only": 1.175,
+      "episode": 21
+    },
+    {
+      "date": "2009-05-04",
+      "weekday_zh": "一",
+      "ret_pct": 5.64,
+      "points": 337.83,
+      "close": 6330.4,
+      "value_twd": 167457390201,
+      "avg20_value_twd": 145919586741,
+      "value_ratio": 1.148,
+      "shares_ratio": 1.012,
+      "trades_ratio": 0.958,
+      "fwd5_pct": 5.01,
+      "fwd20_pct": 8.89,
+      "fwd60_pct": 12.83,
+      "dd20_pct": 0.53,
+      "dd20_low_date": "2009-05-14",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.521,
+      "value_ratio_120": 1.989,
+      "value_ratio_weekday_only": 1.148,
+      "episode": 21
+    },
+    {
+      "date": "2011-12-21",
+      "weekday_zh": "三",
+      "ret_pct": 4.56,
+      "points": 303.84,
+      "close": 6966.48,
+      "value_twd": 77936883084,
+      "avg20_value_twd": 74316520903,
+      "value_ratio": 1.049,
+      "shares_ratio": 1.03,
+      "trades_ratio": 1.012,
+      "fwd5_pct": 1.29,
+      "fwd20_pct": 3.84,
+      "fwd60_pct": 15.94,
+      "dd20_pct": -0.2,
+      "dd20_low_date": "2012-01-02",
+      "limit_regime": "7%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 0.902,
+      "value_ratio_120": 0.755,
+      "value_ratio_weekday_only": 1.049,
+      "episode": 22
+    },
+    {
+      "date": "2020-03-20",
+      "weekday_zh": "五",
+      "ret_pct": 6.37,
+      "points": 552.75,
+      "close": 9234.09,
+      "value_twd": 237073888634,
+      "avg20_value_twd": 193424847943,
+      "value_ratio": 1.226,
+      "shares_ratio": 1.154,
+      "trades_ratio": 1.228,
+      "fwd5_pct": 5.03,
+      "fwd20_pct": 11.42,
+      "fwd60_pct": 24.91,
+      "dd20_pct": -3.73,
+      "dd20_low_date": "2020-03-23",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.484,
+      "value_ratio_120": 1.636,
+      "value_ratio_weekday_only": 1.226,
+      "episode": 23
+    },
+    {
+      "date": "2026-04-08",
+      "weekday_zh": "三",
+      "ret_pct": 4.61,
+      "points": 1531.56,
+      "close": 34761.38,
+      "value_twd": 894100450046,
+      "avg20_value_twd": 761545337151,
+      "value_ratio": 1.174,
+      "shares_ratio": 1.181,
+      "trades_ratio": 0.97,
+      "fwd5_pct": 5.64,
+      "fwd20_pct": 20.63,
+      "fwd60_pct": 34.58,
+      "dd20_pct": 0.29,
+      "dd20_low_date": "2026-04-09",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.133,
+      "value_ratio_120": 1.353,
+      "value_ratio_weekday_only": 1.174,
+      "episode": 24
+    },
+    {
+      "date": "2026-05-04",
+      "weekday_zh": "一",
+      "ret_pct": 4.57,
+      "points": 1778.51,
+      "close": 40705.14,
+      "value_twd": 1051315643566,
+      "avg20_value_twd": 956965582792,
+      "value_ratio": 1.099,
+      "shares_ratio": 0.997,
+      "trades_ratio": 0.991,
+      "fwd5_pct": 2.67,
+      "fwd20_pct": 11.38,
+      "fwd60_pct": -1.64,
+      "dd20_pct": -1.68,
+      "dd20_low_date": "2026-05-20",
+      "limit_regime": "10%",
+      "saturdays_in_ratio_window": 0,
+      "value_ratio_60": 1.212,
+      "value_ratio_120": 1.443,
+      "value_ratio_weekday_only": 1.099,
+      "episode": 24
+    }
+  ],
+  "events_all_big_up_count_by_regime": {
+    "7%": 50,
+    "10%": 12
+  },
+  "primary_by_regime": {
+    "7%": {
+      "label": "primary, before 2015-06-01 (7% limit)",
+      "n": 4,
+      "episodes": 4,
+      "by_horizon": {
+        "5": {
+          "n": 4,
+          "up": 2,
+          "down": 2,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            15.0,
+            85.0
+          ],
+          "median_pct": 0.17,
+          "median_boot95": [
+            -5.62,
+            3.22
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.4062,
+          "mean_pct": -0.51,
+          "min_pct": -5.62,
+          "min_date": "1999-07-20",
+          "max_pct": 3.22,
+          "max_date": "2004-03-29"
+        },
+        "20": {
+          "n": 4,
+          "up": 2,
+          "down": 2,
+          "up_pct": 50.0,
+          "up_wilson95": [
+            15.0,
+            85.0
+          ],
+          "median_pct": 0.67,
+          "median_boot95": [
+            -3.51,
+            4.51
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.3125,
+          "mean_pct": 0.58,
+          "min_pct": -3.51,
+          "min_date": "2003-02-17",
+          "max_pct": 4.51,
+          "max_date": "2007-08-20"
+        },
+        "60": {
+          "n": 4,
+          "up": 1,
+          "down": 3,
+          "up_pct": 25.0,
+          "up_wilson95": [
+            4.56,
+            69.94
+          ],
+          "median_pct": -5.49,
+          "median_boot95": [
+            -14.17,
+            4.58
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.832,
+          "mean_pct": -5.15,
+          "min_pct": -14.17,
+          "min_date": "2004-03-29",
+          "max_pct": 4.58,
+          "max_date": "2007-08-20"
+        }
+      },
+      "dd20": {
+        "n": 4,
+        "median_pct": -4.94,
+        "worst_pct": -12.6,
+        "closed_below_event_close": 3,
+        "at_least_5pct_below": 2,
+        "at_least_10pct_below": 1
+      }
+    },
+    "10%": {
+      "label": "primary, from 2015-06-01 (10% limit)",
+      "n": 4,
+      "episodes": 4,
+      "by_horizon": {
+        "5": {
+          "n": 4,
+          "up": 3,
+          "down": 1,
+          "up_pct": 75.0,
+          "up_wilson95": [
+            30.06,
+            95.44
+          ],
+          "median_pct": 2.28,
+          "median_boot95": [
+            -5.94,
+            4.55
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.2617,
+          "mean_pct": 0.79,
+          "min_pct": -5.94,
+          "min_date": "2026-07-21",
+          "max_pct": 4.55,
+          "max_date": "2020-03-24"
+        },
+        "20": {
+          "n": 4,
+          "up": 4,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            51.01,
+            100.0
+          ],
+          "median_pct": 8.64,
+          "median_boot95": [
+            2.43,
+            11.64
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0,
+          "mean_pct": 7.84,
+          "min_pct": 2.43,
+          "min_date": "2026-07-21",
+          "max_pct": 11.64,
+          "max_date": "2020-03-24"
+        },
+        "60": {
+          "n": 4,
+          "up": 4,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            51.01,
+            100.0
+          ],
+          "median_pct": 12.37,
+          "median_boot95": [
+            6.51,
+            24.38
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0,
+          "mean_pct": 13.91,
+          "min_pct": 6.51,
+          "min_date": "2026-07-21",
+          "max_pct": 24.38,
+          "max_date": "2020-03-24"
+        }
+      },
+      "dd20": {
+        "n": 4,
+        "median_pct": -0.86,
+        "worst_pct": -9.72,
+        "closed_below_event_close": 3,
+        "at_least_5pct_below": 1,
+        "at_least_10pct_below": 0
+      }
+    },
+    "note": "descriptive split, n=4 or so per side; not a conclusion"
+  },
+  "high_volume_by_regime": {
+    "7%": {
+      "label": "high volume, before 2015-06-01 (7% limit)",
+      "n": 36,
+      "episodes": 22,
+      "by_horizon": {
+        "5": {
+          "n": 36,
+          "up": 20,
+          "down": 16,
+          "up_pct": 55.56,
+          "up_wilson95": [
+            39.58,
+            70.46
+          ],
+          "median_pct": 0.92,
+          "median_boot95": [
+            -1.26,
+            4.05
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 1.22,
+          "min_pct": -7.52,
+          "min_date": "2000-10-06",
+          "max_pct": 14.52,
+          "max_date": "2001-12-03"
+        },
+        "20": {
+          "n": 36,
+          "up": 19,
+          "down": 17,
+          "up_pct": 52.78,
+          "up_wilson95": [
+            37.01,
+            68.01
+          ],
+          "median_pct": 0.73,
+          "median_boot95": [
+            -1.15,
+            6.52
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 2.26,
+          "min_pct": -17.21,
+          "min_date": "2008-09-19",
+          "max_pct": 19.47,
+          "max_date": "2001-12-03"
+        },
+        "60": {
+          "n": 36,
+          "up": 21,
+          "down": 15,
+          "up_pct": 58.33,
+          "up_wilson95": [
+            42.2,
+            72.86
+          ],
+          "median_pct": 4.68,
+          "median_boot95": [
+            -1.17,
+            8.88
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 3.23,
+          "min_pct": -27.55,
+          "min_date": "2002-07-12",
+          "max_pct": 48.78,
+          "max_date": "2001-10-11"
+        }
+      },
+      "dd20": {
+        "n": 36,
+        "median_pct": -2.01,
+        "worst_pct": -20.03,
+        "closed_below_event_close": 28,
+        "at_least_5pct_below": 14,
+        "at_least_10pct_below": 5
+      }
+    },
+    "10%": {
+      "label": "high volume, from 2015-06-01 (10% limit)",
+      "n": 3,
+      "episodes": 2,
+      "by_horizon": {
+        "5": {
+          "n": 3,
+          "up": 3,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            43.85,
+            100.0
+          ],
+          "median_pct": 5.03,
+          "median_boot95": [
+            2.67,
+            5.64
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0,
+          "mean_pct": 4.45,
+          "min_pct": 2.67,
+          "min_date": "2026-05-04",
+          "max_pct": 5.64,
+          "max_date": "2026-04-08"
+        },
+        "20": {
+          "n": 3,
+          "up": 3,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            43.85,
+            100.0
+          ],
+          "median_pct": 11.42,
+          "median_boot95": [
+            11.38,
+            20.63
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0,
+          "mean_pct": 14.48,
+          "min_pct": 11.38,
+          "min_date": "2026-05-04",
+          "max_pct": 20.63,
+          "max_date": "2026-04-08"
+        },
+        "60": {
+          "n": 3,
+          "up": 2,
+          "down": 1,
+          "up_pct": 66.67,
+          "up_wilson95": [
+            20.77,
+            93.85
+          ],
+          "median_pct": 24.91,
+          "median_boot95": [
+            -1.64,
+            34.58
+          ],
+          "median_boot_method": "exact enumeration",
+          "median_le0_prob_exact": 0.2593,
+          "mean_pct": 19.28,
+          "min_pct": -1.64,
+          "min_date": "2026-05-04",
+          "max_pct": 34.58,
+          "max_date": "2026-04-08"
+        }
+      },
+      "dd20": {
+        "n": 3,
+        "median_pct": -1.68,
+        "worst_pct": -3.73,
+        "closed_below_event_close": 2,
+        "at_least_5pct_below": 0,
+        "at_least_10pct_below": 0
+      }
+    }
+  },
+  "all_big_up_by_regime": {
+    "7%": {
+      "label": "all up-4% days, before 2015-06-01 (7% limit)",
+      "n": 50,
+      "episodes": 25,
+      "by_horizon": {
+        "5": {
+          "n": 50,
+          "up": 30,
+          "down": 20,
+          "up_pct": 60.0,
+          "up_wilson95": [
+            46.18,
+            72.39
+          ],
+          "median_pct": 1.49,
+          "median_boot95": [
+            -0.68,
+            3.61
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 1.3,
+          "min_pct": -9.1,
+          "min_date": "2008-09-08",
+          "max_pct": 14.52,
+          "max_date": "2001-12-03"
+        },
+        "20": {
+          "n": 50,
+          "up": 27,
+          "down": 23,
+          "up_pct": 54.0,
+          "up_wilson95": [
+            40.4,
+            67.03
+          ],
+          "median_pct": 1.0,
+          "median_boot95": [
+            -1.15,
+            4.51
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 1.66,
+          "min_pct": -17.21,
+          "min_date": "2008-09-19",
+          "max_pct": 19.47,
+          "max_date": "2001-12-03"
+        },
+        "60": {
+          "n": 50,
+          "up": 28,
+          "down": 22,
+          "up_pct": 56.0,
+          "up_wilson95": [
+            42.31,
+            68.84
+          ],
+          "median_pct": 3.43,
+          "median_boot95": [
+            -3.25,
+            7.7
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 2.18,
+          "min_pct": -35.31,
+          "min_date": "2008-09-08",
+          "max_pct": 48.78,
+          "max_date": "2001-10-11"
+        }
+      },
+      "dd20": {
+        "n": 50,
+        "median_pct": -2.01,
+        "worst_pct": -20.03,
+        "closed_below_event_close": 37,
+        "at_least_5pct_below": 20,
+        "at_least_10pct_below": 8
+      }
+    },
+    "10%": {
+      "label": "all up-4% days, from 2015-06-01 (10% limit)",
+      "n": 12,
+      "episodes": 6,
+      "by_horizon": {
+        "5": {
+          "n": 12,
+          "up": 10,
+          "down": 2,
+          "up_pct": 83.33,
+          "up_wilson95": [
+            55.2,
+            95.3
+          ],
+          "median_pct": 2.73,
+          "median_boot95": [
+            1.23,
+            4.79
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 2.34,
+          "min_pct": -5.94,
+          "min_date": "2026-07-21",
+          "max_pct": 6.76,
+          "max_date": "2026-04-01"
+        },
+        "20": {
+          "n": 11,
+          "up": 11,
+          "down": 0,
+          "up_pct": 100.0,
+          "up_wilson95": [
+            74.12,
+            100.0
+          ],
+          "median_pct": 10.35,
+          "median_boot95": [
+            7.2,
+            11.64
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 10.83,
+          "min_pct": 2.43,
+          "min_date": "2026-07-21",
+          "max_pct": 22.7,
+          "max_date": "2026-04-01"
+        },
+        "60": {
+          "n": 11,
+          "up": 10,
+          "down": 1,
+          "up_pct": 90.91,
+          "up_wilson95": [
+            62.26,
+            98.38
+          ],
+          "median_pct": 19.06,
+          "median_boot95": [
+            6.51,
+            27.52
+          ],
+          "median_boot_method": "monte carlo 10,000 resamples, seed 20261124",
+          "median_le0_prob_exact": null,
+          "mean_pct": 18.54,
+          "min_pct": -1.64,
+          "min_date": "2026-05-04",
+          "max_pct": 39.04,
+          "max_date": "2026-04-01"
+        }
+      },
+      "dd20": {
+        "n": 11,
+        "median_pct": -1.09,
+        "worst_pct": -9.72,
+        "closed_below_event_close": 8,
+        "at_least_5pct_below": 2,
+        "at_least_10pct_below": 0
+      }
+    }
+  },
+  "baseline_by_regime": {
+    "7%": {
+      "5": {
+        "n": 4527,
+        "up": 2413,
+        "up_pct": 53.3,
+        "median_pct": 0.22,
+        "first": "1997-06-26",
+        "last": "2015-05-29"
+      },
+      "20": {
+        "n": 4527,
+        "up": 2441,
+        "up_pct": 53.92,
+        "median_pct": 0.62,
+        "first": "1997-06-26",
+        "last": "2015-05-29"
+      },
+      "60": {
+        "n": 4527,
+        "up": 2517,
+        "up_pct": 55.6,
+        "median_pct": 1.59,
+        "first": "1997-06-26",
+        "last": "2015-05-29"
+      }
+    },
+    "10%": {
+      "5": {
+        "n": 2797,
+        "up": 1628,
+        "up_pct": 58.21,
+        "median_pct": 0.44,
+        "first": "2015-06-01",
+        "last": "2026-11-17"
+      },
+      "20": {
+        "n": 2782,
+        "up": 1733,
+        "up_pct": 62.29,
+        "median_pct": 1.44,
+        "first": "2015-06-01",
+        "last": "2026-10-27"
+      },
+      "60": {
+        "n": 2742,
+        "up": 1907,
+        "up_pct": 69.55,
+        "median_pct": 3.26,
+        "first": "2015-06-01",
+        "last": "2026-08-25"
+      }
+    }
+  },
+  "saturday_robustness": {
+    "saturday_sessions_through_2000": 102,
+    "saturday_sessions_after_2000": 23,
+    "saturday_sessions_after_2000_years": [
+      "2006",
+      "2007",
+      "2009",
+      "2010",
+      "2012",
+      "2013",
+      "2014",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "median_value_ratio_saturdays_through_2000": 0.92,
+    "median_value_ratio_weekdays_through_2000": 0.95,
+    "alternative": "denominator = mean value of the 20 most recent non-Saturday sessions before the day",
+    "up3_days_changing_side": [
+      {
+        "date": "1998-09-04",
+        "ret_pct": 3.39,
+        "threshold": 1.0,
+        "value_ratio": 1.005,
+        "value_ratio_weekday_only": 0.99
+      },
+      {
+        "date": "1999-07-20",
+        "ret_pct": 5.69,
+        "threshold": 0.7,
+        "value_ratio": 0.72,
+        "value_ratio_weekday_only": 0.697
+      },
+      {
+        "date": "2000-05-05",
+        "ret_pct": 3.24,
+        "threshold": 0.7,
+        "value_ratio": 0.702,
+        "value_ratio_weekday_only": 0.665
+      },
+      {
+        "date": "2000-05-16",
+        "ret_pct": 3.1,
+        "threshold": 1.0,
+        "value_ratio": 1.024,
+        "value_ratio_weekday_only": 0.981
+      }
+    ]
+  },
+  "clusters_all_big_up": [
+    [
+      {
+        "date": "1997-10-21",
+        "ret_pct": 5.7,
+        "value_ratio": 1.315
+      },
+      {
+        "date": "1997-11-03",
+        "ret_pct": 4.55,
+        "value_ratio": 0.985
+      }
+    ],
+    [
+      {
+        "date": "1999-02-06",
+        "ret_pct": 4.3,
+        "value_ratio": 1.115
+      },
+      {
+        "date": "1999-02-20",
+        "ret_pct": 4.73,
+        "value_ratio": 1.054
+      }
+    ],
+    [
+      {
+        "date": "1999-07-20",
+        "ret_pct": 5.69,
+        "value_ratio": 0.72
+      },
+      {
+        "date": "1999-08-13",
+        "ret_pct": 4.04,
+        "value_ratio": 2.014
+      },
+      {
+        "date": "1999-08-16",
+        "ret_pct": 5.15,
+        "value_ratio": 1.903
+      }
+    ],
+    [
+      {
+        "date": "2000-03-21",
+        "ret_pct": 5.49,
+        "value_ratio": 1.275
+      },
+      {
+        "date": "2000-03-23",
+        "ret_pct": 5.12,
+        "value_ratio": 1.669
+      }
+    ],
+    [
+      {
+        "date": "2000-10-06",
+        "ret_pct": 5.37,
+        "value_ratio": 1.301
+      },
+      {
+        "date": "2000-10-20",
+        "ret_pct": 6.37,
+        "value_ratio": 0.955
+      },
+      {
+        "date": "2000-10-24",
+        "ret_pct": 4.18,
+        "value_ratio": 1.563
+      }
+    ],
+    [
+      {
+        "date": "2000-11-21",
+        "ret_pct": 5.32,
+        "value_ratio": 0.965
+      },
+      {
+        "date": "2000-11-24",
+        "ret_pct": 5.31,
+        "value_ratio": 1.237
+      }
+    ],
+    [
+      {
+        "date": "2001-01-02",
+        "ret_pct": 4.14,
+        "value_ratio": 1.584
+      },
+      {
+        "date": "2001-01-04",
+        "ret_pct": 4.93,
+        "value_ratio": 2.172
+      },
+      {
+        "date": "2001-01-16",
+        "ret_pct": 5.27,
+        "value_ratio": 1.99
+      }
+    ],
+    [
+      {
+        "date": "2001-12-03",
+        "ret_pct": 4.63,
+        "value_ratio": 1.059
+      },
+      {
+        "date": "2001-12-06",
+        "ret_pct": 5.77,
+        "value_ratio": 1.833
+      },
+      {
+        "date": "2001-12-12",
+        "ret_pct": 5.03,
+        "value_ratio": 1.443
+      },
+      {
+        "date": "2001-12-25",
+        "ret_pct": 4.03,
+        "value_ratio": 0.904
+      },
+      {
+        "date": "2002-01-21",
+        "ret_pct": 4.98,
+        "value_ratio": 0.919
+      }
+    ],
+    [
+      {
+        "date": "2002-10-15",
+        "ret_pct": 5.64,
+        "value_ratio": 1.2
+      },
+      {
+        "date": "2002-10-18",
+        "ret_pct": 4.14,
+        "value_ratio": 2.438
+      },
+      {
+        "date": "2002-10-23",
+        "ret_pct": 4.64,
+        "value_ratio": 2.089
+      }
+    ],
+    [
+      {
+        "date": "2003-02-17",
+        "ret_pct": 4.7,
+        "value_ratio": 0.693
+      },
+      {
+        "date": "2003-03-18",
+        "ret_pct": 4.17,
+        "value_ratio": 1.473
+      }
+    ],
+    [
+      {
+        "date": "2008-09-08",
+        "ret_pct": 5.57,
+        "value_ratio": 0.884
+      },
+      {
+        "date": "2008-09-19",
+        "ret_pct": 5.82,
+        "value_ratio": 1.238
+      },
+      {
+        "date": "2008-10-14",
+        "ret_pct": 5.4,
+        "value_ratio": 0.845
+      },
+      {
+        "date": "2008-10-30",
+        "ret_pct": 6.29,
+        "value_ratio": 1.22
+      },
+      {
+        "date": "2008-11-27",
+        "ret_pct": 4.26,
+        "value_ratio": 1.065
+      },
+      {
+        "date": "2008-12-08",
+        "ret_pct": 4.57,
+        "value_ratio": 1.228
+      },
+      {
+        "date": "2008-12-10",
+        "ret_pct": 4.16,
+        "value_ratio": 1.715
+      }
+    ],
+    [
+      {
+        "date": "2009-04-09",
+        "ret_pct": 4.12,
+        "value_ratio": 1.175
+      },
+      {
+        "date": "2009-04-30",
+        "ret_pct": 6.74,
+        "value_ratio": 0.941
+      },
+      {
+        "date": "2009-05-04",
+        "ret_pct": 5.64,
+        "value_ratio": 1.148
+      }
+    ],
+    [
+      {
+        "date": "2020-03-20",
+        "ret_pct": 6.37,
+        "value_ratio": 1.226
+      },
+      {
+        "date": "2020-03-24",
+        "ret_pct": 4.45,
+        "value_ratio": 0.775
+      }
+    ],
+    [
+      {
+        "date": "2025-04-10",
+        "ret_pct": 9.25,
+        "value_ratio": 0.626
+      },
+      {
+        "date": "2025-04-23",
+        "ret_pct": 4.5,
+        "value_ratio": 0.866
+      }
+    ],
+    [
+      {
+        "date": "2026-03-11",
+        "ret_pct": 4.1,
+        "value_ratio": 0.816
+      },
+      {
+        "date": "2026-04-01",
+        "ret_pct": 4.58,
+        "value_ratio": 0.824
+      },
+      {
+        "date": "2026-04-08",
+        "ret_pct": 4.61,
+        "value_ratio": 1.174
+      },
+      {
+        "date": "2026-05-04",
+        "ret_pct": 4.57,
+        "value_ratio": 1.099
+      }
+    ],
+    [
+      {
+        "date": "2026-07-21",
+        "ret_pct": 4.2,
+        "value_ratio": 0.706
+      },
+      {
+        "date": "2026-07-31",
+        "ret_pct": 7.98,
+        "value_ratio": 0.859
+      }
+    ]
+  ],
+  "sensitivity": [
+    {
+      "ret_min_pct": 3.0,
+      "ratio": "< 0.7",
+      "n": 4,
+      "episodes": 4,
+      "n5": 4,
+      "up5": 3,
+      "median5_pct": 2.08,
+      "n20": 4,
+      "up20": 3,
+      "median20_pct": 4.08,
+      "n60": 4,
+      "up60": 2,
+      "median60_pct": -1.58,
+      "up20_wilson95": [
+        30.06,
+        95.44
+      ],
+      "dd20_median_pct": -0.76,
+      "dd20_at_least_10pct_below": 0
+    },
+    {
+      "ret_min_pct": 3.0,
+      "ratio": "< 0.8",
+      "n": 9,
+      "episodes": 9,
+      "n5": 9,
+      "up5": 5,
+      "median5_pct": 1.78,
+      "n20": 9,
+      "up20": 7,
+      "median20_pct": 3.65,
+      "n60": 9,
+      "up60": 5,
+      "median60_pct": 4.58,
+      "up20_wilson95": [
+        45.26,
+        93.68
+      ],
+      "dd20_median_pct": -1.09,
+      "dd20_at_least_10pct_below": 1
+    },
+    {
+      "ret_min_pct": 3.0,
+      "ratio": "< 0.9",
+      "n": 25,
+      "episodes": 19,
+      "n5": 25,
+      "up5": 14,
+      "median5_pct": 1.78,
+      "n20": 23,
+      "up20": 14,
+      "median20_pct": 3.65,
+      "n60": 23,
+      "up60": 14,
+      "median60_pct": 4.85,
+      "up20_wilson95": [
+        40.79,
+        77.84
+      ],
+      "dd20_median_pct": -2.0,
+      "dd20_at_least_10pct_below": 4
+    },
+    {
+      "ret_min_pct": 3.0,
+      "ratio": ">= 1.0",
+      "n": 114,
+      "episodes": 51,
+      "n5": 114,
+      "up5": 67,
+      "median5_pct": 0.87,
+      "n20": 114,
+      "up20": 65,
+      "median20_pct": 0.73,
+      "n60": 114,
+      "up60": 70,
+      "median60_pct": 3.11,
+      "up20_wilson95": [
+        47.85,
+        65.73
+      ],
+      "dd20_median_pct": -2.38,
+      "dd20_at_least_10pct_below": 18
+    },
+    {
+      "ret_min_pct": 3.0,
+      "ratio": "all",
+      "n": 152,
+      "episodes": 54,
+      "n5": 152,
+      "up5": 91,
+      "median5_pct": 1.19,
+      "n20": 150,
+      "up20": 86,
+      "median20_pct": 1.21,
+      "n60": 150,
+      "up60": 91,
+      "median60_pct": 3.55,
+      "up20_wilson95": [
+        49.33,
+        64.97
+      ],
+      "dd20_median_pct": -2.22,
+      "dd20_at_least_10pct_below": 22
+    },
+    {
+      "ret_min_pct": 4.0,
+      "ratio": "< 0.7",
+      "n": 4,
+      "episodes": 4,
+      "n5": 4,
+      "up5": 3,
+      "median5_pct": 2.08,
+      "n20": 4,
+      "up20": 3,
+      "median20_pct": 4.08,
+      "n60": 4,
+      "up60": 2,
+      "median60_pct": -1.58,
+      "up20_wilson95": [
+        30.06,
+        95.44
+      ],
+      "dd20_median_pct": -0.76,
+      "dd20_at_least_10pct_below": 0
+    },
+    {
+      "ret_min_pct": 4.0,
+      "ratio": "< 0.8",
+      "n": 8,
+      "episodes": 8,
+      "n5": 8,
+      "up5": 5,
+      "median5_pct": 2.08,
+      "n20": 8,
+      "up20": 6,
+      "median20_pct": 4.08,
+      "n60": 8,
+      "up60": 5,
+      "median60_pct": 5.54,
+      "up20_wilson95": [
+        40.93,
+        92.85
+      ],
+      "dd20_median_pct": -0.86,
+      "dd20_at_least_10pct_below": 1
+    },
+    {
+      "ret_min_pct": 4.0,
+      "ratio": "< 0.9",
+      "n": 17,
+      "episodes": 14,
+      "n5": 17,
+      "up5": 11,
+      "median5_pct": 2.38,
+      "n20": 16,
+      "up20": 11,
+      "median20_pct": 3.79,
+      "n60": 16,
+      "up60": 10,
+      "median60_pct": 5.68,
+      "up20_wilson95": [
+        44.4,
+        85.84
+      ],
+      "dd20_median_pct": -1.45,
+      "dd20_at_least_10pct_below": 3
+    },
+    {
+      "ret_min_pct": 4.0,
+      "ratio": ">= 1.0",
+      "n": 39,
+      "episodes": 24,
+      "n5": 39,
+      "up5": 23,
+      "median5_pct": 1.29,
+      "n20": 39,
+      "up20": 22,
+      "median20_pct": 1.39,
+      "n60": 39,
+      "up60": 23,
+      "median60_pct": 5.12,
+      "up20_wilson95": [
+        40.98,
+        70.7
+      ],
+      "dd20_median_pct": -1.99,
+      "dd20_at_least_10pct_below": 5
+    },
+    {
+      "ret_min_pct": 4.0,
+      "ratio": "all",
+      "n": 62,
+      "episodes": 31,
+      "n5": 62,
+      "up5": 40,
+      "median5_pct": 2.38,
+      "n20": 61,
+      "up20": 38,
+      "median20_pct": 3.76,
+      "n60": 61,
+      "up60": 38,
+      "median60_pct": 5.66,
+      "up20_wilson95": [
+        49.75,
+        73.39
+      ],
+      "dd20_median_pct": -1.82,
+      "dd20_at_least_10pct_below": 8
+    },
+    {
+      "ret_min_pct": 5.0,
+      "ratio": "< 0.7",
+      "n": 3,
+      "episodes": 3,
+      "n5": 3,
+      "up5": 3,
+      "median5_pct": 2.38,
+      "n20": 3,
+      "up20": 3,
+      "median20_pct": 4.51,
+      "n60": 3,
+      "up60": 2,
+      "median60_pct": 4.58,
+      "up20_wilson95": [
+        43.85,
+        100.0
+      ],
+      "dd20_median_pct": -0.43,
+      "dd20_at_least_10pct_below": 0
+    },
+    {
+      "ret_min_pct": 5.0,
+      "ratio": "< 0.8",
+      "n": 5,
+      "episodes": 5,
+      "n5": 5,
+      "up5": 4,
+      "median5_pct": 2.38,
+      "n20": 5,
+      "up20": 4,
+      "median20_pct": 4.51,
+      "n60": 5,
+      "up60": 3,
+      "median60_pct": 4.58,
+      "up20_wilson95": [
+        37.55,
+        96.38
+      ],
+      "dd20_median_pct": -0.64,
+      "dd20_at_least_10pct_below": 1
+    },
+    {
+      "ret_min_pct": 5.0,
+      "ratio": "< 0.9",
+      "n": 9,
+      "episodes": 9,
+      "n5": 9,
+      "up5": 6,
+      "median5_pct": 2.38,
+      "n20": 9,
+      "up20": 5,
+      "median20_pct": 3.65,
+      "n60": 9,
+      "up60": 4,
+      "median60_pct": -3.25,
+      "up20_wilson95": [
+        26.67,
+        81.12
+      ],
+      "dd20_median_pct": -1.09,
+      "dd20_at_least_10pct_below": 3
+    },
+    {
+      "ret_min_pct": 5.0,
+      "ratio": ">= 1.0",
+      "n": 14,
+      "episodes": 12,
+      "n5": 14,
+      "up5": 9,
+      "median5_pct": 2.75,
+      "n20": 14,
+      "up20": 7,
+      "median20_pct": -0.02,
+      "n60": 14,
+      "up60": 8,
+      "median60_pct": 0.64,
+      "up20_wilson95": [
+        26.8,
+        73.2
+      ],
+      "dd20_median_pct": -5.36,
+      "dd20_at_least_10pct_below": 3
+    },
+    {
+      "ret_min_pct": 5.0,
+      "ratio": "all",
+      "n": 26,
+      "episodes": 18,
+      "n5": 26,
+      "up5": 18,
+      "median5_pct": 2.68,
+      "n20": 26,
+      "up20": 15,
+      "median20_pct": 2.13,
+      "n60": 26,
+      "up60": 14,
+      "median60_pct": 0.64,
+      "up20_wilson95": [
+        38.95,
+        74.46
+      ],
+      "dd20_median_pct": -1.72,
+      "dd20_at_least_10pct_below": 6
+    }
+  ],
+  "inference_not_tested": "推論（未驗證）：2026-11-24 股票漲停 335 檔、上漲 1,053 檔（MI_INDEX 漲跌證券數合計，股票欄），量小可能有一部分是很多股票鎖在漲停、想買的人買不到，成交因此變少。這只是推論；本研究沒有逐一查歷史事件當天的漲停家數，所以不能說歷史上的量小大漲日也是這個原因，也不能用來解釋歷史結果。"
+}

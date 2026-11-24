@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T23:44:06+08:00",
+  "generated_at": "2026-11-24T19:32:30+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 87,
+    "studies": 88,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2259,6 +2259,19 @@
       "reason": "None (descriptive). TAIEX week down 10%+: 8 events, higher 20/60/120/240 sessions later 4/4/4/5 of 8, 7 of 8 closed at least 5% lower within 20 sessions; close 20% below the one-year closing high: 11 events, higher 120 sessions after the cross 8 of 11, all regained the high (median 509 sessions from the high). Every cell's any-session baseline is inside its Wilson interval.",
       "status": "confirmed",
       "created_on": "2026-11-21"
+    },
+    {
+      "entry_id": "RS-TX-20261124-001",
+      "study_id": "RS-TX-20261124-001",
+      "kind": "study",
+      "family": "none — descriptive event study on the TAIEX cash index",
+      "origin": "programme",
+      "claim": "TAIEX: a day up 4% or more on trading value below 0.8x the prior 20-session average — what the index did over the next 5, 20 and 60 sessions, against up-4% days on 1.0x or more (1997-2026; definition chosen after looking, 3x3 sensitivity grid)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None (descriptive, research only). TAIEX up 4%+ on trading value below 0.8x the prior 20-session average: 8 events since 1997 (8 episodes), higher 5/20/60 sessions later 5/6/5 of 8, 20-session median +4.08%; up 4%+ on 1.0x or more: 39 events, 22/39, median +1.39%; median difference +2.70 points, bootstrap 95% -5.82 to +8.56 (0.38x its bound): cannot be separated. Every primary horizon's any-session baseline is inside its Wilson interval; the 10%-limit period's 4/4 matches all up-4% days in that period (11/11). Definition chosen after looking; 3x3 sensitivity grid reported.",
+      "status": "confirmed",
+      "created_on": "2026-11-24"
     }
   ],
   "generated_by": "trading-private research pipeline"
