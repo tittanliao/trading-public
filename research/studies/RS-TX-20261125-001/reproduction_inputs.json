@@ -1,0 +1,30 @@
+{
+  "study_id": "RS-TX-20261125-001",
+  "note": "Where each input this script reads comes from. Stage a file with the matching sha256 at the given path before running analysis.py.",
+  "inputs": {
+    "local-inputs/TAIEX_FMTQIK_1997-06-02_to_2026-11-13.csv": {
+      "original_filename": "TAIEX_FMTQIK_1997-06-02_to_2026-11-13.csv",
+      "sha256": "e35548a86bc602eb8ac8caf4469dd95ce6f1ae6c911bcd52181c3c2388b45a31",
+      "size_bytes": 425859,
+      "role": "daily_value_and_close_TAIEX"
+    },
+    "local-inputs/fmtqik_2026-11.csv": {
+      "original_filename": "fmtqik_2026-11.csv",
+      "sha256": "2f38404f2a11da02deb93255556192d8a24d55d622004a3d048d0daa7e28bf48",
+      "size_bytes": 1193,
+      "role": "daily_value_and_close_TAIEX_2026-11"
+    },
+    "local-inputs/fmtqik_202611.json": {
+      "original_filename": "fmtqik_202611.json",
+      "sha256": "7944511e0af5680474edaa2515d0dbf75b244fc19b9f737690227a0c883a2386",
+      "size_bytes": 2068,
+      "role": "daily_value_and_close_TAIEX_2026-11_raw"
+    },
+    "local-inputs/results.json": {
+      "original_filename": "results.json",
+      "sha256": "f04a3c13e347ca26e081520f73f313560acccb8795260e0000fb3dcd56d20126",
+      "size_bytes": 77603,
+      "role": "prior_study_event_sets"
+    }
+  }
+}

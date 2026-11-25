@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T19:32:30+08:00",
+  "generated_at": "2026-11-25T18:06:59+08:00",
   "purpose": "A machine-readable map of what has been ruled out and how tightly, so a session can ask what is already closed before spending effort reopening it.",
   "how_to_read": {
     "verdicts": {
@@ -15,7 +15,7 @@
     "extending": "Add a hypothesis to a sweep runner, or add a study. This file is derived and regenerated; editing it by hand would make it drift from the evidence."
   },
   "totals": {
-    "studies": 88,
+    "studies": 89,
     "sweep_studies": [
       "RS-XAUUSD-20260824-001",
       "RS-XAUUSD-20260824-002",
@@ -2272,6 +2272,19 @@
       "reason": "None (descriptive, research only). TAIEX up 4%+ on trading value below 0.8x the prior 20-session average: 8 events since 1997 (8 episodes), higher 5/20/60 sessions later 5/6/5 of 8, 20-session median +4.08%; up 4%+ on 1.0x or more: 39 events, 22/39, median +1.39%; median difference +2.70 points, bootstrap 95% -5.82 to +8.56 (0.38x its bound): cannot be separated. Every primary horizon's any-session baseline is inside its Wilson interval; the 10%-limit period's 4/4 matches all up-4% days in that period (11/11). Definition chosen after looking; 3x3 sensitivity grid reported.",
       "status": "confirmed",
       "created_on": "2026-11-24"
+    },
+    {
+      "entry_id": "RS-TX-20261125-001",
+      "study_id": "RS-TX-20261125-001",
+      "kind": "study",
+      "family": "none — descriptive event study on the TAIEX cash index",
+      "origin": "programme",
+      "claim": "TAIEX: the session after a day up 4% or more — how often the next day fell 3% or more, and what the index did 5, 20 and 60 sessions after such a fall (1997-2026, registered before the next-day returns were computed)",
+      "null_tested_against": null,
+      "verdict": "study_level",
+      "reason": "None (descriptive, research only). TAIEX up 4%+ days since 1997: 63, the next session fell 3% or more 3 times (4.76%, Wilson 1.63-13.09%, any-session baseline 2.44% is inside), 4% or more once (2026-11-25, -4.80% after +8.99%; previous worst -3.73%); give-back 58.2% ranks 3rd. After the two earlier up-then-down-3% cases, 60 sessions after the down day: -36.10% (2008-09-08) and +25.06% (2020-03-20): no direction can be read from 2 cases. 2026-11-24 is also the 9th low-value up day of RS-TX-20261124-001 (post-hoc).",
+      "status": "confirmed",
+      "created_on": "2026-11-25"
     }
   ],
   "generated_by": "trading-private research pipeline"

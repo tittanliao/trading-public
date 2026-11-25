@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "id": "RS-TX-20261125-001",
+  "revision": 1,
+  "title": "TAIEX: the session after a day up 4% or more — how often the next day fell 3% or more, and what the index did 5, 20 and 60 sessions after such a fall (1997-2026, registered before the next-day returns were computed)",
+  "market": "TX",
+  "strategy": "none — descriptive event study on the TAIEX cash index",
+  "status": "confirmed",
+  "created_on": "2026-11-25",
+  "question": "After a TAIEX session up 4% or more (close to close), how was the next session's change distributed; how often did it fall 2% / 3% / 4% or more, and where does 2026-11-25 (-4.80% after +8.99%) rank; after the up-then-down pairs, where was the index 5, 20 and 60 sessions after the down day, measured from the up-day close and from the down-day close, against up days whose next session did not fall 3%; and how did the next session go for the 8 low-value up days of RS-TX-20261124-001?",
+  "hypothesis": "None. Descriptive only, no direction assumed. Registered after 2026-11-25 was known (it motivated the question) but before any next-session return of the historical up-4% days was computed. Expected: the up-then-down-3% group has single-digit to low-teens events, so counts and every event are listed and no significance test is run.",
+  "headline": {
+    "data_end": "2026-11-25",
+    "sessions": 7350,
+    "events_up4": 63,
+    "next_up": 38,
+    "next_down": 25,
+    "next_median_pct": 0.25,
+    "next_le_minus2": 5,
+    "next_le_minus3": 3,
+    "next_le_minus4": 1,
+    "next_le_minus3_wilson95": [
+      1.63,
+      13.09
+    ],
+    "baseline_le_minus3_pct": 2.44,
+    "now_next_ret_pct": -4.8026,
+    "now_next_points": -1926.92,
+    "now_rank_next_ret": 1,
+    "now_giveback_pct": 58.207,
+    "now_rank_giveback": 3,
+    "now_next_value_ratio": 1.2937,
+    "drop3_with_forward": 2,
+    "low_value_n": 8,
+    "low_value_next_below": 4,
+    "low_value_next_le_minus3": 0
+  },
+  "card_metrics": [
+    "events_up4",
+    "next_le_minus3",
+    "next_le_minus4",
+    "now_next_ret_pct",
+    "now_rank_next_ret",
+    "low_value_next_below"
+  ],
+  "findings": [
+    {
+      "tone": "info",
+      "title": "Of 63 TAIEX up-4% days since 1997, 2026-11-25 (-4.80% after +8.99%) is the only next session that fell 4% or more; the previous worst was -3.73% (2020-03-23)",
+      "detail": "Next sessions: 38 up, 25 down, median +0.25%. Fell 3% or more 3 times (2008-09-08, 2020-03-20, 2026-11-24), 2% or more 5 times. 3/63 = 4.76% (Wilson 1.63-13.09%) against 2.44% of all sessions (n=7,349): cannot be separated. No next session closed below the close before the up day (0/63).",
+      "title_zh": "1997 年以來 63 次漲 4% 以上，隔天再跌 4% 以上只有 11/25 這一次（+8.99% 後 −4.80%）；之前最深是 2020-03-23 的 −3.73%",
+      "detail_zh": "隔天 38 次漲、25 次跌，中位數 +0.25%。隔天跌 ≥3% 共 3 次（2008-09-08、2020-03-20、2026-11-24），≥2% 5 次。3/63＝4.76%（Wilson 1.63–13.09%），平常任何一天跌 ≥3% 是 2.44%（n=7,349）：分不出。63 次裡沒有一次隔天收盤跌破大漲前一天收盤。"
+    },
+    {
+      "tone": "warn",
+      "title": "After the two earlier up-then-down-3% pairs the paths went opposite ways: 60 sessions after the down day 2008-09-08 was -36.10% from the up-day close, 2020-03-20 +25.06%",
+      "detail": "Only 2 events with a forward window; no direction can be read from them. Control (next session above -3%, n=59 at 60 sessions): 37/59 above the up-day close, median +6.46%. The two cases coincide with the 2008-09 and 2020-03 market-wide events; this study has no background data to separate them.",
+      "title_zh": "之前兩次「大漲後隔天跌 3% 以上」走向相反：大跌日之後 60 個交易日，2008-09-08 比大漲日收盤低 36.10%，2020-03-20 高 25.06%",
+      "detail_zh": "有後續資料的只有 2 次，看不出方向（1/2 的 Wilson 9.45–90.55%）。兩次剛好碰上 2008 年 9 月和 2020 年 3 月的全市場事件，60 日走勢同時受整體環境影響，本研究沒有背景資料可分開。對照組（隔天沒跌到 3%）60 日 59 次裡 37 次高於大漲日收盤，中位數 +6.46%。"
+    },
+    {
+      "tone": "info",
+      "title": "The 8 low-value up days of RS-TX-20261124-001: 4 closed below the up-day close the next session, none fell 3% or more (worst -2.12%, 2003-02-17); 2026-11-24 is itself the 9th such day and fell 4.80% the next session",
+      "detail": "Median next session +0.12%. Post-hoc (added after research review r1): 2026-11-24 has value ratio 0.44 (< 0.8), so it meets the same definition; the earlier study had 8 only because it had no next session. At the historical rate (2/62) about 0.26 of 8 would be expected to fall 3% or more, so 0/8 shows nothing.",
+      "title_zh": "上一個研究的 8 次量縮大漲：隔天 4 次收在大漲日收盤之下，沒有一次跌 3% 以上（最差 2003-02-17 −2.12%）；但 11/24 本身就是第 9 次量縮大漲，隔天跌 4.80%",
+      "detail_zh": "隔天中位數 +0.12%。事後補充（研究審 r1 後才加）：11/24 量比 0.44（< 0.8），符合同一定義，上一個研究只有 8 次是因為當時沒有隔天。以歷史比例 2/62 估，8 次裡預期只有約 0.26 次跌 ≥3%，0/8 證明不了什麼。"
+    }
+  ],
+  "policy_impacts": [],
+  "theme": "market_structure",
+  "card_summary": "Of 63 TAIEX up-4% days since 1997, only 2026-11-25 (-4.80% after +8.99%) fell 4% or more the next session; 3 fell 3% or more. After the two earlier up-then-down-3% cases the paths went opposite ways (-36.10% and +25.06% 60 sessions after the down day).",
+  "title_zh": "加權指數大漲隔天再大跌：1997 年以來有過幾次、之後 5／20／60 個交易日怎麼走（先登記門檻，再算隔天報酬）",
+  "question_zh": "加權指數單日漲 4% 以上之後，隔一個交易日的漲跌怎麼分布、跌 2%／3%／4% 以上有過幾次？2026-11-25（+8.99% 之後 −4.80%）在其中排第幾？「大漲、隔天大跌」的歷史事件，從大跌日往後 5、20、60 個交易日，指數收在哪裡（分別對大漲日收盤、大跌日收盤算），和隔天沒有大跌的大漲日比有什麼不同？另外，上一個研究的 8 次「量縮大漲」隔天各是怎麼走的？",
+  "hypothesis_zh": "沒有預設方向，只描述。題目是在 2026-11-25 已經知道之後才問的，但三個隔天門檻和所有分組定義，是在算任何歷史大漲日的隔天報酬之前先登記的。預期「大漲、隔天跌 ≥3%」的歷史事件只有個位數到十幾次，所以逐筆列出每一次，不做顯著性檢定。",
+  "card_summary_zh": "1997 年以來 63 次漲 4% 以上的日子，隔天再跌 4% 以上的只有 2026-11-25（+8.99% 後 −4.80%）這一次；隔天跌 3% 以上共 3 次。之前兩次（2008-09、2020-03）大跌日後 60 個交易日走向相反（−36.10%、+25.06%），只有兩個個案，看不出方向。",
+  "limitations_zh": [
+    "樣本極少：隔天跌 ≥3% 的歷史事件只有 2 次（加上 2026-11-24 共 3 次），有之後 5／20／60 日資料的只有 2 次；兩次走向相反，不能當「通常會怎樣」，也不是範圍或預期。1/2 的 Wilson 95% 區間是 9.45–90.55%。",
+    "隔天跌 ≥3% 的比例 3/63（4.76%，Wilson 95% 1.63–13.09%）和平常任何一天跌 ≥3% 的比例 2.44%（n=7,349）：區間包含平常日，分不出「大漲後隔天比較容易大跌」。大漲日本身多在高波動期，用「平常任何一天」當基準並不對等；本研究沒有登記波動配對的基準，所以「比較容易」和「沒有比較容易」都不能說。",
+    "事件彼此重疊：2020-03-20（隔天跌 3.73%）和量縮大漲 2020-03-24 只差 2 個交易日；2008-09-08 和對照組的 2008-09-19 窗口幾乎完全重疊，不是獨立樣本。漲 ≥4% 的 63 天只分成 31 段行情（相隔 ≤20 個交易日算同一段）。",
+    "2015-06-01 起漲跌幅限制從 7% 改成 10%：7% 制 50 次大漲、10% 制 13 次；隔天跌 ≥3% 的 3 次裡 10% 制 2 次、7% 制 1 次。這是事後看到的分布，不能當「10% 制以後比較容易隔天大跌」的結論。",
+    "2008-09-08、2020-03-20 兩次的 60 日走勢同時受當時整體市場環境影響，本研究沒有背景資料可分開；任何背景說明要另附來源。",
+    "只用收盤價（FMTQIK 沒有盤中高低）：隔天盤中跌更深或曾翻紅都看不到，也沒有期貨夜盤；價格指數，不含股息、不扣成本。",
+    "週六交易日（2000 年以前的週六盤、之後的補班週六）照上一個研究算成一個交易日；「隔天」就是檔案裡的下一列。",
+    "這個題目是在 2026-11-25 已經知道之後才問的，「以前有沒有過」的答案天生偏向「很少」；隔天門檻 −2／−3／−4% 與分組定義是在看歷史隔天漲跌之前登記的。",
+    "登記後、第一次執行前補了兩個欄位（隔天收盤是否低於大漲前一天收盤、60 日內第一次收回大漲日收盤要幾天），結果檔標為補加；2003-02-17、2008-09-08 在 60 個交易日內沒收回大漲日收盤，2001-12-12 用了 12 天、2020-03-20 用了 1 天。",
+    "事後補充（不在登記的設計裡）：2026-11-24 量比 0.44，也符合上一個研究的量縮大漲定義，是同一定義的第 9 次，隔天 −4.80%；上一個研究只有 8 次，是因為當時它還沒有隔天。8 次裡隔天沒有跌 ≥3%，但以歷史比例 2/62 估，8 次裡預期只有約 0.26 次，0/8 證明不了什麼。",
+    "畫圖用的逐筆序列最後一點是大漲日後第 61 個交易日（＝大跌日後第 60 個），和表格 h=60 同一點；第 +60 點不是 h=60。事後修正：第一版只畫到 +60，已改為 +61。",
+    "只是描述，不是預測，也不是買賣訊號。"
+  ],
+  "interpretation_zh": "這是描述性研究，不是預測，也不是買賣訊號。1997 年以來加權指數漲 4% 以上 63 次，隔天再跌 4% 以上的只有 2026-11-25 這一次（+8.99% 之後 −4.80%）；但前一天漲得多，所以也要看吐回比例：這次吐回前一天漲幅的 58.2%，在 63 次裡排第 3，前兩名是 2008-09-08（66.6%）和 2020-03-20（62.2%）。隔天跌 3% 以上共 3 次，其中有後續資料的只有 2008-09-08 和 2020-03-20：大跌日後 60 個交易日，一次比大漲日收盤低 36.10%，一次高 25.06%。兩次方向相反，只能逐筆講，不能講成「通常」或範圍。隔天跌 ≥3% 的比例（4.76%）和平常日（2.44%）的區間重疊，分不出大漲後隔天比較容易大跌；沒有大跌的大漲日，60 日後 37/59 高於大漲日收盤（中位數 +6.46%），同樣只是描述。上一個研究的 8 次量縮大漲，隔天沒有一次跌 ≥3%（最差 2003-02-17 −2.12%）；2026-11-24 本身也是量縮大漲（量比 0.44，事後補充，是同一定義的第 9 次），隔天跌 4.80%。8 次裡預期本來就只有約 0.26 次會跌 ≥3%，0/8 證明不了什麼。",
+  "presentation": [
+    {
+      "type": "metrics",
+      "source": "headline",
+      "keys": [
+        "events_up4",
+        "next_up",
+        "next_down",
+        "next_le_minus3",
+        "next_le_minus4",
+        "baseline_le_minus3_pct",
+        "now_next_ret_pct",
+        "now_rank_next_ret",
+        "now_giveback_pct",
+        "now_rank_giveback",
+        "low_value_n",
+        "low_value_next_below",
+        "low_value_next_le_minus3"
+      ]
+    },
+    {
+      "type": "findings",
+      "source": "findings"
+    },
+    {
+      "type": "table",
+      "source": "q1_next_session.by_regime",
+      "title": "大漲日隔天的漲跌，依漲跌幅限制期間分（報酬 % 從大漲日收盤算到隔天收盤）",
+      "columns": [
+        "n",
+        "up",
+        "down",
+        "median_pct",
+        "p10_pct",
+        "min_pct",
+        "max_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "q1_next_session.thresholds",
+      "title": "隔天跌到門檻的次數（63 次大漲日；不含 2026-11-24 的次數另列）和平常任何一天的比較",
+      "columns": [
+        "threshold_pct",
+        "count",
+        "share_pct",
+        "wilson95",
+        "count_excl_now",
+        "episodes",
+        "baseline_any_session_count",
+        "baseline_any_session_share_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "q1_next_session.worst10",
+      "title": "隔天最差的 10 次（吐回＝隔天跌的點數 ÷ 大漲那天漲的點數）",
+      "columns": [
+        "date",
+        "ret_pct",
+        "next_date",
+        "next_ret_pct",
+        "giveback_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "events_drop_le_2",
+      "title": "隔天跌 ≥2% 的 5 次逐筆（之後 h 日報酬分別對大漲日收盤、大跌日收盤算；最後一列 2026-11-24 還沒有後續資料）",
+      "columns": [
+        "date",
+        "ret_pct",
+        "value_ratio",
+        "next_ret_pct",
+        "next_value_ratio",
+        "giveback_pct",
+        "limit_regime",
+        "drop_le_3",
+        "h5_from_up_close_pct",
+        "h20_from_up_close_pct",
+        "h60_from_up_close_pct",
+        "h60_from_drop_close_pct",
+        "back_above_up_close_sessions"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "q2_after_up_then_down.le_3.drop.by_horizon",
+      "title": "主門檻（隔天 ≤ −3%）有後續資料的 2 次：之後 5／20／60 日（n＝2，不列中位數）",
+      "columns": [
+        "n",
+        "from_up_close.up",
+        "from_up_close.min_pct",
+        "from_up_close.min_date",
+        "from_up_close.max_pct",
+        "from_up_close.max_date",
+        "from_drop_close.up",
+        "from_drop_close.min_pct",
+        "from_drop_close.max_pct"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "q2_after_up_then_down.le_3.control.by_horizon",
+      "title": "對照：大漲後隔天沒有跌到 −3% 的大漲日（對大漲日收盤）",
+      "columns": [
+        "n",
+        "from_up_close.up",
+        "from_up_close.up_wilson95",
+        "from_up_close.median_pct",
+        "from_up_close.min_pct",
+        "from_up_close.min_date",
+        "from_up_close.max_pct",
+        "from_up_close.max_date"
+      ]
+    },
+    {
+      "type": "table",
+      "source": "q3_low_value_eight.events",
+      "title": "上一個研究的 8 次量縮大漲：隔天",
+      "columns": [
+        "date",
+        "ret_pct",
+        "value_ratio",
+        "next_ret_pct",
+        "next_value_ratio",
+        "next_below_up_close",
+        "limit_regime"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "q3_low_value_eight.post_hoc_ninth_event_review_r1_M2.event",
+      "title": "事後補充（看了研究審才加，不在登記的設計裡）：2026-11-24 是同一定義的第 9 次量縮大漲",
+      "keys": [
+        "date",
+        "ret_pct",
+        "value_ratio",
+        "next_date",
+        "next_ret_pct",
+        "giveback_pct",
+        "limit_regime"
+      ]
+    },
+    {
+      "type": "metric_table",
+      "source": "now",
+      "title": "2026-11-24 與 2026-11-25 這兩天（不進歷史統計）",
+      "keys": [
+        "up_date",
+        "up_ret_pct",
+        "up_points",
+        "up_close",
+        "up_value_ratio",
+        "next_date",
+        "next_ret_pct",
+        "next_points",
+        "next_close",
+        "next_value_ratio",
+        "giveback_pct",
+        "net_two_day_pct",
+        "rank_next_ret_among_63",
+        "rank_giveback_among_63",
+        "any_session_days_at_or_below_now",
+        "any_session_days_at_or_below_now_since_2015_06_01"
+      ]
+    },
+    {
+      "type": "interpretation",
+      "source": "interpretation_zh"
+    },
+    {
+      "type": "limitations",
+      "source": "can_say_zh",
+      "title": "可以說"
+    },
+    {
+      "type": "limitations",
+      "source": "cannot_say_zh",
+      "title": "不可以說"
+    },
+    {
+      "type": "limitations",
+      "source": "limitations_zh"
+    },
+    {
+      "type": "evidence_links"
+    }
+  ],
+  "can_say_zh": [
+    "1997 年以來加權指數漲 4% 以上 63 次，隔天再跌 4% 以上的只有 2026-11-25 這一次（+8.99% 後 −4.80%）；不過前一天漲得也多，按「吐回前一天漲幅幾成」算，這次是 58.2%，排第 3，2008-09-08（66.6%）和 2020-03-20（62.2%）吐得更多。",
+    "隔天跌 3% 以上，這次之前只有兩次（2008-09-08、2020-03-20）：大跌日之後 60 個交易日，一次比大漲日收盤低 36.10%，一次高 25.06%。兩次方向相反，只能逐筆講，看不出這種走法之後會怎樣；兩次的背景本研究沒有資料。",
+    "上一個研究的 8 次量縮大漲，隔天沒有一次跌超過 3%（最差 −2.12%）；2026-11-24 本身也是量縮大漲（量比 0.44，事後補充，是同一定義的第 9 次），隔天跌了 4.80%，是這一類大漲日裡第一次隔天跌這麼深。"
+  ],
+  "cannot_say_zh": [
+    "「大漲後隔天大跌，之後通常會……」「可能跌 36%、也可能漲 25%」「最壞會跌三成多」：只有 2 次、方向相反，兩個個案不是範圍或預期（1/2 的 Wilson 95% 約 9–91%）。",
+    "「史上最慘的大漲隔天」「前所未見的反轉」：−4.80% 排第 1，主要因為前一天漲得多；按吐回比例排第 3，1997 年以來任何一天跌幅 ≥4.80% 有 32 天（2015-06-01 以後 12 天）。",
+    "「大漲後隔天比較容易大跌」或「機率是平常的兩倍」（4.76% 對 2.44%）：Wilson 95% 1.63–13.09% 包含 2.44%；大漲日多在高波動期，用平常任何一天當基準並不對等，本研究沒有登記波動配對的基準。",
+    "「大漲後（隔天沒大跌）60 天後通常比較高」：對照組 37/59，分不出和平常日的差別。「大漲後隔天一半會收黑」：全部 63 次隔天跌 25 次（39.7%），不能拿 8 次裡的 4 次當訊號。",
+    "「量縮大漲隔天不會大跌」「這次打破規律所以……」：8 次裡預期本來就只有約 0.26 次跌 ≥3%，0/8 證明不了什麼；2026-11-24 自己就是第 9 次。",
+    "「10% 漲跌幅以後隔天大跌比較常見」是事後切分，不能當結論；用盤中高低點講「跌更深」：只用收盤價。2020-03-20 和 2020-03-24 是同一段行情、2008-09-08 和對照組的 2008-09-19 窗口幾乎重疊，不能當獨立例子。",
+    "圖上若標 −36.10%／+25.06%，要用偏移 +61 那一點（和這兩個數字同一點）；第 +60 點是 −35.31%／+24.91%，不是 h=60。",
+    "任何預測、買賣建議。"
+  ],
+  "public_release": {
+    "status": "reviewed",
+    "raw_csv_included": false,
+    "private_conversation_included": false,
+    "aggregate_results_included": true,
+    "method_included": true,
+    "charts_included": false
+  }
+}
